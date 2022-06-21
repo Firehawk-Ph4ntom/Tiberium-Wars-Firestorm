@@ -1,0 +1,140 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDefense.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDefense_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDefense_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDefense_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\HC_GBDefense.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_ASN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_D2.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_D2_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_D3.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSE_D3_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDITibProcessingPlant\GBDEFENSESRF_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDITiberiumProcessingPlant" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS STRUCTURE POWERED NOT_AUTOACQUIRABLE FS_MONEY_STORAGE COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:GDITiberiumProcessingPlant" ThreatLevel="10" TypeDescription="Type:GDITiberiumProcessingPlant" PlacementViewAngle="315d" Side="GDI" EditorName="GDITiberiumProcessingPlant" BuildTime="25" EnergyProduction="-15" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_GDIDefenseGridBuilding" ButtonImage="Portrait_GDIDefenseGridBuilding" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="2500" MaxSimultaneousOfType="1">
+		<DisplayName>Name:GDITiberiumProcessingPlant</DisplayName>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDISpaceCommandUplink</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericMediumBuildingArmor" DamageFX="VehicleDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="BACK"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBDEFENSE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBDEFENSE_ASN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBDefense_D3"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBDefense_D2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBDEFENSE"/>
+					<Texture Original="GBDEFENSE" New="GBDEFENSE_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBDEFENSE_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBDEFENSE_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBDEFENSE_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBDefense_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBDefense_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBDEFENSESRF_SKN"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBDEFENSESRF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBDEFENSESRF_SKN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
+				<Sound List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/ArmoryGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/ArmoryGDIBuildingSuicide.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="99999999"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="2s" DepositAmount="15" Flags="ACTIVE_WHEN_REPAIRING" GiveNoXP="true" Upgrade="Upgrade_SonicRepulsionField"/>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="TIBPlant_CashBoost" InitiallyActive="true" Range="99999" RefreshDelay="0.01s">
+				<ObjectFilter Rule="ANY" Relationship="SAME_PLAYER" Include="SUPPLY_GATHERING_CENTER TIBERIUM_BASED NEUTRAL_TECH HARVESTER"/>
+			</AttributeModifierAuraUpdate>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="55" MinorRadius="55" Height="85" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_TiberiumPlant_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

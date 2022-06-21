@@ -1,0 +1,273 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODMilitant\NUMissileMan.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMilitant\HC_NUMisslemanA.xml"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="NODMilitantRocket" inheritFrom="BaseInfantry" SelectPortrait="Portrait_NODMilitantMissile" ButtonImage="Portrait_NODMilitantMissile" Side="NOD" BuildCost="200" BuildTime="2" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY" ThreatLevel="10" WeaponCategory="MISSILE" VoicePriority="92" CrowdResponse="NOD_Infantry" EditorName="NODMilitantRocket" Description="Desc:NODMilitantRocket" TypeDescription="Type:NODMilitantRocket" UnitTypeIcon="MissilemenIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODMilitantRocket</DisplayName>
+		<DisplayUpgrade>Upgrade_BlackHandBlackTemplarsUpgrade</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_NODTechCenterTibCoreMissiles</DisplayUpgrade>
+		<ArmorSet Armor="GenericLightInfantryArmor" DamageFX="InfantryDamageFX"/>
+		<ArmorSet Conditions="PLAYER_UPGRADE" Armor="GenericLightInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="48"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMISSLEMAN_SKN"/>
+					<Texture Original="CUmisslemanA" New="NUMissileMan"/>
+					<Texture Original="HC_CUMisslemanA" New="HC_NUMisslemanA"/>
+					<WeaponFireFXBone BoneName="B_WEAPONA_FX"/>
+					<WeaponLaunchBone BoneName="B_WEAPONA_FX"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name="GUGAR_MISS_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Animation AnimationName="GUGAR_MISS" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+					<Animation AnimationName="GUMISSLMN_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+					<Animation AnimationName="GUMISSLMN_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="GUMISSLMN_CDTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="GUMISSLMN_CDTB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED DYING" StateName="STATE_Suppressed">
+					<Animation AnimationName="GUMISSLMN_SDIA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
+					<Animation AnimationName="GUMISSLMN_KDIA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUMISSLMN_KDIB" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUMISSLMN_KDIC" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GUMISSLMN_DIEA" AnimationMode="ONCE" AnimNickName="DTA"/>
+					<Animation AnimationName="GUMISSLMN_DIEB" AnimationMode="ONCE" AnimNickName="DTB"/>
+					<Animation AnimationName="GUMISSLMN_DIEC" AnimationMode="ONCE" AnimNickName="DTB"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
+					<Animation AnimationName="GUMISSLMN_SMVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED USING_WEAPON_A" StateName="STATE_Suppressed">
+					<Animation AnimationName="GUMISSLMN_SATA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" StateName="STATE_Suppressed" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUMISSLMN_SIDA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUMISSLMN_SIFA" AnimationMode="ONCE"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
+					<Animation AnimationName="GUMISSLMN_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="GUMISSLMN_SDVB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUMISSLMN_SDVA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="GUMISSLMN_SDVB" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING">
+					<Animation AnimationName="GUMISSLMN_RUNC" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A AIM_HIGH" StateName="STATE_Cover">
+					<Animation AnimationName="GUMISSLMN_KAKB" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_OR_PREATTACK_A" StateName="STATE_Cover" FrameForPristineBonePositions="1">
+					<Animation AnimationName="GUMISSLMN_KAKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ATTACKING">
+					<Animation AnimationName="GUMISSLMN_KAKA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" StateName="STATE_CoverAttention" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUMISSLMN_KAIA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationPriority="80"/>
+					<Animation AnimationName="GUMISSLMN_KAIB" AnimationMode="ONCE" AnimationPriority="15"/>
+					<Animation AnimationName="GUMISSLMN_KAFA" AnimationMode="ONCE" AnimationPriority="30"/>
+					<Animation AnimationName="GUMISSLMN_KAFB" AnimationMode="ONCE" AnimationPriority="30"/>
+					<Animation AnimationName="GUMISSLMN_KAFC" AnimationMode="ONCE" AnimationPriority="30"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" StateName="STATE_Cover" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="GUMISSLMN_KBIA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationPriority="15"/>
+					<Animation AnimationName="GUMISSLMN_KBIB" AnimationMode="ONCE" AnimationBlendTime="10" AnimationPriority="15"/>
+					<Animation AnimationName="GUMISSLMN_KBFA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationPriority="2"/>
+					<Animation AnimationName="GUMISSLMN_KBFB" AnimationMode="ONCE" AnimationBlendTime="10"/>
+					<Animation AnimationName="GUMISSLMN_KBFC" AnimationMode="ONCE"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_CoverAttention" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="GUMISSLMN_RUNC" AnimationMode="LOOP" Distance="75"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="GUMISSLMN_RUNA" AnimationMode="LOOP" Distance="75" AnimationBlendTime="10"/>
+					<Animation AnimationName="GUMISSLMN_RUNB" AnimationMode="LOOP" Distance="75" AnimationBlendTime="10"/>
+					<Animation AnimationName="GUMISSLMN_RUNC" AnimationMode="LOOP" Distance="75" AnimationBlendTime="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A AIM_HIGH FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="8">
+					<Animation AnimationName="GUMISSLMN_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AIM_HIGH ATTACKING">
+					<Animation AnimationName="GUMISSLMN_ATKB" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A FIRING_OR_PREATTACK_A USER_10" FrameForPristineBonePositions="7" StateName="STATE_FIRING_STATE_A">
+					<Animation AnimationName="GUMisslMn_ATKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_FIRING_STATE_A" then CurDrawableSetTransitionAnimState("STATE_ENGAGED_A") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_10" StateName="STATE_ENGAGED_A">
+					<Animation AnimationName="GUMisslMn_ATKA" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_ENGAGED_A" then CurDrawableSetTransitionAnimState("STATE_FIRING_STATE_A") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A FIRING_OR_PREATTACK_A USER_11" FrameForPristineBonePositions="1" StateName="STATE_FIRING_STATE_B">
+					<Animation AnimationName="GUMisslMn_KAKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_FIRING_STATE_B" then CurDrawableSetTransitionAnimState("STATE_ENGAGED_B") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_11" StateName="STATE_ENGAGED_B">
+					<Animation AnimationName="GUMisslMn_KAKA" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_ENGAGED_B" then CurDrawableSetTransitionAnimState("STATE_FIRING_STATE_B") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUMISSLMN_CHRA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="GUMISSLMN_CHRB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="GUMISSLMN_CHRC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUMISSLMN_AIDA" AnimationMode="ONCE" AnimNickName="ATNB" AnimationPriority="75" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUMISSLMN_AIDB" AnimationMode="ONCE" AnimNickName="ATNB" AnimationPriority="10" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUMISSLMN_AIFA" AnimationMode="ONCE" AnimNickName="ATNB" AnimationPriority="30" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUMISSLMN_AIFB" AnimationMode="ONCE" AnimNickName="ATNB" AnimationPriority="30" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUMISSLMN_AIFC" AnimationMode="ONCE" AnimNickName="ATNB" AnimationPriority="30" AnimationMustCompleteBlend="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_boredToAttention") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="GUMISSLMN_BIDB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="80"/>
+					<Animation AnimationName="GUMISSLMN_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<Animation AnimationName="GUMISSLMN_BIDC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="35"/>
+					<Animation AnimationName="GUMISSLMN_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="35"/>
+					<Animation AnimationName="GUMISSLMN_BIFB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="35"/>
+					<Animation AnimationName="GUMISSLMN_BIFC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="35"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end; if Prev == "STATE_Selected" or Prev == "ATNB" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_boredToAttention">
+					<Animation AnimationName="GUMISSLMN_BATA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUMISSLMN_BATB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="GUMISSLMN_ABTA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUMISSLMN_ABTB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverAttentionToCover">
+					<Animation AnimationName="GUMISSLMN_KATA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverToCoverAttention">
+					<Animation AnimationName="GUMISSLMN_KBTA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_10 USER_11"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMilitantRocketWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMilitantRocketWeaponTibCore" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMilitantRocketWeaponBlueTibCore" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<Sound List="NOD_RocketMilitant_VoiceDie"/>
+				<DieMuxData DeathTypes="EXPLODED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<Sound List="NOD_RocketMilitant_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<Sound List="NOD_RocketMilitant_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<Sound List="NOD_RocketMilitant_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="750" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_MissileSoldier</Key>
+			</LargeGroupAudioUpdate>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODCyberneticAugmentationUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<StatusBitsUpgrade id="ModuleTag_TibCoreMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_TibCoreMissilesAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="300"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Bodyfall" Animation="GUMISSLMN_LNDA" Frame="5"/>
+			</AnimationSoundClientBehavior>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_Infantry_VoiceEffortDelayedLoop" RequiredFlags="USING_WEAPON_A" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="NOD_RocketMilitant_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,167 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMillipedeHead.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMillipedeHead_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMillipedeHead_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMillipedeHead_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\HC_AUMillipedeHead.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_ACCL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_DECL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_FP_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_IDLB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_SKNR_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_TRNL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\AUMILLIPEDEHEAD_TRNR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienMechapede\FXSHLDMCHPD.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="AlienMechapede" inheritFrom="BaseVehicle" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE TIBERIUM_BASED CAN_CAST_REFLECTIONS CAN_CAPTURE VEHICLE SCORE HEALED_BY_TIBERIUM CAN_PLACE_MANIPULATOR CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:AlienMechapede" TypeDescription="Type:AlienMechapede" Side="Alien" EditorName="AlienMechapede" BuildTime="15" CommandSet="AlienMechapedeCommandSet" SelectPortrait="Portrait_AlienMechapede" ButtonImage="Portrait_AlienMechapede" VoicePriority="140" BuildCost="1500">
+		<DisplayName xai:joinAction="Replace">Name:AlienMechapede</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienReactorForcefieldGenerator</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>AlienReactor</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
+		<LocomotorSet Speed="90" Locomotor="AlienGunWalkerLocomotor"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUMILLIPEDEHEAD_SKN"/>
+					<WeaponFireFXBone BoneName="Bone_Spawn"/>
+					<WeaponLaunchBone BoneName="Bone_Spawn"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="AUMILLIPEDEHEAD_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="AUMILLIPEDEHEAD_SKNR"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="AUMILLIPEDEHEAD_SKN"/>
+					<Texture Original="AUMillipedeHead" New="AUMillipedeHead_D"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="AUMILLIPEDEHEAD_SKN"/>
+					<Texture Original="AUMillipedeHead" New="AUMillipedeHead_D"/>
+					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="AUMILLIPEDEHEAD_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="90"/>
+					<Animation AnimationName="AUMILLIPEDEHEAD_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="AUMILLIPEDEHEAD_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="AUMILLIPEDEHEAD_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="AUMILLIPEDEHEAD_MOVA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="AUMILLIPEDEHEAD_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="AUMILLIPEDEHEAD_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="AUMILLIPEDEHEAD_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawCombined">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_PARENT">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombine" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombineGlow" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawForcefield" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
+					<Model Name="FXSHLDMCHPD"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienMechapedePlaceManipulatorDevice"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
+			<SpecialPower id="ModuleTag_ManipulatorDevice" SpecialPowerTemplate="SpecialPower_MechapedeManipulateObject" AvailableAtStart="false" UpdateModuleStartsAttack="true"/>
+			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdate" SpecialPowerTemplate="SpecialPower_MechapedeManipulateObject" StartAbilityRange="275" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" FaceTarget="true">
+				<SpecialPowerModules ModuleId="ModuleTag_ManipulatorDeviceWorker" TriggerType="TARGET_OBJECT"/>
+			</ActivateModuleSpecialPower>
+			<TemporaryOwnerSpecialPower id="ModuleTag_ManipulatorDeviceWorker" SpecialPowerTemplate="SpecialPowerDummyTriggered3" UpdateModuleStartsAttack="false"/>
+			<AISpecialPowerUpdate id="ModuleTag_AlienMastermindManipulator" CommandButtonName="Command_AlienMechapedeManipulatorDevice" EnemyUnitInclude="INFANTRY VEHICLE" EnemyUnitExclude="AIRCRAFT HUSK" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="1" SinkDelay="5s" DestructionDelay="15s">
+				<Sound List="ALI_Mechapede_SoundDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onBecomingTemporaryOwner" FX="FX_MasterMindLinkFX"/>
+				<Event Index="onDeath" FX="FX_AlienMechapedeExplodeScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListAlienVehicleBlood">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_AlienInfantryDeathFX"/>
+			</FXListBehavior>
+			<!-- Forcefield Generator -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="2000" ShieldAmount="1500" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="120s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="ALI_Mechapede_MoveLoop" RequiredFlags="MOVING"/>
+				<ModelConditionSound Sound="ALI_Mechapede_MoveSweetenerMS" RequiredFlags="TURN_LEFT"/>
+				<ModelConditionSound Sound="ALI_Mechapede_MoveSweetenerMS" RequiredFlags="TURN_RIGHT"/>
+				<ModelConditionSound Sound="ALI_Mechapede_MoveSweetenerMS" RequiredFlags="TURN_LEFT_HIGH_SPEED"/>
+				<ModelConditionSound Sound="ALI_Mechapede_MoveSweetenerMS" RequiredFlags="TURN_RIGHT_HIGH_SPEED"/>
+				<ModelConditionSound Sound="ALI_Mechapede_MoveSweetenerMS" RequiredFlags="ACCELERATE"/>
+				<ModelConditionSound Sound="ALI_SeekerTank_IdleLoop" RequiredFlags="USER_19" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="BOX" MajorRadius="15" MinorRadius="10" Height="10" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_Mechapede_SoundAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_Mechapede_SoundCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="ALI_Mechapede_SoundMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_Mechapede_SoundSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="ALI_Mechapede_SoundAttack" Name="InitiateManipulateObject"/>
+			<NamedEntry Sound="ALI_Buzzers_SoundSplit" Name="UncombineWithUnit"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Mechapede_MoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+ 		<EvaEvents EvaEventPromotedOwner=""/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="300"/>
+	</GameObject>
+</AssetDeclaration>

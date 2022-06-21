@@ -1,0 +1,42 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODShadowSquadBeacon" OcclusionDelay="0" KindOf="PRELOAD IGNORES_SELECT_ALL TARGETABLE IMMOBILE MINE NO_COLLIDE STICK_TO_TERRAIN_SLOPE" Side="NOD" EditorName="NODShadowSquadBeacon" EditorSorting="SYSTEM">
+		<DisplayName>NODShadowSquadBeacon</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUBBEACON"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="Shocker" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="Shocker2" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="Shocker3" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="Shocker4" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
+				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
+			</InvisibilityUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="120s" MaxLifetime="120s" DeathType="FADED"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_Nod_DisruptionPodExplosion"/>
+			</FXListBehavior>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AILuaEventsList="GenericSpotterFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="25"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<ShadowInfo Type="DECAL" Texture="shadowi" SizeX="14" SizeY="14"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

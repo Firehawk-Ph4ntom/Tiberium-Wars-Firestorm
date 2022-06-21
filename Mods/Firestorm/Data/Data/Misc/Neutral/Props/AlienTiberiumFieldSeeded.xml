@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<GameObject id="AlienTiberiumFieldSeeded" Side="Neutral" EditorSorting="MISC_NATURAL" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE CAN_CAST_REFLECTIONS TIBERIUM_FIELD CAN_SEE_THROUGH_STRUCTURE" EditorName="AlienTiberiumFieldSeeded">
+		<DisplayName>Tiberium_Field</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<TiberiumField id="ModuleTag_TiberiumField" Radius="65" FieldResolution="40" MaxFieldMoney="3000" StartingFieldMoney="3000" ThingToSpawn="TiberiumCrystal" SpawnOffset="15.0" ClusterScaleFactor="1.0" ClusterPowerFactor="1.0" CrystalGrowthRate="9999999" KillWhenEmptyAndFinishedSpawning="true">
+				<!-- The DamageFilter is simply an on/off switch for the crystal weapons.
+				     If something matching the filter is found within the field, the weapons are turned on. -->
+				<DamageFilter Rule="ANY" Include="INFANTRY" Exclude="HORDE TIBERIUM_BASED HEALED_BY_TIBERIUM">
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienRazorDroneSquad</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienRavagerSquad</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>MutantMarauder</ExcludeThing>
+					<ExcludeThing>MutantMarauderSquad</ExcludeThing>
+					<ExcludeThing>GDIZoneTrooper</ExcludeThing>
+					<ExcludeThing>GDIZoneTrooperSquad</ExcludeThing>
+					<ExcludeThing>GDIZoneTrooperSquad_Veteran</ExcludeThing>
+					<ExcludeThing>GDIZoneRaider</ExcludeThing>
+					<ExcludeThing>GDIZoneRaiderSquad</ExcludeThing>
+					<ExcludeThing>GDICommando</ExcludeThing>
+					<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+					<ExcludeThing>NODCyborgInfantrySquad</ExcludeThing>
+					<ExcludeThing>NODTiberiumTrooper</ExcludeThing>
+					<ExcludeThing>NODTiberiumTrooperSquad</ExcludeThing>
+					<ExcludeThing>NODAscended</ExcludeThing>
+					<ExcludeThing>NODAscendedSquad</ExcludeThing>
+					<ExcludeThing>NODAscendedSquad_Veteran</ExcludeThing>
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+				</DamageFilter>
+				<!-- The HealFilter works similar to the damage filter. It turns on or off
+						 the PassiveAreaEffectBehavior of the cystals if a matching object is found in the field. -->
+				<HealFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
+			</TiberiumField>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+		</Body>
+	</GameObject>
+</AssetDeclaration>

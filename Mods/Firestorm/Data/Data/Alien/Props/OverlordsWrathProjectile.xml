@@ -1,0 +1,42 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="OverlordsWrathProjectile" Side="Alien" EditorSorting="SYSTEM" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" EditorName="OverlordsWrathProjectile">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBERIUMROCK"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockProjectileSmokeTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockProjectileTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockShardTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="OverlordsWrathWeapon" FireDelay="1.3s"/>
+			</FireWeaponUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.4s" MaxLifetime="1.4s" DeathType="SUICIDED"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_AlienTibRockHit"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_OverlordsWrathTiberiumRockChunk">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<Physics id="ModuleTag_Physics" GravityMultiplier="18.0"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1000000.0"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_OverlordsWrath_MeteorAmbientLoopMS" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,91 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
+	</Includes>
+	<GameObject id="GDISniperSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_GDISniperTeam" ButtonImage="Portrait_GDISniperTeam" Side="GDI" BuildCost="1200" BuildTime="12" CommandSet="GDISniperSquadCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY INFILTRATOR STEALTH_GARRISON SNIPER CAN_CAPTURE CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="GUN" EditorName="GDISniperSquad" Description="Desc:GDISniperTeam" TypeDescription="Type:GDISniperTeam" UnitTypeIcon="SniperIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDISniperTeam</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIFieldSuits</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDICommandPost</RequiredObject>
+			<RequiredObject>GDIMedicalBay</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="55"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXSniper_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="GUSNIPERSQUADMARKER"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperSquadRangefinder"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_SelectLoad_SniperRifle"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SniperRifle</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SniperRailgun</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="WEAPON_UPGRADED_02" StatusToClear="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="2" ObjectStatusOfContained="" ConditionForEntry="INVALID">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData/>
+				<InitialPayload Name="GDISniper" Count="2"/>
+				<MeleeBehavior Type="AMOEBA"/>
+				<RandomOffset x="4" y="4"/>
+				<RankInfo RankID="1" UnitType="GDISniper">
+					<Position X="0" Y="-10"/>
+					<Position X="0" Y="10"/>
+				</RankInfo>
+				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
+			</HordeContain>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="250" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_GDIArmoryRailgunTech</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB3" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
+			</ModelConditionUpgrade>
+			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
+			<xi:include href="DATA:Includes/CaptureBehavior.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</HordeAIUpdate>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="15.0" Height="20.0"/>
+		</Geometry>
+		<VisionInfo VisionRange="480" ShroudClearingRange="500" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

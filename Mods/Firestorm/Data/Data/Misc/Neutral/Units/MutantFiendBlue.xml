@@ -1,0 +1,82 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="MutantFiend.xml"/>
+	</Includes>
+	<GameObject id="MutantFiendBlue" inheritFrom="MutantFiend" EditorName="TiberianFiendBlue" SelectPortrait="Portrait_NeutralTiberianFiendBlue" ButtonImage="Portrait_NeutralTiberianFiendBlue">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" ExtraPublicBone="SHRDLNCH01 SHRDLNCH02 SHRDLNCH03 SHRDLNCH04">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="SHRDLNCH"/>
+					<WeaponLaunchBone WeaponSlotType="SECONDARY_WEAPON" BoneName="BAT_HeadW"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend03Blue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend02Blue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend01Blue"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="45"/>
+					<Animation AnimationName="CUTIBFIEND_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="35"/>
+					<Animation AnimationName="CUTIBFIEND_IDLC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="20"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="CUTIBFIEND_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="CUTIBFIEND_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="CUTIBFIEND_TNL1" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="CUTIBFIEND_TNR1" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT">
+					<Animation AnimationName="CUTIBFIEND_TRNL" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT">
+					<Animation AnimationName="CUTIBFIEND_TRNR" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="CUTIBFIEND_RUNA" AnimationMode="LOOP" Distance="50"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_B">
+					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_B">
+					<Animation AnimationName="CUTIBFIEND_ATKA" AnimationMode="ONCE" WeaponTimingOrdering="SECONDARY_WEAPON" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_A">
+					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+					<Animation AnimationName="CUTIBFIEND_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="TiberianFiendBlueShardWeapon"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="TiberianFiendMeleeWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_TibCrystalBlue">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="800"/>
+		</Body>
+	</GameObject>
+</AssetDeclaration>

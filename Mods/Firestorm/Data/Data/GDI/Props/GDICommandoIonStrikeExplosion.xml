@@ -1,0 +1,69 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="GDICommandoIonStrikeExplosion" Side="GDI" EditorSorting="SYSTEM" KindOf="PRELOAD UNATTACKABLE NOT_AUTOACQUIRABLE INERT_SHROUD_REVEALER PASS_EXPERIENCE_TO_PRODUCER" EditorName="GDICommandoIonStrikeExplosion">
+		<DisplayName>ZoneCommandoIonStrikeExplosion</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXIONWEAPONEXPLOSION"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="IonWeaponAuxBeamFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="IonWeaponAuxBeamGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="IonWeaponAuxBeamSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone01" FXParticleSystemTemplate="IonCannonAuxBeamFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone01" FXParticleSystemTemplate="IonCannonAuxBeamBaseGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone01" FXParticleSystemTemplate="IonCannonAuxBeamGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone01" FXParticleSystemTemplate="IonCannonAuxBeamSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone01" FXParticleSystemTemplate="IonCannonAuxBeamLightning" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone02" FXParticleSystemTemplate="IonCannonAuxBeamFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone02" FXParticleSystemTemplate="IonCannonAuxBeamBaseGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone02" FXParticleSystemTemplate="IonCannonAuxBeamGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone02" FXParticleSystemTemplate="IonCannonAuxBeamSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone02" FXParticleSystemTemplate="IonCannonAuxBeamLightning" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone03" FXParticleSystemTemplate="IonCannonAuxBeamFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone03" FXParticleSystemTemplate="IonCannonAuxBeamBaseGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone03" FXParticleSystemTemplate="IonCannonAuxBeamGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone03" FXParticleSystemTemplate="IonCannonAuxBeamSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone03" FXParticleSystemTemplate="IonCannonAuxBeamLightning" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone04" FXParticleSystemTemplate="IonCannonAuxBeamFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone04" FXParticleSystemTemplate="IonCannonAuxBeamBaseGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone04" FXParticleSystemTemplate="IonCannonAuxBeamGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone04" FXParticleSystemTemplate="IonCannonAuxBeamSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone04" FXParticleSystemTemplate="IonCannonAuxBeamLightning" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone05" FXParticleSystemTemplate="IonCannonAuxBeamFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone05" FXParticleSystemTemplate="IonCannonAuxBeamBaseGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone05" FXParticleSystemTemplate="IonCannonAuxBeamGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone05" FXParticleSystemTemplate="IonCannonAuxBeamSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxbeambone05" FXParticleSystemTemplate="IonCannonAuxBeamLightning" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="FXIONWEAPONEXPLOSION" AnimationMode="ONCE" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="2.5s" MaxLifetime="2.5s"/>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GDICommandoIonPreExplosion" FireDelay="0.7s"/>
+			</FireWeaponUpdate>
+			<FireWeaponWhenDead id="ModuleTag_FinalWeapon" InitiallyActive="true" DeathWeapon="GDICommandoIonFinalExplosion">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyUpdate" Radius="160">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="9999999.0"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="GZoneComm_IonWeaponFire" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,101 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
+	</Includes>
+	<GameObject id="AlienShockTrooperSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_ALIENShockTrooper" ButtonImage="Portrait_ALIENShockTrooper" Side="ALIEN" BuildCost="800" BuildTime="8" CommandSet="AlienShockTrooperSquadCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_CAPTURE TIBERIUM_BASED CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="MISSILE" EditorName="AlienShockTrooperSquad" Description="Desc:AlienShockTrooper" TypeDescription="Type:AlienShockTrooper" UnitTypeIcon="ShockTrooperIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENShockTrooper</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienShockTrooperShockPods</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AlienShockTrooperBlinkPack</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>AlienControlCenter</RequiredObject>
+			<RequiredObject>AlienStatisChamber</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="65.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXShockTrpr_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="AUSHOCKSQUADMARKER"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="ShockTrooperRangefinder"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="ShockTrooperUpgradedRangefinder" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData/>
+				<InitialPayload Name="AlienShockTrooper" Count="3"/>
+				<MeleeBehavior Type="AMOEBA"/>
+				<RandomOffset x="4" y="4"/>
+				<RankInfo RankID="1" UnitType="AlienShockTrooper">
+					<Position X="-10" Y="-20"/>
+					<Position X="10" Y="0"/>
+					<Position X="-10" Y="20"/>
+				</RankInfo>
+				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
+			</HordeContain>
+			<StatusBitsUpgrade id="ModuleTag_ShockPodsUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_AlienShockTrooperShockPods</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_AlienAdvancedArticulators</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_AlienIonMatrix</TriggeredBy>
+			</ModelConditionUpgrade>			
+			<AttributeModifierUpgrade id="ModuleTag_AdvArticulatorsAttribute" AttributeModifier="AttributeModifier_AdvancedArticulators">
+				<TriggeredBy>Upgrade_AlienAdvancedArticulators</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
+			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseBlinkPack" DestinationWeapon="AlienShockTrooperBlinkWeapon2" SourceWeapon="AlienShockTrooperBlinkWeapon" FadeInTime="2s" UnpackTime="1s" PackTime="1s" BusyDuration="1.5s" MaxDistance="750" StartAbilityRange="750" UnpackingVariation="1"/>
+			<AISpecialPowerUpdate id="ModuleTag_AlienShockTrooperBlinkAI" CommandButtonName="Command_UseBlinkPack" SpecialPowerAIType="SPECIAL_POWER_MOVEMENT" MinimumCutoff="100"/>
+			<xi:include href="DATA:Includes\CaptureBehavior.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\AlienIchorPlatingUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Charge Defenses -->
+			<SpecialPower id="ModuleTag_AlienChargeDefensesGetInRange" SpecialPowerTemplate="SpecialPower_AlienChargeDefensesGetInRange" UpdateModuleStartsAttack="true"/>
+			<SpecialAbilityUpdate id="ModuleTag_AlienChargeDefensesGetInRangeUpdate" SpecialPowerTemplate="SpecialPower_AlienChargeDefensesGetInRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="150" ChainedButton="Command_FireAlienChargeDefenses"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_AlienChargeDefensesDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_AlienChargeDefenses"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_AlienChargeDefensesTrigger"/>
+			</SpecialPowerDispatchSpecialPower>
+			<HordeDispatchSpecialPower id="ModuleTag_ChargeDefenses" SpecialPowerTemplate="SpecialPower_AlienChargeDefenses">
+			</HordeDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_AlienChargeDefensesTrigger" SpecialPowerTemplate="SpecialPower_AlienChargeDefensesTrigger" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_AlienChargeDefensesTriggerUpdate" SpecialPowerTemplate="SpecialPower_AlienChargeDefensesTrigger" PersistentPrepTime="1s" SpecialWeapon="HordeSpecialRangeAttack" UnpackTime="0s" PackTime="0.0s" BusyForDuration="0.0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1"/>
+		</Behaviors>
+		<AI>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
+				<UnitAITargetChooserData/>
+			</HordeAIUpdate>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="30.0" Height="13.0"/>
+		</Geometry>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

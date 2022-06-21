@@ -1,0 +1,38 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODParkedCarryall" Side="NOD" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" EditorName="NODParkedCarryall" EditorSorting="MISC_MAN_MADE" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
+		<DisplayName>Name:NODCarryall</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NPCarryall"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODCarryAllInitialDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="300"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="35.0" MinorRadius="20.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="10.0" z="10.0"/>
+			</Shape>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

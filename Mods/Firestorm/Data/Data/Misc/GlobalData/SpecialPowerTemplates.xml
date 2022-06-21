@@ -1,0 +1,1579 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCallForTransportGDI"
+		ReloadTime="120s"
+		TargetType="NONE"
+		Money="-250"
+		InitiateAtLocationSound="GDI_Ox_VoicePickup">
+		<GameDependency>
+			<RequiredObject>GDIAirTower</RequiredObject>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCallForTransportNOD"
+		ReloadTime="120s"
+		TargetType="NONE"
+		Money="-250"
+		InitiateAtLocationSound="NOD_Carryall_VoiceInbound">
+		<GameDependency>
+			<RequiredObject>NODHangar</RequiredObject>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_IonSuperstorm"
+		Flags="IS_PLAYER_POWER WATER_OK IGNORE_MAP_EXTENTS SHARED_SYNC"
+		ReloadTime="240s"
+		RadiusCursorRadius="150"
+		TargetType="LOCATION"
+		Money="-2500"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerComputerCounterMeasures"
+		Flags="IS_PLAYER_POWER SHARED_SYNC"
+		TargetType="NONE"
+		ReloadTime="30s"
+		InitiateSound="NOD_MasterComputerCountermeasures"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerInfantryDigInTrigger"
+		ReloadTime="60s"
+		RadiusCursorRadius="30"
+		ForbiddenObjectRange="32"
+		TargetType="LOCATION"
+		Flags="NOT_CLIFF_CELL PATHABLE_ONLY NO_FORBIDDEN_OBJECTS DISABLE_FOR_MULTIPLE_SELECTION USE_CHAINED_COMMAND_MONEY"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateMoveToPositionAndEvacuate">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE TIBERIUM">
+			<IncludeThing>GDIDigInBuildingPlaceholder</IncludeThing>
+		</ForbiddenObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_GuardianTankDigIn"
+		TargetType="NONE"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_GuardianTankDigOut"
+		TargetType="NONE"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_MortarBombardement"
+		Flags="WATER_OK IGNORE_MAP_EXTENTS"
+		ReloadTime="20s"
+		RadiusCursorRadius="30"
+		TargetType="LOCATION"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateSpotTargetBombard"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		MinCastRange="40"
+		MaxCastRange="600">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_GDIArmoryPitbullMortar</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_FireOverloadCannonSelfStunWeapon"
+		TargetType="NONE"
+		ReloadTime="90s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="FireOverloadCannon"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_FireMARVOverloadCannon"
+		TargetType="LOCATION"
+		RadiusCursorRadius="100"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="FireOverloadCannon"/>
+
+	<!-- Jump Jets at 5s reload might be causing some issues, need testing -->
+
+	<!-- Make sure the reload time for this power matches the reload time for the SpecialPower_JumpJetPlaceSatchelCharge ability-->
+	<!-- Can target objects b/c this needs to work on bridges too (otherwise the other ability fires)-->
+	<SpecialPowerTemplate
+		id="SpecialPowerTriggerJumpJets"						
+		TargetType="LOCATION"
+		ReloadTime="5s"
+		Flags="NO_FORBIDDEN_OBJECTS PATHABLE_ONLY NOT_CLIFF_CELL"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateJumpJets"
+		WaypointModeTerminal="false">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE CRUSHABLE_OBSTACLE AIRCRAFT"
+			Exclude="BRIDGE_ENDCAP BRIDGE_SEGMENT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCallSupportBloodhound"
+		Flags="NOT_CLIFF_CELL IS_PLAYER_POWER NO_FORBIDDEN_OBJECTS SHARED_SYNC"
+		ReloadTime="180s"
+		ForbiddenObjectRange="140"
+		RadiusCursorRadius="140"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-3000"
+		InitiateAtLocationSound="GDI_Ox_VoiceReinforcements">
+		<ForbiddenObjectFilter
+			Rule="ANY" 
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerGetToJumpJetRange"
+		TargetType="LOCATION"
+		ReloadTime="5s"
+		Flags="NO_FORBIDDEN_OBJECTS PATHABLE_ONLY NOT_CLIFF_CELL"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateJumpJets"
+		WaypointModeTerminal="false">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE CRUSHABLE_OBSTACLE"
+			Exclude="BRIDGE_ENDCAP BRIDGE_SEGMENT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerJumpJetDispatch"
+		ReloadTime="5s"
+		TargetType="LOCATION"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerJumpJetHordeTrigger"
+		ReloadTime="5s"
+		TargetType="LOCATION"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_SupersonicAirAttack"
+		Flags="IS_PLAYER_POWER WATER_OK IGNORE_MAP_EXTENTS SHARED_SYNC"
+		ReloadTime="300s"
+		RadiusCursorRadius="200"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="GDI_SupersonicAirStrike_FlyByMS"
+		Money="-2000"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_SummonGDIKodiak"
+		TargetType="NONE"
+		Flags="IS_PLAYER_POWER SHARED_SYNC"
+		ReloadTime="150s"
+		InitiateAtLocationSound="GDI_Kodiak_VoiceCreateMS"
+		Money="-4000">
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_KodiakBuilt</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerGDI_APCMinefield"
+		ReloadTime="45s"
+		RadiusCursorRadius="100"
+		Money="-250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		TargetType="LOCATION" 
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateAPCMinefield"
+		WaypointModeTerminal="false"
+		Flags="NO_FORBIDDEN_OBJECTS"
+		ForbiddenObjectRange="70">
+		<ForbiddenObjectFilter
+			Rule="ANY" 
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_GrantUnpackUpgrade"
+		TargetType="NONE"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceDeploy">
+		<GameDependency
+			ForbiddenModelConditions="LOADED"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerMastermindTeleportObjectSelect"
+		TargetType="LOCATION"
+		Flags="NEEDS_OBJECT_FILTER LIMIT_DISTANCE IGNORE_SELF_IN_NEEDED_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="20s"
+		RadiusCursorRadius="50"
+		DisallowedTargetObjectStatus="INSIDE_GARRISON AIRBORNE_TARGET OUT_OF_PHASE POWERED_DOWN_EMP"
+		MaxCastRange="9999997"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="TeleportObject"
+		WaypointModeTerminal="false">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ALLIES"
+			Include="INFANTRY VEHICLE"
+			Exclude="AIRCRAFT">
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>GDIOrcaBattleFortressDeployed</ExcludeThing>
+			<ExcludeThing>NODReckonerDeployed</ExcludeThing>
+			<ExcludeThing>NODPhantomDeployed</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerMastermindTeleportObject"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS LIMIT_DISTANCE PATHABLE_ONLY NOT_CLIFF_CELL"
+		ReloadTime="20s"
+		RadiusCursorRadius="50"
+		MaxCastRange="9999999"
+		ForbiddenObjectRange="25"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		WaypointModeTerminal="false">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE" />
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerBombingRun"
+		TargetType="LOCATION"
+		Flags="WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS IS_PLAYER_POWER"
+		ReloadTime="90s"
+		InitiateAtLocationSound="GDI_Orca_VoiceAirstrikeInbound"
+		RadiusCursorRadius="50"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-300"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerBombingRun_Missile"
+		TargetType="LOCATION"
+		Flags="WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS IS_PLAYER_POWER"
+		ReloadTime="90s"
+		InitiateAtLocationSound="GDI_Orca_VoiceAirstrikeInbound"
+		RadiusCursorRadius="50"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-300">
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_GDIArmorySonicWeaponry</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerBombingRun_SonicShell"
+		TargetType="LOCATION"
+		Flags="WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS IS_PLAYER_POWER"
+		ReloadTime="90s"
+		InitiateAtLocationSound="GDI_Orca_VoiceAirstrikeInbound"
+		RadiusCursorRadius="50"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-300">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_GDIArmorySonicWeaponry</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSensorPod_Dispatch"
+		ReloadTime="60s"
+		TargetType="OBJECT_OR_LOCATION" 
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod"
+		WaypointModeTerminal="false"
+		Flags="FOGGED_SHROUDED_CELLS_OK"
+		Money="-200"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSensorPod_UnTargeted"
+		TargetType="LOCATION"
+		ReloadTime="60s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod"
+		Money="-200"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSensorPod_Targeted"
+		TargetType="OBJECT"
+		ReloadTime="60s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod" 
+		Flags="NO_FORBIDDEN_OBJECTS"
+		Money="-200">
+		<ForbiddenObjectFilter
+			Rule="ANY" 
+			Include="INFANTRY HORDE AIRCRAFT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerRadarScan"
+		RadiusCursorRadius="200"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="GDI_RadarScan"
+		ReloadTime="120s"
+		Money="-500"
+		Flags="IS_PLAYER_POWER FOGGED_SHROUDED_CELLS_OK WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerGDI_SpaceCommandDropPods"
+		ReloadTime="120s"
+		RadiusCursorRadius="80"
+		ForbiddenObjectRange="100"
+		TargetType="LOCATION"
+		Flags="NOT_CLIFF_CELL NO_FORBIDDEN_OBJECTS IS_PLAYER_POWER SHARED_SYNC"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-4100"
+		InitiateAtLocationSound="GDI_DropPodDescendWithVoiceMS">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerGDI_SpaceCommandShockwaveArtillery"
+		ReloadTime="180s"
+		RadiusCursorRadius="110"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="GDI_ShockwaveArtillery_WeaponFire_Stereo"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-2000"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCallSupportGDIAirborne"
+		Flags="NOT_CLIFF_CELL IS_PLAYER_POWER NO_FORBIDDEN_OBJECTS SHARED_SYNC"
+		ReloadTime="120s"
+		ForbiddenObjectRange="110"
+		RadiusCursorRadius="110"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-1600"
+		InitiateAtLocationSound="GDI_Ox_VoiceReinforcements">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCallSupportHunterKillerTeam"
+		Flags="NOT_CLIFF_CELL IS_PLAYER_POWER NO_FORBIDDEN_OBJECTS SHARED_SYNC"
+		ForbiddenObjectRange="130"
+		ReloadTime="240s"
+		RadiusCursorRadius="130"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-3800"
+		InitiateAtLocationSound="GDI_Ox_VoiceReinforcements">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerIonCannonControlIonCannon"
+		DisplayName="Name:SuperweaponTimerIonCannon"
+		Description="Desc:SuperweaponTimerIonCannon"
+		TargetType="LOCATION"
+		Flags="WATER_OK FOGGED_SHROUDED_CELLS_OK SHARED_SYNC HAS_PUBLIC_TIMER IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="420s"
+		RadiusCursorRadius="250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayOnInitiateOwner="OwnIonCannonActivated"
+		EvaEventToPlayOnInitiateAlly="AlliedIonCannonActivated"
+		EvaEventToPlayOnInitiateEnemy="EnemyIonCannonActivated"
+		RestrictionType="1"
+		TimerImage="Button_PlayerPowerIonCannon"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_SpotTargetBombard"
+		Flags="NEEDS_OBJECT_FILTER WATER_OK LIMIT_DISTANCE TARGET_NEEDS_OBJECT_STATUS FIND_REACHABLE_TARGETS IGNORE_MAP_EXTENTS NO_FORBIDDEN_MODEL_STATES"
+		RequiredTargetObjectStatus="CAN_SPOT_FOR_BOMBARD"
+		DisallowedTargetObjectStatus="IN_STASIS" 
+		DisallowedTargetModelStates="TRANSPORT_MOVING MOVING"
+		ReloadTime="20s"
+		RadiusCursorRadius="80"
+		TargetType="LOCATION"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateSpotTargetBombard"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		MinCastRange="300"
+		MaxCastRange="99999"
+		ReachableTargetsCircleDisplayRadius="500">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ALLIES"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_GDIOverkill</NeededUpgrade>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>GDISniper</IncludeThing>
+				<IncludeThing>GDIZoneTrooper</IncludeThing>
+				<IncludeThing>GDIZoneRaider</IncludeThing>
+				<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialAbilityStratoFighter"
+		ReloadTime="20s"
+		TargetType="LOCATION"
+		Flags="WATER_OK FOGGED_SHROUDED_CELLS_OK"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateFirehawkStratoFighter"
+		WaypointModeTerminal="false">
+		<GameDependency
+			ForbiddenModelConditions="TAKING_OFF LANDING"
+			RequiredObjectStatusAny="AIRBORNE_TARGET">
+			<NeededUpgrade>Upgrade_FirehawkStratofighterBooster</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_MjolnirStrike"
+		Flags="IS_PLAYER_POWER WATER_OK IGNORE_MAP_EXTENTS SHARED_SYNC"
+		ReloadTime="420s"
+		RadiusCursorRadius="250"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="GDI_ThorsHammer_BeamMS"
+		Money="-3000"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_CallSupportTitanStrike"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER"
+		ReloadTime="180s"
+		InitiateAtLocationSound="GDI_Ox_VoiceReinforcements"
+		RadiusCursorRadius="140"
+		ForbiddenObjectRange="140"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-6000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_TargetedRepairUnit"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER LIMIT_DISTANCE"
+		ReloadTime="1s"
+		InitiateAtLocationSound="GuiCommandButtonClick"
+		MaxCastRange="200">
+		<ObjectFilter
+			Rule="ANY"
+			Include="HUGE_VEHICLE VEHICLE AIRCRAFT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_TargetedRepairAircraft"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER LIMIT_DISTANCE"
+		ReloadTime="1s"
+		InitiateAtLocationSound="GuiCommandButtonClick"
+		MaxCastRange="200">
+		<ObjectFilter 
+			Rule="ANY" 
+			Include="AIRCRAFT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_FireEMPGrenades"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS"
+		ReloadTime="30s"
+		RadiusCursorRadius="60"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceAttackEMPGrenades">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_EMPGrenades</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="EMPGrenadesGetInRange"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS"
+		ReloadTime="30s"
+		RadiusCursorRadius="60"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceAttackEMP">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_EMPGrenades</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_EMPGrenadesDispatch"
+		ReloadTime="30s"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_EMPGrenades</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_EMPGrenadesTrigger"
+		ReloadTime="30s"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_EMPGrenades</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_CrystalShield"
+		DisplayName="SPECIALPOWER:CrystalShield"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS"
+		ReloadTime="360s"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="ALI_StasisShield_Start"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		RadiusCursorRadius="150"
+		Money="-2000"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerAlienRepairDrones"
+		ReloadTime="90s"
+		RadiusCursorRadius="100"
+		Money="-1500"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="ALI_Repair_Start"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_TiberiumVibrationScan"
+		Flags="IS_PLAYER_POWER SHARED_SYNC" 
+		TargetType="NONE"
+		InitiateSound="ALI_TiberiumScan"
+		EvaEventToPlayOnInitiateOwner="TiberiumVibrationScanActivate"
+		ReloadTime="60s"
+		Money="-500"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PhaseField"
+		TargetType="LOCATION"
+		Flags="NEEDS_OBJECT_FILTER IS_PLAYER_POWER WATER_OK TARGET_NEEDS_OBJECT_STATUS SHARED_SYNC IGNORE_MAP_EXTENTS"
+		ReloadTime="180s"
+		RadiusCursorRadius="100"
+		DisallowedTargetObjectStatus="AIRBORNE_TARGET IN_STASIS"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-1500">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ALLIES"
+			Include="VEHICLE"
+			Exclude="INFANTRY AIRCRAFT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_LightningSpike"
+		TargetType="LOCATION"
+		ReloadTime="120s"
+		Flags="IS_PLAYER_POWER SHARED_SYNC"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		RadiusCursorRadius="25"
+		Money="-1000"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerNuclearMissile"
+		DisplayName="Name:SuperweaponTimerNuclearMissile"
+		Description="Desc:SuperweaponTimerNuclearMissile"
+		TargetType="LOCATION"
+		Flags="WATER_OK FOGGED_SHROUDED_CELLS_OK SHARED_SYNC HAS_PUBLIC_TIMER IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="420s"
+		RadiusCursorRadius="300"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayOnInitiateOwner="OwnNuclearMissileLaunched"
+		EvaEventToPlayOnInitiateAlly="AlliedNuclearMissileLaunched"
+		EvaEventToPlayOnInitiateEnemy="EnemyNuclearMissileLaunched"
+		RestrictionType="1"
+		TimerImage="Button_PlayerPowerNuclearMissile"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerLaunchCatalystMissile"
+		TargetType="LOCATION"
+		Flags="WATER_OK SHARED_SYNC IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="300s"
+		RadiusCursorRadius="100"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-2000"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerDispatchRadarJammingMissile"
+		ReloadTime="60s"
+		TargetType="NONE"
+		Flags="IS_PLAYER_POWER SHARED_SYNC"
+		Money="-500">
+		<GameDependency>
+			<RequiredObject>NODOperationsCenter</RequiredObject>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSeedTiberium"
+		TargetType="LOCATION"
+		Flags="NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER NOT_ON_BRIDGE NOT_BENEATH_BRIDGE"
+		ReloadTime="240s"
+		RadiusCursorRadius="50"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		ForbiddenObjectRange="50"
+		Money="-1000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSeedTiberium_Green"
+		TargetType="LOCATION"
+		Flags="NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER NOT_ON_BRIDGE NOT_BENEATH_BRIDGE"
+		ReloadTime="240s"
+		RadiusCursorRadius="50"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		ForbiddenObjectRange="50"
+		Money="-1000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_NODChemicalPlantBlueTibCore</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSeedTiberium_Blue"
+		TargetType="LOCATION"
+		Flags="NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER NOT_ON_BRIDGE NOT_BENEATH_BRIDGE"
+		ReloadTime="240s"
+		RadiusCursorRadius="50"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		ForbiddenObjectRange="50"
+		Money="-1000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODChemicalPlantBlueTibCore</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerAirDispersion"
+		ReloadTime="300s"
+		TargetType="LOCATION"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC IGNORE_MAP_EXTENTS"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		RadiusCursorRadius="200"
+		Money="-3500"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_CloakingField"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC NO_FORBIDDEN_OBJECTS IGNORE_MAP_EXTENTS"
+		ReloadTime="120s"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		RadiusCursorRadius="100"
+		Money="-3500"
+		ForbiddenObjectRange="100">
+		<ForbiddenObjectFilter
+			Rule="ANY">
+			<IncludeThing>AlienCrystalShield</IncludeThing>
+		</ForbiddenObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_Swarm"
+		TargetType="LOCATION"
+		InitiateAtLocationSound="ALI_BuzzerSwarm"
+		ReloadTime="150s"
+		Flags="IS_PLAYER_POWER NO_FORBIDDEN_OBJECTS NOT_CLIFF_CELL SHARED_SYNC"
+		Money="-1200"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		RadiusCursorRadius="40"
+		ForbiddenObjectRange="30">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="INFANTRY VEHICLE STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerRedShadowStrikeTeam"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC FOGGED_SHROUDED_CELLS_OK"
+		ReloadTime="180s"
+		RadiusCursorRadius="30"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-1800"
+		InitiateAtLocationSound="NOD_Shadow_VoiceStrikeTeamCreate"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCloneObjectSelect"
+		TargetType="LOCATION"
+		RadiusCursorRadius="100"
+		EvaEventToPlayWhenSelectingTarget="SelectUnit"
+		Flags="NEEDS_OBJECT_FILTER IS_PLAYER_POWER NOT_CLIFF_CELL SHARED_SYNC IGNORE_MAP_EXTENTS">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ALLIES"
+			Include="INFANTRY VEHICLE"
+			Exclude="SUMMONED AIRCRAFT">
+			<ExcludeThing>Viceroid</ExcludeThing>
+			<ExcludeThing>MutantFiend</ExcludeThing>
+			<ExcludeThing>MutantFiendBlue</ExcludeThing>
+			<ExcludeThing>MutantFiendRed</ExcludeThing>
+			<ExcludeThing>NODPhantomDeployed</ExcludeThing>
+			<ExcludeThing>NODReckonerDeployed</ExcludeThing>
+			<ExcludeThing>GDIJuggernaughtHusk</ExcludeThing>
+			<ExcludeThing>NODAvatarHusk</ExcludeThing>
+			<ExcludeThing>NODPurifierHusk</ExcludeThing>
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienReaperTripodHusk</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerEMPControlCenter"
+		Flags="IS_PLAYER_POWER SHARED_SYNC WATER_OK IGNORE_MAP_EXTENTS"
+		ReloadTime="180s"
+		RadiusCursorRadius="200"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PowerSignatureScan"
+		TargetType="NONE"
+		Flags="SHARED_SYNC IS_PLAYER_POWER"
+		ReloadTime="60s"
+		InitiateSound="NOD_PowerSignatureScan"
+		EvaEventToPlayOnInitiateOwner="PowerScanActivate"
+		Money="-500"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_Redemption"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER"
+		ReloadTime="150s"
+		InitiateAtLocationSound="NOD_RedemptionMS"
+		RadiusCursorRadius="45"
+		ForbiddenObjectRange="45"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-5000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerTibVeinDetonation"
+		DisplayName="Name:SpecialPowerTibVeinDetonation"
+		Description="Desc:SpecialPowerTibVeinDetonation"
+		TargetType="LOCATION"
+		Flags="NEEDS_OBJECT_FILTER SHARED_SYNC IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="240s"
+		InitiateAtLocationSound="NOD_TiberiumVeinDetonationMS"
+		RadiusCursorRadius="250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-2500">
+		<ObjectFilter
+			Rule="ANY">
+			<IncludeThing>TiberiumField</IncludeThing>
+			<IncludeThing>TiberiumFieldBlue</IncludeThing>
+			<IncludeThing>TiberiumFieldRedZone</IncludeThing>
+			<IncludeThing>TiberiumFieldBlueRedZone</IncludeThing>
+			<IncludeThing>TiberiumFieldRed</IncludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerTibVeinDetonation_Green"
+		DisplayName="Name:SpecialPowerTibVeinDetonation"
+		Description="Desc:SpecialPowerTibVeinDetonation"
+		TargetType="LOCATION"
+		Flags="NEEDS_OBJECT_FILTER SHARED_SYNC IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="240s"
+		InitiateAtLocationSound="NOD_TiberiumVeinDetonationMS"
+		RadiusCursorRadius="250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-2500">
+		<ObjectFilter
+			Rule="ANY">
+			<IncludeThing>TiberiumField</IncludeThing>
+			<IncludeThing>TiberiumFieldBlue</IncludeThing>
+			<IncludeThing>TiberiumFieldRedZone</IncludeThing>
+			<IncludeThing>TiberiumFieldBlueRedZone</IncludeThing>
+			<IncludeThing>TiberiumFieldRed</IncludeThing>
+		</ObjectFilter>
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_NODChemicalPlantBlueTibCore</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerTibVeinDetonation_Blue"
+		DisplayName="Name:SpecialPowerTibVeinDetonation"
+		Description="Desc:SpecialPowerTibVeinDetonation"
+		TargetType="LOCATION"
+		Flags="NEEDS_OBJECT_FILTER SHARED_SYNC IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="240s"
+		InitiateAtLocationSound="NOD_TiberiumVeinDetonationMS"
+		RadiusCursorRadius="250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-2500">
+		<ObjectFilter
+			Rule="ANY">
+			<IncludeThing>TiberiumField</IncludeThing>
+			<IncludeThing>TiberiumFieldBlue</IncludeThing>
+			<IncludeThing>TiberiumFieldRedZone</IncludeThing>
+			<IncludeThing>TiberiumFieldBlueRedZone</IncludeThing>
+			<IncludeThing>TiberiumFieldRed</IncludeThing>
+		</ObjectFilter>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODChemicalPlantBlueTibCore</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_SummonNODLeviathan"
+		TargetType="NONE"
+		Flags="SHARED_SYNC IS_PLAYER_POWER"
+		ReloadTime="150s"
+		InitiateAtLocationSound="NOD_Leviathan_VoiceCreateMS"
+		Money="-4000">
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_LeviathanBuilt</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_CommandoEMPBlast"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS"
+		ReloadTime="60s"
+		RadiusCursorRadius="130">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODEmpBurst</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="EMPBlast"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS"
+		ReloadTime="30s"
+		RadiusCursorRadius="30">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODEmpBurst</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="EMPBlastDispatch"
+		ReloadTime="30s"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODEmpBurst</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="EMPBlastTrigger"
+		ReloadTime="30s"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODEmpBurst</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="EMPBlastGetInRange"
+		TargetType="LOCATION"
+		Flags="IGNORE_MAP_EXTENTS"
+		ReloadTime="30s"
+		RadiusCursorRadius="50"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateEMPBlast">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_NODEmpBurst</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="ShadowSquadBeaconGetInRange"
+		TargetType="LOCATION"
+		Flags="PATHABLE_ONLY NOT_CLIFF_CELL"
+		ReloadTime="60s"
+		ForbiddenObjectRange="15"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiatePlaceArtilleryBeacon">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE CRUSHABLE_OBSTACLE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerDeployBeacon"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS PATHABLE_ONLY NOT_CLIFF_CELL"
+		ReloadTime="60s"
+		ForbiddenObjectRange="15"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiatePlaceArtilleryBeacon">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE CRUSHABLE_OBSTACLE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerDisruptionPod_UnTargeted"
+		TargetType="LOCATION"
+		ReloadTime="60s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="DisruptionPodDrop"
+		Money="-500"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerDisruptionPod_Targeted"
+		TargetType="OBJECT"
+		Flags="NO_FORBIDDEN_OBJECTS"
+		ReloadTime="60s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="DisruptionPodDrop"
+		Money="-500">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="INFANTRY AIRCRAFT HORDE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerDisruptionPod_Dispatch"
+		TargetType="OBJECT_OR_LOCATION"
+		Flags="FOGGED_SHROUDED_CELLS_OK"
+		ReloadTime="60s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="DisruptionPodDrop"
+		Money="-500"
+		WaypointModeTerminal="false">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_VertigoDisruptionPod</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="NodRageGenerator"
+		TargetType="NONE"
+		ReloadTime="60s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="IninitiateRageGenerator"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_SpotBeaconBombard"
+		Flags="NEEDS_OBJECT_FILTER WATER_OK LIMIT_DISTANCE TARGET_NEEDS_OBJECT_STATUS FIND_REACHABLE_TARGETS IGNORE_MAP_EXTENTS NO_FORBIDDEN_MODEL_STATES"
+		RequiredTargetObjectStatus="CAN_SPOT_FOR_BOMBARD"
+		DisallowedTargetObjectStatus="IN_STASIS" 
+		DisallowedTargetModelStates="TRANSPORT_MOVING MOVING"
+		ReloadTime="20s"
+		RadiusCursorRadius="60"
+		TargetType="LOCATION"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateSpotTargetBombard"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		MinCastRange="300"
+		MaxCastRange="99999"
+		ReachableTargetsCircleDisplayRadius="400">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ALLIES"/>
+		<GameDependency>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>GDISniper</IncludeThing>
+				<IncludeThing>GDIZoneTrooper</IncludeThing>
+				<IncludeThing>GDIZoneRaider</IncludeThing>
+				<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PlaceBoobyTrapDispatch"
+		TargetType="OBJECT" 
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceBoobyTrap"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PlaceBoobyTrapAtBuilding"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="20s"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceBoobyTrap"
+		DisallowedTargetObjectStatus="BOOBY_TRAPPED GARRISONED">
+		<ObjectFilter
+			Include="GARRISON"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PlaceBoobyTrapAtBridge"
+		Flags="NEEDS_OBJECT_FILTER"
+		ReloadTime="20s"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceBoobyTrap">
+		<ObjectFilter
+			Include="BRIDGE_SEGMENT"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PlaceBoobyTrapAtHusk"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="20s"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceBoobyTrap"
+		DisallowedTargetObjectStatus="BOOBY_TRAPPED">
+		<ObjectFilter
+			Include="HUSK"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_PlaceBoobyTrapAtTechBuilding"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="20s"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceBoobyTrap"
+		DisallowedTargetObjectStatus="BOOBY_TRAPPED">
+		<ObjectFilter 
+			Include="NEUTRAL_TECH"
+			Exclude="CAPTURABLE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCallSupportTemplarDrop"
+		Flags="NOT_CLIFF_CELL IS_PLAYER_POWER NO_FORBIDDEN_OBJECTS SHARED_SYNC"
+		ReloadTime="180s"
+		ForbiddenObjectRange="140"
+		RadiusCursorRadius="140"
+		TargetType="LOCATION"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-2900"
+		InitiateAtLocationSound="NOD_Carryall_VoiceMove">
+		<ForbiddenObjectFilter
+			Rule="ANY" 
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_MechapedeManipulateObject"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER"
+		ReloadTime="20s"
+		InitiateSound="ALI_MasterMind_ManipulateStart"
+		PreventConditions="AIRBORNE_TARGET"
+		DisallowedTargetObjectStatus="UNATTACKABLE"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject"
+		WaypointModeTerminal="false">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ENEMIES NEUTRAL"
+			Include="INFANTRY VEHICLE"
+			Exclude="AIRCRAFT HUSK">
+			<!-- Neutral -->
+			<ExcludeThing>Viceroid</ExcludeThing>
+			<ExcludeThing>MutantFiend</ExcludeThing>
+			<ExcludeThing>MutantFiendBlue</ExcludeThing>
+			<ExcludeThing>MutantFiendRed</ExcludeThing>
+			<ExcludeThing>TiberiumFloater</ExcludeThing>
+			<ExcludeThing>SubwayNode</ExcludeThing>
+			<!-- GDI -->
+			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
+			<ExcludeThing>GDICommando</ExcludeThing>
+			<ExcludeThing>GDIKodiak</ExcludeThing>
+			<ExcludeThing>GDIMARV</ExcludeThing>
+			<ExcludeThing>GDIMammothMK2</ExcludeThing>
+			<ExcludeThing>GDIJuggernaughtHusk</ExcludeThing>
+			<!-- Nod -->
+			<ExcludeThing>NODCommando</ExcludeThing>
+			<ExcludeThing>NODCyborgCommando</ExcludeThing>
+			<ExcludeThing>NODRedeemer</ExcludeThing>
+			<ExcludeThing>NODDarkTwilight</ExcludeThing>
+			<ExcludeThing>NODAvatarHusk</ExcludeThing>
+			<ExcludeThing>NODPurifierHusk</ExcludeThing>
+			<!-- Alien -->
+			<ExcludeThing>AlienWormHole</ExcludeThing>
+			<ExcludeThing>AlienMothership</ExcludeThing>
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienMastermind</ExcludeThing>
+			<ExcludeThing>AlienMechapede</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienReaperTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+			<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienSeedTiberium"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS LIMIT_DISTANCE NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER NOT_ON_BRIDGE NOT_BENEATH_BRIDGE"
+		ReloadTime="240s"
+		InitiateAtLocationSound="ALI_IchorSeed_BeamMS"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		RadiusCursorRadius="60"
+		Money="-1000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_TemporalWormhole"
+		DisplayName="SPECIALPOWER:TemporalWormhole"
+		TargetType="LOCATION"
+		Flags="WATER_OK SHARED_SYNC IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="360s"
+		InitiateAtLocationSound="ALI_TemporalWormhole_Start"
+		RadiusCursorRadius="225"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		Money="-1500"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienBlinkPods"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER"
+		ReloadTime="90s"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		InitiateAtLocationSound="ALI_BuzzerSwarm"
+		RadiusCursorRadius="60"
+		ForbiddenObjectRange="80"
+		Money="-2600">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_OverlordsWrathWeapon"
+		DisplayName="Name:SuperweaponTimerOverlordsWrath"
+		Description="Desc:SuperweaponTimerOverlordsWrath"
+		TargetType="LOCATION"
+		Flags="WATER_OK FOGGED_SHROUDED_CELLS_OK SHARED_SYNC HAS_PUBLIC_TIMER IS_PLAYER_POWER IGNORE_MAP_EXTENTS"
+		ReloadTime="420s"
+		RadiusCursorRadius="250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayOnInitiateOwner="OwnRiftGeneratorActivated"
+		EvaEventToPlayOnInitiateAlly="AlliedRiftGeneratorActivated"
+		EvaEventToPlayOnInitiateEnemy="EnemyRiftGeneratorActivated"
+		RestrictionType="1"
+		TimerImage="Button_PlayerPowerOverlordsWrath"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienSeedGreenTiberium"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS LIMIT_DISTANCE NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER NOT_ON_BRIDGE NOT_BENEATH_BRIDGE"
+		ReloadTime="240s"
+		InitiateAtLocationSound="ALI_IchorSeed_BeamMS"
+		RadiusCursorRadius="60"
+		Money="-1000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_OverlordsBlessing</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienSeedBlueTiberium"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS LIMIT_DISTANCE NOT_CLIFF_CELL SHARED_SYNC IS_PLAYER_POWER NOT_ON_BRIDGE NOT_BENEATH_BRIDGE"
+		ReloadTime="240s"
+		InitiateAtLocationSound="ALI_IchorSeed_BeamMS"
+		RadiusCursorRadius="60"
+		Money="-1000">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_OverlordsBlessing</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienPhaseShield"
+		TargetType="NONE"
+		ReloadTime="180s"
+		InitiateAtLocationSound="ALI_StasisShield_Start"/>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_UseMastermindBlinkPack"
+		TargetType="LOCATION"
+		Flags="NO_FORBIDDEN_OBJECTS PATHABLE_ONLY NOT_CLIFF_CELL"
+		ReloadTime="45s"
+		InitiateSound="ALI_ShockTrooper_Blink"
+		RadiusCursorRadius="16"
+		ForbiddenObjectRange="16"
+		WaypointModeTerminal="false"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateTeleportAbility">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE VEHICLE CRUSHABLE_OBSTACLE"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShockTrooperBlinkPack</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_UseTiberiumAgitation"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_MODEL_STATES"
+		ReloadTime="60s"
+		PreventConditions="AIRBORNE_TARGET"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceTiberiumAgitation">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ENEMIES NEUTRAL"
+			Include="STRUCTURE"
+			Exclude="UNATTACKABLE INFANTRY VEHICLE AIRCRAFT HUSK TIBERIUM"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShardLaunchers</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="TiberiumAgitationGetInRange"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_MODEL_STATES"
+		ReloadTime="60s"
+		PreventConditions="AIRBORNE_TARGET"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceTiberiumAgitation">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ENEMIES NEUTRAL"
+			Include="STRUCTURE"
+			Exclude="UNATTACKABLE INFANTRY VEHICLE AIRCRAFT HUSK TIBERIUM"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShardLaunchers</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_TiberiumAgitationDispatch"
+		ReloadTime="60s"
+		TargetType="OBJECT">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShardLaunchers</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_TiberiumAgitationTrigger"
+		ReloadTime="60s"
+		TargetType="OBJECT">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShardLaunchers</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_UseEradicatorBlinkPack"
+		TargetType="LOCATION"
+		ReloadTime="60s"
+		InitiateSound="ALI_Eradicator_TeleportEradicatorMS"
+		RadiusCursorRadius="16"
+		ForbiddenObjectRange="16"
+		WaypointModeTerminal="false"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateTeleportAbility">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE VEHICLE CRUSHABLE_OBSTACLE"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShockTrooperBlinkPack</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienEradicatorManipulateObject"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER"
+		ReloadTime="60s"
+		InitiateSound="ALI_MasterMind_ManipulateStart"
+		DisallowedTargetObjectStatus="UNATTACKABLE"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject"
+		WaypointModeTerminal="false">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ENEMIES NEUTRAL"
+			Include="INFANTRY VEHICLE"
+			Exclude="AIRCRAFT HUSK">
+			<!-- Neutral -->
+			<ExcludeThing>Viceroid</ExcludeThing>
+			<ExcludeThing>MutantFiend</ExcludeThing>
+			<ExcludeThing>MutantFiendBlue</ExcludeThing>
+			<ExcludeThing>MutantFiendRed</ExcludeThing>
+			<ExcludeThing>TiberiumFloater</ExcludeThing>
+			<ExcludeThing>SubwayNode</ExcludeThing>
+			<!-- GDI -->
+			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
+			<ExcludeThing>GDICommando</ExcludeThing>
+			<ExcludeThing>GDIKodiak</ExcludeThing>
+			<ExcludeThing>GDIMARV</ExcludeThing>
+			<ExcludeThing>GDIMammothMK2</ExcludeThing>
+			<ExcludeThing>GDIJuggernaughtHusk</ExcludeThing>
+			<!-- Nod -->
+			<ExcludeThing>NODCommando</ExcludeThing>
+			<ExcludeThing>NODCyborgCommando</ExcludeThing>
+			<ExcludeThing>NODRedeemer</ExcludeThing>
+			<ExcludeThing>NODDarkTwilight</ExcludeThing>
+			<ExcludeThing>NODAvatarHusk</ExcludeThing>
+			<ExcludeThing>NODPurifierHusk</ExcludeThing>
+			<!-- Alien -->
+			<ExcludeThing>AlienWormHole</ExcludeThing>
+			<ExcludeThing>AlienMothership</ExcludeThing>
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienMastermind</ExcludeThing>
+			<ExcludeThing>AlienMechapede</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienReaperTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+			<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienLeechBeam"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceLeechBeam"
+		Flags="NEEDS_OBJECT_FILTER"
+		ReloadTime="30s"
+		PreventConditions="AIRBORNE_TARGET"
+		WaypointModeTerminal="false">
+		<ObjectFilter
+			Rule="NONE">
+			<IncludeThing>GDIRefinery</IncludeThing>
+			<IncludeThing>NODRefinery</IncludeThing>
+			<IncludeThing>AlienTiberiumTower</IncludeThing>
+			<IncludeThing>GDITiberiumSilo</IncludeThing>
+			<IncludeThing>NODTiberiumSilo</IncludeThing>
+			<IncludeThing>AlienSporePod</IncludeThing>
+			<IncludeThing>GDITiberiumProcessingPlant</IncludeThing>
+			<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
+			<IncludeThing>TiberiumSilo</IncludeThing>
+			<IncludeThing>TiberiumSpike</IncludeThing>
+			<!-- Including SP Refineries used for missions -->
+			<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
+			<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+			<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerCombineWithUnit"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="CombineWithUnit">
+		<ObjectFilter
+			Rule="NONE"
+			Relationship="SAME_PLAYER">
+			<IncludeThing>AlienGunWalker</IncludeThing>
+			<IncludeThing>AlienSeekerTank</IncludeThing>
+			<IncludeThing>AlienHarvester</IncludeThing>
+			<IncludeThing>AlienDevourerTank</IncludeThing>
+			<IncludeThing>AlienCorrupter</IncludeThing>
+			<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+			<IncludeThing>AlienMechapede</IncludeThing>
+			<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_UseBlinkPack"
+		TargetType="LOCATION"
+		InitiateSound="ALI_ShockTrooper_Blink"
+		WaypointModeTerminal="false"
+		RadiusCursorRadius="16"
+		ForbiddenObjectRange="16"
+		Flags="PATHABLE_ONLY NOT_CLIFF_CELL NO_FORBIDDEN_OBJECTS"
+		ReloadTime="30s">
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Include="STRUCTURE VEHICLE CRUSHABLE_OBSTACLE"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienShockTrooperBlinkPack</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_ManipulateObject"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER"
+		ReloadTime="30s"
+		InitiateSound="ALI_MasterMind_ManipulateStart"
+		DisallowedTargetObjectStatus="UNATTACKABLE"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject"
+		WaypointModeTerminal="false">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ENEMIES NEUTRAL"
+			Exclude="BRIDGE CRATE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUSK">
+			<!-- Neutral -->
+			<ExcludeThing>Viceroid</ExcludeThing>
+			<ExcludeThing>MutantFiend</ExcludeThing>
+			<ExcludeThing>MutantFiendBlue</ExcludeThing>
+			<ExcludeThing>MutantFiendRed</ExcludeThing>
+			<ExcludeThing>TiberiumFloater</ExcludeThing>
+			<ExcludeThing>SubwayNode</ExcludeThing>
+			<!-- GDI -->
+			<ExcludeThing>GDIWatchTower</ExcludeThing>
+			<ExcludeThing>GDIGolumCannon</ExcludeThing>
+			<ExcludeThing>GDIAABattery</ExcludeThing>
+			<ExcludeThing>GDIMissileBattery</ExcludeThing>
+			<ExcludeThing>GDITerraformingStation</ExcludeThing>
+			<ExcludeThing>GDIRippleRocketBattery</ExcludeThing>
+			<ExcludeThing>GDIIonCannonControl</ExcludeThing>
+			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
+			<ExcludeThing>GDICommando</ExcludeThing>
+			<ExcludeThing>GDIKodiak</ExcludeThing>
+			<ExcludeThing>GDIMARV</ExcludeThing>
+			<ExcludeThing>GDIMammothMK2</ExcludeThing>
+			<ExcludeThing>GDIJuggernaughtHusk</ExcludeThing>
+			<!-- Nod -->
+			<ExcludeThing>NODShredderTurret</ExcludeThing>
+			<ExcludeThing>NODShredderTurretHub</ExcludeThing>
+			<ExcludeThing>NODLaserCannon</ExcludeThing>
+			<ExcludeThing>NODLaserCannonSpawn</ExcludeThing>
+			<ExcludeThing>NODRocketBunker</ExcludeThing>
+			<ExcludeThing>NODRocketBunkerSpawn</ExcludeThing>
+			<ExcludeThing>NODStormBringerTurret</ExcludeThing>
+			<ExcludeThing>NODStormBringerTurretHub</ExcludeThing>
+			<ExcludeThing>NODDisruptionTower</ExcludeThing>
+			<ExcludeThing>NODPropagandaTower</ExcludeThing>
+			<ExcludeThing>NODObelisk</ExcludeThing>
+			<ExcludeThing>NODIncineratorTower</ExcludeThing>
+			<ExcludeThing>NODTempleOfNOD</ExcludeThing>
+			<ExcludeThing>NODCommando</ExcludeThing>
+			<ExcludeThing>NODCyborgCommando</ExcludeThing>
+			<ExcludeThing>NODLeviathan</ExcludeThing>
+			<ExcludeThing>NODLeviathanDrone</ExcludeThing>
+			<ExcludeThing>NODRedeemer</ExcludeThing>
+			<ExcludeThing>NODDarkTwilight</ExcludeThing>
+			<ExcludeThing>NODAvatarHusk</ExcludeThing>
+			<ExcludeThing>NODPurifierHusk</ExcludeThing>
+			<!-- Alien -->
+			<ExcludeThing>AlienWormHole</ExcludeThing>
+			<ExcludeThing>AlienMothership</ExcludeThing>
+			<ExcludeThing>AlienBuzzerHive</ExcludeThing>
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienLightningSpike</ExcludeThing>
+			<ExcludeThing>AlienPhotonCannon</ExcludeThing>
+			<ExcludeThing>AlienPlasmaMissileBattery</ExcludeThing>
+			<ExcludeThing>AlienStormColumn</ExcludeThing>
+			<ExcludeThing>AlienPhaseGenerator</ExcludeThing>
+			<ExcludeThing>AlienRiftGenerator</ExcludeThing>
+			<ExcludeThing>AlienMastermind</ExcludeThing>
+			<ExcludeThing>AlienAnnihilatorTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienReaperTripodHusk</ExcludeThing>
+			<ExcludeThing>AlienMechapede</ExcludeThing>
+			<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+			<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+			<ExcludeThing>AlienConquerorBattleship</ExcludeThing>
+			<ExcludeThing>AlienSlavedStormrider</ExcludeThing>
+			<ExcludeThing>AlienInvaderFighter</ExcludeThing>
+			<ExcludeThing>ABTower</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_ConversionBeam"
+		TargetType="OBJECT"
+		MaxCastRange="100"
+		ReloadTime="8s"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		RequiredTargetObjectStatus="DOES_CONTAIN_TIBERIUM" 
+		DisallowedTargetObjectStatus="IS_BEING_HARVESTED"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateConversionBeam" 
+		WaypointModeTerminal="false">
+		<ObjectFilter
+			Rule="ANY" 
+			Include="FS_MONEY_STORAGE TIBERIUM"/>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienChargeDefensesGetInRange"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_MODEL_STATES"
+		TargetType="OBJECT"
+		DisallowedTargetModelStates="UNDERPOWERED"
+		PreventConditions="OUT_OF_PHASE POWERED_DOWN_EMP IN_STASIS"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceChargeDefenses">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ALLIES"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienIonMatrix</NeededUpgrade>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>AlienStormColumn</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienChargeDefensesDispatch"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_MODEL_STATES"
+		TargetType="OBJECT"
+		DisallowedTargetModelStates="UNDERPOWERED"
+		PreventConditions="OUT_OF_PHASE POWERED_DOWN_EMP IN_STASIS"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceChargeDefenses">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ALLIES"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienIonMatrix</NeededUpgrade>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>AlienStormColumn</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienChargeDefenses"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_MODEL_STATES"
+		TargetType="OBJECT"
+		DisallowedTargetModelStates="UNDERPOWERED"
+		PreventConditions="OUT_OF_PHASE POWERED_DOWN_EMP IN_STASIS"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceChargeDefenses">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ALLIES"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienIonMatrix</NeededUpgrade>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>AlienStormColumn</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_AlienChargeDefensesTrigger"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_MODEL_STATES"
+		TargetType="OBJECT"
+		DisallowedTargetModelStates="UNDERPOWERED"
+		PreventConditions="OUT_OF_PHASE POWERED_DOWN_EMP IN_STASIS"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceChargeDefenses">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ALLIES"/>
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AlienIonMatrix</NeededUpgrade>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>AlienStormColumn</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_RepairCivBuilding"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER"
+		ReloadTime="15s"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceEngineerRepair">
+		<ObjectFilter
+			Rule="NONE"
+			Include="GARRISON"/>
+	</SpecialPowerTemplate>
+</AssetDeclaration>

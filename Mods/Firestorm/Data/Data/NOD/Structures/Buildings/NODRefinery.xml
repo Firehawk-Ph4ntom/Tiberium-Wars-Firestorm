@@ -1,0 +1,279 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERY_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERY_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERY_LF_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERYD2_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERYD3_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFTUBES_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="NODRefinery" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODRefinery" ButtonImage="Portrait_NODRefinery" Side="NOD" BuildCost="2200" BuildTime="22" CommandSet="NODRefineryCommandSet" RefundValue="350" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EnergyProduction="-8" EditorName="NODRefinery" Description="Desc:NODRefinery" TypeDescription="Type:NODRefinery">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODRefinery</DisplayName>
+		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
+		<GameDependency>
+			<ObjectFilter Rule="ANY">
+				<IncludeThing>NODConstructionYard</IncludeThing>
+				<IncludeThing>NODCrane</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="TIBERIUM"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRefinery_FS"/>
+					<Texture Original="NBConYard" New="NBConYard2"/>
+					<Texture Original="NBConYard_SPM" New="NBConYard_SPM2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBREFINERY_ASN_FS"/>
+					<Texture Original="NBConYard" New="NBConYard2"/>
+					<Texture Original="NBConYard_SPM" New="NBConYard_SPM2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBRefineryD3_SN_FS"/>
+					<Texture Original="NBConYardD" New="NBConYardD2"/>
+					<Texture Original="NBConYard_SPM" New="NBConYard_SPM2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBRefineryD2_SN_FS"/>
+					<Texture Original="NBConYard" New="NBConYard2"/>
+					<Texture Original="NBConYard_SPM" New="NBConYard_SPM2"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODRefineryDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODRefineryDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODRefineryDamagedDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="NODRefineryDamagedDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="NODRefineryDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="NODRefineryDamagedFire" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBRefineryD2_SN_FS"/>
+					<Texture Original="NBConYard" New="NBConYard2"/>
+					<Texture Original="NBConYard_SPM" New="NBConYard_SPM2"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODRefineryDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDISiloDamagedSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDISiloDamagedDist2" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBRefinery_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="NBRefineryD2_AN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged">
+					<Animation AnimationName="NBRefineryD2_AN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" StateName="STATE_Dying">
+					<Animation AnimationName="NBRefineryD3_AN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Tubes" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRefTubes_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="NBRefTubes_LOAD" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING_ACTIVE">
+					<Animation AnimationName="NBRefTubes_LOAD" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_TIB">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRefinery_TIB"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" StateName="STATE_Buildup"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_1">
+					<Script> CurDrawableShowSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_2">
+					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableShowSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_3">
+					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableShowSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_4">
+					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableShowSubObject("Tib_100") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXRefineryTower">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FXRefineryTib01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefineryTibA" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefineryTibDistortionA" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="NBREFINERY_LF"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="NBREFINERY_LF"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="NBREFINERY_LF"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING">
+					<Script> CurDrawableHideSubObject("Gate01") CurDrawableHideSubObject("Gate02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Script> CurDrawableShowSubObject("Gate01") CurDrawableShowSubObject("Gate02") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="FactionStructureTiberiumFieldOCL">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			</CreateObjectDie>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="2000" OnDieSpawnPercentage="25"/>
+			<SupplyCenterCreate id="ModuleTag_SupplyCenterCreate"/>
+			<SupplyCenterDockUpdate id="SupplyCenter" NumberApproachPositions="-1" AllowsPassthrough="true" GoToRallyPointAfterDock="true" ShouldDockInReverse="true" MinDockTime="9s" ObjectsInLineWeight="9s" DistributedDeposit="true">
+				<ForVoiceRetreatThisIsASafeHarborToObjectFilter Include="HARVESTER"/>
+			</SupplyCenterDockUpdate>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction">
+				<UnitCreatePoint x="87.240517" y="-0.100302" z="0.0"/>
+				<NaturalRallyPoint x="131.19481" y="-0.10030200" z="0.0"/>
+			</QueueProductionExitUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" SpawnReplaceDelayData="9999s" IsOneShotData="true" FadeInTime="1.0s" InitialDelay="2.0s" CanReclaimOrphans="false">
+				<SpawnTemplate>NODHarvester</SpawnTemplate>
+			</SpawnBehavior>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="25.0" MinorRadius="25.0" Height="30.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="50.0" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="27.0" Height="25.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="20.0" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="16.0" MinorRadius="16.0" Height="20.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-22.0" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="14.0" MinorRadius="12.0" Height="22.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="52.0" y="-35.0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10.0" MinorRadius="10.0" Height="13.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="19.0" y="30.0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="21.0" Height="20.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-17.0" y="-34.0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="21.0" Height="20.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-17.0" y="34.0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="8.0" Height="75.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="19.0" y="40.0" z="0"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-40.0" y="15.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="70.0" y="20.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="70.0" y="15.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-40.0" y="-20.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="70.0" y="-15.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="70.0" y="-20.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-40.0" y="-15.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-40.0" y="20.0" z="0"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_RefinerySelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,170 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="NODLeviathanDrone" inheritFrom="BaseAircraft" KindOf="CAN_ATTACK CAN_CAST_REFLECTIONS AIRCRAFT PRELOAD NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT IGNORES_SELECT_ALL PASS_EXPERIENCE_TO_SLAVER HAS_HEALTH_BAR LINE_OF_SIGHT_IGNORES_BUILDINGS SKIP_IDLE_WHEN_CAPTURED DRONE SURPRISE_ATTACKER" Description="Desc:LeviathanDrone" TypeDescription="Type:LeviathanDrone" Side="NOD" EditorName="NODLeviathanDrone" BuildTime="1.5" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_Drone" ButtonImage="Portrait_Drone" VoicePriority="156" BuildCost="150">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODLeviathanDrone</DisplayName>
+		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
+		<DisplayName>Name:NODLeviathanDrone</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Speed="200" Locomotor="AlienInvaderFighter"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" MinLODRequired="LOW" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUL_AIRCRAFTM_DRONE"/>
+					<WeaponFireFXBone BoneName="FXWeapon"/>
+					<WeaponLaunchBone BoneName="FXWeapon"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_CHILD">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUL_AIRCRAFTM_DRONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUL_AIRCRAFTM_DRONE"/>
+					<Texture Original="NUL_AircraftM" New="NUL_AircraftM_DMG"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail" AttachToBoneInAnotherModule="nodaircraftmdrone" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_CHILD">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Template="LeviathanDroneAntiAirLaser"/>
+					<Weapon Template="LeviathanDronePurifyingAntiAirLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" MaxQueueEntries="1"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL>
+					<OCL>OCL_NODLeviathanDroneDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" DieOnMastersDeath="true"/>
+			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" SpawnOffsetRadius="160" CirclesForAttack="true">
+				<UnitAITargetChooserData/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="500"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="8" MinorRadius="5.0" Height="5" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_PAC_Weapon_Invader_Attack" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_PAC_Weapon_Invader_MoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<EvaEvents EvaEventDieOwner=""/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="450" ShroudClearingRange="300"/>
+	</GameObject>
+</AssetDeclaration>

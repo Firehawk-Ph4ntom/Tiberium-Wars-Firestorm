@@ -1,0 +1,42 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="AlienTemporalWormhole" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE INERT_SHROUD_REVEALER RESIST_EMP" RadarPriority="NOT_ON_RADAR" Side="Alien" EditorName="AlienTemporalWormhole" EditorSorting="SYSTEM" CommandSet="EmptyCommandSet">
+		<DisplayName>AlienTemporalWormhole</DisplayName>
+		<ArmorSet Armor="StructureArmor" DamageFX="GenericStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXTEMPORALWORMHOLE"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="AlienTemporalWormholeBase" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Animation AnimationName="FXTEMPORALWORMHOLE" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="0.5s" DestructionDelay="5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="FADED"/>
+			</SlowDeath>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="FADED"/>
+			</DestroyDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_ALI_TemporalWormhole_Die"/>
+			</FXListBehavior>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="TemporalWormholeWeaponTrigger"/>
+			</FireWeaponUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="30s" MaxLifetime="30s" DeathType="FADED"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_TemporalWormholeLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="150"/>
+	</GameObject>
+</AssetDeclaration>

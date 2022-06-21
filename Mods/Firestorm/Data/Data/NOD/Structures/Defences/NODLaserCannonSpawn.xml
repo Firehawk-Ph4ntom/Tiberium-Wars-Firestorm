@@ -1,0 +1,206 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
+	</Includes>
+	<GameObject id="NODLaserCannonSpawn" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_NODLaserTurret" ButtonImage="Portrait_NODLaserTurret" Side="NOD" BuildCost="400" BuildTime="4" CommandSet="GDIWatchTowerCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED AUTO_ACQUIRABLE_BY_AI COVER CAN_ATTACK NOT_SELLABLE KEEP_CLASSIFIED_WHEN_DEAD ATTACK_NEEDS_LINE_OF_SIGHT CANT_TOGGLE_POWER CAN_SEE_THROUGH_STRUCTURE FS_BASE_DEFENSE LINE_OF_SIGHT_IGNORES_BUILDINGS" PlacementViewAngle="225d" EditorName="NODLaserTurret" Description="Desc:NODLaserCannonSpawn" WeaponCategory="CANNON" TypeDescription="Type:NODLaserCannon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODLaserCannon</DisplayName>
+		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FX_Weapon01 FX_Weapon02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBLsrCann_SKN_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REPAIRING_DISABLED">
+					<Model Name="NBLsrCann_D3SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NBLsrCann_D3SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBLsrCann_D2SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBLsrCann_SKN_FS"/>
+					<Texture Original="NBLsrCann" New="NBLsrCannD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NBLsrCann_IDLA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Animation AnimationName="NBLsrCann_BLD" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBLsrCann_BLD" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REPAIRING_DISABLED" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="ONCE"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBLsrCann_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="NBLsrCann_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODLaserCannonWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODLaserCannonPurifyingWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="360" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="180.0">
+						<TurretAITargetChooserData StartupDelay="1.5s"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_NOD_DefensiveTurret_Explode"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+			</FXListBehavior>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" DieOnMastersDeath="true" DieOnMastersDeathType="SUICIDED"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="7.0s">
+				<DieMuxData DeathTypes="SUICIDED"/>
+			</SlowDeath>
+			<KeepObjectDie id="ModuleTag_KeepObjectForRepair">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			</KeepObjectDie>
+			<InitiateRepairDie id="ModuleTag_InitiateRepair" DelayTime="20s" Options="REPAIR_INSTANT" InstantRepairModelCondition="USER_1" InstantRepairAnimDuration="1.5s" MasterDeadDieFX="FX_TEMPLarge">
+				<Die DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			</InitiateRepairDie>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepairNODDefenseSpawns.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<UpgradeDie id="ModuleTag_UpgradeDie" UpgradeId="Upgrade_Veterancy_HEROIC">
+				<DieMuxData DeathTypes="ALL" />
+			</UpgradeDie>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1000.0"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_GenericTurret_Regenerate" RequiredFlags="USER_1"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="9.0" Height="23.0" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_LaserTurret" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_GenericTurret_MoveStart" AudioType="soundTurretMoveLoop"/>
+			<AudioEntry Sound="NOD_GenericTurret_Deploy" AudioType="soundPrepositioned"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="375" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

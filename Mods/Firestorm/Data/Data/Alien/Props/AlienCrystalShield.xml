@@ -1,0 +1,48 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
+	</Includes>
+	<GameObject id="AlienCrystalShield" Side="Alien" EditorSorting="MISC_MAN_MADE" CommandSet="EmptyCommandSet" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE INERT_SHROUD_REVEALER RESIST_EMP" RadarPriority="NOT_ON_RADAR" EditorName="AlienCrystalShield">
+		<DisplayName>AlienCrystalShield</DisplayName>
+		<ArmorSet Armor="StructureArmor" DamageFX="GenericStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXShldAbility_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Animation AnimationName="FXShldAbility" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0.5s" SinkRate="2.4" DestructionDelay="5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="FADED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_DeathFaded" SinkRate="0" Fade="true" FadeTime="2s" DestructionDelay="2s">
+				<DieMuxData DeathTypes="FADED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_ALI_StasisShield_Die"/>
+			</FXListBehavior>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="AlienCrystalShieldWeaponTrigger"/>
+			</FireWeaponUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" DeathType="FADED" MinLifetime="20s" MaxLifetime="20s"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="SPHERE" MajorRadius="130"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_StasisShieldLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="150"/>
+	</GameObject>
+</AssetDeclaration>

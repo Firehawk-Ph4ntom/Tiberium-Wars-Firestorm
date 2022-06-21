@@ -1,0 +1,57 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="GDIParkedOx" Side="GDI" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" EditorName="GDIParkedOx" SelectPortrait="Portrait_GDIOx" ButtonImage="Portrait_GDIOx" EditorSorting="MISC_MAN_MADE" Description="Desc:GDIOx" TypeDescription="Type:GDIOx" ThreatLevel="1">
+		<DisplayName>Name:GDIOx</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX" id="Armor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GPPOx01"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GPPOx01"/>
+					<Texture Original="GuDropShip" New="GuDropShipD"/>
+					<Texture Original="GBWarFacBib" New="GBWarFacBib_D"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GPPOx01"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIDropShipDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="ExplodingBarrelWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2500.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="37.0" MinorRadius="3.0" Height="25.0"/>
+			<Shape Type="BOX" MajorRadius="8.0" MinorRadius="30.0" Height="25.0">
+				<Offset x="-7.0" y="0.0" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

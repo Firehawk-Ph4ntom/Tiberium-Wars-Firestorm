@@ -1,0 +1,85 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="GDIParkedMiniOrca" Side="GDI" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" EditorName="GDIParkedMiniOrca" SelectPortrait="Portrait_GDIMiniOrca" ButtonImage="Portrait_GDIMiniOrca" EditorSorting="MISC_MAN_MADE" Description="Desc:GDIOrca" TypeDescription="Type:GDIOrca" ThreatLevel="1">
+		<DisplayName>Name:GDIOrca</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<ArmorSet Armor="GDIAircraftCeramicArmor" DamageFX="VehicleDamageFX" Conditions="PLAYER_UPGRADE"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GPPMOrca01"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="GPPMOrca01"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrcaD_UGCA"/>
+					<ParticleSysBone BoneName="exhaust01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GPPMOrca01"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_D"/>
+					<ParticleSysBone BoneName="exhaust01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="GPPMOrca01"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrcaD_UGCA"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GPPMOrca01"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_D"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GPPMOrca01"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_UGCA"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDICeramicMiniOrcaDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIMiniOrcaDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="ExplodingBarrelWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<ModelConditionUpgrade id="ModuleTag_CeramicArmorModelCondition" AddConditionFlags="USER_6">
+				<TriggeredBy>Upgrade_CeramicArmor</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ArmorUpgrade id="ModuleTag_ArmorUpgrade" Permanent="true" ArmorSetFlag="PLAYER_UPGRADE">
+				<TriggeredBy>Upgrade_CeramicArmor</TriggeredBy>
+			</ArmorUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_CeramicArmorDeathUpgrade" StatusToSet="RIDER4">
+				<TriggeredBy>Upgrade_CeramicArmor</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="10.0" MinorRadius="5.0" Height="5.0"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseWallSegment.xml"/>
+	</Includes>
+	<GameObject id="AlienWallSegment" inheritFrom="BaseWallSegment" Side="Alien" SelectPortrait="Portrait_AlienWallSegment" ButtonImage="Portrait_AlienWallSegment" KindOf="SELECTABLE IMMOBILE TIBERIUM_BASED CAN_CAST_REFLECTIONS STRUCTURE PRELOAD NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY WALL_SEGMENT RESIST_EMP COVER AUTO_ACQUIRABLE_BY_AI HEALED_BY_TIBERIUM" BuildFadeInOnCreateTimeSeconds="1s" BuildFadeInOnCreateTime="1" EditorName="AlienWallSegment">
+		<DisplayName>Name:AlienWallSegment</DisplayName>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUWALL"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="AUWALL"/>
+					<Texture Original="AUWall" New="AUWallD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="AUWALL"/>
+					<Texture Original="AUWall" New="AUWallD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="AUWALL"/>
+					<Texture Original="AUWall" New="AUWallD"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" DestructionDelay="3s" FadeTime="3s" Fade="true">
+				<Sound List="ALI_Building_Die"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedS"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedS"/>
+				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleS"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Includes/GenericAlienBuildingDestructionNoSpawn.xml"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingSuicideNoSpawn.xml"/>
+		</Behaviors>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Building_LightDamage" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
+		</AudioArraySound>
+	</GameObject>
+</AssetDeclaration>

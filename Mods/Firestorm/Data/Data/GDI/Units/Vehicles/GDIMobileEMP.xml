@@ -1,0 +1,232 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VehicleAG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VehicleAG_DMG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VehicleAG_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VehicleAG_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\HC_GUL_VehicleAG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_IDLU.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_PACK.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIMobileEMP\GUL_VEHICLEAG_UPCK.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIMobileEMP" inheritFrom="BaseVehicle" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE SIEGE_WEAPON CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIMobileEMP" TypeDescription="Type:GDIMobileEMP" Side="GDI" EditorName="GDIMobileEMP" BuildTime="20" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_GDIMobileEMP" ButtonImage="Portrait_GDIMobileEMP" VoicePriority="184" ThreatLevel="10" WeaponCategory="CANNON" BuildCost="2000" MaxSimultaneousOfType="3">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMobileEMP</DisplayName>
+		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIMedicalBay</RequiredObject>
+			<RequiredObject>GDIArmory</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIMammothLocomotor" Condition="NORMAL" Speed="50.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" InitialRecoilSpeed="16" MaxRecoilDistance="10" RecoilDamping="2" RecoilSettleSpeed="3" ExtraPublicBone="bone_tread_left bone_tread_right" TrackMarks="EXTnkTrack" TrackMarksLeftBone="bone_tread_left" TrackMarksRightBone="bone_tread_right" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="GUL_VEHICLEAG_SKN"/>
+					<WeaponFireFXBone BoneName="gag_mirror17"/>
+					<WeaponRecoilBone BoneName="gag_mirror17"/>
+					<WeaponLaunchBone BoneName="gag_mirror17"/>
+					<Turret TurretNameKey="turret" TurretPitch="gag_pitch01" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUL_VEHICLEAG_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8" RetainSubObjects="true">
+					<Model Name="GUL_VEHICLEAG_SKNADAR"/>
+					<Texture Original="GUL_VehicleAG" New="GUL_VehicleAG_DMG"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" RetainSubObjects="true">
+					<Model Name="GUL_VEHICLEAG_SKN"/>
+					<Texture Original="GUL_VehicleAG" New="GUL_VehicleAG_DMG"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8" RetainSubObjects="true">
+					<Model Name="GUL_VEHICLEAG_SKNADAR"/>
+					<Texture Original="GUL_VehicleAG" New="GUL_VehicleAG_DMG"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="GUL_VEHICLEAG_SKN"/>
+					<Texture Original="GUL_VehicleAG" New="GUL_VehicleAG_DMG"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="roottransform" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="turret" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="chassis" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8" RetainSubObjects="true">
+					<Model Name="GUL_VEHICLEAG_SKNADAR"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Animation AnimationName="GUL_VEHICLEAG_UPCK" AnimationMode="ONCE" AnimationBlendTime="5" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING">
+					<Animation AnimationName="GUL_VEHICLEAG_PACK" AnimationMode="ONCE" AnimationBlendTime="5" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DEPLOYED" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GUL_VEHICLEAG_IDLU" AnimationMode="LOOP" AnimationBlendTime="5"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Animation AnimationName="GUL_VEHICLEAG_MOVA" AnimationMode="LOOP" AnimationBlendTime="5"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUL_VEHICLEAG_MOVA" AnimationMode="LOOP" AnimationBlendTime="5"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<LeftTread>"bone_tread_left"</LeftTread>
+				<RightTread>"bone_tread_right"</RightTread>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMamm_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="FXTracksLF" FXParticleSystemTemplate="TreadDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="TreadDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLF" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMobileEMPCannon"/>
+					<TurretSettings TurretTurnRate="50" TurretPitchRate="20" MinimumPitch="-30d" AllowsPitch="true">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="DeployStyleAIDummyFixerWeapon"/>
+					<TurretSettings TurretTurnRate="50">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="1" SinkDelay="3s" DestructionDelay="7s">
+				<OCL>
+					<OCL>OCL_GDIPredatorTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDIMammothExplodeWithVoice"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<DeployStyleAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" UnpackTime="3s" PackTime="3s" MustDeployToAttack="true">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" CheckVisionRange="true" RotateToTargetWhenAiming="false"/>
+			</DeployStyleAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3500"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_Specter_deploy" RequiredFlags="UNPACKING" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="30.0" MinorRadius="20.0" Height="18.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-3.0" y="0.0" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_MobileEMP_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="MammothMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="MammothIdleLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="450" ShroudClearingRange="400"/>
+		<CrusherInfo CrusherLevel="2" CrushableLevel="2"/>
+	</GameObject>
+</AssetDeclaration>

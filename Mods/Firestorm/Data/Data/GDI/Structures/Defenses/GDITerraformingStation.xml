@@ -1,0 +1,125 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDITerraformingStation\GBTERASTA_ASN_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
+	</Includes>
+	<GameObject id="GDITerraformingStation" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_GDISonicEmitter" ButtonImage="Portrait_GDISonicEmitter" Side="GDI" BuildCost="2000" BuildTime="20" EnergyProduction="-15" CommandSet="GDITerraformingStationCommandSet" KindOf="STRUCTURE SELECTABLE CAN_ATTACK IMMOBILE CAN_CAST_REFLECTIONS FS_BASE_DEFENSE POWERED AUTO_ACQUIRABLE_BY_AI COVER" EditorName="GDISonicEmitter" WeaponCategory="CANNON" TypeDescription="Type:GDITerraformingStation" Description="Desc:GDITerraformingStation">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDITerraformingStation</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIElectroStaticAccelerator</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIArmory</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD" ConquerMetricsOverrideDPS="500" ConquerMetricsOverrideDamageType="CANNON"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBTeraSta_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON_01"/>
+					<Turret TurretNameKey="Bone_Turret" TurretPitch="Bone_Turret_Pitch" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBTERASTA_ASN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBTeraSta_D3SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBTeraSta_D2SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBTeraSta_SKN"/>
+					<Texture Original="GBTeraformStation" New="GBTeraformStation_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBTeraSta_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBTeraSta_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBTeraSta_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBTeraSta_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBTeraSta_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="bone_stealthdetector" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISonicShockWaveCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISonicShockWaveCannonOverloadBeam" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="180" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData StartupDelay="1.5s"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<LinearDamageUpdate id="ModuleTag_LinearDamageUpdate" StartDistanceOffset="50" Radius="10" Length="400" SweepFXList="FX_TeraSweep" SweepWeapon="GDITerrainformingStationSweepWeapon" Speed="125"/>
+			<!-- Storm Shield Ability -->
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>GDITerraformingStationIonStormKiller</SpawnTemplate>
+			</SpawnBehavior>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_ElectroStaticAccelUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIElectroStaticAccelerator</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ElectroStaticAccelAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_GDIElectroStaticAccelerator</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="7000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="19" MinorRadius="19" Height="4.7" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="13" MinorRadius="13" Height="41" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_TerraformingStationSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="500"/>
+		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

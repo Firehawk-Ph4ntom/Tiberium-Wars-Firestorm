@@ -1,0 +1,357 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISK_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKA_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKD2_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKD3_SN_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
+	</Includes>
+	<GameObject id="NODObelisk" inheritFrom="BaseDefenceStructure" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS STRUCTURE FS_BASE_DEFENSE POWERED COVER AUTO_ACQUIRABLE_BY_AI CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS" Description="Desc:NODObelisk" TypeDescription="Type:NODObelisk" PlacementViewAngle="315d" Side="NOD" EditorName="NODObelisk" BuildTime="25" EnergyProduction="-15" CommandSet="NODObeliskCommandSet" SelectPortrait="Portrait_NODObeliskofLight" ButtonImage="Portrait_NODObeliskofLight" WeaponCategory="CANNON" BuildCost="2500">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODObelisk</DisplayName>
+		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXBONE01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBObelisk_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBObeliskA_SN_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBObeliskD2_SN_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODObDamagedSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODObDamagedDist" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBObeliskD2_SN_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODObDamagedSpew" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NODObDamagedSpewDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="NODObDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBObeliskD3_SN_FS"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" StateName="STATE_Buildup">
+					<Animation AnimationName="NBObeliskA_AN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="NBObeliskD2_AN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged">
+					<Animation AnimationName="NBObeliskD2_AN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBObeliskD3_AN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Crystal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBObeliskCrstl"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="NBOBELISKCRSTL" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREATTACK_A WEAPON_UPGRADED_01 WEAPON_UPGRADED_03">
+					<Animation AnimationName="NBOBELISKCRSTL" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FX_Weapon" FXParticleSystemTemplate="NODObeliskFireDistort" FollowBone="false"/>
+					<ParticleSysBone BoneName="FX_Weapon" FXParticleSystemTemplate="NODObeliskFireGlowYellow" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREATTACK_A WEAPON_UPGRADED_01">
+					<Animation AnimationName="NBOBELISKCRSTL" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FX_Weapon" FXParticleSystemTemplate="NODObeliskFireDistort" FollowBone="false"/>
+					<ParticleSysBone BoneName="FX_Weapon" FXParticleSystemTemplate="NODObeliskFireGlowBlue" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREATTACK_A">
+					<Animation AnimationName="NBOBELISKCRSTL" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FX_Weapon" FXParticleSystemTemplate="NODObeliskFireDistort" FollowBone="false"/>
+					<ParticleSysBone BoneName="FX_Weapon" FXParticleSystemTemplate="NODObeliskFireGlow" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBOBELISKCRSTL" AnimationMode="MANUAL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="FXBone01" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDraw2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="2">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="2">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="3">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="3">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" LaserStateID="1" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" LaserStateID="2" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort3" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" LaserStateID="3" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODObeliskLaser"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODObeliskPurifyingLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="NODObeliskAntiInfantryLaser"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="NODObeliskAntiInfantryPurifyingLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</AudioLoopUpgrade>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
+			<SweepingLaserState id="ModuleTag_AntiInfantryLaserState" LaserId="2" Radius="25.0" SweepFXList="FX_NodLaserSweep" VeteranSweepFXList="FX_NodLaserSweepHeroic" SweepWeapon="NODObeliskSweepWeapon"/>
+			<SweepingLaserState id="ModuleTag_AntiInfantryPurifyingLaserState" LaserId="3" Radius="25.0" SweepFXList="FX_NodLaserSweep" VeteranSweepFXList="FX_NodLaserSweepHeroic" SweepWeapon="NODObeliskPurifyingSweepWeapon"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Medium"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
+			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="7500.0"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_Obelisk_LaserChargeUp" RequiredFlags="PREATTACK_A" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="18.0" Height="10.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="13.0" Height="10.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="0" y="0" z="10"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10.0" Height="10.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="0" y="0" z="20"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="15.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="2" y="0" z="30"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5.0" Height="15.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="5" y="0" z="45"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="4.0" Height="14.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="9" y="0" z="60"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-2.0" y="2.0" z="40"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="5.0" y="5.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="2.0" y="2.0" z="40"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.0" y="-5.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="2.0" y="-2.0" z="40"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="5.0" y="-5.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-2.0" y="-2.0" z="40"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.0" y="5.0" z="0"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_ObeliskOfLightSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="500"/>
+		<ProjectedBuildabilityInfo Radius="10.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

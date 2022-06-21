@@ -1,0 +1,186 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NURepVeh.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NURepVeh_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NURepVeh_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NURepVeh_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_IDL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_R01.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_R02.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_R03.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_R04.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_R05.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_SN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEH_STLTH.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPhantom\NUREPVEHR_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="NODPhantom" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODPhantom" ButtonImage="Portrait_NODPhantom" Side="NOD" BuildCost="2000" BuildTime="20" CommandSet="NODPhantomCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" VoicePriority="80" EditorName="NODPhantom" Description="Desc:NODPhantom" TypeDescription="Type:NODPhantom">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPhantom</DisplayName>
+		<GameDependency>
+			<RequiredObject>NODOperationsCenter</RequiredObject>
+			<RequiredObject>NODSecretShrine</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIRigLocomotor" Condition="NORMAL" Speed="60"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" TrackMarks="EXTnkTrack" ExtraPublicBone="FXTracksL FXTracksR" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="NUREPVEH_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUREPVEH_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" RetainSubObjects="true">
+					<Model Name="NUREPVEHR_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NUREPVEH_SN"/>
+					<Texture Original="NURepVeh" New="NURepVeh_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING DAMAGED" RetainSubObjects="true">
+					<Model Name="NUREPVEH_SN"/>
+					<Texture Original="NURepVeh" New="NURepVeh_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NUREPVEH_SKN"/>
+					<Texture Original="NURepVeh" New="NURepVeh_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NUREPVEH_SKN"/>
+					<Texture Original="NURepVeh" New="NURepVeh_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" RetainSubObjects="true">
+					<Model Name="NUREPVEH_SN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableShowSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableShowSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableShowSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUREPVEH_AN" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="5"/>
+				</AnimationState>
+				<LeftTread>"FXTracksL"</LeftTread>
+				<RightTread>"FXTracksR"</RightTread>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMamm_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL_DYNAMIC" Texture="Decal_Repair_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>NODPhantomRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<SlowDeath id="ModuleTag_Death" DeathObjectStatusBits="DONT_CLEAR_FOR_BUILD" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODPhantomDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<Sound Type="INITIAL" List="NOD_Generic_VoiceDieMS"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Includes/GenericUnpackPower.xml"/>
+			<xi:include href="DATA:Includes/GenericUnpackUpdate.xml"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="1.5s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>NODPhantomDeployed</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<AISpecialPowerUpdate id="ModuleTag_RigUnpackAI" CommandButtonName="Command_UnPackPhantom" SpecialPowerAIType="SPECIAL_POWER_AOE_BUFF" UnitKindOf="VEHICLE" MinimumCutoff="5"/>
+			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2400"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_Specter_deploy" RequiredFlags="UNPACKING" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="25" MinorRadius="17" Height="19" ContactPointGeneration="VEHICLE">
+				<Offset x="0.84" y="0" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Phantom_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_MRT_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Phantom_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="NOD_Phantom_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<!-- Triggered when built from GDI factories -->
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="GDIReclamatorHub"/>
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="GDIWarFactory"/>
+			<!-- Triggered when built from Nod factories -->
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="NODWarmechFacility"/>
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="NODDropZone"/>
+			<!-- Triggered when built from Alien factories -->
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="AlienWarpChasm"/>
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="AlienGateway"/>
+			<!-- Safety in case we do this in some campaign mission -->
+			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="ReinforcementBay"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="RigMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="PitbullIdleLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<EvaEvents EvaEventPromotedOwner=""/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="300"/>
+	</GameObject>
+</AssetDeclaration>

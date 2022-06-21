@@ -1,0 +1,80 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODParkedBeamCannon" Side="NOD" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODBeamCannon" ButtonImage="Portrait_NODBeamCannon" EditorName="NODParkedBeamCannon" EditorSorting="MISC_MAN_MADE" Description="Desc:NODBeamCannon" TypeDescription="Type:NODBeamCannon" ThreatLevel="1">
+		<DisplayName>Name:NODBeamCannon</DisplayName>
+		<ArmorSet Armor="GenericVehicleArmor_DozerBlade" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="NUBEAMCANNON_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NUBEAMCANNONR_SKN"/>
+					<ParticleSysBone BoneName="CHASIS01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="CHASIS01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="CHASIS01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NUBEAMCANNON_SKN"/>
+					<Texture Original="NUBasilisk2" New="NUBasilisk2_D"/>
+					<Texture Original="NUScorpionTank" New="NUScorpionTankD"/>
+					<Texture Original="NUDevil" New="NUDevil_D"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_DOZERBLADE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NUBEAMCANNON_SKN"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_DOZERBLADE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DeathFX">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMAMM_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODBasiliskBeamDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="BOX" MajorRadius="19" MinorRadius="10.0" Height="11.5" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

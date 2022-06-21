@@ -1,0 +1,255 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRecHub.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRecHub_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRecHub_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRecHubD.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRecHubD_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\HC_GBRecHub.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR_BLD_AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR_D2SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR_D3AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR_D3SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR1_CLS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR1_OPN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECDOOR1_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_BLD_AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_BLD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_D2AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_D2SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_D3AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_D3SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUB_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIReclamatorHub\GBRECHUBSRF_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDIReclamatorHub" inheritFrom="BaseStructure" SelectPortrait="Portrait_ReclamationHUB" ButtonImage="Portrait_ReclamationHUB" Side="GDI" BuildCost="3000" BuildTime="30" EnergyProduction="-10" CommandSet="GDIReclamatorHubCommandSet" KindOf="PRELOAD STRUCTURE SELECTABLE UNIQUE_UNIT IMMOBILE NEED_BASE_FOUNDATION FS_FACTORY AUTO_RALLYPOINT FS_WAR_FACTORY CAN_CAST_REFLECTIONS COVER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI" PlacementViewAngle="-45d" ThreatLevel="3" EditorName="GDIReclamatorHub" Description="Desc:GDIReclamatorHub" TypeDescription="Type:GDIReclamatorHub" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIReclamatorHub</DisplayName>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIArmory</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="FRONT"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBRECHUB_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBRECHUB_BLD_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBRECHUB_D3SN"/>
+					<Texture Original="GBRecHub_SPM" New="GBRecHubD_SPM"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBRECHUB_D2SN"/>
+					<Texture Original="GBRecHub_SPM" New="GBRecHubD_SPM"/>
+					<ParticleSysBone BoneName="FXFireBone01" FXParticleSystemTemplate="GDISiloDamagedDist2" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFireBone01" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFireBone01" FXParticleSystemTemplate="GDIPPDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFireBone02" FXParticleSystemTemplate="GDIRecHubSteam" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBRECHUB_SKN"/>
+					<Texture Original="GBRecHub" New="GBRecHubD"/>
+					<ParticleSysBone BoneName="FXFireBone01" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFireBone01" FXParticleSystemTemplate="GDISiloDamagedDist2" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBRECHUB_BLD_AN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBRECHUB_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBRECHUB_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBRECHUB_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBRECHUB_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBRECDOOR1_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBRECDOOR1_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBRECDOOR_D3SN"/>
+					<Texture Original="GBRecHub_SPM" New="GBRecHubD_SPM"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBRECDOOR_D2SN"/>
+					<Texture Original="GBRecHub_SPM" New="GBRecHubD_SPM"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBRECDOOR_BLD_AN" AnimationMode="ONCE" AnimationSpeedFactorMin="0.2" AnimationSpeedFactorMax="0.6"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBRECDOOR1_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_WAITING_OPEN" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GBRECDOOR1_CLS" AnimationMode="MANUAL"/>
+					<ParticleSysBone BoneName="FXSteamBone02" FXParticleSystemTemplate="GDIRecHubDoorSteam01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXSteamBone04" FXParticleSystemTemplate="GDIRecHubDoorSteam02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXSteamBone05" FXParticleSystemTemplate="GDIRecHubDoorSteam02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING" StateName="STATE_Open">
+					<Animation AnimationName="GBRECDOOR1_OPN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXSteamBone02" FXParticleSystemTemplate="GDIRecHubDoorSteam01" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
+					<Animation AnimationName="GBRECDOOR1_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GBRECDOOR_D3AN" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXSmokeStack">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIRecHubSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIRecHubSmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBRECHUBSRF_SKN"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBRECHUBSRF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBRECHUBSRF_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Script> CurDrawableHideSubObject("Gate01") CurDrawableHideSubObject("Gate02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
+					<Script> CurDrawableShowSubObject("Gate01") CurDrawableShowSubObject("Gate02") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="FX_LIGHTS"/>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="2.0s" DoorWaitOpenTime="4.0s" DoorCloseTime="2.0s"/>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="0">
+				<UnitCreatePoint x="0.0" y="0.0" z="0.0"/>
+				<NaturalRallyPoint x="140.0" y="0.0" z="0.0"/>
+			</QueueProductionExitUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="4" InitialBurst="4" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>GDIBattleBaseRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/AdvancedGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/AdvancedGDIBuildingSuicide.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="GDI_ReclamatorHub_DoorOpen" Animation="GBRECDOOR1_OPN" Frame="1"/>
+				<Sound Sound="GDI_ReclamatorHub_DoorClose" Animation="GBRECDOOR1_CLS" Frame="1"/>
+				<Sound Sound="GDI_ReclamatorHub_DoorClose" Animation="GBRECHUB_BLD_AN" Frame="1"/>
+				<Sound Sound="GDI_ReclamatorHub_DoorOpen" Animation="GBRECHUB_BLD_AN" Frame="75"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="50.9191" MinorRadius="59.9782" Height="4.0201" ContactPointGeneration="STRUCTURE">
+				<Offset x="22.9193"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="26.2285" MinorRadius="52.6216" Height="1.4433" ContactPointGeneration="STRUCTURE">
+				<Offset x="-54.2267"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="42.7721" MinorRadius="47.9825" Height="35.8594" ContactPointGeneration="STRUCTURE">
+				<Offset x="19.1459" z="4.056"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="29.9513" MinorRadius="22.8266" Height="53.4016" ContactPointGeneration="STRUCTURE">
+				<Offset x="-33.485" y="22.3413" z="1.433"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="11.9497" MinorRadius="22.1418" Height="34.7111" ContactPointGeneration="STRUCTURE">
+				<Offset x="-46.5096" y="-23.1092" z="1.433"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="8.4086" MinorRadius="8.81" Height="61.0915" ContactPointGeneration="STRUCTURE">
+				<Offset x="-65.3306" y="-22.3824" z="1.433"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_ReclamatorHub_SelectMS" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_LightDamage_MS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_HeavyDamage_MS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="250" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,228 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBCommandPost_SPM_KW.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBDetectorD.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\HC_GBDetector.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBCOMPOST.W3X"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBCOMPOST_ASKN.W3X"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBCOMPOSTD2_SN.W3X"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBCOMPOSTD3_SN.W3X"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDICommandPost\GBCOMPOSTSRF_SKN.W3X"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDICommandPost" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDICommandPost" ButtonImage="Portrait_GDICommandPost" Side="GDI" BuildCost="1500" BuildTime="15" EnergyProduction="-8" CommandSet="GDICommandPostCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED FS_TECHNOLOGY NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR" PlacementViewAngle="315d" EditorName="GDICommandPost" Description="Desc:GDICommandPost" TypeDescription="Type:GDICommandPost">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDICommandPost</DisplayName>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIPowerPlant</RequiredObject>
+			<RequiredObject>GDIRefinery</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBCOMPOST_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBCOMPOST_ASKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBCOMPOSTD3_SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBCOMPOSTD2_SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBCOMPOST_FS"/>
+					<Texture Original="GBCommandPost" New="GBCommandPostD"/>
+					<Texture Original="GBWarFacBib" New="GBWarFacBib_D"/>
+					<Texture Original="GBTechCen" New="GBTechCen_D"/>
+					<Texture Original="GBDetector" New="GBDetectorD"/>
+					<Texture Original="GUupgrades" New="GUupgradesD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Script> CurDrawableHideSubObject("UG_Scan") CurDrawableHideSubObject("UG_Scan01") CurDrawableHideSubObject("UG_Scan02") CurDrawableHideSubObject("UG_StealthDetector") CurDrawableHideSubObject("UG_StealthDetector01") CurDrawableHideSubObject("UG_StealthDetector02") CurDrawableHideSubObject("UG_StealthDetector03") CurDrawableHideSubObject("UG_APAmmo") CurDrawableHideSubObject("UG_APAmmo01") CurDrawableHideSubObject("UG_APAmmo02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBComPost_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBComPostD3_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBComPostD2_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBComPostD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBComPostD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Radar" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBComPost_RDR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBComPost_RDRA"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBComPost_RDRD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBComPost_RDRD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GBComPost_RDR" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBComPost_RDRA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GBComPost_RDRD" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GBComPost_RDRD" AnimationMode="LOOP"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBCOMPOSTSRF_SKN"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBCOMPOSTSRF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBCOMPOSTSRF_SKN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsMortar" ShowSubObjects="UG_Scan UG_Scan01 UG_Scan02">
+				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			</SubObjectsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsScanner" ShowSubObjects="UG_StealthDetector UG_StealthDetector01 UG_StealthDetector02 UG_StealthDetector03">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</SubObjectsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsAPAmmo" ShowSubObjects="UG_APAmmo UG_APAmmo01 UG_APAmmo02">
+				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
+			</SubObjectsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<!-- Radar Scan -->
+			<OCLSpecialPower id="ModuleTag_OCLRadarScan" SpecialPowerTemplate="SpecialPowerRadarScan" OCL="OCL_GDICommandPostRadarScanPing" CreateLocation="CREATE_AT_LOCATION"/>
+			<!-- Bombing Run -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTagSpecialPowerBombingRunDispatch" SpecialPowerTemplate="SpecialPowerBombingRun">
+				<SpecialPower SpecialPowerTemplate="SpecialPowerBombingRun_Missile"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerBombingRun_SonicShell"/>
+			</SpecialPowerDispatchSpecialPower>
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerBombingRun_Missile" SpecialPowerTemplate="SpecialPowerBombingRun_Missile" OCL="OCL_GDICommandPostBombingRun" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE" DestinationOCL="OCL_GDICommandPostBombingRunBeacon"/>
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerBombingRun_SonicShell" SpecialPowerTemplate="SpecialPowerBombingRun_SonicShell" OCL="OCL_GDICommandPostBombingRun_SonicShell" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE" DestinationOCL="OCL_GDICommandPostBombingRunBeacon"/>
+			<AISpecialPowerUpdate id="ModuleTag_CommandPostBombingRunAI" CommandButtonName="Command_CommandPostBombingRun" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDICommandPostFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="18.4984" MinorRadius="35.5248" Height="6.1338" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.3947"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="9.3232" MinorRadius="27.7093" Height="14.4757" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.3947"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="17.52" MinorRadius="9.12" Height="17.9499" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.3947"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="7.68" MinorRadius="17.928" Height="17.9499" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.3947"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="22.4256" MinorRadius="9.12" Height="10.7699" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.3947"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="27.5207" MinorRadius="17.328" Height="6.4619" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.3947"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-30" y="44" z="20"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="25" y="44"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="25" y="-38" z="20"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="25" y="44"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-30" y="-40" z="20"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="25" y="44"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-30" y="-40" z="20"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-30" y="44"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_CommandPostSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
+		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

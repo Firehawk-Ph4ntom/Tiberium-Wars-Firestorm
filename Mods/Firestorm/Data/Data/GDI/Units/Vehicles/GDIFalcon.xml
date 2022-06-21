@@ -1,0 +1,239 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFalcon.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFalcon_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFalcon_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFalcon_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\HC_GUFalcon.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_ACCL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_DECL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_LOWA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_R01.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_R02.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCON_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCONR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIFalcon\GUFALCONR_SKNADAR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIFalcon" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_ATTACK_STEALTHED CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIFalcon" TypeDescription="Type:GDIFalcon" Side="GDI" EditorName="GDIFalcon" BuildTime="7" CommandSet="GDIFalconCommandSet" SelectPortrait="Portrait_GDIFalcon" ButtonImage="Portrait_GDIFalcon" VoicePriority="164" ThreatLevel="10" WeaponCategory="MISSILE" BuildCost="700">
+		<DisplayName>Name:GDIFalcon</DisplayName>
+		<DisplayUpgrade>Upgrade_ThermoBaricMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
+		<ArmorSet Armor="GenericHoverVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Speed="100" Locomotor="GDISandstormLocomotor"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUFALCON_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MORTARTUBE"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MORTARTUBE"/>
+					<Turret TurretNameKey="TURRET" TurretPitch="TURRET_PITCH" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUFALCON_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
+					<Model Name="GUFALCONR_SKNADAR"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GUFALCONR_SKN"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8">
+					<Model Name="GUFALCON_SKNADAR"/>
+					<Texture Original="GURig" New="GURig_D"/>
+					<Texture Original="GUFalcon" New="GUFalcon_D"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUFALCON_SKN"/>
+					<Texture Original="GURig" New="GURig_D"/>
+					<Texture Original="GUFalcon" New="GUFalcon_D"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHover01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_8">
+					<Model Name="GUFALCON_SKNADAR"/>
+					<ParticleSysBone BoneName="FXHover01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GUFALCON_SKN"/>
+					<ParticleSysBone BoneName="FXHover01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
+					<Model Name="GUFALCON_SKNADAR"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GUFALCON_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="GUFALCON_LOWA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Animation AnimationName="GUFALCON_LOWA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="0.9"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimNickName="IDLA" AnimationName="GUFALCON_IDLA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="GUFALCON_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="GUFALCON_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUFALCON_MOVA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" ExtraPublicBone="FXHOVER01 FXHOVER02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 AFFECTED_BY_EMP">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIShattererHoverDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIShattererDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DeathFX">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMamm_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="B_SPOTLIGHT" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+		</Draws>
+		<Behaviors>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconRocketWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconThermoBaricRocketWeapon" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="300" TurretPitchRate="300" MinimumPitch="-10d" PitchHeight="90%" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconMortar" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="300">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+			</WeaponSetUpdate>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.0" SinkDelay="3s" DestructionDelay="5s">
+				<OCL>
+					<OCL>OCL_GDIFalconDebris</OCL>
+				</OCL>
+				<Sound List="GDI_Generic_VoiceDieMS"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_MortarUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIArmoryPitbullMortar</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsMortar" ShowSubObjects="MortorTube">
+				<TriggeredBy>Upgrade_GDIArmoryPitbullMortar</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_MortarAudioLoop" SoundToPlay="GDI_Mortar_Upgrade">
+				<TriggeredBy>Upgrade_GDIArmoryPitbullMortar</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SpecialPower id="ModuleTag_Bombardement" SpecialPowerTemplate="SpecialPower_MortarBombardement" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIFalconMortarBombard" id="ModuleTag_BombardementUpdate" SpecialPowerTemplate="SpecialPower_MortarBombardement" UnpackTime="2s" PackTime="2s" PersistentPrepTime="1.5s" StartAbilityRange="600.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="2"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIPitbullFunctions">
+				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2800"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" ContactPointGeneration="VEHICLE" MajorRadius="20" MinorRadius="15" Height="20"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_Falcon_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_Falcon_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<NamedEntry Sound="GDI_Falcon_VoiceAttack" Name="InitiateSpotTargetBombard"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="GDI_Slingshot_IdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="GDI_Slingshot_MoveByLoop" AudioType="soundMoveLoop"/>
+			<AudioEntry Sound="GDI_Slingshot_MoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

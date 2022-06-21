@@ -1,0 +1,180 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCondor_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCondor_HC.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCondor_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCondor_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCondorD_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_ACCL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_CLS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_DECL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_HVR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_OPN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_R01.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_R02.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_R04.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitanCarryAll\GUCARRYALL_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="GDIV35Ox_CallSupportTitanWalker" inheritFrom="BaseAircraft" SelectPortrait="Portrait_GDIOx" ButtonImage="Portrait_GDIOx" Side="GDI" BuildCost="10" BuildTime="1.0" CommandSet="GDIV35OxCommandSet" KindOf="CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE" VoicePriority="52" ThreatLevel="10" EditorName="GDIV35Ox_CallSupportTitanWalker" Description="Desc:GDIOx" TypeDescription="Type:GDIOx">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIOx</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX" id="Armor"/>
+		<LocomotorSet Locomotor="GDIDropshipLocomotor" Condition="NORMAL" Speed="100.0"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="100.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" InitialRecoilSpeed="2" RecoilSettleSpeed="0.065" ExtraPublicBone="BONEGARRISON" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUCARRYALL_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFlash"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFlash"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFlash"/>
+					<ParticleSysBone BoneName="FX_RRfan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RLFan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FLFan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FRFan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<Turret TurretNameKey="Turret" TurretPitch="Barrel" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUCARRYALL_SKN"/>
+					<Texture Original="GUOrcaCarryall" New="GUOrcaCarryall_D"/>
+					<ParticleSysBone BoneName="FX_RRfan" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RRfan" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GUCARRYALL_SKN"/>
+					<ParticleSysBone BoneName="FX_RRfan" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUDROPSHIP_FP"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="5" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="GUCARRYALL_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="GUCARRYALL_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Animation AnimationName="GUCARRYALL_OPN" AnimationMode="ONCE" AnimationBlendTime="5"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING">
+					<Animation AnimationName="GUCARRYALL_CLS" AnimationMode="ONCE" AnimationBlendTime="5"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" ExtraPublicBone="FX_RRfan FX_RLFan FX_FLFan FX_FRFan">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="FxFront" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+					<ParticleSysBone BoneName="FxBack" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="FxBack" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="FxFront" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="FxFront" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="FxBack" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" MaxQueueEntries="1"/>
+			<FlammableUpdate id="ModuleTag_FlammableUpdate" AflameDuration="5s" AflameDamageAmount="3" AflameDamageDelay=".5s"/>
+			<HordeTransportContain id="ModuleTag_Contain" ContainMax="1" EnterSound="VehicleEnter" ExitSound="VehicleExit" ObjectStatusOfContained="UNSELECTABLE" AllowOwnPlayerInsideOverride="true" AllowAlliesInside="false" AllowEnemiesInside="false" AllowNeutralInside="false" KillPassengersOnDeath="true" Slots="1" FlyOffMapOnEmpty="true">
+				<PassengerFilter Rule="ANY" Include="VEHICLE"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Include="VEHICLE"/>
+				</PassengerData>
+				<InitialPayload Name="GDITitan" Count="1"/>
+			</HordeTransportContain>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDITitanCarryAllDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Ox_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="true">
+				<UnitAITargetChooserData SympathyRange="100"/>
+			</TransportHelicopterAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2500.0"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="V35DropShipLand" RequiredFlags="LANDING"/>
+				<ModelConditionSound Sound="V35DropShipTakeOff" RequiredFlags="TAKING_OFF"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="37.0" MinorRadius="3.0" Height="25.0"/>
+			<Shape Type="BOX" MajorRadius="8.0" MinorRadius="30.0" Height="25.0">
+				<Offset x="-7.0" y="0.0" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_Ox_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_Ox_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_Ox_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_Ox_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="GDI_Ox_VoiceDropoff" Name="InitiateMoveToPositionAndEvacuate"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="V35DropShipMoveLoop" AudioType="soundMoveLoop"/>
+			<AudioEntry Sound="V35DropShipIdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="V35DropShipMoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<EvaEvents EvaEventDamagedOwner="ReinforcementsUnderAttack"/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="600"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

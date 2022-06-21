@@ -1,0 +1,293 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHive.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHive_D1.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHive_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHive_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\HC_ABHive.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVE_CLS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVE_CLSS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVE_FX.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVE_FXOPN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVE_OPN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVE_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVEBLD_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVEBLD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHiveD2_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHiveD2_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHiveD2IONSHIELD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVED3_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHiveD3_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHiveD3IONSHIELD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpChasm\ABHIVEIONSHIELD_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="AlienWarpChasm" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE FS_FACTORY TIBERIUM_BASED AUTO_RALLYPOINT NOT_AUTOACQUIRABLE POWERED_POWERS_ONLY UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI HEALED_BY_TIBERIUM" Description="Desc:AlienWarpChasm" TypeDescription="Type:AlienWarpChasm" PlacementViewAngle="315d" Side="Alien" EditorName="AlienWarpChasm" ThreatLevel="3" BuildTime="30" EnergyProduction="-10" CommandSet="AlienWarpChasmCommandSet" SelectPortrait="Portrait_AlienWarpChasm" ButtonImage="Portrait_AlienWarpChasm" BuildCost="3000" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienWarpChasm</DisplayName>
+		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdvancedProduction</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>AlienReactor</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="FRONT"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXPortal">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABHive_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="ABHiveBLD_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_6">
+					<Model Name="ABHiveD3IonShield_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="ABHiveD3_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="ABHiveD2IonShield_SKN"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABHiveD2_SKN"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="ABHiveIonShield_SKN"/>
+					<Texture Original="ABHive" New="ABHive_D1"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABHive_SKN"/>
+					<Texture Original="ABHive" New="ABHive_D1"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="ABHiveIonShield_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="ABHive_CLSS" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="ABHiveBLD_AAN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Animation AnimationName="ABHive_CLSS" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Animation AnimationName="ABHive_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_WAITING_OPEN">
+					<Animation AnimationName="ABHive_CLSS" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING">
+					<Animation AnimationName="ABHive_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABHiveD3_AAN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABHiveD2_AAN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="ABHiveD2_AAN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABHiveD3_AAN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Construction_FX" OkToChangeModelColor="true" StaticModelLODMode="true" UseStandardModelNames="true">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="ABHIVE_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING">
+					<Model Name="ABHIVE_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="ABHIVE_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Model Name="ABHIVE_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Model Name="ABHIVE_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="ABHIVEBLD_AAN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING USER_1">
+					<Animation AnimationName="ABHIVE_FXOPN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="BlackHole03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterBasePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterFlarePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterGlowPurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING">
+					<Animation AnimationName="ABHIVE_FXOPN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="BlackHole03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterBase" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABWarpChasmCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_1" StateName="STATE_Rubble02">
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble02" and Prev ~= "TRANS_ReallyDamagedToRubble02" then CurDrawableSetTransitionAnimState("TRANS_ReallyDamagedToRubble02") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_ReallyDamagedToRubble02" ConditionsYes="DYING USER_1">
+					<Animation AnimationName="ABHIVED3_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady01" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady02" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlarePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterGlowPurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble01">
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble01" and Prev ~= "TRANS_ReallyDamagedToRubble01" then CurDrawableSetTransitionAnimState("TRANS_ReallyDamagedToRubble01") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_ReallyDamagedToRubble01" ConditionsYes="DYING">
+					<Animation AnimationName="ABHIVED3_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady01" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady02" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlarePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterGlowPurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedL"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedL"/>
+				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
+			</FXListBehavior>
+			<ProductionUpdate id="ModuleTag_Production" NumDoorAnimations="1" DoorOpeningTime="1s" DoorWaitOpenTime="3s" DoorCloseTime="1s" Type="VEHICLE" GiveNoXP="true">
+				<ProductionModifier RequiredUpgrade="Upgrade_ProductionDummy" TimeMultiplier="0.9" CostMultiplier="0.9">
+					<ModifierFilter Rule="ANY" Include="VEHICLE"/>
+				</ProductionModifier>
+			</ProductionUpdate>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
+				<UnitCreatePoint x="0" y="0"/>
+				<NaturalRallyPoint x="75" y="0"/>
+			</QueueProductionExitUpdate>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.8s"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="4" InitialBurst="4" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>AlienChasmRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4.0s" SinkRate="4.0" DestructionDelay="9.0s">
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<ModelConditionUpgrade id="ModuleTag_AdvProductionModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_AdvProductionAudioLoop" SoundToPlay="ALI_AdvancedProduction_Upgrade">
+				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
+			</AudioLoopUpgrade>
+			<SpawnBehavior id="ModuleTag_Spawn2" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnDisabled="true">
+				<SpawnTemplate>IonStormBuilding</SpawnTemplate>
+				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+			</SpawnBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/AdvancedAlienBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/AdvancedAlienBuildingSuicide.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="AlienProductionBuildingFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="ALI_WarpChasm_Open" Animation="ABHive_OPN" Frame="1"/>
+				<Sound Sound="ALI_WarpChasm_Close" Animation="ABHive_CLS" Frame="1"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="54.4122" MinorRadius="27.5653" Height="6.4" ContactPointGeneration="STRUCTURE">
+				<Offset x="-1.7181"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="38.6327" MinorRadius="25.0844" Height="6.4" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.2217" y="52.6469"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="38.6327" MinorRadius="25.0844" Height="6.4" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.2217" y="-52.786"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="26.7969" MinorRadius="59.0284" Height="36.736" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.0424" z="6.4059"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="26.7969" MinorRadius="50.7644" Height="21.182" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.0424" z="43.0452"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="26.7969" MinorRadius="31.4739" Height="13.1328" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.0424" z="64.2239"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_WarpChasm_SelectMS" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Building_LightDamage" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="250" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

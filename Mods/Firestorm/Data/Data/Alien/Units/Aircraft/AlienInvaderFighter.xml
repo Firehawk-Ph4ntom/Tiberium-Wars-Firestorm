@@ -1,0 +1,260 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\AlienInvaderFighter\AUINVFTR_SKN_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienInvaderFighter\AUINVFTRION_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienInvaderFighter\AUINVFTRR_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienInvaderFighter\AUINVFTRR01_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienInvaderFighter\AUINVFTRR02_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="AlienInvaderFighter" inheritFrom="BaseAircraft" SelectPortrait="Portrait_ALIENInvaderFighter" ButtonImage="Portrait_ALIENInvaderFighter" Side="ALIEN" BuildCost="10" BuildTime="1" CommandSet="EmptyCommandSet" KindOf="PRELOAD CAN_CAST_REFLECTIONS CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT AIRCRAFT HAS_HEALTH_BAR PASS_EXPERIENCE_TO_SLAVER NO_COLLIDE SKIP_IDLE_WHEN_CAPTURED ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS" WeaponCategory="CANNON" VoicePriority="6" EditorName="AlienInvaderFighter">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienInvaderFighter</DisplayName>
+		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_IonStormArmor</DisplayUpgrade>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="AlienVehicleDamageFX"/>
+		<LocomotorSet Locomotor="AlienInvaderFighter" Condition="NORMAL" Speed="200.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUInvFtr_SKN_FS"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON_"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 REALLYDAMAGED">
+					<Model Name="AUInvFtrIon_FS"/>
+					<Texture Original="AUPACarrier" New="AUPACarrier_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="AUInvFtr_SKN_FS"/>
+					<Texture Original="AUPACarrier" New="AUPACarrier_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5">
+					<Model Name="AUInvFtrIon_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="AUInvFtr_FLYA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT">
+					<Animation AnimationName="AUInvFtr_TRNL" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT">
+					<Animation AnimationName="AUInvFtr_TRNR" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="AUInvFtr_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_CHILD">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="" FXParticleSystemTemplate="AlienIonHullContrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FX_WEAPON_01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1 USER_2"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienBlueRefineryRec01" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec01" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienTiberiumLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienTiberiumLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_01" ForbiddenStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="2" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="65" LaserStateID="1" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienTiberiumLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienTiberiumLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="2">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort2" Texture1_VTile="0.5" Texture2_VTile="2" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="65" LaserStateID="2" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="2">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1" RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienInvaderFighterCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienInvaderFighterLaserCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienInvaderFighterLaserCannon_BlueIchor" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<StatusBitsUpgrade id="ModuleTag_PlanetaryDevastationUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PlanetaryDevastationAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PlanetaryDevastationModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</ModelConditionUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AudioLoopUpgrade>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production"/>
+			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL>
+					<OCL>OCL_ALIENIONInvaderFighterDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="ALI_PAC_SoundDie_SmallExplosion"/>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL>
+					<OCL>OCL_ALIENInvaderFighterDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="ALI_PAC_SoundDie_SmallExplosion"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_ALIENVehicleExplode"/>
+			</FXListBehavior>
+			<SweepingLaserState id="ModuleTag_LaserState" LaserId="1" Radius="15" SweepFXList="FX_AlienLaserSweepHitGreen" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienInvaderFighterLaserSweepWeapon"/>
+			<SweepingLaserState id="ModuleTag_LaserState2" LaserId="2" Radius="15" SweepFXList="FX_AlienLaserSweepHit" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienInvaderFighterLaserSweepWeapon_BlueIchor"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true"/>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" CirclesForAttack="true" SpawnOffsetRadius="160.0">
+				<UnitAITargetChooserData/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="500"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="ALI_PAC_Weapon_Invader_ReturnDock" RequiredFlags="COMBINED_CHILD"/>
+				<ModelConditionSound Sound="ALI_PAC_Weapon_Invader_DeployLaunch" ExcludedFlags="COMBINED_CHILD"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="3.0" Height="5.0"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_PAC_Weapon_Invader_Attack" AudioType="voiceAttack"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_PAC_Weapon_Invader_Attack" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_PAC_Weapon_Invader_MoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<EvaEvents EvaEventDieOwner=""/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

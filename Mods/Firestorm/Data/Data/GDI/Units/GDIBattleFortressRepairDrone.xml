@@ -1,0 +1,23 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="GDIRepairDrone.xml"/>
+	</Includes>
+	<GameObject id="GDIBattleFortressRepairDrone" inheritFrom="GDIRepairDrone" EditorName="GDIBattleFortressRepairDrone">
+		<LocomotorSet Speed="150" Locomotor="GDIBattleFortressRepairDroneLocomotor"/>
+		<Behaviors>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" xai:joinAction="Replace" LeashRange="150" GuardMaxRange="150" GuardWanderRange="10" StayOnSameLayerAsMaster="true"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" xai:joinAction="Replace" HealingPointsPerSecond="150" HealFX="FX_Repair" AffectAttached="true" AffectUnderAttack="true">
+				<AllowFilter Rule="ANY" Relationship="ALLIES" Include="AIRCRAFT">
+					<IncludeThing>GDIOrcaBattleFortressDeployed</IncludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
+			<AttachUpdate id="ModuleTag_AttachUpdate" xai:joinAction="Replace" ParentStatus="UNDERGOING_REPAIR" Range="150" CloseEnoughRange="20" InitialAttachDelay="0.5s" Flags="FIND_BEST_PARENT UNCONTAINED_ONLY ONE_ATTACH_PER_PARENT" Teleport="false" DetachWhenParentHealed="true" DetachWhenParentOutOfSlavedRange="true" RequireFullyHealedToDetach="true" ScanForNewParentWhenDetached="true">
+				<ObjectFilter Relationship="ALLIES" Include="AIRCRAFT">
+					<IncludeThing>GDIOrcaBattleFortressDeployed</IncludeThing>
+				</ObjectFilter>
+			</AttachUpdate>
+		</Behaviors>
+		<VisionInfo VisionRange="150" ShroudClearingRange="20"/>
+	</GameObject>
+</AssetDeclaration>

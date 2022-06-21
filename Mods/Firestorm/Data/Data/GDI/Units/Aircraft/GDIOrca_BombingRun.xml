@@ -1,0 +1,152 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="GDIOrca_BombingRun" inheritFrom="BaseAircraft" SelectPortrait="Portrait_GDIMiniOrca" ButtonImage="Portrait_GDIMiniOrca" Side="GDI" KindOf="PRELOAD CAN_CAST_REFLECTIONS AIRCRAFT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL" EditorName="GDIOrca_BombingRun">
+		<DisplayName xai:joinAction="Replace">Name:GDIOrca</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<ArmorSet Armor="GDIAircraftCeramicArmor" DamageFX="VehicleDamageFX" Conditions="PLAYER_UPGRADE"/>
+		<LocomotorSet Locomotor="OrcaBombingRunLocomotor" Condition="NORMAL" Speed="200.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMiniOrca_SKN"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon_"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="GUMiniOrca_SKN"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrcaD_UGCA"/>
+					<ParticleSysBone BoneName="exhaust01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUMiniOrca_SKN"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_D"/>
+					<ParticleSysBone BoneName="exhaust01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="GUMiniOrca_SKN"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrcaD_UGCA"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GUMiniOrca_SKN"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_D"/>
+					<ParticleSysBone BoneName="exhaust02" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GUMiniOrca_SKN"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_UGCA"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="GUMiniOrca_IDLA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_TAXIING">
+					<Animation AnimationName="GUMiniOrca_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="GUMiniOrca_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="GUMiniOrca_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="GUMiniOrca_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="GUMiniOrca_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="GUMiniOrca_FLYA" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="GUMiniOrca_FLYA" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUMiniOrca_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="exhaust01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIOrcaUpgrade" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIOrcaUpgrade02" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="exhaust02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIOrcaUpgrade" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIOrcaUpgrade02" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="Module_RandomModelCondition" Conditions="USER_1"/>
+			<StrafeAreaUpdate id="ModuleTag_StrafeAreaUpdate" WeaponName="GDIBombingRunOrcaWeapon" SweepFrequency="0.2" SweepAmplitude="5" DivingFloor="50" PreattackDistance="500" Radius="50" MinRadius="25" TargetJitterOffset="50"/>
+			<RunOffMapBehavior id="ModuleTag_RunOffMapBehavior" FlyingOffMap="true" RequiresSpecificTrigger="true"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDICeramicMiniOrcaDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Orca_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIMiniOrcaDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Orca_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="FADED"/>
+			</DestroyDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDICeramicArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<AudioLoopUpgrade id="ModuleTag_CeramicArmorAudioLoop" xai:joinAction="Remove"/>
+			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="UnitForbidCommandsEventsList">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="10.0" MinorRadius="5.0" Height="5.0"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="GDI_MiniOrca_MoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="600"/>
+	</GameObject>
+</AssetDeclaration>

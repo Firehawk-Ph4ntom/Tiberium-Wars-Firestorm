@@ -1,0 +1,211 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<GameObject
+		id="AlienPowerStore"
+		Side="Alien"
+		EditorSorting="MISC_MAN_MADE"
+		OcclusionDelay="0"
+		KindOf="IMMOBILE NO_COLLIDE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED"
+		EditorName="AlienPowerStore">
+		<DisplayName>AlienPowerStore</DisplayName>
+		<ArmorSet
+			Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyDie
+				id="ModuleTag_DestroyDie">
+				<DieMuxData
+					DeathTypes="ALL"/>
+			</DestroyDie>
+
+			<!-- Reconstruction Drones -->
+			<OCLSpecialPower
+				id="ModuleTag_OCL_SpecialPowerAlienRepairDrones"
+				SpecialPowerTemplate="SpecialPowerAlienRepairDrones"
+				OCL="OCL_SpecialPowerAlienRepairDrones"
+				CreateLocation="USE_OWNER_OBJECT"/>
+
+			<!-- Power Signature Scan -->
+			<SpecialPower
+				id="ModuleTag_PowerSignatureScan"
+				SpecialPowerTemplate="SpecialPower_PowerSignatureScan"/>
+			<RadarScanMapSpecialAbilityUpdate
+				id="ModuleTag_PowerSignatureScanUpdate"
+				SpecialPowerTemplate="SpecialPower_PowerSignatureScan"
+				PackTime="10s"
+				FaceTarget="true">
+				<IntersectionFlagsFilter
+					KindOf="FS_POWER CONSTRUCTION_YARD"/>
+			</RadarScanMapSpecialAbilityUpdate>
+
+			<!-- Tiberium Vibration Scan -->
+			<SpecialPower
+				id="ModuleTag_TiberiumVibrationScan"
+				SpecialPowerTemplate="SpecialPower_TiberiumVibrationScan"
+				UpdateModuleStartsAttack="true"/>
+			<RadarScanMapSpecialAbilityUpdate
+				id="ModuleTag_RadarScanAbilityUpdate"
+				SpecialPowerTemplate="SpecialPower_TiberiumVibrationScan"
+				PackTime="10s">
+				<IntersectionFlagsFilter ObjectStatus="HAS_TIBERIUM_UPGRADE DOES_CONTAIN_TIBERIUM"/>
+				<IntersectionFlagsFilter KindOf="HARVESTER FS_MONEY_STORAGE"/>
+				<IntersectionFlagsFilter KindOf="VEHICLE" ObjectStatus="HAS_TIBERIUM_AMMO"/>
+				<IntersectionFlagsFilter KindOf="TIBERIUM TIBERIUM_FIELD" UseLocalPlayerFilter="false"/>
+			</RadarScanMapSpecialAbilityUpdate>
+
+			<!-- Buzzer Swarm -->
+			<OCLSpecialPower
+				id="ModuleTag_SwarmOCL"
+				SpecialPowerTemplate="SpecialPower_Swarm"
+				TriggerFX="FX_AlienBlinkSwarm"
+				OCL="OCL_AlienBuzzers"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Lightning Spike -->
+			<OCLSpecialPower
+				id="ModuleTag_LightningSpikeOCL"
+				SpecialPowerTemplate="SpecialPower_LightningSpike"
+				OCL="OCL_AlienControlCenterLightningSpike"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Crystal Shield -->
+			<OCLSpecialPower
+				id="ModuleTag_CrystalShieldPower"
+				SpecialPowerTemplate="SpecialPower_CrystalShield"
+				OCL="OCL_AlienCrystalShield"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Phase Field -->
+			<SpecialPower
+				id="ModuleTag_PhaseFieldPower"
+				SpecialPowerTemplate="SpecialPower_PhaseField"
+				UpdateModuleStartsAttack="true"
+				TriggerFX="FX_AlienShieldPower"/>
+			<WeaponFireSpecialAbilityUpdate
+				id="ModuleTag_PhaseFieldPowerUpdate"
+				SpecialPowerTemplate="SpecialPower_PhaseField"
+				SpecialWeapon="AlienPhaseFieldWeaponTrigger"/>
+
+			<!-- Ichor Seed -->
+			<SpecialPowerDispatchSpecialPower
+				id="ModuleTag_AlienIchorSeedDispatch"
+				SpecialPowerTemplate="SpecialPower_AlienSeedTiberium">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_AlienSeedGreenTiberium"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_AlienSeedBlueTiberium"/>
+			</SpecialPowerDispatchSpecialPower>
+			<OCLSpecialPower
+				id="ModuleTag_OCL_IchorSeedGreen"
+				SpecialPowerTemplate="SpecialPower_AlienSeedGreenTiberium"
+				OCL="OCL_AlienSeedTiberiumLaserFX"
+				CreateLocation="CREATE_AT_LOCATION"/>
+			<OCLSpecialPower
+				id="ModuleTag_OCL_IchorSeedBlue"
+				SpecialPowerTemplate="SpecialPower_AlienSeedBlueTiberium"
+				OCL="OCL_AlienSeedBlueTiberiumLaserFX"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- WormHole -->
+			<OCLSpecialPower
+				id="ModuleTag_WormHolePower"
+				SpecialPowerTemplate="SpecialPower_WormHole"
+				OCL="OCL_AlienWormHole"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Mothership -->
+			<OCLSpecialPower
+				id="ModuleTag_SummonMothership"
+				SpecialPowerTemplate="SpecialPower_SummonMothership"
+				OCL="OCL_SummonMothership"
+				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>AlienSignalTransmitter</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+
+			<!-- Temporal WormHole -->
+			<OCLSpecialPower
+				id="ModuleTag_TemporalWormHolePower"
+				SpecialPowerTemplate="SpecialPower_TemporalWormHole"
+				OCL="OCL_TemporalWormhole"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Alien Blink Pods -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLAlienBlinkPods"
+				SpecialPowerTemplate="SpecialPower_AlienBlinkPods"
+				TriggerFX="FX_AlienMMTP"
+				OCL="OCL_AlienBlinkPods"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Orbital Ion Superstorm -->
+			<OCLSpecialPower
+				id="ModuleTag_OrbitalIonStorm"
+				SpecialPowerTemplate="SpecialPower_IonSuperstorm"
+				OCL="OCL_AlienIonSuperstorm"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Overlords Wrath -->
+			<OCLSpecialPower
+				id="ModuleTag_RiftGeneratorSpecialPower"
+				SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon"
+				UpdateModuleStartsAttack="true"
+				OCL="OCL_SuperweaponDestroyCiviliansHumanelyObject"
+				AvailableAtStart="false"
+				CreateLocation="CREATE_AT_LOCATION"/>
+			<WeaponFireSpecialAbilityUpdate
+				id="ModuleTag_OverlordsWrathUpdate"
+				SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon"
+				SpecialWeapon="OverlordsWrathWeaponTrigger"
+				UnpackTime="0s"
+				PackTime="9s"
+				WhichSpecialWeapon="1"/>
+
+		</Behaviors>
+		<AI>
+			<AIUpdate
+				id="ModuleTag_AI"/>
+		</AI>
+		<Body>
+			<HighlanderBody
+				id="ModuleTag_Body"
+				MaxHealth="1.0"
+				InitialHealth="1.0"/>
+		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceBuzzerSwarmReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPower_Swarm"
+				JustMonitorPercentReady="true"/>
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceBlinkPodsReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPower_AlienBlinkPods"
+				JustMonitorPercentReady="true"/>
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceMothershipReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPower_SummonMothership"
+				JustMonitorPercentReady="true"/>
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="OverlordsWrathReady"
+				AnnouncementEventOwner="RiftGeneratorReady"
+				SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon"
+				JustMonitorPercentReady="true"/>
+		</ClientUpdates>
+		<Geometry
+			IsSmall="true">
+			<Shape
+				MajorRadius="0.8"/>
+		</Geometry>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

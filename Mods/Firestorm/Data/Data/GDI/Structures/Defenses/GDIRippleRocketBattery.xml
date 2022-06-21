@@ -1,0 +1,172 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_StructureF.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_StructureF_DMG.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_StructureF_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_StructureF_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\HC_GDIStructureF.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_STRUCTUREF_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_STRUCTUREF_BLDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_STRUCTUREF_D3SN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIRippleRocketBattery\GSL_STRUCTUREF_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
+	</Includes>
+	<GameObject id="GDIRippleRocketBattery" inheritFrom="BaseDefenceStructure" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS UNIQUE_UNIT STRUCTURE SIEGE_WEAPON FS_BASE_DEFENSE POWERED COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:RippleRocketBattery" TypeDescription="Type:RippleRocketBattery" ThreatLevel="10" PlacementViewAngle="225d" Side="GDI" EditorName="GDIRippleRocketBattery" BuildTime="30" EnergyProduction="-15" CommandSet="GDIRippleRocketBatteryCommandSet" SelectPortrait="Portrait_GDIRippleRocketBattery" ButtonImage="Portrait_GDIRippleRocketBattery" WeaponCategory="MISSILE" BuildCost="3000" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:RippleRocketBattery</DisplayName>
+		<DisplayUpgrade>Upgrade_ThermoBaricMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIArmorySonicWeaponry</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDISpaceCommandUplink</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="fx_weapon01 fx_weapon02 fx_weapon03 fx_weapon04 fx_weapon05 fx_weapon06 fx_weapon07 fx_weapon08 fx_weapon09 fx_weapon10 fx_weapon11 fx_weapon12 fx_weapon13 fx_weapon14 fx_weapon15 fx_weapon16 fx_weapon17 fx_weapon18 fx_weapon19 fx_weapon20 fx_weapon21 fx_weapon22 fx_weapon23 fx_weapon24 fx_weapon25 fx_weapon26 fx_weapon27 fx_weapon28 fx_weapon29 fx_weapon30 fx_weapon31 fx_weapon32" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GSL_STRUCTUREF_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon"/>
+					<Turret TurretNameKey="turret" TurretPitch="pitch" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GSL_STRUCTUREF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GSL_STRUCTUREF_D3SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GSL_STRUCTUREF_SKN"/>
+					<Texture Original="GSL_StructureF" New="GSL_StructureF_DMG"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GSL_STRUCTUREF_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GSL_STRUCTUREF_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GSL_STRUCTUREF_BLDA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.7"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GSL_STRUCTUREF_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GSL_STRUCTUREF_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBAABAT_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBAABAT_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBAABAT_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBAABAT_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="b_base" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRippleRocketBatteryArtilleryMissile" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRippleRocketBatteryThermoBaricArtilleryMissile" ObjectStatus="RIDER1 WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRippleRocketBatterySonicArtillery" ObjectStatus="RIDER2"/>
+					<TurretSettings TurretTurnRate="250" TurretPitchRate="150" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
+						<TurretAITargetChooserData StartupDelay="1.5s"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_SelectLoad_MissileArtillery"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
+				<TriggeredBy>Upgrade_SelectLoad_MissileArtillery</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SonicArtillery</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
+				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_MissileArtillery</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="RIDER1" StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_SelectLoad_MissileArtillery</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER2" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadout01_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_MissileArtillery</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadout02_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="8500"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="25.0" MinorRadius="25" Height="9" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="5" MinorRadius="23" Height="9" ContactPointGeneration="STRUCTURE">
+				<Offset x="30" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="5" MinorRadius="23" Height="9" ContactPointGeneration="STRUCTURE">
+				<Offset x="-30" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="23" MinorRadius="5" Height="9" ContactPointGeneration="STRUCTURE">
+				<Offset x="0" y="25" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="23" MinorRadius="5" Height="9" ContactPointGeneration="STRUCTURE">
+				<Offset x="0" y="-25" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="12" MinorRadius="8" Height="30" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_RippleRocketSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="675" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,61 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<GameObject id="NODVertigoDisruptionPod" KindOf="PRELOAD IGNORES_SELECT_ALL TARGETABLE IMMOBILE MINE NO_COLLIDE STICK_TO_TERRAIN_SLOPE" Side="NOD" EditorName="NODVertigoDisruptionPod" EditorSorting="SYSTEM">
+		<DisplayName>Name:AbilityDisruptionPod</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXDISRUPTIONPOD"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true" StaticModelLODMode="true" UseStandardModelNames="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Sensor" SizeX="506" SizeY="506" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<InvisibilityUpdate id="ModuleTag_Invisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="250" UpdatePeriod="0.1s">
+				<InvisibilityNugget/>
+				<BroadcastObjectFilter Rule="ALL" Relationship="ALLIES">
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>TiberiumFloater</ExcludeThing>
+					<ExcludeThing>AlienCrystalShield</ExcludeThing>
+					<ExcludeThing>AlienPhaseShield</ExcludeThing>
+					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
+				</BroadcastObjectFilter>
+			</InvisibilityUpdate>
+			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
+				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
+			</InvisibilityUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="150s" MaxLifetime="150s"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_Nod_DisruptionPodExplosion"/>
+			</FXListBehavior>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_DirtHit" OrientToFlightPath="true"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="20"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_Vertigo_DisruptionPodImpact" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="DECAL" Texture="shadowi" SizeX="14" SizeY="14"/>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

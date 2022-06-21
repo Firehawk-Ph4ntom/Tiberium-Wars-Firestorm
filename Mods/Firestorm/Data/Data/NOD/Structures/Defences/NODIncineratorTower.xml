@@ -1,0 +1,130 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_StructureH.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_StructureH_DMG.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_StructureH_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_StructureH_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_STRUCTUREH_BLDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_STRUCTUREH_D3SN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODIncineratorTower\NSL_STRUCTUREH_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
+	</Includes>
+	<GameObject id="NODIncineratorTower" inheritFrom="BaseDefenceStructure" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS STRUCTURE ANTI_GARRISON SIEGE_WEAPON FS_BASE_DEFENSE POWERED UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:NODIncineratorTower" ThreatLevel="10" TypeDescription="Type:NODIncineratorTower" PlacementViewAngle="225d" Side="NOD" EditorName="NODIncineratorTower" BuildTime="35" EnergyProduction="-15" CommandSet="NODObeliskCommandSet" SelectPortrait="Portrait_IncineratorTower" ButtonImage="Portrait_IncineratorTower" WeaponCategory="BLAST" BuildCost="3500" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODIncineratorTower</DisplayName>
+		<GameDependency>
+			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NSL_STRUCTUREH_SKN"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="fxweapon01"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="fxweapon01"/>
+					<Turret TurretNameKey="nh_turret" TurretPitch="nh_pitch" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NSL_STRUCTUREH_D3SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NSL_STRUCTUREH_SKN"/>
+					<Texture Original="NSL_StructureH" New="NSL_StructureH_DMG"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NSL_STRUCTUREH_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NSL_STRUCTUREH_BLDA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.7"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBAABat_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBAABat_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="nh_hull" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXSPOTLIGHT"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="IncineratorTowerHeatRay"/>
+					<TurretSettings TurretTurnRate="180" TurretPitchRate="100" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
+						<TurretAITargetChooserData StartupDelay="1.5s"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<LinearDamageUpdate id="ModuleTag_LinearDamageUpdate" StartDistanceOffset="100" Length="725" SweepWeapon="IncineratorTowerHeatRaySweepWeapon" Speed="200"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Medium"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
+			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="8500.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="25.0" Height="5.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="5" y="0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="16.0" Height="70.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="13.0" Height="8.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-23" y="0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="6.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-23" y="0" z="8"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="13.0" Height="8.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="20.198795" y="-26.566284" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="6.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="20.198795" y="-26.566284" z="8"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="13.0" Height="8.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="20.198795" y="26.566284" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="6.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="20.198795" y="26.566284" z="8"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_IncineratorSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="675" ShroudClearingRange="500"/>
+		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

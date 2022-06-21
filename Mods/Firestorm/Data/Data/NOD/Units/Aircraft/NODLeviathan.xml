@@ -1,0 +1,250 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AircraftM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AircraftM_DMG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AircraftM_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AircraftM_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_AIDD.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_DRONE.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_FP_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_R.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="NODLeviathan" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODLeviathan" ButtonImage="Portrait_NODLeviathan" Side="NOD" BuildCost="4000" BuildTime="40" CommandSet="GenericUnitCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE AIRCRAFT HUGE_VEHICLE PRODUCED_AT_HELIPAD HAS_HEALTH_BAR SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT UNIQUE_UNIT SLAVE_OWNER" ThreatLevel="10" VoicePriority="228" Description="Desc:NODLeviathan" TypeDescription="Type:NODLeviathan" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODLeviathan</DisplayName>
+		<DisplayUpgrade>Upgrade_PropagandaBuff</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="EpicAircraftUnitArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIKodiakLocomotor" Condition="NORMAL" Speed="45.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUL_AIRCRAFTM_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON01"/>
+					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH_01"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON01"/>
+					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON02"/>
+					<WeaponMuzzleFlash WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH_02"/>
+					<WeaponLaunchBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON02"/>
+					<WeaponFireFXBone WeaponSlotID="4" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON03"/>
+					<WeaponMuzzleFlash WeaponSlotID="4" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH_03"/>
+					<WeaponLaunchBone WeaponSlotID="4" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON03"/>
+					<Turret TurretID="1"/>
+					<Turret TurretNameKey="nam_cannon01" TurretPitch="b_pitch01" TurretID="2"/>
+					<Turret TurretNameKey="nam_cannon02" TurretPitch="b_pitch02" TurretID="3"/>
+					<Turret TurretNameKey="nam_cannon03" TurretPitch="b_pitch03" TurretID="4"/>
+					<ParticleSysBone BoneName="fxengine01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxengine01" FXParticleSystemTemplate="NODAircraft_HoverFlamesA" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxengine02" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxengine02" FXParticleSystemTemplate="NODAircraft_HoverFlamesA" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxengine03" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxengine03" FXParticleSystemTemplate="NODAircraft_HoverFlamesA" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUL_AIRCRAFTM_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUL_AIRCRAFTM_SKN"/>
+					<Texture Original="NUL_AircraftM" New="NUL_AircraftM_DMG"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_02" FXParticleSystemTemplate="GDIVehicle_DamageFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_02" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_02" FXParticleSystemTemplate="GDIVehicle_DamageSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_07" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_07" FXParticleSystemTemplate="GDIVehicle_DamageFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_07" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_07" FXParticleSystemTemplate="GDIVehicle_DamageSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_07" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_CONTACT_POINT_07" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIVehicle_DamageFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIVehicle_DamageSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="nan_lflaser" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="nan_lflaser" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="nam_radar" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="nam_radar" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUL_AIRCRAFTM_SKN"/>
+					<Texture Original="NUL_AircraftM" New="NUL_AircraftM_DMG"/>
+					<ParticleSysBone BoneName="bone_contact_point_07" FXParticleSystemTemplate="GDIVehicle_DamageFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_contact_point_07" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_contact_point_07" FXParticleSystemTemplate="GDIVehicle_DamageSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_contact_point_07" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_contact_point_07" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_contact_point_07" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxenginewing01" FXParticleSystemTemplate="GDIVehicle_DamageSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NUL_AircraftM_AIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Animation AnimationName="NUL_AircraftM_AIDD" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" OkToChangeModelColor="true" ExtraPublicBone="fxengine01 fxengine02 fxengine03">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="nam_radar">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_PropagandaPulse" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED USER_2">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="600" SizeY="600" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Template="NODLeviathanCarrierWeapon"/>
+					<TurretSettings TurretTurnRate="360" TurretPitchRate="360" AllowsPitch="true">
+						<TurretAITargetChooserData ActiveWhenPerformingSpecialAbility="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
+					<Weapon Template="LeviathanArtilleryCannon"/>
+					<Weapon Template="LeviathanFirestormArtilleryCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="120" TurretPitchRate="60" MinimumPitch="-90d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="50" NaturalTurretAngle="0d" AllowsPitch="true">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="3" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
+					<Weapon Template="LeviathanArtilleryCannon"/>
+					<Weapon Template="LeviathanFirestormArtilleryCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="120" TurretPitchRate="60" MinimumPitch="-90d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="50" NaturalTurretAngle="120d" AllowsPitch="true">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="4" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
+					<Weapon Template="LeviathanArtilleryCannon"/>
+					<Weapon Template="LeviathanFirestormArtilleryCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="120" TurretPitchRate="60" MinimumPitch="-90d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="50" NaturalTurretAngle="-120d" AllowsPitch="true">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_LeviathanDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_NOD_Leviathan_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="5" SpawnReplaceDelayData="15s" InitialBurst="5" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true" PassExperienceToSpawned="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>NODLeviathanDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="PropagandaBuff_AttributeModifier" RefreshDelay="1s" Range="265">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
+			</AttributeModifierAuraUpdate>
+			<AudioLoopUpgrade id="ModuleTag_PropgandaAudioLoop" SoundToPlay="GDI_AdaptiveArmor_Upgrade">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+			</AudioLoopUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_LeviathanBuilt"/>
+			<UpgradeDie id="ModuleTag_UpgradeDie" UpgradeId="Upgrade_LeviathanBuilt">
+				<DieMuxData DeathTypes="ALL"/>
+			</UpgradeDie>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="5" SpawnOffsetRadius="160">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="13500"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="39" MinorRadius="20" Height="12" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="15"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10" MinorRadius="0" Height="20" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="35"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10" MinorRadius="0" Height="24" ContactPointGeneration="VEHICLE">
+				<Offset x="0.600000" y="-47.800000" z="9.32563"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10" MinorRadius="0" Height="24" ContactPointGeneration="VEHICLE">
+				<Offset x="40.60000" y="24.60000" z="9.32563"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10" MinorRadius="0" Height="24" ContactPointGeneration="VEHICLE">
+				<Offset x="-40.60000" y="24.60000" z="9.32563"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Leviathan_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_Leviathan_VoiceCreateMS" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_Leviathan_VoiceAttackMove" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_Leviathan_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_Leviathan_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="NOD_Leviathan_Retreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Leviathan_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="NOD_Leviathan_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_Leviathan_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="Generic_Airship_Ambient" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="650" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

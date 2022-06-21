@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="TiberiumFona01" KindOf="STRUCTURE CAN_CAST_REFLECTIONS UNATTACKABLE NOT_AUTOACQUIRABLE IMMOBILE CAN_CAST_REFLECTIONS TIBERIUM_BASED TIBERIUM SIMPLE_OBJECT_PROP RESIST_EMP CRUSHABLE_OBSTACLE" RadarPriority="STRUCTURE" Side="Neutral" EditorName="TETiberiumFauna01" EditorSorting="MISC_NATURAL" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_GreenTiberium" ButtonImage="Portrait_GreenTiberium">
+		<DisplayName>Name:NeutralTiberiumFona</DisplayName>
+		<ArmorSet Armor="TiberiumCrystalArmor" DamageFX="InfantryAlienDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBERIUMFONA01_SKN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCellAura" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkRate="1" DestructionDelay="0.1s">
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_TibCellDeathGreen"/>
+			</FXListBehavior>
+			<ToppleUpdate id="ModuleTag_ToppleUpdate" ToppleFX="FX_TibCellDeathGreen" KillWhenToppled="true"/>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="TiberiumCrystalWeapon" FireDelay="3s"/>
+			</FireWeaponUpdate>
+			<AttributeModifierPoolUpdate id="ModuleTag_AttributeModifier"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaBehavior" EffectRadius="50" HealingPercentPerSecond="2%" SurveyDelayFrames="15">
+				<AllowFilter Include="HEALED_BY_TIBERIUM"/>
+			</PassiveAreaEffectBehavior>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="5" MinorRadius="5" Height="25"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="1" ShroudClearingRange="1"/>
+		<CrusherInfo CrushableLevel="2"/>
+	</GameObject>
+</AssetDeclaration>

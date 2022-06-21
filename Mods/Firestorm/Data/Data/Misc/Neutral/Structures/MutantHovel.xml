@@ -1,0 +1,92 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="MutantHovel" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralMutantHovel" ButtonImage="Portrait_NeutralMutantHovel" CommandSet="MutantHovelCommandSet" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS CASTLE_CENTER STRUCTURE FS_BARRACKS FS_FACTORY FS_TECHNOLOGY AUTO_RALLYPOINT NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH" EditorName="MutantHovel" Description="Desc:TechBuildingMutantHovel">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TechBuildingMutantHovel</DisplayName>
+		<ArmorSet Armor="TechStructureArmor" DamageFX="FactionStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TBMutntHovl"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="TBMutntHovl_D3"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="TBMutntHovl_D2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="TBMutntHovl_D1"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TBMutntHovl_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TBMutntHovl_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="TBMutntHovl_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="TBMutntHovl_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="INFANTRY"/>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProductionExitUpdate" PlacementViewAngle="45d" ExitDelay="10">
+				<UnitCreatePoint x="-51.86" y="2.47"/>
+				<NaturalRallyPoint x="-115.98" y="2.47"/>
+			</QueueProductionExitUpdate>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<HealContain id="ModuleTag_HordeGarrison" ContainMax="1" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" AllowOwnPlayerInsideOverride="true" AllowAlliesInside="false" AllowEnemiesInside="false" AllowNeutralInside="false"  ShowPips="false" ResetInitialTeamOnCapture="true" TimeForFullHeal="5s">
+				<PassengerFilter Rule="NONE">
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantMarauderSquad</IncludeThing>
+				</PassengerFilter>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE"/>
+				</PassengerData>
+				<ExitOffset x="-51.86" y="2.47" z="0"/>
+			</HealContain>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="12." MinorRadius="71.7348" Height="20.0376" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2.03085" y="6.14268" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="78.9483" MinorRadius="12" Height="19.2361" ContactPointGeneration="STRUCTURE">
+				<Offset x="-8.44289" y="-0.67012" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="15.2663" MinorRadius="15.0678" Height="24.6407" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.82859" y="0.932892" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="8.04718" MinorRadius="8.04718" Height="56.9069" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2.4316" y="1.7344" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="MutantHovel_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,45 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="AlienSeedBlueTiberiumLaserFX" KindOf="IMMOBILE NO_COLLIDE INERT NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED RESIST_EMP" RadarPriority="NOT_ON_RADAR" Side="ALIEN" EditorName="AlienSeedBlueTiberiumLaserFX" EditorSorting="MISC_MAN_MADE" CommandSet="EmptyCommandSet">
+		<DisplayName>AlienSeedTiberiumLaserFX</DisplayName>
+		<ArmorSet Armor="StructureArmor" DamageFX="GenericStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXICHORSEEDBLUELASER"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedBaseBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedsBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedShardsBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedShardsHitBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedShardsDirtBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" ConditionsYes="IDLE">
+					<Animation AnimationName="FXICHORSEEDLASER" AnimationMode="ONCE" AnimNickName="IDL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="5s" MaxLifetime="5s" DeathType="FADED"/>
+			<CreateObjectDie id="ModuleTag_DieOCL" CreationList="OCL_AlienSeedTiberiumBlue">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_AlienIchorBlueSeedHit"/>
+			</FXListBehavior>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="500000" InitialHealth="500000"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<VisionInfo VisionRange="100" ShroudClearingRange="180"/>
+	</GameObject>
+</AssetDeclaration>

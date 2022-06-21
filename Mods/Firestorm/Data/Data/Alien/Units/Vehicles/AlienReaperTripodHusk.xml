@@ -1,0 +1,76 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="AlienReaperTripodHusk" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienAnnihilatorHusk" ButtonImage="Portrait_AlienAnnihilatorHusk" Side="ALIEN" CommandSet="EmptyCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE HUSK VALID_TARGET_FOR_C4" EditorName="AlienAnnihilatorTripodHuskUpgraded" Description="Desc:AnnihilatorTripodHusk">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AnnihilatorTripodHusk</DisplayName>
+		<ArmorSet Armor="NoArmor" DamageFX="AlienVehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AURPRTRIPODH_SKN"/>
+					<Texture Original="AURprTripod_D" New="AURprTripod_DBlue"/>
+					<Texture Original="AUupgrades" New="AUupgradesB"/>
+					<ParticleSysBone BoneName="B_LEG03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG03" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG03" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG06" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG06" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG06" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="AURPRTRIPOD_R"/>
+					<Texture Original="AURprTripod_D" New="AURprTripod_DBlue"/>
+					<Texture Original="AUupgrades" New="AUupgradesB"/>
+					<ParticleSysBone BoneName="B_LEG03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG03" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG03" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG06" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG06" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_LEG06" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="AUANLTRPD_DIEA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INVULNERABLE">
+					<Animation AnimationName="AUANLTRPD_DIEA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
+				<DieMuxData DeathTypes="ALL"/>
+				<OCL Type="INITIAL">
+					<OCL>OCL_ALIENReaperTripodHuskDebris</OCL>
+				</OCL>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_AVehicleExplodeScorch_AnnihilatorHusk"/>
+			</FXListBehavior>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceCaptureHusk" NameOfVoiceToUseForHostileEnter="VoiceCaptureHusk" EvaEventForReplace="HuskRepaired" EvaEventForCaptureAndReplace="HuskRepaired" FXForReplace="FX_Husk_Repaired" FXForCapture="FX_Husk_Captured" FXForCaptureAndReplace="FX_Husk_Captured" ReplaceWith="AlienAnnihilatorTripodHuskReplace">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+			<xi:include href="DATA:Includes/GenericHuskLifetimeUpdate.xml"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="=$MECH_HUSK_HEALTH"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="30.0561" MinorRadius="11.8139" Height="15.935" ContactPointGeneration="VEHICLE">
+				<Offset x="30.8415" y="-2.55092" z="0.0"/>
+			</Shape>
+		</Geometry>
+ 		<EvaEvents EvaEventPromotedOwner="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy=""/>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

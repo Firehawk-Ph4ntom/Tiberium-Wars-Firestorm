@@ -1,0 +1,248 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODSaboteur\NUSabtr_UGCL.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSaboteur\HC_NUSabtr_UGCL.xml"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="NODSaboteur" inheritFrom="BaseInfantry" SelectPortrait="Portrait_NODSaboteur" ButtonImage="Portrait_NODSaboteur" ThreatLevel="10" Side="NOD" BuildCost="500" BuildTime="5" CommandSet="NODSaboteurCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS INFANTRY SCORE CAN_CAPTURE PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON ENGINEER CAN_CAPTURE CAN_BE_FAVORITE_UNIT" VoicePriority="64" EditorName="NODSaboteur" Description="Desc:NODSaboteur" TypeDescription="Type:NODSaboteur" UnitTypeIcon="EngineerIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODSaboteur</DisplayName>
+		<DisplayUpgrade>Upgrade_TiberiumInfusion</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
+		<ArmorSet Conditions="PLAYER_UPGRADE" Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<ArmorSet Armor="GenericInfantryArmor" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="36"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUSabtr_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXEngineer_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2 USER_3">
+					<Model Name="NUSABTR_SKN"/>
+					<Texture Original="NUSabtr" New="NUSabtr_UGCL"/>
+					<Texture Original="HC_NUSabtr" New="HC_NUSabtr_UGCL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name="NUSABTR_SKN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3">
+					<Model Name="NUSABTR_SKN"/>
+					<Texture Original="NUSabtr" New="NUSabtr_UGCL"/>
+					<Texture Original="HC_NUSabtr" New="HC_NUSabtr_UGCL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NUSABTR_SKN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
+					<Model Name="NUSABTR_SKN"/>
+					<Texture Original="NUSabtr" New="NUSabtr_UGCL"/>
+					<Texture Original="HC_NUSabtr" New="HC_NUSabtr_UGCL"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Bored">
+					<Animation AnimationName="NUSabtr_BIDA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSabtr_BIFA" AnimationMode="ONCE" AnimationPriority="3"/>
+					<Animation AnimationName="NUSabtr_BIFB" AnimationMode="ONCE" AnimationPriority="3"/>
+					<Animation AnimationName="NUSabtr_BIFC" AnimationMode="ONCE" AnimationPriority="3"/>
+					<Animation AnimationName="NUSabtr_BIFD" AnimationMode="ONCE" AnimationPriority="3"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_attentionToBored") end if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+					<Animation AnimationName="NUSabtr_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+					<Animation AnimationName="NUSabtr_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="NUSabtr_CDTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="NUSabtr_CDTB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
+					<Animation AnimationName="NUSabtr_KDIA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUSabtr_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
+					<Animation AnimationName="NUSabtr_SMVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUSabtr_SIDA" AnimationMode="ONCE" AnimationPriority="15"/>
+					<Animation AnimationName="NUSabtr_SIFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSabtr_SIFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING" Flags="RANDOMSTART" StateName="STATE_Cover">
+					<Animation AnimationName="NUSabtr_CRNA" AnimationMode="LOOP" Distance="75"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED COVER" StateName="STATE_Cover_Selected">
+					<Animation AnimationName="NUSabtr_KAIA" AnimationMode="LOOP" AnimationBlendTime="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
+					<Animation AnimationName="NUSabtr_KBIA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="10"/>
+					<Animation AnimationName="NUSabtr_KBFA" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
+					<Animation AnimationName="NUSabtr_KBFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
+					<Animation AnimationName="NUSabtr_KBFC" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover_Selected" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="NUSabtr_RUNA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUSabtr_CHRA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
+					<Animation AnimationName="NUSabtr_AIDA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSabtr_AIFA" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSabtr_AIFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSabtr_AIFC" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Bored" then CurDrawableSetTransitionAnimState("TRANS_boredToAttention") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING SUPPRESSED">
+					<Animation AnimationName="NUSabtr_SIDA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationMustCompleteBlend="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Animation AnimationName="NUSabtr_KBIA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationMustCompleteBlend="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_boredToAttention">
+					<Animation AnimationName="NUSabtr_BATA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_attentionToBored">
+					<Animation AnimationName="NUSabtr_ABTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
+					<Animation AnimationName="NUSabtr_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed">
+					<Animation AnimationName="NUSabtr_SGTB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverToCoverAttention">
+					<Animation AnimationName="NUSabtr_KBTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverAttentionToCover">
+					<Animation AnimationName="NUSabtr_KATA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<Sound List="NOD_Saboteur_VoiceDie"/>
+				<DieMuxData DeathTypes="EXPLODED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<Sound List="NOD_Saboteur_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<Sound List="NOD_Saboteur_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<Sound List="NOD_Saboteur_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_BoobyTrapDispatch" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBuilding"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBridge"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk"/>
+			</SpecialPowerDispatchSpecialPower>
+			<!-- Place booby trap on a tech building -->
+			<SpecialPower id="ModuleTag_BoobyTrapTechBuilding" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapTechBuildingUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtTechBuildingWeapon" UnpackTime="1s" PackTime="1s" StartAbilityRange="5.0" BusyForDuration="2s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING"/>
+			<!-- Place booby trap on a garrisonable building -->
+			<SpecialPower id="ModuleTag_BoobyTrapBuilding" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapBuildingUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBuilding" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtBuildingWeapon" UnpackTime="1s" PackTime="1s" StartAbilityRange="5.0" BusyForDuration="2s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE"/>
+			<!-- Place booby trap on a bridge -->
+			<SpecialPower id="ModuleTag_BoobyTrapBridge" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBridge" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapBridgeUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBridge" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtBridgeWeapon" UnpackTime="1s" PackTime="1s" StartAbilityRange="2.0" ContactPointOverride="CENTER" BusyForDuration="2s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING"/>
+			<!-- Place booby trap on a husk -->
+			<SpecialPower id="ModuleTag_BoobyTrapHusk" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapHuskUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtHuskWeapon" UnpackTime="1s" PackTime="1s" StartAbilityRange="5.0" BusyForDuration="2s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING"/>
+			<AISpecialPowerUpdate id="ModuleTag_NODSaboteurCaptureBuildingAI" CommandButtonName="Command_CaptureBuilding" SpecialPowerAIType="SPECIAL_POWER_CAPTURE_BUILDING"/>
+			<xi:include href="DATA:Includes/NodCallForTransportInfantry.xml"/>
+			<xi:include href="DATA:Includes/CaptureBehavior.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" xai:joinAction="Replace" AttributeModifier="AttributeModifier_TiberiumInfusion">
+				<CustomAnimAndDuration AnimState="USER_1"/>
+				<TriggeredBy>Upgrade_TiberiumInfusion</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" Permanent="true" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_CyberneticAugmentModelCondition" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODCyberneticAugmentationUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SpecialPower id="ModuleTag_RepairCivBuilding" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="2s" PackTime="2s" StartAbilityRange="5.0" BusyForDuration="2s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="15.0" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE FLIP_OWNER_AFTER_PACKING USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="75.0"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Bodyfall" Animation="NUSABTR_LNDA" Frame="5"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Saboteur_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_Saboteur_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="NOD_Saboteur_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="NOD_Saboteur_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_Saboteur_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Saboteur_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="NOD_Saboteur_VoiceBoobyTrap" Name="VoiceBoobyTrap"/>
+			<NamedEntry Sound="NOD_Saboteur_VoiceRepair" Name="VoiceEngineerRepair"/>
+			<NamedEntry Sound="NOD_Saboteur_VoiceCapture" Name="VoiceCaptureBuilding"/>
+			<NamedEntry Sound="NOD_Saboteur_VoiceCapture" Name="VoiceCaptureHusk"/>
+		</AudioArrayVoice>
+		<EvaEvents EvaEventPromotedOwner="" EvaEventDetectedEnemy="EnemyEngineerDetected" EvaEnemyObjectSightedEvent="EnemyEngineerDetected"/>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="175" ShroudClearingRange="200" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

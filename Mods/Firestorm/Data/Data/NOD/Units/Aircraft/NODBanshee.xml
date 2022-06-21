@@ -1,0 +1,202 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBanshee.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBanshee_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBanshee_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBansheeB.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBansheeD.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_BLD.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_FLYA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_FLYB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_FLYC.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_R01.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_R02.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_SKNR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_TRNL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEE_TRNR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBanshee\NUBANSHEER.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="NODBanshee" inheritFrom="BaseAircraft" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS AIRCRAFT PRELOAD NO_COLLIDE SCORE ATTACK_NEEDS_LINE_OF_SIGHT HAS_HEALTH_BAR BOMBER_AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT CAN_SEE_THROUGH_STRUCTURE" Description="Desc:NODBanshee" TypeDescription="Type:NODBanshee" BuildFadeInOnCreateTimeSeconds="1.5s" Side="NOD" EditorName="NODBanshee" BuildTime="20" CommandSet="NODBansheeCommandSet" SelectPortrait="Portrait_NODBanshee" ThreatLevel="10" ButtonImage="Portrait_NODBanshee" VoicePriority="140" WeaponCategory="CANNON" BuildCost="2000">
+		<DisplayName>Name:NODBanshee</DisplayName>
+		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Speed="180" Locomotor="NODVertigoLocomotor"/>
+		<LocomotorSet Speed="30" Condition="TAXIING" Locomotor="BasicHelicopterTaxiLocomotor"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" InitialRecoilSpeed="2" MinLODRequired="LOW" ExtraPublicBone="FX_Jet_L FX_Jet_R" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUBANSHEE_SKN"/>
+					<WeaponFireFXBone BoneName="FX_WEAPON_01"/>
+					<WeaponRecoilBone BoneName="FX_WEAPON_01"/>
+					<WeaponMuzzleFlash BoneName="FX_WEAPON_01"/>
+					<WeaponLaunchBone BoneName="FX_WEAPON_01"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUBANSHEE_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUBANSHEE_SKN"/>
+					<Texture Original="NUBanshee" New="NUBansheeD"/>
+					<ParticleSysBone BoneName="Fx_Damage_R" FXParticleSystemTemplate="NODVertigoFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Fx_Damage_R" FXParticleSystemTemplate="NODVertigoDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="Fx_Damage_R" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
+					<Model Name="NUBANSHEE_SKN"/>
+					<Texture Original="NUBanshee" New="NUBansheeB"/>
+					<ParticleSysBone BoneName="Fx_Damage_R" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUBANSHEE_SKN"/>
+					<ParticleSysBone BoneName="Fx_Damage_R" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NUBANSHEE_SKN"/>
+					<Texture Original="NUBanshee" New="NUBansheeB"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="JUST_BUILT">
+					<Animation AnimationName="NUBANSHEE_BLD" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_TAXIING">
+					<Animation AnimationName="NUVert_PRK" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NUBANSHEE_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NUBANSHEE_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NUBANSHEE_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="NUBANSHEE_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NUBANSHEE_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NUBANSHEE_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" ConditionsYes="MOVING">
+					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="15"/>
+					<Animation AnimationName="NUBANSHEE_FLYB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<Animation AnimationName="NUBANSHEE_FLYC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODBansheePlasmaCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODBansheePlasmaCannonBlueTibCore" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" MaxQueueEntries="1"/>
+			<ReturnToProducerSpecialPower id="ModuleTag_ReturnToProducerSpecialPower" SpecialPowerTemplate="SpecialPowerReturnToProducer"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODBansheeDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<Sound Type="INITIAL" List="NOD_Banshee_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueTibCoreAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true" CirclesForAttack="true" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_VertigoBomb_MoveLand" RequiredFlags="RAPPELLING"/>
+				<ModelConditionSound Sound="NOD_VertigoBomb_MoveLift" RequiredFlags="CLIMBING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="18.0" MinorRadius="20.0" Height="7.0"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Banshee_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_Banshee_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_Banshee_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="NOD_Banshee_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_Banshee_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_Banshee_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Banshee_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="NOD_Banshee_VoiceMove" Name="ReturnToProducer"/>
+			<NamedEntry Sound="NOD_Banshee_VoiceRetreat" Name="ReturnToProducerWhileUnderAttack"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_VertigoBomb_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="VertigoBomberIdleMoveLoopMS" AudioType="soundAmbient"/>
+			<AudioEntry Sound="VertigoBomberIdleMoveLoopMS" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

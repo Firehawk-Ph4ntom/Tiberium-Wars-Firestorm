@@ -1,0 +1,38 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODBlackTemplarGrenadeRadiationZone" Side="NOD" EditorSorting="SYSTEM" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE INERT_SHROUD_REVEALER RESIST_EMP NO_COLLIDE" EditorName="NODBlackTemplarGrenadeRadiationZone">
+		<ArmorSet Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXBlackTemplarRadiationZoneFire" FollowBone="false"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXBlackTemplarRadiationZoneFireGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXBlackTemplarRadiationZoneFireDistortion" FollowBone="false"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="Module_RandomModelCondition" Conditions="USER_1"/>
+			<LifetimeUpdate	id="ModuleTag_LifetimeUpdate" MinLifetime="7s" MaxLifetime="7s" />
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="BlackTemplarRadiationZoneWeapon" FireDelay="0.5s"/>
+			</FireWeaponUpdate>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="25">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
+			</DestroyDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0" />
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="AmbientFireEffectMS" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

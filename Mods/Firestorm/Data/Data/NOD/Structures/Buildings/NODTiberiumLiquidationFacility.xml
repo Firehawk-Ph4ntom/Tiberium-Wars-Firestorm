@@ -1,0 +1,230 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBChemicalPt_B.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBChemicalPtD_B.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBCHEMICALPT_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBCHEMICALPT_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBCHEMICALPT_D2SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBCHEMICALPT_D3SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODChemicalPlant\NBCHEMICALPT_LF_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="NODTiberiumLiquidationFacility" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODTiberiumChemicalPlant" ButtonImage="Portrait_NODTiberiumChemicalPlant" Side="NOD" BuildCost="3000" BuildTime="30" EnergyProduction="-15" CommandSet="NODTiberiumLiquidationFacilityCommandSet" KindOf="STRUCTURE UNIQUE_UNIT SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_MONEY_STORAGE" ThreatLevel="8" PlacementViewAngle="315d" EditorName="NODTiberiumChemicalPlant" Description="Desc:NODTiberiumLiquidationFacility" TypeDescription="Type:NODTiberiumLiquidationFacility" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODTiberiumLiquidationFacility</DisplayName>
+		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBCHEMICALPT_FS"/>
+					<WeaponLaunchBone BoneName="FXBONE01"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_2">
+					<Model Name="NBCHEMICALPT_ASN_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPt_B"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBCHEMICALPT_ASN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_2">
+					<Model Name="NBCHEMICALPT_D3SN_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD_B"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NBCHEMICALPT_D3SN_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_2">
+					<Model Name="NBCHEMICALPT_D2SN_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD_B"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBCHEMICALPT_D2SN_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_2">
+					<Model Name="NBCHEMICALPT_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD_B"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBCHEMICALPT_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Model Name="NBCHEMICALPT_FS"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPt_B"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBCHEMICALPT_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBCHEMICALPT_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBCHEMICALPT_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="NBCHEMICALPT_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBCHEMICALPT_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXBONE01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODChemicalPlantBlueSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FXBONE02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODChemicalPlantBlueSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODRefinerySmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="NBCHEMICALPT_LF"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="NBCHEMICALPT_LF"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="NBCHEMICALPT_LF"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCatalystModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="99999999"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="3s" DepositAmount="50" Flags="ACTIVE_WHEN_REPAIRING" GiveNoXP="true"/>
+			<!-- Catalyst Missile -->
+			<SpecialPower id="ModuleTag_MissileLauncherSP" SpecialPowerTemplate="SpecialPowerLaunchCatalystMissile" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_MissileLauncherSPUpdate" SpecialPowerTemplate="SpecialPowerLaunchCatalystMissile" SpecialWeapon="NODCatalystMissileLauncher" UnpackTime="1s" UnpackSound="NOD_CatalystMissile_TargetCursor" PackTime="1s" StartAbilityRange="50000.0" BusyForDuration="2s" WhichSpecialWeapon="1"/>
+			<AISpecialPowerUpdate id="ModuleTag_TiberiumFacilityCatalystMissile" CommandButtonName="Command_LaunchCatalystMissile" SpecialPowerRadius="999999.0" UnitKindOf="SUPPLY_GATHERING_CENTER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<!-- Seed Tiberium -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_DispatchSpecialPowerTiberiumSeed" SpecialPowerTemplate="SpecialPowerSeedTiberium">
+				<SpecialPower SpecialPowerTemplate="SpecialPowerSeedTiberium_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerSeedTiberium_Blue"/>
+			</SpecialPowerDispatchSpecialPower>
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerSeedTiberium_Green" SpecialPowerTemplate="SpecialPowerSeedTiberium_Green" OCL="OCL_NODSeedTiberium" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE" DestinationOCL="OCL_NODSeedTiberiumBeacon"/>
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerSeedTiberium_Blue" SpecialPowerTemplate="SpecialPowerSeedTiberium_Blue" OCL="OCL_NODSeedTiberiumBlue" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE" DestinationOCL="OCL_NODSeedTiberiumBeacon"/>
+			<!-- Summon Leviathan -->
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerSummonLeviathan" SpecialPowerTemplate="SpecialPower_SummonNODLeviathan" OCL="OCL_SummonNODLeviathan" CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+			<AISpecialPowerUpdate id="ModuleTag_SpecialPowerSummonLeviathan" CommandButtonName="Command_SummonNODLeviathan" SpecialPowerRadius="999999.0" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<!-- Tib Vein Detonation -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_DispatchSpecialPowerTibVeinDetonation" SpecialPowerTemplate="SpecialPowerTibVeinDetonation">
+				<SpecialPower SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Blue"/>
+			</SpecialPowerDispatchSpecialPower>
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerTibVeinDetonationGreen" SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Green" OCL="OCL_NODVeinDetonation" CreateLocation="CREATE_AT_LOCATION"/>
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerTibVeinDetonationBlue" SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Blue" OCL="OCL_NODVeinDetonationBlue" CreateLocation="CREATE_AT_LOCATION"/>
+			<!-- No AISpecialPowerUpdate since they ignore Object Filters -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/AdvancedNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/AdvancedNODBuildingSuicide.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="40.0" MinorRadius="7.0" Height="24.0" ContactPointGeneration="NONE">
+				<Offset x="-4" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="48.0" MinorRadius="42.0" Height="10.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="10.0" Height="36.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-15.0" y="30.0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="16.0" Height="36.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-15.0" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10.0" Height="36.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-15.0" y="-30.0" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_TiberiumLiquidationFacilitySelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

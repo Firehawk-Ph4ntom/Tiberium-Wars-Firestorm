@@ -1,0 +1,408 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<!-- 
+	;  ; this means, "when doing damagefx of the same type, wait at least this many milliseconds
+	;  ; between repeated fx." this is used to prevent overwhelming the system with fx when
+	;  ; groups of things are attacking a single object. example: 8 rangers attacking a tank
+	;  ; would produce a ton of particle effects if we did one for every ranger, every time they
+	;  ; attack, but with this in place, we only do (at most) one every 500 msec.
+	;  <ThrottleTime Type="DEFAULT" Time="60ms"  -->
+	<!--  +++++++++++++++++++++  -->
+
+	<!--  For when you want absolutely no effects  -->
+	<DamageFX id="EmptyDamageFX"/>
+	<!--  +++++++++++++++++++++  -->
+
+	<!--  Good set of defaults that you can start to special case off of  -->
+	<DamageFX id="NormalDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="0.0" ThrottleTime="60ms" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+	</DamageFX>
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="VehicleDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="10.0" ThrottleTime="50ms" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Rifle DamageFX -->
+		<FXGroup Type="GDI_RIFLE" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Cannon DamageFX -->
+		<FXGroup Type="GDI_CANNON" Amount="10.0" MajorFX="FX_TankHit" MinorFX="FX_TankHit"/>
+		<!-- GDI Rocket DamageFX -->
+		<FXGroup Type="GDI_MISSILE" Amount="10.0" MajorFX="FX_GDIMissleHit" MinorFX="FX_GDIMissleHit"/>
+		<!-- GDI/Nod Mine DamageFX -->
+		<FXGroup Type="GDI_MINE" Amount="10.0" MajorFX="FX_GDIMineXP" MinorFX="FX_GDIMineXP"/>
+		<!-- GDI Bomb DamageFX -->
+		<FXGroup Type="GDI_BOMB" Amount="10.0" MajorFX="FX_GDIBombHit" MinorFX="FX_GDIBombHit"/>
+		<!-- GDI Railgun DamageFX -->
+		<FXGroup Type="GDI_RAILGUN" Amount="10.0" MajorFX="FX_RailGunHit" MinorFX="FX_RailGunHit"/>
+		<!-- GDI Grenade DamageFX -->
+		<FXGroup Type="GDI_GRENADE" Amount="10.0" MajorFX="FX_GrenadeHit" MinorFX="FX_GrenadeHit"/>
+		<!-- GDI Jugg DamageFX -->
+		<FXGroup Type="GDI_LASER" Amount="10.0" MajorFX="FX_JuggHit" MinorFX="FX_JuggHit"/>
+		<!-- GDI Sonic DamageFX -->
+		<FXGroup Type="GDI_FLAMETHROWER" Amount="10.0" MajorFX="FX_SonicHitUnit" MinorFX="FX_SonicHitUnit"/>
+		<!-- Nod Rifle DamageFX -->
+		<FXGroup Type="NOD_MACHINEGUN" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- Nod Cannon DamageFX -->
+		<FXGroup Type="NOD_CANNON" Amount="10.0" MajorFX="FX_TankHit" MinorFX="FX_TankHit"/>
+		<!-- Nod Rocket DamageFX (TIBCORE) -->
+		<FXGroup Type="NOD_MISSILE" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHit" MinorFX="FX_NOD_StealthTank_TibCoreMissileHit"/>
+		<!-- Nod Catalyst Missile -->
+		<FXGroup Type="NOD_SEED" Amount="10.0" MajorFX="FX_TibHitFX" MinorFX="FX_TibHitFX"/>
+		<!-- Nod Tib Seed -->
+		<FXGroup Type="NOD_RAILGUN" Amount="10.0" MajorFX="FX_TibSeedFX" MinorFX="FX_TibSeedFX"/>
+		<!-- Nod Laser DamageFX -->
+		<FXGroup Type="NOD_LASER" Amount="10.0" MajorFX="FX_NodLaserHit" MajorVeteranFX="FX_NodLaserHitHeroic" MinorFX="FX_NodLaserHit" MinorVeteranFX="FX_NodLaserHitHeroic"/>
+		<!-- Nod Hallucigenic Grenade DamageFX -->
+		<FXGroup Type="NOD_HALLUCINE" Amount="10.0" MajorFX="FX_None" MinorFX="FX_None"/>
+		<!-- Nod Bomb DamageFX -->
+		<FXGroup Type="NOD_BOMB" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit"/>
+		<!-- Nod Bomb Upgraded (Firestorm Ignition) DamageFX -->
+		<FXGroup Type="ALIEN_SONIC" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit" MajorVeteranFX="FX_NODFirestormBombHit" MinorVeteranFX="FX_NODFirestormBombHit"/>
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightning" MinorFX="FX_AlienLightning"/>
+		<!-- Alien PlasmaDisc DamageFX -->
+		<FXGroup Type="ALIEN_PLASMADISK" Amount="10.0" MajorFX="FX_AlienPlasmaDisk" MinorFX="FX_AlienPlasmaDisk"/>
+		<!-- Alien EMP DamageFX -->
+		<FXGroup Type="ALIEN_RAILGUN" Amount="10.0" MajorFX="FX_AlienEMPHit" MinorFX="FX_AlienEMPHit"/>
+		<!-- Alien Buzzer DamageFX -->
+		<FXGroup Type="ALIEN_BUZZER" Amount="10.0" MajorFX="FX_AlienBuzzerHit" MinorFX="FX_AlienBuzzerHit" MajorVeteranFX="FX_AlienBuzzerHitHeroic" MinorVeteranFX="FX_AlienBuzzerHitHeroic"/>
+		<!-- Alien Cannon DamageFX -->
+		<FXGroup Type="ALIEN_CANNON" Amount="10.0" MajorFX="FX_AlienAutoCannonHit" MinorFX="FX_AlienAutoCannonHit"/>
+		<!-- Alien Laser DamageFX -->
+		<FXGroup Type="ALIEN_LASER" Amount="10.0" MajorFX="FX_AlienLaserHit" MinorFX="FX_AlienLaserHit"/>
+		<!-- Alien Viceroid Acid FX -->
+		<FXGroup Type="CLUBBING" Amount="10.0" MajorFX="FX_MutantSplash" MinorFX="FX_MutantSplash"/>
+		<!-- Nod Particle Beam DamageFX -->
+		<FXGroup Type="NOD_SONIC" Amount="10.0" MajorFX="FX_ChargedParticleBeamHit" MinorFX="FX_ChargedParticleBeamHit" MajorVeteranFX="FX_ChargedParticleBeamHitHeroic" MinorVeteranFX="FX_ChargedParticleBeamHitHeroic"/>
+		<!-- Nod Rocket DamageFX (BLUETIBCORE) -->
+		<FXGroup Type="ALIEN_BOMB" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitBlue" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitBlue"/>
+		<!-- Alien Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienTibLaserHit" MinorFX="FX_AlienTibLaserHit"/>
+		<!-- Alien Blue Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MINE" Amount="10.0" MajorFX="FX_AlienBlueTibLaserHit" MinorFX="FX_AlienBlueTibLaserHit"/>
+	</DamageFX>
+
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="InfantryDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="10.0" ThrottleTime="50ms" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Rifle DamageFX -->
+		<FXGroup Type="GDI_RIFLE" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Cannon DamageFX -->
+		<FXGroup Type="GDI_CANNON" Amount="10.0" MajorFX="FX_TankHit" MinorFX="FX_TankHit"/>
+		<!-- GDI Rocket DamageFX -->
+		<FXGroup Type="GDI_MISSILE" Amount="10.0" MajorFX="FX_GDIMissleHit" MinorFX="FX_GDIMissleHit"/>
+		<!-- GDI/Nod Mine DamageFX -->
+		<FXGroup Type="GDI_MINE" Amount="10.0" MajorFX="FX_GDIMineXP" MinorFX="FX_GDIMineXP"/>
+		<!-- GDI Bomb DamageFX -->
+		<FXGroup Type="GDI_BOMB" Amount="10.0" MajorFX="FX_GDIBombHit" MinorFX="FX_GDIBombHit"/>
+		<!-- GDI Railgun DamageFX -->
+		<FXGroup Type="GDI_RAILGUN" Amount="10.0" MajorFX="FX_RailGunHit" MinorFX="FX_RailGunHit"/>
+		<!-- GDI Grenade DamageFX -->
+		<FXGroup Type="GDI_GRENADE" Amount="10.0" MajorFX="FX_GrenadeHit" MinorFX="FX_GrenadeHit"/>
+		<!-- GDI Jugg DamageFX -->
+		<FXGroup Type="GDI_LASER" Amount="10.0" MajorFX="FX_JuggHit" MinorFX="FX_JuggHit"/>
+		<!-- GDI Sonic DamageFX -->
+		<FXGroup Type="GDI_FLAMETHROWER" Amount="10.0" MajorFX="FX_SonicHitUnit" MinorFX="FX_SonicHitUnit"/>
+		<!-- Nod Rifle DamageFX -->
+		<FXGroup Type="NOD_MACHINEGUN" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- Nod Cannon DamageFX -->
+		<FXGroup Type="NOD_CANNON" Amount="10.0" MajorFX="FX_TankHit" MinorFX="FX_TankHit"/>
+		<!-- Nod Rocket DamageFX (TIBCORE) -->
+		<FXGroup Type="NOD_MISSILE" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHit" MinorFX="FX_NOD_StealthTank_TibCoreMissileHit"/>
+		<!-- Nod Catalyst Missile -->
+		<FXGroup Type="NOD_SEED" Amount="10.0" MajorFX="FX_TibHitFX" MinorFX="FX_TibHitFX"/>
+		<!-- Nod Tib Seed -->
+		<FXGroup Type="NOD_RAILGUN" Amount="10.0" MajorFX="FX_TibSeedFX" MinorFX="FX_TibSeedFX"/>
+		<!-- Nod Hallucigenic Grenade DamageFX -->
+		<FXGroup Type="NOD_HALLUCINE" Amount="10.0" MajorFX="FX_None" MinorFX="FX_None"/>
+		<!-- Nod Laser DamageFX -->
+		<FXGroup Type="NOD_LASER" Amount="10.0" MajorFX="FX_NodLaserHit" MajorVeteranFX="FX_NodLaserHitHeroic" MinorFX="FX_NodLaserHit" MinorVeteranFX="FX_NodLaserHitHeroic"/>
+		<!-- Nod Bomb DamageFX -->
+		<FXGroup Type="NOD_BOMB" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit"/>
+		<!-- Nod Bomb Upgraded (Firestorm Ignition) DamageFX -->
+		<FXGroup Type="ALIEN_SONIC" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit" MajorVeteranFX="FX_NODFirestormBombHit" MinorVeteranFX="FX_NODFirestormBombHit"/>
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightning" MinorFX="FX_AlienLightning"/>
+		<!-- Alien PlasmaDisc DamageFX -->
+		<FXGroup Type="ALIEN_PLASMADISK" Amount="10.0" MajorFX="FX_AlienPlasmaDisk" MinorFX="FX_AlienPlasmaDisk"/>
+		<!-- Alien Buzzer DamageFX -->
+		<FXGroup Type="ALIEN_BUZZER" Amount="10.0" MajorFX="FX_AlienBuzzerHit" MinorFX="FX_AlienBuzzerHit" MajorVeteranFX="FX_AlienBuzzerHitHeroic" MinorVeteranFX="FX_AlienBuzzerHitHeroic"/>
+		<!-- Alien Cannon DamageFX -->
+		<FXGroup Type="ALIEN_CANNON" Amount="10.0" MajorFX="FX_AlienAutoCannonHit" MinorFX="FX_AlienAutoCannonHit"/>
+		<!-- Alien Laser DamageFX -->
+		<FXGroup Type="ALIEN_LASER" Amount="10.0" MajorFX="FX_AlienLaserHit" MinorFX="FX_AlienLaserHit"/>
+		<!-- Alien Viceroid Acid FX -->
+		<FXGroup Type="CLUBBING" Amount="10.0" MajorFX="FX_MutantSplash" MinorFX="FX_MutantSplash"/>
+		<!-- Nod Particle Beam DamageFX -->
+		<FXGroup Type="NOD_SONIC" Amount="10.0" MajorFX="FX_ChargedParticleBeamHit" MinorFX="FX_ChargedParticleBeamHit" MajorVeteranFX="FX_ChargedParticleBeamHitHeroic" MinorVeteranFX="FX_ChargedParticleBeamHitHeroic"/>
+		<!-- Nod Rocket DamageFX (BLUETIBCORE) -->
+		<FXGroup Type="ALIEN_BOMB" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitBlue" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitBlue"/>
+		<!-- Alien Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienTibLaserHit" MinorFX="FX_AlienTibLaserHit"/>
+		<!-- Alien Blue Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MINE" Amount="10.0" MajorFX="FX_AlienBlueTibLaserHit" MinorFX="FX_AlienBlueTibLaserHit"/>
+	</DamageFX>
+
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="InfantryAlienDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="10.0" MajorFX="FX_AlienInfantryHitFX" MinorFX="FX_AlienInfantryHitFX"/>
+		<!-- GDI Rifle DamageFX -->
+		<FXGroup Type="GDI_RIFLE" Amount="10.0" MajorFX="FX_AlienInfantryHitFX" MinorFX="FX_AlienInfantryHitFX"/>
+		<!-- GDI Cannon DamageFX -->
+		<FXGroup Type="GDI_CANNON" Amount="10.0" MajorFX="FX_TankHitAlien" MinorFX="FX_TankHitAlien"/>
+		<!-- GDI Rocket DamageFX -->
+		<FXGroup Type="GDI_MISSILE" Amount="10.0" MajorFX="FX_GDIMissleHitAlien" MinorFX="FX_GDIMissleHitAlien"/>
+		<!-- GDI/Nod Mine DamageFX -->
+		<FXGroup Type="GDI_MINE" Amount="10.0" MajorFX="FX_GDIMineXPAlien" MinorFX="FX_GDIMineXPAlien"/>
+		<!-- GDI Bomb DamageFX -->
+		<FXGroup Type="GDI_BOMB" Amount="10.0" MajorFX="FX_GDIBombHitAlien" MinorFX="FX_GDIBombHitAlien"/>
+		<!-- GDI Railgun DamageFX -->
+		<FXGroup Type="GDI_RAILGUN" Amount="10.0" MajorFX="FX_RailGunHitAlien" MinorFX="FX_RailGunHitAlien"/>
+		<!-- GDI Grenade DamageFX -->
+		<FXGroup Type="GDI_GRENADE" Amount="10.0" MajorFX="FX_GrenadeHitAlien" MinorFX="FX_GrenadeHitAlien"/>
+		<!-- GDI Jugg DamageFX -->
+		<FXGroup Type="GDI_LASER" Amount="10.0" MajorFX="FX_JuggHitAlien" MinorFX="FX_JuggHitAlien"/>
+		<!-- GDI Sonic DamageFX -->
+		<FXGroup Type="GDI_FLAMETHROWER" Amount="10.0" MajorFX="FX_SonicHitUnitAlien" MinorFX="FX_SonicHitUnitAlien"/>
+		<!-- Nod Rifle DamageFX -->
+		<FXGroup Type="NOD_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienInfantryHitFX" MinorFX="FX_AlienInfantryHitFX"/>
+		<!-- Nod Cannon DamageFX -->
+		<FXGroup Type="NOD_CANNON" Amount="10.0" MajorFX="FX_TankHitAlien" MinorFX="FX_TankHitAlien"/>
+		<!-- Nod Rocket DamageFX (TIBCORE) -->
+		<FXGroup Type="NOD_MISSILE" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitAlien" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitAlien"/>
+		<!-- Nod Catalyst Missile -->
+		<FXGroup Type="NOD_SEED" Amount="10.0" MajorFX="FX_TibHitFX" MinorFX="FX_TibHitFX"/>
+		<!-- Nod Tib Seed -->
+		<FXGroup Type="NOD_RAILGUN" Amount="10.0" MajorFX="FX_TibSeedFX" MinorFX="FX_TibSeedFX"/>
+		<!-- Nod Hallucigenic Grenade DamageFX -->
+		<FXGroup Type="NOD_HALLUCINE" Amount="10.0" MajorFX="FX_None" MinorFX="FX_None"/>
+		<!-- Nod Laser DamageFX -->
+		<FXGroup Type="NOD_LASER" Amount="10.0" MajorFX="FX_NodLaserHitAlien" MajorVeteranFX="FX_NodLaserHitAlienHeroic" MinorFX="FX_NodLaserHitAlien" MinorVeteranFX="FX_NodLaserHitAlienHeroic"/>
+		<!-- Nod Bomb DamageFX -->
+		<FXGroup Type="NOD_BOMB" Amount="10.0" MajorFX="FX_NODBombHitAlien" MinorFX="FX_NODBombHitAlien"/>
+		<!-- Nod Bomb Upgraded (Firestorm Ignition) DamageFX -->
+		<FXGroup Type="ALIEN_SONIC" Amount="10.0" MajorFX="FX_NODBombHitAlien" MinorFX="FX_NODBombHitAlien" MajorVeteranFX="FX_NODFirestormBombHitAlien" MinorVeteranFX="FX_NODFirestormBombHitAlien"/>
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightning" MinorFX="FX_AlienLightning"/>
+		<!-- Alien PlasmaDisc DamageFX -->
+		<FXGroup Type="ALIEN_PLASMADISK" Amount="10.0" MajorFX="FX_AlienPlasmaDiskAlien" MinorFX="FX_AlienPlasmaDiskAlien"/>
+		<!-- Alien Buzzer DamageFX -->
+		<FXGroup Type="ALIEN_BUZZER" Amount="10.0" MajorFX="FX_AlienBuzzerHitAlien" MinorFX="FX_AlienBuzzerHitAlien" MajorVeteranFX="FX_AlienBuzzerHitHeroic" MinorVeteranFX="FX_AlienBuzzerHitHeroic"/>
+		<!-- Alien Cannon DamageFX -->
+		<FXGroup Type="ALIEN_CANNON" Amount="10.0" MajorFX="FX_AlienAutoCannonHitAlien" MinorFX="FX_AlienAutoCannonHitAlien"/>
+		<!-- Alien Laser DamageFX -->
+		<FXGroup Type="ALIEN_LASER" Amount="10.0" MajorFX="FX_AlienLaserHitAlien" MinorFX="FX_AlienLaserHitAlien"/>
+		<!-- Alien Viceroid Acid FX -->
+		<FXGroup Type="CLUBBING" Amount="10.0" MajorFX="FX_MutantSplash" MinorFX="FX_MutantSplash"/>
+		<!-- Nod Particle Beam DamageFX -->
+		<FXGroup Type="NOD_SONIC" Amount="10.0" MajorFX="FX_ChargedParticleBeamHitAlien" MinorFX="FX_ChargedParticleBeamHitAlien" MajorVeteranFX="FX_ChargedParticleBeamHitAlienHeroic" MinorVeteranFX="FX_ChargedParticleBeamHitAlienHeroic"/>
+		<!-- Nod Rocket DamageFX (BLUETIBCORE) -->
+		<FXGroup Type="ALIEN_BOMB" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitAlienBlue" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitAlienBlue"/>
+		<!-- Alien Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienTibLaserHitAlien" MinorFX="FX_AlienTibLaserHitAlien"/>
+		<!-- Alien Blue Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MINE" Amount="10.0" MajorFX="FX_AlienBlueTibLaserHitAlien" MinorFX="FX_AlienBlueTibLaserHitAlien"/>
+	</DamageFX>
+
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="AlienVehicleDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="10.0" MajorFX="FX_AlienInfantryHitFX" MinorFX="FX_AlienInfantryHitFX"/>
+		<!-- GDI Rifle DamageFX -->
+		<FXGroup Type="GDI_RIFLE" Amount="10.0" MajorFX="FX_AlienInfantryHitFX" MinorFX="FX_AlienInfantryHitFX"/>
+		<!-- GDI Cannon DamageFX -->
+		<FXGroup Type="GDI_CANNON" Amount="10.0" MajorFX="FX_TankHitAlien" MinorFX="FX_TankHitAlien"/>
+		<!-- GDI Rocket DamageFX -->
+		<FXGroup Type="GDI_MISSILE" Amount="10.0" MajorFX="FX_GDIMissleHitAlien" MinorFX="FX_GDIMissleHitAlien"/>
+		<!-- GDI/Nod Mine DamageFX -->
+		<FXGroup Type="GDI_MINE" Amount="10.0" MajorFX="FX_GDIMineXPAlien" MinorFX="FX_GDIMineXPAlien"/>
+		<!-- GDI Bomb DamageFX -->
+		<FXGroup Type="GDI_BOMB" Amount="10.0" MajorFX="FX_GDIBombHitAlien" MinorFX="FX_GDIBombHitAlien"/>
+		<!-- GDI Railgun DamageFX -->
+		<FXGroup Type="GDI_RAILGUN" Amount="10.0" MajorFX="FX_RailGunHitAlien" MinorFX="FX_RailGunHitAlien"/>
+		<!-- GDI Grenade DamageFX -->
+		<FXGroup Type="GDI_GRENADE" Amount="10.0" MajorFX="FX_GrenadeHitAlien" MinorFX="FX_GrenadeHitAlien"/>
+		<!-- GDI Jugg DamageFX -->
+		<FXGroup Type="GDI_LASER" Amount="10.0" MajorFX="FX_JuggHitAlien" MinorFX="FX_JuggHitAlien"/>
+		<!-- GDI Sonic DamageFX -->
+		<FXGroup Type="GDI_FLAMETHROWER" Amount="10.0" MajorFX="FX_SonicHitUnitAlien" MinorFX="FX_SonicHitUnitAlien"/>
+		<!-- Nod Rifle DamageFX -->
+		<FXGroup Type="NOD_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienInfantryHitFX" MinorFX="FX_AlienInfantryHitFX"/>
+		<!-- Nod Cannon DamageFX -->
+		<FXGroup Type="NOD_CANNON" Amount="10.0" MajorFX="FX_TankHitAlien" MinorFX="FX_TankHitAlien"/>
+		<!-- Nod Rocket DamageFX (TIBCORE) -->
+		<FXGroup Type="NOD_MISSILE" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitAlien" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitAlien"/>
+		<!-- Nod Catalyst Missile -->
+		<FXGroup Type="NOD_SEED" Amount="10.0" MajorFX="FX_TibHitFX" MinorFX="FX_TibHitFX"/>
+		<!-- Nod Tib Seed -->
+		<FXGroup Type="NOD_RAILGUN" Amount="10.0" MajorFX="FX_TibSeedFX" MinorFX="FX_TibSeedFX"/>
+		<!-- Nod Hallucigenic Grenade DamageFX -->
+		<FXGroup Type="NOD_HALLUCINE" Amount="10.0" MajorFX="FX_None" MinorFX="FX_None"/>
+		<!-- Nod Laser DamageFX -->
+		<FXGroup Type="NOD_LASER" Amount="10.0" MajorFX="FX_NodLaserHitAlien" MajorVeteranFX="FX_NodLaserHitAlienHeroic" MinorFX="FX_NodLaserHitAlien" MinorVeteranFX="FX_NodLaserHitAlienHeroic"/>
+		<!-- Nod Bomb DamageFX -->
+		<FXGroup Type="NOD_BOMB" Amount="10.0" MajorFX="FX_NODBombHitAlien" MinorFX="FX_NODBombHitAlien"/>
+		<!-- Nod Bomb Upgraded (Firestorm Ignition) DamageFX -->
+		<FXGroup Type="ALIEN_SONIC" Amount="10.0" MajorFX="FX_NODBombHitAlien" MinorFX="FX_NODBombHitAlien" MajorVeteranFX="FX_NODFirestormBombHitAlien" MinorVeteranFX="FX_NODFirestormBombHitAlien"/>
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightning" MinorFX="FX_AlienLightning"/>
+		<!-- Alien PlasmaDisc DamageFX -->
+		<FXGroup Type="ALIEN_PLASMADISK" Amount="10.0" MajorFX="FX_AlienPlasmaDiskAlien" MinorFX="FX_AlienPlasmaDiskAlien"/>
+		<!-- Alien EMP DamageFX -->
+		<FXGroup Type="ALIEN_RAILGUN" Amount="10.0" MajorFX="FX_AlienEMPHit" MinorFX="FX_AlienEMPHit"/>
+		<!-- Alien Buzzer DamageFX -->
+		<FXGroup Type="ALIEN_BUZZER" Amount="10.0" MajorFX="FX_AlienBuzzerHitAlien" MinorFX="FX_AlienBuzzerHitAlien" MajorVeteranFX="FX_AlienBuzzerHitHeroic" MinorVeteranFX="FX_AlienBuzzerHitHeroic"/>
+		<!-- Alien Cannon DamageFX -->
+		<FXGroup Type="ALIEN_CANNON" Amount="10.0" MajorFX="FX_AlienAutoCannonHitAlien" MinorFX="FX_AlienAutoCannonHitAlien"/>
+		<!-- Alien Laser DamageFX -->
+		<FXGroup Type="ALIEN_LASER" Amount="10.0" MajorFX="FX_AlienLaserHitAlien" MinorFX="FX_AlienLaserHitAlien"/>
+		<!-- Alien Viceroid Acid FX -->
+		<FXGroup Type="CLUBBING" Amount="10.0" MajorFX="FX_MutantSplash" MinorFX="FX_MutantSplash"/>
+		<!-- Nod Particle Beam DamageFX -->
+		<FXGroup Type="NOD_SONIC" Amount="10.0" MajorFX="FX_ChargedParticleBeamHitAlien" MinorFX="FX_ChargedParticleBeamHitAlien" MajorVeteranFX="FX_ChargedParticleBeamHitAlienHeroic" MinorVeteranFX="FX_ChargedParticleBeamHitAlienHeroic"/>
+		<!-- Nod Rocket DamageFX (BLUETIBCORE) -->
+		<FXGroup Type="ALIEN_BOMB" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitAlienBlue" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitAlienBlue"/>
+		<!-- Alien Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienTibLaserHitAlien" MinorFX="FX_AlienTibLaserHitAlien"/>
+		<!-- Alien Blue Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MINE" Amount="10.0" MajorFX="FX_AlienBlueTibLaserHitAlien" MinorFX="FX_AlienBlueTibLaserHitAlien"/>
+	</DamageFX>
+
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="FactionStructureDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="10.0" ThrottleTime="50ms" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Rifle DamageFX -->
+		<FXGroup Type="GDI_RIFLE" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Cannon DamageFX -->
+		<FXGroup Type="GDI_CANNON" Amount="10.0" MajorFX="FX_TankHitBuildingMajor" MinorFX="FX_TankHitBuildingMajor"/>
+		<!-- GDI Rocket DamageFX -->
+		<FXGroup Type="GDI_MISSILE" Amount="10.0" MajorFX="FX_GDIMissleHitBuildingMajor" MinorFX="FX_GDIMissleHitBuildingMajor"/>
+		<!-- GDI Bomb DamageFX -->
+		<FXGroup Type="GDI_BOMB" Amount="10.0" MajorFX="FX_GDIBombHit" MinorFX="FX_GDIBombHit"/>
+		<!-- GDI Railgun DamageFX -->
+		<FXGroup Type="GDI_RAILGUN" Amount="10.0" MajorFX="FX_RailGunHitBuildingMajor" MinorFX="FX_RailGunHitBuildingMajor"/>
+		<!-- GDI Grenade DamageFX -->
+		<FXGroup Type="GDI_GRENADE" Amount="10.0" MajorFX="FX_GrenadeHitBuildingMajor" MinorFX="FX_GrenadeHitBuildingMajor"/>
+		<!-- GDI Jugg DamageFX -->
+		<FXGroup Type="GDI_LASER" Amount="10.0" MajorFX="FX_JuggHitBuildingMajor" MinorFX="FX_JuggHitBuildingMinor"/>
+		<!-- GDI Sonic DamageFX -->
+		<FXGroup Type="GDI_FLAMETHROWER" Amount="10.0" MajorFX="FX_SonicHitUnit" MinorFX="FX_SonicHitUnit"/>
+		<!-- Nod Rifle DamageFX -->
+		<FXGroup Type="NOD_MACHINEGUN" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- Nod Cannon DamageFX -->
+		<FXGroup Type="NOD_CANNON" Amount="10.0" MajorFX="FX_TankHitBuildingMajor" MinorFX="FX_TankHitBuildingMajor"/>
+		<!-- Nod Grenade DamageFX -->
+		<FXGroup Type="NOD_GRENADE" Amount="10.0" MajorFX="FX_Nod_GrenadeHitMajor" MinorFX="FX_Nod_GrenadeHitMajor"/>
+		<!-- Nod Rocket DamageFX (TIBCORE) -->
+		<FXGroup Type="NOD_MISSILE" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajor" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajor"/>
+		<!-- Nod Catalyst Missile -->
+		<FXGroup Type="NOD_SEED" Amount="10.0" MajorFX="FX_TibHitFX" MinorFX="FX_TibHitFX"/>
+		<!-- Nod Tib Seed -->
+		<FXGroup Type="NOD_RAILGUN" Amount="10.0" MajorFX="FX_TibSeedFX" MinorFX="FX_TibSeedFX"/>
+		<!-- Nod Laser DamageFX -->
+		<FXGroup Type="NOD_LASER" Amount="10.0" MajorFX="FX_NODLaserHitBuildingMajor" MajorVeteranFX="FX_NODLaserHitBuildingMajorHeroic" MinorFX="FX_NODLaserHitBuildingMajor" MinorVeteranFX="FX_NODLaserHitBuildingMajorHeroic"/>
+		<!-- Nod Bomb DamageFX -->
+		<FXGroup Type="NOD_BOMB" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit"/>
+		<!-- Nod Bomb Upgraded (Firestorm Ignition) DamageFX -->
+		<FXGroup Type="ALIEN_SONIC" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit" MajorVeteranFX="FX_NODFirestormBombHit" MinorVeteranFX="FX_NODFirestormBombHit"/>
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightningHitBuidingMajor" MinorFX="FX_AlienLightningHitBuidingMajor"/>
+		<!-- Alien PlasmaDisc DamageFX -->
+		<FXGroup Type="ALIEN_PLASMADISK" Amount="10.0" MajorFX="FX_AlienPlasmaDiskHitBuildingMajor" MinorFX="FX_AlienPlasmaDiskHitBuildingMajor"/>
+		<!-- Alien EMP DamageFX -->
+		<FXGroup Type="ALIEN_RAILGUN" Amount="10.0" MajorFX="FX_AlienEMPHit" MinorFX="FX_AlienEMPHit"/>
+		<!-- Alien Buzzer DamageFX -->
+		<FXGroup Type="ALIEN_BUZZER" Amount="10.0" MajorFX="FX_AlienBuzzerHit" MinorFX="FX_AlienBuzzerHit" MajorVeteranFX="FX_AlienBuzzerHitHeroic" MinorVeteranFX="FX_AlienBuzzerHitHeroic"/>
+		<!-- Alien Cannon DamageFX -->
+		<FXGroup Type="ALIEN_CANNON" Amount="10.0" MajorFX="FX_AlienAutoCannonHit" MinorFX="FX_AlienAutoCannonHit"/>
+		<!-- Alien Laser DamageFX -->
+		<FXGroup Type="ALIEN_LASER" Amount="10.0" MajorFX="FX_AlienLaserHit" MinorFX="FX_AlienLaserHit"/>
+		<!-- Alien Viceroid Acid FX -->
+		<FXGroup Type="CLUBBING" Amount="10.0" MajorFX="FX_MutantSplash" MinorFX="FX_MutantSplash"/>
+		<!-- Nod Particle Beam DamageFX -->
+		<FXGroup Type="NOD_SONIC" Amount="10.0" MajorFX="FX_ChargedParticleBeamHitBuildingMajor" MinorFX="FX_ChargedParticleBeamHitBuildingMajor" MajorVeteranFX="FX_ChargedParticleBeamHitBuildingMajorHeroic" MinorVeteranFX="FX_ChargedParticleBeamHitBuildingMajorHeroic"/>
+		<!-- Nod Rocket DamageFX (BLUETIBCORE) -->
+		<FXGroup Type="ALIEN_BOMB" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajorBlue" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajorBlue"/>
+		<!-- Alien Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienTibLaserHitBuilding" MinorFX="FX_AlienTibLaserHitBuilding"/>
+		<!-- Alien Blue Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MINE" Amount="10.0" MajorFX="FX_AlienBlueTibLaserHitBuilding" MinorFX="FX_AlienBlueTibLaserHitBuilding"/>
+	</DamageFX>
+
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="GenericStructureDamageFX">
+		<!-- Default DamageFX -->
+		<FXGroup Type="DEFAULT" Amount="10.0" ThrottleTime="50ms" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Rifle DamageFX -->
+		<FXGroup Type="GDI_RIFLE" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- GDI Cannon DamageFX -->
+		<FXGroup Type="GDI_CANNON" Amount="10.0" MajorFX="FX_TankHitBuildingMajor" MinorFX="FX_TankHitBuildingMajor"/>
+		<!-- GDI Rocket DamageFX -->
+		<FXGroup Type="GDI_MISSILE" Amount="10.0" MajorFX="FX_GDIMissleHitBuildingMajor" MinorFX="FX_GDIMissleHitBuildingMajor"/>
+		<!-- GDI Bomb DamageFX -->
+		<FXGroup Type="GDI_BOMB" Amount="10.0" MajorFX="FX_GDIBombHit" MinorFX="FX_GDIBombHit"/>
+		<!-- GDI Railgun DamageFX -->
+		<FXGroup Type="GDI_RAILGUN" Amount="10.0" MajorFX="FX_RailGunHitBuildingMajor" MinorFX="FX_RailGunHitBuildingMajor"/>
+		<!-- GDI Grenade DamageFX -->
+		<FXGroup Type="GDI_GRENADE" Amount="10.0" MajorFX="FX_GrenadeHitBuildingMajor" MinorFX="FX_GrenadeHitBuildingMajor"/>
+		<!-- GDI Jugg DamageFX -->
+		<FXGroup Type="GDI_LASER" Amount="10.0" MajorFX="FX_JuggHitBuildingMajor" MinorFX="FX_JuggHitBuildingMinor"/>
+		<!-- GDI Sonic DamageFX -->
+		<FXGroup Type="GDI_FLAMETHROWER" Amount="10.0" MajorFX="FX_SonicHitUnit" MinorFX="FX_SonicHitUnit"/>
+		<!-- Nod Rifle DamageFX -->
+		<FXGroup Type="NOD_MACHINEGUN" Amount="10.0" MajorFX="FX_NONE" MinorFX="FX_NONE"/>
+		<!-- Nod Cannon DamageFX -->
+		<FXGroup Type="NOD_CANNON" Amount="10.0" MajorFX="FX_TankHitBuildingMajor" MinorFX="FX_TankHitBuildingMajor"/>
+		<!-- Nod Grenade DamageFX -->
+		<FXGroup Type="NOD_GRENADE" Amount="10.0" MajorFX="FX_Nod_GrenadeHitMajor" MinorFX="FX_Nod_GrenadeHitMajor"/>
+		<!-- Nod Rocket DamageFX (TIBCORE) -->
+		<FXGroup Type="NOD_MISSILE" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajor" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajor"/>
+		<!-- Nod Laser DamageFX -->
+		<FXGroup Type="NOD_LASER" Amount="10.0" MajorFX="FX_NODLaserHitBuildingMajor" MajorVeteranFX="FX_NODLaserHitBuildingMajorHeroic" MinorFX="FX_NODLaserHitBuildingMajor" MinorVeteranFX="FX_NODLaserHitBuildingMajorHeroic"/>
+		<!-- Nod Bomb DamageFX -->
+		<FXGroup Type="NOD_BOMB" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit"/>
+		<!-- Nod Bomb Upgraded (Firestorm Ignition) DamageFX -->
+		<FXGroup Type="ALIEN_SONIC" Amount="10.0" MajorFX="FX_NODBombHit" MinorFX="FX_NODBombHit" MajorVeteranFX="FX_NODFirestormBombHit" MinorVeteranFX="FX_NODFirestormBombHit"/>
+		<!-- Nod Catalyst Missile -->
+		<FXGroup Type="NOD_SEED" Amount="10.0" MajorFX="FX_TibHitFX" MinorFX="FX_TibHitFX"/>
+		<!-- Nod Tib Seed -->
+		<FXGroup Type="NOD_RAILGUN" Amount="10.0" MajorFX="FX_TibSeedFX" MinorFX="FX_TibSeedFX"/>
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightningHitBuidingMajor" MinorFX="FX_AlienLightningHitBuidingMajor"/>
+		<!-- Alien PlasmaDisc DamageFX -->
+		<FXGroup Type="ALIEN_PLASMADISK" Amount="10.0" MajorFX="FX_AlienPlasmaDiskHitBuildingMajor" MinorFX="FX_AlienPlasmaDiskHitBuildingMajor"/>
+		<!-- Alien EMP DamageFX -->
+		<FXGroup Type="ALIEN_RAILGUN" Amount="10.0" MajorFX="FX_AlienEMPHit" MinorFX="FX_AlienEMPHit"/>
+		<!-- Alien Buzzer DamageFX -->
+		<FXGroup Type="ALIEN_BUZZER" Amount="10.0" MajorFX="FX_AlienBuzzerHit" MinorFX="FX_AlienBuzzerHit" MajorVeteranFX="FX_AlienBuzzerHitHeroic" MinorVeteranFX="FX_AlienBuzzerHitHeroic"/>
+		<!-- Alien Cannon DamageFX -->
+		<FXGroup Type="ALIEN_CANNON" Amount="10.0" MajorFX="FX_AlienAutoCannonHit" MinorFX="FX_AlienAutoCannonHit"/>
+		<!-- Alien Laser DamageFX -->
+		<FXGroup Type="ALIEN_LASER" Amount="10.0" MajorFX="FX_AlienLaserHit" MinorFX="FX_AlienLaserHit"/>
+		<!-- Alien Viceroid Acid FX -->
+		<FXGroup Type="CLUBBING" Amount="10.0" MajorFX="FX_MutantSplash" MinorFX="FX_MutantSplash"/>
+		<!-- Nod Particle Beam DamageFX -->
+		<FXGroup Type="NOD_SONIC" Amount="10.0" MajorFX="FX_ChargedParticleBeamHitBuildingMajor" MinorFX="FX_ChargedParticleBeamHitBuildingMajor" MajorVeteranFX="FX_ChargedParticleBeamHitBuildingMajorHeroic" MinorVeteranFX="FX_ChargedParticleBeamHitBuildingMajorHeroic"/>
+		<!-- Nod Rocket DamageFX (BLUETIBCORE) -->
+		<FXGroup Type="ALIEN_BOMB" Amount="10.0" MajorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajorBlue" MinorFX="FX_NOD_StealthTank_TibCoreMissileHitBuildingMajorBlue"/>
+		<!-- Alien Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MACHINEGUN" Amount="10.0" MajorFX="FX_AlienTibLaserHitBuilding" MinorFX="FX_AlienTibLaserHitBuilding"/>
+		<!-- Alien Blue Tiberium Laser DamageFX -->
+		<FXGroup Type="ALIEN_MINE" Amount="10.0" MajorFX="FX_AlienBlueTibLaserHitBuilding" MinorFX="FX_AlienBlueTibLaserHitBuilding"/>
+	</DamageFX>
+
+	<!--  +++++++++++++++++++++  -->
+
+	<DamageFX id="SmallMissileDamageFX">
+		<!-- Alien Lightning DamageFX -->
+		<FXGroup Type="ALIEN_ION" Amount="10.0" MajorFX="FX_AlienLightning" MinorFX="FX_AlienLightning"/>
+	</DamageFX>
+</AssetDeclaration>

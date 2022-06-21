@@ -1,0 +1,45 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NOD_CrawlerBurrowingPod.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NOD_CrawlerBurrowingPod_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NOD_CrawlerBurrowingPod_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NU_BURROW_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NU_BURROW_SKN.w3x"/>
+	</Includes>
+	<GameObject id="NODRedemptionBurrowPod" KindOf="CAN_CAST_REFLECTIONS PRELOAD UNATTACKABLE NOT_AUTOACQUIRABLE" SelectPortrait="Portrait_GDIDropPod" ButtonImage="Portrait_GDIDropPod" RadarPriority="NOT_ON_RADAR" Side="NOD" EditorName="NODRedemptionBurrowPod" EditorSorting="SYSTEM" CommandSet="EmptyCommandSet" IsTrainable="false">
+		<DisplayName>Name:NODRedemptionBurrowPod</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NU_BURROW_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NU_BURROW_MOVA" AnimationMode="ONCE"/>
+					<FXEvent Frame="4" Effect="FX_RedemptionBurrow_Trigger" Bone="bone_drill_top" FireWhenSkipped="true"/>
+					<FXEvent Frame="4" Effect="FX_BuildRubble_Medium" Bone="bone_drill_top" FireWhenSkipped="true"/>
+					<FXEvent Frame="48" Effect="FX_BuildRubble_Medium" Bone="bone_crawler_platform" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="2.5s" MaxLifetime="2.5s" DeathType="SUICIDED"/>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="NodBurrowPodWeapon" FireInterval="0.1s"/>
+				<FireWeaponNugget WeaponName="NODDrillSpawnerWeapon" FireDelay="2s" OneShot="true"/>
+			</FireWeaponUpdate>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1000000"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="200"/>
+	</GameObject>
+</AssetDeclaration>

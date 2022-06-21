@@ -1,0 +1,39 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseRepairDrone.xml"/>
+	</Includes>
+	<GameObject id="GDIRepairDrone" inheritFrom="BaseRepairDrone" Side="GDI" EditorName="GDIRepairDrone">
+		<LocomotorSet Speed="75" Locomotor="GDIRepairDroneLocomotor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GURPRDRN_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="GURPRDRN_IDLA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_RPRA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACHED" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_RPRA" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="B_Drone03" FXParticleSystemTemplate="GDIRepairDroneFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_Drone03" FXParticleSystemTemplate="GDIRepairDroneSparks" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="GURPRDRN_IDLA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_ACCL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_DECL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+</AssetDeclaration>

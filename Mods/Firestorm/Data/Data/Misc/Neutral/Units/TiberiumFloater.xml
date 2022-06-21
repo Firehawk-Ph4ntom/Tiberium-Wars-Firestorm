@@ -1,0 +1,89 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFloater\MUFloater.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFloater\MUFloater_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFloater\MUFloater_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFloater\MUFloater_SPM2.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFloater\MUFLOATER_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFloater\MUFLOATER_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="TiberiumFloater" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NeutralTiberiumFloater" ButtonImage="Portrait_NeutralTiberiumFloater" Side="GDI" CommandSet="GenericUnitCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS AIRCRAFT IGNORES_SELECT_ALL PRODUCED_AT_HELIPAD HAS_HEALTH_BAR SCORE CAN_BE_FAVORITE_UNIT NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED" EditorName="TiberiumFloater" TypeDescription="Type:Visceroid">
+		<DisplayName>Name:TiberiumFloater</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="AlienVehicleDamageFX"/>
+		<LocomotorSet Speed="45" Locomotor="GDIKodiakLocomotor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="false">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="MUFLOATER_SKN"/>
+					<WeaponFireFXBone BoneName="FXWEAPON_"/>
+					<WeaponLaunchBone BoneName="FXWEAPON_"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="MUFLOATER_SKN"/>
+					<ParticleSysBone BoneName="Bone_M10" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_MR01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_M12" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_M12" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_M12" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_M12" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_M12" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_M12" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="MUFLOATER_SKN"/>
+					<ParticleSysBone BoneName="Bone_M10" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_MR01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="MUFLOATER_IDLA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Template="TiberiumFloaterLightningWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="0.5" DestructionDelay="0.01s">
+				<Sound List="ALI_TiberianFiend_SoundDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienVehicleTransitionLarge"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienVehicleTransitionLarge"/>
+				<Event Index="onDeath" FX="FX_AlienHarvesterExplode"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_VeinholeMonsterDie"/>
+			</FXListBehavior>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="AggressiveOnly"/>
+		</Behaviors>
+		<AI>
+			<!-- If you make that wander distance small, like about 10 or so, they'll walk around really funkily (don't know if you want that) -->
+			<WanderAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" WanderDistance="80" AttackAll="true" Selectable="true">
+				<UnitAITargetChooserData RotateToTargetWhenAiming="false" CanAutoAcquireNonAutoAcquirable="true"/>
+			</WanderAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="12000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="50.0" MinorRadius="10.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_PAC_IdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="ALI_PAC_MoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<EvaEvents EvaEventDieOwner="" EvaEventDamagedOwner="" EvaEventDamagedFromShroudedSourceOwner="" EvaEventDamagedByFireOwner="" EvaEventAmbushed="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventAvailableForProduction="" EvaEventProductionStarted="" EvaEventBuildOnHold="" EvaEventBuildCancelled="" EvaEventPromotedOwner=""/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
+		<CrusherInfo CrusherLevel="2" CrushableLevel="3"/>
+	</GameObject>
+</AssetDeclaration>

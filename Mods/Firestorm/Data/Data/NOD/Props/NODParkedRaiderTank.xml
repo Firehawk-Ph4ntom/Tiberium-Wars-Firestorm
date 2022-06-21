@@ -1,0 +1,85 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODParkedRaiderTank" Side="NOD" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODScorpionTank" ButtonImage="Portrait_NODScorpionTank" EditorName="NODParkedRaiderTank" EditorSorting="MISC_MAN_MADE" Description="Desc:NODScorpionTank" TypeDescription="Type:NODScorpionTank" ThreatLevel="1">
+		<DisplayName>Name:NODScorpionTank</DisplayName>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<ArmorSet Armor="GenericVehicleArmor_DozerBlade" DamageFX="VehicleDamageFX" Conditions="PLAYER_UPGRADE"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="NURADR_SKN_FS"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NURADR_SKN_FS"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NURADR_SKN_FS"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" RetainSubObjects="true">
+					<Model Name="NURADRR_SKN"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NURADR_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") CurDrawableHideSubObject("MUZZLEFLASH_01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DeathFX">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMAMM_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIRaiderTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<AttributeModifierUpgrade id="ModuleTag_DozerBladesAttribute" AttributeModifier="Modifier_NODDozerBlades">
+				<TriggeredBy>Upgrade_NODDozerBlades</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<ArmorUpgrade id="ModuleTag_DozerBladesUpgrade" ArmorSetFlag="PLAYER_UPGRADE">
+				<TriggeredBy>Upgrade_NODDozerBlades</TriggeredBy>
+			</ArmorUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDozerBlades" ShowSubObjects="DOZERBLADE">
+				<TriggeredBy>Upgrade_NODDozerBlades</TriggeredBy>
+			</SubObjectsUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODRaiderTankFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2400"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="14.0" Height="12.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-7.0" y="0.0" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

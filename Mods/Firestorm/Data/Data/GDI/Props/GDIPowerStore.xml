@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<GameObject
+		id="GDIPowerStore"
+		Side="GDI"
+		EditorSorting="MISC_MAN_MADE"
+		OcclusionDelay="0"
+		KindOf="IMMOBILE NO_COLLIDE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED"
+		EditorName="GDIPowerStore">
+		<DisplayName>GDIPowerStore</DisplayName>
+		<ArmorSet
+			Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyDie
+				id="ModuleTag_DestroyDie">
+				<DieMuxData
+					DeathTypes="ALL"/>
+			</DestroyDie>
+
+			<!-- Radar Scan -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLRadarScan"
+				SpecialPowerTemplate="SpecialPowerRadarScan"
+				OCL="OCL_GDICommandPostRadarScanPing"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Bombing Run -->
+			<SpecialPowerDispatchSpecialPower
+				id="ModuleTagSpecialPowerBombingRunDispatch"
+				SpecialPowerTemplate="SpecialPowerBombingRun">
+				<SpecialPower
+					SpecialPowerTemplate="SpecialPowerBombingRun_Missile"/>
+				<SpecialPower
+					SpecialPowerTemplate="SpecialPowerBombingRun_SonicShell"/>
+			</SpecialPowerDispatchSpecialPower>
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerBombingRun_Missile"
+				SpecialPowerTemplate="SpecialPowerBombingRun_Missile"
+				OCL="OCL_GDICommandPostBombingRun"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"
+				DestinationOCL="OCL_GDICommandPostBombingRunBeacon"/>
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerBombingRun_SonicShell"
+				SpecialPowerTemplate="SpecialPowerBombingRun_SonicShell"
+				OCL="OCL_GDICommandPostBombingRun_SonicShell"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"
+				DestinationOCL="OCL_GDICommandPostBombingRunBeacon"/>
+
+			<!-- Bloodhounds -->
+			<OCLSpecialPower
+				id="ModuleTag_CallSupportBloodhound"
+				SpecialPowerTemplate="SpecialPowerCallSupportBloodhound"
+				TriggerFX="FX_GDICallForTransportFlare"
+				OCL="OCL_CallSupportBloodhound"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
+
+			<!-- Airborne -->
+			<OCLSpecialPower
+				id="ModuleTag_CallSupportGDIAirborne"
+				SpecialPowerTemplate="SpecialPowerCallSupportGDIAirborne"
+				TriggerFX="FX_GDICallForTransportFlare"
+				OCL="OCL_CallSupportGDIAirborne"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
+
+			<!-- Sharp Shooter -->
+			<OCLSpecialPower
+				id="ModuleTag_CallSupportHunterKillerTeam"
+				SpecialPowerTemplate="SpecialPowerCallSupportHunterKillerTeam"
+				TriggerFX="FX_GDICallForTransportFlare"
+				OCL="OCL_CallSupportHunterKillerTeam"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
+
+			<!-- Titan Strike -->
+			<OCLSpecialPower
+				id="ModuleTag_CallSupportGDITitanStrike"
+				SpecialPowerTemplate="SpecialPower_CallSupportTitanStrike"
+				TriggerFX="FX_GDICallForTransportFlare"
+				OCL="OCL_CallSupportTitanStrike"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
+
+			<!-- Drop Pods -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLDropPods"
+				SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandDropPods"
+				OCL="OCL_GDISpaceCommandDropPods"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Shockwave Artillery -->
+			<OCLSpecialPower
+				id="ModuleTag_ShockwaveArtillery"
+				SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandShockwaveArtillery"
+				OCL="OCL_GDISpaceCommandShockwaveArtillery"
+				CreateLocation="CREATE_AT_LOCATION"/>
+			<MonitorSpecialPowerTimerUpdate
+				id="ModuleTag_ShockwaveArtilleryReadyToFireUpdate"
+				SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandShockwaveArtillery"
+				ReadyCondition="SPECIALPOWER1_READY"/>
+
+			<!-- Summon Kodiak -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerSummonGDIKodiak"
+				SpecialPowerTemplate="SpecialPower_SummonGDIKodiak"
+				OCL="OCL_SummonGDIKodiak"
+				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter
+					Rule="ANY"
+					Relationship="SAME_PLAYER">
+					<IncludeThing>GDISpaceCommandUplink</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+
+			<!-- Supersonic Airattack -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerAirAttack"
+				SpecialPowerTemplate="SpecialPower_SupersonicAirAttack"
+				OCL="OCL_GDISuperSonicAirAttackBeacon"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Orbital Strike -->
+			<OCLSpecialPower
+				id="ModuleTag_MjolnirStrikePower"
+				SpecialPowerTemplate="SpecialPower_MjolnirStrike"
+				OCL="OCL_GDIMjolnirBeaconOne"
+				CreateLocation="CREATE_AT_LOCATION"/>
+
+			<!-- Ion Cannon -->
+			<OCLSpecialPower
+				id="ModuleTag_IonCannon"
+				SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon"
+				UpdateModuleStartsAttack="true"
+				AvailableAtStart="false"
+				OCL="OCL_SuperweaponDestroyCiviliansHumanelyObject"
+				CreateLocation="CREATE_AT_LOCATION"/>
+			<WeaponFireSpecialAbilityUpdate
+				id="ModuleTag_IonCannonUpdate"
+				SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon"
+				SpecialWeapon="IonCannonWeapon"
+				UnpackTime="0s"
+				PackTime="8s"
+				WhichSpecialWeapon="1"/>
+			<MonitorSpecialPowerTimerUpdate
+				id="ModuleTag_IonCannonReadyToFireUpdate"
+				SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon"
+				ReadyCondition="SPECIALPOWER1_READY"/>
+
+		</Behaviors>
+		<AI>
+			<AIUpdate
+				id="ModuleTag_AI"
+				AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<HighlanderBody
+				id="ModuleTag_Body"
+				MaxHealth="1.0"
+				InitialHealth="1.0"/>
+		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceBloodhoundReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPowerCallSupportBloodhound"
+				JustMonitorPercentReady="true"/>
+
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceAirborneReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPowerCallSupportGDIAirborne"
+				JustMonitorPercentReady="true"/>
+
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceHunterKillerTeamReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPowerCallSupportHunterKillerTeam"
+				JustMonitorPercentReady="true"/>
+
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceTitanStrikeReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPower_CallSupportTitanStrike"
+				JustMonitorPercentReady="true"/>
+
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnounceZoneTrooperDropPodsReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandDropPods"
+				JustMonitorPercentReady="true"/>
+
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="IonCannonReady"
+				AnnouncementEventOwner="IonCannonReady"
+				SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon"
+				JustMonitorPercentReady="true"/>
+
+		</ClientUpdates>
+		<Geometry
+			IsSmall="true">
+			<Shape
+				MajorRadius="0.8"/>
+		</Geometry>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

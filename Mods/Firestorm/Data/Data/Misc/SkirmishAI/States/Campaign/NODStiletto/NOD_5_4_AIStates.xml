@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<AIStrategicStateDefinition
+		id="N_5_4_UnitCap_Easy_FS"
+		UnitUpgradeMultiplier="0.0"
+		UnitBuilderSimpleUnitCap="25">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_UnitCap_Medium_FS"
+		UnitUpgradeMultiplier="0.0"
+		UnitBuilderSimpleUnitCap="30">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_UnitCap_Hard_FS"
+		UnitUpgradeMultiplier="0.0"
+		UnitBuilderSimpleUnitCap="35">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_AlienUnitKiller_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestOffensiveUnitHeuristic" TargetType="Unit"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Unit">
+			<TeamTemplate MinUnits="5" MaxUnits="8" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_AlienStructureKiller_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="Structure"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Structure">
+			<TeamTemplate MinUnits="5" MaxUnits="8" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_AlienReactiveDefend_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<Tactic Tactic="ReactiveDefense" TargetType="Targetless">
+			<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="true" AlwaysRecruit="true"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_AlienAssaultAirStrike_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="240s" EndTime="-1s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirUnitHeuristic" TargetType="AssaultAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="AssaultAirstrike">
+			<TeamTemplate MinUnits="3" MaxUnits="5" IncludeKindOf="CAN_ATTACK AIRCRAFT ASSAULT_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_AlienBombingAirStrike_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="350s" EndTime="-1s"/>
+			<IntervalHeuristic IntervalTime="120s" ActiveTime="30s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienDevastatorWarship"/>
+				<CreateUnits UnitName="AlienDevastatorWarship"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_AlienAssaultCarriers_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="350s" EndTime="-1s"/>
+			<IntervalHeuristic IntervalTime="120s" ActiveTime="30s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienPlanetaryAssaultCarrier"/>
+				<CreateUnits UnitName="AlienPlanetaryAssaultCarrier"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIStructureKill_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="Structure"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Structure">
+			<TeamTemplate MinUnits="5" MaxUnits="8" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIUnitKill_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestOffensiveUnitHeuristic" TargetType="Unit"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Unit">
+			<TeamTemplate MinUnits="5" MaxUnits="8" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIReactiveDefend_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<Tactic Tactic="ReactiveDefense" TargetType="Targetless">
+			<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="true" AlwaysRecruit="true"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIAssaultAirStrike_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="240s" EndTime="-1s"/>
+			<IntervalHeuristic IntervalTime="180s" ActiveTime="15s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirUnitHeuristic" TargetType="AssaultAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="AssaultAirstrike">
+			<TeamTemplate MinUnits="2" MaxUnits="4" IncludeKindOf="CAN_ATTACK AIRCRAFT ASSAULT_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIBombingAirStrike_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="300s" EndTime="-1s"/>
+			<IntervalHeuristic IntervalTime="120s" ActiveTime="30s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT BOMBER_AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDIFirehawk"/>
+				<CreateUnits UnitName="GDIFirehawk"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIAirStrike_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="200s" EndTime="-1s"/>
+			<IntervalHeuristic IntervalTime="180s" ActiveTime="30s"/>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="Airstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="Airstrike">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK ASSAULT_AIRCRAFT" ExcludeKindOf="BOMBER_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDIHammerhead"/>
+				<CreateUnits UnitName="GDIHammerhead"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+</AssetDeclaration>

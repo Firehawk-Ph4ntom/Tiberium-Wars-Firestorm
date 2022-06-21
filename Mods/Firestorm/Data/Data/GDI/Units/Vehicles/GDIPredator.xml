@@ -1,0 +1,394 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPredatorTank_SPM_KW.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPredatorTreads2.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUZnPredatorTank.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUZnPredatorTankD.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUZnPredatorTankHeroic.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\HC_GUZnPredatorTank.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_RAIL_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_RAIL_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_RAILACCEL_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_RAILACCEL_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_SONIC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPredator\GUPREDTANKRCKTPD_SONIC_SKNADAR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIPredator" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIPredatorTank" ButtonImage="Portrait_GDIPredatorTank" Side="GDI" BuildCost="1100" BuildTime="11" CommandSet="GDIPredatorCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="184" EditorName="GDIPredator" Description="Desc:GDIPredatorTank" TypeDescription="Type:GDIPredatorTank">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIPredatorTank</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIArmoryRailgunTech</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_ThermoBaricMissiles</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIPredatorTankLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR" TrackMarks="EXTnkTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MISSILE01"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MISSILE01"/>
+					<Turret TurretNameKey="Turret" TurretPitch="Barrel" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRADAR"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" RetainSubObjects="true">
+					<Model Name="GUPREDTANKR"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GUPredatorTank"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankD"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUPredatorTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankD"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUPredatorTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SONIC_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankD"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUPredatorTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankD"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUPredatorTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankD"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUPredatorTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SONIC_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankD"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUPredatorTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11 USER_12 USER_3" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankHeroic"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTank"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_12 USER_3" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankHeroic"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTank"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_12 USER_3" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SONIC_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankHeroic"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SONIC_SKNADAR"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTank"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11 USER_12 USER_3" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankHeroic"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTank"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAILACCEL_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_12 USER_3" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankHeroic"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTank"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_RAIL_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_12 USER_3" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SONIC_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTankHeroic"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_12" RetainSubObjects="true">
+					<Model Name="GUPREDTANKRCKTPD_SONIC_SKN"/>
+					<Texture Original="GUPredatorTank" New="GUZnPredatorTank"/>
+					<Texture Original="HC_GUPredatorTank" New="HC_GUZnPredatorTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUPREDTANK_FP"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<LeftTread>"FXTracksL"</LeftTread>
+				<RightTread>"FXTracksR"</RightTread>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMamm_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="1" LaserStateID="1" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SonicCannon</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_RailCannon</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER1" StatusToClear="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</StatusBitsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankRailgun" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankRailgunAccelerated" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankSonicCannon" ObjectStatus="RIDER1"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-15d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorMissileLauncher"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorThermoBaricMissileLauncher" ObjectStatus="WEAPON_UPGRADED_03"/>
+					<TurretSettings TurretTurnRate="200">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+			</WeaponSetUpdate>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIPredatorTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<Sound Type="INITIAL" List="GDI_PredatorTank_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Includes/GDICallForTransportForVehicleAI.xml"/>
+			<ModelConditionUpgrade id="ModuleTag_Veterancy_Upgrade" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</ModelConditionUpgrade>
+			<!-- Rail Gun -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- ThermoBaric Missiles -->
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_03">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Sonic Cannon -->
+			<AudioLoopUpgrade id="ModuleTag_SonicCannonAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_GDIArmorySonicWeaponry</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Loadouts -->
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsUGRAIL" ShowSubObjects="UGRAIL_01">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</SubObjectsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_SonicCannonModelCondition" AddConditionFlags="USER_12">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_RemoveSubObjectsUGRAIL" HideSubObjects="UGRAIL_01">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</SubObjectsUpgrade>
+			<!-- Accelerator -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailgunAcceleratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3400"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="18.0" MinorRadius="12.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceCreate2" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceMove2" AudioType="voiceGuard"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceMove2" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceSelectMS2" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="PredatorIdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="PredatorMoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

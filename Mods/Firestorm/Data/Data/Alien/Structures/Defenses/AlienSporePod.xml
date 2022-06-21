@@ -1,0 +1,195 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNexus.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNexus_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNexus_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNexus_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS_D2.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS_D2_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS_D3.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUS_D3_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienSporePod\ABTNEXUSBUILD_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="AlienSporePod" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTerraformingNexus" ButtonImage="Portrait_AlienTerraformingNexus" Side="ALIEN" BuildCost="1500" BuildTime="15" PlacementViewAngle="315d" CommandSet="AlienSporePodCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_CASH_PRODUCER TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER IGNORE_FOR_VICTORY HEALED_BY_TIBERIUM FS_MONEY_STORAGE" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="TIBERIUM_FIELD" BuildInProximityToSamePlayerStucture="false" BuildOnRequiredObjectKindOf="TIBERIUM_FIELD HARVESTABLE" EditorName="AlienTerraNexus" Description="Desc:AlienTerraNexus" TypeDescription="Type:AlienTerraNexus" EnergyProduction="-5">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienTerraNexus</DisplayName>
+		<GameDependency>
+			<RequiredObject>AlienTiberiumTower</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="TIBERIUM"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABTNEXUS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="ABTNEXUSBUILD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="ABTNEXUS_D3"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABTNEXUS_D2"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABTNEXUS"/>
+					<Texture Original="ABTNexus" New="ABTNexus_D"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored">
+					<Animation AnimationName="ABTNEXUS" AnimationMode="LOOP" AnimationBlendTime="1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="ABTNEXUS_AAN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Script> CurDrawableHideSubObject("BEAM") CurDrawableHideSubObject("STREAM") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABTNEXUS_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABTNEXUS_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="ABTNEXUS_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABTNEXUS_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TIBFUELPT01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="TIBFUELPT02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4" AttachToBoneInAnotherModule="TIBRECTUM">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec01" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Alien_Hexapod_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="99999999"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="3s" DepositAmount="10" Flags="ACTIVE_WHEN_REPAIRING" GiveNoXP="true"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedM"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedM"/>
+				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleM"/>
+			</FXListBehavior>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FireWeaponUpdate id="ModuleTag_CrystalWeapon">
+				<FireWeaponNugget WeaponName="AlienEradicatorTiberiumRadiation" FireDelay="2s"/>
+			</FireWeaponUpdate>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="1%">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
+			</PassiveAreaEffectBehavior>
+			<TiberiumGrowthModBehavior id="ModuleTag_TiberiumGrowth" GreenTiberiumMultiplier="1.5" BlueTiberiumMultiplier="1.5">
+				<DieMuxData DeathTypes="ALL"/>
+			</TiberiumGrowthModBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="12.1114" MinorRadius="12.1114" Height="52.6624" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="23.2912" MinorRadius="23.2912" Height="26.3312" ContactPointGeneration="STRUCTURE"/>
+			<ContactPoint>
+				<Pos x="-14.9777" y="-15.975"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="5.8709" y="-6.0235" z="48.8448"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="15.8223" y="14.825"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.0262" y="4.8735" z="48.8448"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.0262" y="-6.0235" z="48.8448"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="15.8223" y="-15.975"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="5.8709" y="4.8735" z="48.8448"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-14.9777" y="14.825"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_GrowthAccelerator_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Building_LightDamage" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

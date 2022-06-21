@@ -1,0 +1,53 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<GameObject id="AlienDeploymentMeteor" KindOf="CAN_CAST_REFLECTIONS STRUCTURE PRELOAD NO_COLLIDE UNATTACKABLE NOT_AUTOACQUIRABLE" SelectPortrait="Portrait_GDIDropPod" ButtonImage="Portrait_GDIDropPod" RadarPriority="NOT_ON_RADAR" Side="Alien" EditorName="AlienDeploymentMeteor" EditorSorting="MISC_MAN_MADE" TransportSlotCount="0">
+		<DisplayName>AlienDeploymentMeteor</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBERIUMROCK"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockProjectileSmokeTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockProjectileTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockShardTrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<AttributeModifierPoolUpdate id="DefaultAttributeModifierPoolUpdate"/>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate_InitiallyUnattackable" InitiallyActive="true" RefreshDelay="10000000s" AllowSelf="true" AttributeModifierName="AttributeModifier_GDIDropPod_InitialUnattackability"/>
+			<Physics id="ModuleTag_Physics" GravityMultiplier="18.0" BounceCount="0"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.4s" MaxLifetime="1.4s" DeathType="SUICIDED"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonAlienMCV">
+				<DieMuxData DeathTypes="SUICIDED"/>
+			</CreateObjectDie>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="130">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="3.0" DestructionDelay="1.0s">
+				<FX Type="INITIAL">
+					<FX>FX_AlienTibRockHit</FX>
+				</FX>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="AlienDeploymentMeteorCrusherWeapon" FireDelay="1.3s" OneShot="true"/>
+			</FireWeaponUpdate>
+			<BezierProjectile id="ModuleTag_BezierProjectile" DetonateCallsKill="true" OrientToFlightPath="true" DieOnImpact="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="130.0" Height="100.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_OverlordsWrath_MeteorAmbientLoopMS" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
+		<CrusherInfo CrusherLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

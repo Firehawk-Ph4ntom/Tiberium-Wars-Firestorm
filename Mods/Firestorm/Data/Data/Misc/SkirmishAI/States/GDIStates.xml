@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Optimal States -->
+
+	<AIStrategicStateDefinition
+		id="GDIOptimalSandstormAttack_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<IntervalHeuristic IntervalTime="260s" ActiveTime="120s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToGroundStructureHeuristic" TargetType="SpreadTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="SpreadTarget">
+			<TeamTemplate MinUnits="5" MaxUnits="5" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<!-- Offensive States -->
+
+	<AIStrategicStateDefinition
+		id="GDIOffensiveSandstormAttack_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<IntervalHeuristic IntervalTime="260s" ActiveTime="120s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToGroundStructureHeuristic" TargetType="SpreadTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="SpreadTarget">
+			<TeamTemplate MinUnits="4" MaxUnits="4" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<!-- Guerilla States -->
+
+	<AIStrategicStateDefinition
+		id="GDIGuerillaSandstormAttack_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<IntervalHeuristic IntervalTime="130s" ActiveTime="60s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToGroundStructureHeuristic" TargetType="Diversion"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Diversion">
+			<TeamTemplate MinUnits="3" MaxUnits="3" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+				<CreateUnits UnitName="GDISandstorm"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="GDIResourceSqueeze_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<ResourceSqueezeHeuristic
+				PenetrabilityWeight="0.25"
+				OpponentFundsWeight="0.75">
+				<PenetrabilityHeuristic/>
+				<OpponentFundsHeuristic/>
+			</ResourceSqueezeHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ResourceSqueezeHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="3" MaxUnits="5" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="GDIPredator" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="125%"/>
+		<UnitModifierByName UnitName="GDISonicTank" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="150%"/>
+		<UnitModifierByName UnitName="GDISandstorm" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="150%"/>
+	</AIStrategicStateDefinition>
+
+	<!-- Overlord States -->
+
+	<AIStrategicStateDefinition
+		id="GDIOverrunEarly_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<OverrunEarlyHeuristic>
+				<MiddleGameHeuristic/>
+				<LateGameHeuristic/>
+			</OverrunEarlyHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="SimpleAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="15" MaxUnits="15" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="GDIRifleSoldierSquad" UnitPreferenceOffensiveModifier="200%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="GDIMissileSoldierSquad" UnitPreferenceOffensiveModifier="200%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="GDIFalcon" UnitPreferenceOffensiveModifier="175%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="GDIPredator" UnitPreferenceOffensiveModifier="200%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="GDIWolverine" UnitPreferenceOffensiveModifier="175%" UnitPreferenceDefensiveModifier="100%"/>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="GDIOverrunMiddle_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<OverrunMiddleHeuristic>
+				<MiddleGameHeuristic/>
+				<LateGameHeuristic/>
+			</OverrunMiddleHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="SimpleAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="25" MaxUnits="25" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="GDIGrenadeSoldierSquad" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="GDISonicTank" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="200%"/>
+		<UnitModifierByName UnitName="GDISandstorm" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="200%"/>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="GDIOverrunLate_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+			<PathToTargetHeuristic PathExists="true"/>
+				<OverrunLateHeuristic>
+				<LateGameHeuristic/>
+			</OverrunLateHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="SimpleAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="35" MaxUnits="35" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="GDIZoneTrooperSquad" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="GDIZoneRaiderSquad" UnitPreferenceOffensiveModifier="400%" UnitPreferenceDefensiveModifier="200%"/>
+		<UnitModifierByName UnitName="GDIMobileEMP" UnitPreferenceOffensiveModifier="500%" UnitPreferenceDefensiveModifier="400%"/>
+		<UnitModifierByName UnitName="GDIMammoth" UnitPreferenceOffensiveModifier="500%" UnitPreferenceDefensiveModifier="600%"/>
+		<UnitModifierByName UnitName="GDIJuggernaught" UnitPreferenceOffensiveModifier="500%" UnitPreferenceDefensiveModifier="600%"/>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="GDIOverlordSiege_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="SimpleSiege" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDIJuggernaught"/>
+			</TeamTemplate>
+			<TeamTemplate MinUnits="7" MaxUnits="12" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+</AssetDeclaration>

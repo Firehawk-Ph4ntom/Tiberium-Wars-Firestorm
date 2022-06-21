@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="TiberiumField.xml"/>
+	</Includes>
+	<GameObject id="TiberiumFieldRed" inheritFrom="TiberiumField" EditorName="TiberiumFieldRed">
+		<DisplayName xai:joinAction="Replace">Tiberium_Field_Red</DisplayName>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Overwrite">
+				<ModelConditionState id="DefaultState" ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBFIELDRED01_FS"/>
+					<ParticleSysBone id="TibTreeAura" BoneName="NONE" FXParticleSystemTemplate="TibTreeAuraRed" FollowBone="true"/>
+					<ParticleSysBone id="TibTreeAuraLightning" BoneName="NONE" FXParticleSystemTemplate="TibTreeAuraLightningRed" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<TiberiumField id="tib_field" xai:joinAction="Overwrite" Radius="200" FieldResolution="40" MaxFieldMoney="30000" StartingFieldMoney="30000" ThingToSpawn="TiberiumCrystalRed" SpawnOffset="15.0" ClusterScaleFactor="1.0" ClusterPowerFactor="1.0" CrystalGrowthRate="20">
+				<!-- The DamageFilter is simply an on/off switch for the crystal weapons.
+				     If something matching the filter is found within the field, the weapons are turned on. -->
+				<DamageFilter Rule="ANY" Include="INFANTRY">
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienRazorDroneSquad</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienRavagerSquad</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>MutantMarauder</ExcludeThing>
+					<ExcludeThing>MutantMarauderSquad</ExcludeThing>
+					<ExcludeThing>GDIZoneTrooper</ExcludeThing>
+					<ExcludeThing>GDIZoneTrooperSquad</ExcludeThing>
+					<ExcludeThing>GDIZoneTrooperSquad_Veteran</ExcludeThing>
+					<ExcludeThing>GDIZoneRaider</ExcludeThing>
+					<ExcludeThing>GDIZoneRaiderSquad</ExcludeThing>
+					<ExcludeThing>GDICommando</ExcludeThing>
+					<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+					<ExcludeThing>NODCyborgInfantrySquad</ExcludeThing>
+					<ExcludeThing>NODTiberiumTrooper</ExcludeThing>
+					<ExcludeThing>NODTiberiumTrooperSquad</ExcludeThing>
+					<ExcludeThing>NODAscended</ExcludeThing>
+					<ExcludeThing>NODAscendedSquad</ExcludeThing>
+					<ExcludeThing>NODAscendedSquad_Veteran</ExcludeThing>
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+				</DamageFilter>
+				<!-- The HealFilter works similar to the damage filter. It turns on or off
+						 the PassiveAreaEffectBehavior of the cystals if a matching object is found in the field. -->
+				<HealFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
+			</TiberiumField>
+		</Behaviors>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="25.4432" MinorRadius="25.4432" Height="9.83316">
+				<Offset x="-24.2156" y="5.6128" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="26.1145" MinorRadius="26.1145" Height="11.102">
+				<Offset x="20.5094" y="-4.22035" z="0.0"/>
+			</Shape>
+		</Geometry>
+	</GameObject>
+</AssetDeclaration>

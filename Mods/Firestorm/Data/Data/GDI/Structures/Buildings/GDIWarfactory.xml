@@ -1,0 +1,266 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\HC_GBWarFac2.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\HC_GBWarFacBib2.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFAC_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFAC_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFACD2_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFACD3_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFACSRF_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFACX_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFACXD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWarFactory\GBWARFACXD3_SN_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDIWarFactory" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDIWarFactory" ButtonImage="Portrait_GDIWarFactory" Side="GDI" BuildCost="2000" BuildTime="20" EnergyProduction="-6" CommandSet="GDIWarFactoryCommandSet" KindOf="PRELOAD STRUCTURE SELECTABLE IMMOBILE NEED_BASE_FOUNDATION FS_FACTORY AUTO_RALLYPOINT FS_WAR_FACTORY CAN_CAST_REFLECTIONS COVER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI" PlacementViewAngle="-45d" ThreatLevel="3" EditorName="GDIWarFactory" Description="Desc:GDIWarFactory" TypeDescription="Type:GDIWarFactory">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIWarFactory</DisplayName>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIPowerPlant</RequiredObject>
+			<RequiredObject>GDIRefinery</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="FRONT"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBWARFAC_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBWARFAC_ASN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBWARFACD3_SN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBWARFACD2_SN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBWARFAC_FS"/>
+					<Texture Original="GBWarFac" New="GBWarFacD"/>
+					<Texture Original="GBWarFacBib" New="GBWarFacBib_D"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBWarFac_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBWarFacD3_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBWarFacD2_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBWarFacD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBWarFacD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Crane" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBWARFACX_SKN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBWarFacX_A"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GBWARFACXD3_SN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBWARFACXD_SKN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBWARFACXD_SKN_FS"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GBWarFacX_IDL" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBWarFacX_A" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING">
+					<Animation AnimationName="GBWarFacX_CON" AnimationMode="ONCE" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GBWarFacXD3_AN" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBWarDoor_SKN"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Model Name="GBWarDoor_SKN"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBWarDoor_A"/>
+					<Texture Original="HC_GBWarFac" New="HC_GBWarFac2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBWarDoor_A" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBWarDoor_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_WAITING_OPEN" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GBWarDoor_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING" StateName="STATE_Open">
+					<Animation AnimationName="GBWarDoor_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
+					<Animation AnimationName="GBWarDoor_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GBWarDoor_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="340" SizeY="340" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBWARFACSRF_SKN"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBWARFACSRF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBWARFACSRF_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Script> CurDrawableHideSubObject("Gate01") CurDrawableHideSubObject("Gate02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
+					<Script> CurDrawableShowSubObject("Gate01") CurDrawableShowSubObject("Gate02") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="0.66s" DoorWaitOpenTime="3.00s" DoorCloseTime="0.66s"/>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
+				<UnitCreatePoint x="0.0" y="17.0" z="0.0"/>
+				<NaturalRallyPoint x="90.0" y="17.0" z="0.0"/>
+			</QueueProductionExitUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>GDIRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="GDI_WarFactory_doorOpen" Animation="GBWARDOOR_OPN" Frame="1"/>
+				<Sound Sound="GDI_WarFactory_doorClose" Animation="GBWARDOOR_CLS" Frame="1"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="50.0" MinorRadius="50.0" Height="30.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="0" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10.0" MinorRadius="50.0" Height="75.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-24" y="0" z="0"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-42.0" y="48.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="44.0" y="48.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="44.0" y="-30.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="44.0" y="48.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-40.0" y="-45.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="44.0" y="48.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-40.0" y="-45.0" z="30"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-42.0" y="48.0" z="0"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_WarFactorySelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

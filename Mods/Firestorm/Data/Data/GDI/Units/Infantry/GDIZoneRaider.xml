@@ -1,0 +1,301 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZnRaider.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\HC_GUZnRaider.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUGAR_ZONER.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZNRAIDER_BRDQ.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZNRAIDER_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZNRAIDER_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="GDIZoneRaider" inheritFrom="BaseInfantry" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY PRELOAD ATTACK_NEEDS_LINE_OF_SIGHT PATH_THROUGH_INFANTRY" Description="Desc:GDIZoneRaider" TypeDescription="Type:GDIZoneRaider" Side="GDI" EditorName="GDIZoneRaider" BuildTime="4" SelectPortrait="Portrait_ZoneRaider" ButtonImage="Portrait_ZoneRaider" VoicePriority="135" ThreatLevel="10" WeaponCategory="BLAST" BuildCost="400" UnitTypeIcon="ZoneRaiderIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIZoneRaider</DisplayName>
+		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_ZoneTrooperAutoInjectors</DisplayUpgrade>
+		<ArmorSet Armor="GenericHeavyTrooperArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet id="GDIZoneTrooperLocomotor" Locomotor="HumanLocomotor" Condition="NORMAL" Speed="60"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUZNRAIDER_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="ZT_RSHOULDPAD"/>
+					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="ZT_RSHOULDPAD"/>
+					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="ZT_RSHOULDPAD"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="ZT_RSHOULDPAD"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name="GUGAR_ZONER"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Animation AnimationName="GUGAR_ZONE" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUZNTRPR_BRDA_FS" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="6"/>
+					<Animation AnimationName="GUZNTRPR_BRDE_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="5"/>
+					<Animation AnimationName="GUZNTRPR_BRDF_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="4"/>
+					<Animation AnimationName="GUZNRAIDER_BRDQ" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="10"/>
+					<Animation AnimationName="GUZNTRPR_BRDC_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="6"/>
+					<Animation AnimationName="GUZNTRPR_BRDD_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="15"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="GUZNTRPR_DIED_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="GUZNTRPR_CDTC_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GUZNTRPR_DIEA_FS" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUZNTRPR_DIEB_FS" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUZNTRPR_DIEC_FS" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUZNTRPR_DIED_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE UNPACKING" StateName="State_JumpJetInitiate">
+					<Animation AnimationName="GUZNTRPR_JET1_FS" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTJumpStartDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTJumpStartFire" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ABOUT_TO_HIT" StateName="State_AboutToLand">
+					<Animation AnimationName="GUZNTRPR_JET4_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE PACKING" StateName="State_JumpJetJumping">
+					<Animation AnimationName="GUZNTRPR_JET2_FS" AnimationMode="ONCE"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end </Script>
+					<ParticleSysBone BoneName="MAIN_THRSTR" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAIN_THRSTR" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAIN_THRSTR" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="THROWN_PROJECTILE">
+					<Animation AnimationName="GUZNTRPR_JET3_FS" AnimationMode="ONCE" AnimationBlendTime="10"/>
+					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" Flags="RANDOMSTART">
+					<Animation AnimationName="GUZNTRPR_FLYA_FS" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
+					<Animation AnimationName="GUZNTRPR_LNDA_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_STANDING_UP">
+					<Animation AnimationName="GUZNTRPR_GTPA_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED">
+					<Animation AnimationName="GUZNTRPR_LNDA_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING FIRING_OR_PREATTACK_A" Flags="RANDOMSTART">
+					<Animation AnimationName="GUZNTRPR_RUNA_FS" AnimationMode="LOOP" Distance="50"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUZNTRPR_RUNB_FS" AnimationMode="LOOP" Distance="50"/>
+					<Animation AnimationName="GUZNTRPR_RUNC_FS" AnimationMode="LOOP" Distance="50"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+					<Animation AnimationName="GUZNTRPR_FIRC_FS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A">
+					<Animation AnimationName="GUZNTRPR_FIRC_FS" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUZNTRPR_CHRA_FS" AnimationMode="ONCE" AnimationBlendTime="10" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="GUZNTRPR_CHRC_FS" AnimationMode="ONCE" AnimationBlendTime="10" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GUZNTRPR_IDLA_FS" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="50"/>
+					<Animation AnimationName="GUZNTRPR_IDLB_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="25"/>
+					<Animation AnimationName="GUZNTRPR_IDLC_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="15"/>
+					<Animation AnimationName="GUZNTRPR_IDLD_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="25"/>
+					<Animation AnimationName="GUZNTRPR_IDLE_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="15"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_AboutToHitGround_To_Idle">
+					<Animation AnimationName="GUZNTRPR_JET5_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="GUZNTRPR_ATNA_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="GUZNTRPR_ATNB_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="GUZNTRPR_ATNC_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="GUZNTRPR_2BRD_FS" AnimationMode="ONCE" AnimationBlendTime="18" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="GUZNTRPR_2BRDB_FS" AnimationMode="ONCE" AnimationBlendTime="18" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawJumpJetFX">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle">
+					<Script> CurDrawableHideSubObject("UGJump") Prev = CurDrawablePrevAnimationState() if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE UNPACKING" StateName="State_JumpJetInitiate">
+					<Script> CurDrawableHideSubObject("UGJump") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ABOUT_TO_HIT" StateName="State_AboutToLand">
+					<Script> CurDrawableHideSubObject("UGJump") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE PACKING" StateName="State_JumpJetJumping">
+					<Script> CurDrawableShowSubObject("UGJump") Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="THROWN_PROJECTILE">
+					<Script> CurDrawableShowSubObject("UGJump") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_AboutToHitGround_To_Idle">
+					<Script> CurDrawableHideSubObject("UGJump") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="Zt_Spine2" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Template="GDIZoneRaiderShockWaveCannon"/>
+					<Weapon Template="GDIZoneRaiderShockWaveOverloadCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Template="GDIZoneRaiderRocketPods"/>
+					<Weapon Template="GDIZoneRaiderThermoBaricRocketPods" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="180" TurretPitchRate="40" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<LinearDamageUpdate id="ModuleTag_LinearDamageUpdate" StartDistanceOffset="20" Radius="5" Length="325" SweepFXList="FX_TeraSweep_ZR" SweepWeapon="GDIZoneRaiderSweepWeapon" Speed="125"/>
+			<SpecialPower id="ModuleTag_JumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_JumpJetUpdate" SpecialWeapon="ZoneTrooperFireJumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UnpackTime=".4s" UnpackSound="GDI_ZoneTrooper_JumpJetStart" PackTime=".4s" BusyForDuration="3s" WhichSpecialWeapon="1" TriggerSound="ZoneTrooperJumpJetFire" WeaponSlotType="TERTIARY_WEAPON"/>
+			<BezierProjectile id="ModuleTag_Projectile" FirstHeightMin="50" FirstHeightMax="50" SecondHeightMin="50" SecondHeightMax="50" FirstPercentIndent="30" SecondPercentIndent="70" TumbleRandomly="true" CrushStyle="true" BounceCount="0" FinalStuckTime="1.766s" GroundHitFX="FX_ZoneTrooperJumpJetHitsGround" PreLandingStateTime="0.3s"/>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<Sound List="GDI_ZoneRaider_VoiceDie"/>
+				<DieMuxData DeathTypes="EXPLODED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<Sound List="GDI_ZoneRaider_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<Sound List="GDI_ZoneRaider_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<Sound List="GDI_ZoneRaider_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<SubObjectsUpgrade id="ModuleTag_ShowScanner" ShowSubObjects="UGSCANNER">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</SubObjectsUpgrade>
+			<!-- Auto Injectors -->
+			<AutoHealBehavior id="Upgrade_AutoInjectors_02" InitiallyActive="false" HealOnlyIfNotInCombat="true" HealOnlyIfNotUnderAttack="true" StartHealingDelay="5s" HealingAmount="10" HealingDelay="3s">
+				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			</AutoHealBehavior>
+			<AttributeModifierUpgrade id="Upgrade_ScannerPack_02" AttributeModifier="ZoneTrooper_ScannerPack">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowInjectors" ShowSubObjects="UGINJECTOR">
+				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AttributeModifierUpgrade id="Upgrade_AutoInjectors_01" AttributeModifier="ZoneTrooper_AutoInjectors">
+				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_ZoneTrooper</Key>
+			</LargeGroupAudioUpdate>
+			<AudioLoopUpgrade id="Generic_Infantry_UpgradeZoneTrooperScannerPack" SoundToPlay="GDI_ScannerPacks_Upgrade">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_AutoInjectorsAudioLoop" SoundToPlay="GDI_PowerPacks_Upgrade">
+				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_ElectroStaticAccelUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIElectroStaticAccelerator</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ElectroStaticAccelAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_GDIElectroStaticAccelerator</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIZoneTrooperFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="240"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Bodyfall" Animation="GUZNTRPR_LNDA_FS" Frame="7"/>
+				<Sound Sound="Bodyfall" Animation="GUZNTRPR_DIEA_FS" Frame="66"/>
+				<Sound Sound="Bodyfall" Animation="GUZNTRPR_DIEB_FS" Frame="34"/>
+				<Sound Sound="Bodyfall" Animation="GUZNTRPR_DIEC_FS" Frame="78"/>
+				<Sound Sound="Bodyfall" Animation="GUZNTRPR_DIED_FS" Frame="19"/>
+			</AnimationSoundClientBehavior>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="GDI_ZoneRaider_JumpJetLand" RequiredFlags="ABOUT_TO_HIT" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7" MinorRadius="7" Height="13" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_ZoneRaider_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<NamedEntry Sound="GDI_ZoneRaider_VoiceMoveJump" Name="InitiateJumpJets"/>
+		</AudioArrayVoice>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

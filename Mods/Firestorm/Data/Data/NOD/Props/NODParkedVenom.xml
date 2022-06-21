@@ -1,0 +1,93 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODParkedVenom" Side="NOD" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODVenom" ButtonImage="Portrait_NODVenom" EditorName="NODParkedVenom" EditorSorting="MISC_MAN_MADE" Description="Desc:NODVenom" TypeDescription="Type:NODVenom" ThreatLevel="1">
+		<DisplayName>Name:NODVenom</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUVENOM_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10">
+					<Model Name="NUVENOM_UGCP_SKN"/>
+					<Texture Original="NuVenom" New="NuVenomD"/>
+					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NUVENOM_SKN_FS"/>
+					<Texture Original="NuVenom" New="NuVenomD"/>
+					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_10">
+					<Model Name="NUVENOM_UGCP_SKN"/>
+					<Texture Original="NuVenom" New="NuVenomD"/>
+					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NUVENOM_SKN_FS"/>
+					<Texture Original="NuVenom" New="NuVenomD"/>
+					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
+					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10">
+					<Model Name="NUVENOM_UGCP_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObject("FX_WEAPON02") CurDrawableHideSubObject("FX_WEAPON01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVenomInitialDebrisUpgraded</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVenomInitialDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<ModelConditionUpgrade id="ModuleTag_ParticleBeamModelCondition" AddConditionFlags="USER_10">
+				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_VenomStealthSubObject" ShowSubObjects="SIGGEN">
+				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
+			</SubObjectsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_VenomStealthDeathUpgrade" StatusToSet="RIDER4">
+				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODVenomFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1800"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="BOX" MajorRadius="16.0" MinorRadius="9.0" Height="8">
+				<Offset z="5.0"/>
+			</Shape>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

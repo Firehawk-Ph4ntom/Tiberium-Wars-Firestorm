@@ -1,0 +1,85 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="NODAvatarHusk" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NodAvatarHusk" ButtonImage="Portrait_NodAvatarHusk" Side="NOD" CommandSet="EmptyCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS IMMOBILE NOT_AUTOACQUIRABLE HUSK VALID_TARGET_FOR_C4" EditorName="NODPurifierHusk" Description="Desc:AvatarWarmechHusk">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AvatarWarmechHusk</DisplayName>
+		<ArmorSet Armor="NoArmor" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUMECHH_SKN_FS"/>
+					<Texture Original="NUMechD" New="NUPurifier_D"/>
+					<Texture Original="NUMech_NRM" New="NUPurifier_NRM"/>
+					<Texture Original="NUMech_SPM" New="NUPurifier_SPM"/>
+					<Texture Original="NUFlameTank" New="NUFlameTankD"/>
+					<Texture Original="NUBeam" New="NUBeamD"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUMECH_DIEB" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="NUMECH_DIEB" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="2.4" DestructionDelay="4s">
+				<DieMuxData DeathTypes="ALL"/>
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODAvatarHuskDebris</OCL>
+				</OCL>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
+			</FXListBehavior>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceCaptureHusk" NameOfVoiceToUseForHostileEnter="VoiceCaptureHusk" EvaEventForReplace="HuskRepaired" EvaEventForCaptureAndReplace="HuskRepaired" FXForReplace="FX_Husk_Repaired" FXForCapture="FX_Husk_Captured" FXForCaptureAndReplace="FX_Husk_Captured" ReplaceWith="NODAvatarHuskReplace">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+			<xi:include href="DATA:Includes/GenericHuskLifetimeUpdate.xml"/>
+			<SubObjectsUpgrade id="ModuleTag_ShowStealth" ShowSubObjects="S_GENERATOR">
+				<TriggeredBy>Upgrade_AvatarInvisibility</TriggeredBy>
+			</SubObjectsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowBeamCannon" ShowSubObjects="NUBEAM">
+				<TriggeredBy>Upgrade_AvatarBeamCannon</TriggeredBy>
+			</SubObjectsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowStealthDetect" ShowSubObjects="S_DETECTOR">
+				<TriggeredBy>Upgrade_AvatarStealthDetect</TriggeredBy>
+			</SubObjectsUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODAvatarHuskFunctions">
+				<UnitAITargetChooserData/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="=$MECH_HUSK_HEALTH"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="30.0" MinorRadius="14.0" Height="13.0" ContactPointGeneration="VEHICLE">
+				<Offset x="30.0" y="0.0" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<EvaEvents EvaEventPromotedOwner="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy=""/>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

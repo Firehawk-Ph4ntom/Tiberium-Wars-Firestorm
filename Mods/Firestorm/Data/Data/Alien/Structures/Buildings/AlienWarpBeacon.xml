@@ -1,0 +1,518 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBD2IONSHIELD_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBD3_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBD3IONSHIELD_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBIONSHIELD_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBLD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBP01IONSHIELD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBP02IONSHIELD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBP03IONSHIELD_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienWarpBeacon\ABWARPBP04IONSHIELD_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="AlienWarpBeacon" inheritFrom="BaseStructure" SelectPortrait="Portrait_ALIENGravityStabilizer" ButtonImage="Portrait_ALIENGravityStabilizer" ThreatLevel="3" Side="ALIEN" BuildCost="1000" BuildTime="10" PlacementViewAngle="337.5d" CommandSet="AlienWarpBeaconCommandSet" KindOf="STRUCTURE SELECTABLE TIBERIUM_BASED IMMOBILE CAN_CAST_REFLECTIONS FS_FACTORY AUTO_RALLYPOINT AIRFIELD AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienWarpBeacon" Description="Desc:ALIENWarpBeacon" TypeDescription="Type:AlienWarpBeacon" EnergyProduction="-8">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENWarpBeacon</DisplayName>
+		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdvancedProduction</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>AlienControlCenter</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="BACK"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="Runway0Park0Han Runway0Park1Han Runway1Park0Han Runway1Park1Han Runway0Parking0 Runway0Parking1 Runway1Parking0 Runway1Parking1">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABWarpB"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="ABWarpBld_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_6">
+					<Model Name="ABWARPBD3IONSHIELD_SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="ABWARPBD3_SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="ABWARPBD2IONSHIELD_SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABWarpBD2_SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="ABWARPBIONSHIELD"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABWarpB"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="ABWARPBIONSHIELD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="ABWarpBld_AAN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBD3_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBD2_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="ABWarpBD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABWarpBD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Construction_FX" AttachToBoneInAnotherModule="FXPortal">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="ABPortal_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING">
+					<Model Name="ABPortal_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="ABPortal_FXDie"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Model Name="ABPortal_FX"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Model Name="ABPortal_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING USER_1">
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady01" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady02" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlarePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterGlowPurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACTIVELY_CONSTRUCTING">
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady01" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady02" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_1" StateName="STATE_Rubble02">
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble02" and Prev ~= "TRANS_ReallyDamagedToRubble02" then CurDrawableSetTransitionAnimState("TRANS_ReallyDamagedToRubble02") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_ReallyDamagedToRubble02" ConditionsYes="DYING USER_1">
+					<Animation AnimationName="ABPORTAL_FXDIE" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady01" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady02" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlarePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterGlowPurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble01">
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble01" and Prev ~= "TRANS_ReallyDamagedToRubble01" then CurDrawableSetTransitionAnimState("TRANS_ReallyDamagedToRubble01") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_ReallyDamagedToRubble01" ConditionsYes="DYING">
+					<Animation AnimationName="ABPortal_FXDie" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady01" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady02" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="AlienRiftReady03" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDist" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayCenterFlarePurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterGlowPurple" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXPortal" FXParticleSystemTemplate="ABGatewayIdleCenterDarkMatter" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABWarpBP01_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_6">
+					<Model Name="ABWARPBP01IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="ABWarpBP01_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="ABWARPBP01IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABWarpBP01_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="ABWARPBP01IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABWarpBP01_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="ABWARPBP01IONSHIELD_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_OPENING">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_CLOSING">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door2" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABWarpBP02_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_6">
+					<Model Name="ABWARPBP02IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="ABWarpBP02_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="ABWARPBP02IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABWarpBP02_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="ABWARPBP02IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABWarpBP02_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="ABWARPBP02IONSHIELD_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_OPENING">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_CLOSING">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door3" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABWarpBP03_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_6">
+					<Model Name="ABWARPBP03IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="ABWarpBP03_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="ABWARPBP03IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABWarpBP03_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="ABWARPBP03IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABWarpBP03_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="ABWARPBP03IONSHIELD_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_OPENING">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_CLOSING">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door4" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABWarpBP04_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_6">
+					<Model Name="ABWARPBP04IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="ABWarpBP04_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="ABWARPBP04IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ABWarpBP04_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="ABWARPBP04IONSHIELD_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ABWarpBP04_SKN"/>
+					<Texture Original="ABWarpB" New="ABWarpB_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="ABWARPBP04IONSHIELD_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ABWarpBP_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_OPENING">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_CLOSING">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ABWarpBP_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairAircraft" SpecialPowerTemplate="SpecialPower_TargetedRepairAircraft"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedL"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedL"/>
+				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
+			</FXListBehavior>
+			<ModelConditionUpgrade id="ModuleTag_AdvProductionModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_AdvProductionAudioLoop" SoundToPlay="ALI_AdvancedProduction_Upgrade">
+				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="AIRCRAFT">
+				<ProductionModifier RequiredUpgrade="Upgrade_ProductionDummy" TimeMultiplier="0.9" CostMultiplier="0.9">
+					<ModifierFilter Rule="ANY" Include="AIRCRAFT"/>
+				</ProductionModifier>
+			</ProductionUpdate>
+			<RecallUnitsSpecialPower id="ModuleTag_RecallSpecialPower" PlayReturnVoiceFromRecalledUnit="false" SpecialPowerTemplate="SpecialPower_RecallAllAircraft"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>AlienRepairAircraftDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<ParkingPlaceBehavior id="ModuleTag_ParkingPlaceBehavior" HealAmount="0" NumRows="2" NumCols="2" ApproachHeight="0" ParkInHangars="false" DoorOpenTime="2s" DoorCloseTime="2s" LowersOntoParkingPlaceOnProduction="true">
+				<DefaultRallyPointOffset x="73.0" y="0.0" z="0"/>
+				<CanParkHereFilter Rule="ALL" Relationship="SAME_PLAYER" Exclude="SUMMONED TRANSPORT"/>
+			</ParkingPlaceBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2.0s"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<SpawnBehavior id="ModuleTag_Spawn2" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnDisabled="true">
+				<SpawnTemplate>IonStormBuilding</SpawnTemplate>
+				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+			</SpawnBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="AlienProductionBuildingFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="4000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="60.0" MinorRadius="60.0" Height="12.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="0.0" y="0.0" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="6.912" MinorRadius="6.912" Height="34.44" ContactPointGeneration="STRUCTURE">
+				<Offset x="38.5332" y="-36.7032" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="15.3446" MinorRadius="15.3446" Height="12.5637" ContactPointGeneration="STRUCTURE">
+				<Offset x="38.5332" y="-36.7032" z="29.7533"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="15.3446" MinorRadius="15.3446" Height="12.5637" ContactPointGeneration="STRUCTURE">
+				<Offset x="38.5332" y="39.067" z="29.7533"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="6.912" MinorRadius="6.912" Height="34.44" ContactPointGeneration="STRUCTURE">
+				<Offset x="38.5332" y="39.067" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="15.3446" MinorRadius="15.3446" Height="12.5637" ContactPointGeneration="STRUCTURE">
+				<Offset x="-39.7678" y="39.067" z="29.7533"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="6.912" MinorRadius="6.912" Height="34.44" ContactPointGeneration="STRUCTURE">
+				<Offset x="-39.7678" y="39.067" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="15.3446" MinorRadius="15.3446" Height="12.5637" ContactPointGeneration="STRUCTURE">
+				<Offset x="-39.7678" y="-39.6696" z="29.7533"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="6.912" MinorRadius="6.912" Height="34.44" ContactPointGeneration="STRUCTURE">
+				<Offset x="-39.7678" y="-39.6696" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_GravityStabilizer_Select" AudioType="voiceSelect"/>
+			<NamedEntry Sound="ALI_GravityStabilizer_Recall" Name="InitiateRecall"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Building_LightDamage" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

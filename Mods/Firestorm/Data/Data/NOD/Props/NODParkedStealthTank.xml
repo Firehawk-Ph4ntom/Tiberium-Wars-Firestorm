@@ -1,0 +1,97 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODParkedStealthTank" Side="NOD" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODStealthTank" ButtonImage="Portrait_NODStealthTank" EditorName="NODParkedStealthTank" EditorSorting="MISC_MAN_MADE" Description="Desc:NODStealthTank" TypeDescription="Type:NODStealthTank" ThreatLevel="1">
+		<DisplayName>Name:NODStealthTank</DisplayName>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNK_SKN_FS"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNKR_SKN"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_5" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNK_SKN_FS"/>
+					<Texture Original="NUSTealthTank" New="NUSTealthTankD"/>
+					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue_D"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNK_SKN_FS"/>
+					<Texture Original="NUSTealthTank" New="NUSTealthTankD"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_5" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNK_SKN_FS"/>
+					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNK_SKN_FS"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5" RetainSubObjects="true">
+					<Model Name="NUSTLTHTNK_SKN_FS"/>
+					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIStealthTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTibCoreMissiles" ShowSubObjects="TIBCOREMISSILEL TIBCOREMISSILER">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</SubObjectsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_5">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODAttackBikeFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1875"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="23.0" MinorRadius="15.0" Height="11.5" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
+	</GameObject>
+</AssetDeclaration>

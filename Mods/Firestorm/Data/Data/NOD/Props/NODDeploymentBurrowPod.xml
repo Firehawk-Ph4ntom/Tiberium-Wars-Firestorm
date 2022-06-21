@@ -1,0 +1,66 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NOD_CRAWLERBURROWINGPOD_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDrill\NOD_CRAWLERBURROWINGPOD_SKN.w3x"/>
+	</Includes>
+	<GameObject id="NODDeploymentBurrowPod" KindOf="PRELOAD CAN_CAST_REFLECTIONS UNATTACKABLE" SelectPortrait="Portrait_GDIDropPod" ButtonImage="Portrait_GDIDropPod" RadarPriority="UNIT" Side="NOD" EditorName="NODDeploymentBurrowPod" EditorSorting="MISC_MAN_MADE" TransportSlotCount="0">
+		<DisplayName>NODDeploymentBurrowPod</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NOD_CRAWLERBURROWINGPOD_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NOD_CRAWLERBURROWINGPOD_MOVA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<FXEvent Frame="4" Effect="FX_BurrowPod_Rubble" Bone="bone_drill_top" FireWhenSkipped="true"/>
+					<FXEvent Frame="48" Effect="FX_BurrowPod_Rubble" Bone="bone_crawler_platform" FireWhenSkipped="true"/>
+					<ParticleSysBone BoneName="dummy01" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy02" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy03" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy04" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy05" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy06" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy07" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+					<ParticleSysBone BoneName="dummy08" FXParticleSystemTemplate="DropPodSteam" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<AttributeModifierPoolUpdate id="DefaultAttributeModifierPoolUpdate"/>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate_InitiallyUnattackable" InitiallyActive="true" RefreshDelay="10000000s" AllowSelf="true" AttributeModifierName="AttributeModifier_GDIDropPod_InitialUnattackability"/>
+			<Physics id="ModuleTag_Physics" BounceCount="0"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.7s" MaxLifetime="1.7s" DeathType="SUICIDED"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonNODMCV">
+				<DieMuxData DeathTypes="SUICIDED"/>
+			</CreateObjectDie>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="130">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<SlowDeath id="ModuleTag_Death" DeathObjectStatusBits="DONT_CLEAR_FOR_BUILD" SinkDelay="3s" SinkRate="3.0" DestructionDelay="6.0s">
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="NODDeploymentBurrowPodAppearCameraShake" FireDelay="0.2s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Nod_CrawlerExhumePod_High1" Animation="NOD_CRAWLERBURROWINGPOD_MOVA" Frame="0"/>
+				<Sound Sound="Nod_CrawlerExhumePod_High2" Animation="NOD_CRAWLERBURROWINGPOD_MOVA" Frame="12"/>
+				<Sound Sound="Nod_CrawlerExhumePod_Low1" Animation="NOD_CRAWLERBURROWINGPOD_MOVA" Frame="20"/>
+				<Sound Sound="Nod_CrawlerExhumePod_Low2" Animation="NOD_CRAWLERBURROWINGPOD_MOVA" Frame="29"/>
+				<Sound Sound="NOD_MCV_VoiceCreate" Animation="NOD_CRAWLERBURROWINGPOD_MOVA" Frame="27"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="130.0" Height="80.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
+		<CrusherInfo CrusherLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

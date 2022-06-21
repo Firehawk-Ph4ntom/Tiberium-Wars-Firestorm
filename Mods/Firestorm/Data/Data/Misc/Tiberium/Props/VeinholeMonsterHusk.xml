@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<GameObject id="VeinholeMonsterHusk" Side="Neutral" KindOf="STRUCTURE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE TIBERIUM_BASED TIBERIUM HUSK" EditorName="VeinholeMonsterHusk" EditorSorting="MISC_NATURAL">
+		<DisplayName>Name:NeutralWeinholeMonster</DisplayName>
+		<ArmorSet Armor="VeinholeMonsterArmor" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState id="DefaultState" ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBWEINMOSTER_R"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TIBWEINMOSTER_DIE" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="TIBWEINMOSTER_DIE" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_AE02" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_AG02" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_AB02" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_AC01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_AC01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_AC01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_BA01" FXParticleSystemTemplate="AlienDamageInfantryHitIchorSpray" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_BB01" FXParticleSystemTemplate="AlienDamageInfantryHitIchorSpray" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_BC01" FXParticleSystemTemplate="AlienDamageInfantryHitIchorSpray" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_BD01" FXParticleSystemTemplate="AlienDamageInfantryHitIchorSpray" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TENTACLE_BE01" FXParticleSystemTemplate="AlienDamageInfantryHitIchorSpray" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="2s" MaxLifetime="2s"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onCreate" FX="FX_VeinholeMonsterDie"/>
+			</FXListBehavior>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="30" Height="15"/>
+		</Geometry>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

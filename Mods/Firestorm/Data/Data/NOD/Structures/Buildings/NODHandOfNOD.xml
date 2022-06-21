@@ -1,0 +1,182 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODHandOfNod\NBHAND_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODHandOfNod\NBHAND_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODHandOfNod\NBHAND_LF_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODHandOfNod\NBHANDD2_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODHandOfNod\NBHANDD3_SN_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="NODHandOfNOD" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODHandofNod" ButtonImage="Portrait_NODHandofNod" Side="NOD" BuildCost="500" BuildTime="5" EnergyProduction="-5" CommandSet="NODHandOfNODCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_FACTORY AUTO_RALLYPOINT FS_BARRACKS NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" ThreatLevel="3" EditorName="NODHandOfNOD" Description="Desc:NODHandofNOD" TypeDescription="Type:NODHandofNod">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODHandofNod</DisplayName>
+		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODPowerPlant</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericMediumBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="FRONT"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBHand_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBHand_ASN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBHandD3_SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBHandD2_SN_FS"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDIWTDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIWTDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIWTDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIWTDamagedDist" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBHandD2_SN_FS"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIWTDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBHand_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="NBHandD2_AN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHandD2_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_DamagedToReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_DamagedToReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBHandD3_AN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_DamagedToReallyDamaged">
+					<Animation AnimationName="NBHandD2_AN" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="NBHAND_LF"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="NBHAND_LF"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="NBHAND_LF"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Script> CurDrawableHideSubObject("GATE01") CurDrawableHideSubObject("GATE02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
+					<Script> CurDrawableShowSubObject("GATE01") CurDrawableShowSubObject("GATE02") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<ProductionUpdate id="ModuleTag_Production" NumDoorAnimations="1" DoorOpeningTime="0.1s" DoorWaitOpenTime="2s" DoorCloseTime="0.1s" Type="INFANTRY" GiveNoXP="True"/>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" PlacementViewAngle="45d" ExitDelay="1">
+				<UnitCreatePoint x="0.0" y="0.0"/>
+				<NaturalRallyPoint x="68.0" y="0.0"/>
+			</QueueProductionExitUpdate>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<HealContain id="ModuleTag_HordeGarrison" ContainMax="1" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" AllowOwnPlayerInsideOverride="true" AllowAlliesInside="false" AllowEnemiesInside="false" AllowNeutralInside="false"  ShowPips="false" ResetInitialTeamOnCapture="true" TimeForFullHeal="5s">
+				<PassengerFilter Rule="ANY" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+				<ExitOffset x="68" y="0" z="0"/>
+			</HealContain>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="50.0" MinorRadius="25.0" Height="8.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2.0" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="40.0" MinorRadius="20.0" Height="12.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-10.0" y="0.0" z="8"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="8.0" Height="40.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-36.0" y="2.5" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="14.0" Height="20.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-36.0" y="2.5" z="40"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="32.0" y="-17.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="27.0" y="17.0" z="20.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-45.0" y="18.0" z="30.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-45.0" y="-23.0" z="0.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="40.0" y="-20.0" z="20"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="32.0" y="-17.0" z="0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="27.0" y="17.0" z="20.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-45.0" y="-23.0" z="0.0"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_HandOfNODSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

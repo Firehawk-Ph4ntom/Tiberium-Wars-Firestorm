@@ -1,0 +1,77 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="SatelliteLaunchFacility_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralLaunchFacility" ButtonImage="Portrait_NeutralLaunchFacility" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS HUSK NOT_AUTOACQUIRABLE UNATTACKABLE" EditorName="SatelliteLaunchFacility_Destroyed">
+		<DisplayName>Name:SatelliteLaunchFacility</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="CBSatLnch_D3"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="CBSatLnch_D3" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="CBSatLnch_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" FXForRepair="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" EvaEventForReplace="BuildingRepaired" EvaEventForCaptureAndReplace="EnemyBuildingCaptured" ReplaceWith="OCL_SatelliteLaunchFacility_Rebuilt">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+		</Behaviors>
+		<Body>
+    		<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="76.0807" MinorRadius="24.0922" Height="22.8242" ContactPointGeneration="STRUCTURE">
+				<Offset x="0.201096" y="35.1478"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="24.0922" MinorRadius="59.1739" Height="22.8242" ContactPointGeneration="STRUCTURE">
+				<Offset x="-51.7874" y="-0.779198"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="54.1018" MinorRadius="31.2776" Height="5.07204" ContactPointGeneration="STRUCTURE">
+				<Offset x="15.4172" y="-9.2326"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="7.2719" MinorRadius="7.2719" Height="76.0807" ContactPointGeneration="STRUCTURE">
+				<Offset x="-17.5511" y="-2.46988"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-44.529" y="-29.9765"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="29.642" y="-29.9765" z="17.0326"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="29.642" y="44.1944"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-44.529" y="44.1944" z="17.0326"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-44.529" y="-29.9765" z="17.0326"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="29.642" y="-29.9765"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="29.642" y="44.1944" z="17.0326"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-44.529" y="44.1944"/>
+			</ContactPoint>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

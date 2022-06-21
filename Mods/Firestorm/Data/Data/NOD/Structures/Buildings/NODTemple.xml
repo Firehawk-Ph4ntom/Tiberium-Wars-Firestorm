@@ -1,0 +1,154 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple_D1.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_D2AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_D2SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_D3AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_D3SN_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="NODTemple" inheritFrom="BaseStructure" KindOf="STRUCTURE SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED FS_TECH_CENTER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" Description="Desc:NODTemple" TypeDescription="Type:NODTemple" PlacementViewAngle="315d" Side="NOD" EditorName="NODTempleOfRedemption" BuildTime="30" EnergyProduction="-12" CommandSet="NODTempleCommandSet" SelectPortrait="Portrait_NODTemple" ButtonImage="Portrait_NODTemple" ThreatLevel="8" BuildCost="3000" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODTemple</DisplayName>
+		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericMediumBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBTEMPLE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NBTEMPLE_D3SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBTEMPLE_D2SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBTEMPLE"/>
+					<Texture Original="NB_Temple" New="NB_Temple_D1"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBLABRAD_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBTEMPLE_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBTEMPLE_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="NBTEMPLE_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBTEMPLE_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_AwesomeXplosion"/>
+				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchMedium"/>
+			</FXListBehavior>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Redemption -->
+			<OCLSpecialPower id="ModuleTag_OCLRedemption" SpecialPowerTemplate="SpecialPower_Redemption" OCL="OCL_RedemptionSpawner" CreateLocation="CREATE_AT_LOCATION"/>
+			<AISpecialPowerUpdate id="ModuleTag_RedemptionAI" CommandButtonName="Command_Redemption" SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT" SpecialPowerRadius="300" ReinforceDistance="100"/>
+			<!-- Air Dispersion -->
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerAirDispersion" SpecialPowerTemplate="SpecialPowerAirDispersion" OCL="OCL_NODAirDispersion" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE" DestinationOCL="OCL_NODTiberiumVaporBeacon"/>
+			<AISpecialPowerUpdate id="ModuleTag_TiberiumFacilityAirDispersion" CommandButtonName="Command_TiberiumFacilityAirDispersion" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<!-- Master Computer CounterMeasures -->
+			<SpecialPower id="ModuleTag_ComputerCounterMeasures" SpecialPowerTemplate="SpecialPowerComputerCounterMeasures"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ComputerCounterMeasuresUpdate" SpecialPowerTemplate="SpecialPowerComputerCounterMeasures" SpecialWeapon="ComputerCounterMeasures" WhichSpecialWeapon="1"/>
+			<AISpecialPowerUpdate id="ModuleTag_ComputerCountermeasuresAI" CommandButtonName="Command_ComputerCounterMeasures" SpecialPowerAIType="SPECIAL_POWER_EMP_COUNTER"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/AdvancedNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/AdvancedNODBuildingSuicide.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
+		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceRedemptionReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPower_Redemption" JustMonitorPercentReady="true"/>
+		</ClientUpdates>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="25" MinorRadius="90" Height="0" ContactPointGeneration="NONE">
+				<Offset x="-20" y="0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="28.5" Height="50.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-18" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="15" MinorRadius="63" Height="25" ContactPointGeneration="STRUCTURE">
+				<Offset x="15" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="30" Height="15" ContactPointGeneration="STRUCTURE">
+				<Offset x="48" y="0" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="8" Height="20.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="47" y="16" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5" Height="27.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="47" y="16" z="20"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="23" MinorRadius="26" Height="25" ContactPointGeneration="STRUCTURE">
+				<Offset x="-18" y="45" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="18" MinorRadius="23" Height="10" ContactPointGeneration="STRUCTURE">
+				<Offset x="-18" y="40" z="25"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="23" MinorRadius="26" Height="25" ContactPointGeneration="STRUCTURE">
+				<Offset x="-18" y="-45" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="18" MinorRadius="23" Height="10" ContactPointGeneration="STRUCTURE">
+				<Offset x="-18" y="-40" z="25"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5" Height="25.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="35" y="16" z="15"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_TemplePrime_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_LightDamage_MS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_HeavyDamage_MS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

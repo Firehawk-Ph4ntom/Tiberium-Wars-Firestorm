@@ -1,0 +1,69 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDISupersonicAircraft\FX_GUSuSonic.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISupersonicAircraft\FX_GUSuSonic_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISupersonicAircraft\FX_GUSuSonic_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISupersonicAircraft\HC_FX_GUSuSonic.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISupersonicAircraft\FX_GUSUSONIC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISupersonicAircraft\FX_GUSUSONIC_STRA.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="GDISuperSonicAirAttack" inheritFrom="BaseAircraft" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE CAN_CAST_REFLECTIONS AIRCRAFT PRELOAD NO_COLLIDE SUMMONED" Side="GDI" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Speed="1500" Locomotor="OrcaLocomotor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_GUSUSONIC_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="FX_GUSUSONIC_STRA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail" AttachToBoneInAnotherModule="FXContrailBone01" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="invisbone01" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail2" AttachToBoneInAnotherModule="FXContrailBone02" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="invisbone01" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="GUSuSonic" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="invisbone01" FXParticleSystemTemplate="SonicAirAttackTrail01" FollowBone="true"/>
+					<ParticleSysBone BoneName="invisbone01" FXParticleSystemTemplate="SonicAirAttackDistort01" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GDISupersonicAirWeapon" FireDelay="0.6s" FireInterval="0.2s" OneShot="true"/>
+			</FireWeaponUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.7s" MaxLifetime="1.7s" DeathType="SUICIDED"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="0.5" DestructionDelay="0.1s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="999999"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20" MinorRadius="18" Height="7"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="450"/>
+		<EvaEvents EvaEventDieOwner="" EvaEventDamagedOwner="" EvaEventDamagedFromShroudedSourceOwner="" EvaEventDamagedByFireOwner="" EvaEventAmbushed="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventAvailableForProduction="" EvaEventProductionStarted="" EvaEventBuildOnHold="" EvaEventBuildCancelled="" EvaEventPromotedOwner=""/>
+	</GameObject>
+</AssetDeclaration>

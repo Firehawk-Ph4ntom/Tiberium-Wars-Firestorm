@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<AIStrategicStateDefinition
+		id="N_4_4_UnitCap_Hard_FS"
+		UnitUpgradeMultiplier="0.0"
+		UnitBuilderSimpleUnitCap="30">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_4_4_AlienAssault_Medium_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<IntervalHeuristic IntervalTime="60s" ActiveTime="30s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="Structure"/>
+		<TargetHeuristic TargetHeuristic="ClosestOffensiveUnitHeuristic" TargetType="Unit"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Unit">
+			<TeamTemplate MinUnits="4" MaxUnits="6" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="true"/>
+		</Tactic>
+		<Tactic Tactic="SimpleAttack" TargetType="Structure">
+			<TeamTemplate MinUnits="10" MaxUnits="12" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="true"/>
+		</Tactic>
+		<Tactic Tactic="Hunt" TargetType="Targetless"/>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_4_4_AlienBombingAirStrike_Medium_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="350s" EndTime="-1s"/>
+			<IntervalHeuristic IntervalTime="120s" ActiveTime="30s"/>
+			<LateGameHeuristic/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
+			<TeamTemplate MinUnits="3" MaxUnits="3" IncludeKindOf="CAN_ATTACK AIRCRAFT BOMBER_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienStormrider"/>
+				<CreateUnits UnitName="AlienDevastatorWarship"/>
+				<CreateUnits UnitName="AlienDevastatorWarship"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+</AssetDeclaration>

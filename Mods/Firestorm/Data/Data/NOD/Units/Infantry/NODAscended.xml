@@ -1,0 +1,198 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_InfantryS.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_InfantryS_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\FXIMPCYBORG_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\GUGAR_ASCENDED.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_AIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_AIFB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_ATKA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_BATA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_BDIA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_BIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_BIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_BIFB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_DIE1.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_DIEB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_DIEG.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_DSEL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_EMPA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_EMPG.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_FLYA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_RUNA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAscended\NUS_INFANTRYS_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="NODAscended" inheritFrom="BaseInfantry" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY PRELOAD ATTACK_NEEDS_LINE_OF_SIGHT PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM" Description="Desc:NODAscended" TypeDescription="Type:NODAscended" Side="NOD" EditorName="NODAscended" ThreatLevel="10" BuildTime="3.2" SelectPortrait="Portrait_NODAscended" ButtonImage="Portrait_NODAscended" VoicePriority="138" WeaponCategory="CANNON" UnitTypeIcon="CyborgAscendedPip" BuildCost="325">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODAscended</DisplayName>
+		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
+		<ArmorSet Armor="GenericHeavyTrooperArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet id="GDIZoneTrooperLocomotor" Locomotor="HumanLocomotor" Condition="NORMAL" Speed="55"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUS_INFANTRYS_SKN"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon_01"/>
+					<WeaponMuzzleFlash WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_Muzzle"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon_01"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name="GUGAR_ASCENDED"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon_01"/>
+					<WeaponMuzzleFlash WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_Muzzle"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon_01"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Animation AnimationName="GUGAR_ZONE" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="NUS_INFANTRYS_BIDA" AnimationMode="ONCE" AnimationPriority="20"/>
+					<Animation AnimationName="NUS_INFANTRYS_BIFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUS_INFANTRYS_BIFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+					<Animation AnimationName="NUS_INFANTRYS_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+					<Animation AnimationName="NUS_INFANTRYS_EMPG" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="NUS_INFANTRYS_DIEB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="NUS_INFANTRYS_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUS_INFANTRYS_DIEB" AnimationMode="ONCE" AnimationPriority="75"/>
+					<Animation AnimationName="NUS_INFANTRYS_DIEG" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="NUS_INFANTRYS_DIE1" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="NUS_INFANTRYS_BDIA" AnimationMode="ONCE" AnimationPriority="50"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="NUS_INFANTRYS_EMPA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A">
+					<Animation AnimationName="NUS_INFANTRYS_RUNA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+					<Animation AnimationName="NUS_INFANTRYS_ATKA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUS_INFANTRYS_RUNA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_SelectedPose">
+					<Animation AnimationName="NUS_INFANTRYS_ATKA" AnimationMode="MANUAL" AnimationPriority="85" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED">
+					<Animation AnimationName="NUS_INFANTRYS_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="NUS_INFANTRYS_AIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="85"/>
+					<Animation AnimationName="NUS_INFANTRYS_AIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<Animation AnimationName="NUS_INFANTRYS_AIFB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="NUS_INFANTRYS_BATA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="NUS_INFANTRYS_DSEL" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AscendedArmCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AscendedFirestormArmCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
+				<InvisibilityNugget/>
+				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
+				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
+			</StealthUpgrade>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<Sound List="NOD_Awakened_VoiceDie"/>
+				<DieMuxData DeathTypes="EXPLODED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<Sound List="NOD_Awakened_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL>
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<Sound List="NOD_Awakened_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<Sound List="NOD_Awakened_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_ZoneTrooper</Key>
+			</LargeGroupAudioUpdate>
+			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="400"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="BOX" MajorRadius="9" MinorRadius="9" Height="18" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_SilentOne_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceSelectMS" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1%" MaxVisionBonusPercent="300%"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

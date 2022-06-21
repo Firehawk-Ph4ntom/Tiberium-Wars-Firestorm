@@ -1,0 +1,267 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURADR_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="NODRaiderTank" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODScorpionTank" ButtonImage="Portrait_NODScorpionTank" Side="NOD" BuildCost="900" BuildTime="9" CommandSet="NODRaiderTankCommandSet" ThreatLevel="10" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" WeaponCategory="CANNON" VoicePriority="188" EditorName="NODScorpionTank" Description="Desc:NODScorpionTank" TypeDescription="Type:NODScorpionTank">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODScorpionTank</DisplayName>
+		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<ArmorSet Armor="GenericVehicleArmor_DozerBlade" DamageFX="VehicleDamageFX" Conditions="PLAYER_UPGRADE"/>
+		<LocomotorSet Locomotor="NODRaiderTankLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="8.0" MaxRecoilDistance="4.0" RecoilDamping="2.0" RecoilSettleSpeed="2.0" ExtraPublicBone="FXTracksL FXTracksR Bone_Tail FXTracksB" TrackMarks="EXTnkTrack3" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="NURADR_SKN_FS"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TurretFX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="GUN"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFlash_01"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TurretFX"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="TurretMS"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="TurretMS"/>
+					<Turret TurretNameKey="Bone_Turret" TurretPitch="GunPitch" TurretID="1"/>
+					<Turret TurretNameKey="Turret2" TurretPitch="Turret2_Gun" TurretID="2"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NuRadr_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NURADR_SKN_FS"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NURADR_SKN_FS"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" RetainSubObjects="true">
+					<Model Name="NURADRR_SKN"/>
+					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NURADR_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED BACKING_UP">
+					<Animation AnimationName="NURADR_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NURADR_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED BACKING_UP">
+					<Animation AnimationName="NURADR_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableShowSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NURADR_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableShowSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NURADR_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NURADR_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
+					<Animation AnimationName="NURADR_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableShowSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="NURADR_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableShowSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Animation AnimationName="NURADR_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableShowSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="NURADR_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSTURNLEFTBACK") CurDrawableHideSubObject("TREADSTURNRIGHTBACK") </Script>
+				</AnimationState>
+				<LeftTread>"FXTracksL"</LeftTread>
+				<RightTread>"FXTracksR"</RightTread>
+				<ArticulationBone ArticulationBoneName="Bone_Tail" ArticulationHelperBoneName="FXTracksB"/>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMAMM_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXPurifyingLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRaiderTankCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRaiderTankFirestormCannon" ObjectStatus="RIDER1"/>
+					<TurretSettings TurretTurnRate="360" TurretPitchRate="20" AllowsPitch="true" PitchHeight="99%" MinimumPitch="-20d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRaiderTankLaserCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRaiderTankPurifyingLaserCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="360" TurretPitchRate="20" AllowsPitch="true" PitchHeight="99%" MinimumPitch="-20d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIRaiderTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<Sound Type="INITIAL" List="NOD_ScorpionTank_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
+			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODDozerBladeUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODRaiderTankFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2400"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="14.0" Height="12.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-7.0" y="0.0" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="NOD_ScorpionTank_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_ScorpionTank_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="NOD_ScorpionTank_IdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="VehicleCrush" AudioType="soundCrushing"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

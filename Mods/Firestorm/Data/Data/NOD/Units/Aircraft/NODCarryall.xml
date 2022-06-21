@@ -1,0 +1,192 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODCarryAll\NUCARRYALL_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="NODCarryall" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" Side="NOD" BuildCost="10" BuildTime="1.0" CommandSet="NODCarryallCommandSet" KindOf="PRELOAD CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE" VoicePriority="56" EditorName="NODCarryall" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCarryall</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX" id="Armor"/>
+		<LocomotorSet Locomotor="NODCarryallLocomotor" Condition="NORMAL" Speed="100.0" id="Locomotor_Normal"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="10" id="Locomotor_Taxi"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUCarryAll_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Texture Original="NUCarryAll" New="NUCarryAll_D"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_TRNL" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_TRNR" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Animation AnimationName="NUCarryAll_OPNA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING">
+					<Animation AnimationName="NUCarryAll_CLSA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Fan_RF" AttachToBoneInAnotherModule="FX_FANLF">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXInvisBone"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Fan_RR" AttachToBoneInAnotherModule="FX_FANLR">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXInvisBone"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Fan_LR" AttachToBoneInAnotherModule="FX_FANRR">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXInvisBone"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Fan_LF" AttachToBoneInAnotherModule="FX_FANRF">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXInvisBone"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" OkToChangeModelColor="true" ExtraPublicBone="BONE_FAN_RF BONE_FAN_RR BONE_FAN_LR BONE_FAN_LF">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 LANDING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" MaxQueueEntries="1"/>
+			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
+				<PassengerFilter Rule="ANY" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="ROOT">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+			</HordeTransportContain>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODCarryAllInitialDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_NOD_Carryall_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false" DelayAFterLoadingOrUnloading="1s">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</TransportHelicopterAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="V35DropShipLand" RequiredFlags="LANDING"/>
+				<ModelConditionSound Sound="V35DropShipTakeOff" RequiredFlags="TAKING_OFF"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="35.0" MinorRadius="20.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="10.0" z="10.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Carryall_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_Carryall_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_Carryall_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Carryall_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="NOD_Carryall_VoiceMove" Name="InitiateMoveToPositionAndEvacuate"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_CarryAll_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="NOD_CarryAll_IdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="NOD_CarryAll_MoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<EvaEvents EvaEventPromotedOwner=""/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="600"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:BaseObjects/BaseDebris.xml"/>
+	</Includes>
+	<GameObject id="NODFlameTankDebris_02PurifyingFlame" inheritFrom="BaseDebris" EditorName="NODFlameTankDebris_02PurifyingFlame">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUFLAMETANKR02"/>
+					<Texture Original="NUFlameTankD" New="NUFlameTank_UGD"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke_Blue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.5s" MaxLifetime="1s"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="2s">
+				<OCL Type="FINAL">
+					<OCL>OCL_NODFlameTankDebris_02PurifyingFlame</OCL>
+				</OCL>
+				<Weapon>
+					<Weapon>NODFlameTankDebrisWeapon</Weapon>
+				</Weapon>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDIVehicleExplodeNoScorch_BlueFlame"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

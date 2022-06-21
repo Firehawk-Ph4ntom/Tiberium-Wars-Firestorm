@@ -1,0 +1,209 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\AlienStormrider\AUSRIDER_FLYB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStormrider\AUSRIDER_FLYC.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStormrider\AUSRIDERR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStormrider\AUSRIDERR01_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStormrider\AUSRIDERR02_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStormrider\FXSHLDSTORM.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="AlienStormrider" inheritFrom="BaseAircraft" SelectPortrait="Portrait_ALIENStormrider" ButtonImage="Portrait_ALIENStormrider" Side="ALIEN" BuildCost="1500" BuildTime="15" CommandSet="AlienStormriderCommandSet" KindOf="PRELOAD CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE SCORE AIRCRAFT HAS_HEALTH_BAR ASSAULT_AIRCRAFT ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS NO_COLLIDE CAN_BE_FAVORITE_UNIT" WeaponCategory="MISSILE" VoicePriority="156" EditorName="AlienStormrider" Description="Desc:AlienStormrider" TypeDescription="Type:AlienStormrider">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENStormrider</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AlienShockTrooperShockPods</DisplayUpgrade>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="AlienVehicleDamageFX"/>
+		<LocomotorSet Locomotor="AlienStormriderLocomotor" Condition="NORMAL" Speed="175.0"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="30"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUSRider_SKN"/>
+					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon_01"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon_01"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="AUSRider_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_5">
+					<Model Name="AUSRiderIon"/>
+					<Texture Original="AUSRider" New="AUSRider_D"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_WEAPON_01" FXParticleSystemTemplate="AlienIonHullContrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="AUSRider_SKN"/>
+					<Texture Original="AUSRider" New="AUSRider_D"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_5">
+					<Model Name="AUSRiderIon"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_WEAPON_01" FXParticleSystemTemplate="AlienIonHullContrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="AUSRider_SKN"/>
+					<ParticleSysBone BoneName="FX_Flame_03" FXParticleSystemTemplate="AlienFlyingDamageFire01" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5">
+					<Model Name="AUSRiderIon"/>
+					<ParticleSysBone BoneName="FX_WEAPON_01" FXParticleSystemTemplate="AlienIonHullContrail" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="JUST_BUILT">
+					<Animation AnimationName="AUSRider_FLYA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_TAXIING">
+					<Animation AnimationName="AUSRider_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="AUSRider_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="AUSRider_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="AUSRider_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="AUSRider_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="AUSRider_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="AUSRider_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" ConditionsYes="MOVING">
+					<Animation AnimationName="AUSRider_FLYA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="15"/>
+					<Animation AnimationName="AUSRider_FLYB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<Animation AnimationName="AUSRider_FLYC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Animation AnimationName="AUSRider_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="AUSRider_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawForcefield" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
+					<Model Name="FXSHLDSTORM"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="60" SizeY="60" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail" OkToChangeModelColor="true" AttachToBoneInAnotherModule="FX_Flame_01">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail2" OkToChangeModelColor="true" AttachToBoneInAnotherModule="FX_Flame_02">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStormRiderPlasmaAutocannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStormRiderLightningStormWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" MaxQueueEntries="1"/>
+			<ReturnToProducerSpecialPower id="ModuleTag_ReturnToProducerSpecialPower" SpecialPowerTemplate="SpecialPowerReturnToProducer"/>
+			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL>
+					<OCL>OCL_ALIENIONStormRiderDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="ALI_StormRider_SoundDie"/>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL>
+					<OCL>OCL_ALIENStormRiderDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="ALI_StormRider_SoundDie"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_ALIENVehicleExplode"/>
+			</FXListBehavior>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_ShockPodsUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_AlienShockTrooperShockPods</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ShockPodsAudioLoop" SoundToPlay="ALI_PlasmaDiscLaunchers_Upgrade">
+				<TriggeredBy>Upgrade_AlienShockTrooperShockPods</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Forcefield Generator -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" KeepsParkingSpaceWhenAirborne="true" AutoAcquireEnemiesWhenIdle="YES" CirclesForAttack="true">
+				<UnitAITargetChooserData/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="2600" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="1000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="100s" ShieldActiveModelCondition="USER_19"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="ALI_SeekerTank_IdleLoop" RequiredFlags="USER_19" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="20.0" Height="5.0"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_Stormrider_SoundSelect" AudioType="voiceSelect"/>
+			<AudioEntry Sound="ALI_Stormrider_SoundSelect" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_Stormrider_SoundSelect" AudioType="voiceGuard"/>
+			<AudioEntry Sound="ALI_Stormrider_SoundSelect" AudioType="voiceAttack"/>
+			<NamedEntry Sound="ALI_Stormrider_SoundSelect" Name="ReturnToProducer"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Stormrider_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_Stormrider_MoveLoop" AudioType="soundMoveLoop"/>
+			<AudioEntry Sound="ALI_Stormrider_IdleLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

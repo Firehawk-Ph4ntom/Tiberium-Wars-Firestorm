@@ -1,0 +1,51 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseRepairDrone.xml"/>
+	</Includes>
+	<GameObject id="AlienRepairDrone" inheritFrom="BaseRepairDrone" Side="ALIEN" EditorName="AlienRepairDrone">
+		<LocomotorSet Speed="75" Locomotor="AlienRepairDroneLocomotor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AURPRDRN_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="AURPRDRN_IDLA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_RPRA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACHED" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_RPRA" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="None" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="AURPRDRN_IDLA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_ACCL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_DECL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" xai:joinAction="Replace" HealingPointsPerSecond="150" HealFX="FX_Repair" AffectAttached="true" AffectUnderAttack="true">
+				<AllowFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY HUGE_VEHICLE VEHICLE" Exclude="AIRCRAFT PRODUCED_AT_HELIPAD HORDE"/>
+			</PassiveAreaEffectBehavior>
+			<AttachUpdate id="ModuleTag_AttachUpdate" xai:joinAction="Replace" ParentStatus="UNDERGOING_REPAIR" Range="150" CloseEnoughRange="20" InitialAttachDelay="0.5s" Flags="FIND_BEST_PARENT UNCONTAINED_ONLY ONE_ATTACH_PER_PARENT" Teleport="false" DetachWhenParentHealed="true" DetachWhenParentOutOfSlavedRange="true" RequireFullyHealedToDetach="true" ScanForNewParentWhenDetached="true" CanAttachToHordeMembers="true">
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY HUGE_VEHICLE VEHICLE" Exclude="AIRCRAFT PRODUCED_AT_HELIPAD HORDE"/>
+			</AttachUpdate>
+		</Behaviors>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB" xai:joinAction="Replace">
+				<ModelConditionSound Sound="ALI_RepairDrone_RepairLoop" RequiredFlags="ATTACHED" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+	</GameObject>
+</AssetDeclaration>

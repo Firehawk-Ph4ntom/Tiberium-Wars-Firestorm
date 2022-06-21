@@ -1,0 +1,246 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUMiniOrca_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUMiniOrcaD_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUOrca_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUOrca_UGCA_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUOrca_UGCA_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUOrcaD_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\HC_GUOrca_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIOrca\GUORCA_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="GDIOrca" inheritFrom="BaseAircraft" SelectPortrait="Portrait_GDIOrca" ButtonImage="Portrait_GDIOrca" Side="GDI" BuildCost="1100" BuildTime="11" CommandSet="GDIOrcaCommandSet" KindOf="PRELOAD CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE SCORE AIRCRAFT HAS_HEALTH_BAR ASSAULT_AIRCRAFT ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS NO_COLLIDE CAN_BE_FAVORITE_UNIT CAN_SEE_THROUGH_STRUCTURE" WeaponCategory="MISSILE" VoicePriority="148" EditorName="GDIOrca" Description="Desc:GDIOrca" TypeDescription="Type:GDIOrca">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIOrca</DisplayName>
+		<DisplayUpgrade>Upgrade_ThermoBaricMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_CeramicArmor</DisplayUpgrade>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<ArmorSet Armor="GDIAircraftCeramicArmor" DamageFX="VehicleDamageFX" Conditions="PLAYER_UPGRADE"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="10"/>
+		<LocomotorSet Locomotor="OrcaLocomotor" Condition="NORMAL" Speed="175.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="FX_Lfan FX_Rfan Msl_pos01 Msl_pos02 Msl_pos03 Msl_pos04 Msl_pos05 Msl_pos06" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" Skeleton="GUOrca_SKL">
+					<Model Name="GUORCA_SKN_FS"/>
+					<WeaponLaunchBone WeaponSlotID="1" BoneName="Msl_pos"/>
+					<ShadowInfo Type="VOLUME" OpacityFadeInTime="3s" OpacityFadeOutTime="3s" MaxHeight="131"/>
+					<Turret TurretNameKey="MISSILE01" TurretPitch="MISSILE01" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUORCA_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
+					<Model Name="GUORCA_SKN_FS"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrcaD_UGCA"/>
+					<Texture Original="GUOrca_07" New="GUOrcaD_UGCA"/>
+					<Texture Original="GUOrca_07_NRM" New="GUOrca_UGCA_NRM"/>
+					<Texture Original="GUOrca_07_SPM" New="GUOrca_UGCA_SPM"/>
+					<Texture Original="HC_GUOrca_07" New="HC_GUOrca_UGCA"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUORCA_SKN_FS"/>
+					<Texture Original="GUOrca_07" New="GUOrca_07D"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
+					<Model Name="GUORCA_SKN_FS"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_UGCA"/>
+					<Texture Original="GUOrca_07" New="GUOrca_UGCA"/>
+					<Texture Original="GUOrca_07_NRM" New="GUOrca_UGCA_NRM"/>
+					<Texture Original="GUOrca_07_SPM" New="GUOrca_UGCA_SPM"/>
+					<Texture Original="HC_GUOrca_07" New="HC_GUOrca_UGCA"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GUORCA_SKN_FS"/>
+					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GUORCA_SKN_FS"/>
+					<Texture Original="GUMiniOrca" New="GUMiniOrca_UGCA"/>
+					<Texture Original="GUOrca_07" New="GUOrca_UGCA"/>
+					<Texture Original="GUOrca_07_NRM" New="GUOrca_UGCA_NRM"/>
+					<Texture Original="GUOrca_07_SPM" New="GUOrca_UGCA_SPM"/>
+					<Texture Original="HC_GUOrca_07" New="HC_GUOrca_UGCA"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="GUORCA_HVRA" AnimationMode="LOOP" AnimNickName="HVRA" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_TAXIING">
+					<Animation AnimationName="GUORCA_PRK" AnimationMode="LOOP" AnimNickName="HVRA"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="GUORCA_TRL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="GUORCA_TRR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="GUORCA_TRL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="GUORCA_TRR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="GUORCA_ACC" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="GUORCA_DEC" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUORCA_MOVA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" ExtraPublicBone="FX_Lfan FX_Rfan">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lfan" AttachToBoneInAnotherModule="FX_Lfan">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Rfan" AttachToBoneInAnotherModule="FX_Rfan">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Template="GDIOrcaRocketWeapon"/>
+					<Weapon Template="GDIOrcaThermoBaricRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="180" TurretPitchRate="180" MinimumPitch="-10d" PitchHeight="90%" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" MaxDeflectionAntiClockwise="20d" MaxDeflectionClockwise="20d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics" GravityMultiplier="30"/>
+			<ProductionUpdate id="ModuleTag_Production" MaxQueueEntries="1"/>
+			<FlammableUpdate id="ModuleTag_Flammable" AflameDuration="5s" AflameDamageAmount="3" AflameDamageDelay=".5s"/>
+			<OCLSpecialPower id="ModuleTag_OCL" SpecialPowerTemplate="SpecialPowerPulseScan" OCL="OCL_GDIOrcaPulseScanPing" CreateLocation="CREATE_AT_LOCATION"/>
+			<ReturnToProducerSpecialPower id="ModuleTag_ReturnToProducerSpecialPower" SpecialPowerTemplate="SpecialPowerReturnToProducer"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_SensorPodDispatch" SpecialPowerTemplate="SpecialPowerSensorPod_Dispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPowerSensorPod_UnTargeted"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerSensorPod_Targeted"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_UnTargetedSensorPod" SpecialPowerTemplate="SpecialPowerSensorPod_UnTargeted" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_UnTargetedSensorPodUpdate" SpecialPowerTemplate="SpecialPowerSensorPod_UnTargeted" SpecialWeapon="GDIOrcaSensorPodWeapon" StartAbilityRange="100.0" UnpackTime="1.5s" PackTime="1.0s"/>
+			<SpecialPower id="ModuleTag_TargetedSensorPod" SpecialPowerTemplate="SpecialPowerSensorPod_Targeted" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_TargetedSensorPodUpdate" SpecialPowerTemplate="SpecialPowerSensorPod_Targeted" SpecialWeapon="GDIOrcaSensorStickyPodWeapon" StartAbilityRange="200.0" UnpackTime="1.5s" PackTime="1.0s"/>
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDICeramicOrcaDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Orca_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIOrcaDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Orca_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDICeramicArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIAirSupremacyUpgrade.xml"/>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true">
+				<UnitAITargetChooserData SympathyRange="100.0" CanPickDynamicTargets="false"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1800"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="OrcaMoveStart" RequiredFlags="LANDING"/>
+				<ModelConditionSound Sound="OrcaMoveStart" RequiredFlags="TAKING_OFF"/>
+				<ModelConditionSound Sound="TEMP_OrcaAmbientLoop" RequiredFlags="FLYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="16.0" MinorRadius="11.0" Height="8.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-4"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_Orca_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_Orca_VoiceCreate2" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_Orca_VoiceMoveHelopad" AudioType="voiceEnter"/>
+			<AudioEntry Sound="GDI_Orca_VoiceMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="GDI_Orca_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_Orca_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_Orca_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_Orca_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_Orca_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<NamedEntry Sound="GDI_Orca_VoiceScan" Name="VoicePulseScan"/>
+			<NamedEntry Sound="GDI_Orca_VoiceLaunchSensorPod" Name="VoiceSensorPod"/>
+			<NamedEntry Sound="GDI_Orca_VoiceMoveHelopad" Name="ReturnToProducer"/>
+			<NamedEntry Sound="GDI_Orca_VoiceRetreat" Name="ReturnToProducerWhileUnderAttack"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="OrcaMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="TEMP_OrcaMoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="300"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,171 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLabRad_CM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLabRad_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLabRad_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLabRad_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\HC_GBLabRad.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRAD_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLabRad_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRAD_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRAD_D2.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRAD_D2_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRAD_D3.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRAD_D3_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAdvancedLab\GBLABRADSRF_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDIAdvancedLab" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDILabRadarBuilding" ButtonImage="Portrait_GDILabRadarBuilding" Side="GDI" BuildCost="3000" BuildTime="30" EnergyProduction="-12" CommandSet="GDIAdvLabCommandSet" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS UNIQUE_UNIT STRUCTURE FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE COVER FS_TECH_CENTER AUTO_ACQUIRABLE_BY_AI" ThreatLevel="8" PlacementViewAngle="315d" EditorName="GDIAdvancedLab" Description="Desc:GDIAdvancedLab" TypeDescription="Type:GDIAdvancedLab" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIAdvancedLab</DisplayName>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIArmory</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericMediumBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBLabRad"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBLabRad_ASN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBLabRad_D3"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBLabRad_D2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBLabRad"/>
+					<Texture Original="GBLabRad_CM" New="GBLabRad_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBLABRAD_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBLABRAD_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBLABRAD_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBLabRad_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBLabRad_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBLABRADSRF_SKN"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBLABRADSRF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBLABRADSRF_SKN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
+			</FXListBehavior>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Supersonic Airattack -->
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerAirAttack" SpecialPowerTemplate="SpecialPower_SupersonicAirAttack" OCL="OCL_GDISuperSonicAirAttackBeacon" CreateLocation="CREATE_AT_LOCATION"/>
+			<!-- Orbital Strike -->
+			<OCLSpecialPower id="ModuleTag_MjolnirStrikePower" SpecialPowerTemplate="SpecialPower_MjolnirStrike" OCL="OCL_GDIMjolnirBeaconOne" CreateLocation="CREATE_AT_LOCATION"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/ArmoryGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/ArmoryGDIBuildingSuicide.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="19.0" Height="80.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.580678" y="-3.86252" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="51.6" MinorRadius="19.0" Height="20.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="4.68904" y="25.0778" z="33.109"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="31.5" MinorRadius="19.0" Height="6.4" ContactPointGeneration="STRUCTURE">
+				<Offset x="-0.580677" y="-3.86252" z="0.0"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-17.7951" y="-19.9777" z="0.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="16.0236" y="-19.9777" z="76.7727"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="16.0236" y="13.8409" z="0.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-17.7951" y="13.841" z="76.7727"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-17.7951" y="-19.9777" z="76.7727"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="16.0236" y="-19.9777" z="0.0"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="16.0236" y="13.841" z="76.7727"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-17.7951" y="13.8409" z="0.0"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_RadioStation_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

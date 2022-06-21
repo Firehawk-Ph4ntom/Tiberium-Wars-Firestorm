@@ -1,0 +1,375 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGAR_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGAR_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGAR_LF_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGARD2_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGARD3_AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGARD3_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGDOOR_D3.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGDOOR1_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGDOOR2_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGDOOR3_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODAirTower\NBHANGDOOR4_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="NODHangar" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODAirTower" ButtonImage="Portrait_NODAirTower" Side="NOD" BuildCost="1000" BuildTime="10" EnergyProduction="-8" CommandSet="NODHangarCommandSet" ThreatLevel="3" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_FACTORY AIRFIELD FS_AIR_FIELD AUTO_RALLYPOINT NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER POWERED_POWERS_ONLY" PlacementViewAngle="225d" EditorName="NODAirTower" Description="Desc:NODHangar" TypeDescription="Type:NODHangar">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODHangar</DisplayName>
+		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODOperationsCenter</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="BACK"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="Runway0Park0Han Runway0Park1Han Runway1Park0Han Runway1Park1Han Runway0Parking0 Runway0Parking1 Runway1Parking0 Runway1Parking1" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBHANGAR_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBHANGAR_ASN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBHANGARD3_SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBHANGARD2_SN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBHANGARD2_SN_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Script> CurDrawableHideSubObject("UG_SIGGEN") CurDrawableHideSubObject("UG_SIGGEN_02") CurDrawableHideSubObject("DISRUPTIONPODS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBHANGAR_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="NBHANGARD2_AN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGARD2_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_DamagedToReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_DamagedToReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBHANGARD3_AN_FS" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_DamagedToReallyDamaged">
+					<Animation AnimationName="NBHANGARD2_AN" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBHANGDOOR1_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBHANGDOOR1_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBHANGDOOR1_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBHANGDOOR1_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBHANGDOOR_D3" AnimationMode="ONCE" AnimationBlendTime="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_OPENING">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_CLOSING">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_1_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door2" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBHANGDOOR2_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBHANGDOOR2_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBHANGDOOR2_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBHANGDOOR2_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBHANGDOOR_D3" AnimationMode="ONCE" AnimationBlendTime="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_OPENING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_CLOSING">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_2_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door3" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBHANGDOOR3_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBHANGDOOR3_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBHANGDOOR3_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBHANGDOOR3_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBHANGDOOR_D3" AnimationMode="ONCE" AnimationBlendTime="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_OPENING">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_CLOSING">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_3_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Door4" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBHANGDOOR4_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBHANGDOOR4_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBHANGDOOR4_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBHANGDOOR4_SKN_FS"/>
+					<Texture Original="NBHangar" New="NBHangar_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBHANGDOOR_D3" AnimationMode="ONCE" AnimationBlendTime="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_OPENING">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_OPEN" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_CLOSING">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARKINGPLACE_4_DOOR_CLOSED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBHANGDOOR_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="NBHANGAR_LF"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="NBHANGAR_LF"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="NBHANGAR_LF"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_LF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairAircraft" SpecialPowerTemplate="SpecialPower_TargetedRepairAircraft"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="AIRCRAFT"/>
+			<RecallUnitsSpecialPower id="ModuleTag_RecallSpecialPower" PlayReturnVoiceFromRecalledUnit="true" SpecialPowerTemplate="SpecialPower_RecallAllAircraft"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>NODRepairAircraftDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsSigGen" ShowSubObjects="UG_SIGGEN UG_SIGGEN_02">
+				<TriggeredBy>Upgrade_NODStealthGenerator</TriggeredBy>
+			</SubObjectsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDistPod" ShowSubObjects="DISRUPTIONPODS">
+				<TriggeredBy>Upgrade_VertigoDisruptionPod</TriggeredBy>
+			</SubObjectsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<ParkingPlaceBehavior id="ModuleTag_ParkingPlaceBehavior" HealAmount="0" NumRows="2" NumCols="2" ApproachHeight="0" ParkInHangars="false" DoorOpenTime="2s" DoorCloseTime="2s" LowersOntoParkingPlaceOnProduction="true">
+				<DefaultRallyPointOffset x="0.0" y="0" z="0"/>
+				<CanParkHereFilter Rule="ALL" Relationship="SAME_PLAYER" Exclude="SUMMONED TRANSPORT"/>
+			</ParkingPlaceBehavior>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="2.0s" SinkRate="3.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Large"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<!-- Templar Drop -->
+			<OCLSpecialPower id="ModuleTag_CallSupportTemplarDrop" SpecialPowerTemplate="SpecialPowerCallSupportTemplarDrop" TriggerFX="FX_GDICallForTransportFlare" OCL="OCL_CallSupportTemplarDrop" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
+			<AISpecialPowerUpdate id="ModuleTag_HangarCallTemplarDropAI" CommandButtonName="Command_CallSupportTemplarDrop" ReinforceDistance="400.0" SpecialPowerRadius="300.0" SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT"/>
+			<!-- Mine Drop -->
+			<OCLSpecialPower id="ModuleTag_BurrowMine" SpecialPowerTemplate="SpecialPower_BurrowMines" OCL="OCL_NODVertigo_DeployMines" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
+			<AISpecialPowerUpdate id="ModuleTag_NODOpsBurrowMinesAI" CommandButtonName="Command_NODBurrowMines" SpecialPowerRadius="99999.0" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODHangarFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="4000.0"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="NOD_AirTower_platformRaise" Animation="NBHANGDOOR_OPN" Frame="1"/>
+				<Sound Sound="NOD_AirTower_platformLower" Animation="NBHANGDOOR_CLS" Frame="1"/>
+				<Sound Sound="NOD_WarFactory_IrisOpen" Animation="NBHANGAR_AAN" Frame="1"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceTemplarDropReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPowerCallSupportTemplarDrop" JustMonitorPercentReady="true"/>
+		</ClientUpdates>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="36.0" MinorRadius="36.0" Height="88.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="55.0" MinorRadius="55.0" Height="5.0">
+				<Offset x="0" y="0" z="83" />
+			</Shape>
+			<ContactPoint>
+				<Pos x="38" y="38" z="85" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-38" y="-38" z="85" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="38" y="-38" z="85" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-38" y="38" z="85" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5" y="38" z="110" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="3" y="31" z="80" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-30" y="-1" z="60" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="28" y="-7" z="65" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-6" y="-30" z="58" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-20" y="-20" z="15" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="27" y="-32" z="5" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="24" y="22" z="12" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-27" y="27" z="7" />
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_HangarSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_Hangar_AmbientDelayedLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

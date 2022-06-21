@@ -1,0 +1,78 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
+	</Includes>
+	<GameObject id="GDIMedicSquad" inheritFrom="BaseSquad" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT SCORE" Description="Desc:GDIMedicSquad" TypeDescription="Type:GDIMedicSquad" Side="GDI" EditorName="GDIMedicSquad" BuildTime="8" CommandSet="GDIGenericInfantryUnitCommandSet" SelectPortrait="Portrait_GDIMedicSquad" ButtonImage="Portrait_GDIMedicSquad" UnitTypeIcon="MedicIcon" BuildCost="800">
+		<DisplayName>Name:GDIMedicSquad</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIFieldSuits</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDICommandPost</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="45"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXMedic_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="GUMEDICSQUADMARKER"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Heal_CO" SizeX="300" SizeY="300" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMedicRangefinder"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData/>
+				<InitialPayload Name="GDIMedic" Count="3"/>
+				<MeleeBehavior Type="AMOEBA"/>
+				<RandomOffset x="4" y="4"/>
+				<RankInfo RankID="1" UnitType="GDIMedic">
+					<Position X="10" Y="-20"/>
+					<Position X="20"/>
+					<Position X="10" Y="20"/>
+				</RankInfo>
+				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
+			</HordeContain>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_HealAttribute" EffectRadius="150" HealingPercentPerSecond="8%" SurveyDelayFrames="15" HealFX="FX_GDI_Heal" AffectUnderAttack="true">
+				<AllowFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
+			</PassiveAreaEffectBehavior>
+			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</HordeAIUpdate>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="20.0" Height="13.0"/>
+		</Geometry>
+		<VisionInfo VisionRange="175" ShroudClearingRange="200" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

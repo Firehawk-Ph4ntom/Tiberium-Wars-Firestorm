@@ -1,0 +1,116 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="TiberiumSpike" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralTiberiumSpike" ButtonImage="Portrait_NeutralTiberiumSpike" Side="Neutral" BuildTime="15" CommandSet="TibSpikeCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE" EditorName="TiberiumSpike" Description="Desc:TechBuildingTiberiumSpike">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TechBuildingTiberiumSpike</DisplayName>
+		<ArmorSet Armor="TechStructureArmor" DamageFX="GenericStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TBTibSpk_SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="TBTibSpk_D3"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="TBTibSpk_D2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="TBTibSpk_D1"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" StateName="STATE_bored">
+					<Animation AnimationName="TBTibSpk_AN" AnimationMode="ONCE" AnimationPriority="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TBTibSpk_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TBTibSpk_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="TBTibSpk_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="TBTibSpk_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="TiberiumSpikeOCL">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			</CreateObjectDie>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="1000"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" InitialCaptureBonus="750" DepositInterval="1s" DepositAmount="15" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
+		</Body>
+		<Geometry>
+			<Shape MajorRadius="10.5" MinorRadius="10.5" Height="10"/>
+			<Shape Type="BOX" MajorRadius="21" MinorRadius="7" Height="10">
+				<Offset y="7"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="21" MinorRadius="7" Height="10"/>
+			<Shape Type="BOX" MajorRadius="21" MinorRadius="7" Height="10">
+				<Offset y="-7"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="7" MinorRadius="21" Height="10">
+				<Offset x="7"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="7" MinorRadius="21" Height="10"/>
+			<Shape Type="BOX" MajorRadius="7" MinorRadius="21" Height="10">
+				<Offset x="-7"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="10" MinorRadius="10" Height="115">
+				<Offset z="10"/>
+			</Shape>
+			<ContactPoint>
+				<Pos x="-5.9209" y="-6.0696"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="4.9307" y="-6.0696" z="119.205"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="4.9307" y="4.782"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.9209" y="4.782" z="119.205"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.9209" y="-6.0696" z="119.205"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="4.9307" y="-6.0696"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="4.9307" y="4.782" z="119.205"/>
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-5.9209" y="4.782"/>
+			</ContactPoint>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="TiberiumSpike_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="200"/>
+		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

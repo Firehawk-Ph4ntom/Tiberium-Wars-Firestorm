@@ -1,0 +1,30 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="GDIOrcaSensorPodProjectile" Side="GDI" EditorSorting="SYSTEM" KindOf="PROJECTILE INERT NO_COLLIDE HIDE_IF_FOGGED" EditorName="GDIOrcaSensorPodProjectile">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_Sensor"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_SensorDeath"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_DestroyDie">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="20" FirstHeightMax="20" SecondHeightMin="20" SecondHeightMax="20" FirstPercentIndent="33" SecondPercentIndent="66" OrientToFlightPath="true" FlightPathAdjustDistPerSecond="100" GroundHitFX="FX_SensorDeath">
+			</BezierProjectile>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
+		</Geometry>
+		<VisionInfo/>
+	</GameObject>
+</AssetDeclaration>

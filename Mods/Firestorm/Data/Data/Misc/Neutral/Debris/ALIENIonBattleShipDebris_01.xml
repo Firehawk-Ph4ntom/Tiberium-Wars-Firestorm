@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:BaseObjects/BaseDebris.xml"/>
+	</Includes>
+	<GameObject id="ALIENIonBattleShipDebris_01" inheritFrom="BaseDebris" EditorName="ALIENIonBattleShipDebris_01">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUBATTLESHIP_R01ION"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics" MaxXRotationVelocity="15" MaxYRotationVelocity="0" MaxZRotationVelocity="180" BounceCount="0" GroundHitFX="FX_AlienVehicleExplode" TumbleRandomly="true" KillWhenRestingOnGround="true"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onCreate" FX="FX_AlienBuildingRubbleS"/>
+			</FXListBehavior>
+			<SlowDeath id="ModuleTag_Death" SinkRate="3" SinkDelay="0.1s" DestructionDelay="4s">
+				<DieMuxData DeathTypes="ALL" />
+			</SlowDeath>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,102 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
+	</Includes>
+	<GameObject id="NODMilitantSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_NODMilitantRifle" ButtonImage="Portrait_NODMilitantRifle" Side="NOD" BuildCost="200" BuildTime="2" CommandSet="NODGenericInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY CAN_CAPTURE CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="GUN" EditorName="NODMilitantSquad" Description="Desc:NODMilitantRifle" TypeDescription="Type:NODMilitantRifle" UnitTypeIcon="RiflemenIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODMilitantRifle</DisplayName>
+		<DisplayUpgrade>Upgrade_BlackHandBlackTemplarsUpgrade</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_TiberiumInfusion</DisplayUpgrade>
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="45"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXRifle_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name=""/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="SquadMarkNUMil"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMilitantSquadRangeFinder"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<BannerCarrierUpgrade id="ModuleTag_BannerCarrierUpgrade" Permanent="true">
+				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
+			</BannerCarrierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlackTemplarsAudioLoop" SoundToPlay="NOD_BlackTemplars_UpgradeMS">
+				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
+			</AudioLoopUpgrade>
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="9" ObjectStatusOfContained="" ConditionForEntry="INVALID" BannerCarrierByUpgradeOnly="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData/>
+				<InitialPayload Name="NODMilitant" Count="9"/>
+				<MeleeBehavior Type="AMOEBA"/>
+				<RandomOffset x="4" y="4"/>
+				<RankInfo RankID="1" UnitType="NODMilitant">
+					<Position X="20" Y="0"/>
+					<Position X="10" Y="-20"/>
+					<Position X="10" Y="20"/>
+					<Position X="0" Y="0"/>
+				</RankInfo>
+				<RankInfo RankID="2" UnitType="NODMilitant">
+					<Position X="0" Y="-30"/>
+					<Position X="-10" Y="-20"/>
+					<Position X="-10" Y="20"/>
+					<Position X="0" Y="30"/>
+					<Position X="-20" Y="0"/>
+				</RankInfo>
+				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
+				<RankToReleaseWhenAttacking>2</RankToReleaseWhenAttacking>
+				<BannerCarrierPosition>
+					<UnitType>NODBlackTemplar</UnitType>
+					<Pos x="10" y="0"/>
+				</BannerCarrierPosition>
+				<BannerCarriersAllowed>NODBlackTemplar</BannerCarriersAllowed>
+			</HordeContain>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<xi:include href="DATA:Includes/NodCallForTransportInfantry.xml"/>
+			<xi:include href="DATA:Includes/CaptureBehavior.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" Permanent="true" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_CyberneticAugmentation">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</HordeAIUpdate>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="30.0" MinorRadius="40.0" Height="13.0"/>
+		</Geometry>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

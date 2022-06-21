@@ -1,0 +1,240 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDISpaceCommandUplink\GBSPCCMND_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDISpaceCommandUplink\GBSPCCMND_D2SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDISpaceCommandUplink\GBSPCCMNDSRF_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDISpaceCommandUplink" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDISpaceCommandUplink" ButtonImage="Portrait_GDISpaceCommandUplink" Side="GDI" BuildCost="3000" ThreatLevel="8" BuildTime="30" EnergyProduction="-15" CommandSet="GDISpaceCommandUplinkCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EditorName="GDISpaceCommandUplink" Description="Desc:GDISpaceCommandUplink" TypeDescription="Type:GDISpaceCommandUplink" MaxSimultaneousOfType="1">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDISpaceCommandUplink</DisplayName>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>GDIArmory</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBSpcCmnd_FS"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBSpcCmnd_ASN"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBSpcCmnd_D3SN"/>
+					<Texture Original="GBSpcCmndD" New="GBSpcCmndD"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBSpcCmnd_D2SN_FS"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBSpcCmnd_FS"/>
+					<Texture Original="GBSpcCmnd" New="GBSpcCmndD"/>
+					<Texture Original="GBWarFacBib" New="GBWarFacBib_D"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBSpcCmnd_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBSpcCmnd_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBSpcCmnd_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBSpcCmnd_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBSpcCmnd_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXBone01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BuildingSteam" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FXBone02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BuildingSteam" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="FXBone03">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BuildingSteam" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Draw_Missile" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBSpcCmndX_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Model Name="GBSpcCmndX_SKN"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPECIALPOWER1_READY">
+					<Model Name="GBSpcCmndX_RDY_D3"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GBSpcCmndX_D3"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY">
+					<Model Name="GBSpcCmndX_SKN"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle">
+					<Animation AnimationName="GBSpcCmndX_IDLA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Ready" and Prev ~= "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_FIRING") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPECIALPOWER1_READY">
+					<Animation AnimationName="GBSpcCmndX_RDY_D3" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GBSpcCmndX_D3" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY" StateName="STATE_Ready">
+					<Animation AnimationName="GBSpcCmndX_RDY" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING">
+					<Animation AnimationName="GBSpcCmndX_IDLA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_FIRING">
+					<Animation AnimationName="GBSpcCmndX_FIRA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="FXBone04" FXParticleSystemTemplate="NodNukeMissleSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone04" FXParticleSystemTemplate="NodNukeMissleFire" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBSPCCMNDSRF_SKN"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBSPCCMNDSRF_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBSPCCMNDSRF_SKN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
+			<BuildingBehavior id="ModuleTag_BuildingBehavior02" NightWindowObject="LIGHT"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/AdvancedGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/AdvancedGDIBuildingSuicide.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Drop Pods -->
+			<OCLSpecialPower id="ModuleTag_OCLDropPods" SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandDropPods" OCL="OCL_GDISpaceCommandDropPods" CreateLocation="CREATE_AT_LOCATION"/>
+			<AISpecialPowerUpdate id="ModuleTag_GDISpaceCommandDropPodsAI" CommandButtonName="Command_SpaceCommandGDIDropPods" ReinforceDistance="100.0" SpecialPowerRadius="300.0" SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT"/>
+			<!-- Shockwave Artillery -->
+			<OCLSpecialPower id="ModuleTag_ShockwaveArtillery" SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandShockwaveArtillery" OCL="OCL_GDISpaceCommandShockwaveArtillery" CreateLocation="CREATE_AT_LOCATION"/>
+			<AISpecialPowerUpdate id="ModuleTag_GDISpaceCommandShockwaveAI" CommandButtonName="Command_SpaceCommandGDIShockwave" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<MonitorSpecialPowerTimerUpdate id="ModuleTag_ShockwaveArtilleryReadyToFireUpdate" SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandShockwaveArtillery" ReadyCondition="SPECIALPOWER1_READY"/>
+			<!-- Summon Kodiak -->
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerSummonGDIKodiak" SpecialPowerTemplate="SpecialPower_SummonGDIKodiak" OCL="OCL_SummonGDIKodiak" CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>GDISpaceCommandUplink</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+			<AISpecialPowerUpdate id="ModuleTag_SummonGDIKodiak" CommandButtonName="Command_SummonGDIKodiak" SpecialPowerRadius="999999.0" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
+		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceZoneTrooperDropPodsReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPowerGDI_SpaceCommandDropPods" JustMonitorPercentReady="true"/>
+		</ClientUpdates>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="9.0" MinorRadius="5.0" Height="65.0" ContactPointGeneration="STRUCTURE">
+				<Offset y="-40.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="36.0" MinorRadius="47.5" Height="9.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-3" y="-5"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="14.0" Height="40.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-25" y="5"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_SpaceCommandUplinkSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="1000"/>
+		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+</AssetDeclaration>

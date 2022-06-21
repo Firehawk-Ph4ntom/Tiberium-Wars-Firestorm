@@ -1,0 +1,83 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIDeploymentPod\GDI_Crawler_DP.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDeploymentPod\GDI_Crawler_DP_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDeploymentPod\GDI_Crawler_DP_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDeploymentPod\HC_GDI_Crawler_DP.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDeploymentPod\GDI_CRAWLER_DP_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDeploymentPod\GDI_CRAWLER_DP_SKN.w3x"/>
+	</Includes>
+	<GameObject id="GDIDeploymentDropPod" KindOf="PRELOAD CAN_CAST_REFLECTIONS UNATTACKABLE" SelectPortrait="Portrait_GDIDropPod" ButtonImage="Portrait_GDIDropPod" RadarPriority="UNIT" Side="GDI" EditorName="GDIDeploymentDropPod" EditorSorting="MISC_MAN_MADE" TransportSlotCount="0">
+		<DisplayName>Name:GDIDeploymentDropPod</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GDI_CRAWLER_DP_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="GDI_CRAWLER_DP_MOVA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.6" AnimationSpeedFactorMax="0.7"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDropPodDirt" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDropPodDirt02" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDropPodDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDropPodDust02" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDropPodSW" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDropPodSWDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="ENGINE_01" FXParticleSystemTemplate="GDIDropPodFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ENGINE_02" FXParticleSystemTemplate="GDIDropPodFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ENGINE_03" FXParticleSystemTemplate="GDIDropPodFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST01" FXParticleSystemTemplate="GDIDropPodExhaustCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST01" FXParticleSystemTemplate="GDIDropPodExhaustDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST01" FXParticleSystemTemplate="GDIDropPodExhaustDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST01" FXParticleSystemTemplate="GDIDropPodExhaustFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST02" FXParticleSystemTemplate="GDIDropPodExhaustCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST02" FXParticleSystemTemplate="GDIDropPodExhaustDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST02" FXParticleSystemTemplate="GDIDropPodExhaustDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST02" FXParticleSystemTemplate="GDIDropPodExhaustFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST03" FXParticleSystemTemplate="GDIDropPodExhaustCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST03" FXParticleSystemTemplate="GDIDropPodExhaustDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST03" FXParticleSystemTemplate="GDIDropPodExhaustDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXEXHAUST03" FXParticleSystemTemplate="GDIDropPodExhaustFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_mesh_rocket_01" FXParticleSystemTemplate="GDIDropPodConTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_mesh_rocket_02" FXParticleSystemTemplate="GDIDropPodConTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="bone_mesh_rocket_03" FXParticleSystemTemplate="GDIDropPodConTrail" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<AttributeModifierPoolUpdate id="DefaultAttributeModifierPoolUpdate"/>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate_InitiallyUnattackable" InitiallyActive="true" RefreshDelay="10000000s" AllowSelf="true" AttributeModifierName="AttributeModifier_GDIDropPod_InitialUnattackability"/>
+			<Physics id="ModuleTag_Physics" BounceCount="0"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="2.5s" MaxLifetime="2.5s" DeathType="SUICIDED"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonGDIMCV">
+				<DieMuxData DeathTypes="SUICIDED"/>
+			</CreateObjectDie>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="110">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<SlowDeath id="ModuleTag_Death" DeathObjectStatusBits="DONT_CLEAR_FOR_BUILD" SinkDelay="3s" SinkRate="3.0" DestructionDelay="3.0s">
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GDIDeploymentPodLandCameraShake" FireDelay="1.45s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="GDI_CrawlerDropPod_1_Descend" Animation="GDI_CRAWLER_DP_MOVA" Frame="0"/>
+				<Sound Sound="GDI_CrawlerDropPod_2_Impact" Animation="GDI_CRAWLER_DP_MOVA" Frame="23"/>
+				<Sound Sound="GDI_MCV_VoiceCreate2" Animation="GDI_CRAWLER_DP_MOVA" Frame="41"/>
+				<Sound Sound="GDI_CrawlerDropPod_3_Ascend" Animation="GDI_CRAWLER_DP_MOVA" Frame="49"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="110.0" Height="100.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
+		<CrusherInfo CrusherLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>
