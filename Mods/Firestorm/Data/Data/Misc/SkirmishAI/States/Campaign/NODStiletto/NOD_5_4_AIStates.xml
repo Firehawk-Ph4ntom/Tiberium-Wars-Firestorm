@@ -53,17 +53,6 @@
 	</AIStrategicStateDefinition>
 
 	<AIStrategicStateDefinition
-		id="N_5_4_AlienReactiveDefend_FS"
-		UnitUpgradeMultiplier="0.0">
-		<Heuristic>
-			<ConstantHeuristic Weight="1.0"/>
-		</Heuristic>
-		<Tactic Tactic="ReactiveDefense" TargetType="Targetless">
-			<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="true" AlwaysRecruit="true"/>
-		</Tactic>
-	</AIStrategicStateDefinition>
-
-	<AIStrategicStateDefinition
 		id="N_5_4_AlienAssaultAirStrike_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
@@ -108,6 +97,20 @@
 	</AIStrategicStateDefinition>
 
 	<AIStrategicStateDefinition
+		id="N_5_4_GDIStaticDefense_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestFriendlyStructureHeuristic" TargetType="Guard"/>
+		<Tactic Tactic="StaticDefense" TargetType="Guard">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDIOrcaBattleFortress"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
 		id="N_5_4_GDIStructureKill_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
@@ -139,6 +142,17 @@
 		</Heuristic>
 		<Tactic Tactic="ReactiveDefense" TargetType="Targetless">
 			<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="true" AlwaysRecruit="true"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_4_GDIReactiveDefend_Air_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<Tactic Tactic="ReactiveDefense" TargetType="Targetless">
+			<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="" AlwaysRelease="true" AlwaysRecruit="true"/>
 		</Tactic>
 	</AIStrategicStateDefinition>
 
@@ -179,8 +193,8 @@
 			<IntervalHeuristic IntervalTime="180s" ActiveTime="30s"/>
 			<ConstantHeuristic Weight="1.0"/>
 		</Heuristic>
-		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="Airstrike"/>
-		<Tactic Tactic="SimpleAttack" TargetType="Airstrike">
+		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="AssaultAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="AssaultAirstrike">
 			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK ASSAULT_AIRCRAFT" ExcludeKindOf="BOMBER_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="GDIHammerhead"/>
 				<CreateUnits UnitName="GDIHammerhead"/>

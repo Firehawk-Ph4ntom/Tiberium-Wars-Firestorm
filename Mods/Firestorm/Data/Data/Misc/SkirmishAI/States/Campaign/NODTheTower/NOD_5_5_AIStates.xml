@@ -2,22 +2,12 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<AIStrategicStateDefinition
-		id="N_5_5_GDIUnitCap_Medium_FS"
-		UnitUpgradeMultiplier="0.0"
-		UnitBuilderSimpleUnitCap="30">
-		<Heuristic>
-			<TimerHeuristic StartTime="0s" EndTime="2400s"/>
-			<ConstantHeuristic Weight="1000.0"/>
-		</Heuristic>
-	</AIStrategicStateDefinition>
-
-	<AIStrategicStateDefinition
 		id="N_5_5_GDIUnitCap_Hard_FS"
 		UnitUpgradeMultiplier="0.0"
 		UnitBuilderSimpleUnitCap="35">
 		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
 			<TimerHeuristic StartTime="0s" EndTime="2400s"/>
-			<ConstantHeuristic Weight="1000.0"/>
 		</Heuristic>
 	</AIStrategicStateDefinition>
 
@@ -86,6 +76,18 @@
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
 			<ConstantHeuristic Weight="1.0"/>
+			<TimerHeuristic StartTime="660s" EndTime="-1s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestPhaseGeneratorHeuristic" TargetType="FocusedTarget"/>
+		<Tactic Tactic="SimpleAttack" TargetType="FocusedTarget">
+			<TeamTemplate MinUnits="16" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_5_GDIAssault6_Hard_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
 			<TimerHeuristic StartTime="660s" EndTime="2400s"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestPhaseGeneratorHeuristic" TargetType="FocusedTarget"/>
@@ -140,8 +142,8 @@
 		id="N_5_5_GDICommando_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
-			<TimerHeuristic StartTime="300s" EndTime="-1s"/>
 			<ConstantHeuristic Weight="1.0"/>
+			<TimerHeuristic StartTime="300s" EndTime="-1s"/>
 			<LateGameHeuristic/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestPhaseGeneratorHeuristic" TargetType="Commando"/>
@@ -152,6 +154,21 @@
 		</Tactic>
 	</AIStrategicStateDefinition>
 
+	<AIStrategicStateDefinition
+		id="N_5_5_GDIExpansionDefense_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+			<TimerHeuristic StartTime="300s" EndTime="-1s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ExpansionUnitHeuristic" TargetType="ExpansionDefense"/>
+		<TargetHeuristic TargetHeuristic="OutpostStructureHeuristic" TargetType="ExpansionDefense"/>
+		<Tactic Tactic="SimpleAttack" TargetType="ExpansionDefense">
+			<TeamTemplate MinUnits="5" MaxUnits="10" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<!-- Only activate on Hard (If player just camps in his base for over 40 mins, Unlock Juggernauts and bombard him)-->
 	<AIStrategicStateDefinition
 		id="N_5_5_FinalAttack_FS"
 		UnitUpgradeMultiplier="0.0">
