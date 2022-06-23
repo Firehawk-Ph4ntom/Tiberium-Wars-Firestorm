@@ -1,0 +1,143 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Tags/>
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\AlienStingray\AUSTINGRAY_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStingray\AUSTINGRAY_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStingray\AUSTINGRAYR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStingray\AUSTINGRAYR_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStingray\AUSTINGRAYR01_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienStingray\FXSHLDSTINGRAY_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="AlienStingray" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienStingray" ButtonImage="Portrait_AlienStingray" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="GenericAlienVehicleCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="LIGHTNING" VoicePriority="100" EditorName="AlienStingray" Description="Desc:AlienStingray" TypeDescription="Type:AlienStingray">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienStingray</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>AlienControlCenter</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
+		<LocomotorSet Locomotor="AlienSeekerTankLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUSTINGRAY_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="AUSTINGRAY_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Model Name="AUSTINGRAYR"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+					<Model Name="AUSTINGRAY_SKN"/>
+					<Texture Original="AUPACarrier" New="AUPACarrier_D"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="60" SizeY="60" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="AUSTINGRAY_SKN"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="60" SizeY="60" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="AUSTINGRAYR" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="FXWEAPON" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXAspotlight"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+			</SpotlightDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawCombined">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_PARENT">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombine" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombineGlow" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawForceField" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
+					<Model Name="FXSHLDSTINGRAY"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStingrayMissileJammerWeapon"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStingrayMissileJammerWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="5s" SinkRate="1.0" DestructionDelay="15s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_ALIENStingrayDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="ALI_SeekerTank_Die"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_ALIENVehicleExplodeScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListAlienVehicleBlood">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_AlienInfantryDeathFX"/>
+			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
+			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
+			<!-- Forcefield Generator -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="true"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="2100" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="1000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="100s" ShieldActiveModelCondition="USER_19"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="ALI_SeekerTank_IdleLoop" RequiredFlags="USER_19" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="10.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_SeekerTank_SoundAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_SeekerTank_SoundCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="ALI_SeekerTank_SoundMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_SeekerTank_SoundMove" AudioType="voiceGuard"/>
+			<AudioEntry Sound="ALI_SeekerTank_SoundSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="ALI_Buzzers_SoundSplit" Name="UncombineWithUnit"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_SeekerTank_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_SeekerTank_IdleLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="375" ShroudClearingRange="500"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>
