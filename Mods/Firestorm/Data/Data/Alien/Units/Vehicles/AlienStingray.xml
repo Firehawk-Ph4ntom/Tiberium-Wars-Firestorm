@@ -10,9 +10,10 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienStingray" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienStingray" ButtonImage="Portrait_AlienStingray" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="GenericAlienVehicleCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="LIGHTNING" VoicePriority="100" EditorName="AlienStingray" Description="Desc:AlienStingray" TypeDescription="Type:AlienStingray">
+	<GameObject id="AlienStingray" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienStingray" ButtonImage="Portrait_AlienStingray" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="AlienStingrayCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="LIGHTNING" VoicePriority="100" EditorName="AlienStingray" Description="Desc:AlienStingray" TypeDescription="Type:AlienStingray">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienStingray</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AlienIonMatrix</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>AlienControlCenter</RequiredObject>
 		</GameDependency>
@@ -107,6 +108,8 @@
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
 			<!-- Forcefield Generator -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SpecialPower id="ModuleTag_ChargeDefenses" SpecialPowerTemplate="SpecialPower_AlienChargeDefenses" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ChargeDefensesUpdate" SpecialPowerTemplate="SpecialPower_AlienChargeDefenses" StartAbilityRange="250" PersistentPrepTime="1s" PackTime="1s" UnpackTime="2s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" StartRechargeOnExit="true" SpecialWeapon="AlienStingrayLightningChargeWeapon" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" WeaponSlotID="1"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
