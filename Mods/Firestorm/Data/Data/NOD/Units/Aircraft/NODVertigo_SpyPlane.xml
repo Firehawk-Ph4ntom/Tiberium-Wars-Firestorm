@@ -1,0 +1,150 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AircraftC.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AircraftC_DMG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AircraftC_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AircraftC_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AIRCRAFTC_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AIRCRAFTC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AIRCRAFTC_STLTH.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AIRCRAFTC_TRNL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpyPlane\NUM_AIRCRAFTC_TRNR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="NODVertigo_SpyPlane" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODVertigoBomber" ButtonImage="Portrait_NODVertigoBomber" Side="NOD" KindOf="PRELOAD CAN_CAST_REFLECTIONS AIRCRAFT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL" EditorName="NODVertigo_SpyPlane">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODVertigo</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="NODVertigoLocomotor" Condition="NORMAL" Speed="400.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUM_AIRCRAFTC_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUM_AIRCRAFTC_SKN"/>
+					<Texture Original="NUM_AircraftC" New="NUM_AircraftC_DMG"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="NODVertigoFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="NODVertigoDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="NODVertigoFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="NODVertigoDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUM_AIRCRAFTC_SKN"/>
+					<ParticleSysBone BoneName="fxdamage01" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="fxdamage02" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NUM_AIRCRAFTC_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="NUM_AIRCRAFTC_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Stealth" OkToChangeModelColor="true" InvertStealthOpacity="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUM_AIRCRAFTC_STLTH"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NUM_AIRCRAFTC_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="NUM_AIRCRAFTC_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="NUM_AIRCRAFTC_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="fxexhaust01">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="fxexhaust02">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<StrafeAreaUpdate id="ModuleTag_StrafeAreaUpdate" WeaponName="NODSpyPlaneRadarScanPingWeapon" PreattackDistance="40" Radius="20" MinRadius="10"/>
+			<RunOffMapBehavior id="ModuleTag_RunOffMapBehavior" FlyingOffMap="true" RequiresSpecificTrigger="true"/>
+			<Physics id="ModuleTag_Physics"/>
+			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
+			</InvisibilityUpdate>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVertigoBomberDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<FX Type="INITIAL">
+					<FX>FX_NOD_VertigoBomber_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="UnitForbidCommandsEventsList"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_VertigoBomb_MoveLand" RequiredFlags="RAPPELLING"/>
+				<ModelConditionSound Sound="NOD_VertigoBomb_MoveLift" RequiredFlags="CLIMBING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="18.0" MinorRadius="20.0" Height="7.0"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_VertigoBomb_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="VertigoBomberIdleMoveLoopMS" AudioType="soundAmbient"/>
+			<AudioEntry Sound="VertigoBomberIdleMoveLoopMS" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="300" ShroudClearingRange="75"/>
+	</GameObject>
+</AssetDeclaration>
