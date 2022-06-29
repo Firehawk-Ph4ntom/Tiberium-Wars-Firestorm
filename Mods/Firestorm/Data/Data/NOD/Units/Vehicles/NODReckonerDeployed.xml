@@ -99,17 +99,6 @@
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMAMM_FX"/>
-				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
-				</AnimationState>
-			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FX_ROOF_TV">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXINVISBONE"/>
@@ -166,17 +155,16 @@
 				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
 			</HordeTransportContain>
 			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2" SinkDelay="3s" DestructionDelay="5s">
-				<OCL>
-					<OCL>OCL_NODReckonerDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
-				<Sound Type="INITIAL" List="NOD_Reckoner_VoiceDie"/>
-			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event FX="FX_GDIVehicleExplodeNoScorch"/>
+				<Event Index="onDeath" FX="FX_NOD_DeployedReckonerExplodeWithVoice"/>
 			</FXListBehavior>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NODDeployedReckonerDebris">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODDozerBladeUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
 			<AttributeModifierUpgrade id="ModuleTag_GDIFaction" AttributeModifier="AttributeModifier_ReckonerDeployed">
