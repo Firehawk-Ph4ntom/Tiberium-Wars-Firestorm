@@ -1,9 +1,10 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralSatelliteLaunchFacility\CBSATLNCH_D3.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
 	</Includes>
-	<GameObject id="SatelliteLaunchFacility_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralLaunchFacility" ButtonImage="Portrait_NeutralLaunchFacility" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS HUSK NOT_AUTOACQUIRABLE UNATTACKABLE" EditorName="SatelliteLaunchFacility_Destroyed" TypeDescription="Type:TechBuilding" Description="Desc:SatelliteLaunchFacilityDestroyed">
+	<GameObject id="SatelliteLaunchFacility_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralLaunchFacility" ButtonImage="Portrait_NeutralLaunchFacility" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE UNATTACKABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH" EditorName="SatelliteLaunchFacility_Destroyed" TypeDescription="Type:TechBuilding" Description="Desc:SatelliteLaunchFacilityDestroyed">
 		<DisplayName>Name:SatelliteLaunchFacility</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -12,16 +13,16 @@
 					<Model Name="CBSatLnch_D3"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
-					<Animation AnimationName="CBSatLnch_D3" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+					<Animation AnimationName="CBSatLnch_D3_FS" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
-					<Animation AnimationName="CBSatLnch_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<Animation AnimationName="CBSatLnch_D3_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
-			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" FXForRepair="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" EvaEventForReplace="BuildingRepaired" EvaEventForCaptureAndReplace="EnemyBuildingCaptured" ReplaceWith="OCL_SatelliteLaunchFacility_Rebuilt">
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" EvaEventForReplace="BuildingRepaired" EvaEventForCaptureAndReplace="EnemyBuildingCaptured" FXForReplace="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Husk_Captured" ReplaceWith="OCL_SatelliteLaunchFacility_Rebuilt">
 				<CanEnterFilter Rule="NONE">
 					<IncludeThing>GDIEngineer</IncludeThing>
 					<IncludeThing>NODSaboteur</IncludeThing>
@@ -45,33 +46,10 @@
 			<Shape Type="CYLINDER" MajorRadius="7.2719" MinorRadius="7.2719" Height="76.0807" ContactPointGeneration="STRUCTURE">
 				<Offset x="-17.5511" y="-2.46988"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-44.529" y="-29.9765"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="-29.9765" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="44.1944"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-44.529" y="44.1944" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-44.529" y="-29.9765" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="-29.9765"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="44.1944" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-44.529" y="44.1944"/>
-			</ContactPoint>
 		</Geometry>
+		<EvaEvents EvaEventDamagedOwner="" EvaEventSoldOwner="" EvaEventRepairingOwner=""/>
 		<ShadowInfo Type="VOLUME"/>
-		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="100"/>
 		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

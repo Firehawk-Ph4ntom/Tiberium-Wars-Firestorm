@@ -1,4 +1,4 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
@@ -13,7 +13,7 @@
 					<Texture Original="CBSatLnch_D" New="CBSatLnch"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name=""/>
+					<Model Name="CBSatLnch_D3"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="CBSatLnch_D2"/>
@@ -34,6 +34,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" xai:joinAction="Remove"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
@@ -48,6 +49,9 @@
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SatelliteLaunchFacility_Destroyed">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_DestroyDie">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
