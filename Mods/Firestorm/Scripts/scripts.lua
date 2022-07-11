@@ -300,6 +300,10 @@ function OnNODTechAssembleyPlantCreated(self)
 	ObjectHideSubObjectPermanently( self, "CHARGEDPARTICALBEAM_03", true )
 end
 
+function OnNODCarryall_SummonedForVehicleCreated(self)
+	ObjectHideSubObjectPermanently( self, "HANGAR", true )
+end
+
 function OnNODVenomCreated(self)
 	ObjectHideSubObjectPermanently( self, "SIGGEN", true )
 end

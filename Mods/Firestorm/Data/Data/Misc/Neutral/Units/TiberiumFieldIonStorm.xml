@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<GameObject id="TiberiumFieldIonStorm" Side="Neutral" KindOf="IMMOBILE TAINTEFFECT CAN_ATTACK NOT_AUTOACQUIRABLE RESIST_EMP NO_COLLIDE" EditorSorting="MISC_NATURAL" EditorName="TiberiumFieldIonStorm">
-		<DisplayName>Name:IonStorm</DisplayName>
-		<ArmorSet Armor="IonStormArmor"/>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="IonStorm.xml" />
+	</Includes>
+	<GameObject id="TiberiumFieldIonStorm" inheritFrom="IonStorm" EditorName="TiberiumFieldIonStorm">
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="Weaponfx_01 Weaponfx_02 Weaponfx_03 Weaponfx_04 Weaponfx_05">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="Weaponfx_01 Weaponfx_02 Weaponfx_03 Weaponfx_04 Weaponfx_05" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXIonStormBone"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="Weaponfx_"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="Weaponfx_"/>
@@ -20,37 +22,10 @@
 		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="IonStormMissileJammerWeapon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<PassiveAreaEffectBehavior id="ModuleTag_IonStormBuff" EffectRadius="200" HealingPercentPerSecond="2" NonStackable="true">
-				<AllowFilter Rule="NONE">
-					<IncludeThing>AlienMCV</IncludeThing>
-					<IncludeThing>AlienMCVUnpacking</IncludeThing>
-					<IncludeThing>AlienStormrider</IncludeThing>
-					<IncludeThing>AlienDevastatorWarship</IncludeThing>
-					<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
-					<IncludeThing>AlienInvaderFighter</IncludeThing>
-					<IncludeThing>AlienMothership</IncludeThing>
-					<IncludeThing>AlienConquerorBattleship</IncludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<DestroyDie id="ModuleTag_DestroyDie">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
 		</Behaviors>
-		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanAutoAcquireNonAutoAcquirable="true"/>
-			</AIUpdate>
-		</AI>
-		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="1.0"/>
-		</Body>
-		<AudioArraySound>
-			<AudioEntry Sound="ALI_StormColumn_AmbientLoopMS" AudioType="soundAmbient"/>
-		</AudioArraySound>
-		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
 	</GameObject>
 </AssetDeclaration>

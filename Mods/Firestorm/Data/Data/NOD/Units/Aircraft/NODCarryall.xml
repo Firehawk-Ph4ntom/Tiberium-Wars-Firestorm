@@ -4,13 +4,13 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="NODCarryall" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" Side="NOD" BuildCost="10" BuildTime="1.0" CommandSet="NODCarryallCommandSet" KindOf="PRELOAD CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE" VoicePriority="56" EditorName="NODCarryall" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
+	<GameObject id="NODCarryall" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" Side="NOD" BuildCost="10" BuildTime="1.0" CommandSet="GDIHammerheadCommandSet" KindOf="PRELOAD CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE" VoicePriority="56" EditorName="NODCarryall" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCarryall</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX" id="Armor"/>
 		<LocomotorSet Locomotor="NODCarryallLocomotor" Condition="NORMAL" Speed="100.0" id="Locomotor_Normal"/>
 		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="10" id="Locomotor_Taxi"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="BONEGARRISON01" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUCARRYALL_SKN_FS"/>
 				</ModelConditionState>
@@ -133,7 +133,7 @@
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
 				<PassengerFilter Rule="ANY" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
-				<PassengerData BonePrefix="ROOT">
+				<PassengerData BonePrefix="BONEGARRISON">
 					<Filter Rule="NONE" Include="INFANTRY"/>
 				</PassengerData>
 			</HordeTransportContain>
@@ -162,6 +162,10 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
 		</Body>
 		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="V35DropShipCloseDoors" Animation="NUCarryAll_CLSA" Frame="1"/>
+				<Sound Sound="V35DropShipOpenDoors" Animation="NUCarryAll_OPNA" Frame="1"/>
+			</AnimationSoundClientBehavior>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="V35DropShipLand" RequiredFlags="LANDING"/>
 				<ModelConditionSound Sound="V35DropShipTakeOff" RequiredFlags="TAKING_OFF"/>

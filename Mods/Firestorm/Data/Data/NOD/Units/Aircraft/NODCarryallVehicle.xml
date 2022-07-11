@@ -3,118 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="NODCarryall.xml"/>
 	</Includes>
-	<GameObject id="NODCarryallVehicle" EditorName="NODCarryallVehicle" inheritFrom="NODCarryall" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL">
-		<Draws xai:joinAction="Replace">
-			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="BONEGARRISON01" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="NUCARRYALL_SKN_FS"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="NUCarryAll_FP"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="NUCARRYALL_SKN_FS"/>
-					<Texture Original="NUCarryAll" New="NUCarryAll_D"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="NUCARRYALL_SKN_FS"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_IDLA" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("Hangar") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Animation AnimationName="" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_TRNL" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("Hangar") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_TRNR" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("Hangar") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUCarryAll_FLYA" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("Hangar") </Script>
-				</AnimationState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Fan_RF" AttachToBoneInAnotherModule="FX_FANLF">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Fan_RR" AttachToBoneInAnotherModule="FX_FANLR">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Fan_LR" AttachToBoneInAnotherModule="FX_FANRR">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Fan_LF" AttachToBoneInAnotherModule="FX_FANRF">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="CarryAllExhaust" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2" OkToChangeModelColor="true" ExtraPublicBone="BONE_FAN_RF BONE_FAN_RR BONE_FAN_LR BONE_FAN_LF">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-		</Draws>
+	<GameObject id="NODCarryallVehicle" inheritFrom="NODCarryall" EditorName="NODCarryallVehicle" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL">
 		<Behaviors>
 			<HordeTransportContain xai:joinAction="Overwrite" id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true" ExtendedExitContainerChecks="true">
 				<PassengerFilter Rule="NONE">
@@ -132,13 +21,15 @@
 					<IncludeThing>NODEmissary</IncludeThing>
 				</PassengerFilter>
 				<DieMuxData DeathTypes="ALL"/>
-				<PassengerData BonePrefix="BONEGARRISON01">
+				<PassengerData BonePrefix="BONEGARRISON">
 					<Filter Rule="NONE" Include="VEHICLE"/>
 				</PassengerData>
 			</HordeTransportContain>
 		</Behaviors>
 		<AI>
-			<TransportHelicopterAIUpdate xai:joinAction="Overwrite" id="ModuleTag_AI" FlyOffMapOnUnload="true"/>
+			<TransportHelicopterAIUpdate xai:joinAction="Overwrite" id="ModuleTag_AI" AILuaEventsList="NODCarryall_SummonedForVehicleFunctions" FlyOffMapOnUnload="true">
+				<UnitAITargetChooserData SympathyRange="100.0"/>
+			</TransportHelicopterAIUpdate>
 		</AI>
 	</GameObject>
 </AssetDeclaration>
