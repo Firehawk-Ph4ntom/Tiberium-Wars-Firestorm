@@ -11,7 +11,7 @@
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
 		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
-			<TeamTemplate MinUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+			<TeamTemplate MinUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT ASSAULT_AIRCRAFT" ExcludeKindOf="BOMBER_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienStormrider"/>
 				<CreateUnits UnitName="AlienStormrider"/>
 			</TeamTemplate>
@@ -84,7 +84,7 @@
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
 		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
-		<TeamTemplate MinUnits="4" IncludeKindOf="CAN_ATTACK AIRCRAFT BOMBER_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+		<TeamTemplate MinUnits="4" IncludeKindOf="CAN_ATTACK AIRCRAFT ASSAULT_AIRCRAFT" ExcludeKindOf="BOMBER_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 			<CreateUnits UnitName="AlienStormrider"/>
 			<CreateUnits UnitName="AlienStormrider"/>
 			<CreateUnits UnitName="AlienStormrider"/>
@@ -120,7 +120,8 @@
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="SafestToAirStructureHeuristic" TargetType="BombingAirstrike"/>
 		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
-		<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT BOMBER_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+		<TeamTemplate MinUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT ASSAULT_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+			<CreateUnits UnitName="AlienStormrider"/>
 			<CreateUnits UnitName="AlienStormrider"/>
 		</TeamTemplate>
 		</Tactic>
@@ -140,7 +141,28 @@
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ResourceSqueezeHeuristic" TargetType="PrimaryTarget"/>
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="PrimaryTarget">
-			<TeamTemplate MinUnits="3" MaxUnits="5" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+			<TeamTemplate MinUnits="3" MaxUnits="5" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="AlienSeekerTank" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="125%"/>
+		<UnitModifierByName UnitName="AlienDevourerTank" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="150%"/>
+		<UnitModifierByName UnitName="AlienCorrupter" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="150%"/>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="AlienProductionHalt_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<ProductionHaltHeuristic
+				BalanceOfPowerWeight="0.75"
+				PenetrabilityWeight="0.25">
+				<PenetrabilityHeuristic/>
+				<BalanceOfPowerHeuristic/>
+			</ProductionHaltHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ProductionKillHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="3" MaxUnits="5" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
 		</Tactic>
 		<UnitModifierByName UnitName="AlienSeekerTank" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="125%"/>
 		<UnitModifierByName UnitName="AlienDevourerTank" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="150%"/>
@@ -217,7 +239,7 @@
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="PrimaryTarget"/>
 		<Tactic Tactic="SimpleSiege" TargetType="PrimaryTarget">
-			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT BOMBER_AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienDevastatorWarship"/>
 			</TeamTemplate>
 			<TeamTemplate MinUnits="7" MaxUnits="12" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
