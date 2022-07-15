@@ -111,11 +111,6 @@ function OnAlienPhotonCannonCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_SHARDWEAPON", true )
 end
 
-function OnAlienPACCreated(self)
-	ObjectHideSubObjectPermanently( self, "TRAVENG01", true )
-	ObjectHideSubObjectPermanently( self, "TRAVENG02", true )
-end
-
 function OnRavagerCreated(self)
 	ObjectHideSubObjectPermanently( self, "AUSTALKER_GUN", true )
 	ObjectHideSubObjectPermanently( self, "AUSTALKER_SHARD", true )
