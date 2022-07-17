@@ -26,6 +26,7 @@
 	</Includes>
 	<GameObject id="GDICommando" inheritFrom="BaseInfantry" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT PATH_THROUGH_INFANTRY UNIQUE_UNIT SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT" Description="Desc:GDIZoneCommando" TypeDescription="Type:GDIZoneCommando" Side="GDI" EditorName="GDIZoneCommando" BuildTime="25" CommandSet="ZoneCommandoCommandSet" SelectPortrait="Portrait_GDIZoneCommando" ButtonImage="Portrait_GDIZoneCommando" VoicePriority="190" ThreatLevel="10" WeaponCategory="CANNON" UnitTypeIcon="CommandoIcon" BuildCost="2500" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIZoneCommando</DisplayName>
+		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_ZoneTrooperAutoInjectors</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDISpaceCommandUplink</RequiredObject>
@@ -254,20 +255,30 @@
 				<Event FX="FX_InfRadGoo"/>
 			</FXListBehavior>
 			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
-			<AutoHealBehavior id="Upgrade_AutoInjectors_02" HealingAmount="10" HealingDelay="3s" StartHealingDelay="5s" HealOnlyIfNotUnderAttack="true" HealOnlyIfNotInCombat="true">
+			<!-- Auto Injectors -->
+			<AutoHealBehavior id="ModuleTag_AutoInjectorsAutoHeal" InitiallyActive="false" HealOnlyIfNotInCombat="true" HealOnlyIfNotUnderAttack="true" StartHealingDelay="5s" HealingAmount="10" HealingDelay="3s">
 				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
 			</AutoHealBehavior>
-			<AttributeModifierUpgrade id="Upgrade_AutoInjectors_01" AttributeModifier="ZoneTrooper_AutoInjectors">
+			<AttributeModifierUpgrade id="ModuleTag_AutoInjectorsAttribute" AttributeModifier="ZoneTrooper_AutoInjectors">
 				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
 			</AttributeModifierUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_AutoInjectorsAudioLoop" SoundToPlay="GDI_PowerPacks_Upgrade">
 				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
 			</AudioLoopUpgrade>
+			<!-- Scanner Packs -->
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400" InitiallyDisabled="true">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</StealthDetectorUpdate>
+			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AudioLoopUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowInjectors" ShowSubObjects="FX_GLOWHEROIC" HideSubObjects="FX_GLOW">
+			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsHeroicGlow" ShowSubObjects="FX_GLOWHEROIC" HideSubObjects="FX_GLOW">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</SubObjectsUpgrade>
 			<xi:include href="DATA:Includes/CaptureBehavior.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
@@ -279,7 +290,7 @@
 			</AIUpdate>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="1000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="900"/>
 		</Body>
 		<ClientBehaviors>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">

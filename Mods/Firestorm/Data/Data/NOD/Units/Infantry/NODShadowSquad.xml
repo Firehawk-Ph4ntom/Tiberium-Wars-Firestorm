@@ -59,7 +59,23 @@
 				<RankToReleaseWhenAttacking>2</RankToReleaseWhenAttacking>
 			</HordeContain>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove" IgnoreSuppressionObjectStatus="AIRBORNE_TARGET"/>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_GliderLand"/>
+			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_GliderLandUpdate" SpecialPowerTemplate="SpecialPower_GliderLand" UpgradeToGive="Upgrade_GliderLand"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveGliderLandUpgrade">
+				<UpgradeToRemove>Upgrade_GliderLand</UpgradeToRemove>
+				<TriggeredBy>Upgrade_GliderLiftOff</TriggeredBy>
+			</RemoveUpgradeUpgrade>
+			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_GliderLiftOffUpdate" SpecialPowerTemplate="SpecialPower_GliderLiftOff" UpgradeToGive="Upgrade_GliderLiftOff"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveGliderLiftOffUpgrade">
+				<UpgradeToRemove>Upgrade_GliderLiftOff</UpgradeToRemove>
+				<TriggeredBy>Upgrade_GliderLand</TriggeredBy>
+			</RemoveUpgradeUpgrade>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200" ExtraForbiddenKindOf="AIRCRAFT MINE" InitiallyDisabled="true">
+				<TriggeredBy>Upgrade_GliderLand</TriggeredBy>
+			</StealthDetectorUpdate>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect2" DetectionRange="200" ExtraForbiddenKindOf="MINE" InitiallyDisabled="true">
+				<TriggeredBy>Upgrade_GliderLiftOff</TriggeredBy>
+			</StealthDetectorUpdate>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StatusBitsUpgrade id="ModuleTag_DummyUpgradeForWB" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
