@@ -1,5 +1,6 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
 	<GameObject id="OverlordsWrathProjectile" Side="Alien" EditorSorting="SYSTEM" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" EditorName="OverlordsWrathProjectile">
+		<DisplayName>OverlordsWrathProjectile</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
@@ -12,10 +13,10 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="OverlordsWrathWeapon" FireDelay="1.3s"/>
-			</FireWeaponUpdate>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.4s" MaxLifetime="1.4s" DeathType="SUICIDED"/>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="OverlordsWrathWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.4s" MaxLifetime="1.4s"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_AlienTibRockHit"/>
@@ -26,10 +27,14 @@
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_OverlordsWrathTiberiumRockChunk">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="130">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
 			<Physics id="ModuleTag_Physics" GravityMultiplier="18.0"/>
+			<BezierProjectile id="ModuleTag_BezierProjectile" DetonateCallsKill="true" OrientToFlightPath="true" DieOnImpact="true"/>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="1000000.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
 		<Geometry IsSmall="true">
 			<Shape MajorRadius="0.8"/>
@@ -37,6 +42,6 @@
 		<AudioArraySound>
 			<AudioEntry Sound="ALI_OverlordsWrath_MeteorAmbientLoopMS" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
+		<VisionInfo/>
 	</GameObject>
 </AssetDeclaration>
