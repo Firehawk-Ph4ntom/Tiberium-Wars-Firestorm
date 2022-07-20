@@ -8,23 +8,21 @@
 
 Global Changes:
 
-- Removed FS_Factory Kindof from all Cranes
-
 - Skirmish AI edits:
   > Fixed All Nod AIs referencing Nod Raider Buggy instead of Marauder (They wouldn't train Marauders)
   > Added a new AI state to Scrin AIs
   > Fixed GDI and Nod Static defense states (Rig/OrcaBattlefortress/Phantom do not have CAN_ATTACK Kindofs)
   > All AI states for all factions that are for training epic unit teams have been edited (Now all epic units are on their own, so for example, MARV is created and immediately sent to attack, instead of waiting for a few other units)
-  > Added Zone Shatterer and Sandstorm to GDIProductionHalt unit modifiers
-  > Added Flame Tank and Stealth Tank to NODProductionHalt unit modifiers
-  > Added Devourer Tank and Corrupter to AlienProductionHalt unit modifiers
+  > Added Zone Shatterer and Sandstorm to GDIProductionHalt unit modifiers (affects guerilla AI)
+  > Added Flame Tank and Stealth Tank to NODProductionHalt unit modifiers (affects guerilla AI)
+  > Added Devourer Tank and Corrupter to AlienProductionHalt unit modifiers (affects guerilla AI)
 
 - Edited the Nod and Scrin campaign AIs:
   > They will never sell their structures when you try to capture them anymore
   > They will all repair their buildings now
 
   > On Scrin mission 3 (Croatia):
-    > Lowered the unit cap by 5
+    > Lowered the AI unit cap by 5
 
   > On Scrin mission 4 (Threshold 19):
     > Increased the time for the AI to "activate" their budget states from 6s to 15s
@@ -36,12 +34,14 @@ Global Changes:
     > Edited the Scrin AI unit overrides, they will now prioritize higher tier units
     > Normalized the build delay time of GDI Airbase AI to match the other AIs
     > GDI Airbase AI now has a reactive defense state and a static defense state
+    > Fixed one of the GDI Airbase AI states not working
 
   > On Nod Act 5 mission 4 (Kane's Tower):
     > Scrin AI now utilizes the Ravager Attack state (from skirmish)
     > GDI Final Attack (in which they unlock Juggernauts after 40 mins ingame) will now only activate on HARD difficulty. (EASY and MEDIUM they won't unlock it)
     > GDI AI will now only train their Commando on MEDIUM and HARD (not on EASY)
     > GDI AI now has expansion defense state, engineer and commando defense states, and static defense state
+-------------------------------------
 
 - Normalized the Slow Death values of all infantry units
 
@@ -60,11 +60,11 @@ Global Changes:
 
 - Fixed Redzone Dustbowl and Downtown Breakdown Skirmish maps not being considered as "official maps" to the mod
 
-- All Tiberium Crystals now slow down ground vehicles by 15% (except for Epic units, Hover and Dozerblade units, Harvesters, and Scrin vehicles)
+- All Tiberium Crystals now slow down ground vehicles by 15% (except for Epic units, Hover units, Harvesters, and Scrin vehicles)
 
 - Fixed Tiberian Fiends weapons, now they should only use their meelee weapon against infantry, and fire their shards at anything else
   > Tiberian Fiends now heal when killing infantry (they drain life)
-  > Reduced the damage of Tiberian Fiends' shards by half
+  > Reduced the damage of all Tiberian Fiends' shards by half
 
 - Normalized the locomotor of all jet aircraft
 
@@ -106,7 +106,7 @@ GDI Changes:
 
 - Slightly edited the portrait of the GDI Engineer (mainly his arm)
 
-- Sniper Teams can now longer detect stealthed aircraft
+- Sniper Teams can no longer detect stealthed aircraft
 
 - The Zone Commando can no longer detect stealth by default and now benefits from the Scanner Packs upgrade similar to Zone Troopers and Zone Raiders (Stealth detection range is now equal to Zone Troopers/Raiders)
   > Lowered the health of the Zone Commando from 1000 to 800
@@ -124,19 +124,15 @@ GDI Changes:
 
 Nod Changes:
 
-- NODAscendedSquad_Veteran is no longer referenced (They were removed in 1.6)
-
-- Removed FS_Factory Kindof from Nod Emissaries
-
 - Tiberium Troopers can now heal allied scrin units (A full squad has half the healing potential of a Corrupter)
   > Lowered the damage of Tiberium Troopers after Blue Tiberium Core upgrade from 7 to 4.5 (Their base damage before the Damage over time kicks in)
 
 - Lowered the damage of Tiberium Vein Detonation from 200 to 75 to all NON-infantry targets (Lowered the damage of Blue Tiberium Vein Detonation from 300 to 100)
   > Instead both of them have a 315% scalar vs vehicles and Tiberium Crystals)
-  > This way the Vein Detonation will have enough to kill some Tiberium Crystals (not all of them like before) + It won't deal as much damage to structures and vehicles anymore (Overall damage to vehicles has been reduced from before)
+  > This way the Vein Detonation will have enough to kill some Tiberium Crystals (not all of them like before) + It won't deal as much damage to structures and vehicles anymore (Overall damage to vehicles has been reduced)
 
 - Fixed the damage scalar of Catalyst missile to Reaper Cyborgs and the Cyborg Commando
-  > Catalyst Missile will now deal significant increased damage to Viceroids and all Tiberium Fiends
+  > Catalyst Missile will now kill Viceroids and Tiberium Fiends
 
 - Tiberium Troopers can now kill all viceroids - whether they are enemy ones or spawned by the Tiberium Troopers themselves
 
@@ -145,7 +141,7 @@ Nod Changes:
 - Fixed weapon Scatter of Specters, Leviathan, and Dark Twilight
 
 - Added a new support power: Spy Plane
-  > Like Radar Scan, but instead a plane flies in to the target area and reveals the shroud once it reaches
+  > Like Radar Scan, but instead a plane flies in to the target area and reveals the shroud once it reaches (It also reveals the path it too to travel)
   > Removed Power Signature Scan support power
 
 - Fixed Deployed Reckoners just disappearing when dying and not sinking into the ground
@@ -158,9 +154,9 @@ Nod Changes:
   > Speakers and Dozerblade subobject will now show their damaged texture when Reckoner is damaged/destroyed
 
 - Carryalls can now attack move
-  > Added a delay to Infantry Carryalls (They have a 1s delay when unloading/loading troops)
+  > Infantry Carryalls now have a 1s delay when unloading/loading troops just like V35s
 
-- Added enginge exhaust effects to Banshees
+- Added engine exhaust effects to Banshees
 
 - Fixed one of the Air Tower landing pad's opening animation
 
@@ -168,7 +164,7 @@ Nod Changes:
 
 - Added debris to Warmech Facility in REALLYDAMAGED state, and fixed door opening and closing animations
 
-- Lowered the cost of EMP Burst upgrade from 2000 to 1000 (60s to 30s in buildtime)
+- Lowered the cost of EMP Burst upgrade from 2000$ to 1000$ (60s to 30s in buildtime)
 
 - Lowered the damage of Air Dispersion Bomb from 12000 to 9000
 
@@ -185,22 +181,20 @@ Nod Changes:
 
 - Reworked Catalyst Missile support power, it will now reveal the shroud in the area where it was fired upon
 
+- Increased the duration of Radar Jam missile from 10s to 15s
+
 =====================================
 
 Scrin Changes:
 
-- All Scrin Aircraft and Annihilator Tripod Husks now have the TIBERIUM_BASED kindof
-
-- Scrin Explorers and Slaved Buzzers (from Buzzer Hive and from the Planetary Annihilator) now have the HEALED_BY_TIBERIUM Kindof
-
-- Added TIBERIUM_BASED and HEALED_BY_TIBERIUM kindofs to the Wall Hub (just like the Wall Segment)
+- Scrin Explorers and Slaved Buzzers (from Buzzer Hive and from the Planetary Annihilator) can now be healed by Tiberium
 
 - Added a new unit for Scrin: The Stingray!
   > This unit is able to destroy missile and plasma disc projectiles as well as charge up Storm Columns!
 
 - Fixed a damage oversight on the Overlord's Wrath superweapon
 
-- Increased the ability range of Charge Defenses ability on Shock Troopers from 100 to 250
+- Increased the range of the Charge Defenses ability on Shock Troopers from 100 to 250
   > Fixed a bug where the ability could be used on any allied unit/structure
   > Overall improved the performance of the ability (Shock Troopers will no longer act weird when ordered to use the ability)
 
@@ -233,19 +227,20 @@ Scrin Changes:
 - Buzzers can now detect stealth similar to Ravagers
 
 - Lowered the attack range of Planetary Annihilator from 400 to 350
-  > Fixed Planetary Annihilator's buzzer hive weapon not firing on the move
+  > Fixed Planetary Annihilator's buzzer hive weapon not firing when moving
 
 - Increased the shroud clearing range of Overlords Wrath superweapon from 300 to 350
-  > Overlord's Wrath projectiles are now considered as actual projectiles
+  > Overlord's Wrath projectiles are now considered as actual projectiles and shouldn't be targeted anymore by AI
   > The Overlord's Wrath projectiles should now face the direction/angle they are falling in, instead of facing forward the entire time
 
-- Lowered the shroud clearing range of Explorers from 320 to 200
+- Lowered the shroud clearing range of Explorers from 320 to 200 (to match other expansion units)
 
 - Increased the shroud clearing range of Temporal Wormhole from 150 to 170
 
 - Fixed Ichor seed support power not revealing the shroud in the area the support power is fired on
 
 - Lowered the cost of Power Signature Scan and Ichor Vibration Scan support powers to 250$ each
+  > Increased the duration of each support power from 10s to 15s
 
 =====================================
 
@@ -255,3 +250,6 @@ Credits go to these people who helped me with this version: thank you guys so mu
 
 - Carnius (Owner of Tiberium Essence mod: https://www.moddb.com/mods/tiberium-essence):
   > Stingray model and portrait
+
+- Stygs (Owner of Tiberium Wars Advanced mod: https://www.moddb.com/mods/tiberium-wars-advanced):
+  > Helping with the slow-down effect of Tiberium crystals on vehicles
