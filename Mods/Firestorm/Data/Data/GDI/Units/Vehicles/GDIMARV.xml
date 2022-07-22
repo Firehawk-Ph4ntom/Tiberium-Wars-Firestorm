@@ -121,7 +121,39 @@
 					<ParticleSysBone BoneName="B_Spine02" FXParticleSystemTemplate="GDIMARVDamagedFlash" FollowBone="true"/>
 					<ParticleSysBone BoneName="B_Spine02" FXParticleSystemTemplate="GDIMARVDamagedSparks" FollowBone="true"/>
 				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Heroic) -->
+				<!-- For some reason, Adaptive armor model is making the textures switch to the Non-Heroic version when EMP'ed or Underpowered,
+						despite it not being defined to use those textures -->
+
+				<!-- The fix I found for this so far was to "reverse switch" the textures, so when unit is EMP'ed/Underpowered,
+						we tell the unit to NOT use those heroic textures, making it switch to the Heroic ones instead -->
+
+				<!-- maybe there is a better way? -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_3 UNDERPOWERED" RetainSubObjects="true">
+					<Model Name="GUMARV_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_3 AFFECTED_BY_EMP" RetainSubObjects="true">
+					<Model Name="GUMARV_SKNADAR"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_3" RetainSubObjects="true">
+					<Model Name="GUMARV_SKNADAR"/>
+					<Texture Original="GUMarv1" New="GUMarv1Heroic"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Non-Heroic) -->
+				<!-- For some reason, Adaptive armor model is making the textures switch to the Heroic version when EMP'ed or Underpowered,
+						despite it not being defined to use those textures -->
+
+				<!-- The fix I found for this so far was to "reverse switch" the textures, so when unit is EMP'ed/Underpowered,
+						we tell the unit to use those heroic textures, making it switch to the default ones instead -->
+
+				<!-- maybe there is a better way? -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 UNDERPOWERED" RetainSubObjects="true">
+					<Model Name="GUMARV_SKNADAR"/>
+					<Texture Original="GUMarv1" New="GUMarv1Heroic"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 AFFECTED_BY_EMP" RetainSubObjects="true">
 					<Model Name="GUMARV_SKNADAR"/>
 					<Texture Original="GUMarv1" New="GUMarv1Heroic"/>
 					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
