@@ -272,20 +272,11 @@
 	</SpecialPowerTemplate>
 
 	<SpecialPowerTemplate
-		id="SpecialPowerSensorPod_Dispatch"
-		ReloadTime="60s"
-		TargetType="OBJECT_OR_LOCATION" 
-		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod"
-		WaypointModeTerminal="false"
-		Flags="FOGGED_SHROUDED_CELLS_OK"
-		Money="-200"/>
-
-	<SpecialPowerTemplate
 		id="SpecialPowerSensorPod_UnTargeted"
 		TargetType="LOCATION"
 		ReloadTime="60s"
 		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod"
-		Money="-200"/>
+		Money="-500"/>
 
 	<SpecialPowerTemplate
 		id="SpecialPowerSensorPod_Targeted"
@@ -293,10 +284,23 @@
 		ReloadTime="60s"
 		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod" 
 		Flags="NO_FORBIDDEN_OBJECTS"
-		Money="-200">
+		Money="-500">
 		<ForbiddenObjectFilter
 			Rule="ANY" 
-			Include="INFANTRY HORDE AIRCRAFT"/>
+			Include="INFANTRY HORDE AIRCRAFT" />
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPowerSensorPod_Dispatch"
+		ReloadTime="60s"
+		TargetType="OBJECT_OR_LOCATION" 
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="VoiceSensorPod"
+		WaypointModeTerminal="false"
+		Flags="FOGGED_SHROUDED_CELLS_OK"
+		Money="-500">
+		<GameDependency
+			ForbiddenModelConditions="TAKING_OFF LANDING"
+			RequiredObjectStatusAny="AIRBORNE_TARGET"/>
 	</SpecialPowerTemplate>
 
 	<SpecialPowerTemplate
@@ -929,24 +933,26 @@
 	<SpecialPowerTemplate
 		id="SpecialPowerDisruptionPod_Targeted"
 		TargetType="OBJECT"
-		Flags="NO_FORBIDDEN_OBJECTS"
 		ReloadTime="60s"
 		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="DisruptionPodDrop"
+		Flags="NO_FORBIDDEN_OBJECTS"
 		Money="-500">
 		<ForbiddenObjectFilter
-			Rule="ANY"
-			Include="INFANTRY AIRCRAFT HORDE"/>
+			Rule="ANY" 
+			Include="INFANTRY HORDE AIRCRAFT" />
 	</SpecialPowerTemplate>
 
 	<SpecialPowerTemplate
 		id="SpecialPowerDisruptionPod_Dispatch"
-		TargetType="OBJECT_OR_LOCATION"
-		Flags="FOGGED_SHROUDED_CELLS_OK"
 		ReloadTime="60s"
+		TargetType="OBJECT_OR_LOCATION"
 		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="DisruptionPodDrop"
-		Money="-500"
-		WaypointModeTerminal="false">
-		<GameDependency>
+		WaypointModeTerminal="false"
+		Flags="FOGGED_SHROUDED_CELLS_OK"
+		Money="-500">
+		<GameDependency
+			ForbiddenModelConditions="TAKING_OFF LANDING"
+			RequiredObjectStatusAny="AIRBORNE_TARGET">
 			<NeededUpgrade>Upgrade_VertigoDisruptionPod</NeededUpgrade>
 		</GameDependency>
 	</SpecialPowerTemplate>

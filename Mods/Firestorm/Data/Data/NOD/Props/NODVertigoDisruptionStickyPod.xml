@@ -1,18 +1,11 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODVertigoDisruptionStickyPod" KindOf="SELECTABLE IMMOBILE PRELOAD NO_COLLIDE UNATTACKABLE NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY" RadarPriority="NOT_ON_RADAR" Side="NOD" EditorName="NODVertigoDisruptionStickyPod" EditorSorting="SYSTEM" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_NeutralSensorPod" ButtonImage="Portrait_NeutralSensorPod" IsTrainable="false">
-		<DisplayName>Name:AbilityDisruptionPod</DisplayName>
-		<ArmorSet Armor="GDIOrcaSensorPodArmor" DamageFX="NormalDamageFX"/>
-		<LocomotorSet Locomotor="HumanLocomotor"/>
+	<GameObject id="NODVertigoDisruptionStickyPod" KindOf="PRELOAD IMMOBILE MINE NO_COLLIDE" RadarPriority="NOT_ON_RADAR" Side="NOD" EditorSorting="SYSTEM" EditorName="NODVertigoDisruptionStickyPod">
+		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXDISRUPTIONPOD"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true" StaticModelLODMode="true" UseStandardModelNames="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Sensor" SizeX="506" SizeY="506" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="506" SizeY="506" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Sensor"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -29,26 +22,29 @@
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienPhaseShield</ExcludeThing>
 					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
+					<ExcludeThing>AlienWormHole</ExcludeThing>
+					<ExcludeThing>AlienWormHoleMarker</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="150s" MaxLifetime="150s"/>
-			<AttachUpdate id="ModuleTag_AttachUpdate" Range="10">
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="120s" MaxLifetime="120s" DeathType="FADED"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<AttachUpdate id="ModuleTag_AttachUpdate" Range="10.0" Teleport="true" UseGeometry="true">
 				<ObjectFilter Rule="ALL">
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienPhaseShield</ExcludeThing>
 					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
+					<ExcludeThing>AlienWormHole</ExcludeThing>
+					<ExcludeThing>AlienWormHoleMarker</ExcludeThing>
 				</ObjectFilter>
 			</AttachUpdate>
-			<DestroyDie id="ModuleTag_Die">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
-			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_DirtHit" OrientToFlightPath="true"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="20"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="25"/>
 		</Body>
 		<Geometry IsSmall="true">
 			<Shape MajorRadius="0.8"/>

@@ -1,17 +1,11 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<GameObject id="NODVertigoDisruptionPod" KindOf="PRELOAD IGNORES_SELECT_ALL TARGETABLE IMMOBILE MINE NO_COLLIDE STICK_TO_TERRAIN_SLOPE" Side="NOD" EditorName="NODVertigoDisruptionPod" EditorSorting="SYSTEM">
-		<DisplayName>Name:AbilityDisruptionPod</DisplayName>
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODVertigoDisruptionPod" KindOf="PRELOAD TARGETABLE IMMOBILE MINE NO_COLLIDE STICK_TO_TERRAIN_SLOPE" Side="NOD" EditorName="NODVertigoDisruptionPod" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXDISRUPTIONPOD"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true" StaticModelLODMode="true" UseStandardModelNames="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Sensor" SizeX="506" SizeY="506" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="506" SizeY="506" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Sensor"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -28,12 +22,11 @@
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienPhaseShield</ExcludeThing>
 					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
+					<ExcludeThing>AlienWormHole</ExcludeThing>
+					<ExcludeThing>AlienWormHoleMarker</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
-			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
-				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
-			</InvisibilityUpdate>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="150s" MaxLifetime="150s"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="120s" MaxLifetime="120s" DeathType="FADED"/>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
@@ -41,13 +34,12 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_Nod_DisruptionPodExplosion"/>
 			</FXListBehavior>
-			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_DirtHit" OrientToFlightPath="true"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="20"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="25"/>
 		</Body>
 		<Geometry IsSmall="true">
 			<Shape MajorRadius="0.8"/>
