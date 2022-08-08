@@ -15,7 +15,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="GDI_ASATDefense" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE POWERED CAN_CAST_REFLECTIONS STRUCTURE NOT_AUTOACQUIRABLE UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:GDI_ASATDefense" TypeDescription="Type:GDI_ASATDefense" ThreatLevel="10" PlacementViewAngle="315d" Side="GDI" EditorName="GDI_ASATDefense" BuildTime="70" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_OrbitalShieldCC" ButtonImage="Portrait_OrbitalShieldCC" EnergyProduction="-20" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" MaxSimultaneousOfType="1">
+	<GameObject id="GDI_ASATDefense" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE POWERED CAN_CAST_REFLECTIONS STRUCTURE NOT_AUTOACQUIRABLE UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:GDI_ASATDefense" TypeDescription="Type:GDI_ASATDefense" ThreatLevel="10" PlacementViewAngle="315d" Side="GDI" EditorName="GDI_ASATDefense" BuildTime="70" CommandSet="GenericSpySatCommandSet" SelectPortrait="Portrait_OrbitalShieldCC" ButtonImage="Portrait_OrbitalShieldCC" EnergyProduction="-20" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" MaxSimultaneousOfType="1">
 		<DisplayName>Name:GDI_ASATDefense</DisplayName>
 		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
 		<GameDependency>
@@ -108,6 +108,7 @@
 				<Event Index="onTransitionToRubble" FX="FX_AwesomeXplosion"/>
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchMedium"/>
 			</FXListBehavior>
+			<ProductionUpdate id="ModuleTag_Production"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
@@ -116,6 +117,11 @@
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/AdvancedGDIBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/AdvancedGDIBuildingSuicide.xml"/>
+			<OCLSpecialPower id="ModuleTag_GlobalStealthScanSpecialPower" SpecialPowerTemplate="SpecialPower_GlobalStealthScan" OCL="OCL_StealthScanDrone" CreateLocation="USE_SECONDARY_OBJECT_LOCATION" AvailableAtStart="false">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>GDI_ASATDefense</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>

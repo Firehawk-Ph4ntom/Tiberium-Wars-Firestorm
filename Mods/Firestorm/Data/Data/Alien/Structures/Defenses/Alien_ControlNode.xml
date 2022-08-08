@@ -19,7 +19,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="Alien_ControlNode" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED STRUCTURE NOT_AUTOACQUIRABLE TIBERIUM_BASED UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI HEALED_BY_TIBERIUM" Description="Desc:ControlNode" TypeDescription="Type:ControlNode" ThreatLevel="10" PlacementViewAngle="315d" Side="Alien" EditorName="AlienControlNode" BuildTime="70" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_AlienControlNode" ButtonImage="Portrait_AlienControlNode" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" EnergyProduction="-20" MaxSimultaneousOfType="1">
+	<GameObject id="Alien_ControlNode" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED STRUCTURE NOT_AUTOACQUIRABLE TIBERIUM_BASED UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI HEALED_BY_TIBERIUM" Description="Desc:ControlNode" TypeDescription="Type:ControlNode" ThreatLevel="10" PlacementViewAngle="315d" Side="Alien" EditorName="AlienControlNode" BuildTime="70" CommandSet="GenericSpySatCommandSet" SelectPortrait="Portrait_AlienControlNode" ButtonImage="Portrait_AlienControlNode" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" EnergyProduction="-20" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienControlNode</DisplayName>
 		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
@@ -110,6 +110,7 @@
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchLarge"/>
 			</FXListBehavior>
+			<ProductionUpdate id="ModuleTag_Production"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" InitialDelay="1.0s" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>ShroudClearingDrone</SpawnTemplate>
@@ -123,6 +124,11 @@
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/AdvancedAlienBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/AdvancedAlienBuildingSuicide.xml"/>
+			<OCLSpecialPower id="ModuleTag_GlobalStealthScanSpecialPower" SpecialPowerTemplate="SpecialPower_GlobalStealthScan" OCL="OCL_StealthScanDrone" CreateLocation="USE_SECONDARY_OBJECT_LOCATION" AvailableAtStart="false">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>Alien_ControlNode</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>

@@ -14,7 +14,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODSpySatellite" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE POWERED CAN_CAST_REFLECTIONS STRUCTURE NOT_AUTOACQUIRABLE UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI" EditorName="NODSpySatellite" Description="Desc:NODSpySatellite" TypeDescription="Type:NODSpySatellite" ThreatLevel="10" SelectPortrait="Portrait_NodResearchLab" PlacementViewAngle="315d" Side="NOD" ButtonImage="Portrait_NodResearchLab" BuildTime="70" EnergyProduction="-20" CommandSet="EmptyCommandSet" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" MaxSimultaneousOfType="1">
+	<GameObject id="NODSpySatellite" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE POWERED CAN_CAST_REFLECTIONS STRUCTURE NOT_AUTOACQUIRABLE UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI" EditorName="NODSpySatellite" Description="Desc:NODSpySatellite" TypeDescription="Type:NODSpySatellite" ThreatLevel="10" SelectPortrait="Portrait_NodResearchLab" PlacementViewAngle="315d" Side="NOD" ButtonImage="Portrait_NodResearchLab" BuildTime="70" EnergyProduction="-20" CommandSet="GenericSpySatCommandSet" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" MaxSimultaneousOfType="1">
 		<DisplayName>Name:NODSpySatellite</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
 		<GameDependency>
@@ -86,6 +86,7 @@
 				<Event Index="onTransitionToRubble" FX="FX_AwesomeXplosion"/>
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchMedium"/>
 			</FXListBehavior>
+			<ProductionUpdate id="ModuleTag_Production"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
@@ -94,6 +95,11 @@
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/AdvancedNODBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/AdvancedNODBuildingSuicide.xml"/>
+			<OCLSpecialPower id="ModuleTag_GlobalStealthScanSpecialPower" SpecialPowerTemplate="SpecialPower_GlobalStealthScan" OCL="OCL_StealthScanDrone" CreateLocation="USE_SECONDARY_OBJECT_LOCATION" AvailableAtStart="false">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>NODSpySatellite</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
