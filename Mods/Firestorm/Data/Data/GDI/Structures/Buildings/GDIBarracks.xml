@@ -2,7 +2,10 @@
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBarrack_UGCA.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBarrackD_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKS_IDLA.W3X"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKS_SKN.W3X"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKSSRF_SKN.W3X"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRDOOR_A.W3X"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
@@ -17,7 +20,7 @@
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GBBARRACKS_SKN"/>
+					<Model Name="GBBARRACKS_SKN_FS"/>
 					<Texture Original="GBWarFacBib" New="GBArmory"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
 				</ModelConditionState>
@@ -38,22 +41,36 @@
 					<Texture Original="GBWarFacBib" New="GBArmory"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GBBARRACKS_SKN"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
+					<Model Name="GBBARRACKS_SKN_FS"/>
+					<Texture Original="CURiflemanA2" New="CURiflemanC"/>
 					<Texture Original="GBBib" New="GBBib_D"/>
 					<Texture Original="GBBarrack" New="GBBarrackD"/>
 					<Texture Original="GBWarFacBib" New="GBArmory"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBBARRACKS_SKN_FS"/>
+					<Texture Original="GBBib" New="GBBib_D"/>
+					<Texture Original="GBBarrack" New="GBBarrackD"/>
+					<Texture Original="GBWarFacBib" New="GBArmory"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="GBBARRACKS_SKN_FS"/>
+					<Texture Original="CURiflemanA2" New="CURiflemanC"/>
+					<Texture Original="GBWarFacBib" New="GBArmory"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
-					<Animation AnimationName="GBBarracks_IDLA" AnimationMode="LOOP"/>
+					<Animation AnimationName="GBBarracks_IDLA_FS" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBBarracks_AAN" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="GBBarracks_IDLA" AnimationMode="MANUAL"/>
+					<Animation AnimationName="GBBarracks_IDLA_FS" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBBarracks_D3AN" AnimationMode="MANUAL"/>
@@ -79,15 +96,14 @@
 					<Model Name="GBBarrDoor_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name=""/>
+					<Model Name="GBBarrDoor_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name=""/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBBARRDOOR_A" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.6" AnimationSpeedFactorMax="0.6"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_WAITING_OPEN" Flags="START_FRAME_FIRST">
 					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="MANUAL"/>
 				</AnimationState>
@@ -96,6 +112,9 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
 					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="GBBarrDoor_OPN" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
@@ -177,6 +196,9 @@
 			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="GDIBootCamp_AttributeModifier" RefreshDelay="1.0s" Range="190" InitiallyActive="true">
 				<ObjectFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
 			</AttributeModifierAuraUpdate>
+			<ModelConditionUpgrade id="ModuleTag_TibFieldSuitsModelCondition" Permanent="true" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
+			</ModelConditionUpgrade>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
