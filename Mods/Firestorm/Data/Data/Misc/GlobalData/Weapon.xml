@@ -6580,7 +6580,7 @@
 				DeathType="DETONATED"
 				CylinderAOE="true"/>
 			<WeaponOCLNugget
-				WeaponOCL="OCL_GenericTreeCrusher"/>
+				WeaponOCL="OCL_IonCannonWeaponTreeCrusher"/>
 			<ParalyzeNugget
 				Radius="450"
 				DurationSeconds="10s"
@@ -6712,9 +6712,12 @@
 
 	<WeaponTemplate
 		id="GDIDeploymentPodLandCameraShake"
+		Name="GDIDeploymentPodLandCameraShake"
 		AttackRange="350"
 		FireFX="FX_GDI_CrawlerDropPod_Land_CameraShake">
 		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_GDIDeploymentPodTreeCrusher"/>
 			<SuppressionNugget
 				Radius="200"
 				Suppression="100"
@@ -6779,6 +6782,7 @@
 
 	<WeaponTemplate
 		id="GDIDeploymentPodSummoner"
+		Name="GDIDeploymentPodSummoner"
 		AttackRange="10000">
 		<Nuggets>
 			<WeaponOCLNugget
@@ -12121,9 +12125,16 @@
 						Include="TIBERIUM"/>
 				</DamageScalarDetails>
 			</DamageNugget>
-			<!-- Tree Crusher -->
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="TibVeinDetonationTreeCrusher"
+		Name="TibVeinDetonationTreeCrusher"
+		AttackRange="50000">
+		<Nuggets>
 			<WeaponOCLNugget
-				WeaponOCL="OCL_GenericTreeCrusher"/>
+				WeaponOCL="OCL_VeinDetonationTreeCrusher"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -12384,9 +12395,6 @@
 						Include="TIBERIUM"/>
 				</DamageScalarDetails>
 			</DamageNugget>
-			<!-- Tree Crusher -->
-			<WeaponOCLNugget
-				WeaponOCL="OCL_GenericTreeCrusher"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -14302,6 +14310,8 @@
 		AttackRange="350"
 		FireFX="FX_NOD_CrawlerBurrowPod_Appear_CameraShake">
 		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_NODDeploymentBurrowPodTreeCrusher"/>
 			<SuppressionNugget
 				Radius="200"
 				Suppression="100"
@@ -16187,6 +16197,8 @@
 					<IncludeThing>NODCyborgCommando</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_AlienSmallOverlordsWrathMeteorTreeCrusher"/>
 			<SuppressionNugget
 				Radius="300"
 				Suppression="100"
@@ -16395,6 +16407,8 @@
 					<IncludeThing>NODCyborgCommando</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_AlienOverlordsWrathMeteorTreeCrusher"/>
 			<SuppressionNugget
 				Radius="600"
 				Suppression="200"
@@ -16403,7 +16417,7 @@
 			<AttributeModifierNugget
 				PartitionFilterTestType="CIRCLE"
 				AttributeModifierName="AttributeModifier_TibGoo"
-				Radius="240">
+				Radius="260">
 				<SpecialObjectFilter
 					Rule="ANY"
 					Include="VEHICLE AIRCRAFT"/>
@@ -16832,7 +16846,7 @@
 
 	<WeaponTemplate
 		id="AlienStalkerTiberiumShardWarhead"
-		Name="AlienTiberiumShardWarhead"
+		Name="AlienStalkerTiberiumShardWarhead"
 		ProjectileCollidesWith="ENEMIES NEUTRAL"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR">
 		<Nuggets>
@@ -16906,7 +16920,7 @@
 
 	<WeaponTemplate
 		id="AlienStalkerBlueShardWarhead"
-		Name="AlienBlueShardWarhead"
+		Name="AlienStalkerBlueShardWarhead"
 		ProjectileCollidesWith="ENEMIES NEUTRAL"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR">
 		<Nuggets>
@@ -19589,7 +19603,32 @@
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
 		<Nuggets>
 			<WeaponOCLNugget
-				WeaponOCL="OCL_GenericTreeCrusher"/>
+				WeaponOCL="OCL_AlienOverlordsWrathMeteorTreeCrusher"/>
+			<SuppressionNugget
+				Radius="600"
+				Suppression="100"
+				DurationSeconds="5s"/>
+			<!-- Slow Vehicles -->
+			<AttributeModifierNugget
+				PartitionFilterTestType="CIRCLE"
+				AttributeModifierName="AttributeModifier_TibGoo"
+				Radius="130">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="VEHICLE"/>
+			</AttributeModifierNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienDeploymentMeteorSmallCrusherWeapon"
+		Name="AlienDeploymentMeteorSmallCrusherWeapon"
+		AttackRange="50000"
+		RadiusDamageAffects="SELF ALLIES ENEMIES NEUTRALS"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_AlienSmallOverlordsWrathMeteorTreeCrusher"/>
 			<SuppressionNugget
 				Radius="300"
 				Suppression="100"
@@ -19623,6 +19662,138 @@
 		<Nuggets>
 			<WeaponOCLNugget
 				WeaponOCL="OCL_SummonAlienDeploymentMeteor"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienMotherShipCatalystCannon100"
+		Name="AlienMotherShipCatalystCannon100"
+		AttackRange="5"
+		WeaponSpeed="999999"
+		AcceptableAimDelta="180d"
+		HitPercentage="0%"
+		ClipSize="1"
+		FireSoundPerClip="ALI_MotherShip_WeaponFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="5.3s"
+			MaxSeconds="5.3s"/>
+		<FiringDuration
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
+		<ClipReloadTime
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCLMotherShipBeam100"/>
+			<DamageNugget
+				Damage="40000"
+				Radius="100"
+				DelayTimeSeconds="0.5s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="CATALYST"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienMotherShipCatalystCannon75"
+		Name="AlienMotherShipCatalystCannon75"
+		AttackRange="5"
+		WeaponSpeed="999999"
+		AcceptableAimDelta="180d"
+		HitPercentage="0%"
+		ClipSize="1"
+		FireSoundPerClip="ALI_MotherShip_WeaponFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="5.3s"
+			MaxSeconds="5.3s"/>
+		<FiringDuration
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
+		<ClipReloadTime
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCLMotherShipBeam75"/>
+			<DamageNugget
+				Damage="30000"
+				Radius="75"
+				DelayTimeSeconds="0.5s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="CATALYST"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienMotherShipCatalystCannon50"
+		Name="AlienMotherShipCatalystCannon50"
+		AttackRange="5"
+		WeaponSpeed="999999"
+		AcceptableAimDelta="180d"
+		HitPercentage="0%"
+		ClipSize="1"
+		FireSoundPerClip="ALI_MotherShip_WeaponFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="5.3s"
+			MaxSeconds="5.3s"/>
+		<FiringDuration
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
+		<ClipReloadTime
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCLMotherShipBeam50"/>
+			<DamageNugget
+				Damage="20000"
+				Radius="50"
+				DelayTimeSeconds="0.5s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="CATALYST"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienMotherShipCatalystCannon25"
+		Name="AlienMotherShipCatalystCannon25"
+		AttackRange="5"
+		WeaponSpeed="999999"
+		AcceptableAimDelta="180d"
+		HitPercentage="0%"
+		ClipSize="1"
+		FireSoundPerClip="ALI_MotherShip_WeaponFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="5.3s"
+			MaxSeconds="5.3s"/>
+		<FiringDuration
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
+		<ClipReloadTime
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCLMotherShipBeam25"/>
+			<DamageNugget
+				Damage="10000"
+				Radius="25"
+				DelayTimeSeconds="0.5s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="CATALYST"/>
 		</Nuggets>
 	</WeaponTemplate>
 </AssetDeclaration>
