@@ -5,10 +5,12 @@
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVehicleH_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVehicleH_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\HC_GUSandstorm.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_ACCL.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_AIDA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_BIDA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_BIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_DECL.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_FP_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_LOWA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_MOVA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDISandstorm\GUVEHICLEH_SKNADAR.w3x"/>
 		<!-- Base Object -->
@@ -90,19 +92,27 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUVEHICLEH_SKNADAR"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="GUVEHICLEH_BIFA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
-					<Animation AnimationName="GUVEHICLEH_BIDA" AnimationMode="ONCE" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_SelectedPose" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
-					<Animation AnimationName="GUVEHICLEH_AIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="85"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimNickName="IDLA" AnimationName="GUVEHICLEH_AIDA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GUVEHICLEH_LOWA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="GUVEHICLEH_LOWA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Animation AnimationName="GUVEHICLEH_LOWA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="0.9"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="GUVEHICLEH_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="GUVEHICLEH_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUVEHICLEH_MOVA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
