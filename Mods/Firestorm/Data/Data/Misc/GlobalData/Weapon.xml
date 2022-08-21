@@ -1545,6 +1545,7 @@
 		FireVeteranFX="FX_GDIEngineerFireHeroic"
 		ClipSize="9"
 		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
 		ShotsPerBarrel="1">
 		<PreAttackDelay
 			MinSeconds="1s"
@@ -1578,6 +1579,7 @@
 		FireVeteranFX="FX_GDIEngineerFireHeroic"
 		ClipSize="9"
 		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
 		ShotsPerBarrel="1">
 		<PreAttackDelay
 			MinSeconds="1s"
@@ -2135,12 +2137,13 @@
 	<WeaponTemplate
 		id="GDICommandoIonOrbitalStrikeTargetingLaser"
 		Name="GDICommandoIonOrbitalStrikeTargetingLaser"
-		AttackRange="450"
+		AttackRange="500"
 		AcceptableAimDelta="15d"
 		WeaponSpeed="999999"
 		FireSound="ZoneCommando_IonTargetingLaserFire"
 		FireFX="FX_GDIZoneCommandoLaserFire"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ForbiddenFiringObjectStatus="INSIDE_GARRISON"
 		ReAcquireDetailType="PRE_FIRE"
 		ClipSize="1">
 		<PreAttackDelay
@@ -2154,7 +2157,39 @@
 			MaxSeconds="8s"/>
 		<Nuggets>
 			<ActivateLaserNugget
-				Lifetime="1.75s"
+				Lifetime="0.75s"
+				LaserId="1"/>
+			<ProjectileNugget
+				WarheadTemplate="GDICommandoIonExplosionWeapon"
+				ProjectileTemplate="GDICommandoDummyProjectile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDICommandoIonOrbitalStrikeTargetingLaserContained"
+		Name="GDICommandoIonOrbitalStrikeTargetingLaserContained"
+		AttackRange="500"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="ZoneCommando_IonTargetingLaserFire"
+		FireFX="FX_GDIZoneCommandoLaserFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RequiredFiringObjectStatus="INSIDE_GARRISON"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		ClipSize="1">
+		<PreAttackDelay
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<ClipReloadTime
+			MinSeconds="8s"
+			MaxSeconds="8s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.75s"
 				LaserId="1"/>
 			<ProjectileNugget
 				WarheadTemplate="GDICommandoIonExplosionWeapon"
@@ -2180,26 +2215,59 @@
 	<WeaponTemplate
 		id="GDICommandoIonOrbitalStrikeTargetingLaser_Veteran"
 		Name="GDICommandoIonOrbitalStrikeTargetingLaser_Veteran"
-		AttackRange="450"
+		AttackRange="500"
 		AcceptableAimDelta="15d"
 		WeaponSpeed="999999"
 		FireSound="ZoneCommando_IonTargetingLaserFire"
 		FireFX="FX_GDIZoneCommandoLaserFireHeroic"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ForbiddenFiringObjectStatus="INSIDE_GARRISON"
 		ReAcquireDetailType="PRE_FIRE"
 		ClipSize="1">
 		<PreAttackDelay
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="2.15s"
+			MaxSeconds="2.15s"/>
 		<FiringDuration
 			MinSeconds="1s"
 			MaxSeconds="1s"/>
 		<ClipReloadTime
-			MinSeconds="8s"
-			MaxSeconds="8s"/>
+			MinSeconds="6.85s"
+			MaxSeconds="6.85s"/>
 		<Nuggets>
 			<ActivateLaserNugget
-				Lifetime="1.75s"
+				Lifetime="0.5s"
+				LaserId="1"/>
+			<ProjectileNugget
+				WarheadTemplate="GDICommandoIonExplosionWeapon_Veteran"
+				ProjectileTemplate="GDICommandoDummyProjectile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDICommandoIonOrbitalStrikeTargetingLaser_VeteranContained"
+		Name="GDICommandoIonOrbitalStrikeTargetingLaser_VeteranContained"
+		AttackRange="500"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="ZoneCommando_IonTargetingLaserFire"
+		FireFX="FX_GDIZoneCommandoLaserFireHeroic"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RequiredFiringObjectStatus="INSIDE_GARRISON"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		ClipSize="1">
+		<PreAttackDelay
+			MinSeconds="2.15s"
+			MaxSeconds="2.15s"/>
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<ClipReloadTime
+			MinSeconds="6.85s"
+			MaxSeconds="6.85s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.5s"
 				LaserId="1"/>
 			<ProjectileNugget
 				WarheadTemplate="GDICommandoIonExplosionWeapon_Veteran"
@@ -2235,7 +2303,7 @@
 		<Nuggets>
 			<DamageNugget
 				Damage="800"
-				DamageTaperOff="20"
+				DamageTaperOff="10"
 				Radius="60"
 				DamageType="CANNON"
 				DamageFXType="GDI_RIFLE"
@@ -2254,7 +2322,7 @@
 				Suppression="200"
 				DurationSeconds="5s"/>
 			<MetaImpactNugget
-				ShockWaveAmount="40"
+				ShockWaveAmount="50"
 				ShockWaveRadius="5"
 				ShockWaveTaperOff="0.5"
 				ShockWaveZMult="1.2"/>
@@ -2274,7 +2342,7 @@
 		<Nuggets>
 			<DamageNugget
 				Damage="800"
-				DamageTaperOff="20"
+				DamageTaperOff="10"
 				Radius="60"
 				DamageType="CANNON"
 				DamageFXType="GDI_RIFLE"
@@ -2293,7 +2361,7 @@
 				Suppression="200"
 				DurationSeconds="5s"/>
 			<MetaImpactNugget
-				ShockWaveAmount="40"
+				ShockWaveAmount="50"
 				ShockWaveRadius="5"
 				ShockWaveTaperOff="0.5"
 				ShockWaveZMult="1.2"/>
@@ -2332,7 +2400,7 @@
 				Suppression="400"
 				DurationSeconds="7s"/>
 			<MetaImpactNugget
-				ShockWaveAmount="40"
+				ShockWaveAmount="100"
 				ShockWaveRadius="5"
 				ShockWaveTaperOff="0.5"
 				ShockWaveZMult="1.2"/>
@@ -2371,7 +2439,7 @@
 				Suppression="400"
 				DurationSeconds="7s"/>
 			<MetaImpactNugget
-				ShockWaveAmount="40"
+				ShockWaveAmount="100"
 				ShockWaveRadius="5"
 				ShockWaveTaperOff="0.5"
 				ShockWaveZMult="1.2"/>
@@ -9063,6 +9131,7 @@
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODSpitfireFireHeroic"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
+		ForbiddenFiringObjectStatus="INSIDE_GARRISON"
 		ReAcquireDetailType="PRE_FIRE"
 		ClipSize="1">
 		<PreAttackDelay
@@ -9097,6 +9166,79 @@
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODSpitfireFireHeroic"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
+		ForbiddenFiringObjectStatus="INSIDE_GARRISON"
+		ReAcquireDetailType="PRE_FIRE"
+		ClipSize="1">
+		<PreAttackDelay
+			MinSeconds="0.75s"
+			MaxSeconds="0.75s"/>
+		<FiringDuration
+			MinSeconds="2.25s"
+			MaxSeconds="2.25s"/>
+		<ClipReloadTime
+			MinSeconds="0.9s"
+			MaxSeconds="0.9s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.75s"
+				LaserId="2"/>
+			<DamageNugget
+				Damage="60"
+				DelayTimeSeconds="0.05s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODReaperLaserContained"
+		Name="NODReaperLaserContained"
+		AttackRange="350"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="NOD_Reaper_LaserFire"
+		FireFX="FX_NODSpitfireFire"
+		FireVeteranFX="FX_NODSpitfireFireHeroic"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		RequiredFiringObjectStatus="INSIDE_GARRISON"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		ClipSize="1">
+		<PreAttackDelay
+			MinSeconds="0.75s"
+			MaxSeconds="0.75s"/>
+		<FiringDuration
+			MinSeconds="2.25s"
+			MaxSeconds="2.25s"/>
+		<ClipReloadTime
+			MinSeconds="0.9s"
+			MaxSeconds="0.9s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.75s"
+				LaserId="1"/>
+			<DamageNugget
+				Damage="60"
+				DelayTimeSeconds="0.05s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODReaperLaser2Contained"
+		Name="NODReaperLaser2Contained"
+		AttackRange="350"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="NOD_Reaper_LaserFire"
+		FireFX="FX_NODSpitfireFire"
+		FireVeteranFX="FX_NODSpitfireFireHeroic"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		RequiredFiringObjectStatus="INSIDE_GARRISON"
+		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
 		ClipSize="1">
 		<PreAttackDelay
@@ -9146,6 +9288,7 @@
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODPurifyingLaserFireHeroic"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
+		ForbiddenFiringObjectStatus="INSIDE_GARRISON"
 		ReAcquireDetailType="PRE_FIRE"
 		ClipSize="1">
 		<PreAttackDelay
@@ -9180,6 +9323,79 @@
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODPurifyingLaserFireHeroic"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
+		ForbiddenFiringObjectStatus="INSIDE_GARRISON"
+		ReAcquireDetailType="PRE_FIRE"
+		ClipSize="1">
+		<PreAttackDelay
+			MinSeconds="0.75s"
+			MaxSeconds="0.75s"/>
+		<FiringDuration
+			MinSeconds="2.25s"
+			MaxSeconds="2.25s"/>
+		<ClipReloadTime
+			MinSeconds="0.9s"
+			MaxSeconds="0.9s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.75s"
+				LaserId="4"/>
+			<DamageNugget
+				Damage="60"
+				DelayTimeSeconds="0.05s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODReaperPurifyingLaserContained"
+		Name="NODReaperPurifyingLaserContained"
+		AttackRange="350"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="NOD_Reaper_LaserFire"
+		FireFX="FX_NODSpitfireFire"
+		FireVeteranFX="FX_NODPurifyingLaserFireHeroic"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		RequiredFiringObjectStatus="INSIDE_GARRISON"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		ClipSize="1">
+		<PreAttackDelay
+			MinSeconds="0.75s"
+			MaxSeconds="0.75s"/>
+		<FiringDuration
+			MinSeconds="2.25s"
+			MaxSeconds="2.25s"/>
+		<ClipReloadTime
+			MinSeconds="0.9s"
+			MaxSeconds="0.9s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.75s"
+				LaserId="3"/>
+			<DamageNugget
+				Damage="60"
+				DelayTimeSeconds="0.05s"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODReaperPurifyingLaser2Contained"
+		Name="NODReaperPurifyingLaser2Contained"
+		AttackRange="350"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="NOD_Reaper_LaserFire"
+		FireFX="FX_NODSpitfireFire"
+		FireVeteranFX="FX_NODPurifyingLaserFireHeroic"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		RequiredFiringObjectStatus="INSIDE_GARRISON"
+		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
 		ClipSize="1">
 		<PreAttackDelay
