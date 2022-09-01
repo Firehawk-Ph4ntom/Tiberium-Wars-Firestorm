@@ -247,6 +247,19 @@
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FXGLOW_BOTTOM01">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE" />
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" />
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" />
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP" />
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_15">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMARVHarvestDust" FollowBone="true" />
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMARVHarvestShards" FollowBone="true" />
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMARVHarvestSmoke" FollowBone="true" />
+				</AnimationState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
@@ -306,6 +319,9 @@
 			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnDisabled="true">
+				<SpawnTemplate>GDIMARVHarvestDummy</SpawnTemplate>
+			</SpawnBehavior>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<SpecialPower id="ModuleTag_OverloadCannonSpecialPower" SpecialPowerTemplate="SpecialPower_FireMARVOverloadCannon" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_FireOverloadCannonUpdate" SpecialPowerTemplate="SpecialPower_FireMARVOverloadCannon" StartAbilityRange="375" PersistentPrepTime="0.5s" PersistentCount="6" UnpackTime="2s" StartRechargeOnExit="true" SpecialWeapon="GDIMARVOverloadCannon" WhichSpecialWeapon="1" BusyForDuration="2s"/>
