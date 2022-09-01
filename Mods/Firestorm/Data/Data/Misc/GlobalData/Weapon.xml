@@ -11,13 +11,10 @@
 		AttackRange="300"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="99999"
-		ShotsPerBarrel="1"
+		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE"
 		CanFireWhileMoving="true"
 		RotatingTurret="true">
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
 		<ClipReloadTime
 			MinSeconds="999s"
 			MaxSeconds="999s"/>
@@ -478,12 +475,31 @@
 			MaxSeconds="3s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="MammothTankShellWarhead"
+				WarheadTemplate="NeutralDefensiveTowerCannonWarhead"
 				ProjectileTemplate="FXTankShell">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
 					ProjectileTemplate="FXTankShell_Veteran"/>
 			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="25">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NeutralDefensiveTowerCannonWarhead"
+		Name="NeutralDefensiveTowerCannonWarhead"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="500"
+				DamageType="CANNON"
+				DamageFXType="GDI_CANNON"
+				DeathType="EXPLODED"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -724,9 +740,6 @@
 		AttackRange="250"
 		WeaponSpeed="999999"
 		ClipSize="1">
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
 		<ClipReloadTime
 			MinSeconds="9999s"
 			MaxSeconds="9999s"/>
@@ -745,9 +758,6 @@
 		WeaponSpeed="999999"
 		ClipSize="1"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY">
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
 		<ClipReloadTime
 			MinSeconds="9999s"
 			MaxSeconds="9999s"/>
@@ -4696,7 +4706,7 @@
 				DeathType="EXPLODED"
 				DamageFXType="GDI_MISSILE">
 				<DamageScalarDetails
-					Scalar="65%">
+					Scalar="75%">
 					<Filter
 						Rule="NONE"
 						Include="AIRCRAFT"/>
