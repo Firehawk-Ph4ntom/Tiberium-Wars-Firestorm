@@ -1,17 +1,18 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBOrbit.xml"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBOrbit_D1.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBOrbit_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBOrbit_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBOrbit_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\HC_GBOrbit.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBASATSRF_SKN.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_AAN.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_D1.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_D2.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_D2_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_D3.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_D3_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIASATDefense\GBORBIT_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
@@ -25,31 +26,25 @@
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GBORBIT"/>
+					<Model Name="GBORBIT_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="GBORBIT_D3"/>
+					<Model Name="GBORBIT_D3_SN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="GBORBIT_D2"/>
+					<Model Name="GBORBIT_D2_SN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GBORBIT_D1"/>
+					<Model Name="GBORBIT_SKN"/>
+					<Texture Original="GBOrbit" New="GBOrbit_D"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GBORBIT_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBORBIT_AAN" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GBORBIT" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GBORBIT" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GBORBIT" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBORBIT_D3" AnimationMode="MANUAL"/>
