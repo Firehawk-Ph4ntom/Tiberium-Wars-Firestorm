@@ -57,27 +57,39 @@
 					<Texture Original="AUMillipedeHead" New="AUMillipedeHead_D"/>
 					<ParticleSysBone BoneName="FX_Bone" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="AUMILLIPEDEHEAD_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="AUMILLIPEDEHEAD_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="90"/>
 					<Animation AnimationName="AUMILLIPEDEHEAD_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="AUMILLIPEDEHEAD_IDLA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="AUMILLIPEDEHEAD_MOVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="AUMILLIPEDEHEAD_MOVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT">
 					<Animation AnimationName="AUMILLIPEDEHEAD_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT">
 					<Animation AnimationName="AUMILLIPEDEHEAD_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
-					<Animation AnimationName="AUMILLIPEDEHEAD_MOVA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
-					<Animation AnimationName="AUMILLIPEDEHEAD_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE" Flags="RANDOMSTART">
 					<Animation AnimationName="AUMILLIPEDEHEAD_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="AUMILLIPEDEHEAD_DIEA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE" Flags="RANDOMSTART">
+					<Animation AnimationName="AUMILLIPEDEHEAD_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKING_UP MOVING" Flags="START_FRAME_LAST RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="AUMILLIPEDEHEAD_MOVA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="0.9"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AUMILLIPEDEHEAD_MOVA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="0.9"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawCombined">
