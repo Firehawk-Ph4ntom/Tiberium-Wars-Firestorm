@@ -67,19 +67,19 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2">
 					<Model Name="GBPwrPlntT_SKN"/>
 					<Texture Original="GBPowerP" New="GBPowerP_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_2">
 					<Model Name="GBPwrPlntT_SKN"/>
 					<Texture Original="GBPowerP" New="GBPowerP_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_2">
 					<Model Name="GBPwrPlntT_SKN"/>
 					<Texture Original="GBPowerP" New="GBPowerP_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<Model Name="GBPwrPlntT_SKN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
@@ -88,13 +88,6 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXBone01">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerSmokeDistortion" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TurbineA">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXINVISBONE"/>
 				</ModelConditionState>
@@ -102,7 +95,22 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 UNDERPOWERED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerSmokeDistortion" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TurbineA">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerTurbineDistortionA" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
@@ -111,10 +119,11 @@
 					<Model Name="FXINVISBONE"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 UNDERPOWERED"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 AFFECTED_BY_EMP"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerTurbineDistortionA" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
@@ -148,6 +157,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<RandomModelCondition id="Module_RandomModelCondition" Conditions="USER_1"/>
 			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<BuildingBehavior id="ModuleTag_BuildingBehavior02" NightWindowObject="LIGHT_02"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
@@ -159,7 +169,7 @@
 				<TriggeredBy>Upgrade_PowerPlantTurbine</TriggeredBy>
 			</PowerUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTurbines" ShowSubObjects="Turbines TurbineGlows">
-				<CustomAnimAndDuration AnimState="USER_1"/>
+				<CustomAnimAndDuration AnimState="USER_2"/>
 				<TriggeredBy>Upgrade_PowerPlantTurbine</TriggeredBy>
 			</SubObjectsUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
