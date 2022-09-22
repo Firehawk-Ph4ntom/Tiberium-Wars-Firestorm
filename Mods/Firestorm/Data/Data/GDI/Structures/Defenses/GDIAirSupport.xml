@@ -8,6 +8,7 @@
 		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRT_ABLD.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRT_ABLD_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRT_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRT_SRF.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRTD2_ANM.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRTD2_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIAirSupport\GBAIRSUPPRTD3_ANM.w3x"/>
@@ -19,6 +20,7 @@
 	<GameObject id="GDIAirSupport" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDIAirSupport" ButtonImage="Portrait_GDIAirSupport" Side="GDI" BuildCost="500" BuildTime="5" EnergyProduction="-5" CommandSet="GDIAirSupportCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AIRFIELD NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="225d" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="GDIAirSupport" Description="Desc:GDIAirSupport" TypeDescription="Type:GDIAirSupport">
 		<DisplayName>Name:GDIAirSupport</DisplayName>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDIAirTower</RequiredObject>
 		</GameDependency>
@@ -63,6 +65,34 @@
 					<Animation AnimationName="GBAirSupprtD3_ANM" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+					<Model Name="GBAIRSUPPRT_SRF"/>
+					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+					<Model Name="GBAIRSUPPRT_SRF"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
+					<Model Name="GBAIRSUPPRT_SRF"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -75,6 +105,7 @@
 		</Draws>
 		<Behaviors>
 			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairAircraft" SpecialPowerTemplate="SpecialPower_TargetedRepairAircraft"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<RecallUnitsSpecialPower id="ModuleTag_RecallSpecialPower" PlayReturnVoiceFromRecalledUnit="true" SpecialPowerTemplate="SpecialPower_RecallAllAircraft"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
