@@ -345,13 +345,13 @@ function OnNODSecretShrineCreated(self)
 end
 
 function OnNODSecretShrinePowerOutage(self)
-	if ObjectHasUpgrade( self, "Upgrade_BlackHandBlackDisciplesUpgrade" ) == 1 then
+	if ObjectHasUpgrade( self, "Upgrade_BlackHandBlackTemplarsUpgrade" ) == 1 then
 		ObjectHideSubObjectPermanently( self, "BLACKDISCIPLES_GLOWS", true )
 	end
 end
 
 function OnNODSecretShrinePowerRestored(self)
-	if ObjectHasUpgrade( self, "Upgrade_BlackHandBlackDisciplesUpgrade" ) == 1 then
+	if ObjectHasUpgrade( self, "Upgrade_BlackHandBlackTemplarsUpgrade" ) == 1 then
 		ObjectHideSubObjectPermanently( self, "BLACKDISCIPLES_GLOWS", false )
 	end
 end
