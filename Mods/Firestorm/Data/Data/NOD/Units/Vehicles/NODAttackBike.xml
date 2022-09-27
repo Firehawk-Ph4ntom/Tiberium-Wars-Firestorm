@@ -5,9 +5,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUAtkCycle_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUAtkCycle_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUAtkCycle_SPM2.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUATKCYCLE_ABTA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUATKCYCLE_AIDA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUATKCYCLE_BATA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUATKCYCLE_BIDA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUATKCYCLE_BLDA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODAttackBike\NUATKCYCLE_FP.w3x"/>
@@ -25,7 +22,7 @@
 		<LocomotorSet Locomotor="NODAttackBikeLocomotor" Condition="NORMAL" Speed="160.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="EXTireTrack" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="Bone_podl_pitch" TrackMarksRightBone="Bone_podr_pitch" LeftFrontTireBone="TIRE01" RightRearTireBone="TIRE02" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" ExtraPublicBone="FX_WEAPONL01 FX_WEAPONL02 FX_WEAPONR01 FX_WEAPONR02">
+			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="EXTireTrack" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="FXTreadsL" TrackMarksRightBone="FXTreadsR" LeftFrontTireBone="Tire01" RightFrontTireBone="Tire02" LeftRearTireBone="Tire03" RightRearTireBone="Tire04" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" ExtraPublicBone="FX_WEAPONL01 FX_WEAPONL02 FX_WEAPONR01 FX_WEAPONR02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUATKCYCLE_SKN"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WeaponL"/>
@@ -90,7 +87,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Animation AnimationName="NUATKCYCLE_AIDA" AnimationMode="MANUAL" AnimationBlendTime="5"/>
+					<Animation AnimationName="NUATKCYCLE_BIDA" AnimationMode="MANUAL" AnimationBlendTime="5"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="NUATKCYCLE_BIDA" AnimationMode="ONCE" AnimationBlendTime="15"/>
@@ -109,26 +106,6 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
 					<Animation AnimationName="NUATKCYCLE_TRNR" AnimationMode="LOOP" AnimationBlendTime="5"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end </Script>
-					<Animation AnimationName="NUATKCYCLE_AIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED">
-					<Animation AnimationName="NUATKCYCLE_AIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="NUATKCYCLE_AIDA" AnimationMode="ONCE" AnimationBlendTime="15"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
-					<Animation AnimationName="NUATKCYCLE_BATA" AnimationMode="ONCE" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
-					<Animation AnimationName="NUATKCYCLE_ABTA" AnimationMode="ONCE" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
-					<Animation AnimationName="NUATKCYCLE_AIDA" AnimationMode="ONCE" AnimationBlendTime="25"/>
 				</AnimationState>
 			</TruckDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="CHASSIS" RefreshTime="2.0s" SweepTime="1.0s">
