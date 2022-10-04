@@ -1,16 +1,20 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIMedic\GUMedic.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMedic\HC_GUMedic.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMedic\FXMedic_FP.w3x"/>
 		<!-- Base Object -->
-		<Include type="instance" source="GDIEngineer.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="GDIMedic" inheritFrom="GDIEngineer" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON" Description="Desc:GDIMedicSquad" TypeDescription="Type:GDIMedicSquad" EditorName="GDIMedic" BuildTime="2.6" SelectPortrait="Portrait_GDIMedicSquad" ButtonImage="Portrait_GDIMedicSquad" CommandSet="EmptyCommandSet" VoicePriority="70" UnitTypeIcon="MedicIcon" BuildCost="266">
+	<GameObject id="GDIMedic" inheritFrom="BaseInfantry" SelectPortrait="Portrait_GDIMedicSquad" ButtonImage="Portrait_GDIMedicSquad" Side="GDI" BuildCost="266" BuildTime="2.6" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON" WeaponCategory="GUN" UnitTypeIcon="MedicIcon" VoicePriority="70" EditorName="GDIMedic" Description="Desc:GDIMedicSquad" TypeDescription="Type:GDIMedicSquad">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMedicSquad</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIFieldSuits</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
+		<ArmorSet Armor="GenericInfantryArmor" DamageFX="InfantryDamageFX"/>
+		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX" Conditions="PLAYER_UPGRADE"/>
 		<LocomotorSet Speed="50" Locomotor="HumanLocomotor"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2" RecoilSettleSpeed="3" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2" RecoilSettleSpeed="3" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUENGINEER_SKN_FS"/>
 					<Texture Original="GUEngineer" New="GUMedic"/>
@@ -151,40 +155,112 @@
 					<Animation AnimationName="GUCEngineer_SATC" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50" MaxLength="50" Width="3" MinSpeed="35" MaxSpeed="35" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitGDI" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50" MaxLength="50" Width="3" MinSpeed="35" MaxSpeed="35" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerHeroic" TracerHitFx="FX_BulletHitGDIHeroic" UseAdditiveBlending="true">
+				<HeadColor r="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50" MaxLength="50" Width="3" MinSpeed="35" MaxSpeed="35" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran" MinLength="50" MaxLength="50" Width="3" MinSpeed="35" MaxSpeed="35" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_OCLGibs" xai:joinAction="Replace" SinkRate="10">
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistol"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
 				<OCL>
 					<OCL>OCL_InfGibs</OCL>
 				</OCL>
 				<Sound List="GDI_Engineer_VoiceDie"/>
 				<DieMuxData DeathTypes="EXPLODED"/>
 			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLRad" xai:joinAction="Replace" SinkRate="10">
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
 				<OCL>
 					<OCL>OCL_InfGibsRad</OCL>
 				</OCL>
 				<Sound List="GDI_Engineer_VoiceDie"/>
 				<DieMuxData DeathTypes="POISONED"/>
 			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" xai:joinAction="Replace" SinkRate="10">
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
 				<OCL>
 					<OCL>OCL_InfGibsChar</OCL>
 				</OCL>
 				<Sound List="GDI_Engineer_VoiceDie"/>
 				<DieMuxData DeathTypes="BURNED"/>
 			</SlowDeath>
-			<SlowDeath id="ModuleTag_Death" xai:joinAction="Replace" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
 				<Sound List="GDI_Engineer_VoiceDie"/>
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
 			</SlowDeath>
-			<AISpecialPowerUpdate id="ModuleTag_GDIEngineerCaptureBuildingAI" xai:joinAction="Remove"/>
-			<SpecialPower id="ModuleTag_CaptureSpecialPower" xai:joinAction="Remove"/>
-			<CaptureSpecialAbilityUpdate id="ModuleTag_CaptureSpecialPowerUpdate" xai:joinAction="Remove"/>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
+			<xi:include href="DATA:Includes\GDICallForTransport.xml"/>
+			<xi:include href="DATA:Includes\CaptureBehavior.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDITiberiumFieldSuitsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100"/>
+			</AIUpdate>
+		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="150"/>
 		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Bodyfall" Animation="GUENGINEER_LNDA" Frame="5"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" MinorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_CombatEngineer_VoiceAttack" AudioType="voiceAttack"/>
 			<AudioEntry Sound="GDI_Medic_VoiceCreate" AudioType="voiceFullyCreated"/>
@@ -196,5 +272,8 @@
 			<!-- Triggered when told to garrison Deployed Reckoners -->
 			<ObjectSpecificEntry Sound="GDI_Engineer_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
 		</AudioArrayVoice>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="175" ShroudClearingRange="200" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" UseCrushAttack="false"/>
 	</GameObject>
 </AssetDeclaration>
