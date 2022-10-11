@@ -14,8 +14,7 @@
 		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUScorpionTank_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUScorpionTankD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NPBEAM_SKN.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUBEAMCANNON_DIGA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUBEAMCANNON_DIGB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUBEAMCANNON_DIG.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUBEAMCANNON_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUBEAMCANNON_R01.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODBeamCannon\NUBEAMCANNON_R02.w3x"/>
@@ -102,18 +101,18 @@
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableShowSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_2 UNPACKING">
-					<FXEvent Frame="1" Effect="FXGuardianTankDigInDust" Bone="BONE_DOZERBLADE" FireWhenSkipped="true"/>
-					<Animation AnimationName="NUBEAMCANNON_DIGA" AnimationMode="ONCE"/>
+					<FXEvent Frame="2" Effect="FXGuardianTankDigInDust" Bone="BONE_DOZERBLADE" FireWhenSkipped="true"/>
+					<Animation AnimationName="NUBEAMCANNON_DIG" AnimationMode="ONCE"/>
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableShowSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_2 PACKING">
-					<FXEvent Frame="10" Effect="FXGuardianTankDigInDust" Bone="BONE_DOZERBLADE" FireWhenSkipped="true"/>
-					<Animation AnimationName="NUBEAMCANNON_DIGB" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_2 PACKING" Flags="START_FRAME_LAST">
+					<FXEvent Frame="22" Effect="FXGuardianTankDigInDust" Bone="BONE_DOZERBLADE" FireWhenSkipped="true"/>
+					<Animation AnimationName="NUBEAMCANNON_DIG" AnimationMode="ONCE_BACKWARDS"/>
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableShowSubObject("DOZERBACK") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="NUBEAMCANNON_DIGB" AnimationMode="MANUAL"/>
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUBEAMCANNON_DIG" AnimationMode="MANUAL"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
 				</AnimationState>
 				<LeftTread>"FXTreadL"</LeftTread>
 				<RightTread>"FXTreadR"</RightTread>
@@ -330,9 +329,9 @@
 			<BeamSpecialAbilityUpdate id="ModuleTag_BeamLaserSpecialPowerUpdate" SpecialPowerTemplate="NODBeamCannonLaserSpecialPower" JoinWithOtherBeams="true" UnpackTime="1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" PreparationTime="10000s" PackTime="0.1s" StartAbilityRange="550.0" AbilityAbortRange="550.0" DamagePerSecond="150.0" SetObjectStatusOnTrigger="IS_ENGAGED" ClearObjectStatusOnExit="IS_ENGAGED" Options="UPDATE_REQUIRES_LINE_OF_SIGHT" PrepSoundLoop="NOD_BeamCannon_BeamWeaponLoopMS" UnpackingVariation="1" FaceTarget="false"/>
 			<!-- Dig Ability -->
 			<SpecialPower id="ModuleTag_DigInSP" SpecialPowerTemplate="SpecialPower_GuardianTankDigIn" UpdateModuleStartsAttack="true"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_DigInSPUpdate" SpecialPowerTemplate="SpecialPower_GuardianTankDigIn" UnpackTime="1.5s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UnpackSound="GDI_BuildingPlaced" SetObjectStatusOnTrigger="IMMOBILE" TriggerAttributeModifier="AttributeModifier_DigIn" BusyForDuration="1.65s" UnpackingVariation="2" UseUpgradedLocomotor="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_DigInSPUpdate" SpecialPowerTemplate="SpecialPower_GuardianTankDigIn" UnpackTime="1.5s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UnpackSound="GDI_BuildingPlaced" SetObjectStatusOnTrigger="IMMOBILE" TriggerAttributeModifier="AttributeModifier_DigIn" BusyForDuration="1.5s" UnpackingVariation="2" UseUpgradedLocomotor="true"/>
 			<SpecialPower id="ModuleTag_DigOutSP" SpecialPowerTemplate="SpecialPower_GuardianTankDigOut" UpdateModuleStartsAttack="true"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_DigOutSPUpdate" SpecialPowerTemplate="SpecialPower_GuardianTankDigOut" PackTime="1.5s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UnpackSound="GDI_Rig_Unpack1" ClearObjectStatusOnExit="IMMOBILE" TriggerAttributeModifier="AttributeModifier_DigOut" BusyForDuration="1.65s" UnpackingVariation="2" UseUpgradedLocomotor="false"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_DigOutSPUpdate" SpecialPowerTemplate="SpecialPower_GuardianTankDigOut" PackTime="1.5s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UnpackSound="GDI_Rig_Unpack1" ClearObjectStatusOnExit="IMMOBILE" TriggerAttributeModifier="AttributeModifier_DigOut" BusyForDuration="1.5s" UnpackingVariation="2" UseUpgradedLocomotor="false"/>
 			<!-- Charge defenses special power -->
 			<SpecialPower id="ModuleTag_ChargeDefensesSP" SpecialPowerTemplate="SpecialPower_ChargeDefensesTrigger" UpdateModuleStartsAttack="true"/>
 			<BeamSpecialAbilityUpdate id="ModuleTag_ChargeDefensesSPUpdate" SpecialPowerTemplate="SpecialPower_ChargeDefensesTrigger" JoinWithOtherBeams="false" UnpackTime="2s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" PackTime="1s" PreparationTime="10000s" PrepSoundLoop="NOD_BeamCannon_ChargeObeliskLoopMS" StartAbilityRange="200.0" TargetAttributeModifierAdd="AttributeModifier_ChargeDefenses" TargetSamePlayerOnly="false" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" UnpackingVariation="1" PreferredTargetBone="FXBONE01" DamagePerSecond="0.0" FaceTarget="false"/>
