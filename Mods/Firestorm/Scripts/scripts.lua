@@ -231,6 +231,8 @@ function onBuildingPowerOutage(self)
 	ObjectHideSubObjectPermanently( self, "FX_LAZERGLOW", true )
 	ObjectHideSubObjectPermanently( self, "NBCHEMICALPTE1", true )
 	ObjectHideSubObjectPermanently( self, "AUDRONSHIPLIGHTS", true )
+	ObjectHideSubObjectPermanently( self, "NEXUSBEAM", true )
+	ObjectHideSubObjectPermanently( self, "NEXUSSTREAM", true )
 end
 
 function onBuildingPowerRestored(self)
@@ -284,6 +286,8 @@ function onBuildingPowerRestored(self)
 	ObjectHideSubObjectPermanently( self, "FX_LAZERGLOW", false )
 	ObjectHideSubObjectPermanently( self, "NBCHEMICALPTE1", false )
 	ObjectHideSubObjectPermanently( self, "AUDRONSHIPLIGHTS", false )
+	ObjectHideSubObjectPermanently( self, "NEXUSBEAM", false )
+	ObjectHideSubObjectPermanently( self, "NEXUSSTREAM", false )
 end
 
 function OnGDIV35Ox_SummonedForVehicleCreated(self)
