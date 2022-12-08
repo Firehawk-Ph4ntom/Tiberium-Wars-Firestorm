@@ -430,3 +430,18 @@ end
 function OnAlienMotherShipCreated(self)
 	ObjectSetObjectStatus( self, "AIRBORNE_TARGET" )
 end
+
+function OnAlienEradicatorHexapodCreated(self)
+	ObjectHideSubObjectPermanently( self, "AUTELEPORT_RR", true )
+	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_RR", true )
+	ObjectHideSubObjectPermanently( self, "AUTELEPORT_RM", true )
+	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_RM", true )
+	ObjectHideSubObjectPermanently( self, "AUTELEPORT_RF", true )
+	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_RF", true )
+	ObjectHideSubObjectPermanently( self, "AUTELEPORT_LF", true )
+	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_LF", true )
+	ObjectHideSubObjectPermanently( self, "AUTELEPORT_LM", true )
+	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_LM", true )
+	ObjectHideSubObjectPermanently( self, "AUTELEPORT_LR", true )
+	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_LR", true )
+end
