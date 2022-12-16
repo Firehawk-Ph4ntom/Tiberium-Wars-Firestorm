@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\HC_TTViceroidA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTViceroidA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTViceroidA_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTViceroidA_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTVICEROID_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTVICEROID_MOVA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTVICEROID_MOVB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTVICEROID_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="MutantViceroid" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantViceroid" ButtonImage="Portrait_MutantViceroid" Side="GDI" BuildTime="1.2" BuildCost="120" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SURPRISE_ATTACKER HEALED_BY_TIBERIUM TIBERIUM_BASED ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="8" EditorName="MutantViceroid" Description="Desc:MutantViceroid" TypeDescription="Type:MutantViceroid" UnitTypeIcon="FanaticIcon">
+		<DisplayName>Name:MutantViceroid</DisplayName>
+		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
+		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="80.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TTVICEROID_SKN"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="TTVICEROID_AIDA" AnimationMode="ONCE" AnimationPriority="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING DEATH_2">
+					<Animation AnimationName="TTVICEROID_AIDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING DEATH_1">
+					<Animation AnimationName="NUVisrod_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="TTVICEROID_MOVA" AnimationMode="LOOP"/>
+					<Animation AnimationName="TTVICEROID_MOVB" AnimationMode="LOOP"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODFanaticBomb"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DeathFlags="DEATH_1" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED EXPLODED BURNED LASERED"/>
+				<Sound Type="INITIAL" List="ALI_MutantViceroid_SoundDie"/>
+			</SlowDeath>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="MutantViceroidDeathBomb">
+				<DieMuxData DeathTypes="DETONATED EXPLODED BURNED LASERED"/>
+			</FireWeaponWhenDead>
+			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" DeathFlags="DEATH_2" Fade="true" FadeDelay="0.75s" FadeTime="0.45s" DestructionDelay="2.25s">
+				<DieMuxData DeathTypes="DETONATED EXPLODED BURNED LASERED"/>
+			</SlowDeath>
+			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
+				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<AudioLoopUpgrade id="ModuleTag_TibInfusionAudioLoop" SoundToPlay="NOD_TiberiumInfusion_Upgrade">
+				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Scanner Packs -->
+			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0" CheckVisionRange="true"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="175"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Viceroid_AmbientDelayedLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<EvaEvents EvaEventPromotedOwner=""/>
+		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0" CrushRevengeWeapon="NODFanaticDeathBomb"/>
+	</GameObject>
+</AssetDeclaration>

@@ -23,6 +23,57 @@
 		</Nuggets>
 	</WeaponTemplate>
 
+	<WeaponTemplate
+		id="MutantViceroidDeathBomb"
+		Name="MutantViceroidDeathBomb"
+		FireFX="FX_MutantViceroidDeathHit"
+		RadiusDamageAffects="ENEMIES NEUTRALS SELF"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<DamageNugget
+				Damage="750"
+				Radius="35"
+				DamageType="MINE"
+				DamageFXType="NOD_GRENADE"
+				DeathType="DETONATED">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="COMMANDCENTER">
+						<!-- Deals only 50% of their damage to these units when they get Dozer Blades upgrade -->
+						<IncludeThing>NODRaiderTank</IncludeThing>
+						<IncludeThing>NODReckoner</IncludeThing>
+						<IncludeThing>NODReckonerDeployed</IncludeThing>
+					</Filter>
+					<RequiredUpgrade>Upgrade_NODDozerBlades</RequiredUpgrade>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE">
+						<!-- Deals only 50% of their damage to Beam Cannons because they start off with Dozer Blades -->
+						<IncludeThing>NODBeamCannon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="ALL"
+						Relationship="ALLIES"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODFanatic</IncludeThing>
+						<IncludeThing>NODFanaticSquad</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
 	<!-- Dummy Fixer weapon for units using DeployStyleAIUpdate to fix the issue of the unit getting stuck in an animation loop of deploying/undeploying and never firing their weapon. Now the unit will instead get stuck in the DEPLOYED state in which it will always fire -->
 	<!-- Seems like the bug with DeployStyleAIUpdate units is the MinimumAttackRange setting in their main weapon -->
 	<WeaponTemplate
