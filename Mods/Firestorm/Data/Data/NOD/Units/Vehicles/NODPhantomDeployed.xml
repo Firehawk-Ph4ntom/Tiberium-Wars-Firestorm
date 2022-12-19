@@ -54,6 +54,23 @@
 					<Animation AnimationName="NUREPVEH_AN" AnimationMode="ONCE" AnimationBlendTime="5"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUMAMM_FX"/>
@@ -95,7 +112,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<ProductionUpdate id="ModuleTag_Production"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
 				<OCL>
@@ -145,7 +161,7 @@
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2400"/>

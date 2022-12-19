@@ -2,6 +2,7 @@
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBarrack_UGCA.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBarrackD_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKS_D2SN_CTR.W3X"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKS_IDLA.W3X"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKS_SKN.W3X"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBARRACKSSRF_SKN.W3X"/>
@@ -36,7 +37,7 @@
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="GBBARRACKS_D2SN"/>
+					<Model Name="GBBARRACKS_D2SN_FS"/>
 					<Texture Original="GBBib" New="GBBib_D"/>
 					<Texture Original="GBWarFacBib" New="GBArmory"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
@@ -117,6 +118,35 @@
 					<Animation AnimationName="GBBarrDoor_OPN" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -162,7 +192,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="INFANTRY" NumDoorAnimations="1" DoorOpeningTime="0.66s" DoorWaitOpenTime="1.0s" DoorCloseTime="0.66s"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" PlacementViewAngle="45d" ExitDelay="1">
 				<UnitCreatePoint x="0.0" y="25.0"/>
@@ -201,7 +230,7 @@
 			</ModelConditionUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>

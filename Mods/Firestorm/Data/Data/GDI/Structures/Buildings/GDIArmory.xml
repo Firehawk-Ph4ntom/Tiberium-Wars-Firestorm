@@ -25,9 +25,11 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
 					<Model Name="GBTECHCEND3_SN_FS"/>
+					<Texture Original="GBBib" New="GBBib_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="GBTECHCEND2_SN_FS"/>
+					<Texture Original="GBBib" New="GBBib_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="GBTECHCEN_SKN_FS"/>
@@ -60,6 +62,35 @@
 					<Animation AnimationName="GBTechCenD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("MESH01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -90,7 +121,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -98,7 +128,7 @@
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsScan" ShowSubObjects="UG_Scan">
 				<TriggeredBy>Upgrade_CeramicArmor</TriggeredBy>
 			</SubObjectsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsRail" ShowSubObjects="UG_Rail">
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsRail" ShowSubObjects="UG_Rail FXELEC01 PLANE02">
 				<TriggeredBy>Upgrade_GDIArmoryRailgunTech</TriggeredBy>
 			</SubObjectsUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsMortar" ShowSubObjects="UG_Mortar B_MortarRound_1">

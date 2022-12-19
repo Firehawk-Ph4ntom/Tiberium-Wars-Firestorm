@@ -134,11 +134,40 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="GBRefineryX_IDL" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("Bar_01") </Script>
+					<Script> CurDrawableHideSubObjectPermanently("Bar_01") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING_ACTIVE">
 					<Animation AnimationName="GBRefineryX_LOA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.45" AnimationSpeedFactorMax="1.45"/>
-					<Script> CurDrawableShowSubObject("Bar_01") </Script>
+					<Script> CurDrawableShowSubObjectPermanently("Bar_01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("FXGLOWS") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXSmokeStackB">
@@ -218,7 +247,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="FXGLOWS"/>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="FactionStructureTiberiumFieldOCL">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
 			</CreateObjectDie>
@@ -254,7 +282,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>

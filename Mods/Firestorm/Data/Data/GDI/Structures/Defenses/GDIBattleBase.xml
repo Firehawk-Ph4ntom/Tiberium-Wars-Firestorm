@@ -636,11 +636,35 @@
 					<Animation AnimationName="GBBTLEBASE_D3AN_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="bone_stealthdetector" RefreshTime="2.0s" SweepTime="1.0s">
+			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXspotlight"/>
+					<Model Name="FXINVISBONE"/>
 				</ModelConditionState>
-			</SpotlightDraw>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("CENTERLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -650,6 +674,11 @@
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="bone_stealthdetector" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight"/>
+				</ModelConditionState>
+			</SpotlightDraw>
 			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="1" LaserStateID="1" UseDistortionShader="true">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
@@ -692,7 +721,6 @@
 			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER1" StatusToClear="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
 			</StatusBitsUpgrade>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="CENTERLIGHTS"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHierarchicalTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannon"/>

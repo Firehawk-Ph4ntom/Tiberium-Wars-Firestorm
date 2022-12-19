@@ -232,6 +232,23 @@
 					<Animation AnimationName="GUTITAN_ATKA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.7"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="BODY">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXINVISBONE"/>
@@ -278,7 +295,6 @@
 			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="2">

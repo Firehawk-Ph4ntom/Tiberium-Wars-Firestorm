@@ -118,14 +118,34 @@
 					<Animation AnimationName="GBRECDOOR_D3AN" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
 					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FX_LIGHTS") </Script>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXSmokeStack">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -140,6 +160,15 @@
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIRecHubSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIRecHubSmokeDistortion" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="450" SizeY="450" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" LocalPlayerOnly="true" Texture="Decal_Repair_CO"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -177,7 +206,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="FX_LIGHTS"/>
 			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="2.0s" DoorWaitOpenTime="4.0s" DoorCloseTime="2.0s"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="0">
@@ -208,7 +236,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>

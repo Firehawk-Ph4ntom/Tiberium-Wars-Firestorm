@@ -63,6 +63,35 @@
 					<Animation AnimationName="GBDefense_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -93,7 +122,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
 				<Sound List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -118,7 +146,7 @@
 			</AttributeModifierAuraUpdate>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>

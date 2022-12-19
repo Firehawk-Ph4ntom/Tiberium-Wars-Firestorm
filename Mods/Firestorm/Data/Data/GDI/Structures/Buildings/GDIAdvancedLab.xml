@@ -63,6 +63,35 @@
 					<Animation AnimationName="GBLabRad_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") CurDrawableShowSubObjectPermanently("LIGHTR02") CurDrawableShowSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTR01") CurDrawableHideSubObjectPermanently("LIGHTR02") CurDrawableHideSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTR01") CurDrawableHideSubObjectPermanently("LIGHTR02") CurDrawableHideSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") CurDrawableShowSubObjectPermanently("LIGHTR02") CurDrawableShowSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") CurDrawableShowSubObjectPermanently("LIGHTR02") CurDrawableShowSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") CurDrawableShowSubObjectPermanently("LIGHTR02") CurDrawableShowSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") CurDrawableShowSubObjectPermanently("LIGHTR02") CurDrawableShowSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") CurDrawableShowSubObjectPermanently("LIGHTR02") CurDrawableShowSubObjectPermanently("LIGHTR03") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -93,7 +122,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -117,7 +145,7 @@
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>

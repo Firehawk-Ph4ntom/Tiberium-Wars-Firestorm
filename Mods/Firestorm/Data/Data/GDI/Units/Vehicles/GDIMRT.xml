@@ -64,6 +64,20 @@
 					<Model Name="GUMRT_FP"/>
 				</ModelConditionState>
 			</TruckDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -132,7 +146,7 @@
 			</SpawnBehavior>
 		</Behaviors>
 		<AI>
-			<TransportAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions">
+			<TransportAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
 				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
 			</TransportAIUpdate>
 		</AI>

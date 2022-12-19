@@ -295,6 +295,35 @@
 					<Animation AnimationName="GBAirRadarD" AnimationMode="LOOP"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -335,7 +364,6 @@
 		</Draws>
 		<Behaviors>
 			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairAircraft" SpecialPowerTemplate="SpecialPower_TargetedRepairAircraft"/>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="AIRCRAFT"/>
 			<RecallUnitsSpecialPower id="ModuleTag_RecallSpecialPower" PlayReturnVoiceFromRecalledUnit="true" SpecialPowerTemplate="SpecialPower_RecallAllAircraft"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">

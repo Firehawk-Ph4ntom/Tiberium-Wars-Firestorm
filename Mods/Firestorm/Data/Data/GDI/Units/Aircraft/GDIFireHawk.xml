@@ -119,6 +119,23 @@
 					<Animation AnimationName="GUFireHwk_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("PLANE04") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1">
+					<Script> CurDrawableHideSubObjectPermanently("PLANE04") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
+					<Script> CurDrawableHideSubObjectPermanently("PLANE04") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Script> CurDrawableShowSubObjectPermanently("PLANE04") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawContrail" AttachToBoneInAnotherModule="contrail01">
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="">
 					<Model Name="FXInvisBone"/>
@@ -240,9 +257,6 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsBoost" ShowSubObjects="PLANE04">
-				<TriggeredBy>Upgrade_FirehawkStratofighterBooster</TriggeredBy>
-			</SubObjectsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_StratoFighterBoosterModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_FirehawkStratofighterBooster</TriggeredBy>
 			</ModelConditionUpgrade>

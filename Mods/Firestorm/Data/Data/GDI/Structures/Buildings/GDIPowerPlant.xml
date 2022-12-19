@@ -17,7 +17,7 @@
 		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" ConditionsYes="NONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GBPwrPlnt"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
@@ -86,6 +86,44 @@
 					<Animation AnimationName="GBPwrPlntT_IDL" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_2">
+					<Script> CurDrawableHideSubObjectPermanently("TURBINEGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_2">
+					<Script> CurDrawableHideSubObjectPermanently("TURBINEGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Script> CurDrawableShowSubObjectPermanently("TURBINEGLOWS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableHideSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableHideSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXBone01">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -158,8 +196,6 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="Module_RandomModelCondition" Conditions="USER_1"/>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior02" NightWindowObject="LIGHT_02"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -186,7 +222,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDIPowerPlantFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000.0"/>

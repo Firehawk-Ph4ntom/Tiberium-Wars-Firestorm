@@ -127,6 +127,20 @@
 					<Animation AnimationName="GUHamhead_MOVA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("LIGHTR") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("LIGHTR") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" ExtraPublicBone="FX_Lfan FX_Rfan FX_JetL FX_JetR">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name=""/>
@@ -258,7 +272,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIAirSupremacyUpgrade.xml"/>
 		</Behaviors>
 		<AI>
-			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" DelayAFterLoadingOrUnloading="1s" AILuaEventsList="BuildingPowerFunctions">
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" DelayAFterLoadingOrUnloading="1s">
 				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false"/>
 			</TransportHelicopterAIUpdate>
 		</AI>

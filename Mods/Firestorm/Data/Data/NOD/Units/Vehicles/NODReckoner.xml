@@ -95,6 +95,23 @@
 				<ArticulationBone ArticulationBoneName="BONE_LEFTTREAD" ArticulationHelperBoneName="BONE_TREDSL"/>
 				<ArticulationBone ArticulationBoneName="BONE_RIGHTTREAD" ArticulationHelperBoneName="BONE_TREDSR"/>
 			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Script> CurDrawableShowSubObjectPermanently("TV") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUMAMM_FX"/>
@@ -187,7 +204,7 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>NODReckonerDeployed</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="TV UG_SPEAKERS">
+			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="UG_SPEAKERS">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</SubObjectsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">

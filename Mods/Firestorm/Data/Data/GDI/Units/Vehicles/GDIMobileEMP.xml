@@ -134,6 +134,23 @@
 				<LeftTread>"bone_tread_left"</LeftTread>
 				<RightTread>"bone_tread_right"</RightTread>
 			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUMamm_FX"/>
@@ -153,7 +170,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="HEADLIGHTS"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
@@ -183,7 +199,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<DeployStyleAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" UnpackTime="3s" PackTime="3s" MustDeployToAttack="true" AILuaEventsList="BuildingPowerFunctions">
+			<DeployStyleAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" UnpackTime="3s" PackTime="3s" MustDeployToAttack="true">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" CheckVisionRange="true" RotateToTargetWhenAiming="false"/>
 			</DeployStyleAIUpdate>
 		</AI>

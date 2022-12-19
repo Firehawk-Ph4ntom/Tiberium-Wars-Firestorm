@@ -182,6 +182,17 @@
 					<Script> CurDrawableHideSubObject("UGJump") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="Zt_Spine2" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXspotlight"/>
@@ -204,7 +215,6 @@
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
-			<BuildingBehavior id="ModuleTag_BuildingBehavior" NightWindowObject="LIGHT_01"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIZoneTrooperRailgun"/>

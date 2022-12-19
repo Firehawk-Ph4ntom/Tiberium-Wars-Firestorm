@@ -95,7 +95,24 @@
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FX_ROOF_TV">
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Script> CurDrawableShowSubObjectPermanently("TV") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FX_ROOF_TV">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXINVISBONE"/>
 				</ModelConditionState>
@@ -171,7 +188,7 @@
 			<AttributeModifierUpgrade id="ModuleTag_AlienFaction" AttributeModifier="AttributeModifier_ReckonerDeployed">
 				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
 			</AttributeModifierUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="TV UG_SPEAKERS">
+			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="UG_SPEAKERS">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</SubObjectsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">
