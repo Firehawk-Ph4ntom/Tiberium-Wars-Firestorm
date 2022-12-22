@@ -74,7 +74,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_OR_PREATTACK_A" StateName="STATE_Suppressed">
 					<Animation AnimationName="NUMiltn_SATA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ATTACKING" StateName="STATE_Selected">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ATTACKING" StateName="STATE_Suppressed">
 					<Animation AnimationName="NUMiltn_SATA" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
@@ -99,7 +99,13 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
 					<Animation AnimationName="NUMiltn_ATRA" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="4">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A USER_12" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUMiltn_SATA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A USER_11" StateName="STATE_Cover" FrameForPristineBonePositions="4">
+					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A USER_10" FrameForPristineBonePositions="4">
 					<Animation AnimationName="NUMiltn_ATKA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING" Flags="RANDOMSTART">
@@ -118,10 +124,23 @@
 					<Animation AnimationName="NUMiltn_KAFB" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="NUMiltn_KAFC" AnimationMode="ONCE" AnimationPriority="5"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_Selected">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_12" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUMiltn_SATA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_11" StateName="STATE_Cover" FrameForPristineBonePositions="4">
+					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_10" StateName="STATE_Selected">
 					<Animation AnimationName="NUMiltn_ATKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_12">
+					<Animation AnimationName="NUMiltn_SIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_11">
+					<Animation AnimationName="NUMiltn_KAIA" AnimationMode="LOOP"/>
+					<Animation AnimationName="NUMiltn_KAIB" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_10">
 					<Animation AnimationName="NUMiltn_AIDA" AnimationMode="LOOP"/>
 					<Animation AnimationName="NUMiltn_AIDB" AnimationMode="LOOP"/>
 				</AnimationState>
@@ -174,6 +193,7 @@
 			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_10 USER_11 USER_12"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMilitantMinigun"/>
