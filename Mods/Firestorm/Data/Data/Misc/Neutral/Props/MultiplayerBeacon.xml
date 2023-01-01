@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="us-ascii"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<GameObject id="MultiplayerBeacon" Side="Neutral" EditorSorting="UNIT" CommandSet="EmptyCommandSet" IsTrainable="false" KindOf="CAN_CAST_REFLECTIONS BEACON NO_COLLIDE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE" RadarPriority="UNIT" EditorName="MultiplayerBeacon">
 		<DisplayName>CONTROLBAR:Beacon</DisplayName>
@@ -10,15 +9,22 @@
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="MultiplayerBeaconFlare2" FollowBone="false"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="MultiplayerBeaconFlareGlow" FollowBone="false"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
-		<Behaviors/>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="90s" MaxLifetime="90s"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
 		</Body>
 		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0"/>
+			<Shape Type="CYLINDER" MajorRadius="1.0" Height="1.0"/>
 		</Geometry>
-		<CrusherInfo CrushableLevel="0"/>
 	</GameObject>
 </AssetDeclaration>
