@@ -1,5 +1,7 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralReinforcementBay\CBREINFORC_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralReinforcementBay\CBREINFORC_D2_CTR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
 	</Includes>
@@ -7,7 +9,7 @@
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TechBuildingReinforcementBay</DisplayName>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="Runway0Park0Han">
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="CBREINFORC_FS"/>
 				</ModelConditionState>
@@ -15,7 +17,7 @@
 					<Model Name="CBReinforc_D3"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="CBReinforc_D2"/>
+					<Model Name="CBREINFORC_D2_FS"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIPPDamagedFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIRefineryDamagedDist" FollowBone="true"/>
@@ -81,7 +83,7 @@
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="INVALID" NumDoorAnimations="1" DoorOpeningTime="0.66s" DoorWaitOpenTime="1.66s" DoorCloseTime="0.66s" IgnorePreReqs="true" ProductionTimeDelayScalar="2s">
 				<ProductionModifier CostMultiplier="0" TimeMultiplier="0">
-					<ModifierFilter Rule="ANY" Include="VEHICLE INFANTRY AIRCRAFT HARVESTER"/>
+					<ModifierFilter Rule="ANY" Include="VEHICLE INFANTRY AIRCRAFT"/>
 				</ProductionModifier>
 			</ProductionUpdate>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="4">
@@ -100,11 +102,6 @@
 			</SlowDeath>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<ParkingPlaceBehavior id="ModuleTag_ParkingPlace" HealAmount="10" NumRows="1" NumCols="1" ApproachHeight="100" ParkInHangars="true">
-				<CanParkHereFilter Rule="NONE" Include="" Relationship="ALLIES NEUTRAL">
-					<IncludeThing>ReinforcementBayDropship</IncludeThing>
-				</CanParkHereFilter>
-			</ParkingPlaceBehavior>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
