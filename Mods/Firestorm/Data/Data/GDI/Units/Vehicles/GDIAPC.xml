@@ -1,0 +1,185 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIAPC\GUAPC_SPM_KW.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIAPC\GUAPC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIAPC\GUAPC_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIAPC\GUAPCR_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIAPC\GUAPCRADAR_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIAPC" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIAPC" ButtonImage="Portrait_GDIAPC" Side="GDI" BuildCost="700" BuildTime="7" CommandSet="GDIAPCCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE TRANSPORT VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="176" EditorName="GDIAPC" Description="Desc:GDIAPC" TypeDescription="Type:GDIAPC">
+		<DisplayName>Name:GDIAPC</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
+		<ArmorSet Armor="GenericLightVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIAPCLocomotor" Condition="NORMAL" Speed="72.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="EXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="Bone_TireLR" TrackMarksRightBone="Bone_TireRR" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" MidLeftRearTireBone="Bone_TireLR" MidRightRearTireBone="Bone_TireRR" LeftRearTireBone="Bone_TireLR1" RightRearTireBone="Bone_TireRR1" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" ExtraPublicBone="FXWeapon BoneGarrison01 BoneGarrison02 BoneGarrison03 BoneGarrison04 BoneGarrison05 BoneGarrison06 BoneGarrison07 BoneGarrison08 BoneGarrison09 BoneGarrison10">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUAPC_SKN_FS"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="MINELAYER"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="MINELAYER"/>
+					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
+					<Model Name="GUAPCRADAR"/>
+					<ParticleSysBone BoneName="Bone_Chassis" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Chassis" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Chassis" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GUAPCR_FS"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GUAPC"/>
+					<ParticleSysBone BoneName="Bone_Chassis" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Chassis" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Chassis" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8">
+					<Model Name="GUAPC_SKNADAR"/>
+					<Texture Original="GUAPC" New="GUAPC_D"/>
+					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUAPC_SKN_FS"/>
+					<Texture Original="GUAPC" New="GUAPC_D"/>
+					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
+					<Model Name="GUAPC_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUAPC_FP"/>
+				</ModelConditionState>
+			</TruckDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="3.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitLargeGDI" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="3.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerHeroic" TracerHitFx="FX_BulletHitLargeGDIHeroic" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50.0" MaxLength="50.0" Width="3.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame=".2" MaxTracersPerFrame=".2" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran" MinLength="50.0" MaxLength="50.0" Width="3.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame=".3" MaxTracersPerFrame=".3" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1" g="1" b="1" a="1"/>
+				<TailColor r="0.0" g="0.0" b="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+		</Draws>
+		<Behaviors>
+			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIAPCAutoCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIAPCAutoCannonHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="200" AllowsPitch="true" MinimumPitch="-15d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="MutantMarauderSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIMissileSoldierSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaiderSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="NODMilitantRocketSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="NODReaper" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
+			</HordeTransportContain>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIAPCDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<Sound Type="INITIAL" List="GDI_GuardianAPC_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
+			</FXListBehavior>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<SpecialPower id="ModuleTag_FireMinefield" SpecialPowerTemplate="SpecialPowerGDI_APCMinefield" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_FireMinefieldUpdate" SpecialPowerTemplate="SpecialPowerGDI_APCMinefield" SpecialWeapon="GDIAPCMinefield" StartAbilityRange="10.0" UnpackTime="0.4s" PackTime="0.4s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="2" WeaponSlotType="SECONDARY_WEAPON"/>
+			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="APC_UGAB APC_UGTURRET">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIAPCFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2800"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="10.0" Height="11.5" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_GuardianAPC_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<NamedEntry Sound="GDI_GuardianAPC_VoiceMineDrop" Name="InitiateAPCMinefield"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="GuardianAPCMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="PredatorIdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="GDI_GuardianAPC_MoveByLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

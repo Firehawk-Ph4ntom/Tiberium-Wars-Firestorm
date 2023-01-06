@@ -284,6 +284,11 @@ function OnGDIPitbullCreated(self)
 	ObjectHideSubObjectPermanently( self, "MortorTube", true )
 end
 
+function OnGDIAPCCreated(self)
+	ObjectHideSubObjectPermanently( self, "APC_UGAB", true )
+	ObjectHideSubObjectPermanently( self, "APC_UGTURRET", true )
+end
+
 function OnGDIWolverineCreated(self)
 	ObjectHideSubObjectPermanently( self, "UGAMMO", true )
 end
