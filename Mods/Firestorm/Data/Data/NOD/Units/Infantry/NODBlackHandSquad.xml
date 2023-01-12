@@ -4,7 +4,7 @@
 		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
 	</Includes>
-	<GameObject id="NODBlackHandSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_NODBlackHand" ButtonImage="Portrait_NODBlackHand" Side="NOD" BuildCost="900" BuildTime="9" CommandSet="NODGenericInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON ANTI_GARRISON CAN_CAPTURE CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="BLAST" EditorName="NODBlackHandSquad" ThreatLevel="10" Description="Desc:NODBlackHand" TypeDescription="Type:NODBlackHand" UnitTypeIcon="FlameThrowerIcon">
+	<GameObject id="NODBlackHandSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_NODBlackHand" ButtonImage="Portrait_NODBlackHand" Side="NOD" BuildCost="900" BuildTime="9" CommandSet="NODBlackHandSquadCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON ANTI_GARRISON CAN_CAPTURE CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="BLAST" EditorName="NODBlackHandSquad" ThreatLevel="10" Description="Desc:NODBlackHand" TypeDescription="Type:NODBlackHand" UnitTypeIcon="FlameThrowerIcon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODBlackHand</DisplayName>
 		<DisplayUpgrade>Upgrade_BlackHandSecretShrinePurifyingFlame</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_TiberiumInfusion</DisplayUpgrade>
@@ -73,6 +73,17 @@
 			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
 				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
 			</ModelConditionUpgrade>
+			<SpecialPower id="ModuleTag_FireGrenade" SpecialPowerTemplate="SpecialPower_BlackHandGetToGrenadeRange" UpdateModuleStartsAttack="true"/>
+			<SpecialAbilityUpdate id="ModuleTag_FireGrenadeUpdate" SpecialPowerTemplate="SpecialPower_BlackHandGetToGrenadeRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="250" ChainedButton="Command_BlackHandFireGrenade"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_BlackHandGrenadeDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_BlackHandGrenadeTrigger"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_BlackHandFireGrenade"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_BlackHandFirePurifyingGrenade"/>
+			</SpecialPowerDispatchSpecialPower>
+			<HordeDispatchSpecialPower id="ModuleTag_DispatchFireGrenade" SpecialPowerTemplate="SpecialPower_BlackHandFireGrenade"/>
+			<HordeDispatchSpecialPower id="ModuleTag_DispatchFirePurifyingGrenade" SpecialPowerTemplate="SpecialPower_BlackHandFirePurifyingGrenade"/>
+			<SpecialPower id="ModuleTag_FireGrenadeTrigger" SpecialPowerTemplate="SpecialPower_BlackHandGrenadeTrigger" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_FireGrenadeTriggerUpdate" SpecialPowerTemplate="SpecialPower_BlackHandGrenadeTrigger" SpecialWeapon="HordeSpecialRangeAttack" UnpackTime="0s" PackTime="0.0s" BusyForDuration="1.0s" WhichSpecialWeapon="1"/>
 		</Behaviors>
 		<AI>
 			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">

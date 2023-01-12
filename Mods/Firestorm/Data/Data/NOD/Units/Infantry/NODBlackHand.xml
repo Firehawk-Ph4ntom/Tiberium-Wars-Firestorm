@@ -71,7 +71,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
 					<Animation AnimationName="NU_BlkHnd_SMVA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_OR_PREATTACK_B" FrameForPristineBonePositions="68" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED SPECIAL_WEAPON_ONE" FrameForPristineBonePositions="68" StateName="STATE_Cover">
 					<Animation AnimationName="NU_BlkHnd_THRB" AnimationMode="ONCE" WeaponTimingOrdering="SECONDARY_WEAPON" UseWeaponTiming="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED USING_WEAPON_A" StateName="STATE_Suppressed">
@@ -101,7 +101,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
 					<Animation AnimationName="NU_BlkHnd_SMVA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_OR_PREATTACK_B" FrameForPristineBonePositions="60" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SPECIAL_WEAPON_ONE" FrameForPristineBonePositions="60" StateName="STATE_Cover">
 					<Animation AnimationName="NU_BlkHnd_THRC" AnimationMode="ONCE" WeaponTimingOrdering="SECONDARY_WEAPON" UseWeaponTiming="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_Cover">
@@ -113,10 +113,10 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
 					<Animation AnimationName="NU_BlkHnd_RUNB" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_B MOVING" FrameForPristineBonePositions="57">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE MOVING" FrameForPristineBonePositions="57">
 					<Animation AnimationName="NU_BlkHnd_RUNA" AnimationMode="ONCE" WeaponTimingOrdering="SECONDARY_WEAPON" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_B" FrameForPristineBonePositions="57">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE" FrameForPristineBonePositions="57">
 					<Animation AnimationName="NU_BlkHnd_THRA" AnimationMode="ONCE" WeaponTimingOrdering="SECONDARY_WEAPON" UseWeaponTiming="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
@@ -293,6 +293,14 @@
 			<AudioLoopUpgrade id="ModuleTag_PurifyingFlameAudioLoop" SoundToPlay="NOD_PurifyingFlame_UpgradeMS">
 				<TriggeredBy>Upgrade_BlackHandSecretShrinePurifyingFlame</TriggeredBy>
 			</AudioLoopUpgrade>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_BlackHandGrenadeDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_BlackHandFireGrenade"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_BlackHandFirePurifyingGrenade"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_GrenadeWeapon" SpecialPowerTemplate="SpecialPower_BlackHandFireGrenade" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_GrenadeWeaponUpdate" SpecialPowerTemplate="SpecialPower_BlackHandFireGrenade" SpecialWeapon="NODBlackHandGrenade" UnpackTime="1s" PackTime="0.9s" BusyForDuration="1.0s" WhichSpecialWeapon="1" WeaponSlotType="SECONDARY_WEAPON" StartRechargeOnExit="true"/>
+			<SpecialPower id="ModuleTag_PurifyingGrenadeWeapon" SpecialPowerTemplate="SpecialPower_BlackHandFirePurifyingGrenade" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_PurifyingGrenadeWeaponUpdate" SpecialPowerTemplate="SpecialPower_BlackHandFirePurifyingGrenade" SpecialWeapon="NODBlackHandPurifyingGrenade" UnpackTime="1s" PackTime="0.9s" BusyForDuration="1.0s" WhichSpecialWeapon="1" WeaponSlotType="SECONDARY_WEAPON" StartRechargeOnExit="true"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
