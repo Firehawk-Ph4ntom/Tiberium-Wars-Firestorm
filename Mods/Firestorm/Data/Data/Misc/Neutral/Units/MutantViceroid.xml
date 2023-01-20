@@ -13,7 +13,7 @@
 		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="MutantViceroid" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantViceroid" ButtonImage="Portrait_MutantViceroid" Side="GDI" BuildTime="1.2" BuildCost="120" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SURPRISE_ATTACKER HEALED_BY_TIBERIUM TIBERIUM_BASED ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="8" EditorName="MutantViceroid" Description="Desc:MutantViceroid" TypeDescription="Type:MutantViceroid" UnitTypeIcon="FanaticIcon">
+	<GameObject id="MutantViceroid" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantViceroid" ButtonImage="Portrait_MutantViceroid" Side="GDI" BuildTime="1.4" BuildCost="140" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SURPRISE_ATTACKER HEALED_BY_TIBERIUM TIBERIUM_BASED ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="8" EditorName="MutantViceroid" Description="Desc:MutantViceroid" TypeDescription="Type:MutantViceroid" UnitTypeIcon="FanaticIcon">
 		<DisplayName>Name:MutantViceroid</DisplayName>
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
@@ -32,10 +32,7 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="TTVICEROID_AIDA" AnimationMode="ONCE" AnimationPriority="10"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING DEATH_2">
-					<Animation AnimationName="TTVICEROID_AIDA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING DEATH_1">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="NUVisrod_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
@@ -50,16 +47,34 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODFanaticBomb"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DeathFlags="DEATH_1" DestructionDelay="8.5s">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED EXPLODED BURNED LASERED"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
 				<Sound Type="INITIAL" List="ALI_MutantViceroid_SoundDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
+				<Event FX="FX_AlienBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
+				<Event FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL>
+					<OCL>OCL_AlienInfGibs</OCL>
+				</OCL>
+				<Sound List="ALI_MutantViceroid_SoundDie"/>
+				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
 			</SlowDeath>
 			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="MutantViceroidDeathBomb">
 				<DieMuxData DeathTypes="DETONATED EXPLODED BURNED LASERED"/>
 			</FireWeaponWhenDead>
-			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" DeathFlags="DEATH_2" Fade="true" FadeDelay="0.75s" FadeTime="0.45s" DestructionDelay="2.25s">
-				<DieMuxData DeathTypes="DETONATED EXPLODED BURNED LASERED"/>
+			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" Fade="true" FadeDelay="1.75s" FadeTime="0.45s" DestructionDelay="2.25s">
+				<DieMuxData DeathTypes="DETONATED"/>
 			</SlowDeath>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>ALI_RazorDrone</Key>
+			</LargeGroupAudioUpdate>
 			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
 				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
 			</AttributeModifierUpgrade>
@@ -87,7 +102,7 @@
 			</AIUpdate>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="175"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="150"/>
 		</Body>
 		<Geometry IsSmall="true">
 			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
