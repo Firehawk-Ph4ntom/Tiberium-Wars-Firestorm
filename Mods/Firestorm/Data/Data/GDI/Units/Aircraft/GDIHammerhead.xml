@@ -39,17 +39,17 @@
 		<LocomotorSet Speed="160" Locomotor="GDIHammerheadLocomotor"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" ExtraPublicBone="FXWEAPONL_01 FXWEAPONL_02 FXWEAPONR_01 FXWEAPONR_02 BONEGARRISON01 BONEGARRISON02 BONEGARRISON03 BONEGARRISON04 BONEGARRISON05 BONEGARRISON06 BONEGARRISON07 BONEGARRISON08 BONEGARRISON09 BONEGARRISON10">
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" ExtraPublicBone="BONEGARRISON01 BONEGARRISON02 BONEGARRISON03 BONEGARRISON04 BONEGARRISON05 BONEGARRISON06 BONEGARRISON07 BONEGARRISON08 BONEGARRISON09 BONEGARRISON10">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUHAMHEAD_SKN"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONR_"/>
 					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONR_"/>
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONR_"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONR_"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="WEAPONLAUNCHBONE"/>
 					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONL_"/>
 					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONL_"/>
 					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONL_"/>
-					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPONL_"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="WEAPONLAUNCHBONE"/>
 					<Turret TurretNameKey="BONE_GUNTURRET_R" TurretPitch="BONE_GUNTURRET_R" TurretID="1"/>
 					<Turret TurretNameKey="BONE_GUNTURRET_L" TurretPitch="BONE_GUNTURRET_L" TurretID="2"/>
 				</ModelConditionState>
@@ -189,6 +189,26 @@
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="26.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.4" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" WeaponSlotID="1" Texture="FXGDIWolverineTracer" UseAdditiveBlending="true" TracerHitFx="FX_BulletHitLargeGDI">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="26.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" WeaponSlotID="1" Texture="FXGDIWolverineTracerHeroic" UseAdditiveBlending="true" TracerHitFx="FX_BulletHitLargeGDIHeroic">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50.0" MaxLength="50.0" Width="26.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.4" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" WeaponSlotID="1" Texture="FXGDIWolverineTracerAPAmmo" UseAdditiveBlending="true" TracerHitFx="FX_GDIDualHEAmmoExplosion">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran" MinLength="50.0" MaxLength="50.0" Width="26.0" MinSpeed="30" MaxSpeed="30" SweepSpeed="1.0" SpreadAngle="2.0" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" WeaponSlotID="1" Texture="FXGDIWolverineTracerAPAmmoHeroic" UseAdditiveBlending="true" TracerHitFx="FX_GDIDualHEAmmoExplosion">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
@@ -262,6 +282,18 @@
 			</FXListBehavior>
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_GDIFaction2" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_NODFaction2" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AlienFaction2" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
