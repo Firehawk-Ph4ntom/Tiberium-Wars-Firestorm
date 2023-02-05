@@ -1,5 +1,79 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<FXParticleSystemTemplate Drawable="FXCASINGS" PerParticleAttachedSystem="" Priority="MEDIUM_OR_ABOVE" Shader="W3D_ALPHA" SortLevel="1" SystemLifetime="1" Type="DRAWABLE" id="TankShellEjectRight">
+		<Lifetime High="50" Low="50"/>
+		<Size High="1" Low="1"/>
+		<BurstCount High="1" Low="1"/>
+		<Alphas>
+			<Alpha Frame="1" High="1" Low="1" RelativeAge="0"/>
+			<Alpha Frame="2" High="1" Low="1" RelativeAge="50"/>
+			<Alpha Frame="3" High="1" Low="1" RelativeAge="100"/>
+		</Alphas>
+		<Colors>
+			<Color Frame="1" RelativeAge="0">
+				<Color b="0.0901961" g="0.0901961" r="0.0901961"/>
+			</Color>
+			<Color Frame="2" RelativeAge="50">
+				<Color b="0.172549" g="0.172549" r="0.172549"/>
+			</Color>
+			<Color Frame="3" RelativeAge="100">
+				<Color b="0.172549" g="0.172549" r="0.172549"/>
+			</Color>
+		</Colors>
+		<Physics>
+			<Default Gravity="-0.2">
+				<VelocityDamping High="1" Low="1"/>
+			</Default>
+		</Physics>
+		<Draw>
+			<RenderObject>
+				<ObjectSet RenderGroup=""/>
+				<ObjectSet RenderGroup=""/>
+				<ObjectSet RenderGroup=""/>
+			</RenderObject>
+		</Draw>
+		<Volume>
+			<Cylinder IsHollow="true">
+				<Offset x="0" y="0" z="0"/>
+			</Cylinder>
+		</Volume>
+		<Velocity>
+			<Ortho>
+				<Position>
+					<x High="0" Low="0"/>
+					<y High="-2" Low="-2.5"/>
+					<z High="2.5" Low="2"/>
+				</Position>
+			</Ortho>
+		</Velocity>
+		<Event>
+			<Collision EventFX="FX_GDI_JuggernaughtShellDust" KillAfterEvent="true" OrientFXToTerrain="false" PerParticle="true">
+				<HeightOffset High="5" Low="5"/>
+			</Collision>
+		</Event>
+		<Update>
+			<RenderObject Rotation="ROTATE_Y">
+				<AngleZ High="30" Low="-30"/>
+				<AngularRateZ High="0.1" Low="0.1"/>
+				<AngularDamping High="1" Low="1"/>
+				<StartSize>
+					<x High="1" Low="1"/>
+					<y High="1" Low="1"/>
+					<z High="1" Low="1"/>
+				</StartSize>
+				<SizeRate>
+					<x High="0" Low="0"/>
+					<y High="0" Low="0"/>
+					<z High="0" Low="0"/>
+				</SizeRate>
+				<SizeDamping>
+					<x High="0" Low="0"/>
+					<y High="0" Low="0"/>
+					<z High="0" Low="0"/>
+				</SizeDamping>
+			</RenderObject>
+		</Update>
+	</FXParticleSystemTemplate>
 	<FXParticleSystemTemplate Drawable="EXTIBCLUSTER_FS" PerParticleAttachedSystem="" Priority="ALWAYS_RENDER" Shader="W3D_ALPHA" SortLevel="1" SystemLifetime="80" Type="DRAWABLE" id="TibCatEX">
 		<Lifetime High="30" Low="30"/>
 		<Size High="1" Low="1"/>
@@ -6167,6 +6241,59 @@
 				<AngleXY Type="CONSTANT" Low="0" High="0"/>
 				<AngularRateXY Type="CONSTANT" Low="0" High="0"/>
 				<AngularDampingXY Type="UNIFORM" Low="1" High="1"/>
+			</Default>
+		</Update>
+	</FXParticleSystemTemplate>
+	<FXParticleSystemTemplate ParticleTexture="FXShell01" PerParticleAttachedSystem="" Shader="ALPHA_TEST" SystemLifetime="1" Type="GPU_PARTICLE" id="GDIShellLeft">
+		<Lifetime High="40" Low="40"/>
+		<Size High="2" Low="2"/>
+		<BurstCount High="1" Low="1"/>
+		<Alphas>
+			<Alpha Frame="1" High="1" Low="1" RelativeAge="0"/>
+			<Alpha Frame="2" High="1" Low="1" RelativeAge="100"/>
+			<Alpha Frame="3" High="0" Low="0" RelativeAge="200"/>
+		</Alphas>
+		<Colors>
+			<Color Frame="1" RelativeAge="0">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+			<Color Frame="2" RelativeAge="100">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+			<Color Frame="3" RelativeAge="200">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+		</Colors>
+		<Physics>
+			<Default Gravity="-0.3">
+				<VelocityDamping High="1" Low="1"/>
+			</Default>
+		</Physics>
+		<Draw>
+			<Gpu SpeedMultiplier="1"/>
+		</Draw>
+		<Volume>
+			<Line>
+				<StartPoint x="-10" y="0" z="0"/>
+				<EndPoint x="-10" y="0" z="0"/>
+			</Line>
+		</Volume>
+		<Velocity>
+			<Ortho>
+				<Position>
+					<x High="0.5" Low="-0.5"/>
+					<y High="1.5" Low="0.5"/>
+					<z High="1.5" Low="0.5"/>
+				</Position>
+			</Ortho>
+		</Velocity>
+		<Event/>
+		<Update>
+			<Default>
+				<SizeRateDamping High="1" Low="1"/>
+				<AngleZ High="7" Low="-7"/>
+				<AngularRateZ High="2" Low="-2"/>
+				<AngularDampingXY High="1" Low="1"/>
 			</Default>
 		</Update>
 	</FXParticleSystemTemplate>
@@ -31720,10 +31847,69 @@
 			</Default>
 		</Update>
 	</FXParticleSystemTemplate>
+	<FXParticleSystemTemplate ParticleTexture="FXFractal01NRM" PerParticleAttachedSystem="" Priority="MEDIUM_OR_ABOVE" Shader="ALPHA" SortLevel="1" Type="GPU_PARTICLE" id="NUBlkHndStreamDistort">
+		<Lifetime High="50" Low="30"/>
+		<Size High="35" Low="25"/>
+		<BurstDelay High="2" Low="2"/>
+		<BurstCount High="1" Low="1"/>
+		<InitialDelay High="3" Low="3"/>
+		<Alphas>
+			<Alpha Frame="2" High="0.35" Low="0.35" RelativeAge="1"/>
+			<Alpha Frame="3" High="0.35" Low="0.35" RelativeAge="70"/>
+			<Alpha Frame="4" High="0" Low="0" RelativeAge="100"/>
+		</Alphas>
+		<Colors>
+			<Color Frame="1" RelativeAge="0">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+			<Color Frame="2" RelativeAge="10">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+			<Color Frame="3" RelativeAge="70">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+			<Color Frame="4" RelativeAge="100">
+				<Color b="1" g="1" r="1"/>
+			</Color>
+		</Colors>
+		<Physics>
+			<Default Gravity="-0.1">
+				<VelocityDamping High="0.96" Low="0.95"/>
+				<DriftVelocity x="0.1" y="0" z="0.1"/>
+			</Default>
+		</Physics>
+		<Draw>
+			<Gpu Shader="GPUParticleDistortion.fx" SpeedMultiplier="1"/>
+		</Draw>
+		<Volume>
+			<Spline>
+				<StartPoint x="0" y="0" z="0"/>
+				<EndPoint x="0" y="0" z="0"/>
+			</Spline>
+		</Volume>
+		<Velocity>
+			<Ortho>
+				<Position>
+					<x High="0.25" Low="-0.25"/>
+					<y High="3" Low="0.5"/>
+					<z High="0.25" Low="-0.25"/>
+				</Position>
+			</Ortho>
+		</Velocity>
+		<Event/>
+		<Update>
+			<Default>
+				<SizeRateDamping High="0.6" Low="0.5"/>
+				<AngleZ High="7" Low="0"/>
+				<AngularRateZ High="0.1" Low="-0.1"/>
+				<AngularDampingXY High="1" Low="1"/>
+			</Default>
+		</Update>
+	</FXParticleSystemTemplate>
 	<FXParticleSystemTemplate ParticleTexture="FXFireScroll" PerParticleAttachedSystem="" Priority="ALWAYS_RENDER" SortLevel="1" Type="GPU_PARTICLE" id="NUBlkHndStreamFlame">
 		<Lifetime High="25" Low="15"/>
 		<Size High="11" Low="7"/>
-		<BurstCount High="10" Low="10"/>
+		<BurstCount High="3" Low="3"/>
 		<Colors>
 			<Color Frame="2" RelativeAge="10">
 				<Color b="0.713726" g="0.713726" r="0.713726"/>
@@ -31771,7 +31957,7 @@
 		</Update>
 	</FXParticleSystemTemplate>
 	<FXParticleSystemTemplate ParticleTexture="FXLenzFlare01" PerParticleAttachedSystem="" Priority="HIGH_OR_ABOVE" SortLevel="1" Type="GPU_PARTICLE" id="NUBlkHndStreamGlow">
-		<Lifetime High="25" Low="15"/>
+		<Lifetime High="20" Low="15"/>
 		<Size High="35" Low="20"/>
 		<BurstDelay High="1" Low="1"/>
 		<BurstCount High="2" Low="2"/>
@@ -31818,72 +32004,6 @@
 				<AngularRateZ High="0.2" Low="-0.2"/>
 				<AngularDamping High="1" Low="1"/>
 				<AngularDampingXY High="1" Low="1"/>
-			</Default>
-		</Update>
-	</FXParticleSystemTemplate>
-	<FXParticleSystemTemplate id="NUBlkHndStreamDistort" Priority="MEDIUM_OR_ABOVE" Shader="ALPHA" Type="GPU_PARTICLE" ParticleTexture="FXFractal01NRM" Drawable="" SlaveSystem="" PerParticleAttachedSystem="" SystemLifetime="0" SortLevel="1" EmitterSound="" IsOneShot="false" IsGroundAligned="false" IsEmitAboveGroundOnly="false" IsParticleUpTowardsEmitter="false" UseMaximumHeight="false">
-		<SlavePosOffset x="0" y="0" z="0"/>
-		<Lifetime Type="UNIFORM" Low="30" High="50"/>
-		<Size Type="UNIFORM" Low="25" High="35"/>
-		<StartSizeRate Type="CONSTANT" Low="0" High="0"/>
-		<BurstDelay Type="UNIFORM" Low="2" High="2"/>
-		<BurstCount Type="UNIFORM" Low="3" High="3"/>
-		<InitialDelay Type="UNIFORM" Low="3" High="3"/>
-		<Alphas>
-			<Alpha Type="UNIFORM" Low="0.35" High="0.35" RelativeAge="1%" Frame="2"/>
-			<Alpha Type="UNIFORM" Low="0.35" High="0.35" RelativeAge="70%" Frame="3"/>
-			<Alpha Type="UNIFORM" Low="0" High="0" RelativeAge="100%" Frame="4"/>
-		</Alphas>
-		<Colors HouseColorSaturation="1" UseHouseColor="false">
-			<Color RelativeAge="0%" Frame="1">
-				<Color r="1" g="1" b="1"/>
-			</Color>
-			<Color RelativeAge="9.999999%" Frame="2">
-				<Color r="1" g="1" b="1"/>
-			</Color>
-			<Color RelativeAge="70%" Frame="3">
-				<Color r="1" g="1" b="1"/>
-			</Color>
-			<Color RelativeAge="100%" Frame="4">
-				<Color r="1" g="1" b="1"/>
-			</Color>
-			<ColorScale Type="CONSTANT" Low="0" High="0"/>
-		</Colors>
-		<Physics>
-			<Default Gravity="-0.1" Swirly="false" ParticlesAttachToBone="false">
-				<VelocityDamping Type="UNIFORM" Low="0.95" High="0.96"/>
-				<DriftVelocity x="0.1" y="0" z="0.1"/>
-			</Default>
-		</Physics>
-		<Draw>
-			<Gpu Shader="GPUParticleDistortion.fx" FramesPerRow="1" TotalFrames="1" DetailTexture="" SpeedMultiplier="1" GeometryType="SIMPLE_QUAD" SortParticles="false"/>
-		</Draw>
-		<Volume>
-			<Spline IsHollow="false">
-				<StartPoint x="0" y="0" z="0"/>
-				<EndPoint x="0" y="0" z="0"/>
-			</Spline>
-		</Volume>
-		<Velocity>
-			<Ortho>
-				<Position>
-					<x Type="UNIFORM" Low="-0.25" High="0.25"/>
-					<y Type="UNIFORM" Low="0.5" High="3"/>
-					<z Type="UNIFORM" Low="-0.25" High="0.25"/>
-				</Position>
-			</Ortho>
-		</Velocity>
-		<Event/>
-		<Update>
-			<Default Rotation="ROTATION_OFF">
-				<SizeRate Type="UNIFORM" Low="0" High="0.75"/>
-				<SizeRateDamping Type="UNIFORM" Low="0.5" High="0.6"/>
-				<AngleZ Type="UNIFORM" Low="0" High="7"/>
-				<AngularRateZ Type="UNIFORM" Low="-0.1" High="0.1"/>
-				<AngularDamping Type="CONSTANT" Low="0" High="0"/>
-				<AngleXY Type="CONSTANT" Low="0" High="0"/>
-				<AngularRateXY Type="CONSTANT" Low="0" High="0"/>
-				<AngularDampingXY Type="UNIFORM" Low="1" High="1"/>
 			</Default>
 		</Update>
 	</FXParticleSystemTemplate>
@@ -34660,37 +34780,31 @@
 			</Default>
 		</Update>
 	</FXParticleSystemTemplate>
-	<FXParticleSystemTemplate id="NUBlkHndPurifyingStrmFlame" Priority="ALWAYS_RENDER" Shader="ADDITIVE" Type="GPU_PARTICLE" ParticleTexture="FXFireScroll" Drawable="" SlaveSystem="" PerParticleAttachedSystem="" SystemLifetime="0" SortLevel="1" EmitterSound="" IsOneShot="false" IsGroundAligned="false" IsEmitAboveGroundOnly="false" IsParticleUpTowardsEmitter="false" UseMaximumHeight="false">
-		<SlavePosOffset x="0" y="0" z="0"/>
-		<Lifetime Type="UNIFORM" Low="15" High="25"/>
-		<Size Type="UNIFORM" Low="7" High="11"/>
-		<StartSizeRate Type="CONSTANT" Low="0" High="0"/>
-		<BurstDelay Type="CONSTANT" Low="0" High="0"/>
-		<BurstCount Type="UNIFORM" Low="10" High="10"/>
-		<InitialDelay Type="CONSTANT" Low="0" High="0"/>
-		<Colors HouseColorSaturation="1" UseHouseColor="false">
-			<Color RelativeAge="9.999999%" Frame="2">
+	<FXParticleSystemTemplate ParticleTexture="FXFireScroll" PerParticleAttachedSystem="" Priority="ALWAYS_RENDER" SortLevel="1" Type="GPU_PARTICLE" id="NUBlkHndPurifyingStrmFlame">
+		<Lifetime High="25" Low="15"/>
+		<Size High="11" Low="7"/>
+		<BurstCount High="3" Low="3"/>
+		<Colors>
+			<Color Frame="2" RelativeAge="10">
 				<Color r="0.384314" g="0.384314" b="1"/>
 			</Color>
-			<Color RelativeAge="75%" Frame="3">
+			<Color Frame="3" RelativeAge="75">
 				<Color r="0" g="0" b="1"/>
 			</Color>
-			<Color RelativeAge="100%" Frame="4">
+			<Color Frame="4" RelativeAge="100">
 				<Color r="0" g="0" b="0"/>
 			</Color>
-			<ColorScale Type="CONSTANT" Low="0" High="0"/>
 		</Colors>
 		<Physics>
-			<Default Gravity="0.02" Swirly="false" ParticlesAttachToBone="false">
-				<VelocityDamping Type="UNIFORM" Low="0.99" High="0.99"/>
-				<DriftVelocity x="0" y="0" z="0"/>
+			<Default Gravity="0.02">
+				<VelocityDamping High="0.99" Low="0.99"/>
 			</Default>
 		</Physics>
 		<Draw>
-			<Gpu Shader="GPUParticle.fx" FramesPerRow="4" TotalFrames="16" DetailTexture="" SpeedMultiplier="1" GeometryType="SIMPLE_QUAD" SortParticles="false"/>
+			<Gpu FramesPerRow="4" SpeedMultiplier="1" TotalFrames="16"/>
 		</Draw>
 		<Volume>
-			<Spline IsHollow="false">
+			<Spline>
 				<StartPoint x="0" y="0" z="0"/>
 				<EndPoint x="0" y="0" z="0"/>
 			</Spline>
@@ -34698,57 +34812,50 @@
 		<Velocity>
 			<Ortho>
 				<Position>
-					<x Type="UNIFORM" Low="-0.25" High="0.25"/>
-					<y Type="UNIFORM" Low="3" High="3"/>
-					<z Type="UNIFORM" Low="-0.25" High="0.25"/>
+					<x High="0.25" Low="-0.25"/>
+					<y High="3" Low="3"/>
+					<z High="0.25" Low="-0.25"/>
 				</Position>
 			</Ortho>
 		</Velocity>
 		<Event/>
 		<Update>
-			<Default Rotation="ROTATION_OFF">
-				<SizeRate Type="UNIFORM" Low="0.5" High="1.5"/>
-				<SizeRateDamping Type="UNIFORM" Low="0.99" High="0.99"/>
-				<AngleZ Type="UNIFORM" Low="-7" High="7"/>
-				<AngularRateZ Type="UNIFORM" Low="-0.2" High="0.2"/>
-				<AngularDamping Type="UNIFORM" Low="1" High="1"/>
-				<AngleXY Type="CONSTANT" Low="0" High="0"/>
-				<AngularRateXY Type="CONSTANT" Low="0" High="0"/>
-				<AngularDampingXY Type="UNIFORM" Low="1" High="1"/>
+			<Default>
+				<SizeRate High="1.5" Low="0.5"/>
+				<SizeRateDamping High="0.99" Low="0.99"/>
+				<AngleZ High="7" Low="-7"/>
+				<AngularRateZ High="0.2" Low="-0.2"/>
+				<AngularDamping High="1" Low="1"/>
+				<AngularDampingXY High="1" Low="1"/>
 			</Default>
 		</Update>
 	</FXParticleSystemTemplate>
-	<FXParticleSystemTemplate id="NUBlkHndPurifyingStrmGlow" Priority="HIGH_OR_ABOVE" Shader="ADDITIVE" Type="GPU_PARTICLE" ParticleTexture="FXLenzFlare01" Drawable="" SlaveSystem="" PerParticleAttachedSystem="" SystemLifetime="0" SortLevel="1" EmitterSound="" IsOneShot="false" IsGroundAligned="false" IsEmitAboveGroundOnly="false" IsParticleUpTowardsEmitter="false" UseMaximumHeight="false">
-		<SlavePosOffset x="0" y="0" z="0"/>
-		<Lifetime Type="UNIFORM" Low="15" High="25"/>
-		<Size Type="UNIFORM" Low="20" High="35"/>
-		<StartSizeRate Type="CONSTANT" Low="0" High="0"/>
-		<BurstDelay Type="UNIFORM" Low="1" High="1"/>
-		<BurstCount Type="UNIFORM" Low="2" High="2"/>
-		<InitialDelay Type="CONSTANT" Low="0" High="0"/>
-		<Colors HouseColorSaturation="1" UseHouseColor="false">
-			<Color RelativeAge="20%" Frame="2">
+	<FXParticleSystemTemplate ParticleTexture="FXLenzFlare01" PerParticleAttachedSystem="" Priority="HIGH_OR_ABOVE" SortLevel="1" Type="GPU_PARTICLE" id="NUBlkHndPurifyingStrmGlow">
+		<Lifetime High="20" Low="15"/>
+		<Size High="35" Low="20"/>
+		<BurstDelay High="1" Low="1"/>
+		<BurstCount High="2" Low="2"/>
+		<Colors>
+			<Color Frame="2" RelativeAge="10">
 				<Color r="0.552941" g="0.788235" b="0.980392"/>
 			</Color>
-			<Color RelativeAge="75%" Frame="3">
+			<Color Frame="3" RelativeAge="75">
 				<Color r="0" g="0" b="1"/>
 			</Color>
-			<Color RelativeAge="100%" Frame="4">
-				<Color r="0" g="0" b="0"/>
+			<Color Frame="4" RelativeAge="100">
+				<Color b="0" g="0" r="0"/>
 			</Color>
-			<ColorScale Type="CONSTANT" Low="0" High="0"/>
 		</Colors>
 		<Physics>
-			<Default Gravity="0.02" Swirly="false" ParticlesAttachToBone="false">
-				<VelocityDamping Type="UNIFORM" Low="0.99" High="0.99"/>
-				<DriftVelocity x="0" y="0" z="0"/>
+			<Default Gravity="0.02">
+				<VelocityDamping High="0.99" Low="0.99"/>
 			</Default>
 		</Physics>
 		<Draw>
-			<Gpu Shader="GPUParticle.fx" FramesPerRow="1" TotalFrames="1" DetailTexture="" SpeedMultiplier="1" GeometryType="SIMPLE_QUAD" SortParticles="false"/>
+			<Gpu SpeedMultiplier="1"/>
 		</Draw>
 		<Volume>
-			<Spline IsHollow="false">
+			<Spline>
 				<StartPoint x="0" y="0" z="0"/>
 				<EndPoint x="0" y="0" z="0"/>
 			</Spline>
@@ -34756,23 +34863,21 @@
 		<Velocity>
 			<Ortho>
 				<Position>
-					<x Type="UNIFORM" Low="-0.25" High="0.25"/>
-					<y Type="UNIFORM" Low="3" High="3"/>
-					<z Type="UNIFORM" Low="-0.25" High="0.25"/>
+					<x High="0.25" Low="-0.25"/>
+					<y High="3" Low="3"/>
+					<z High="0.25" Low="-0.25"/>
 				</Position>
 			</Ortho>
 		</Velocity>
 		<Event/>
 		<Update>
-			<Default Rotation="ROTATION_OFF">
-				<SizeRate Type="UNIFORM" Low="0.5" High="1.5"/>
-				<SizeRateDamping Type="UNIFORM" Low="0.99" High="0.99"/>
-				<AngleZ Type="UNIFORM" Low="-7" High="7"/>
-				<AngularRateZ Type="UNIFORM" Low="-0.2" High="0.2"/>
-				<AngularDamping Type="UNIFORM" Low="1" High="1"/>
-				<AngleXY Type="CONSTANT" Low="0" High="0"/>
-				<AngularRateXY Type="CONSTANT" Low="0" High="0"/>
-				<AngularDampingXY Type="UNIFORM" Low="1" High="1"/>
+			<Default>
+				<SizeRate High="1.5" Low="0.5"/>
+				<SizeRateDamping High="0.99" Low="0.99"/>
+				<AngleZ High="7" Low="-7"/>
+				<AngularRateZ High="0.2" Low="-0.2"/>
+				<AngularDamping High="1" Low="1"/>
+				<AngularDampingXY High="1" Low="1"/>
 			</Default>
 		</Update>
 	</FXParticleSystemTemplate>
