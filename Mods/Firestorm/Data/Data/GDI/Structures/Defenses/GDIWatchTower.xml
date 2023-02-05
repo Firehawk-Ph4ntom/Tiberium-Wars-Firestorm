@@ -1,12 +1,12 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWR_A_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWR_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRD2_SN_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRD3_SN_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRG_A_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRG_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRGD3_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWR_A_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWR_A_FS_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWR_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRD2_SN_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRD3_SN_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRG_D3_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIWatchTower\GBWATCHTWRG_FS.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
@@ -23,8 +23,11 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GBWATCHTWR_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_1">
 					<Model Name="GBWATCHTWR_A_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBWATCHTWR_A"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="GBWATCHTWRD3_SN_FS"/>
@@ -47,6 +50,10 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
 					<Script> CurDrawableHideSubObject("UG_BASE") CurDrawableHideSubObject("B_UG_BASE") </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_1">
+					<Animation AnimationName="GBWATCHTWR_A_FS" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBWatchTwr_A" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
@@ -60,29 +67,47 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawGun" OkToChangeModelColor="true" ExtraPublicBone="MuzzleFx01 MuzzleFx02 MuzzleFlash_01 MuzzleFlash_02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GBWATCHTWRG_FS"/>
+					<Model Name="GBWATCHTWRG"/>
 					<WeaponFireFXBone WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFx"/>
 					<WeaponMuzzleFlash WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFlash_"/>
 					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="MuzzleFx"/>
 					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name="GBWATCHTWRG_A_FS"/>
+					<Model Name="GBWATCHTWRG_A"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Model Name="GBWATCHTWRG_D3_FS"/>
+					<Texture Original="GBWatchTwr" New="GBWatchTowerD"/>
+					<Texture Original="GUWolverine" New="GUWolverine_D"/>
+					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="GBWATCHTWRGD3_FS"/>
+					<Model Name="GBWATCHTWRGD3"/>
 					<Texture Original="GBWatchTwr" New="GBWatchTowerD"/>
-					<Texture Original="GUupgrades" New="GUupgradesD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+					<Model Name="GBWATCHTWRG"/>
+					<Texture Original="GBWatchTwr" New="GBWatchTowerD"/>
+					<Texture Original="GUWolverine" New="GUWolverine_D"/>
+					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBWATCHTWRG"/>
+					<Texture Original="GBWatchTwr" New="GBWatchTowerD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
 					<Model Name="GBWATCHTWRG_FS"/>
 					<Texture Original="GBWatchTwr" New="GBWatchTowerD"/>
-					<Texture Original="GUupgrades" New="GUupgradesD"/>
+					<Texture Original="GUWolverine" New="GUWolverine_D"/>
+					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GBWATCHTWRG_FS"/>
+					<Model Name="GBWATCHTWRG"/>
 					<Texture Original="GBWatchTwr" New="GBWatchTowerD"/>
-					<Texture Original="GUupgrades" New="GUupgradesD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="GBWATCHTWRG_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
 					<Script> CurDrawableHideSubObject("MuzzleFlash_01") CurDrawableHideSubObject("MuzzleFlash_02") CurDrawableHideSubObject("B_UG_TURRET") CurDrawableHideSubObject("UG_TURRET") </Script>
@@ -103,22 +128,22 @@
 					<Model Name=""/>
 				</ModelConditionState>
 			</SpotlightDraw>
-			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50" MaxLength="50" Width="5" MinSpeed="30" MaxSpeed="40" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitLargeGDI" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="35" MaxLength="35" Width="5" MinSpeed="30" MaxSpeed="40" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.4" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitLargeGDI" UseAdditiveBlending="true">
 				<HeadColor r="1" g="1" b="1" a="1"/>
 				<TailColor r="0.0" g="0.0" b="0.0"/>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50" MaxLength="50" Width="5" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.9" MaxTracersPerFrame="0.9" FrameLifeTime="35" Texture="FXTracerHeroic" TracerHitFx="FX_BulletHitLargeGDIHeroic" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="35" MaxLength="35" Width="5" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerHeroic" TracerHitFx="FX_BulletHitLargeGDIHeroic" UseAdditiveBlending="true">
 				<HeadColor r="1" g="1" b="1" a="1"/>
 				<TailColor r="0.0" g="0.0" b="0.0"/>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.4" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1" g="1" b="1" a="1"/>
 				<TailColor r="0.0" g="0.0" b="0.0"/>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.9" MaxTracersPerFrame="0.9" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1" g="1" b="1" a="1"/>
 				<TailColor r="0.0" g="0.0" b="0.0"/>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
@@ -165,7 +190,10 @@
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="UG_BASE B_UG_BASE UG_TURRET B_UG_TURRET">
+			<ModelConditionUpgrade id="ModuleTag_HEAmmoModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="UG_BASE">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</SubObjectsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">

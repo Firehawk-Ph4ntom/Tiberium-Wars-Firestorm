@@ -184,10 +184,7 @@ function OnGDIBattleBaseCreated(self)
 end
 
 function OnGDIWatchTowerCreated(self)
-	ObjectHideSubObjectPermanently( self, "B_UG_BASE", true )
 	ObjectHideSubObjectPermanently( self, "UG_BASE", true )
-	ObjectHideSubObjectPermanently( self, "B_UG_TURRET", true )
-	ObjectHideSubObjectPermanently( self, "UG_TURRET", true )
 end
 
 function OnGDIMammothMechHuskCreated(self)
