@@ -14,7 +14,138 @@
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding5.xml" type="instance"/>
 		<!-- For Nod Stronghold Building 6 -->
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding6.xml" type="instance"/>
+		<!-- For MCV Deployment Beacons -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Props\GDIDeploymentPodBeacon.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Props\NODDeploymentPodBeacon.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienDeploymentMeteorBeacon.xml" type="instance"/>
 	</Includes>
+
+	<ObjectCreationList
+		id="OCL_SummonGDIMCV">
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="LIKE_EXISTING ON_GROUND_ALIGNED">
+			<CreateObject>GDIMCV</CreateObject>
+		</CreateObject>
+	</ObjectCreationList>
+
+	<ObjectCreationList
+		id="OCL_SummonNODMCV">
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="LIKE_EXISTING ON_GROUND_ALIGNED">
+			<CreateObject>NODMCV</CreateObject>
+		</CreateObject>
+	</ObjectCreationList>
+
+	<ObjectCreationList
+		id="OCL_SummonAlienMCV">
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="LIKE_EXISTING ON_GROUND_ALIGNED">
+			<CreateObject>AlienMCV</CreateObject>
+		</CreateObject>
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="RELATIVE_ANGLE"
+			MinLifetime="2s"
+			MaxLifetime="3s"
+			DestinationPlayer=""
+			DispositionAngle="120d">
+			<CreateObject>OverlordsWrathInnerTiberiumRock</CreateObject>
+		</CreateObject>
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="RANDOM_FORCE INHERIT_VELOCITY FADE_AND_DIE_ORNAMENT"
+			MinForceMagnitude="5"
+			MaxForceMagnitude="10"
+			MinLifetime="1s"
+			MaxLifetime="3s"
+			DispositionIntensity="1"
+			DestinationPlayer=""
+			MinForcePitch="28d"
+			MaxForcePitch="6d">
+			<Offset
+				x="-1.059"
+				y="34.482"
+				z="59.351"/>
+			<CreateObject>OverlordsWrathOutsideRock01</CreateObject>
+		</CreateObject>
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="RANDOM_FORCE RELATIVE_ANGLE"
+			MinForceMagnitude="4"
+			MaxForceMagnitude="7"
+			MinLifetime="1s"
+			MaxLifetime="3s"
+			DispositionIntensity="5"
+			DestinationPlayer=""
+			MinForcePitch="28d"
+			MaxForcePitch="6d">
+			<Offset
+				x="-3.284"
+				y="-15.349"
+				z="85.785"/>
+			<CreateObject>OverlordsWrathOutsideRock02</CreateObject>
+		</CreateObject>
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="RANDOM_FORCE RELATIVE_ANGLE"
+			MinForceMagnitude="8"
+			MaxForceMagnitude="15"
+			MinLifetime="1s"
+			MaxLifetime="3s"
+			DispositionIntensity="5"
+			DestinationPlayer=""
+			MinForcePitch="28d"
+			MaxForcePitch="6d">
+			<Offset
+				x="-15.458"
+				y="11.314"
+				z="16.144"/>
+			<CreateObject>OverlordsWrathOutsideRock03</CreateObject>
+		</CreateObject>
+	</ObjectCreationList>
+
+	<GameObject
+		id="GDIDeploymentPodBeacon"
+		inheritFrom="GDIDeploymentPodBeacon">
+		<Behaviors>
+			<FireWeaponUpdate
+				id="ModuleTag_FireWeaponUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="NODDeploymentPodBeacon"
+		inheritFrom="NODDeploymentPodBeacon">
+		<Behaviors>
+			<FireWeaponUpdate
+				id="ModuleTag_FireWeaponUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="AlienDeploymentMeteorBeacon"
+		inheritFrom="AlienDeploymentMeteorBeacon">
+		<Behaviors>
+			<FireWeaponUpdate
+				id="ModuleTag_FireWeaponUpdate"
+				xai:joinAction="Replace">
+				<FireWeaponNugget
+					WeaponName="AlienDeploymentMeteorSmallRockSpawner"
+					FireDelay="0.7s"
+					OneShot="true"/>
+				<FireWeaponNugget
+					WeaponName="AlienDeploymentMeteorSmallRockSpawner"
+					FireDelay="1.2s"
+					OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+	</GameObject>
+
 
 	<!-- Removed IGNORE_FOR_VICTORY and NEUTRAL_TECH -->
 	<GameObject
