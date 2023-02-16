@@ -79,6 +79,18 @@
 					<Animation AnimationName="GUHRVSTR_PREP" AnimationMode="ONCE" AnimNickName="PREP" AnimationBlendTime="15"/>
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_32">
+					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP" AnimNickName="HARVEST"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableShowSubObject("Tib") CurDrawableHideSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<ParticleSysBone BoneName="FXClawL" FXParticleSystemTemplate="HarvesterRocksRed" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXClawR" FXParticleSystemTemplate="HarvesterRocksRed" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_31">
+					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP" AnimNickName="HARVEST"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableShowSubObject("Tib") CurDrawableHideSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<ParticleSysBone BoneName="FXClawL" FXParticleSystemTemplate="HarvesterRocksBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXClawR" FXParticleSystemTemplate="HarvesterRocksBlue" FollowBone="true"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION">
 					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP" AnimNickName="HARVEST"/>
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSTURNLEFT") CurDrawableHideSubObject("TREADSTURNRIGHT") CurDrawableShowSubObject("Tib") CurDrawableHideSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
@@ -199,9 +211,9 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
 			</FXListBehavior>
-			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking or harvesting -->
+			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking -->
 			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Replace" UpdatePeriod="0.1s">
-				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" ForbiddenStatus="DOCKING HARVESTING"/>
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" ForbiddenStatus="DOCKING" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
 				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
 			</InvisibilityUpdate>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
