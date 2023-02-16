@@ -73,6 +73,20 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToMoving">
 					<Animation AnimationName="AUHrvstr_ACLA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_32" StateName="STATE_bored">
+					<Animation AnimNickName="HARVEST" AnimationName="AUHrvstr_IDLA" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvestRed" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvestRed2" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvestDustRed" FollowBone="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_MovingToIdle") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_31" StateName="STATE_bored">
+					<Animation AnimNickName="HARVEST" AnimationName="AUHrvstr_IDLA" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvestBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvestBlue2" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvestDustBlue" FollowBone="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_MovingToIdle") end; </Script>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION" StateName="STATE_bored">
 					<Animation AnimNickName="HARVEST" AnimationName="AUHrvstr_IDLA" AnimationMode="LOOP"/>
 					<ParticleSysBone BoneName="B_Main" FXParticleSystemTemplate="AlienHarvest" FollowBone="true"/>
@@ -134,9 +148,9 @@
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="60.0" SurveyDelayFrames="15" HealingPercentPerSecond="1%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
-			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking or harvesting -->
+			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking -->
 			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Replace" UpdatePeriod="0.1s">
-				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" ForbiddenStatus="DOCKING HARVESTING"/>
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" ForbiddenStatus="DOCKING" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
 				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
 			</InvisibilityUpdate>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_3">
