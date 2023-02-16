@@ -122,24 +122,41 @@
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="60" SizeY="60" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
-				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
-				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VScrollRate="1.5" Texture2_VScrollRate="-0.25" Texture2_NumFrames="8" Texture2_FrameRate="35" LaserWidth="15" LaserStateID="1" WeaponSlotID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXEMP</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLightning</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
-			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
-				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
-				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VScrollRate="1.5" Texture2_VScrollRate="-0.25" Texture2_NumFrames="8" Texture2_FrameRate="35" LaserWidth="15" LaserStateID="1" WeaponSlotID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXEMPHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLightning</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
-			</TracerModelDraw>
+			</LaserDraw>
 		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStormRiderPlasmaAutocannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStormRiderProtonCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStormRiderLightningStormWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<ProductionUpdate id="ModuleTag_Production" MaxQueueEntries="1"/>
 			<ReturnToProducerSpecialPower id="ModuleTag_ReturnToProducerSpecialPower" SpecialPowerTemplate="SpecialPowerReturnToProducer"/>
 			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
