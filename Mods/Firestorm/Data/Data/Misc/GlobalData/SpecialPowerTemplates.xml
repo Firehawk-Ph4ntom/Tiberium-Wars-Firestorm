@@ -758,17 +758,26 @@
 
 	<SpecialPowerTemplate
 		id="SpecialPower_CloakingField"
-		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC NO_FORBIDDEN_OBJECTS IGNORE_MAP_EXTENTS"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
 		ReloadTime="120s"
 		TargetType="LOCATION"
 		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		DisallowedTargetObjectStatus="IN_STASIS OUT_OF_PHASE"
 		RadiusCursorRadius="100"
-		Money="-3500"
-		ForbiddenObjectRange="100">
-		<ForbiddenObjectFilter
-			Rule="NONE">
-			<IncludeThing>AlienCrystalShield</IncludeThing>
-		</ForbiddenObjectFilter>
+		Money="-3500">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ALLIES"
+			Include="VEHICLE"
+			Exclude="HUGE_VEHICLE">
+			<!-- NOD Cyborgs -->
+			<IncludeThing>NODCyborgInfantry</IncludeThing>
+			<IncludeThing>NODCyborgInfantrySquad</IncludeThing>
+			<IncludeThing>NODAscended</IncludeThing>
+			<IncludeThing>NODAscendedSquad</IncludeThing>
+			<IncludeThing>NODReaper</IncludeThing>
+			<IncludeThing>NODCyborgCommando</IncludeThing>
+		</ObjectFilter>
 	</SpecialPowerTemplate>
 
 	<SpecialPowerTemplate
@@ -1072,7 +1081,7 @@
 	<SpecialPowerTemplate
 		id="NodRageGenerator"
 		TargetType="NONE"
-		ReloadTime="60s"
+		ReloadTime="90s"
 		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="IninitiateRageGenerator"/>
 
 	<SpecialPowerTemplate

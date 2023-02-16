@@ -8875,8 +8875,16 @@
 				DamageType="GUN"
 				DamageFXType="GDI_RIFLE">
 				<SpecialObjectFilter
-					Include="INFANTRY"
-					Exclude="VEHICLE AIRCRAFT" />
+					Rule="NONE"
+					Include="INFANTRY">
+					<!-- NOD Cyborgs -->
+					<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+					<ExcludeThing>NODCyborgInfantrySquad</ExcludeThing>
+					<ExcludeThing>NODAscended</ExcludeThing>
+					<ExcludeThing>NODAscendedSquad</ExcludeThing>
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+				</SpecialObjectFilter>
 			</DamageNugget>
 		</Nuggets>
 	</WeaponTemplate>
@@ -17250,8 +17258,8 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="AlienStormRiderPlasmaAutocannon"
-		Name="AlienStormRiderPlasmaAutocannon"
+		id="AlienStormRiderProtonCannon"
+		Name="AlienStormRiderProtonCannon"
 		AttackRange="350"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="400"
@@ -17602,7 +17610,29 @@
 				PartitionFilterTestType="CIRCLE"
 				ForbiddenTargetObjectStatus="IN_STASIS AIRBORNE_TARGET"
 				AttributeModifierName="AttributeModifier_TemporalWormhole"
-				Radius="125"/>
+				Radius="125">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="TIBERIUM_FIELD">
+					<!-- Excluding Resource Centers, Ion Storms, and Tiberium Fields -->
+					<!-- Neutral Structures -->
+					<ExcludeThing>TiberiumSilo</ExcludeThing>
+					<ExcludeThing>TiberiumSpike</ExcludeThing>
+					<!-- GDI Structures -->
+					<ExcludeThing>GDITiberiumProcessingPlant</ExcludeThing>
+					<!-- NOD Structures -->
+					<ExcludeThing>NODTiberiumLiquidationFacility</ExcludeThing>
+					<!-- Alien Structures -->
+					<ExcludeThing>AlienSporePod</ExcludeThing>
+					<!-- Ion Storms -->
+					<ExcludeThing>IonStorm</ExcludeThing>
+					<ExcludeThing>IonStormBuilding</ExcludeThing>
+					<ExcludeThing>IonStormTemporary</ExcludeThing>
+					<ExcludeThing>IonRetributionIonStorm</ExcludeThing>
+					<ExcludeThing>PlanetaryAssaultCarrierIonStorm</ExcludeThing>
+					<ExcludeThing>TiberiumFieldIonStorm</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
 			<TintObjectsNugget
 				Radius="125"
 				PreColorTime="0s"
@@ -17630,8 +17660,9 @@
 				Radius="265">
 				<SpecialObjectFilter
 					Rule="ANY"
-					Include="STRUCTURE INFANTRY AIRCRAFT MINE VEHICLE TIBERIUM"
-					Relationship="ALLIES">
+					Relationship="ALLIES"
+					Include="STRUCTURE INFANTRY AIRCRAFT MINE VEHICLE"
+					Exclude="TIBERIUM TIBERIUM_FIELD">
 					<!-- Protecting allied Ion Storms -->
 					<IncludeThing>IonStorm</IncludeThing>
 					<IncludeThing>IonStormBuilding</IncludeThing>
@@ -17639,12 +17670,6 @@
 					<IncludeThing>IonRetributionIonStorm</IncludeThing>
 					<IncludeThing>PlanetaryAssaultCarrierIonStorm</IncludeThing>
 					<IncludeThing>TiberiumFieldIonStorm</IncludeThing>
-					<!-- Excluding Tib Fields -->
-					<ExcludeThing>TiberiumFieldSeeded</ExcludeThing>
-					<ExcludeThing>TiberiumFieldSeededBlue</ExcludeThing>
-					<ExcludeThing>TiberiumFieldSeededRed</ExcludeThing>
-					<ExcludeThing>AlienTiberiumFieldSeeded</ExcludeThing>
-					<ExcludeThing>AlienTiberiumFieldSeededBlue</ExcludeThing>
 				</SpecialObjectFilter>
 			</AttributeModifierNugget>
 			<TintObjectsNugget
@@ -22424,7 +22449,8 @@
 				ParalyzeType="USER_PARALYZE">
 				<SpecialObjectFilter
 					Rule="ANY"
-					Include="VEHICLE INFANTRY STRUCTURE AIRCRAFT MINE">
+					Include="VEHICLE INFANTRY STRUCTURE AIRCRAFT TIBERIUM MINE"
+					Exclude="TIBERIUM_FIELD">
 					<!-- Paralyzing Ion Storms -->
 					<IncludeThing>IonStorm</IncludeThing>
 					<IncludeThing>IonStormBuilding</IncludeThing>
@@ -22432,12 +22458,6 @@
 					<IncludeThing>IonRetributionIonStorm</IncludeThing>
 					<IncludeThing>PlanetaryAssaultCarrierIonStorm</IncludeThing>
 					<IncludeThing>TiberiumFieldIonStorm</IncludeThing>
-					<!-- Excluding Tib Fields -->
-					<ExcludeThing>TiberiumFieldSeeded</ExcludeThing>
-					<ExcludeThing>TiberiumFieldSeededBlue</ExcludeThing>
-					<ExcludeThing>TiberiumFieldSeededRed</ExcludeThing>
-					<ExcludeThing>AlienTiberiumFieldSeeded</ExcludeThing>
-					<ExcludeThing>AlienTiberiumFieldSeededBlue</ExcludeThing>
 				</SpecialObjectFilter>
 			</ParalyzeNugget>
 			<AttributeModifierNugget
@@ -22446,7 +22466,8 @@
 				AttributeModifierName="AttributeModifier_AlienCrystalShield">
 				<SpecialObjectFilter
 					Rule="ANY"
-					Include="VEHICLE INFANTRY STRUCTURE AIRCRAFT TIBERIUM MINE">
+					Include="VEHICLE INFANTRY STRUCTURE AIRCRAFT TIBERIUM MINE"
+					Exclude="TIBERIUM_FIELD">
 					<!-- Paralyzing Ion Storms -->
 					<IncludeThing>IonStorm</IncludeThing>
 					<IncludeThing>IonStormBuilding</IncludeThing>
@@ -22454,12 +22475,6 @@
 					<IncludeThing>IonRetributionIonStorm</IncludeThing>
 					<IncludeThing>PlanetaryAssaultCarrierIonStorm</IncludeThing>
 					<IncludeThing>TiberiumFieldIonStorm</IncludeThing>
-					<!-- Excluding Tib Fields -->
-					<ExcludeThing>TiberiumFieldSeeded</ExcludeThing>
-					<ExcludeThing>TiberiumFieldSeededBlue</ExcludeThing>
-					<ExcludeThing>TiberiumFieldSeededRed</ExcludeThing>
-					<ExcludeThing>AlienTiberiumFieldSeeded</ExcludeThing>
-					<ExcludeThing>AlienTiberiumFieldSeededBlue</ExcludeThing>
 				</SpecialObjectFilter>
 			</AttributeModifierNugget>
 			<TintObjectsNugget
