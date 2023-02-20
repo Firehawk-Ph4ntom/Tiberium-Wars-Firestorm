@@ -164,11 +164,12 @@
 					<FXEvent Frame="23" Effect="FX_NODAvatarFootprint_L" Bone="ac_lftoe" FireWhenSkipped="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Built" then CurDrawableSetTransitionAnimState("TRANS_built") end </Script>
 					<Animation AnimationName="NUL_VEHICLEAC_RUNA" AnimationMode="LOOP" Distance="60" AnimationBlendTime="15"/>
 					<FXEvent Frame="1" Effect="FX_NODAvatarFootprint_L" Bone="ac_lftoe" FireWhenSkipped="true"/>
 					<FXEvent Frame="23" Effect="FX_NODAvatarFootprint_R" Bone="ac_rftoe" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WEAPONSLOTID_01">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A">
 					<Animation AnimationName="NUL_VEHICLEAC_ATKA" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_Selected">
@@ -186,6 +187,9 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
 					<Animation AnimationName="NUL_VEHICLEAC_DSEL" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
+					<Animation AnimationName="NUL_VEHICLEAC_RUNA" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="ac_torso">
