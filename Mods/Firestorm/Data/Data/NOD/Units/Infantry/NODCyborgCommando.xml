@@ -23,7 +23,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCYBCOMM_DIEB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCYBCOMM_EMPA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCYBCOMM_SKN.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCYBCOMM_UPAK.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCYBCOMM_WLKA.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
@@ -46,8 +45,6 @@
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON_01"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON_01"/>
 					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON_01"/>
-					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON_01"/>
-					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON_01"/>
 					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON_01"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
@@ -79,7 +76,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Animation AnimationName="GUGAR_ZONE" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
 					<Animation AnimationName="NUCYBCOMM_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5" AnimationPriority="80"/>
 					<Animation AnimationName="NUCYBCOMM_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="20"/>
 					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.6" AnimationSpeedFactorMax="0.75" AnimationPriority="10"/>
@@ -99,27 +96,20 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
 					<Animation AnimationName="NUCYBCOMM_WLKA" AnimationMode="LOOP" Distance="45" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="NUCYBCOMM_WLKA" AnimationMode="LOOP" Distance="45" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
 					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_C" FrameForPristineBonePositions="5">
 					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
-					<Animation AnimationName="NUCYBCOMM_WLKA" AnimationMode="LOOP" Distance="45" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_SelectedPose">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
 					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
-					<Animation AnimationName="NUCYBCOMM_UPAK" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE">
 					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING">
-					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="LOOP" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="50"/>
-					<Animation AnimationName="NUCYBCOMM_BIFA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationPriority="50"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>

@@ -30,8 +30,10 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="rocketlaunch01 rocketlaunch02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUVEHICLEH_SKN"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="rocketlaunch"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="rocketlaunch"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="rocketlaunch01"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="rocketlaunch01"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="rocketlaunch02"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="rocketlaunch02"/>
 					<Turret TurretNameKey="b_turret" TurretPitch="b_pitch" TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
@@ -153,9 +155,11 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1">
-					<Weapon Template="GDISandstormMissileLauncher"/>
-					<Weapon Template="GDISandstormThermoBaricMissileLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
+				<WeaponSlotTurret ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISandstormMissileLauncher"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISandstormThermoBaricMissileLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GDISandstormMissileLauncher"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GDISandstormThermoBaricMissileLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="400" TurretPitchRate="100" MinimumPitch="-10d" PitchHeight="99%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
 					</TurretSettings>
