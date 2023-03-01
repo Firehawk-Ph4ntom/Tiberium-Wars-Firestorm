@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<GameObject
-		id="EMPField_Air"
+		id="EMPField"
 		Side="Neutral"
 		EditorSorting="SYSTEM"
 		IsTrainable="false"
 		KindOf="INERT PRELOAD UNATTACKABLE NOT_AUTOACQUIRABLE"
-		EditorName="EMPField_Air">
-		<DisplayName>EMPField_Air</DisplayName>
+		EditorName="EMPField">
+		<DisplayName>EMPField</DisplayName>
 		<ArmorSet
 			Armor="NoArmor" />
 		<Draws>
@@ -22,6 +22,14 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<FXListBehavior
+				id="ModuleTag_FXList">
+				<DieMuxData
+					DeathTypes="ALL" />
+				<Event
+					Index="onCreate"
+					FX="FX_EMPExplosion" />
+			</FXListBehavior>
 			<DestroyDie
 				id="ModuleTag_Die">
 				<DieMuxData
@@ -29,15 +37,8 @@
 			</DestroyDie>
 			<LifetimeUpdate
 				id="ModuleTag_LifetimeUpdate"
-				MinLifetime="1s"
-				MaxLifetime="1s" />
-			<FireWeaponUpdate
-				id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget
-					WeaponName="EMPControlCenterWeapon2"
-					FireDelay="0s"
-					OneShot="true"/>
-			</FireWeaponUpdate>
+				MinLifetime="10s"
+				MaxLifetime="10s" />
 		</Behaviors>
 		<Body>
 			<ActiveBody
