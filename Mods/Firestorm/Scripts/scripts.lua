@@ -187,13 +187,6 @@ function OnGDIWatchTowerCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_BASE", true )
 end
 
-function OnGDIMammothMechHuskCreated(self)
-	ObjectHideSubObjectPermanently( self, "FLASHINGLIGHTL", true )
-	ObjectHideSubObjectPermanently( self, "FLASHINGLIGHTR", true )
-	ObjectHideSubObjectPermanently( self, "LIGHTL", true )
-	ObjectHideSubObjectPermanently( self, "LIGHTR", true )
-end
-
 function onBuildingPowerOutage(self)
 	ObjectHideSubObjectPermanently( self, "TV", true )
 	ObjectHideSubObjectPermanently( self, "LINKS", true )
