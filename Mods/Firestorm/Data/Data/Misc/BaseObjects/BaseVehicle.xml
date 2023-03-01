@@ -2,14 +2,14 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<GameObject
 		id="BaseVehicle"
-		CommandPoints="100"
 		EditorSorting="UNIT"
-		TransportSlotCount="1"
-		RadarPriority="UNIT"
+		CommandPoints="100"
 		ProductionQueueType="VEHICLE"
-		BuildCompletion="APPEARS_AT_RALLY_POINT"
 		UnitCategory="VEHICLE"
-		ShockwaveResistance="100">
+		RadarPriority="UNIT"
+		BuildCompletion="APPEARS_AT_RALLY_POINT"
+		ShockwaveResistance="100"
+		TransportSlotCount="1">
 
 		<Behaviors>
 			<AttributeModifierPoolUpdate 
@@ -21,7 +21,8 @@
 				InitiallyActive="true"
 				DeathWeapon="CatalystInfantryDeathWeapon"
 				ContinueToBezierDestination="false">
-				<DieMuxData DeathTypes="CATALYST"/>
+				<DieMuxData
+					DeathTypes="CATALYST"/>
 			</FireWeaponWhenDead>
 			<!-- Heroic level units auto healing -->
 			<AutoHealBehavior
@@ -90,11 +91,14 @@
 			</StealthUpgrade>
 			<Physics
 				id="ModuleTag_Physics"/>
+			<ProductionUpdate
+				id="ModuleTag_Production"
+				GiveNoXP="true"/>
 		</Behaviors>
 
 		<Body>
 			<ActiveBody
-				id="DefaultBody"/>
+				id="ModuleTag_Body"/>
 		</Body>
 
 		<EvaEvents
