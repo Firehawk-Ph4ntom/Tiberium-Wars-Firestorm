@@ -91,13 +91,14 @@
 					<Animation AnimationName="NUCYBCOMM_EMPA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMING_OUT_OF_FACTORY" StateName="STATE_built">
-					<Animation AnimationName="NUCYBCOMM_BLDA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.8"/>
+					<Animation AnimationName="NUCYBCOMM_BLDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
 					<Animation AnimationName="NUCYBCOMM_WLKA" AnimationMode="LOOP" Distance="45" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
 					<Animation AnimationName="NUCYBCOMM_WLKA" AnimationMode="LOOP" Distance="45" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
 					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="ONCE"/>
@@ -110,6 +111,9 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE">
 					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
+					<Animation AnimationName="NUCYBCOMM_BLDA" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
