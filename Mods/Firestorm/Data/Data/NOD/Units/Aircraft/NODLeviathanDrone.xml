@@ -13,8 +13,8 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" MinLODRequired="LOW" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUL_AIRCRAFTM_DRONE"/>
-					<WeaponFireFXBone BoneName="FXWeapon"/>
-					<WeaponLaunchBone BoneName="FXWeapon"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name=""/>
@@ -110,8 +110,8 @@
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
-					<Weapon Template="LeviathanDroneAntiAirLaser"/>
-					<Weapon Template="LeviathanDronePurifyingAntiAirLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="LeviathanDroneAntiAirLaser"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="LeviathanDronePurifyingAntiAirLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
@@ -125,7 +125,7 @@
 				<Event FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
 			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
-			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" DieOnMastersDeath="true"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true"/>
 			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -147,7 +147,7 @@
 		</Behaviors>
 		<AI>
 			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" SpawnOffsetRadius="160" CirclesForAttack="true">
-				<UnitAITargetChooserData/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
 				<LockonInfo/>
 			</JetAIUpdate>
 		</AI>

@@ -14,6 +14,7 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="BONEGARRISON01" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="NUCarryAll_FP"/>
@@ -125,9 +126,12 @@
 		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
-				</WeaponSlotHardpoint>
+					<TurretSettings TurretTurnRate="360">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
 				<PassengerFilter Rule="ANY" Include="INFANTRY"/>
@@ -155,7 +159,7 @@
 		</Behaviors>
 		<AI>
 			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false" DelayAFterLoadingOrUnloading="1s">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0"/>
 			</TransportHelicopterAIUpdate>
 		</AI>
 		<Body>

@@ -14,6 +14,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUDROPSHIP_SKN"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name=""/>
@@ -125,9 +126,12 @@
 		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
-				</WeaponSlotHardpoint>
+					<TurretSettings TurretTurnRate="360">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<FlammableUpdate id="ModuleTag_Flammable" AflameDuration="5s" AflameDamageAmount="3" AflameDamageDelay=".5s"/>
@@ -156,7 +160,7 @@
 		</Behaviors>
 		<AI>
 			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false" DelayAFterLoadingOrUnloading="1s">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0"/>
 			</TransportHelicopterAIUpdate>
 		</AI>
 		<Body>

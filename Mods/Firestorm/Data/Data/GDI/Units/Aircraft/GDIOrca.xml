@@ -24,8 +24,8 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="FX_Lfan FX_Rfan Msl_pos01 Msl_pos02 Msl_pos03 Msl_pos04 Msl_pos05 Msl_pos06" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" Skeleton="GUOrca_SKL">
 					<Model Name="GUORCA_SKN_FS"/>
-					<WeaponLaunchBone WeaponSlotID="1" BoneName="Msl_pos"/>
-					<Turret TurretNameKey="MISSILE01" TurretPitch="MISSILE01" TurretID="1"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="Msl_pos"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="Msl_pos"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="GUORCA_FP"/>
@@ -146,13 +146,10 @@
 		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1">
-					<Weapon Template="GDIOrcaRocketWeapon"/>
-					<Weapon Template="GDIOrcaThermoBaricRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="180" TurretPitchRate="180" MinimumPitch="-10d" PitchHeight="90%" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" MaxDeflectionAntiClockwise="20d" MaxDeflectionClockwise="20d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIOrcaRocketWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIOrcaThermoBaricRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<FlammableUpdate id="ModuleTag_Flammable" AflameDuration="5s" AflameDamageAmount="3" AflameDamageDelay=".5s"/>
 			<OCLSpecialPower id="ModuleTag_OCL" SpecialPowerTemplate="SpecialPowerPulseScan" OCL="OCL_GDIOrcaPulseScanPing" CreateLocation="CREATE_AT_LOCATION"/>
@@ -205,7 +202,7 @@
 		</Behaviors>
 		<AI>
 			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true">
-				<UnitAITargetChooserData SympathyRange="100.0" CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData SympathyRange="100.0"/>
 				<LockonInfo/>
 			</JetAIUpdate>
 		</AI>

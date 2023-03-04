@@ -29,13 +29,13 @@
 			<TankDraw id="ModuleTag_Draw" InitialRecoilSpeed="8.0" MaxRecoilDistance="4.0" RecoilDamping="2.0" RecoilSettleSpeed="2.0" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR" TrackMarks="EXTnkTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="GUPREDTANKRCKTPD_SKN"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
-					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="BARREL"/>
-					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
-					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MISSILE01"/>
-					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="MISSILE01"/>
-					<Turret TurretNameKey="Turret" TurretPitch="Barrel" TurretID="1"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MISSILE01"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MISSILE01"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="RECOILER"/>
+					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<Turret TurretNameKey="Turret" TurretPitch="Barrel" TurretID="2"/>
 				</ModelConditionState>
 				<!-- Adaptive Armor RUBBLE model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
@@ -417,19 +417,19 @@
 			</StatusBitsUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorMissileLauncher"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorThermoBaricMissileLauncher" ObjectStatus="WEAPON_UPGRADED_03"/>
+					<TurretSettings TurretTurnRate="200">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankRailgun" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankRailgunAccelerated" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankSonicCannon" ObjectStatus="RIDER1"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-15d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotHierarchicalTurret>
-				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorMissileLauncher"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorThermoBaricMissileLauncher" ObjectStatus="WEAPON_UPGRADED_03"/>
-					<TurretSettings TurretTurnRate="200">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
