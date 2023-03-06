@@ -6,7 +6,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AircraftM_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_AIDA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_AIDD.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_DRONE.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_FP_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_R.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODLeviathan\NUL_AIRCRAFTM_RADAR.w3x"/>
@@ -15,9 +14,8 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="NODLeviathan" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODLeviathan" ButtonImage="Portrait_NODLeviathan" Side="NOD" BuildCost="4000" BuildTime="40" CommandSet="GenericUnitCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE AIRCRAFT HUGE_VEHICLE PRODUCED_AT_HELIPAD HAS_HEALTH_BAR SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT UNIQUE_UNIT SLAVE_OWNER" ThreatLevel="10" VoicePriority="228" Description="Desc:NODLeviathan" TypeDescription="Type:NODLeviathan" WeaponCategory="CANNON" MaxSimultaneousOfType="1">
+	<GameObject id="NODLeviathan" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODLeviathan" ButtonImage="Portrait_NODLeviathan" Side="NOD" BuildCost="4000" BuildTime="40" CommandSet="GenericUnitCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE AIRCRAFT HUGE_VEHICLE PRODUCED_AT_HELIPAD HAS_HEALTH_BAR SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT UNIQUE_UNIT" ThreatLevel="10" VoicePriority="228" Description="Desc:NODLeviathan" TypeDescription="Type:NODLeviathan" WeaponCategory="CANNON" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODLeviathan</DisplayName>
-		<DisplayUpgrade>Upgrade_PropagandaBuff</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
@@ -222,25 +220,15 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="4" SpawnReplaceDelayData="15s" InitialBurst="4" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true" PassExperienceToSpawned="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>NODLeviathanDrone</SpawnTemplate>
-			</SpawnBehavior>
 			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_2">
-				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
-			</ModelConditionUpgrade>
 			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Leviathan_AttributeModifier" RefreshDelay="1s" Range="265" InitiallyActive="true">
 				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
 			</AttributeModifierAuraUpdate>
-			<AudioLoopUpgrade id="ModuleTag_PropgandaAudioLoop" SoundToPlay="GDI_AdaptiveArmor_Upgrade">
-				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
-			</AudioLoopUpgrade>
 			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_LeviathanBuilt"/>
 			<UpgradeDie id="ModuleTag_UpgradeDie" UpgradeId="Upgrade_LeviathanBuilt">
 				<DieMuxData DeathTypes="ALL"/>
@@ -248,10 +236,9 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="4" SpawnOffsetRadius="160">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
-				<LockonInfo/>
-			</JetAIUpdate>
+			</AIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="13500"/>
@@ -287,6 +274,6 @@
 			<AudioEntry Sound="Generic_Airship_Ambient" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<ShadowInfo Type="VOLUME"/>
-		<VisionInfo VisionRange="650" ShroudClearingRange="500"/>
+		<VisionInfo VisionRange="600" ShroudClearingRange="500"/>
 	</GameObject>
 </AssetDeclaration>
