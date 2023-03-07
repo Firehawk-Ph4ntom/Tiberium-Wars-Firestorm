@@ -5,6 +5,7 @@
 	</Includes>
 	<GameObject id="NODAscendedSquad" inheritFrom="BaseSquad" KindOf="SELECTABLE CAN_ATTACK INFANTRY SCORE ATTACK_NEEDS_LINE_OF_SIGHT HORDE PATH_THROUGH_INFANTRY ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT" Description="Desc:NODAscended" ThreatLevel="10" TypeDescription="Type:NODAscended" Side="NOD" EditorName="NODAscendedSquad" BuildTime="13" CommandSet="NODGenericInfantryUnitCommandSet" SelectPortrait="Portrait_NODAscended" ButtonImage="Portrait_NODAscended" WeaponCategory="CANNON" UnitTypeIcon="CyborgAscendedPip" BuildCost="1300">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODAscended</DisplayName>
+		<DisplayUpgrade>Upgrade_BlackHandBlackTemplarsUpgrade</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
@@ -31,6 +32,12 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="ZoneTrooperSquadRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<BannerCarrierUpgrade id="ModuleTag_BannerCarrierUpgrade" Permanent="true">
+				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
+			</BannerCarrierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlackTemplarsAudioLoop" SoundToPlay="NOD_BlackTemplars_UpgradeMS">
+				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
+			</AudioLoopUpgrade>
 			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
 				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
@@ -38,7 +45,7 @@
 			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
 				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
 			</StealthUpgrade>
-			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID">
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID" BannerCarrierByUpgradeOnly="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
 				<InitialPayload Name="NODAscended" Count="3"/>
@@ -50,6 +57,11 @@
 					<Position X="10" Y="20"/>
 				</RankInfo>
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
+				<BannerCarrierPosition>
+					<UnitType>NODBlackTemplar</UnitType>
+					<Pos x="35" y="0"/>
+				</BannerCarrierPosition>
+				<BannerCarriersAllowed>NODBlackTemplar</BannerCarriersAllowed>
 			</HordeContain>
 			<xi:include href="DATA:Includes/NodCallForTransportInfantry.xml"/>
 			<StatusBitsUpgrade id="ModuleTag_DummyUpgradeForWB" StatusToSet="WEAPON_UPGRADED_01">
@@ -67,7 +79,7 @@
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="25.0" Height="13.0"/>
 		</Geometry>
-		<VisionInfo VisionRange="350" ShroudClearingRange="400" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1%" MaxVisionBonusPercent="300%"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
 	</GameObject>
 </AssetDeclaration>
