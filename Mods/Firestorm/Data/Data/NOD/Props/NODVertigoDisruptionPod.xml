@@ -1,5 +1,6 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODVertigoDisruptionPod" KindOf="PRELOAD TARGETABLE IMMOBILE MINE NO_COLLIDE STICK_TO_TERRAIN_SLOPE" Side="NOD" EditorName="NODVertigoDisruptionPod" EditorSorting="SYSTEM">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Pod -->
+	<GameObject id="NODVertigoDisruptionPod" KindOf="PRELOAD TARGETABLE IMMOBILE MINE NO_COLLIDE STICK_TO_TERRAIN_SLOPE" RadarPriority="NOT_ON_RADAR" Side="NOD" EditorName="NODVertigoDisruptionPod" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
@@ -45,5 +46,28 @@
 		</AudioArraySound>
 		<ShadowInfo Type="DECAL" Texture="shadowi" SizeX="14" SizeY="14"/>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Vehicle Sticky Pod -->
+	<GameObject id="NODVertigoDisruptionVehicleStickyPod" inheritFrom="NODVertigoDisruptionPod" KindOf="PRELOAD IMMOBILE MINE NO_COLLIDE" EditorName="NODVertigoDisruptionVehicleStickyPod">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Remove"/>
+			<AttachUpdate id="ModuleTag_AttachUpdate" Range="10.0" Teleport="true" UseGeometry="true" DetachWhenParentHealed="true">
+				<ObjectFilter Rule="ANY" Include="VEHICLE STRUCTURE">
+					<ExcludeThing>NODPowerPlantDrone</ExcludeThing>
+					<ExcludeThing>AlienCrystalShield</ExcludeThing>
+					<ExcludeThing>AlienWormHole</ExcludeThing>
+				</ObjectFilter>
+			</AttachUpdate>
+		</Behaviors>
+	</GameObject>
+	<!-- Aircraft Sticky Pod -->
+	<GameObject id="NODVertigoDisruptionAircraftStickyPod" inheritFrom="NODVertigoDisruptionVehicleStickyPod" EditorName="NODVertigoDisruptionAircraftStickyPod">
+		<Behaviors>
+			<AttachUpdate xai:joinAction="Replace" id="ModuleTag_AttachUpdate" Range="10.0" Teleport="true" UseGeometry="true" DetachWhenParentHealed="true">
+				<ObjectFilter Rule="NONE" Include="AIRCRAFT">
+					<ExcludeThing>GDISuperSonicAirAttack</ExcludeThing>
+				</ObjectFilter>
+			</AttachUpdate>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

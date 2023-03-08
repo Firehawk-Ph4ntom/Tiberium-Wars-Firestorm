@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<GameObject id="NODBlackHandGrenadeRadiationZone" Side="NOD" EditorSorting="SYSTEM" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE RESIST_EMP NO_COLLIDE" EditorName="NODBlackHandGrenadeRadiationZone">
 		<ArmorSet Armor="NoArmor" />
 		<Draws>
@@ -12,7 +12,6 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<RandomModelCondition id="Module_RandomModelCondition" Conditions="USER_1"/>
 			<LifetimeUpdate	id="ModuleTag_LifetimeUpdate" MinLifetime="7s" MaxLifetime="7s" />
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="BlackHandRadiationZoneWeapon" FireDelay="0.5s"/>
@@ -34,5 +33,22 @@
 			<AudioEntry Sound="AmbientFireEffectMS" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<VisionInfo/>
+	</GameObject>
+	<GameObject id="NODBlackHandPurifyingGrenadeRadiationZone" inheritFrom="NODBlackHandGrenadeRadiationZone" EditorName="NODBlackHandPurifyingGrenadeRadiationZone">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXBlackHandRadiationZonePurifyingFire"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXBlackHandRadiationZonePurifyingFireGlow"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXBlackHandRadiationZoneFireDistortion"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
+				<FireWeaponNugget WeaponName="BlackHandPurifyingRadiationZoneWeapon" FireDelay="0.5s"/>
+			</FireWeaponUpdate>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

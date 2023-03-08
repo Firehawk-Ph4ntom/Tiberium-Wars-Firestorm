@@ -2946,7 +2946,7 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDICommandoSatchelChargeWarHead"
-				ProjectileTemplate="NODHandOfNodBallProjectile"/>
+				ProjectileTemplate="GDICommandoDummyProjectile"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -8150,7 +8150,7 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODIncineratorTowerHeatRayWarhead"
-				ProjectileTemplate="GDICommandoDummyProjectile"/>
+				ProjectileTemplate="NODBlackHandFlamerProjectile"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -8811,14 +8811,17 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODShredderTurretWarhead"
-				ProjectileTemplate="NODShredderTurretShell"/>
+				ProjectileTemplate="NODShredderTurretShell">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODShredderTurretShellHeroic"/>
+			</ProjectileNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
 		id="NODShredderTurretWarhead"
 		Name="NODShredderTurretWarhead"
-		FireFX="FX_NOD_ShredderHit"
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
 		<Nuggets>
 			<DamageNugget
@@ -9170,6 +9173,18 @@
 		<Nuggets>
 			<WeaponOCLNugget
 				WeaponOCL="OCL_NODShadowSquadBeacon"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="CloakingFieldKillInfantryWeapon"
+		Name="CloakingFieldKillInfantryWeapon"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AttackRange="50000">
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="CloakingFieldKillInfantryWeaponWarhead"
+				ProjectileTemplate="NODHandOfNodBallProjectile"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -11243,6 +11258,53 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="NODRocketBunkerSpawnWeapon"
+		Name="NODRocketBunkerSpawnWeapon"
+		AttackRange="450.0"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		MinWeaponSpeed="400"
+		MaxWeaponSpeed="410"
+		FireSound="NOD_RocketBunkerHub_RocketLaunch"
+		FireFX="FX_GDIMissileManFire"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		ClipSize="3"
+		ReAcquireDetailType="PER_CLIP"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY">
+		<FiringDuration
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s" />
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s" />
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODRocketBunkerSpawnWeaponWarhead"
+				ProjectileTemplate="NODMilitantRocketWeaponProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODRocketBunkerSpawnWeaponWarhead"
+		Name="NODRocketBunkerSpawnWeaponWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="125"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="NODMilitantRocketWeapon"
 		Name="NODMilitantRocketWeapon"
 		AttackRange="350"
@@ -11777,10 +11839,10 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="AscendedArmCannonWarhead"
-				ProjectileTemplate="NodTankShell">
+				ProjectileTemplate="NODTankShell">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NodTankShell_Veteran"/>
+					ProjectileTemplate="NODTankShell_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -11831,10 +11893,10 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="AscendedFirestormArmCannonWarhead"
-				ProjectileTemplate="NodTankShell">
+				ProjectileTemplate="NODTankShell">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NodTankShell_Veteran"/>
+					ProjectileTemplate="NODTankShell_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -12786,10 +12848,10 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODStealthTankRocketWarhead"
-				ProjectileTemplate="GDIMissileSoldierMissileProjectile">
+				ProjectileTemplate="NODMilitantRocketWeaponProjectile">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="GDIMissileSoldierMissileProjectile_Veteran"/>
+					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -13338,10 +13400,10 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODRaiderTankCannonWarhead"
-				ProjectileTemplate="NodTankShell">
+				ProjectileTemplate="NODTankShell">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NodTankShell_Veteran"/>
+					ProjectileTemplate="NODTankShell_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -13390,10 +13452,10 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODRaiderTankFirestormCannonWarhead"
-				ProjectileTemplate="NodTankShell">
+				ProjectileTemplate="NODTankShell">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NodTankShell_Veteran"/>
+					ProjectileTemplate="NODTankShell_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -14391,10 +14453,10 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODAttackBikeRocketWarhead"
-				ProjectileTemplate="GDIMissileSoldierMissileProjectile">
+				ProjectileTemplate="NODMilitantRocketWeaponProjectile">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="GDIMissileSoldierMissileProjectile_Veteran"/>
+					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -15454,14 +15516,17 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODMarauderTankCannonWarhead"
-				ProjectileTemplate="NODShredderTurretShell"/>
+				ProjectileTemplate="NODShredderTurretShell">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODShredderTurretShellHeroic"/>
+			</ProjectileNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
 		id="NODMarauderTankCannonWarhead"
 		Name="NODMarauderTankCannonWarhead"
-		FireFX="FX_NOD_ShredderHit"
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
 		<Nuggets>
 			<DamageNugget

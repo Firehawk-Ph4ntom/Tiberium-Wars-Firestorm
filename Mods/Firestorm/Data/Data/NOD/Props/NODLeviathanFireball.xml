@@ -1,4 +1,5 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
 	<GameObject id="NODLeviathanFireball" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="NOD" EditorName="NODLeviathanFireball" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -35,5 +36,60 @@
 			<Shape MajorRadius="0.8"/>
 		</Geometry>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="NODLeviathanFireballHeroic" inheritFrom="NODLeviathanFireball" EditorName="NODLeviathanFireballHeroic">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList3">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_NOD_FireballHitHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Normal Upgraded Projectile -->
+	<GameObject id="NODLeviathanFirestormFireball" inheritFrom="NODLeviathanFireball" EditorName="NODLeviathanFirestormFireball">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NPHALGRENADEGEO"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODFireball_LightHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODFireball01" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODFireball02Heroic" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+	<!-- Heroic Upgraded Projectile -->
+	<GameObject id="NODLeviathanFirestormFireball_Veteran" inheritFrom="NODLeviathanFireball" EditorName="NODLeviathanFirestormFireball_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NPHALGRENADEGEO"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODFireball_Light_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODFireball01_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODFireball02_White" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_NOD_FireballHitFirestormHeroic"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_NOD_FireballHitFirestorm"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList3">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_NODFirestormBombHit"/>
+			</FXListBehavior>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
