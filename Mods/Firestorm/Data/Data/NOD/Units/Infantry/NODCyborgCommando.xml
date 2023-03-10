@@ -7,6 +7,8 @@
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCybComm_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCybComm_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCybComm_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCybComm_UG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUCybComm_UGD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUNewSTank.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUNewSTank_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCyborgCommando\NUNewSTank_NRM.xml"/>
@@ -29,6 +31,7 @@
 	</Includes>
 	<GameObject id="NODCyborgCommando" inheritFrom="BaseInfantry" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS UNIQUE_UNIT INFANTRY PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM SKIRMISH_AI_DONT_GARRISON" Description="Desc:NODCyborgCommando" TypeDescription="Type:NODCyborgCommando" Side="NOD" EditorName="NODCyborgCommando" BuildTime="25" CommandSet="NODCyborgCommandoCommandSet" SelectPortrait="Portrait_NODCyborgCommando" ThreatLevel="10" ButtonImage="Portrait_NODCyborgCommando" VoicePriority="208" WeaponCategory="CANNON" UnitTypeIcon="CommandoIcon" BuildCost="2500" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCyborgCommando</DisplayName>
+		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_NODEmpBurst</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
@@ -53,10 +56,35 @@
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON_01"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON_01"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Model Name="NUCYBCOMM_SKN"/>
+					<Texture Original="NUCybComm" New="NUCybComm_UGD"/>
+					<Texture Original="NUNewSTank" New="NUNewSTank_D"/>
+					<ParticleSysBone BoneName="B_CALF_L" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_SPINE1" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="FLAMER" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="NUCYBCOMM_SKN"/>
 					<Texture Original="NUCybComm" New="NUCybComm_D"/>
 					<Texture Original="NUNewSTank" New="NUNewSTank_D"/>
+					<ParticleSysBone BoneName="B_CALF_L" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_SPINE1" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="FLAMER" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+					<Model Name="NUCYBCOMM_SKN"/>
+					<Texture Original="NUCybComm" New="NUCybComm_UGD"/>
+					<Texture Original="NUNewSTank" New="NUNewSTank_D"/>
+					<ParticleSysBone BoneName="B_CALF_L" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_SPINE1" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="FLAMER" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUCYBCOMM_SKN"/>
@@ -68,6 +96,10 @@
 					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="B_ARM_R" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NUCYBCOMM_SKN"/>
+					<Texture Original="NUCybComm" New="NUCybComm_UG"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
@@ -77,13 +109,12 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
 					<Animation AnimationName="NUCYBCOMM_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5" AnimationPriority="80"/>
 					<Animation AnimationName="NUCYBCOMM_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="20"/>
-					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.6" AnimationSpeedFactorMax="0.75" AnimationPriority="10"/>
 					<Animation AnimationName="NUCYBCOMM_BIFB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="40"/>
 					<Animation AnimationName="NUCYBCOMM_BIFC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="50"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="NUCYBCOMM_DIEA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1"/>
-					<Animation AnimationName="NUCYBCOMM_DIEB" AnimationMode="ONCE" AnimationSpeedFactorMin="1.1" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUCYBCOMM_DIEA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.25" AnimationSpeedFactorMax="1.25"/>
+					<Animation AnimationName="NUCYBCOMM_DIEB" AnimationMode="ONCE" AnimationSpeedFactorMin="1.25" AnimationSpeedFactorMax="1.25"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Animation AnimationName="NUCYBCOMM_EMPA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
@@ -101,11 +132,8 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
 					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_C" FrameForPristineBonePositions="5">
-					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
-					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="MANUAL"/>
+					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE">
 					<Animation AnimationName="NUCYBCOMM_ATKB" AnimationMode="ONCE"/>
@@ -119,7 +147,8 @@
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoPlasmaCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoTiberiumPlasmaCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoBlueTiberiumPlasmaCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<EmotionTrackerUpdate id="Module_ETU">
@@ -135,7 +164,7 @@
 			<SpecialPower id="ModuleTag_EMPBlast" SpecialPowerTemplate="SpecialPower_CommandoEMPBlast" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPBlastUpdate" SpecialPowerTemplate="SpecialPower_CommandoEMPBlast" StartAbilityRange="300" PackTime="0.5s" UnpackTime="0.5s" TriggerSound="NOD_CyborgCommando_EMPLaserFire" FaceTarget="true" SpecialWeapon="NODCyborgCommandoEMPCannon" WhichSpecialWeapon="1" BusyForDuration="1s" WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON"/>
 			<AISpecialPowerUpdate id="ModuleTag_NODCommandoEMPBlastAI" CommandButtonName="Command_NODCommandoEMPBlast" SpecialPowerRadius="300" UnitKindOf="VEHICLE FS_POWER FS_BASE_DEFENSE" EnemyUnitInclude="VEHICLE FS_POWER FS_BASE_DEFENSE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="5s" DestructionDelay="7s">
 				<Sound List="NOD_CyborgGunner_VoiceDie"/>
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
 			</SlowDeath>
@@ -145,6 +174,15 @@
 			</FXListBehavior>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<xi:include href="DATA:Includes/NodCallForTransportInfantry.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueTibCoreAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_EMPCoilsAudioLoop" SoundToPlay="NOD_EMPcoils_Upgrade">
 				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
 			</AudioLoopUpgrade>
