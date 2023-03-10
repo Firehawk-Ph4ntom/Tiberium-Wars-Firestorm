@@ -1,4 +1,6 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Workaround for Rig Battlebase and Kodiak multiple tracer bug -->
+	<!-- Normal Projectile -->
 	<GameObject id="GDIHammerheadGunDummyProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIHammerheadGunDummyProjectile" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -29,5 +31,59 @@
 			<Shape MajorRadius="0.8"/>
 		</Geometry>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIHammerheadGunDummyProjectileHeroic" inheritFrom="GDIHammerheadGunDummyProjectile" EditorName="GDIHammerheadGunDummyProjectileHeroic">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXGDIDummyTracerHeroic" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_BulletHitGDIAPHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Projectile -->
+	<GameObject id="GDIHammerheadHEGunDummyProjectile" inheritFrom="GDIHammerheadGunDummyProjectile" EditorName="GDIHammerheadHEGunDummyProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXGDIDummyTracerHEAmmo" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDIHEAmmoExplosion"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="GDIHammerheadHEGunDummyProjectileHeroic" inheritFrom="GDIHammerheadHEGunDummyProjectile" EditorName="GDIHammerheadHEGunDummyProjectileHeroic">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="FXGDIDummyTracerHEAmmoHeroic" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
 	</GameObject>
 </AssetDeclaration>

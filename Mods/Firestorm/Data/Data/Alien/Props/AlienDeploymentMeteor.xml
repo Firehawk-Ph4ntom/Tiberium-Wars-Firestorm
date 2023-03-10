@@ -1,6 +1,6 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Large Deployment Meteor -->
 	<GameObject id="AlienDeploymentMeteor" Side="Alien" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE RESIST_EMP NO_COLLIDE" EditorName="AlienDeploymentMeteor">
-		<DisplayName>AlienDeploymentMeteor</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
@@ -36,5 +36,27 @@
 			<AudioEntry Sound="ALI_OverlordsWrath_MeteorAmbientLoopMS" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Small Deployment Meteor -->
+	<GameObject id="AlienDeploymentMeteorSmallRock" inheritFrom="AlienDeploymentMeteor" EditorName="AlienDeploymentMeteorSmallRock">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBERIUMROCKMETEOR"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockMeteorProjectileSmokeTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibRockMeteorProjectileTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" DeathWeapon="AlienDeploymentMeteorSmallCrusherWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_AlienTibRockMeteorHit"/>
+			</FXListBehavior>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

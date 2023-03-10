@@ -1,4 +1,9 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Props\NODCyborgCommandoTiberiumPlasmaShell.xml"/>
+	</Includes>
+	<!-- Normal Projectile -->
 	<GameObject id="AlienZeusPlasmaDisk" KindOf="PROJECTILE NO_COLLIDE SMALL_MISSILE DEFLECT_BY_SPECIAL_POWER HIDE_IF_FOGGED" Side="ALIEN" EditorName="AlienZeusPlasmaDisk" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -26,4 +31,24 @@
 		</Geometry>
 		<VisionInfo/>
 	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="AlienZeusPlasmaDisk_Veteran" inheritFrom="AlienZeusPlasmaDisk" EditorName="AlienZeusPlasmaDisk_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="EXZEUSDISK_VETERAN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_ZeusDiskFXHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Normal Upgraded Projectile -->
+	<GameObject id="AlienZeusTiberiumPlasmaShell" inheritFrom="NODCyborgCommandoTiberiumPlasmaShell" Side="ALIEN" EditorName="AlienZeusTiberiumPlasmaShell"/>
+	<!-- Normal Blue Upgraded Projectile -->
+	<GameObject id="AlienZeusTiberiumPlasmaShellBlue" inheritFrom="NODCyborgCommandoBlueTiberiumPlasmaShell" Side="ALIEN" EditorName="AlienZeusTiberiumPlasmaShellBlue"/>
 </AssetDeclaration>

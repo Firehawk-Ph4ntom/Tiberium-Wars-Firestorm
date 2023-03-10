@@ -1,4 +1,5 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
 	<GameObject id="GDIMARVSonicGrenadeProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIMARVSonicGrenadeProjectile" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -26,5 +27,22 @@
 			<Shape MajorRadius="0.8"/>
 		</Geometry>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIMARVSonicGrenadeProjectile_Veteran" inheritFrom="GDIMARVSonicGrenadeProjectile" EditorName="GDIMARVSonicGrenadeProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUSONICPROJECTILEHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIZSonicProj_TrailHeroic" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDI_SonicRifleImpactHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

@@ -1,4 +1,5 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
 	<GameObject id="GDIMARVSonicShell" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIMARVSonicShell" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -27,5 +28,23 @@
 			<Shape MajorRadius="0.8"/>
 		</Geometry>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIMARVSonicShell_Veteran" inheritFrom="GDIMARVSonicShell" EditorName="GDIMARVSonicShell_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXGDIMARVSONICCANPROJHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIMARVSonicCannonProjTrail_Heroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIMARVSonicCannonProjRingsHeroic" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_TeraSweepExp_LgHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

@@ -1,4 +1,5 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Green Ichor Seed FX -->
 	<GameObject id="AlienSeedTiberiumLaserFX" Side="ALIEN" OcclusionDelay="0" KindOf="IMMOBILE NO_COLLIDE INERT INERT_SHROUD_REVEALER NOT_AUTOACQUIRABLE UNATTACKABLE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED RESIST_EMP" EditorName="AlienSeedTiberiumLaserFX" EditorSorting="MISC_MAN_MADE">
 		<DisplayName>AlienSeedTiberiumLaserFX</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
@@ -41,5 +42,36 @@
 			<Shape Type="CYLINDER" MajorRadius="1.0" Height="1.0"/>
 		</Geometry>
 		<VisionInfo VisionRange="100" ShroudClearingRange="150"/>
+	</GameObject>
+	<!-- Blue Ichor Seed FX -->
+	<GameObject id="AlienSeedBlueTiberiumLaserFX" inheritFrom="AlienSeedTiberiumLaserFX" EditorName="AlienSeedBlueTiberiumLaserFX">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXICHORSEEDBLUELASER"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedBaseBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedsBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedShardsBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedShardsHitBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="none" FXParticleSystemTemplate="TibIchorSeedShardsDirtBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" ConditionsYes="IDLE">
+					<Animation AnimationName="FXICHORSEEDLASER" AnimationMode="ONCE" AnimNickName="IDL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_DieOCL" xai:joinAction="Replace" CreationList="OCL_AlienSeedTiberiumBlue">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_AlienIchorBlueSeedHit"/>
+			</FXListBehavior>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

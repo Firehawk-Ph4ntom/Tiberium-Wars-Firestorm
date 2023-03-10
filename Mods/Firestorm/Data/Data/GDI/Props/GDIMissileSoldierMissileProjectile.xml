@@ -1,4 +1,5 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
 	<GameObject id="GDIMissileSoldierMissileProjectile" KindOf="PROJECTILE NO_COLLIDE SMALL_MISSILE DEFLECT_BY_SPECIAL_POWER HIDE_IF_FOGGED" Side="GDI" EditorName="GDIMissileSoldierMissileProjectile" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor" DamageFX="SmallMissileDamageFX"/>
 		<Draws>
@@ -24,7 +25,7 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
-			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMax="20" SecondHeightMin="20" SecondHeightMax="20" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" MaxDistanceReachedFX="FX_GDIMissleSmallHit" FlightPathAdjustDistPerSecond="100" SidewaysDrift="50" MaxDistanceToTravel="600" DetonateCallsKill="true" OrientToFlightPath="true"/>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMax="20" SecondHeightMin="20" SecondHeightMax="20" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="50" MaxDistanceToTravel="600" DetonateCallsKill="true" OrientToFlightPath="true"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
@@ -34,4 +35,196 @@
 		</Geometry>
 		<VisionInfo/>
 	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIMissileSoldierMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIMissileSoldierMissileProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailFireHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreakHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_MissileSoldier_MissileImpactExplosionHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Normal Projectile -->
+	<GameObject id="GDIMissileSoldierThermobaricMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIMissileSoldierThermobaricMissileProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPG"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaThermobaricMissileTrailSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_MissileSoldier_ThermobaricMissileImpactExplosion"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="GDIMissileSoldierThermobaricMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIMissileSoldierThermobaricMissileProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreakHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaThermobaricMissileTrailSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_MissileSoldier_ThermobaricMissileImpactExplosionHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- ##################### -->
+
+	<!-- Zone Raider Missiles -->
+	<!-- Normal Projectile -->
+	<GameObject id="GDIZoneRaiderMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIZoneRaiderMissileProjectile">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_ZoneRaider_MissileExplosion"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIZoneRaiderMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile_Veteran" EditorName="GDIZoneRaiderMissileProjectile_Veteran">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_ZoneRaider_MissileExplosionHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Normal Projectile -->
+	<GameObject id="GDIZoneRaiderThermobaricMissileProjectile" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile" EditorName="GDIZoneRaiderThermobaricMissileProjectile">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_ZoneRaider_ThermobaricMissileHit"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="GDIZoneRaiderThermobaricMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile_Veteran" EditorName="GDIZoneRaiderThermobaricMissileProjectile_Veteran">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_GDI_ZoneRaider_ThermobaricMissileHitHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- ##################### -->
+
+	<!-- Firehawk Missiles -->
+	<!-- Normal Projectile -->
+	<GameObject id="GDIFirehawkMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIFirehawkMissileProjectile">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIFirehawkMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile_Veteran" EditorName="GDIFirehawkMissileProjectile_Veteran">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Normal Projectile -->
+	<GameObject id="GDIFirehawkThermobaricMissileProjectile" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile" EditorName="GDIFirehawkThermobaricMissileProjectile">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="GDIFirehawkThermobaricMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile_Veteran" EditorName="GDIFirehawkThermobaricMissileProjectile_Veteran">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="5" FirstHeightMax="5" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- ##################### -->
+	
+	<!-- Orca Missiles -->
+	<!-- Normal Projectile -->
+	<GameObject id="GDIOrcaMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIOrcaMissileProjectile">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="1" FirstHeightMax="1" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="25" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIOrcaMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile_Veteran" EditorName="GDIOrcaMissileProjectile_Veteran">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="1" FirstHeightMax="1" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="25" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Normal Projectile -->
+	<GameObject id="GDIOrcaThermobaricMissileProjectile" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile" EditorName="GDIOrcaThermobaricMissileProjectile">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="1" FirstHeightMax="1" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="25" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="GDIOrcaThermobaricMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile_Veteran" EditorName="GDIOrcaThermobaricMissileProjectile_Veteran">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="1" FirstHeightMax="1" SecondHeightMin="5" SecondHeightMax="5" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="25" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- ##################### -->
+	
+	<!-- Ripple Rocket Battery Missiles -->
+	<!-- Normal Projectile -->
+	<GameObject id="GDIRippleRocketBatteryMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIRippleRocketBatteryMissileProjectile">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="150" FirstHeightMax="175" SecondHeightMin="100" SecondHeightMax="150" FirstPercentIndent="53%" SecondPercentIndent="96%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="110" MaxDistanceToTravel="900" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIRippleRocketBatteryMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile_Veteran" EditorName="GDIRippleRocketBatteryMissileProjectile_Veteran">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="150" FirstHeightMax="175" SecondHeightMin="100" SecondHeightMax="150" FirstPercentIndent="53%" SecondPercentIndent="96%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="110" MaxDistanceToTravel="900" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Normal Projectile -->
+	<GameObject id="GDIRippleRocketBatteryThermobaricMissileProjectile" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile" EditorName="GDIRippleRocketBatteryThermobaricMissileProjectile">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="150" FirstHeightMax="175" SecondHeightMin="100" SecondHeightMax="150" FirstPercentIndent="53%" SecondPercentIndent="96%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="110" MaxDistanceToTravel="900" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="GDIRippleRocketBatteryThermobaricMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierThermobaricMissileProjectile_Veteran" EditorName="GDIRippleRocketBatteryThermobaricMissileProjectile_Veteran">
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstHeightMin="150" FirstHeightMax="175" SecondHeightMin="100" SecondHeightMax="150" FirstPercentIndent="53%" SecondPercentIndent="96%" GroundHitFX="FX_GDIMissleMiss" FlightPathAdjustDistPerSecond="100" SidewaysDrift="110" MaxDistanceToTravel="900" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Here are missile prop objects from vanilla -->
+	<!-- Overriding these props to use the mod settings cause can't remove them from the game completely -->
+	<!-- Rig Battlebase -->
+	<GameObject id="GDIBattleBaseMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIBattleBaseMissileProjectile"/>
+	<!-- Mammoth Tank -->
+	<GameObject id="GDIMammothRocketPodMissileProjectile" inheritFrom="GDIMissileSoldierMissileProjectile" EditorName="GDIMammothRocketPodMissileProjectile"/>
+	<GameObject id="GDIMammothRocketPodMissileProjectile_Veteran" inheritFrom="GDIMissileSoldierMissileProjectile_Veteran" EditorName="GDIMammothRocketPodMissileProjectile_Veteran"/>
 </AssetDeclaration>

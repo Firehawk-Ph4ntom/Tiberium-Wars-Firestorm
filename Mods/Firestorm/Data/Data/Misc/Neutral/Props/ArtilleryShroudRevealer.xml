@@ -1,51 +1,32 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<GameObject
-		id="ArtilleryShroudRevealer"
-		Side="Neutral"
-		EditorSorting="UNIT"
-		CommandSet="EmptyCommandSet"
-		IsTrainable="false"
-		KindOf="INERT_SHROUD_REVEALER INERT UNATTACKABLE NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NO_COLLIDE"
-		EditorName="ArtilleryShroudRevealer">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Artillery Shroud Revealer -->
+	<GameObject id="ArtilleryShroudRevealer" Side="Neutral" EditorSorting="SYSTEM" IsTrainable="false" KindOf="INERT_SHROUD_REVEALER INERT UNATTACKABLE NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NO_COLLIDE" EditorName="ArtilleryShroudRevealer">
 		<DisplayName>ArtilleryShroudRevealer</DisplayName>
-		<ArmorSet
-			Armor="NoArmor" />
+		<ArmorSet Armor="NoArmor" />
 		<Draws>
-			<ScriptedModelDraw
-				id="ModuleTag_Draw">
-				<ModelConditionState
-					ParseCondStateType="PARSE_DEFAULT">
-					<Model
-						Name="" />
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<LifetimeUpdate
-				id="ModuleTag_Lifetime"
-				MinLifetime="2s"
-				MaxLifetime="2s" />
-			<DestroyDie
-				id="ModuleTag_Die">
-				<DieMuxData
-					DeathTypes="ALL" />
+			<LifetimeUpdate id="ModuleTag_Lifetime" MinLifetime="2s" MaxLifetime="2s" />
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
 			</DestroyDie>
 		</Behaviors>
 		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				MaxHealth="100.0" />
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
-		<Geometry
-			IsSmall="true">
-			<Shape
-				Type="CYLINDER"
-				MajorRadius="5.0"
-				Height="5.0"/>
+		<Geometry IsSmall="true">
+			<Shape MajorRadius="0.8"/>
 		</Geometry>
-		<VisionInfo
-			VisionRange="10"
-			ShroudClearingRange="10" />
+		<VisionInfo VisionRange="10" ShroudClearingRange="10" />
+	</GameObject>
+	<!-- Big Artillery Shroud Revealer -->
+	<!-- Used for Large targets -->
+	<GameObject id="BigArtilleryShroudRevealer" inheritFrom="ArtilleryShroudRevealer" EditorName="BigArtilleryShroudRevealer">
+		<VisionInfo xai:joinAction="Replace" VisionRange="25" ShroudClearingRange="25"/>
 	</GameObject>
 </AssetDeclaration>

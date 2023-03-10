@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
 	<GameObject id="FXTankShell" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="Neutral" EditorName="FXTankShell" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -26,5 +26,18 @@
 			<Shape MajorRadius="0.8"/>
 		</Geometry>
 		<VisionInfo/>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="FXTankShell_Veteran" inheritFrom="FXTankShell" EditorName="FXTankShell_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXTANKSHELLHEROIC"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" FirstPercentIndent="33%" SecondPercentIndent="66%" GroundHitFX="FX_GDIShellMissHeroic" FlightPathAdjustDistPerSecond="300" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
