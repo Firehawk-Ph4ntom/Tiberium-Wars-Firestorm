@@ -63,6 +63,9 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="24">
 					<Animation AnimationName="AUStalker_ATKB" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="AUStalker_BATA" AnimationMode="ONCE" AnimationBlendTime="5"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE" FrameForPristineBonePositions="28">
 					<Animation AnimationName="AUStalker_ATKA" AnimationMode="ONCE" AnimationPriority="80"/>
 				</AnimationState>
@@ -171,10 +174,19 @@
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Tiberium Agitation -->
-			<SpecialPower id="ModuleTag_ExplosiveTiberium" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation" SpecialWeapon="AlienRavagerTiberiumAgitation" StartAbilityRange="300" UnpackTime="0.9s" PackTime="1.5s" BusyForDuration="2.4s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_ExplosiveTiberium_Green" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveGreenTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" SpecialWeapon="AlienRavagerTiberiumAgitation" StartAbilityRange="300" UnpackTime="0.9s" PackTime="1.5s" BusyForDuration="2.4s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<SpecialPower id="ModuleTag_ExplosiveTiberium_Blue" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveBlueTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" SpecialWeapon="AlienRavagerTiberiumAgitationBlueIchor" StartAbilityRange="300" UnpackTime="0.9s" PackTime="1.5s" BusyForDuration="2.4s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienRavagerFunctions">

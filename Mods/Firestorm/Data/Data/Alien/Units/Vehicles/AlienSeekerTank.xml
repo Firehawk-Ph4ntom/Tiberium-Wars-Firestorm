@@ -152,9 +152,16 @@
 			</AudioLoopUpgrade>
 			<!-- Forcefield Generator -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<SpecialPower id="ModuleTag_ExplosiveTiberium" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation" SpecialWeapon="AlienSeekerTiberiumAgitation" StartAbilityRange="250" UnpackTime="1s" PackTime="1s" BusyForDuration="1s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
-			<AISpecialPowerUpdate id="ModuleTag_AlienTiberiumAgitationAI" CommandButtonName="Command_FireSeekerTiberiumAgitation" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES" SpecialPowerRadius="250" UnitKindOf="STRUCTURE"/>
+			<!-- Tiberium Agitation -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_ExplosiveTiberium_Green" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveGreenTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" SpecialWeapon="AlienSeekerTiberiumAgitation" StartAbilityRange="250" UnpackTime="0.7s" PackTime="0.5s" BusyForDuration="0.8s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<SpecialPower id="ModuleTag_ExplosiveTiberium_Blue" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveBlueTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" SpecialWeapon="AlienSeekerTiberiumAgitationBlueIchor" StartAbilityRange="250" UnpackTime="0.7s" PackTime="0.5s" BusyForDuration="0.8s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<AISpecialPowerUpdate id="ModuleTag_AlienTiberiumAgitationAI" CommandButtonName="Command_FireSeekerTiberiumAgitation" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="250" UnitKindOf="STRUCTURE"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienSeekerTankFunctions">
