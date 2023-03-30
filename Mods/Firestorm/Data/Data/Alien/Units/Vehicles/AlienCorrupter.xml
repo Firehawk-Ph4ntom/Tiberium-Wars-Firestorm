@@ -6,7 +6,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienCorrupter" inheritFrom="BaseVehicle" SelectPortrait="Portrait_ALIENCorrupter" ButtonImage="Portrait_ALIENCorrupter" Side="ALIEN" BuildCost="1000" BuildTime="10" CommandSet="AlienCorrupterCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE ANTI_GARRISON CAN_REVERSE_MOVE TIBERIUM_BASED CAN_BE_FAVORITE_UNIT CAN_HEAL_ALLIES HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="BLAST" VoicePriority="192" EditorName="AlienCorrupter" Description="Desc:AlienCorrupter" TypeDescription="Type:AlienCorrupter">
+	<GameObject id="AlienCorrupter" inheritFrom="BaseVehicle" SelectPortrait="Portrait_ALIENCorrupter" ButtonImage="Portrait_ALIENCorrupter" Side="ALIEN" BuildCost="1000" BuildTime="10" CommandSet="AlienCorrupterCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE ANTI_GARRISON CAN_REVERSE_MOVE TIBERIUM_BASED CAN_BE_FAVORITE_UNIT CAN_HEAL_ALLIES HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4 SLAVE_OWNER" WeaponCategory="BLAST" VoicePriority="192" EditorName="AlienCorrupter" Description="Desc:AlienCorrupter" TypeDescription="Type:AlienCorrupter">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENCorrupter</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienReactorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
@@ -244,9 +244,9 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienCorrupterTioxinBlastCannonBlue" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_CrystalWeapon">
-				<FireWeaponNugget WeaponName="AlienCorrupterTiberiumRadiation" FireDelay="2s"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>AlienCorrupterDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="60.0" SurveyDelayFrames="15" HealingPercentPerSecond="1%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
@@ -275,7 +275,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1">
 				<UnitAITargetChooserData/>
 			</AIUpdate>
 		</AI>

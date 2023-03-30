@@ -47,7 +47,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODRedeemer" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE HUGE_VEHICLE UNIQUE_UNIT LARGE_RECTANGLE_PATHFIND ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT" ThreatLevel="10" Description="Desc:NODRedeemer" TypeDescription="Type:NODRedeemer" BuildFadeInOnCreateTimeSeconds="4s" Side="NOD" EditorName="NODRedeemer" BuildTime="50" CommandSet="NODRedeemerCommandSet" SelectPortrait="Portrait_NODRedeemer" ButtonImage="Portrait_NODRedeemer" VoicePriority="242" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
+	<GameObject id="NODRedeemer" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE HUGE_VEHICLE UNIQUE_UNIT LARGE_RECTANGLE_PATHFIND ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT SLAVE_OWNER" ThreatLevel="10" Description="Desc:NODRedeemer" TypeDescription="Type:NODRedeemer" BuildFadeInOnCreateTimeSeconds="4s" Side="NOD" EditorName="NODRedeemer" BuildTime="50" CommandSet="NODRedeemerCommandSet" SelectPortrait="Portrait_NODRedeemer" ButtonImage="Portrait_NODRedeemer" VoicePriority="242" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODRedeemer</DisplayName>
 		<DisplayUpgrade>Upgrade_BlackHandSecretShrinePurifyingFlame</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
@@ -793,9 +793,9 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="NODRedeemerDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>NODRedeemerDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="7s" SinkRate="2.0" DestructionDelay="12.5s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
@@ -844,7 +844,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1">
 				<UnitAITargetChooserData/>
 			</AIUpdate>
 		</AI>

@@ -38,7 +38,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienEradicatorHexapod" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienEradicator" ButtonImage="Portrait_AlienEradicator" Side="ALIEN" BuildCost="5000" BuildTime="50" CommandSet="AlienEradicatorHexapodCommandSet" KindOf="SELECTABLE HUGE_VEHICLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT LARGE_RECTANGLE_PATHFIND VEHICLE CAN_SEE_THROUGH_STRUCTURE UNIQUE_UNIT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="CANNON" VoicePriority="230" EditorName="AlienEradicatorHexapod" Description="Desc:AlienEradicatorHexapod" TypeDescription="Type:AlienEradicatorHexapod" MaxSimultaneousOfType="1">
+	<GameObject id="AlienEradicatorHexapod" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienEradicator" ButtonImage="Portrait_AlienEradicator" Side="ALIEN" BuildCost="5000" BuildTime="50" CommandSet="AlienEradicatorHexapodCommandSet" KindOf="SELECTABLE HUGE_VEHICLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT LARGE_RECTANGLE_PATHFIND VEHICLE CAN_SEE_THROUGH_STRUCTURE UNIQUE_UNIT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT TIBERIUM_BASED HEALED_BY_TIBERIUM SLAVE_OWNER" WeaponCategory="CANNON" VoicePriority="230" EditorName="AlienEradicatorHexapod" Description="Desc:AlienEradicatorHexapod" TypeDescription="Type:AlienEradicatorHexapod" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienEradicatorHexapod</DisplayName>
 		<GameDependency>
 			<RequiredObject>AlienReactor</RequiredObject>
@@ -355,9 +355,9 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="GDIMARVDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>AlienEradicatorHexapodDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_ALI_Eradicator_Explode"/>
@@ -380,9 +380,6 @@
 				<Sound List="ALI_DevourerTank_Die"/>
 				<DieMuxData RequiredStatus="WEAPON_UPGRADED_01" DeathTypes="ALL"/>
 			</SlowDeath>
-			<FireWeaponUpdate id="ModuleTag_CrystalWeapon">
-				<FireWeaponNugget WeaponName="AlienEradicatorTiberiumRadiation" FireDelay="2s"/>
-			</FireWeaponUpdate>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="1%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
@@ -414,7 +411,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienEradicatorHexapodFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1" AILuaEventsList="AlienEradicatorHexapodFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
 			</AIUpdate>
 		</AI>

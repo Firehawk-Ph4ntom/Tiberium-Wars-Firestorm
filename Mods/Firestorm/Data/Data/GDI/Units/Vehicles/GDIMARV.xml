@@ -43,7 +43,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIMARV" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS HUGE_VEHICLE PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE LARGE_RECTANGLE_PATHFIND VEHICLE UNIQUE_UNIT CAN_BE_FAVORITE_UNIT CAN_SHOOT_OVER_WALLS" Description="Desc:GDIMARV" TypeDescription="Type:GDIMARV" Side="GDI" EditorName="GDIMARV" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_MARV" ButtonImage="Portrait_MARV" VoicePriority="246" ThreatLevel="10" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
+	<GameObject id="GDIMARV" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS HUGE_VEHICLE PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE LARGE_RECTANGLE_PATHFIND VEHICLE UNIQUE_UNIT CAN_BE_FAVORITE_UNIT CAN_SHOOT_OVER_WALLS SLAVE_OWNER" Description="Desc:GDIMARV" TypeDescription="Type:GDIMARV" Side="GDI" EditorName="GDIMARV" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_MARV" ButtonImage="Portrait_MARV" VoicePriority="246" ThreatLevel="10" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMARV</DisplayName>
 		<GameDependency>
 			<RequiredObject>GDIArmory</RequiredObject>
@@ -349,9 +349,6 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="GDIMARVDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="5s" SinkRate="2.0" DestructionDelay="13s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIMARVDebris</OCL>
@@ -372,13 +369,13 @@
 			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
-				<SpawnTemplate>GDIMARVHarvestDrone</SpawnTemplate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>GDIMARVDummyDrone</SpawnTemplate>
 			</SpawnBehavior>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0"/>
 			</AIUpdate>
 		</AI>

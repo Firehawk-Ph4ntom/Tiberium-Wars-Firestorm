@@ -26,7 +26,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODDarkTwilight" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE HUGE_VEHICLE LARGE_RECTANGLE_PATHFIND VEHICLE SIEGE_WEAPON UNIQUE_UNIT CAN_BE_FAVORITE_UNIT" Description="Desc:NODDarkTwilight" TypeDescription="Type:NODDarkTwilight" ThreatLevel="10" Side="NOD" EditorName="NODDarkTwilight" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_NODDefender" ButtonImage="Portrait_NODDefender" VoicePriority="242" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
+	<GameObject id="NODDarkTwilight" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE HUGE_VEHICLE LARGE_RECTANGLE_PATHFIND VEHICLE SIEGE_WEAPON UNIQUE_UNIT CAN_BE_FAVORITE_UNIT SLAVE_OWNER" Description="Desc:NODDarkTwilight" TypeDescription="Type:NODDarkTwilight" ThreatLevel="10" Side="NOD" EditorName="NODDarkTwilight" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_NODDefender" ButtonImage="Portrait_NODDefender" VoicePriority="242" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODDarkTwilight</DisplayName>
 		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
 		<GameDependency>
@@ -250,6 +250,9 @@
 					<Weapon Template="NODDarkTwilightFirestormArtilleryCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>NODDarkTwilightDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_NOD_RedeemerExplodeWithVoice"/>
@@ -272,7 +275,7 @@
 			</AttributeModifierAuraUpdate>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1">
 				<UnitAITargetChooserData/>
 			</AIUpdate>
 		</AI>

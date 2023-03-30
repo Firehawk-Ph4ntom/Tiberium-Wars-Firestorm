@@ -6,7 +6,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienHarvester" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienHarvester" ButtonImage="Portrait_AlienHarvester" Side="ALIEN" BuildCost="1500" BuildTime="15" CommandSet="AlienHarvesterCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE HARVESTER TIBERIUM_BASED HEALED_BY_TIBERIUM MOVE_FOR_NOONE IGNORES_SELECT_ALL CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" VoicePriority="16" EditorName="AlienHarvester" Description="Desc:AlienHarvester" TypeDescription="Type:AlienHarvester">
+	<GameObject id="AlienHarvester" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienHarvester" ButtonImage="Portrait_AlienHarvester" Side="ALIEN" BuildCost="1500" BuildTime="15" CommandSet="AlienHarvesterCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE HARVESTER TIBERIUM_BASED HEALED_BY_TIBERIUM MOVE_FOR_NOONE IGNORES_SELECT_ALL CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4 SLAVE_OWNER" VoicePriority="16" EditorName="AlienHarvester" Description="Desc:AlienHarvester" TypeDescription="Type:AlienHarvester">
 		<DisplayName xai:joinAction="Replace">Name:ALIENHarvester</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_IonRetribution</DisplayUpgrade>
@@ -159,9 +159,9 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_AlienInfantryDeathFX"/>
 			</FXListBehavior>
-			<FireWeaponUpdate id="ModuleTag_CrystalWeapon">
-				<FireWeaponNugget WeaponName="AlienCorrupterTiberiumRadiation" FireDelay="2s"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>AlienHarvesterDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="60.0" SurveyDelayFrames="15" HealingPercentPerSecond="1%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
@@ -186,7 +186,7 @@
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="true"/>
+			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="true" MaxCombineChildren="1"/>
 		</AI>
 		<Body>
 			<ShieldBody id="ModuleTag_Body" MaxHealth="5000" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="1000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="100s" ShieldActiveModelCondition="USER_19"/>

@@ -36,7 +36,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDITitan" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE CAN_SHOOT_OVER_WALLS VALID_TARGET_FOR_C4 CAN_BE_FAVORITE_UNIT" Description="Desc:GDITitan" TypeDescription="Type:GDITitan" Side="GDI" EditorName="GDITitan" BuildTime="20" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_GDITitan" ButtonImage="Portrait_GDITitan" VoicePriority="186" WeaponCategory="CANNON" BuildCost="2000">
+	<GameObject id="GDITitan" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE CAN_SHOOT_OVER_WALLS VALID_TARGET_FOR_C4 CAN_BE_FAVORITE_UNIT SLAVE_OWNER" Description="Desc:GDITitan" TypeDescription="Type:GDITitan" Side="GDI" EditorName="GDITitan" BuildTime="20" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_GDITitan" ButtonImage="Portrait_GDITitan" VoicePriority="186" WeaponCategory="CANNON" BuildCost="2000">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDITitan</DisplayName>
 		<GameDependency>
 			<RequiredObject>GDIArmory</RequiredObject>
@@ -336,9 +336,9 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="AlienAnnihilatorTripodDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>GDITitanDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<SlowDeath id="ModuleTag_Death" SinkRate="1.5" SinkDelay="3s" DestructionDelay="9s">
 				<Sound List="GDI_Generic_VoiceDieMS2"/>
@@ -387,7 +387,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDITitanFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1" AILuaEventsList="GDITitanFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0"/>
 			</AIUpdate>
 		</AI>

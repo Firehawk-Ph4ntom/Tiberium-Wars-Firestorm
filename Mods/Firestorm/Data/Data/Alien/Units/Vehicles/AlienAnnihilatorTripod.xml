@@ -18,7 +18,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienAnnihilatorTripod" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienAnnihilatorTripod" ButtonImage="Portrait_AlienAnnihilatorTripod" Side="ALIEN" BuildCost="3000" BuildTime="30" CommandSet="AlienAnnihilatorTripodCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE VALID_TARGET_FOR_C4 TIBERIUM_BASED CAN_SHOOT_OVER_WALLS CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM" WeaponCategory="CANNON" VoicePriority="216" EditorName="AlienAnnihilatorTripod" Description="Desc:AlienAnnihilatorTripod" TypeDescription="Type:AlienAnnihilatorTripod">
+	<GameObject id="AlienAnnihilatorTripod" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienAnnihilatorTripod" ButtonImage="Portrait_AlienAnnihilatorTripod" Side="ALIEN" BuildCost="3000" BuildTime="30" CommandSet="AlienAnnihilatorTripodCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE VALID_TARGET_FOR_C4 TIBERIUM_BASED CAN_SHOOT_OVER_WALLS CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM SLAVE_OWNER" WeaponCategory="CANNON" VoicePriority="216" EditorName="AlienAnnihilatorTripod" Description="Desc:AlienAnnihilatorTripod" TypeDescription="Type:AlienAnnihilatorTripod">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienAnnihilatorTripod</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienReactorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
@@ -673,9 +673,9 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorEMPCannon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="AlienAnnihilatorTripodDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>AlienAnnihilatorTripodDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_AlienAnnihilatorTripodExplode"/>
@@ -735,7 +735,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1">
 				<UnitAITargetChooserData/>
 			</AIUpdate>
 		</AI>

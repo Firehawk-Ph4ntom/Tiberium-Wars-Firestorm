@@ -11,7 +11,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODAvatar" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODPurifierWarmech" ButtonImage="Portrait_NODPurifierWarmech" Side="NOD" BuildCost="2500" BuildTime="25" BuildFadeInOnCreateTimeSeconds="0.25s" CommandSet="NODAvatarCommandSet" ThreatLevel="10" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE CAN_SHOOT_OVER_WALLS VALID_TARGET_FOR_C4 ANTI_GARRISON CAN_BE_FAVORITE_UNIT" WeaponCategory="CANNON" VoicePriority="224" EditorName="NODPurifier" Description="Desc:NODAvatarWarmech" TypeDescription="Type:NODAvatarWarmech">
+	<GameObject id="NODAvatar" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODPurifierWarmech" ButtonImage="Portrait_NODPurifierWarmech" Side="NOD" BuildCost="2500" BuildTime="25" BuildFadeInOnCreateTimeSeconds="0.25s" CommandSet="NODAvatarCommandSet" ThreatLevel="10" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS PRELOAD SCORE ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE CAN_SHOOT_OVER_WALLS VALID_TARGET_FOR_C4 ANTI_GARRISON CAN_BE_FAVORITE_UNIT SLAVE_OWNER" WeaponCategory="CANNON" VoicePriority="224" EditorName="NODPurifier" Description="Desc:NODAvatarWarmech" TypeDescription="Type:NODAvatarWarmech">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODAvatarWarmech</DisplayName>
 		<DisplayUpgrade>Upgrade_BlackHandSecretShrinePurifyingFlame</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
@@ -400,9 +400,9 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="NODAvatarDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>NODAvatarDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<StealthUpgrade id="ModuleTag_AvatarInvisibilityUpgrade">
 				<TriggeredBy>Upgrade_AvatarInvisibility</TriggeredBy>
 			</StealthUpgrade>
@@ -486,7 +486,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODAvatarFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1" AILuaEventsList="NODAvatarFunctions">
 				<UnitAITargetChooserData/>
 			</AIUpdate>
 		</AI>

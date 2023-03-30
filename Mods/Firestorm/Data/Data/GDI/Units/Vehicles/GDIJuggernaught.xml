@@ -43,7 +43,7 @@
 		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIJuggernaught" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIJuggernaut" ButtonImage="Portrait_GDIJuggernaut" Side="GDI" BuildCost="2500" BuildTime="25" BuildFadeInOnCreateTimeSeconds="0.25s" CommandSet="GDIJuggernaughtCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE VEHICLE VALID_TARGET_FOR_C4 SIEGE_WEAPON CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="212" EditorName="GDIBehemoth" Description="Desc:GDIJuggernaught" TypeDescription="Type:GDIJuggernaught">
+	<GameObject id="GDIJuggernaught" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIJuggernaut" ButtonImage="Portrait_GDIJuggernaut" Side="GDI" BuildCost="2500" BuildTime="25" BuildFadeInOnCreateTimeSeconds="0.25s" CommandSet="GDIJuggernaughtCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE VEHICLE VALID_TARGET_FOR_C4 SIEGE_WEAPON CAN_BE_FAVORITE_UNIT SLAVE_OWNER" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="212" EditorName="GDIBehemoth" Description="Desc:GDIJuggernaught" TypeDescription="Type:GDIJuggernaught">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIJuggernaught</DisplayName>
 		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
@@ -241,9 +241,9 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="NODAvatarDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>GDIJuggernaughtDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<SpecialPower id="ModuleTag_Bombardement" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIJuggernaughtArtilleryBombard" id="ModuleTag_BombardementUpdate" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UnpackTime="2.0s" PackTime="2.0s" PersistentPrepTime="5.0s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
@@ -277,7 +277,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<DeployStyleAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" UnpackTime="1s" PackTime="1s" MustDeployToAttack="true">
+			<DeployStyleAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" UnpackTime="1s" PackTime="1s" MustDeployToAttack="true" MaxCombineChildren="1">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" CheckVisionRange="true" RotateToTargetWhenAiming="false"/>
 			</DeployStyleAIUpdate>
 		</AI>

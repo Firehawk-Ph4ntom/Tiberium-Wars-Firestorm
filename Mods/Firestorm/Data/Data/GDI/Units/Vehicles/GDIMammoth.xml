@@ -19,7 +19,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIMammoth" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIMammothTank" ButtonImage="Portrait_GDIMammothTank" Side="GDI" BuildCost="2700" BuildTime="27" CommandSet="GDIMammothCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="220" EditorName="GDIMammoth" Description="Desc:GDIMammothTank" TypeDescription="Type:GDIMammothTank">
+	<GameObject id="GDIMammoth" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIMammothTank" ButtonImage="Portrait_GDIMammothTank" Side="GDI" BuildCost="2700" BuildTime="27" CommandSet="GDIMammothCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4 SLAVE_OWNER" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="220" EditorName="GDIMammoth" Description="Desc:GDIMammothTank" TypeDescription="Type:GDIMammothTank">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMammothTank</DisplayName>
 		<GameDependency>
 			<RequiredObject>GDIArmory</RequiredObject>
@@ -459,9 +459,9 @@
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
 			</WeaponSetUpdate>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="GDIMammothDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
-			</FireWeaponUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<SpawnTemplate>GDIMammothDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="8.5s">
 				<OCL Type="INITIAL">
@@ -504,7 +504,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="1">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0"/>
 			</AIUpdate>
 		</AI>
