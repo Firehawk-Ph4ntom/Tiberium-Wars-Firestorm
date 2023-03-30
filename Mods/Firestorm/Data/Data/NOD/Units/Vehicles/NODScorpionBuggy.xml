@@ -1,6 +1,7 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Tags/>
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODRaiderBuggy\NU_BUGGYR_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODRaiderBuggy\NU_BUGGY_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODRaiderBuggy\NU_BUGGY_SKN_UGCP.w3x"/>
 		<!-- Base Object -->
@@ -14,7 +15,7 @@
 		<LocomotorSet Locomotor="NODScorpionBuggyLocomotor" Condition="NORMAL" Speed="130.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="EXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="Bone_TireLR" TrackMarksRightBone="Bone_TireRR" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" LeftRearTireBone="Bone_TireLR" RightRearTireBone="Bone_TireRR" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0">
+			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="FXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="Bone_TireLR" TrackMarksRightBone="Bone_TireRR" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" LeftRearTireBone="Bone_TireLR" RightRearTireBone="Bone_TireRR" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NU_BUGGY_SKN_FS"/>
 					<Texture Original="NUMiltnB" New="NUMilitant"/>
@@ -28,7 +29,7 @@
 					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="NU_BuggyR_SKN"/>
+					<Model Name="NU_BUGGYR_SKN_FS"/>
 					<ParticleSysBone BoneName="BONE_CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -83,6 +84,23 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerNOD" TracerHitFx="FX_BulletHitLargeNOD" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />

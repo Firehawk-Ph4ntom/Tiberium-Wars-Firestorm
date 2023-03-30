@@ -2,6 +2,7 @@
 	<Tags/>
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIPitbull\GUPitbull_SPM_KW.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPitbull\GUPITBULL_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIPitbull\GUPITBULL_SKNADAR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIPitbull\GUPITBULLR_SKNADAR.w3x"/>
 		<!-- Base Object -->
@@ -16,14 +17,14 @@
 		<LocomotorSet Locomotor="GDIPitbullLocomotor" Condition="NORMAL" Speed="115.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="EXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="Tire03" TrackMarksRightBone="Tire04" LeftFrontTireBone="Tire01" RightFrontTireBone="Tire02" LeftRearTireBone="Tire03" RightRearTireBone="Tire04" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" ExtraPublicBone="FXWEAPON01 FXWEAPON02">
+			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="FXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" TrackMarksLeftBone="Tire03" TrackMarksRightBone="Tire04" LeftFrontTireBone="Tire01" RightFrontTireBone="Tire02" LeftRearTireBone="Tire03" RightRearTireBone="Tire04" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25" ExtraPublicBone="FXWEAPON01 FXWEAPON02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUPitbull_SKN"/>
+					<Model Name="GUPitbull_SKN_FS"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
 					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="mortortube"/>
 					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="mortortube"/>
-					<Turret TurretNameKey="Turret" TurretPitch="B_ Gun" TurretID="1"/>
+					<Turret TurretNameKey="Turret" TurretPitch="B_Gun" TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 DYING">
 					<Model Name="GUPitbullR_SKNADAR"/>
@@ -50,7 +51,7 @@
 					<ParticleSysBone BoneName="TIRE03" FXParticleSystemTemplate="GDIPitbullDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="GUPitbull_SKN"/>
+					<Model Name="GUPitbull_SKN_FS"/>
 					<Texture Original="GUPitbull" New="GUPitbullD"/>
 					<Texture Original="GURig" New="GURig_D"/>
 					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
@@ -63,7 +64,7 @@
 					<ParticleSysBone BoneName="TIRE03" FXParticleSystemTemplate="GDIPitbullDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GUPitbull_SKN"/>
+					<Model Name="GUPitbull_SKN_FS"/>
 					<ParticleSysBone BoneName="TIRE03" FXParticleSystemTemplate="GDIPitbullDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
@@ -81,6 +82,23 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="B_SPOTLIGHT" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">

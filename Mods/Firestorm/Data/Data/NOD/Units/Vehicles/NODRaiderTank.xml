@@ -1,6 +1,7 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURADR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURADRR_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
@@ -13,7 +14,7 @@
 		<LocomotorSet Locomotor="NODRaiderTankLocomotor" Condition="NORMAL" Speed="80.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="8.0" MaxRecoilDistance="4.0" RecoilDamping="2.0" RecoilSettleSpeed="2.0" ExtraPublicBone="FXTracksL FXTracksR Bone_Tail FXTracksB" TrackMarks="EXTnkTrack2" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="8.0" MaxRecoilDistance="4.0" RecoilDamping="2.0" RecoilSettleSpeed="2.0" ExtraPublicBone="FXTracksL FXTracksR Bone_Tail FXTracksB" TrackMarks="FXTankTrack2" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="NURADR_SKN_FS"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TurretFX"/>
@@ -44,7 +45,7 @@
 					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="NURADRR_SKN"/>
+					<Model Name="NURADRR_SKN_FS"/>
 					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
@@ -115,6 +116,23 @@
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15">
 				<FXShader ShaderName="Laser.fx">

@@ -1,5 +1,7 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDISurveyor\GUSUV_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDISurveyor\GUSUVR_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
@@ -14,23 +16,23 @@
 		<ArmorSet Armor="GenericExpansionUnitArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="GDISurveyorLocomotor" Condition="NORMAL" Speed="60.0"/>
 		<Draws>
-			<TruckDraw id="ModuleTag_Draw" TrackMarks="EXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_LFTire" RightFrontTireBone="Bone_RFTire" MidLeftRearTireBone="Bone_LMTire" MidRightRearTireBone="Bone_RMTire" LeftRearTireBone="Bone_LRTire" RightRearTireBone="Bone_RRTire" TireRotationMultiplier="0.1" OkToChangeModelColor="true">
+			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_LFTire" RightFrontTireBone="Bone_RFTire" MidLeftRearTireBone="Bone_LMTire" MidRightRearTireBone="Bone_RMTire" LeftRearTireBone="Bone_LRTire" RightRearTireBone="Bone_RRTire" TireRotationMultiplier="0.1" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUSUV_SKN"/>
+					<Model Name="GUSUV_SKN_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="GUSUVR_SKN"/>
+					<Model Name="GUSUVR_SKN_FS"/>
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="GUSUV_SKN"/>
+					<Model Name="GUSUV_SKN_FS"/>
 					<Texture Original="GB_Suv" New="GU_Suv_D"/>
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GUSUV_SKN"/>
+					<Model Name="GUSUV_SKN_FS"/>
 					<Texture Original="GB_Suv" New="GU_Suv_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
@@ -53,6 +55,23 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
 					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") </Script>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>

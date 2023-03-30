@@ -3,6 +3,7 @@
 		<Include type="all" source="ART:Firestorm\Units\NODFlameTank\NUFlameTank_UG.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODFlameTank\NUFlameTank_UGD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODFlameTank\NUFLAMETANK.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODFlameTank\NUFLAMETANKR_CTR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
@@ -16,7 +17,7 @@
 		<LocomotorSet Locomotor="NODFlameTankLocomotor" Condition="NORMAL" Speed="75.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR" TrackMarks="EXTnkTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR" TrackMarks="FXTankTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="NUFLAMETANK_FS"/>
 					<Turret TurretNameKey="Turret" TurretID="1"/>
@@ -44,7 +45,8 @@
 					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2">
-					<Model Name="NUFLAMETANKR"/>
+					<Model Name="NUFLAMETANKR_FS"/>
+					<Texture Original="NUFlameTankD" New="NUFlameTank_UGD"/>
 					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire_Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow_Blue" FollowBone="true"/>
@@ -52,7 +54,7 @@
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke_Blue" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="NUFLAMETANKR"/>
+					<Model Name="NUFLAMETANKR_FS"/>
 					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
@@ -176,6 +178,23 @@
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODFlameTankPilotFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODFlameTankPilotGlow" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>

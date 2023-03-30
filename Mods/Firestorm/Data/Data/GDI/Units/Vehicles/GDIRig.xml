@@ -5,6 +5,7 @@
 		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURigD_UGCA.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURIG_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURIGADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURIGR_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURIGRADAR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURIGUPAK_AN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRig\GURIGUPAK_RAIL_SN.w3x"/>
@@ -26,7 +27,7 @@
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="GDIRigLocomotor" Condition="NORMAL" Speed="60"/>
 		<Draws>
-			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9" TrackMarks="EXTnkTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR">
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9" TrackMarks="FXTankTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="GURIG_FS"/>
 				</ModelConditionState>
@@ -153,7 +154,7 @@
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="GURIGR"/>
+					<Model Name="GURIGR_FS"/>
 					<Texture Original="GUupgrades" New="GUupgradesD"/>
 					<Texture Original="GUAPC" New="GUAPC_D"/>
 					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
@@ -261,6 +262,23 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
