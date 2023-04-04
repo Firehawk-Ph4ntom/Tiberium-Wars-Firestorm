@@ -1,8 +1,8 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<!-- Dummy Drone for Annihilator Tripod -->
-	<GameObject id="AlienAnnihilatorTripodDummyDrone" Side="Alien" EditorSorting="SYSTEM" TransportSlotCount="0" KindOf="SKIP_IDLE_WHEN_CAPTURED DRONE UNATTACKABLE NOT_AUTOACQUIRABLE IMMOBILE RESIST_EMP IGNORED_IN_FINDPOSITIONAROUND PASS_EXPERIENCE_TO_SLAVER" EditorName="AlienAnnihilatorTripodDummyDrone">
+	<GameObject id="AlienAnnihilatorTripodDummyDrone" Side="Alien" EditorSorting="SYSTEM" TransportSlotCount="0" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE PASS_EXPERIENCE_TO_SLAVER NO_COLLIDE" EditorName="AlienAnnihilatorTripodDummyDrone">
 		<ArmorSet Armor="NoArmor" />
-		<LocomotorSet Locomotor="AlienAnnihilatorTripodLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<LocomotorSet Locomotor="AlienInvaderFighter" Condition="NORMAL" Speed="200.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -11,8 +11,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics" />
-			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true" UseSlaverAsControlForEvaObjectSightedEvents="false"/>
+			<Physics id="ModuleTag_Physics"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true"/>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="AlienAnnihilatorTripodDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
 			</FireWeaponUpdate>
@@ -26,14 +26,9 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
-		<Geometry IsSmall="true">
-			<Shape MajorRadius="0.8"/>
-		</Geometry>
-		<VisionInfo/>
 	</GameObject>
 	<!-- Dummy Drone for Eradicator Hexapod -->
 	<GameObject id="AlienEradicatorHexapodDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" EditorName="AlienEradicatorHexapodDummyDrone">
-		<LocomotorSet Locomotor="AlienEradicatorHexapodLocomotor" Condition="NORMAL" Speed="40.0"/>
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="GDIMARVDummyCrusherWeaponFailsafe" FireDelay="0s" OneShot="false"/>
@@ -43,19 +38,15 @@
 	</GameObject>
 	<!-- Dummy Drone for Corrupter -->
 	<GameObject id="AlienCorrupterDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" EditorName="AlienCorrupterDummyDrone">
-		<LocomotorSet Locomotor="AlienCorrupterLocomotor" Condition="NORMAL" Speed="60.0"/>
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="AlienCorrupterTiberiumRadiation" FireDelay="2s"/>
 			</FireWeaponUpdate>
 		</Behaviors>
 	</GameObject>
-	<!-- Dummy Drone for Ichor Harvester -->
-	<GameObject id="AlienHarvesterDummyDrone" inheritFrom="AlienCorrupterDummyDrone" EditorName="AlienHarvesterDummyDrone">
-		<LocomotorSet Locomotor="AlienHarvesterLocomotor" Condition="NORMAL" Speed="75.0"/>
-	</GameObject>
 	<!-- Dummy Drone for Explorer Outpost / Terraforming Nexus / Drone Platform / Tiberium Extractor -->
-	<GameObject id="AlienExplorerOutpostDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" EditorName="AlienExplorerOutpostDummyDrone">
+	<GameObject id="AlienExplorerOutpostDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE IMMOBILE" EditorName="AlienExplorerOutpostDummyDrone">
+		<LocomotorSet xai:joinAction="Remove"/>
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="AlienEradicatorTiberiumRadiation" FireDelay="2s"/>
