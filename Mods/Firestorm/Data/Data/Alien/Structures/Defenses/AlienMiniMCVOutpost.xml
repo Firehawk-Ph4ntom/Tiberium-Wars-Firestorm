@@ -6,6 +6,7 @@
 	<GameObject id="AlienMiniMCVOutpost" inheritFrom="BaseStructure" SelectPortrait="Portrait_ALIENOutpost" ThreatLevel="10" ButtonImage="Portrait_ALIENOutpost" Side="Alien" BuildCost="1500" BuildTime="15" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER OUTPOST PROJECT_BUILDABILITY_FOR_ALLIES TIBERIUM_BASED HEALED_BY_TIBERIUM" EditorName="AlienExplorerOutpost" TypeDescription="Type:Outpost" Description="Desc:ALIENOutpost">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENOutpost</DisplayName>
 		<ArmorSet Armor="GenericExpansionUnitArmor" DamageFX="FactionStructureDamageFX"/>
+		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -66,17 +67,16 @@
 					<Animation AnimationName="ABOutpost_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_1">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<Model Name="FXINVISBONE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -100,13 +100,11 @@
 				<Sound Type="INITIAL" List="ALI_Building_Die"/>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
-				<SpawnTemplate>IonStormBuilding</SpawnTemplate>
-			</SpawnBehavior>
-			<SpawnBehavior id="ModuleTag_Spawn2" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" ShareUpgrades="true">
+				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>AlienExplorerOutpostDummyDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="1%">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" AffectUnderAttack="true">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackCompleteSound="ALI_Outpost_Unpack" UnpackTime="5s"/>

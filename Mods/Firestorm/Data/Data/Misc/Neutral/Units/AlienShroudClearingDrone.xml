@@ -1,5 +1,5 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="ShroudClearingDrone" KindOf="DRONE NO_COLLIDE NOT_AUTOACQUIRABLE UNATTACKABLE IGNORE_FOR_VICTORY" Side="Neutral" EditorName="ShroudClearingDrone" EditorSorting="SYSTEM">
+	<GameObject id="AlienShroudClearingDrone" Side="Neutral" EditorSorting="SYSTEM" TransportSlotCount="0" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienShroudClearingDrone">
 		<DisplayName>ShroudClearingDrone</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<LocomotorSet Locomotor="GDIRepairDroneLocomotor" Condition="NORMAL" Speed="75.0"/>
@@ -13,6 +13,11 @@
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>IonStormBuilding</SpawnTemplate>
+			</SpawnBehavior>
 			<ShroudClearBehavior id="ModuleTag_ShroudClearBehavior" ShroudClearOptions="REVEAL_FOR_ALLIES"/>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>

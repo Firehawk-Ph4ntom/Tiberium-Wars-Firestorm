@@ -2,7 +2,7 @@
 	<!-- Dummy Drone for Annihilator Tripod -->
 	<GameObject id="AlienAnnihilatorTripodDummyDrone" Side="Alien" EditorSorting="SYSTEM" TransportSlotCount="0" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE PASS_EXPERIENCE_TO_SLAVER NO_COLLIDE" EditorName="AlienAnnihilatorTripodDummyDrone">
 		<ArmorSet Armor="NoArmor" />
-		<LocomotorSet Locomotor="AlienInvaderFighter" Condition="NORMAL" Speed="200.0"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="9999999.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -27,7 +27,7 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
 	</GameObject>
-	<!-- Dummy Drone for Eradicator Hexapod -->
+	<!-- Dummy Drone for Eradicator Hexapod / Planetary Annihilator -->
 	<GameObject id="AlienEradicatorHexapodDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" EditorName="AlienEradicatorHexapodDummyDrone">
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
@@ -44,10 +44,16 @@
 			</FireWeaponUpdate>
 		</Behaviors>
 	</GameObject>
-	<!-- Dummy Drone for Explorer Outpost / Terraforming Nexus / Drone Platform / Tiberium Extractor -->
-	<GameObject id="AlienExplorerOutpostDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE IMMOBILE" EditorName="AlienExplorerOutpostDummyDrone">
-		<LocomotorSet xai:joinAction="Remove"/>
+	<!-- Dummy Drone for Ichor Harvester -->
+	<GameObject id="AlienHarvesterDummyDrone" inheritFrom="AlienCorrupterDummyDrone" EditorName="AlienHarvesterDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE"/>
+	<!-- Dummy Drone for Explorer Outpost / Terraforming Nexus / Drone Platform / Ichor Extractor -->
+	<GameObject id="AlienExplorerOutpostDummyDrone" inheritFrom="AlienAnnihilatorTripodDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE RESIST_EMP" EditorName="AlienExplorerOutpostDummyDrone">
 		<Behaviors>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" InitialDelay="1s" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>IonStormBuilding</SpawnTemplate>
+			</SpawnBehavior>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="AlienEradicatorTiberiumRadiation" FireDelay="2s"/>
 			</FireWeaponUpdate>
