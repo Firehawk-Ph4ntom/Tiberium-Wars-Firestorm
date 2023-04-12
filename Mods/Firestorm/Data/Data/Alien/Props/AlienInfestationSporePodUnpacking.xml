@@ -1,0 +1,53 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\AlienInfestationPod\ABTIBPOD_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienInfestationPod\ABTIBPOD_ASN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="AlienInfestationSporePodUnpacking" inheritFrom="BaseStructure" Side="ALIEN" PlacementViewAngle="270d" CommandSet="EmptyCommandSet" KindOf="STRUCTURE IMMOBILE FS_BASE_DEFENSE CAN_CAST_REFLECTIONS TIBERIUM_BASED UNATTACKABLE NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY HEALED_BY_TIBERIUM STICK_TO_TERRAIN_SLOPE RESIST_EMP" ProductionQueueType="OTHER_STRUCTURE" EditorName="AlienInfestationSporePodUnpacking">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienInfestationSporePodUnpacking</DisplayName>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABTIBPOD_ASN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
+					<Model Name="ABTIBPOD_ASN"/>
+					<Texture Original="AURprTripod" New="AURprTripodBlue"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="ABTIBPOD_AAN" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="1.1" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponWhenDead id="ModuleTag_CatalystDeathWeapon" xai:joinAction="Remove"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_AlienInfestationSporePodUnpacking">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="1.5s" MaxLifetime="1.5s"/>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
+		</Body>
+		<!-- IMPORTANT: Keep the geometry entries of AlienInfestationSporePodUnpacking and AlienInfestationSporePod the same -->
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="30" MinorRadius="30" Height="80" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArraySound xai:joinAction="Remove"/>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="320"/>
+	</GameObject>
+</AssetDeclaration>
