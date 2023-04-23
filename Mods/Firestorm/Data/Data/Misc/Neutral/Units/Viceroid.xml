@@ -19,11 +19,16 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" StateName="STATE_Cover">
 					<Animation AnimationName="NUVisrod_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RANDOMSTART">
-					<Animation AnimationName="NUVisrod_ATKA" AnimationMode="LOOP"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
 					<Animation AnimationName="NUVisrod_MOVA" AnimationMode="LOOP" AnimationPriority="30" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A FIRING_OR_PREATTACK_A" StateName="STATE_FIRING">
+					<Animation AnimationName="NUVisrod_ATKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_FIRING" then CurDrawableSetTransitionAnimState("STATE_ENGAGED") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_ENGAGED">
+					<Animation AnimationName="NUVisrod_ATKA" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_ENGAGED" then CurDrawableSetTransitionAnimState("STATE_FIRING") end; </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
@@ -68,7 +73,7 @@
 			</WanderAIUpdate>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="500.0" InitialHealth="500.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="500.0"/>
 		</Body>
 		<Geometry IsSmall="true">
 			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
@@ -82,7 +87,6 @@
 		<AudioArraySound>
 			<AudioEntry Sound="ALI_Viceroid_AmbientDelayedLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<ShadowInfo Type="DECAL" SizeX="14" SizeY="14" Texture="ShadowI"/>
 		<EvaEvents EvaEventDieOwner="" EvaEventDamagedOwner="" EvaEventDamagedFromShroudedSourceOwner="" EvaEventDamagedByFireOwner="" EvaEventAmbushed="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventAvailableForProduction="" EvaEventProductionStarted="" EvaEventBuildOnHold="" EvaEventBuildCancelled="" EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="0" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 	</GameObject>
