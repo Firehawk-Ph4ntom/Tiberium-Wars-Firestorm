@@ -29,23 +29,18 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AUSTINGRAY_FP"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="AUSTINGRAYR"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="AUSTINGRAY_SKN"/>
 					<Texture Original="AUPACarrier" New="AUPACarrier_D"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="60" SizeY="60" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name="AUSTINGRAY_SKN"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="60" SizeY="60" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
@@ -85,6 +80,15 @@
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="60" SizeY="60" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="FXWEAPON" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXAspotlight"/>
@@ -95,7 +99,6 @@
 			</SpotlightDraw>
 		</Draws>
 		<Behaviors>
-			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStingrayMissileJammerWeapon"/>
@@ -160,7 +163,6 @@
 			<AudioEntry Sound="ALI_SeekerTank_MoveStart" AudioType="soundMoveStart"/>
 			<AudioEntry Sound="ALI_SeekerTank_IdleLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<ShadowInfo Type="VOLUME"/>
 		<VisionInfo VisionRange="400" ShroudClearingRange="500"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
 	</GameObject>

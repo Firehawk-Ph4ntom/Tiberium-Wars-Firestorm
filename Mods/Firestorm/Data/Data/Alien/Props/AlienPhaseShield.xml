@@ -1,5 +1,5 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="AlienPhaseShield" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE INERT_SHROUD_REVEALER RESIST_EMP" RadarPriority="NOT_ON_RADAR" Side="ALIEN" EditorName="AlienPhaseShield" EditorSorting="MISC_MAN_MADE" CommandSet="EmptyCommandSet">
+	<GameObject id="AlienPhaseShield" KindOf="IMMOBILE UNATTACKABLE NOT_AUTOACQUIRABLE INERT_SHROUD_REVEALER" Side="ALIEN" EditorName="AlienPhaseShield" EditorSorting="MISC_MAN_MADE">
 		<DisplayName>AlienPhaseShield</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -14,27 +14,25 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="0.5s" DestructionDelay="5s">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="FADED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_DeathFaded" DestructionDelay="2s" FadeTime="2s" Fade="true">
-				<DieMuxData DeathTypes="FADED"/>
+			<SlowDeath id="ModuleTag_Death" DestructionDelay="2s" FadeTime="2s" Fade="true">
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event FX="FX_ALI_StasisShield_Die"/>
+				<Event Index="onDeath" FX="FX_ALI_StasisShield_Die"/>
 			</FXListBehavior>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="AlienPhaseShieldWeapon"/>
 			</FireWeaponUpdate>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="20s" MaxLifetime="20s" DeathType="FADED"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="20s" MaxLifetime="20s"/>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
 		</Body>
 		<AudioArraySound>
 			<AudioEntry Sound="ALI_StasisShieldLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>
