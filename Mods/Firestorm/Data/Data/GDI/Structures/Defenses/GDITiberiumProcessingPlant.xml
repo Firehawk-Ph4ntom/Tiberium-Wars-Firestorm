@@ -122,6 +122,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="16000" OnDieSpawnPercentage="25"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="2s" DepositAmount="10" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
 				<Sound List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -132,6 +134,9 @@
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
 			</FXListBehavior>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="TIBPlant_CashBoost" InitiallyActive="true" Range="99999" RefreshDelay="0.01s">
+				<ObjectFilter Rule="ANY" Relationship="SAME_PLAYER" Include="SUPPLY_GATHERING_CENTER HARVESTER"/>
+			</AttributeModifierAuraUpdate>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
@@ -139,11 +144,6 @@
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingSuicide.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="99999999"/>
-			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="2s" DepositAmount="10" Flags="ACTIVE_WHEN_REPAIRING" GiveNoXP="true" Upgrade="Upgrade_SonicRepulsionField"/>
-			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="TIBPlant_CashBoost" InitiallyActive="true" Range="99999" RefreshDelay="0.01s">
-				<ObjectFilter Rule="ANY" Relationship="SAME_PLAYER" Include="SUPPLY_GATHERING_CENTER HARVESTER"/>
-			</AttributeModifierAuraUpdate>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
@@ -161,7 +161,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<ShadowInfo Type="VOLUME"/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
