@@ -579,11 +579,11 @@
 		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE">
 		<FiringDuration
-			MinSeconds="0.3s"
-			MaxSeconds="0.3s"/>
-		<ClipReloadTime
 			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MaxSeconds="1s" />
+		<ClipReloadTime
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s" />
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NeutralViceroidSpittleWeaponWarhead"
@@ -596,52 +596,310 @@
 		Name="NeutralViceroidSpittleWeaponWarhead"
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
 		<Nuggets>
-			<DamageNugget
-				Damage="75"
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="25"
+				Radius="25"
 				DamageArc="30d"
-				Radius="50"
 				DamageType="GRENADE"
-				DamageFXType="CLUBBING"
-				DeathType="POISONED">
-				<DamageScalarDetails
-					Scalar="50%">
-					<Filter
-						Rule="NONE">
-						<!-- Alien Infantry -->
-						<IncludeThing>AlienBuzzers</IncludeThing>
-						<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
-						<IncludeThing>AlienRazorDrones</IncludeThing>
-						<IncludeThing>AlienRazorDroneSquad</IncludeThing>
-						<IncludeThing>AlienAssimilator</IncludeThing>
-						<IncludeThing>AlienShockTrooper</IncludeThing>
-						<IncludeThing>AlienShockTrooperSquad</IncludeThing>
-						<IncludeThing>AlienShockTrooperSquad_Veteran</IncludeThing>
-						<IncludeThing>AlienRavager</IncludeThing>
-						<IncludeThing>AlienRavagerSquad</IncludeThing>
-						<IncludeThing>AlienMastermind</IncludeThing>
-						<!-- Alien Vehicles -->
-						<IncludeThing>AlienGunWalker</IncludeThing>
-						<IncludeThing>AlienSeekerTank</IncludeThing>
-						<IncludeThing>AlienHarvester</IncludeThing>
-						<IncludeThing>AlienDevourerTank</IncludeThing>
-						<IncludeThing>AlienCorrupter</IncludeThing>
-						<IncludeThing>AlienStingray</IncludeThing>
-						<IncludeThing>AlienMechapede</IncludeThing>
-						<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
-						<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-						<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
-						<IncludeThing>AlienExplorer</IncludeThing>
-						<!-- Alien Air -->
-						<IncludeThing>AlienMCV</IncludeThing>
-						<IncludeThing>AlienStormrider</IncludeThing>
-						<IncludeThing>AlienDevastatorWarship</IncludeThing>
-						<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
-						<IncludeThing>AlienInvaderFighter</IncludeThing>
-						<IncludeThing>AlienConquerorBattleship</IncludeThing>
-						<IncludeThing>AlienSlavedStormrider</IncludeThing>
-						<IncludeThing>AlienMothership</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<ExcludeThing>MutantViceroidSquad</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienRazorDroneSquad</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad_Veteran</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienRavagerSquad</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<ExcludeThing>MutantViceroidSquad</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienRazorDroneSquad</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad_Veteran</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienRavagerSquad</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<ExcludeThing>MutantViceroidSquad</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienRazorDroneSquad</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad_Veteran</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienRavagerSquad</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<ExcludeThing>MutantViceroidSquad</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienRazorDroneSquad</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad</ExcludeThing>
+					<ExcludeThing>AlienShockTrooperSquad_Veteran</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienRavagerSquad</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<DamageNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantViceroidSquad</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienRazorDroneSquad</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad_Veteran</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienRavagerSquad</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<DamageNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantViceroidSquad</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienRazorDroneSquad</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad_Veteran</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienRavagerSquad</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<DamageNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantViceroidSquad</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienRazorDroneSquad</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad_Veteran</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienRavagerSquad</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<DamageNugget
+				Damage="25"
+				Radius="25"
+				DamageArc="30d"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantViceroidSquad</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienRazorDroneSquad</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad</IncludeThing>
+					<IncludeThing>AlienShockTrooperSquad_Veteran</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienRavagerSquad</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Nugget to kill any viceroids whether ally or enemy -->
+			<DamageNugget
+				Damage="24"
+				Radius="25"
+				DamageArc="30d"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<IncludeThing>Viceroid</IncludeThing>
+				</SpecialObjectFilter>
 			</DamageNugget>
 			<SuppressionNugget
 				Radius="50"
@@ -795,25 +1053,12 @@
 			MaxSeconds="3s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="NeutralDefensiveTowerCannonWarhead"
+				WarheadTemplate="GDIMammothTankCannonWarhead"
 				ProjectileTemplate="FXTankShell">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
 					ProjectileTemplate="FXTankShell_Veteran"/>
 			</ProjectileNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="NeutralDefensiveTowerCannonWarhead"
-		Name="NeutralDefensiveTowerCannonWarhead"
-		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
-		<Nuggets>
-			<DamageNugget
-				Damage="500"
-				DamageType="CANNON"
-				DamageFXType="GDI_CANNON"
-				DeathType="EXPLODED"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -2591,14 +2836,14 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
 		<FiringDuration
-			MinSeconds="2s"
-			MaxSeconds="2s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<ClipReloadTime
-			MinSeconds="1.3s"
-			MaxSeconds="1.3s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -2641,14 +2886,14 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
 		<FiringDuration
-			MinSeconds="2s"
-			MaxSeconds="2s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<ClipReloadTime
-			MinSeconds="1.3s"
-			MaxSeconds="1.3s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -3928,7 +4173,7 @@
 		AttackRange="300"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
-		FireSound="GDI_Wolverine_MachineGunFireLoopMS"
+		FireSound="GDI_Wolverine_GunFireLoop"
 		FireFX="FX_GDIWolverineFire"
 		FireVeteranFX="FX_GDIWolverineFireHeroic"
 		ClipSize="8"
@@ -3941,7 +4186,6 @@
 		<Nuggets>
 			<DamageNugget
 				Damage="20"
-				Radius="2"
 				DamageType="GUN"
 				DamageFXType="GDI_RIFLE"/>
 			<SuppressionNugget
@@ -3957,7 +4201,7 @@
 		AttackRange="300"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
-		FireSound="GDI_Wolverine_MachineGunFireLoopMS"
+		FireSound="GDI_Wolverine_GunFireLoop"
 		FireFX="FX_GDIWolverineFire"
 		FireVeteranFX="FX_GDIWolverineFireHeroic"
 		ClipSize="8"
@@ -3970,7 +4214,7 @@
 		<Nuggets>
 			<DamageNugget
 				Damage="30"
-				Radius="4"
+				Radius="2"
 				DamageType="GUN"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE"/>
@@ -3997,14 +4241,14 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
 		RotatingTurret="true">
 		<PreAttackDelay
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
 		<FiringDuration
-			MinSeconds="2s"
-			MaxSeconds="2s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<ClipReloadTime
-			MinSeconds="1.3s"
-			MaxSeconds="1.3s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -4048,14 +4292,14 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
 		RotatingTurret="true">
 		<PreAttackDelay
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
 		<FiringDuration
-			MinSeconds="2s"
-			MaxSeconds="2s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<ClipReloadTime
-			MinSeconds="1.3s"
-			MaxSeconds="1.3s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -4266,7 +4510,7 @@
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
 		<Nuggets>
 			<DamageNugget
-				Damage="325"
+				Damage="300"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
@@ -4324,7 +4568,7 @@
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
 		<Nuggets>
 			<DamageNugget
-				Damage="425"
+				Damage="400"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
@@ -4380,7 +4624,7 @@
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
 		<Nuggets>
 			<DamageNugget
-				Damage="600"
+				Damage="500"
 				DamageType="CANNON"
 				DeathType="EXPLODED"
 				DamageFXType="GDI_CANNON"/>
@@ -5156,11 +5400,11 @@
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
 		<FiringDuration
-			MinSeconds="0.2s"
+			MinSeconds="0.3s"
 			MaxSeconds="0.3s"/>
 		<ClipReloadTime
-			MinSeconds="1s"
-			MaxSeconds="1.3s"/>
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIMARVSonicGrenadeWeaponWarhead"
@@ -5831,7 +6075,7 @@
 			MaxSeconds="0.01s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="15"
+				Damage="10"
 				DamageType="GUN"
 				DamageFXType="GDI_RIFLE"/>
 			<SuppressionNugget
@@ -5859,7 +6103,7 @@
 			MaxSeconds="0.01s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="23"
+				Damage="15"
 				Radius="2"
 				DamageType="GUN"
 				DeathType="BURNED"
@@ -6003,8 +6247,8 @@
 			MinSeconds="0.1s"
 			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="8s"
-			MaxSeconds="8s"/>
+			MinSeconds="10s"
+			MaxSeconds="10s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIFireHawkBombWarhead"
@@ -7640,18 +7884,18 @@
 		ClipSize="16"
 		ShotsPerBarrel="1">
 		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.15s"/>
+			MinSeconds="0.05s"
+			MaxSeconds="0.1s"/>
 		<ClipReloadTime
-			MinSeconds="5s"
-			MaxSeconds="5s"/>
+			MinSeconds="7s"
+			MaxSeconds="7s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIRippleRocketBatterySonicArtilleryWarhead"
-				ProjectileTemplate="GDIMARVSonicGrenadeProjectile">
+				ProjectileTemplate="GDIRippleRocketBatterySonicGrenadeProjectile">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="GDIMARVSonicGrenadeProjectile_Veteran"/>
+					ProjectileTemplate="GDIRippleRocketBatterySonicGrenadeProjectile_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 	</WeaponTemplate>
@@ -7781,7 +8025,7 @@
 		<Nuggets>
 			<DamageNugget
 				ForbiddenTargetModelCondition="CLIMBING RAPPELLING LOCOMOTOR_TAXIING LANDING"
-				Damage="1500"
+				Damage="1600"
 				DamageTaperOff="75"
 				Radius="200"
 				DamageType="ROCKET"
@@ -7808,14 +8052,10 @@
 
 	<WeaponTemplate
 		id="GDIMjolnirStrikeWeaponOne"
-		Name="GDIMjolnirStrikeWeaponOne"
-		AttackRange="50000"
-		WeaponSpeed="500"
-		ClipSize="15"
-		AutoReloadsClip="NONE">
+		Name="GDIMjolnirStrikeWeaponOne">
 		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.7s"/>
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
 		<Nuggets>
 			<WeaponOCLNugget
 				WeaponOCL="OCL_GDIMjolnirProjectileStrikes"/>
@@ -9355,7 +9595,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9390,7 +9629,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9425,7 +9663,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9460,7 +9697,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9495,7 +9731,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to all allies -->
+			<!-- Heal to Scrin allied units -->
 			<DamageNugget
 				Damage="= round(5/2.5)"
 				Radius="25"
@@ -9747,7 +9983,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9782,7 +10017,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9817,7 +10051,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9852,7 +10085,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -9887,7 +10119,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to all allies -->
+			<!-- Heal to Scrin allied units -->
 			<DamageNugget
 				Damage="= round(7.5/2.5)"
 				Radius="25"
@@ -12841,7 +13073,7 @@
 		FireFX="FX_Sandstorm_MissileFire"
 		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
 		FireSound="NOD_StealthTank_RocketLaunch"
-		ClipSize="5"
+		ClipSize="3"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
@@ -12850,11 +13082,11 @@
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
 		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="5s"
-			MaxSeconds="5s"/>
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODStealthTankRocketWarhead"
@@ -12880,7 +13112,7 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="325"
+				Damage="400"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
@@ -12910,7 +13142,7 @@
 		FireFX="FX_StealthTank_TibCoreMissileFire"
 		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
 		FireSound="NOD_StealthTank_RocketLaunch"
-		ClipSize="5"
+		ClipSize="3"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
@@ -12919,11 +13151,11 @@
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
 		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="5s"
-			MaxSeconds="5s"/>
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODStealthTankRocketTibCoreWarhead"
@@ -12949,7 +13181,7 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="425"
+				Damage="500"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
@@ -12979,7 +13211,7 @@
 		FireFX="FX_StealthTank_BlueTibCoreMissileFire"
 		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
 		FireSound="NOD_StealthTank_RocketLaunch"
-		ClipSize="5"
+		ClipSize="3"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
@@ -12988,11 +13220,11 @@
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
 		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="5s"
-			MaxSeconds="5s"/>
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODStealthTankRocketBlueTibCoreWarhead"
@@ -13018,7 +13250,7 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="525"
+				Damage="600"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
@@ -15636,8 +15868,8 @@
 			MinSeconds="0.2s"
 			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="10s"
-			MaxSeconds="10s"/>
+			MinSeconds="12s"
+			MaxSeconds="12s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODBansheePlasmaCannonWarhead"
@@ -15690,8 +15922,8 @@
 			MinSeconds="0.2s"
 			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="10s"
-			MaxSeconds="10s"/>
+			MinSeconds="12s"
+			MaxSeconds="12s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODBansheePlasmaCannonBlueTibCoreWarhead"
@@ -20256,7 +20488,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20291,7 +20522,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20326,7 +20556,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20361,7 +20590,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20397,7 +20625,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to all allies -->
+			<!-- Heal to Scrin allied units -->
 			<DamageNugget
 				Damage="= round(45/2.5)"
 				Radius="25"
@@ -20651,7 +20879,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20686,7 +20913,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20721,7 +20947,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20756,7 +20981,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -20792,7 +21016,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to all allies -->
+			<!-- Heal to Scrin allied units -->
 			<DamageNugget
 				Damage="= round(55/2.5)"
 				Radius="25"
@@ -21327,7 +21551,7 @@
 			MinSeconds="0.05s"
 			MaxSeconds="0.05s"/>
 		<ClipReloadTime
-			MinSeconds="1.8s"
+			MinSeconds="2s"
 			MaxSeconds="2s"/>
 		<Nuggets>
 			<ProjectileNugget
@@ -21348,7 +21572,7 @@
 		<Nuggets>
 			<DamageNugget
 				Damage="650"
-				Radius="30"
+				Radius="20"
 				DamageType="ROCKET"
 				DamageFXType="ALIEN_PLASMADISK">
 				<DamageScalarDetails
@@ -23289,7 +23513,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23324,7 +23547,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23359,7 +23581,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23394,7 +23615,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23417,19 +23637,7 @@
 					<IncludeThing>AlienMastermind</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Nugget to kill any viceroids whether ally or enemy -->
-			<DamageNugget
-				Damage="= round(45/2.5)"
-				Radius="25"
-				DamageType="GRENADE"
-				DeathType="POISONED"
-				DamageFXType="ALIEN_TIOXIN">
-				<SpecialObjectFilter
-					Rule="NONE">
-					<IncludeThing>Viceroid</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to all allies -->
+			<!-- Heal to Scrin allied units -->
 			<DamageNugget
 				Damage="= round(45/2.5)"
 				Radius="25"
@@ -23694,7 +23902,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23729,7 +23936,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23764,7 +23970,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23799,7 +24004,6 @@
 					Exclude="INFANTRY HORDE"
 					Relationship="ENEMIES NEUTRAL">
 					<!-- Neutral Units -->
-					<IncludeThing>Viceroid</IncludeThing>
 					<IncludeThing>MutantFiend</IncludeThing>
 					<IncludeThing>MutantFiendBlue</IncludeThing>
 					<IncludeThing>MutantFiendRed</IncludeThing>
@@ -23822,19 +24026,7 @@
 					<IncludeThing>AlienMastermind</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Nugget to kill any viceroids whether ally or enemy -->
-			<DamageNugget
-				Damage="= round(55/2.5)"
-				Radius="25"
-				DamageType="GRENADE"
-				DeathType="POISONED"
-				DamageFXType="ALIEN_TIOXIN">
-				<SpecialObjectFilter
-					Rule="NONE">
-					<IncludeThing>Viceroid</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to all allies -->
+			<!-- Heal to Scrin allied units -->
 			<DamageNugget
 				Damage="= round(55/2.5)"
 				Radius="25"
