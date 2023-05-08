@@ -6,7 +6,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienHarvester" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienHarvester" ButtonImage="Portrait_AlienHarvester" Side="ALIEN" BuildCost="1500" BuildTime="15" CommandSet="AlienHarvesterCommandSet" KindOf="PRELOAD SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE HARVESTER TIBERIUM_BASED HEALED_BY_TIBERIUM MOVE_FOR_NOONE IGNORES_SELECT_ALL CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4 SLAVE_OWNER" VoicePriority="16" EditorName="AlienHarvester" Description="Desc:AlienHarvester" TypeDescription="Type:AlienHarvester">
+	<GameObject id="AlienHarvester" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienHarvester" ButtonImage="Portrait_AlienHarvester" Side="ALIEN" BuildCost="1500" BuildTime="15" CommandSet="AlienHarvesterCommandSet" KindOf="SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE HARVESTER TIBERIUM_BASED HEALED_BY_TIBERIUM MOVE_FOR_NOONE IGNORES_SELECT_ALL CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4 SLAVE_OWNER" VoicePriority="16" EditorName="AlienHarvester" Description="Desc:AlienHarvester" TypeDescription="Type:AlienHarvester">
 		<DisplayName xai:joinAction="Replace">Name:ALIENHarvester</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_IonRetribution</DisplayUpgrade>
@@ -163,7 +163,7 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>AlienHarvesterDummyDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="60.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" AffectUnderAttack="true">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="60.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
 			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking -->
@@ -198,9 +198,19 @@
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="20.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="1" y="0" z="27"/>
-			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="20.0" Height="30.0" />
+			<ContactPoint>
+				<Pos x="0" y="15" z="25" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="15" y="-15" z="25" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="-15" y="-15" z="25" />
+			</ContactPoint>
+			<ContactPoint>
+				<Pos x="0" y="15" z="25" />
+			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="ALI_Harvester_SoundCreateMS" AudioType="voiceCreated"/>
@@ -219,7 +229,6 @@
 			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventDieOwner="HarvesterLost" EvaEventDamagedOwner="HarvesterUnderAttack" EvaEventPromotedOwner=""/>
-		<ShadowInfo Type="VOLUME"/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="320"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
 	</GameObject>
