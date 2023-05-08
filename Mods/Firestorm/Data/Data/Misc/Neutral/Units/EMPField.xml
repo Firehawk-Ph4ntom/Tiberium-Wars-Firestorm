@@ -1,52 +1,38 @@
 <?xml version="1.0" encoding="us-ascii"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<GameObject
-		id="EMPField"
-		Side="Neutral"
-		EditorSorting="SYSTEM"
-		IsTrainable="false"
-		KindOf="INERT PRELOAD UNATTACKABLE NOT_AUTOACQUIRABLE"
-		EditorName="EMPField">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- EMP Field for Ground units -->
+	<GameObject id="EMPField" Side="Neutral" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="EMPField">
 		<DisplayName>EMPField</DisplayName>
-		<ArmorSet
-			Armor="NoArmor" />
+		<ArmorSet Armor="NoArmor" />
 		<Draws>
-			<ScriptedModelDraw
-				id="ModuleTag_Draw"
-				OkToChangeModelColor="true">
-				<ModelConditionState
-					ParseCondStateType="PARSE_DEFAULT">
-					<Model
-						Name="" />
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<FXListBehavior
-				id="ModuleTag_FXList">
-				<DieMuxData
-					DeathTypes="ALL" />
-				<Event
-					Index="onCreate"
-					FX="FX_EMPExplosion" />
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL" />
+				<Event Index="onCreate" FX="FX_EMPExplosion" />
 			</FXListBehavior>
-			<DestroyDie
-				id="ModuleTag_Die">
-				<DieMuxData
-					DeathTypes="ALL" />
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
 			</DestroyDie>
-			<LifetimeUpdate
-				id="ModuleTag_LifetimeUpdate"
-				MinLifetime="10s"
-				MaxLifetime="10s" />
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="10s" MaxLifetime="10s" />
 		</Behaviors>
 		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				MaxHealth="9999999.0" />
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100" />
 		</Body>
-		<VisionInfo
-			VisionRange="100"
-			ShroudClearingRange="110" />
+	</GameObject>
+	<!-- EMP Field for Air units (Specifically Scrin Air) -->
+	<GameObject id="EMPField_Air" inheritFrom="EMPField" EditorName="EMPField_Air">
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Remove"/>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" xai:joinAction="Replace" MinLifetime="1s" MaxLifetime="1s" />
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="EMPControlCenterWeapon2" FireDelay="0s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

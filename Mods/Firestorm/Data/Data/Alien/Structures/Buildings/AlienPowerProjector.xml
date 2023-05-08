@@ -3,7 +3,10 @@
 		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWER_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERD2_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERD3_SN_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERUPGRADE_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERUG_D3_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERUG_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERUGIONSHIELD_D3_FS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\AlienPowerProjector\ABPOWERUGIONSHIELD_FS.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
@@ -85,51 +88,38 @@
 					<Model Name=""/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING USER_6">
-					<Model Name="ABPOWERUPGRADEIONSHIELD"/>
-					<Texture Original="ABPower" New="ABPowerD"/>
+					<Model Name="ABPOWERUGIONSHIELD_D3_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING">
-					<Model Name="ABPowerUpgrade"/>
-					<Texture Original="ABPower" New="ABPowerD"/>
+					<Model Name="ABPOWERUG_D3_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 REALLYDAMAGED USER_6">
-					<Model Name="ABPOWERUPGRADEIONSHIELD"/>
-					<Texture Original="ABPower" New="ABPowerD"/>
+					<Model Name="ABPOWERUGIONSHIELD_FS"/>
+					<Texture Original="ABTNexus" New="ABTNexus_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 REALLYDAMAGED">
-					<Model Name="ABPowerUpgrade"/>
-					<Texture Original="ABPower" New="ABPowerD"/>
+					<Model Name="ABPOWERUG_FS"/>
+					<Texture Original="ABTNexus" New="ABTNexus_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DAMAGED USER_6">
-					<Model Name="ABPOWERUPGRADEIONSHIELD"/>
-					<Texture Original="ABPower" New="ABPowerD"/>
+					<Model Name="ABPOWERUGIONSHIELD_FS"/>
+					<Texture Original="ABTNexus" New="ABTNexus_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DAMAGED">
-					<Model Name="ABPowerUpgrade"/>
-					<Texture Original="ABPower" New="ABPowerD"/>
+					<Model Name="ABPOWERUG_FS"/>
+					<Texture Original="ABTNexus" New="ABTNexus_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_6">
-					<Model Name="ABPOWERUPGRADEIONSHIELD"/>
+					<Model Name="ABPOWERUGIONSHIELD_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name="ABPowerUpgrade"/>
+					<Model Name="ABPOWERUG_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="ABPowerUpgrade" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="ABPowerUpgrade" AnimationMode="MANUAL"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
-					<Animation AnimationName="ABPowerUpgrade" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_DamagedToReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_DamagedToReallyDamaged") end </Script>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="ABPowerUpgrade" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_DamagedToReallyDamaged">
-					<Animation AnimationName="ABPowerUpgrade" AnimationMode="ONCE"/>
+					<Animation AnimationName="ABPOWERUG_D3_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXBone01">
@@ -146,6 +136,26 @@
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienPowerPlantGlow" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXINVISBONE"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 SELECTED">
+					<Model Name="FXINVISBONE"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Alien_Hexapod_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_3"/>
@@ -159,20 +169,24 @@
 				<Sound Type="INITIAL" List="ALI_Building_Die"/>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
+            <PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" UpgradeRequired="Upgrade_FusionCore">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
+			</PassiveAreaEffectBehavior>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_FusionCore</TriggeredBy>
 			</PowerUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsFusionCore" ShowSubObjects="ABPowerUpgrade">
-				<CustomAnimAndDuration AnimState="USER_1"/>
+			<ModelConditionUpgrade id="ModuleTag_ShowSubObjectsFusionCore" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_FusionCore</TriggeredBy>
-			</SubObjectsUpgrade>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
-				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+			</ModelConditionUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_FusionCore</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" ShareUpgrades="true">
 				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>IonStormBuilding</SpawnTemplate>
+				<SpawnTemplate>AlienExplorerOutpostDummyDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2.0s"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>

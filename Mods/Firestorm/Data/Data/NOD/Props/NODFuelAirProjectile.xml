@@ -1,5 +1,6 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODFuelAirProjectile" EditorSorting="SYSTEM" Side="NOD" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" EditorName="NODFuelAirProjectile">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Dummy Projectile -->
+	<GameObject id="NODFuelAirDummyProjectile" EditorSorting="SYSTEM" Side="NOD" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" EditorName="NODFuelAirDummyProjectile">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
@@ -12,10 +13,10 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<DestroyDie id="ModuleTag_DestroyDie">
+			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
-			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="0" FirstHeightMax="0" SecondHeightMin="0" SecondHeightMax="0" FirstPercentIndent="33" SecondPercentIndent="66" OrientToFlightPath="true"/>
+			<BezierProjectile id="ModuleTag_BezierProjectile" OrientToFlightPath="true" FirstHeightMin="0" FirstHeightMax="0" SecondHeightMin="0" SecondHeightMax="0" FirstPercentIndent="33" SecondPercentIndent="66" DetonateCallsKill="true"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
@@ -23,5 +24,27 @@
 		<AudioArraySound>
 			<AudioEntry Sound="NOD_TiberiumVaporBomb_Explosion" AudioType="soundAmbient"/>
 		</AudioArraySound>
+	</GameObject>
+	<!-- Normal Projectile -->
+	<GameObject id="NODFuelAirProjectile" inheritFrom="NODFuelAirDummyProjectile" EditorName="NODFuelAirProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="0.8s" MaxLifetime="0.8s"/>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" DeathWeapon="NODAirDispenserBombWarhead" InitiallyActive="true">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL" />
+				<Event Index="onCreate" FX="FX_NOD_FuelAirExplosion" />
+			</FXListBehavior>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Remove"/>
+		</Behaviors>
+		<AudioArraySound xai:joinAction="Remove"/>
 	</GameObject>
 </AssetDeclaration>

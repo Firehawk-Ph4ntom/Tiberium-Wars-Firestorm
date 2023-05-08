@@ -9,7 +9,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienStingray" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienStingray" ButtonImage="Portrait_AlienStingray" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="AlienStingrayCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="LIGHTNING" VoicePriority="100" EditorName="AlienStingray" Description="Desc:AlienStingray" TypeDescription="Type:AlienStingray">
+	<GameObject id="AlienStingray" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienStingray" ButtonImage="Portrait_AlienStingray" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="AlienStingrayCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="LIGHTNING" VoicePriority="100" EditorName="AlienStingray" Description="Desc:AlienStingray" TypeDescription="Type:AlienStingray">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienStingray</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonMatrix</DisplayUpgrade>
@@ -24,7 +24,8 @@
 					<Model Name="AUSTINGRAY_SKN"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
-					<Turret TurretID="1"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="FXWEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="FXWEAPON"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AUSTINGRAY_FP"/>
@@ -100,13 +101,10 @@
 		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienStingrayMissileJammerWeapon"/>
 					<Weapon Ordering="SECONDARY_WEAPON" Template="AlienStingrayMissileJammerWeapon"/>
-					<TurretSettings TurretTurnRate="1000">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
+				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
 				<OCL Type="INITIAL">
@@ -131,11 +129,11 @@
 			<!-- Forcefield Generator -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<SpecialPower id="ModuleTag_ChargeDefenses" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ChargeDefensesUpdate" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" StartAbilityRange="250" PersistentPrepTime="1s" PackTime="1s" UnpackTime="2s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" StartRechargeOnExit="true" SpecialWeapon="AlienStingrayLightningChargeWeapon" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" WeaponSlotID="1"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ChargeDefensesUpdate" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" StartAbilityRange="250" PersistentPrepTime="1s" UnpackTime="1.5s" PackTime="1s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" StartRechargeOnExit="true" SpecialWeapon="AlienStingrayLightningChargeWeapon" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" WeaponSlotID="1"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
+				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s"/>
 			</AIUpdate>
 		</AI>
 		<Body>

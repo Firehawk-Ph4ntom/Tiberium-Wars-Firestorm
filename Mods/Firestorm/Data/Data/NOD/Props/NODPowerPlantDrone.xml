@@ -1,7 +1,7 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODPowerPlantDrone" KindOf="SKIP_IDLE_WHEN_CAPTURED DRONE UNATTACKABLE NOT_AUTOACQUIRABLE IMMOBILE RESIST_EMP IGNORED_IN_FINDPOSITIONAROUND FS_POWER" EnergyBonus="20" Side="NOD" EditorName="NODPowerPlantDrone" EditorSorting="SYSTEM">
-		<DisplayName>NODPowerPlantDrone</DisplayName>
+	<GameObject id="NODPowerPlantDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE FS_POWER" EnergyBonus="20" Side="NOD" EditorName="NODPowerPlantDrone" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="9999999.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -10,16 +10,20 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true"/>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
-			<Physics id="ModuleTag_Physics"/>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</PowerUpgrade>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModulTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="9999999"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
 	</GameObject>
 </AssetDeclaration>

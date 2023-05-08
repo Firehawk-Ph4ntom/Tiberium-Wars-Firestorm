@@ -4,7 +4,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="AlienMastermind" inheritFrom="BaseInfantry" SelectPortrait="Portrait_ALIENMastermind" ButtonImage="Portrait_ALIENMastermind" Side="ALIEN" BuildCost="2500" BuildTime="25" CommandSet="AlienMastermindCommandSet" KindOf="PRELOAD SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM TIBERIUM_BASED SKIRMISH_AI_DONT_GARRISON CAN_PLACE_MANIPULATOR CAN_BE_FAVORITE_UNIT" WeaponCategory="GUN" VoicePriority="112" EditorName="AlienMastermind" Description="Desc:AlienMastermind" TypeDescription="Type:AlienMastermind" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
+	<GameObject id="AlienMastermind" inheritFrom="BaseInfantry" SelectPortrait="Portrait_ALIENMastermind" ButtonImage="Portrait_ALIENMastermind" Side="ALIEN" BuildCost="2500" BuildTime="25" CommandSet="AlienMastermindCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM TIBERIUM_BASED SKIRMISH_AI_DONT_GARRISON CAN_PLACE_MANIPULATOR CAN_BE_FAVORITE_UNIT" WeaponCategory="GUN" VoicePriority="112" EditorName="AlienMastermind" Description="Desc:AlienMastermind" TypeDescription="Type:AlienMastermind" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENMastermind</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienShockTrooperBlinkPack</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
@@ -112,15 +112,21 @@
 			<EmotionTrackerUpdate id="Module_ETU">
 				<TauntAndPointExcluded Rule="NONE"/>
 			</EmotionTrackerUpdate>
+			<!-- Manipulator Device -->
 			<SpecialPower id="ModuleTag_ManipulatorDevice" SpecialPowerTemplate="SpecialPower_ManipulateObject" AvailableAtStart="false" UpdateModuleStartsAttack="true"/>
 			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdate" SpecialPowerTemplate="SpecialPower_ManipulateObject" StartAbilityRange="200" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE">
 				<SpecialPowerModules ModuleId="ModuleTag_ManipulatorDeviceWorker" TriggerType="TARGET_OBJECT"/>
 			</ActivateModuleSpecialPower>
 			<TemporaryOwnerSpecialPower id="ModuleTag_ManipulatorDeviceWorker" SpecialPowerTemplate="SpecialPowerDummyTriggered3" UpdateModuleStartsAttack="false"/>
+			<AISpecialPowerUpdate id="ModuleTag_AlienMastermindManipulator" CommandButtonName="Command_AlienMastermindManipulatorDevice" UnitKindOf="STRUCTURE" EnemyUnitExclude="FS_BASE_DEFENSE" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<!-- Teleport Objects -->
 			<SpecialPower id="ModuleTag_StoreObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerMastermindTeleportObjectSelect"/>
 			<StoreObjectsSpecialPowerUpdate id="ModuleTag_StoreObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerMastermindTeleportObjectSelect" Radius="50"/>
 			<SpecialPower id="ModuleTag_TeleportStoredObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerMastermindTeleportObject" UpdateModuleStartsAttack="true"/>
 			<TeleportToCasterSpecialPower id="ModuleTag_TeleportStoredObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerMastermindTeleportObject" RequireStoredObjects="false" TriggerFX="FX_AlienMMTP" KillObjectsIfPlacedInBadSpot="true" MinDestinationRadius="0" MaxDestinationRadius="50"/>
+			<!-- Blink Packs -->
+			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
+			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" DestinationWeapon="AlienShockTrooperBlinkWeapon2" SourceWeapon="AlienShockTrooperBlinkWeapon" FadeInTime="2s" UnpackTime="1s" PackTime="1s" BusyDuration="1.2s" MaxDistance="750" StartAbilityRange="750" UnpackingVariation="1"/>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
 				<OCL>
 					<OCL>OCL_AlienInfGibs</OCL>
@@ -147,8 +153,6 @@
 				<DieMuxData DeathTypes="BURNED"/>
 				<Event FX="FX_InfScorch"/>
 			</FXListBehavior>
-			<AISpecialPowerUpdate id="ModuleTag_AlienMastermindTeleportAI" CommandButtonName="Command_AlienMastermindSelectObjectsForTeleport" SpecialPowerAIType="SPECIAL_POWER_AOE_BUFF" MinimumCutoff="10"/>
-			<AISpecialPowerUpdate id="ModuleTag_AlienMastermindManipulator" CommandButtonName="Command_AlienMastermindManipulatorDevice" EnemyUnitInclude="INFANTRY VEHICLE FS_FACTORY FS_POWER" EnemyUnitExclude="AIRCRAFT HUSK" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onBecomingTemporaryOwner" FX="FX_MasterMindLinkFX"/>
@@ -162,12 +166,10 @@
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</ModelConditionUpgrade>
-			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
-			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" DestinationWeapon="AlienShockTrooperBlinkWeapon2" SourceWeapon="AlienShockTrooperBlinkWeapon" FadeInTime="2s" UnpackTime="1s" PackTime="1s" BusyDuration="1.5s" MaxDistance="750" StartAbilityRange="750" UnpackingVariation="1"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
-				<UnitAITargetChooserData SympathyRange="25.0" CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
 			</AIUpdate>
 		</AI>
 		<Body>
