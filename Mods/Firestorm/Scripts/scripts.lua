@@ -1,3 +1,22 @@
+squadtable = {} -- tracks all squad objects on the map
+
+harvbluetib = {} -- for counting the amount of blue tiberium in the harvester
+harvgreentib = {} -- for counting the amount of green tiberium in the harvester
+harvredtib = {} -- for counting the amount of red tiberium in the harvester
+
+-- 0 is for green, 1 is for blue, 2 is for red
+bar1 = {} -- for tracking the first bar of the harvester.
+bar2 = {} -- for tracking the second bar of the harvester.
+bar3 = {} -- for tracking the third bar of the harvester.
+bar4 = {} -- for tracking the last bar of the harvester.
+
+-- get the hash of the unit
+UnitType = {["3006676643"] = "GDIFireHawk", ["3045524383"] = "GDIOrca", ["1789238550"] = "NODVertigo", ["3755615724"] = "NODBanshee"}
+-- get the total ammo count of the unit
+UnitAmmoSize = {["GDIFireHawk"] = 4, ["GDIOrca"] = 8, ["NODVertigo"] = 1, ["NODBanshee"] = 4}
+-- second array to store the ammo in when unit fires, until it reaches 0, the conditions fire to disable AI control
+UnitAmmoCount = {}
+
 --- define lua functions 
 function NoOp(self, source)
 end
@@ -106,18 +125,12 @@ function onCreatedForbidCommands(self)
 	ObjectForbidPlayerCommands( self, true )
 end
 
+function onAlienMCVUnpackingCreated(self)
+	ObjectSetObjectStatus( self, "UNSELECTABLE" )
+end
+
 function OnAlienPhotonCannonCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_SHARD", true )
-	ObjectHideSubObjectPermanently( self, "UG_SHARDWEAPON", true )
-end
-
-function OnRavagerCreated(self)
-	ObjectHideSubObjectPermanently( self, "AUSTALKER_GUN", true )
-	ObjectHideSubObjectPermanently( self, "AUSTALKER_SHARD", true )
-end
-
-function OnAlienSeekerTankCreated(self)
-	ObjectHideSubObjectPermanently( self, "AUSHARDWEAPON_C_G", true )
 	ObjectHideSubObjectPermanently( self, "UG_SHARDWEAPON", true )
 end
 
@@ -130,6 +143,20 @@ function OnGDITechCenterCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_Adaptive", true )
 	ObjectHideSubObjectPermanently( self, "FXELEC01", true )
 	ObjectHideSubObjectPermanently( self, "PLANE02", true )
+end
+
+function OnGDITechCenterPowerOutage(self)
+	if ObjectHasUpgrade( self, "Upgrade_GDIArmoryRailgunTech" ) == 1 then
+		ObjectHideSubObjectPermanently( self, "FXELEC01", true )
+		ObjectHideSubObjectPermanently( self, "PLANE02", true )
+	end
+end
+
+function OnGDITechCenterPowerRestored(self)
+	if ObjectHasUpgrade( self, "Upgrade_GDIArmoryRailgunTech" ) == 1 then
+		ObjectHideSubObjectPermanently( self, "FXELEC01", false )
+		ObjectHideSubObjectPermanently( self, "PLANE02", false )
+	end
 end
 
 function OnGDIAirfieldCreated(self)
@@ -251,8 +278,17 @@ function onBuildingPowerRestored(self)
 	ObjectHideSubObjectPermanently( self, "TURBINEGLOWS", false )
 end
 
+function OnGDIV35Ox_SummonedCreated(self)
+	ObjectSetObjectStatus( self, "UNSELECTABLE" )
+end
+
 function OnGDIV35Ox_SummonedForVehicleCreated(self)
 	ObjectHideSubObjectPermanently( self, "LOADREF", true )
+	ObjectSetObjectStatus( self, "UNSELECTABLE" )
+end
+
+function OnGDIV35Ox_Carrying(self)
+	ObjectGrantUpgrade( self, "Upgrade_Transporting" )
 end
 
 function OnGDIZoneTrooperCreated(self)
@@ -280,10 +316,6 @@ function OnGDIAPCCreated(self)
 end
 
 function OnGDIWolverineCreated(self)
-	ObjectHideSubObjectPermanently( self, "UGAMMO", true )
-end
-
-function OnGDITitanCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_AMMO", true )
 end
 
@@ -337,6 +369,7 @@ end
 
 function OnNODCarryall_SummonedForVehicleCreated(self)
 	ObjectHideSubObjectPermanently( self, "HANGAR", true )
+	ObjectSetObjectStatus( self, "UNSELECTABLE" )
 end
 
 function OnNODVenomCreated(self)
@@ -352,21 +385,14 @@ function OnNODAttackBikeCreated(self)
 	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILER", true )
 end
 
+function OnNODRedeemerWarmechCreated(self)
+	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILEL", true )
+end
+
 function OnNODAvatarCreated(self)
 	ObjectHideSubObjectPermanently( self, "NUBEAM", true )
 	ObjectHideSubObjectPermanently( self, "S_DETECTOR", true )
 	ObjectHideSubObjectPermanently( self, "S_GENERATOR", true )
-end
-
-function OnNODAvatarGenericEvent(self, data)
-
-	local str = tostring( data )
-
-	if str == "upgrades_copied" then
-		ObjectRemoveUpgrade( self, "Upgrade_Veterancy_VETERAN" );
-		ObjectRemoveUpgrade( self, "Upgrade_Veterancy_ELITE" );
-		ObjectRemoveUpgrade( self, "Upgrade_Veterancy_HEROIC" );
-	end
 end
 
 function OnNODReckonerCreated(self)
@@ -415,4 +441,376 @@ function OnAlienEradicatorHexapodCreated(self)
 	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_LM", true )
 	ObjectHideSubObjectPermanently( self, "AUTELEPORT_LR", true )
 	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_LR", true )
+end
+
+function OnAlienDevastatorWarshipCreated(self)
+	ObjectHideSubObjectPermanently( self, "UG_SHARD", true )
+	ObjectHideSubObjectPermanently( self, "UG_SHARD01", true )
+	ObjectHideSubObjectPermanently( self, "UG_SHARD02", true )
+end
+
+function OnNODRocketBunkerCreated(self)
+	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILE", true )
+	ObjectHideSubObjectPermanently( self, "HOSE", true )
+	ObjectHideSubObjectPermanently( self, "TCMHUB_UPGRADE", true )
+end
+
+function OnNODRocketBunkerSpawnCreated(self)
+	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILE", true )
+	ObjectHideSubObjectPermanently( self, "HOSE", true )
+end
+
+function OnNODDisruptionModulesUpgradePurchased(self)
+	if ObjectHasUpgrade( self, "Upgrade_NODDisruptionModules" ) == 1 then
+		ObjectGrantUpgrade( self, "Upgrade_ActivateDisruptionModule" )
+	end
+end
+
+function OnUnitCreatedSetRider4(self)
+	ObjectSetObjectStatus ( self, "RIDER4" )
+end
+
+function OnTibChargeNoAttack(self)
+	ObjectGrantUpgrade( self, "Upgrade_TibChargeNoAttack" )
+end
+
+function OnTibChargeNoAttackEnd(self)
+	ObjectRemoveUpgrade( self, "Upgrade_TibChargeNoAttack" )
+end
+
+function CheckJetAircraftAmmoDepleted(self)
+	if IsUnitAI(self) then
+		if UnitAmmoCount.self == nil then
+			UnitAmmoCount.self = UnitAmmoSize[UnitType[GetObj.Hash(self)]] - 1
+		else
+			UnitAmmoCount.self = UnitAmmoCount.self - 1
+		end
+		if UnitAmmoCount.self <= 0 then
+			ExecuteAction("UNIT_AI_TRANSFER", self, 0)
+			ExecuteAction("NAMED_FIRE_SPECIAL_POWER", GetObj.String(self), "SpecialPowerReturnToProducer")
+		else
+			ExecuteAction("UNIT_AI_TRANSFER", self, 1)
+		end
+	end
+end
+
+function GenericCrateSpawnerCheck()
+	setcallhook()
+	local NeutralTeam = "/team"
+	local TempRef = "object_" .. tostring(floor(9999999 * GetRandomNumber()))
+	ExecuteAction("TEAM_SET_PLAYERS_NEAREST_UNIT_OF_TYPE_TO_REFERENCE", "GenericCrateSpawner", NeutralTeam, TempRef)
+	if not EvaluateCondition("NAMED_NOT_DESTROYED", TempRef) then 
+		ExecuteAction("CREATE_OBJECT", "GenericCrateSpawner", NeutralTeam, "x=0,y=0,z=0", 0)
+	end
+end
+setcallhook(GenericCrateSpawnerCheck)
+
+function SquadLookupTable(x)  -- x = object template
+	local delay1 = 1 -- 1 second delay
+	local delay5 = 5 -- 5 second delay
+
+	-- GDI Infantry
+	-- Rifleman Squad
+	if strfind(tostring(x), "9096966E") ~= nil then
+		ans = 6*delay1
+	-- Missile Squad
+	elseif strfind(tostring(x), "EF1252DB") ~= nil then
+		ans = 2*delay1
+	-- Grenadier Squad
+	elseif strfind(tostring(x), "42896060") ~= nil then
+		ans = 4*delay1
+	-- Sniper Team
+	elseif strfind(tostring(x), "BCB36A05") ~= nil then
+		ans = 2*delay1
+	-- Combat Medic Team
+	elseif strfind(tostring(x), "81C1827B") ~= nil then
+		ans = 3*delay1
+	-- Zone Troopers
+	elseif strfind(tostring(x), "5D5E5931") ~= nil then
+		ans = 4*delay1
+	-- Zone Raiders
+	elseif strfind(tostring(x), "2D1766F8") ~= nil then
+		ans = 4*delay1
+	-- Zone Defenders
+	elseif strfind(tostring(x), "FCFB2118") ~= nil then
+		ans = 4*delay5
+
+	-- NOD Infantry
+	-- Militant Squad
+	elseif strfind(tostring(x), "BC36257A") ~= nil then
+		ans = 9*delay1
+	-- Militant Rocket Squad
+	elseif strfind(tostring(x), "89C45844") ~= nil then
+		ans = 2*delay1
+	-- Fanatics
+	elseif strfind(tostring(x), "BE7C389D") ~= nil then
+		ans = 5*delay1
+	-- Black Hand Squad
+	elseif strfind(tostring(x), "128ABF1") ~= nil then
+		ans = 6*delay1
+	-- Confessor Squad
+	elseif strfind(tostring(x), "AB1BD4E2") ~= nil then
+		ans = 6*delay1
+	-- Shadow Team
+	elseif strfind(tostring(x), "A6E10008") ~= nil then
+		ans = 4*delay1
+	-- Cyborg Gunners
+	elseif strfind(tostring(x), "346EDC73") ~= nil then
+		ans = 3*delay1
+	-- Tiberium Troopers
+	elseif strfind(tostring(x), "157B3FF8") ~= nil then
+		ans = 5*delay1
+	-- Ascended Squad
+	elseif strfind(tostring(x), "CEE03DE9") ~= nil then
+		ans = 3*delay1
+	-- Decimator Cyborgs
+	elseif strfind(tostring(x), "BF15A95E") ~= nil then
+		ans = 2*delay5
+
+	-- Alien Infantry
+	-- Disintigrators
+	elseif strfind(tostring(x), "2B9428D0") ~= nil then
+		ans = 5*delay5
+	-- Shock Troopers
+	elseif strfind(tostring(x), "6495F509") ~= nil then
+		ans = 3*delay5
+	-- Ravagers
+	elseif strfind(tostring(x), "D6D1E79A") ~= nil then
+		ans = 3*delay5
+	-- Terminators
+	elseif strfind(tostring(x), "D8D33555") ~= nil then
+		ans = 3*delay5
+	-- Cultists
+	elseif strfind(tostring(x), "D6D67027") ~= nil then
+		ans = 4*delay5
+	-- Seismic Troopers
+	elseif strfind(tostring(x), "87AC5812") ~= nil then
+		ans = 3*delay5
+
+	-- Mutant Infantry
+	-- Mutant Marauders
+	elseif strfind(tostring(x), "1AF4B91") ~= nil then
+		ans = 5*delay5
+	-- Mutant Viceroids
+	elseif strfind(tostring(x), "EAAE1E11") ~= nil then
+		ans = 5*delay5
+	end
+	return ans
+end
+
+-- When squad appears at Barracks
+function OnSquadAppearingAtBarracks(self)
+	local c = GetFrame()
+	local a = ObjectDescription(self)
+	squadtable[a] = c
+end
+
+-- When squad finishes leaving Barracks
+function OnSquadExitingBarracks(self)
+	local c = GetFrame()
+	local a = ObjectDescription(self)
+	if squadtable[a] ~= nil then
+		local diff = c - squadtable[a]
+		if diff < SquadLookupTable(ObjectTemplateName(self)) then
+			ExecuteAction("NAMED_DELETE", self);
+		end
+		squadtable[a] = nil
+	end
+end
+
+function OnSquadDestroyed(self)
+	local a = ObjectDescription(self)
+	squadtable[a] = nil
+end
+
+function OnGenericHarvesterCreated(self)
+	local a = getObjectId(self)
+	harvredtib[a] = 0
+	harvbluetib[a] = 0
+	harvgreentib[a] = 0
+end
+
+function OnHarvesterHarvesting(self)
+	if ObjectHasUpgrade(self, "Upgrade_UpgradeRedTib") == 0 and ObjectTestModelCondition(self, "USER_16") == true then
+		ObjectGrantUpgrade(self, "Upgrade_UpgradeRedTib")
+	elseif
+		ObjectHasUpgrade(self, "Upgrade_UpgradeRedTib") and ObjectTestModelCondition(self, "USER_16") == false then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedTib")
+	elseif
+		ObjectHasUpgrade(self, "Upgrade_UpgradeBlueTib") == 0 and ObjectTestModelCondition(self, "USER_15") == true then
+		ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueTib")
+	elseif
+		ObjectHasUpgrade(self, "Upgrade_UpgradeBlueTib") and ObjectTestModelCondition(self, "USER_15") == false then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueTib")
+	elseif
+		ObjectHasUpgrade(self, "Upgrade_UpgradeGreenTib") == 0 and ObjectTestModelCondition(self, "USER_14") == true then
+		ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenTib")
+	elseif
+		ObjectHasUpgrade(self, "Upgrade_UpgradeGreenTib") and ObjectTestModelCondition(self, "USER_14") == false then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenTib")
+	end
+end
+
+function OffMoney0(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedOne")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueOne")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenOne")
+			if bar1[a] == 2 then harvredtib[a] = harvredtib[a] - 1
+			elseif bar1[a] == 1 then harvbluetib[a] = harvbluetib[a] - 1
+			elseif bar1[a] == 0 then harvgreentib[a] = harvgreentib[a] - 1
+		end
+	end
+end
+
+function OffMoney1(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedTwo")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueTwo")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenTwo")
+			if bar2[a] == 2 then harvredtib[a] = harvredtib[a] - 1
+			elseif bar2[a] == 1 then harvbluetib[a] = harvbluetib[a] - 1
+			elseif bar2[a] == 0 then harvgreentib[a] = harvgreentib[a] - 1
+		end
+	end
+end
+
+function OffMoney2(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedThree")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueThree")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenThree")
+			if bar3[a] == 2 then harvredtib[a] = harvredtib[a] - 1
+			elseif bar3[a] == 1 then harvbluetib[a] = harvbluetib[a] - 1
+			elseif bar3[a] == 0 then harvgreentib[a] = harvgreentib[a] - 1
+		end
+	end
+end
+
+function OffMoney3(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") then
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedFour")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueFour")
+		ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenFour") 
+			if bar4[a] == 2 then harvredtib[a] = harvredtib[a] - 1
+			elseif bar4[a] == 1 then harvbluetib[a] = harvbluetib[a] - 1
+			elseif bar4[a] == 0 then harvgreentib[a] = harvgreentib[a] - 1
+		end
+	end
+end
+
+function OnMoney1(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") == false then
+		if ObjectTestModelCondition(self, "USER_16") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedOne")
+			harvredtib[a] = harvredtib[a] + 1
+			bar1[a] = 2
+		elseif ObjectTestModelCondition(self, "USER_15") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueOne")
+			harvbluetib[a] = harvbluetib[a] + 1
+			bar1[a] = 1
+		elseif ObjectTestModelCondition(self, "USER_14") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenOne")
+			harvgreentib[a] = harvgreentib[a] + 1
+			bar1[a] = 0
+		end
+	end
+end
+
+function OnMoney2(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") == false then
+		if ObjectTestModelCondition(self, "USER_16") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedTwo")
+			harvredtib[a] = harvredtib[a] + 1
+			bar2[a] = 2
+		elseif ObjectTestModelCondition(self, "USER_15") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueTwo")
+			harvbluetib[a] = harvbluetib[a] + 1
+			bar2[a] = 1
+		elseif ObjectTestModelCondition(self, "USER_14") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenTwo")
+			harvgreentib[a] = harvgreentib[a] + 1
+			bar2[a] = 0
+		end
+	end
+end
+
+function OnMoney3(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") == false then
+		if ObjectTestModelCondition(self, "USER_16") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedThree")
+			harvredtib[a] = harvredtib[a] + 1
+			bar3[a] = 2
+		elseif ObjectTestModelCondition(self, "USER_15") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueThree")
+			harvbluetib[a] = harvbluetib[a] + 1
+			bar3[a] = 1
+		elseif ObjectTestModelCondition(self, "USER_14") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenThree")
+			harvgreentib[a] = harvgreentib[a] + 1
+			bar3[a] = 0
+		end
+	end
+end
+
+function OnMoney4(self)
+	local a = getObjectId(self)
+	if ObjectTestModelCondition(self, "DOCKING") == false then
+		if ObjectTestModelCondition(self, "USER_16") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedFour")
+			harvredtib[a] = harvredtib[a] + 1
+			bar4[a] = 2
+		elseif ObjectTestModelCondition(self, "USER_15") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueFour")
+			harvbluetib[a] = harvbluetib[a] + 1
+			bar4[a] = 1
+		elseif ObjectTestModelCondition(self, "USER_14") then
+			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenFour")
+			harvgreentib[a] = harvgreentib[a] + 1
+			bar4[a] = 0
+		end
+	end
+end
+
+function OnGenericHarvesterDeath(self)
+	local a = getObjectId(self)
+	if harvredtib[a] >= 2 then
+		harvredtib[a] = nil
+		harvbluetib[a] = nil
+		harvgreentib[a] = nil
+		bar1[a] = nil
+		bar2[a] = nil
+		bar3[a] = nil
+		bar4[a] = nil
+		ObjectCreateAndFireTempWeapon(self, "DeployRedTiberium")
+	elseif harvbluetib[a] >= 2 then
+		harvredtib[a] = nil
+		harvbluetib[a] = nil
+		harvgreentib[a] = nil
+		bar1[a] = nil
+		bar2[a] = nil
+		bar3[a] = nil
+		bar4[a] = nil
+		ObjectCreateAndFireTempWeapon(self, "DeployBlueTiberium")
+	elseif harvgreentib[a] > 0 or harvbluetib[a] == 1 or harvredtib[a] == 1 then
+		harvredtib[a] = nil
+		harvbluetib[a] = nil
+		harvgreentib[a] = nil
+		bar1[a] = nil
+		bar2[a] = nil
+		bar3[a] = nil
+		bar4[a] = nil
+		ObjectCreateAndFireTempWeapon(self, "DeployGreenTiberium")
+	end
+end
+
+function getObjectId(x)
+	return strsub(ObjectDescription(x),strfind(ObjectDescription(x),'t')+2,strfind(ObjectDescription(x),'%[')-2)
 end
