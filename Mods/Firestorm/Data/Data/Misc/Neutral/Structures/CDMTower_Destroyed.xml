@@ -1,0 +1,79 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralDropshipBay\GBDROPSHIPBAY_D3AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralDropshipBay\GBDROPSHIPBAY_D3SN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="CDMTower_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralDropshipBayDestroyed" ButtonImage="Portrait_NeutralDropshipBayDestroyed" CommandSet="EmptyCommandSet" KindOf="STRUCTURE CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE SELECTABLE HUSK" EditorName="CDMTower_Destroyed" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingDropshipBayDestroyed">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TechBuildingDropshipBayDestroyed</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBDROPSHIPBAY_D3SN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBDROPSHIPBAY_D3AN" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="GBDROPSHIPBAY_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<EngineerContain id="ModuleTag_EngineerContainGDI" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForCapture="EnemyBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_CDMTowerReplaceGDIFac" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE" Relationship="ENEMIES NEUTRAL">
+					<IncludeThing>GDIEngineer</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+			<EngineerContain id="ModuleTag_EngineerContainNOD" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForCapture="EnemyBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_CDMTowerReplaceNODFac" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE" Relationship="ENEMIES NEUTRAL">
+					<IncludeThing>NODSaboteur</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+			<EngineerContain id="ModuleTag_EngineerContainAlien" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForCapture="EnemyBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_CDMTowerReplaceAlienFac" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE" Relationship="ENEMIES NEUTRAL">
+					<IncludeThing>AlienAssimilator</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="38.0" MinorRadius="53.0" Height="3.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="11.0" MinorRadius="39.0" Height="3.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="45" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="49.0" Height="3.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-52" y="7" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="17.0" Height="12.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-40" y="-48" z="18"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="13.5" Height="18.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-40" y="-48" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="11.0" Height="22.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-50" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="9.0" Height="19.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-50" y="-30" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="17.0" MinorRadius="11.0" Height="22.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-50" y="30" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="8.0" Height="11.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-50" y="46" z="0"/>
+			</Shape>
+		</Geometry>
+		<EvaEvents EvaEventDamagedOwner="" EvaEventSoldOwner="" EvaEventRepairingOwner=""/>
+		<VisionInfo VisionRange="0" ShroudClearingRange="0"/>
+	</GameObject>
+</AssetDeclaration>

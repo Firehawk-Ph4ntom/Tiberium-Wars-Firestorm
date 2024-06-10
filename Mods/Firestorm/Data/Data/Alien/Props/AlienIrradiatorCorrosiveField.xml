@@ -1,0 +1,52 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Green Radiation Zone -->
+	<GameObject id="AlienIrradiatorCorrosiveField" Side="ALIEN" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienIrradiatorCorrosiveField">
+		<ArmorSet Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrosiveZoneDecal" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrosiveZoneDecalAdd" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrosiveZoneMistSpark" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="25">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="AlienIrradiatorCorroiveZone" FireDelay="0.4s"/>
+			</FireWeaponUpdate>
+			<LifetimeUpdate	id="ModuleTag_LifetimeUpdate" MinLifetime="1s" MaxLifetime="1s" />
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0" />
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Corrupter_BeamWeaponLoopMS3" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+	<!-- Blue Radiation Zone -->
+	<GameObject id="AlienIrradiatorCorrosiveFieldBlue" inheritFrom="AlienIrradiatorCorrosiveField" EditorName="AlienIrradiatorCorrosiveFieldBlue">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrosiveZoneDecalBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrosiveZoneDecalAddBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrosiveZoneMistSparkBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponUpdate xai:joinAction="Replace" id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="AlienIrradiatorCorroiveZoneBlue" FireDelay="0.4s"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

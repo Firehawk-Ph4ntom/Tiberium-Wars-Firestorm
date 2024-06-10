@@ -1,7 +1,6 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
 	</Includes>
 	<GameObject id="NODShadowSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_NODShadow" ButtonImage="Portrait_NODShadow" Side="NOD" BuildCost="800" BuildTime="8" CommandSet="NODShadowSquadCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY STEALTH_GARRISON SNIPER SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="GUN" EditorName="NODShadowSquad" Description="Desc:NODShadow" ThreatLevel="10" TypeDescription="Type:NODShadow" UnitTypeIcon="ShadowIcon">
@@ -17,37 +16,30 @@
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXShadow_FP"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
 					<Model Name="NUSHADOWSQUADMARKER"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusionBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusion"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
@@ -59,6 +51,7 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="ShadowMachineGunRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
 			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="4" ObjectStatusOfContained="" ForbiddenCoverStatus="AIRBORNE_TARGET" ConditionForEntry="INVALID" UseSlowHordeMovement="false">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
@@ -75,25 +68,60 @@
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
 				<RankToReleaseWhenAttacking>2</RankToReleaseWhenAttacking>
 			</HordeContain>
-			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove" IgnoreSuppressionObjectStatus="AIRBORNE_TARGET"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Suppression_Squad" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove" IgnoreSuppressionObjectStatus="AIRBORNE_TARGET"/>
 			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_GliderLand"/>
-			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_GliderLandUpdate" SpecialPowerTemplate="SpecialPower_GliderLand" UpgradeToGive="Upgrade_GliderLand"/>
-			<RemoveUpgradeUpgrade id="ModuleTag_RemoveGliderLandUpgrade">
-				<UpgradeToRemove>Upgrade_GliderLand</UpgradeToRemove>
-				<TriggeredBy>Upgrade_GliderLiftOff</TriggeredBy>
-			</RemoveUpgradeUpgrade>
+			<!-- Glider ability -->
+			<!-- Lift Off -->
 			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_GliderLiftOffUpdate" SpecialPowerTemplate="SpecialPower_GliderLiftOff" UpgradeToGive="Upgrade_GliderLiftOff"/>
 			<RemoveUpgradeUpgrade id="ModuleTag_RemoveGliderLiftOffUpgrade">
 				<UpgradeToRemove>Upgrade_GliderLiftOff</UpgradeToRemove>
 				<TriggeredBy>Upgrade_GliderLand</TriggeredBy>
 			</RemoveUpgradeUpgrade>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_GliderLiftOffDispatch" SpecialPowerTemplate="SpecialPower_GliderLiftOffDispatch" RequireAllPowersToFunction="true">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLiftOffTrigger"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLiftOff"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_LiftOffSP" SpecialPowerTemplate="SpecialPower_GliderLiftOffTrigger" UpdateModuleStartsAttack="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_GliderLiftOffTrigger" UnpackTime="0s" BusyForDuration="1s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY APPROACH_UNTIL_MEMBERS_IN_RANGE" SetObjectStatusOnTrigger="NO_ATTACK NO_AUTO_ACQUIRE"/>
+			<HordeDispatchSpecialPower id="ModuleTag_HordeDispatchSpecialPowerGliderLiftOff" SpecialPowerTemplate="SpecialPower_GliderLiftOff"/>
+			<!-- Land -->
+			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_GliderLandUpdate" SpecialPowerTemplate="SpecialPower_GliderLand" UpgradeToGive="Upgrade_GliderLand"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveGliderLandUpgrade">
+				<UpgradeToRemove>Upgrade_GliderLand</UpgradeToRemove>
+				<TriggeredBy>Upgrade_GliderLiftOff</TriggeredBy>
+			</RemoveUpgradeUpgrade>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_GliderLandDispatch" SpecialPowerTemplate="SpecialPower_GliderLandDispatch" RequireAllPowersToFunction="true">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLandTrigger"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLand"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_LandSP" SpecialPowerTemplate="SpecialPower_GliderLandTrigger" UpdateModuleStartsAttack="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_GliderLandTrigger" HordeMembersSpecialPowerTemplate="SpecialPower_GliderLand" UnpackTime="0s" BusyForDuration="1s" StartAbilityRange="15.0" LandingRange="320" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY APPROACH_UNTIL_MEMBERS_IN_RANGE" ClearObjectStatusOnExit="NO_ATTACK NO_AUTO_ACQUIRE"/>
+			<HordeDispatchSpecialPower id="ModuleTag_HordeDispatchSpecialPowerGliderLand" SpecialPowerTemplate="SpecialPower_GliderLand"/>
+			<AISpecialPowerUpdate id="ModuleTag_NODShadowLand" CommandButtonName="Command_NodShadow_GliderLand" SpecialPowerAIType="SPECIAL_POWER_MOVEMENT" MinimumCutoff="0"/>
+			<!-- Explosive Charges -->
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgrade">
+				<TriggeredBy>Upgrade_ShadowExplosiveCharges</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SpecialPower id="ModuleTag_ExplosiveCharges" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge_NOD" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveChargesUpdate" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge_NOD" SpecialWeapon="NODShadowPlaceExplosiveCharge" UnpackTime="0s" PackTime="0s" StartAbilityRange="15.0" BusyForDuration="0.1s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" StartRechargeOnExit="true" Options="FLIP_OWNER_AFTER_PACKING USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK IGNORE_FACING_CHECK CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE CHECK_PREVENT_CONDITIONS"/>
+			<AISpecialPowerUpdate id="ModuleTag_NODShadowExplosive" CommandButtonName="Command_NodShadow_PlaceExplosiveCharges" SpecialPowerAIType="SPECIAL_POWER_CAPTURE_BUILDING"/>
+			<!-- Deploy Beacon -->
+			<SpecialPower id="ModuleTag_ShadowSquadBeaconGetInRange" SpecialPowerTemplate="ShadowSquadBeaconGetInRange" UpdateModuleStartsAttack="true"/>
+			<SpecialAbilityUpdate id="ModuleTag_ShadowSquadBeaconGetInRangeUpdate" SpecialPowerTemplate="ShadowSquadBeaconGetInRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="0.1" ChainedButton="Command_NODShadowSquadDeployBeacon"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_ShadowSquadBeaconDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPowerDeployBeacon"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_ShadowSquadBeaconTrigger"/>
+			</SpecialPowerDispatchSpecialPower>
+			<HordeDispatchSpecialPower id="ModuleTag_DeployBeacon" SpecialPowerTemplate="SpecialPowerDeployBeacon"/>
+			<SpecialPower id="ModuleTag_ShadowSquadBeaconTrigger" SpecialPowerTemplate="SpecialPower_ShadowSquadBeaconTrigger" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ShadowSquadBeaconTriggerUpdate" SpecialPowerTemplate="SpecialPower_ShadowSquadBeaconTrigger" SpecialWeapon="HordeSpecialRangeAttack" UnpackTime="0.0s" PackTime="0.0s" BusyForDuration="1.0s"/>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200" ExtraForbiddenKindOf="AIRCRAFT MINE" InitiallyDisabled="true">
 				<TriggeredBy>Upgrade_GliderLand</TriggeredBy>
 			</StealthDetectorUpdate>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect2" DetectionRange="200" ExtraForbiddenKindOf="MINE" InitiallyDisabled="true">
 				<TriggeredBy>Upgrade_GliderLiftOff</TriggeredBy>
 			</StealthDetectorUpdate>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StatusBitsUpgrade id="ModuleTag_DummyUpgradeForWB" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -103,36 +131,14 @@
 			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
 				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
 			</ModelConditionUpgrade>
-			<SpecialPowerDispatchSpecialPower id="ModuleTag_GliderLiftOffDispatch" SpecialPowerTemplate="SpecialPower_GliderLiftOffDispatch" RequireAllPowersToFunction="true">
-				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLiftOffTrigger"/>
-				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLiftOff"/>
-			</SpecialPowerDispatchSpecialPower>
-			<SpecialPower id="ModuleTag_LiftOffSP" SpecialPowerTemplate="SpecialPower_GliderLiftOffTrigger" UpdateModuleStartsAttack="true"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_GliderLiftOffTrigger" UnpackTime="0.57s" BusyForDuration="1s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK" SetObjectStatusOnTrigger="NO_ATTACK NO_AUTO_ACQUIRE"/>
-			<HordeDispatchSpecialPower id="ModuleTag_HordeDispatchSpecialPowerGliderLiftOff" SpecialPowerTemplate="SpecialPower_GliderLiftOff"/>
-			<SpecialPowerDispatchSpecialPower id="ModuleTag_GliderLandDispatch" SpecialPowerTemplate="SpecialPower_GliderLandDispatch" RequireAllPowersToFunction="true">
-				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLandTrigger"/>
-				<SpecialPower SpecialPowerTemplate="SpecialPower_GliderLand"/>
-			</SpecialPowerDispatchSpecialPower>
-			<SpecialPower id="ModuleTag_LandSP" SpecialPowerTemplate="SpecialPower_GliderLandTrigger" UpdateModuleStartsAttack="true"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_GliderLandTrigger" HordeMembersSpecialPowerTemplate="SpecialPower_GliderLand" UnpackTime="0s" PackTime="2.0s" BusyForDuration="2.0s" StartAbilityRange="15.0" LandingRange="320" UseUpgradedLocomotor="false" TriggersLanding="true" Options="MUST_FINISH_ABILITY APPROACH_UNTIL_MEMBERS_IN_RANGE" ClearObjectStatusOnExit="NO_ATTACK NO_AUTO_ACQUIRE"/>
-			<HordeDispatchSpecialPower id="ModuleTag_HordeDispatchSpecialPowerGliderLand" SpecialPowerTemplate="SpecialPower_GliderLand"/>
-			<!-- Explosive Charges -->
-			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgrade">
-				<TriggeredBy>Upgrade_ShadowExplosiveCharges</TriggeredBy>
-			</StatusBitsUpgrade>
-			<SpecialPower id="ModuleTag_ExplosiveCharges" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge_NOD" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveChargesUpdate" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge_NOD" SpecialWeapon="NODShadowPlaceExplosiveCharge" UnpackTime="0s" PackTime="0s" StartAbilityRange="15.0" BusyForDuration="0.1s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" StartRechargeOnExit="true" Options="FLIP_OWNER_AFTER_PACKING USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK IGNORE_FACING_CHECK CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE CHECK_PREVENT_CONDITIONS"/>
-			<!-- End Explosive Charges -->
-			<AISpecialPowerUpdate id="ModuleTag_NODShadowLand" CommandButtonName="Command_NodShadow_GliderLand" SpecialPowerAIType="SPECIAL_POWER_MOVEMENT" MinimumCutoff="0"/>
-			<AISpecialPowerUpdate id="ModuleTag_NODShadowExplosive" CommandButtonName="Command_NodShadow_PlaceExplosiveCharges" SpecialPowerAIType="SPECIAL_POWER_CAPTURE_BUILDING"/>
-			<SpecialPower id="ModuleTag_NodShadowBeaconGetInRange" SpecialPowerTemplate="ShadowSquadBeaconGetInRange" UpdateModuleStartsAttack="true"/>
-			<SpecialAbilityUpdate id="ModuleTag_NodShadowBeaconGetInRangeUpdate" SpecialPowerTemplate="ShadowSquadBeaconGetInRange" StartAbilityRange="0.1" ChainedButton="Command_NODShadowSquadDeployBeacon" FaceTarget="true"/>
-			<HordeDispatchSpecialPower id="ModuleTag_DeployBeacon" SpecialPowerTemplate="SpecialPowerDeployBeacon"/>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB3" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_TiberiumInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</HordeAIUpdate>
 		</AI>
 		<Body>

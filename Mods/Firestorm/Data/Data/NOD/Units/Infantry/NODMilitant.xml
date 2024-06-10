@@ -3,6 +3,7 @@
 		<Include type="all" source="ART:Firestorm\Units\NODMilitant\NUMilitant.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODMilitant\HC_NUMilitant.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODMilitant\GUGAR_NUMIL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMilitant\NUMILTNB_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
@@ -16,7 +17,7 @@
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="NUMiltnB_SKN"/>
+					<Model Name="NUMILTNB_SKN_FS"/>
 					<Texture Original="NUMiltnB" New="NUMilitant"/>
 					<Texture Original="HC_NUMiltnB" New="HC_NUMilitant"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
@@ -28,15 +29,19 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Model Name="GUGAR_NUMIL"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName=""/>
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ENGAGED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Animation AnimationName="GUGAR_RIFL" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
 					<Animation AnimationName="NUMiltn_BIDA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="15" AnimationBlendTime="15"/>
 					<Animation AnimationName="NUMiltn_BIDB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="15" AnimationBlendTime="15"/>
 					<Animation AnimationName="NUMiltn_BIDC" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="15" AnimationBlendTime="15"/>
@@ -44,138 +49,149 @@
 					<Animation AnimationName="NUMiltn_BIFB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="5" AnimationBlendTime="15"/>
 					<Animation AnimationName="NUMiltn_BIFC" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="1" AnimationBlendTime="15"/>
 					<Animation AnimationName="NUMiltn_BIFD" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="1" AnimationBlendTime="15"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_SuppressedToIdle") end if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end; if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
 					<Animation AnimationName="NUMiltn_FLYA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
 					<Animation AnimationName="NUMiltn_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
 					<Animation AnimationName="NUMiltn_CDTA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED DYING" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUMiltn_SDIA" AnimationMode="ONCE"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
 					<Animation AnimationName="NUMiltn_KDIA" AnimationMode="ONCE"/>
 					<Animation AnimationName="NUMiltn_KDIB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="NUMiltn_DIEA" AnimationMode="ONCE"/>
 					<Animation AnimationName="NUMiltn_DIEB" AnimationMode="ONCE"/>
 					<Animation AnimationName="NUMiltn_DIEC" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED DYING" StateName="STATE_Suppressed">
-					<Animation AnimationName="NUMiltn_SDIA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
 					<Animation AnimationName="NUMiltn_SMVA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_OR_PREATTACK_A" StateName="STATE_Suppressed">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_A" FrameForPristineBonePositions="4">
 					<Animation AnimationName="NUMiltn_SATA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ATTACKING" StateName="STATE_Suppressed">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ENGAGED" StateName="STATE_Suppressed">
 					<Animation AnimationName="NUMiltn_SATA" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
 					<Animation AnimationName="NUMiltn_SIDA" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="NUMiltn_SIFA" AnimationMode="ONCE" AnimationPriority="1"/>
 					<Animation AnimationName="NUMiltn_SIFB" AnimationMode="ONCE" AnimationPriority="1"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
-					<Animation AnimationName="NUMiltn_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Animation AnimationName="NUMiltn_SDVB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_A" FrameForPristineBonePositions="4">
+					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SuppressedToIdle">
-					<Animation AnimationName="NUMiltn_SGTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_OR_PREATTACK_A" StateName="STATE_Cover" FrameForPristineBonePositions="4">
-					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ATTACKING" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ENGAGED" StateName="STATE_Cover">
 					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
-					<Animation AnimationName="NUMiltn_ATRA" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_CoverAttention">
+					<Animation AnimationName="NUMiltn_KAIA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUMiltn_KAIB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUMiltn_KAFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUMiltn_KAFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUMiltn_KAFC" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A USER_12" StateName="STATE_Suppressed">
-					<Animation AnimationName="NUMiltn_SATA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" AllowRepeatInRandomPick="true" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
+					<Animation AnimationName="NUMiltn_KBIA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUMiltn_KBIB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUMiltn_KBFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUMiltn_KBFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUMiltn_KBFC" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverAttention" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A USER_11" StateName="STATE_Cover" FrameForPristineBonePositions="4">
-					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUMiltn_ATRA" AnimationMode="LOOP" Distance="75"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A USER_10" FrameForPristineBonePositions="4">
-					<Animation AnimationName="NUMiltn_ATKA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING" Flags="RANDOMSTART">
-					<Animation AnimationName="NUMiltn_RUNA" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
-					<Animation AnimationName="NUMiltn_CRNA" AnimationMode="LOOP" AnimationPriority="5" Distance="75"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="NUMiltn_RUNA" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
 					<Animation AnimationName="NUMiltn_RUNB" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
 					<Animation AnimationName="NUMiltn_RUNC" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
-					<Animation AnimationName="NUMiltn_KAIA" AnimationMode="ONCE" AnimationPriority="25"/>
-					<Animation AnimationName="NUMiltn_KAIB" AnimationMode="ONCE" AnimationPriority="25"/>
-					<Animation AnimationName="NUMiltn_KAFA" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="NUMiltn_KAFB" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="NUMiltn_KAFC" AnimationMode="ONCE" AnimationPriority="5"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_12" FrameForPristineBonePositions="4">
+					<Animation AnimationName="NUMiltn_SATA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_12" StateName="STATE_Suppressed">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_12" StateName="STATE_Suppressed">
 					<Animation AnimationName="NUMiltn_SATA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_11" StateName="STATE_Cover" FrameForPristineBonePositions="4">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_11" FrameForPristineBonePositions="4">
+					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_11" StateName="STATE_Cover">
 					<Animation AnimationName="NUMiltn_KAKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING USER_10" StateName="STATE_Selected">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_10" FrameForPristineBonePositions="4">
+					<Animation AnimationName="NUMiltn_ATKA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_10" StateName="STATE_Selected">
 					<Animation AnimationName="NUMiltn_ATKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_12">
-					<Animation AnimationName="NUMiltn_SIDA" AnimationMode="LOOP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUMiltn_CHRA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUMiltn_CHRB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_11">
-					<Animation AnimationName="NUMiltn_KAIA" AnimationMode="LOOP"/>
-					<Animation AnimationName="NUMiltn_KAIB" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED USER_10">
-					<Animation AnimationName="NUMiltn_AIDA" AnimationMode="LOOP"/>
-					<Animation AnimationName="NUMiltn_AIDB" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
 					<Animation AnimationName="NUMiltn_AIDA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="10"/>
 					<Animation AnimationName="NUMiltn_AIDB" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="10"/>
 					<Animation AnimationName="NUMiltn_AIFA" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
 					<Animation AnimationName="NUMiltn_AIFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
 					<Animation AnimationName="NUMiltn_AIFC" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_BoredToAttention") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING">
-					<Animation AnimationName="NUMiltn_CHRA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Animation AnimationName="NUMiltn_CHRB" AnimationMode="LOOP" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
+					<Animation AnimationName="NUMiltn_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_BoredToAttention">
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUMiltn_SDVA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
 					<Animation AnimationName="NUMiltn_BATB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.3"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
 					<Animation AnimationName="NUMiltn_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 					<Animation AnimationName="NUMiltn_ABTB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverAttentionToCover">
+					<Animation AnimationName="NUMiltn_KATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverToCoverAttention">
+					<Animation AnimationName="NUMiltn_KBTA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED">
 					<Model Name="FXSUPPRESSIONSIGN"/>
 				</ModelConditionState>
@@ -193,62 +209,63 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_10 USER_11 USER_12"/>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="NOD_RifleMilitant_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="POISONED"/>
+				<Sound Type="INITIAL" List="NOD_RifleMilitant_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="NOD_RifleMilitant_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<Sound Type="INITIAL" List="NOD_RifleMilitant_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMilitantMinigun"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibs</OCL>
-				</OCL>
-				<Sound List="NOD_RifleMilitant_VoiceDie"/>
-				<DieMuxData DeathTypes="EXPLODED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsRad</OCL>
-				</OCL>
-				<Sound List="NOD_RifleMilitant_VoiceDie"/>
-				<DieMuxData DeathTypes="POISONED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsChar</OCL>
-				</OCL>
-				<Sound List="NOD_RifleMilitant_VoiceDie"/>
-				<DieMuxData DeathTypes="BURNED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound List="NOD_RifleMilitant_VoiceDie"/>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
-				<Event FX="FX_InfBlood"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListRad">
-				<DieMuxData DeathTypes="POISONED"/>
-				<Event FX="FX_InfRadGoo"/>
-			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
 			<LargeGroupAudioUpdate id="LGAU">
-				<Key>GDI_RifleSoldier</Key>
+				<Key>GDI_RifleSoldier_FS</Key>
 			</LargeGroupAudioUpdate>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODCyberneticAugmentationUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</StatusBitsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODCyberneticAugmentationUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -274,8 +291,9 @@
 			<AudioEntry Sound="NOD_RifleMilitant_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="NOD_RifleMilitant_VoiceSelectMS" AudioType="voiceSelect"/>
 			<AudioEntry Sound="NOD_RifleMilitant_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
-			<!-- Triggered when told to garrison Deployed Reckoners -->
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
 			<ObjectSpecificEntry Sound="NOD_RifleMilitant_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="NOD_RifleMilitant_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
 		</AudioArrayVoice>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 	</GameObject>

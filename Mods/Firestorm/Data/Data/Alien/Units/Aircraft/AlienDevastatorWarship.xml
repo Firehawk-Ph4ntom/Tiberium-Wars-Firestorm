@@ -1,7 +1,7 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
-		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_IDLA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_IDLB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDevWarUpg.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDevWarUpg_B.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_R_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_R01_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_R02_CTR.w3x"/>
@@ -9,12 +9,14 @@
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_R04_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_R05_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWAR_UGCB_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWARION_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\AUDEVWARION_UGCB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienDevastatorWarship\FXSHLDWARSHIP_CTR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="AlienDevastatorWarship" inheritFrom="BaseAircraft" SelectPortrait="Portrait_AlienDevastatorWarship" ButtonImage="Portrait_AlienDevastatorWarship" Side="ALIEN" BuildCost="2500" BuildTime="25" CommandSet="AlienDevastatorWarshipCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_CAST_REFLECTIONS SCORE AIRCRAFT HAS_HEALTH_BAR PRODUCED_AT_HELIPAD SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT TIBERIUM_BASED" WeaponCategory="BLAST" ThreatLevel="10" VoicePriority="228" EditorName="AlienDevastatorWarship" Description="Desc:AlienDevastatorWarship" TypeDescription="Type:AlienDevastatorWarship">
+	<GameObject id="AlienDevastatorWarship" inheritFrom="BaseAircraft" SelectPortrait="Portrait_AlienDevastatorWarship" ButtonImage="Portrait_AlienDevastatorWarship" Side="ALIEN" BuildCost="2500" BuildTime="25" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_CAST_REFLECTIONS SCORE AIRCRAFT HAS_HEALTH_BAR PRODUCED_AT_HELIPAD SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT BOMBER_AIRCRAFT TIBERIUM_BASED" WeaponCategory="BLAST" ThreatLevel="10" VoicePriority="228" EditorName="AlienDevastatorWarship" Description="Desc:AlienDevastatorWarship" TypeDescription="Type:AlienDevastatorWarship">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENDevastatorWarship</DisplayName>
 		<GameDependency>
 			<RequiredObject>AlienReactor</RequiredObject>
@@ -35,10 +37,26 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AUDevWar_FP"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_5 USER_1 USER_2">
+					<Model Name="AUDEVWARION_UGCB"/>
+					<Texture Original="AUDevWar" New="AUDevWarD"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_5">
 					<Model Name="AUDevWarIon_FS"/>
 					<Texture Original="AUDevWar" New="AUDevWarD"/>
 					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
@@ -51,12 +69,27 @@
 					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1 USER_2">
+					<Model Name="AUDEVWAR_UGCB_SKN"/>
+					<Texture Original="AUDevWar" New="AUDevWarD"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
@@ -72,59 +105,115 @@
 					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_5 USER_1 USER_2">
+					<Model Name="AUDEVWARION_UGCB"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg_B"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_5 USER_1">
+					<Model Name="AUDevWarIon_FS"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_5">
 					<Model Name="AUDevWarIon_FS"/>
 					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1 USER_2">
+					<Model Name="AUDEVWAR_UGCB_SKN"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg_B"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
+					<Model Name="AUDevWar_SKN_FS"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg"/>
+					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="AUDevWar_SKN_FS"/>
 					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire02" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire03" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire04" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFire05" FXParticleSystemTemplate="AlienDamageFlyingIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_1 USER_2">
+					<Model Name="AUDEVWARION_UGCB"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg_B"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_1">
+					<Model Name="AUDevWarIon_FS"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5">
 					<Model Name="AUDevWarIon_FS"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name="AUDEVWAR_UGCB_SKN"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg_B"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="AUDevWar_SKN_FS"/>
+					<Texture Original="AUDevWar" New="AUDevWarUpg"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="AUDevWar_IDLA_FS" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="AUDevWar_IDLB_FS" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="AUDevWar_IDLA" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="AUDevWar_IDLB" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FX_BONE_01">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("TRAVENG01") CurDrawableHideSubObjectPermanently("TRAVENG02") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 ACCELERATE">
 					<Script> CurDrawableHideSubObjectPermanently("TRAVENG01") CurDrawableHideSubObjectPermanently("TRAVENG02") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DECELERATE">
 					<Script> CurDrawableHideSubObjectPermanently("TRAVENG01") CurDrawableHideSubObjectPermanently("TRAVENG02") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_6 MOVING">
-					<Script> CurDrawableShowSubObjectPermanently("TRAVENG01") CurDrawableShowSubObjectPermanently("TRAVENG02") </Script>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTravEngDist_DevWarship" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 MOVING">
 					<Script> CurDrawableShowSubObjectPermanently("TRAVENG01") CurDrawableShowSubObjectPermanently("TRAVENG02") </Script>
@@ -133,6 +222,7 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawForcefield" OkToChangeModelColor="true" AttachToBoneInAnotherModule="BONE_SHLD">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
 					<Model Name="FXSHLDWARSHIP_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="100" SizeY="60" OverrideLODVisibility="true" MaxHeight="300" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
@@ -140,29 +230,21 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienZeusPlasmaDiskBattery"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienZeusGreenShardBattery" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienZeusBlueShardBattery" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
-					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-85d" PitchHeight="50%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL>
-					<OCL>OCL_ALIENIONDevastatorInitialDebris</OCL>
-				</OCL>
-				<Sound Type="INITIAL" List="ALI_DevastatorWarship_SoundDie"/>
-				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
-			</SlowDeath>
+			<!-- Normal Dying -->
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_ALIENDevastatorInitialDebris</OCL>
 				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
 				<Sound Type="INITIAL" List="ALI_DevastatorWarship_SoundDie"/>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+			</SlowDeath>
+			<!-- Upgraded Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_ALIENIONDevastatorInitialDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4"/>
+				<Sound Type="INITIAL" List="ALI_DevastatorWarship_SoundDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -170,41 +252,54 @@
 				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienVehicleTransitionLarge"/>
 				<Event Index="onDeath" FX="FX_ALI_DevastatorWarship_Die"/>
 			</FXListBehavior>
-			<!-- Forcefield Generator -->
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<AttributeModifierUpgrade id="ModuleTag_TravelerEnginesAttribute" AttributeModifier="AttributeModifier_TravelerEngines">
-				<TriggeredBy>Upgrade_TravelerEngines</TriggeredBy>
-			</AttributeModifierUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_TravelerEnginesModelCondition" AddConditionFlags="USER_6">
-				<TriggeredBy>Upgrade_TravelerEngines</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_TravelerEnginesAudioLoop" SoundToPlay="ALI_TravelerEngines_Upgrade">
-				<TriggeredBy>Upgrade_TravelerEngines</TriggeredBy>
-			</AudioLoopUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<StatusBitsUpgrade id="ModuleTag_PlanetaryDevastationUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
-			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_PlanetaryDevastationAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
-			</AudioLoopUpgrade>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienZeusPlasmaDiskBattery"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienZeusGreenShardBattery" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienZeusBlueShardBattery" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-85d" PitchHeight="50%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
 				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
 			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_PlanetaryDevastationUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PlanetaryDevastationModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsShard" ShowSubObjects="UG_SHARD UG_SHARD01 UG_SHARD02">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PlanetaryDevastationAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</AudioLoopUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienTravelerEnginesUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
-			</AIUpdate>
+			<JetAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienDevastatorWarshipFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<LockonInfo/>
+			</JetAIUpdate>
 		</AI>
 		<Body>
-			<ShieldBody id="ModuleTag_Body" MaxHealth="6250" ShieldAmount="2500" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="120s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="6250" ShieldAmount="3000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="105s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
 		</Body>
 		<ClientBehaviors>
 			<ModelConditionSoundSelectorClientBehavior id="MCSSCB">
@@ -233,6 +328,6 @@
 			<AudioEntry Sound="ALI_DevastatorWarship_MoveLoop" AudioType="soundMoveLoop"/>
 			<AudioEntry Sound="ALI_DevastatorWarship_AmbientDelayedLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="650" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="600" ShroudClearingRange="450"/>
 	</GameObject>
 </AssetDeclaration>

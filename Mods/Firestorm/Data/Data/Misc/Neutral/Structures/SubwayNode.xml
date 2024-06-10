@@ -23,25 +23,32 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBSubEnt_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBSubEnt_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="CBSubEnt_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="CBSubEnt_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="10.0s">
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
 			<TunnelContain id="ModuleTag_TunnelContain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="3" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" DeleteRemoved="true" TunnelMasterObject="SubwayHub">
 				<PassengerFilter Rule="NONE" Include="INFANTRY">
 					<!-- GDI Vehicles -->
@@ -54,15 +61,17 @@
 					<IncludeThing>GDIWolverine</IncludeThing>
 					<IncludeThing>GDIWolverine_Veteran</IncludeThing>
 					<IncludeThing>GDIPredator</IncludeThing>
+					<IncludeThing>GDIPaladinTank</IncludeThing>
 					<IncludeThing>GDIMRT</IncludeThing>
 					<!-- NOD Vehicles -->
 					<IncludeThing>NODAttackBike</IncludeThing>
-					<IncludeThing>NODMarauder</IncludeThing>
 					<IncludeThing>NODScorpionBuggy</IncludeThing>
 					<IncludeThing>NODRaiderTank</IncludeThing>
+					<IncludeThing>NODAvengerTank</IncludeThing>
 					<!-- Alien Vehicles -->
 					<IncludeThing>AlienGunWalker</IncludeThing>
 					<IncludeThing>AlienSeekerTank</IncludeThing>
+					<IncludeThing>AlienGuardianTank</IncludeThing>
 				</PassengerFilter>
 				<DieMuxData DeathTypes="ALL"/>
 				<PassengerData BonePrefix="ARROW_">
@@ -77,15 +86,17 @@
 					<IncludeThing>GDIWolverine</IncludeThing>
 					<IncludeThing>GDIWolverine_Veteran</IncludeThing>
 					<IncludeThing>GDIPredator</IncludeThing>
+					<IncludeThing>GDIPaladinTank</IncludeThing>
 					<IncludeThing>GDIMRT</IncludeThing>
 					<!-- NOD Vehicles -->
 					<IncludeThing>NODAttackBike</IncludeThing>
-					<IncludeThing>NODMarauder</IncludeThing>
 					<IncludeThing>NODScorpionBuggy</IncludeThing>
 					<IncludeThing>NODRaiderTank</IncludeThing>
+					<IncludeThing>NODAvengerTank</IncludeThing>
 					<!-- Alien Vehicles -->
 					<IncludeThing>AlienGunWalker</IncludeThing>
 					<IncludeThing>AlienSeekerTank</IncludeThing>
+					<IncludeThing>AlienGuardianTank</IncludeThing>
 				</Filter>
 				</PassengerData>
 				<EntryOffset x="0" y="0" z="0"/>
@@ -110,30 +121,6 @@
 			<Shape Type="BOX" MajorRadius="40.8359" MinorRadius="23.2089" Height="16.7456">
 				<Offset x="-10.7091" y="-0.318027" z="0.0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-45.8461" y="-20.637" z="0.0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.5751" y="-20.637" z="35.7379"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.5751" y="18.2445" z="0.0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-45.8461" y="18.2445" z="7.52274"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-45.8461" y="-20.637" z="7.52274"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.5751" y="-20.637" z="0.0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.5751" y="18.2445" z="35.7379"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-45.8461" y="18.2445" z="0.0"/>
-			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="SubwayEntrance_Select" AudioType="voiceSelect"/>

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="TiberiumFona06" KindOf="STRUCTURE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE TIBERIUM_BASED SIMPLE_OBJECT_PROP RESIST_EMP CRUSHABLE_OBSTACLE" Side="Neutral" EditorName="TiberiumFauna06" EditorSorting="MISC_NATURAL" CommandSet="EmptyCommandSet">
+	<GameObject id="TiberiumFona06" KindOf="IMMOBILE NOT_AUTOACQUIRABLE STRUCTURE CRUSHABLE_OBSTACLE RESIST_EMP IGNORE_FOR_VICTORY TIBERIUM_BASED" Side="Neutral" EditorName="TiberiumFauna06" EditorSorting="MISC_NATURAL" CommandSet="EmptyCommandSet">
 		<DisplayName>Name:NeutralTiberiumFona</DisplayName>
-		<ArmorSet Armor="TiberiumCrystalArmor" DamageFX="InfantryAlienDamageFX"/>
+		<ArmorSet Armor="TiberiumCrystalArmor" DamageFX="AlienVehicleDamageFX"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="TIBERIUMFONA06_SKN"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCellAura" FollowBone="true"/>
@@ -12,29 +12,27 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" SinkRate="1" DestructionDelay="0.1s">
+			<AttributeModifierPoolUpdate id="ModuleTag_AttributeModifier"/>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="UNUSED_06"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event FX="FX_TibCellDeathGreen"/>
+				<Event Index="onDeath" FX="FX_TibCellDeathGreen"/>
 			</FXListBehavior>
 			<ToppleUpdate id="ModuleTag_ToppleUpdate" ToppleFX="FX_TibCellDeathGreen" KillWhenToppled="true"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="10.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
+			</PassiveAreaEffectBehavior>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="TiberiumCrystalWeapon" FireDelay="3s"/>
 			</FireWeaponUpdate>
-			<AttributeModifierPoolUpdate id="ModuleTag_AttributeModifier"/>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="50.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
-			</PassiveAreaEffectBehavior>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="5000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2500"/>
 		</Body>
-		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="7" MinorRadius="7" Height="15"/>
-		</Geometry>
 		<ShadowInfo Type="VOLUME"/>
-		<CrusherInfo CrushableLevel="2"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
 	</GameObject>
 </AssetDeclaration>

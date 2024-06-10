@@ -1,0 +1,231 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_ATKA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_ATKB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_ATKC.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_BIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_BIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_BIFB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_DIEB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienHunter\AUHUNTER_WLKA.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="AlienHunter" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienHunter" ButtonImage="Portrait_AlienHunter" Side="ALIEN" BuildCost="200" BuildTime="2" KindOf="TIBERIUM_BASED SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM" WeaponCategory="CANNON" VoicePriority="76" EditorName="AlienTerminator" Description="Desc:AlienHunter" TypeDescription="Type:AlienHunter" ProductionQueueType="VEHICLE">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienHunter</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
+		<ArmorSet Armor="NODCyborgInfantryArmor" DamageFX="InfantryAlienDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="50"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AUHUNTER_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDALIEN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_4">
+					<Model Name="AUHUNTER_SKN"/>
+					<Texture Original="AUAnhlTrpd" New="AURprTripodBlue"/>
+					<Texture Original="AUAnhlTrpd_NRM" New="AURprTripod_NRM"/>
+					<Texture Original="AUAnhlTrpd_SPM" New="AURprTripod_SPM"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Model Name="AUHUNTER_SKN"/>
+					<Texture Original="AUAnhlTrpd" New="AURprTripod"/>
+					<Texture Original="AUAnhlTrpd_NRM" New="AURprTripod_NRM"/>
+					<Texture Original="AUAnhlTrpd_SPM" New="AURprTripod_SPM"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="AUHUNTER_BIDA" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="AUHUNTER_BIFA" AnimationMode="ONCE" AnimationPriority="30"/>
+					<Animation AnimationName="AUHUNTER_BIFB" AnimationMode="ONCE" AnimationPriority="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="AUHUNTER_DIEA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="1.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="AUHUNTER_DIEB" AnimationMode="ONCE" AnimationSpeedFactorMin="3" AnimationSpeedFactorMax="3"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="AUHUNTER_DIEA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="1.8"/>
+					<Animation AnimationName="AUHUNTER_DIEB" AnimationMode="ONCE" AnimationSpeedFactorMin="3" AnimationSpeedFactorMax="3"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AUHUNTER_WLKA" Distance="40" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A AIM_HIGH" FrameForPristineBonePositions="5">
+					<Animation AnimationName="AUHUNTER_ATKC" AnimationMode="LOOP" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED AIM_HIGH">
+					<Animation AnimationName="AUHUNTER_ATKC" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
+					<Animation AnimationName="AUHUNTER_ATKA" AnimationMode="LOOP" UseWeaponTiming="true" AnimationPriority="50"/>
+					<Animation AnimationName="AUHUNTER_ATKB" AnimationMode="LOOP" UseWeaponTiming="true" AnimationPriority="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED">
+					<Animation AnimationName="AUHUNTER_ATKA" AnimationMode="MANUAL"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="B_TOE2_L">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="B_TOE1_R">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_AlienInfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Disintegrator_SoundDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="ALI_Disintegrator_SoundDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Disintegrator_SoundDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event Index="onDeath" FX="FX_AlienBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterPlasmaAutoCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>ALI_RazorDrone</Key>
+			</LargeGroupAudioUpdate>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_ShardLaunchersModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="300"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="5.0" Height="10.0" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_Disintegrator_SoundAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_Disintegrator_SoundCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="ALI_Disintegrator_SoundMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_Disintegrator_SoundSelectMS" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_RazorDrone_MoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

@@ -39,14 +39,15 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBIONCAN_A" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="false"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBIONCAN_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBIONCAN_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="GBIONCAN_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -65,7 +66,7 @@
 					<Model Name="GBIONCANX_A"/>
 					<Texture Original="GBCommandPost_SPM" New="GBIonCannon_SPM"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
 					<Model Name="GBIONCANXD_SKN"/>
 					<Texture Original="GBCommandPost_SPM" New="GBIonCannon_SPM"/>
 				</ModelConditionState>
@@ -78,22 +79,21 @@
 					<Texture Original="GBCommandPost_SPM" New="GBIonCannon_SPM"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle">
-					<Animation AnimationName="GBIONCANX_IDL" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Packing" then CurDrawableSetTransitionAnimState("TRANS_IntoIdle") end </Script>
+					<Animation AnimationName="GBIONCANX_IDL" AnimationMode="LOOP" AnimationBlendTime="0"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Packing" then CurDrawableSetTransitionAnimState("TRANS_IntoIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Animation AnimationMode="ONCE" AnimationName="GBIonCanX_A"/>
-					<ParticleSysBone FollowBone="true" FXParticleSystemTemplate="Con_Medium" BoneName="NONE"/>
+					<Animation AnimationName="GBIonCanX_A" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY" StateName="STATE_Attacking">
-					<Animation AnimationMode="ONCE" AnimationName="GBIonCanX_ATKA" AnimationBlendTime="0"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Attacking" and Prev ~= "STATE_Ready" then CurDrawableSetTransitionAnimState("STATE_Ready") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="STATE_Ready">
-					<Animation AnimationMode="ONCE" AnimationName="GBIonCanX_RDY" AnimationBlendTime="0"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY" StateName="STATE_Ready">
+					<Animation AnimationName="GBIonCanX_ATKA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Ready" and Prev ~= "TRANS_Ready" then CurDrawableSetTransitionAnimState("TRANS_Ready") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING" Flags="START_FRAME_LAST" StateName="STATE_Packing">
 					<Animation AnimationName="GBIonCanX_ATKA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_Ready">
+					<Animation AnimationName="GBIonCanX_RDY" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoIdle">
 					<Animation AnimationName="GBIonCanX_CLS" AnimationMode="ONCE" AnimationBlendTime="0" />
@@ -101,15 +101,15 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
@@ -129,17 +129,13 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="GBIONCANSRF_SKN"/>
 					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="GBIONCANSRF_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -148,20 +144,19 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="6.0" DestructionDelay="9.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -175,6 +170,7 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_IonCannonUpdate" SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon" SpecialWeapon="IonCannonWeapon" UnpackTime="0s" PackTime="8s" WhichSpecialWeapon="1"/>
 			<AISpecialPowerUpdate id="ModuleTag_IonCannonSpecialPower" CommandButtonName="Command_IonCannonSuperweapon" SpecialPowerRadius="999999.0" SpecialPowerAIType="SPECIAL_POWER_SUPERWEAPON" UnitKindOf="STRUCTURE"/>
 			<MonitorSpecialPowerTimerUpdate id="ModuleTag_IonCannonReadyToFireUpdate" SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon" ReadyCondition="SPECIALPOWER1_READY"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingDestruction.xml"/>
@@ -196,9 +192,8 @@
 			<EvaAnnounceClientCreate id="IonCannonDetected" AnnouncementEventEnemy="EnemyIonCannonDetected" AnnouncementEventAlly="AlliedIonCannonDetected" UseObjectsPosition="true"/>
 		</ClientUpdates>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="45.0" MinorRadius="32.5" Height="17.5" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="42.0" MinorRadius="32.5" Height="17.5" ContactPointGeneration="STRUCTURE"/>
 			<Shape Type="BOX" MajorRadius="22.0" MinorRadius="39.0" Height="17.5" ContactPointGeneration="STRUCTURE"/>
-			<Shape Type="CYLINDER" MajorRadius="19.0" Height="81.0"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_IonCannonSelect" AudioType="voiceSelect"/>
@@ -208,6 +203,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="100"/>
-		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

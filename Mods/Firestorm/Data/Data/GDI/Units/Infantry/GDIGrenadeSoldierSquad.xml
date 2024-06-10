@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
 	</Includes>
-	<GameObject id="GDIGrenadeSoldierSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_GDIGrenadierSquad" ButtonImage="Portrait_GDIGrenadierSquad" Side="GDI" BuildCost="800" BuildTime="8" CommandSet="GDIGrenadeSoldierSquadCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON ANTI_GARRISON CAN_SHOOT_OVER_WALLS CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="BLAST" EditorName="GDIGrenadeSoldierSquad" Description="Desc:GDIGrenadierSquad" TypeDescription="Type:GDIGrenadierSquad" UnitTypeIcon="GrenadierIcon">
+	<GameObject id="GDIGrenadeSoldierSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_GDIGrenadierSquad" ButtonImage="Portrait_GDIGrenadierSquad" Side="GDI" BuildCost="900" BuildTime="9" CommandSet="GDIGrenadeSoldierSquadCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON ANTI_GARRISON CAN_SHOOT_OVER_WALLS CAN_BE_FAVORITE_UNIT SCORE" WeaponCategory="BLAST" EditorName="GDIGrenadeSoldierSquad" Description="Desc:GDIGrenadierSquad" TypeDescription="Type:GDIGrenadierSquad" UnitTypeIcon="GrenadierIcon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIGrenadierSquad</DisplayName>
 		<GameDependency>
 			<RequiredObject>GDICommandPost</RequiredObject>
@@ -15,9 +15,7 @@
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXGrenade_FP"/>
 				</ModelConditionState>
@@ -26,18 +24,9 @@
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
@@ -49,6 +38,8 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="SquadGrenadeRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="4" ObjectStatusOfContained="" ConditionForEntry="INVALID">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
@@ -65,20 +56,9 @@
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
 				<RankToReleaseWhenAttacking>2</RankToReleaseWhenAttacking>
 			</HordeContain>
-			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
-			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="1000" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
-			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
-				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
-			</ModelConditionUpgrade>
-			<UnpauseSpecialPowerUpgrade id="ModuleTag_EmpGrenadesUnpause" SpecialPowerTemplate="EMPGrenadesGetInRange" Permanent="true">
-				<TriggeredBy>Upgrade_EMPGrenades</TriggeredBy>
-			</UnpauseSpecialPowerUpgrade>
-			<UnpauseSpecialPowerUpgrade id="ModuleTag_EmpGrenadesDispatchUnpause" SpecialPowerTemplate="SpecialPower_EMPGrenadesDispatch" Permanent="true">
-				<TriggeredBy>Upgrade_EMPGrenades</TriggeredBy>
-			</UnpauseSpecialPowerUpgrade>
-			<UnpauseSpecialPowerUpgrade id="ModuleTag_EmpGrenadesTriggerUnpause" SpecialPowerTemplate="SpecialPower_EMPGrenadesTrigger" Permanent="true">
-				<TriggeredBy>Upgrade_EMPGrenades</TriggeredBy>
-			</UnpauseSpecialPowerUpgrade>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="1000" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Suppression_Squad" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<SpecialPower id="ModuleTag_EMPGrenadesGetInRange" SpecialPowerTemplate="EMPGrenadesGetInRange" UpdateModuleStartsAttack="true"/>
 			<SpecialAbilityUpdate id="ModuleTag_EMPGrenadesGetInRangeUpdate" SpecialPowerTemplate="EMPGrenadesGetInRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="260" ChainedButton="Command_FireEMPGrenades"/>
 			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_EMPGrenadesDispatch">
@@ -88,11 +68,15 @@
 			<HordeDispatchSpecialPower id="ModuleTag_HordeDispatchSpecialPower" SpecialPowerTemplate="SpecialPower_FireEMPGrenades"/>
 			<SpecialPower id="ModuleTag_EMPGrenadesTrigger" SpecialPowerTemplate="SpecialPower_EMPGrenadesTrigger" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPGrenadesTriggerUpdate" SpecialPowerTemplate="SpecialPower_EMPGrenadesTrigger" SpecialWeapon="HordeSpecialRangeAttack" UnpackTime="0s" PackTime="0.0s" BusyForDuration="1.4s" WhichSpecialWeapon="1"/>
-			<AISpecialPowerUpdate id="ModuleTag_EmpGrenadesAI" CommandButtonName="Command_EMPGrenadesGetInRange" SpecialPowerRadius="260" UnitKindOf="VEHICLE FS_POWER FS_BASE_DEFENSE" EnemyUnitInclude="VEHICLE FS_POWER FS_BASE_DEFENSE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<AISpecialPowerUpdate id="ModuleTag_EmpGrenadesAI" CommandButtonName="Command_EMPGrenadesGetInRange" SpecialPowerRadius="260" UnitKindOf="VEHICLE" EnemyUnitInclude="VEHICLE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" UpdateTime="15s" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_EMPGrenades</TriggeredBy>
+			</ModelConditionUpgrade>
 		</Behaviors>
 		<AI>
-			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
-				<UnitAITargetChooserData SympathyRange="100.0" CheckVisionRange="true"/>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" CheckVisionRange="true" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</HordeAIUpdate>
 		</AI>
 		<Body>

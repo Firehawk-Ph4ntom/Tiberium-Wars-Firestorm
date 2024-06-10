@@ -19,7 +19,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienBuzzerHive" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_ALIENBuzzerHive" ButtonImage="Portrait_ALIENBuzzerHive" Side="ALIEN" BuildCost="600" PlacementViewAngle="315d" BuildTime="6" CommandSet="AlienBuzzerHiveCommandSet" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS STRUCTURE FS_BASE_DEFENSE POWERED CAN_SEE_THROUGH_STRUCTURE COVER AUTO_ACQUIRABLE_BY_AI SLAVE_OWNER TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="GUN" EditorName="AlienBuzzerHive" TypeDescription="Type:AlienBuzzerHive" EnergyProduction="-5" Description="Desc:ALIENBuzzerHive">
+	<GameObject id="AlienBuzzerHive" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_ALIENBuzzerHive" ButtonImage="Portrait_ALIENBuzzerHive" Side="ALIEN" BuildCost="600" PlacementViewAngle="315d" BuildTime="6" CommandSet="GenericStructureCommandSet" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS STRUCTURE FS_BASE_DEFENSE POWERED CAN_SEE_THROUGH_STRUCTURE COVER AUTO_ACQUIRABLE_BY_AI SLAVE_OWNER TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="GUN" EditorName="AlienBuzzerHive" TypeDescription="Type:AlienBuzzerHive" EnergyProduction="-5" Description="Desc:ALIENBuzzerHive">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENBuzzerHive</DisplayName>
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
 		<GameDependency>
@@ -90,19 +90,19 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_1" StateName="STATE_Rubble_User1" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABTIBBHIVE_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble_User1" and Prev ~= "TRANS_IntoRubble_User1" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble_User1") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble_User1" and Prev ~= "TRANS_IntoRubble_User1" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble_User1") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABBHive_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1" StateName="STATE_ReallyDamaged_User1" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABTIBBHIVE_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged_User1" and Prev ~= "TRANS_IntoReallyDamaged_User1" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged_User1") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged_User1" and Prev ~= "TRANS_IntoReallyDamaged_User1" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged_User1") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABBHive_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged_User1">
 					<Animation AnimationName="ABTIBBHIVE_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -121,12 +121,8 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="ABBHiveDr_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
 					<Model Name="ABTIBBHIVEDR_SKN"/>
 					<Texture Original="ABTibHive" New="ABTibHive_B"/>
@@ -169,83 +165,57 @@
 					<Animation AnimationName="ABBHiveDr_CLS" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="abbhiveb" RefreshTime="2.0s" SweepTime="1.0s">
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="ABBHiveB" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXAspotlight"/>
+					<Model Name="FXAspotlight_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 			</SpotlightDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedS"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedS"/>
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleS"/>
 			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2.0s"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>AlienBuzzers_Slaved</SpawnTemplate>
+			</SpawnBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienBuzzerHiveWeapon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="ALI_Building_Die"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>AlienBuzzers_Slaved</SpawnTemplate>
-			</SpawnBehavior>
 			<ModelConditionUpgrade id="ModuleTag_IchorPlatingModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
 			</ModelConditionUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</ModelConditionUpgrade>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2.0s"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" MaxCombineChildren="3" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s"/>
+				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="1600"/>
 		</Body>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="13.2272" MinorRadius="13.2272" Height="37.7319" ContactPointGeneration="STRUCTURE">
+			<Shape Type="CYLINDER" MajorRadius="13.2272" Height="37.7319" ContactPointGeneration="STRUCTURE">
 				<Offset x="-3.42813" y="0.138149" z="0.0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-11.0459" y="-7.78425" z="0.753372"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="5.32988" y="-7.78425" z="30.5619"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="5.32988" y="8.59152" z="0.753372"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-11.0459" y="8.59152" z="30.5619"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-11.0459" y="-7.78425" z="30.5619"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="5.32988" y="-7.78425" z="0.753372"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="5.32988" y="8.59152" z="30.5619"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-11.0459" y="8.59152" z="0.753372"/>
-			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="ALI_BuzzerHive_Select" AudioType="voiceSelect"/>

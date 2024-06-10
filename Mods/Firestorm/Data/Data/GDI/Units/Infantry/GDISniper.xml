@@ -7,7 +7,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="GDISniper" inheritFrom="BaseInfantry" SelectPortrait="Portrait_GDISniperTeam" ButtonImage="Portrait_GDISniperTeam" Side="GDI" BuildCost="500" BuildTime="5" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="108" EditorName="GDISniper" Description="Desc:GDISniperTeam" TypeDescription="Type:GDISniperTeam" UnitTypeIcon="SniperIcon">
+	<GameObject id="GDISniper" inheritFrom="BaseInfantry" SelectPortrait="Portrait_GDISniperTeam" ButtonImage="Portrait_GDISniperTeam" Side="GDI" BuildCost="550" BuildTime="5.5" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="108" EditorName="GDISniper" Description="Desc:GDISniperTeam" TypeDescription="Type:GDISniperTeam" UnitTypeIcon="SniperIcon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDISniperTeam</DisplayName>
 		<DisplayUpgrade>Upgrade_GDIFieldSuits</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
@@ -24,32 +24,39 @@
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName=""/>
 					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
 				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USER_2">
 					<Model Name="GUGAR_RGSNIPER"/>
 					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName=""/>
+					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName=""/>
 					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USER_1">
 					<Model Name="GUGAR_SNIPER"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName=""/>
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR USER_2">
 					<Model Name="GU_RGSNIPER_SKN"/>
 					<Texture Original="CUMisslemanA" New="CUMisslemanB"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR USER_1">
 					<Model Name="GUSNIPER_SKN"/>
 					<Texture Original="CUMisslemanA" New="CUMisslemanB"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<Model Name="GU_RGSNIPER_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<Model Name="GUSNIPER_SKN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
@@ -57,10 +64,18 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Animation AnimationName="GUGAR_SNIP" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Prone" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="GU_SNPRSH_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+					<Animation AnimationName="GU_SNPRSH_BIFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="GU_SNPRSH_BIFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="GU_SNPRSH_BIFC" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="GU_SNPRSH_BIFD" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Prone" and Prev ~= "TRANS_ToProne" and Prev ~= "TRANS_SelectedToProne" then CurDrawableSetTransitionAnimState("TRANS_ToProne") end; if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_SelectedToProne") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
 					<Animation AnimationName="GU_SNPRSH_FLYA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
 					<Animation AnimationName="GU_SNPRSH_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
@@ -72,11 +87,29 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING">
 					<Animation AnimationName="GU_SNPRSH_KDIA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="GU_SNPRSH_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_Kneeling">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_A">
+					<Animation AnimationName="GU_SNPRSH_ATKA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED USING_WEAPON_A" StateName="STATE_Prone">
+					<Animation AnimationName="GU_SNPRSH_ATKA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Prone">
+					<Animation AnimationName="GU_SNPRSH_SMVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_A">
 					<Animation AnimationName="GU_SNPRSH_KAKA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_Kneeling">
+					<Animation AnimationName="GU_SNPRSH_KAKA" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" StateName="STATE_Kneeling" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="GU_SNPRSH_KBIA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="80"/>
@@ -84,20 +117,17 @@
 					<Animation AnimationName="GU_SNPRSH_KBFB" AnimationMode="ONCE" AnimationPriority="50"/>
 					<Animation AnimationName="GU_SNPRSH_KBFC" AnimationMode="ONCE" AnimationPriority="50"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Prone">
-					<Animation AnimationName="GU_SNPRSH_SMVA" AnimationMode="LOOP"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Kneeling">
 					<Animation AnimationName="GU_SNPRSH_CRNA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Kneeling" and Prev ~= "TRANS_ToMovingFromProne" then CurDrawableSetTransitionAnimState("TRANS_ToMovingFromProne") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Kneeling" and Prev ~= "TRANS_ToMovingFromProne" then CurDrawableSetTransitionAnimState("TRANS_ToMovingFromProne") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_10" StateName="STATE_Prone">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_10">
 					<Animation AnimationName="GU_SNPRSH_ATKA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A USER_10" StateName="STATE_Prone">
 					<Animation AnimationName="GU_SNPRSH_ATKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_11" StateName="STATE_Kneeling">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_11">
 					<Animation AnimationName="GU_SNPRSH_KAKA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A USER_11" StateName="STATE_Kneeling">
@@ -106,20 +136,12 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING">
 					<Animation AnimationName="GU_SNPRSH_CHRA" AnimationMode="LOOP" AnimationBlendTime="10"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_SelectedPose" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="GU_SNPRSH_AIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
 					<Animation AnimationName="GU_SNPRSH_AIFA" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="GU_SNPRSH_AIFB" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="GU_SNPRSH_AIFC" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Prone" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Prone" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="GU_SNPRSH_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
-					<Animation AnimationName="GU_SNPRSH_BIFA" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="GU_SNPRSH_BIFB" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="GU_SNPRSH_BIFC" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="GU_SNPRSH_BIFD" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev ~= "STATE_Prone" and Prev ~= "TRANS_ToProne" and Prev ~= "TRANS_SelectedToProne" then CurDrawableSetTransitionAnimState("TRANS_ToProne") end if Prev == "STATE_SelectedPose" then CurDrawableSetTransitionAnimState("TRANS_SelectedToProne") end if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Prone" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_ToMovingFromProne">
 					<Animation AnimationName="GU_SNPRSH_SGTA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.6" AnimationSpeedFactorMax="1.6"/>
@@ -134,19 +156,25 @@
 					<Animation AnimationName="GU_SNPRSH_ABTA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="1.4" AnimationSpeedFactorMax="1.6"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED">
 					<Model Name="FXSUPPRESSIONSIGN"/>
 				</ModelConditionState>
@@ -187,6 +215,43 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_10 USER_11"/>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="GDI_Sniper_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="POISONED"/>
+				<Sound Type="INITIAL" List="GDI_Sniper_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="GDI_Sniper_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<Sound Type="INITIAL" List="GDI_Sniper_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperRifle" ObjectStatus="WEAPON_UPGRADED_01"/>
@@ -196,6 +261,7 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperAntiTankRifle" ObjectStatus="WEAPON_UPGRADED_02"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
 			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_SelectLoad_SniperRifle"/>
 			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
 				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
@@ -212,43 +278,6 @@
 				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
 			</StatusBitsUpgrade>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
-			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibs</OCL>
-				</OCL>
-				<Sound List="GDI_Sniper_VoiceDie"/>
-				<DieMuxData DeathTypes="EXPLODED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsRad</OCL>
-				</OCL>
-				<Sound List="GDI_Sniper_VoiceDie"/>
-				<DieMuxData DeathTypes="POISONED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsChar</OCL>
-				</OCL>
-				<Sound List="GDI_Sniper_VoiceDie"/>
-				<DieMuxData DeathTypes="BURNED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound List="GDI_Sniper_VoiceDie"/>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
-				<Event FX="FX_InfBlood"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListRad">
-				<DieMuxData DeathTypes="POISONED"/>
-				<Event FX="FX_InfRadGoo"/>
-			</FXListBehavior>
 			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
 				<InvisibilityNugget ForbiddenStatus="IS_FIRING_WEAPON IS_AIMING_WEAPON ENCLOSED"/>
 			</InvisibilityUpdate>
@@ -257,32 +286,11 @@
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>GDI_Sniper</Key>
 			</LargeGroupAudioUpdate>
-			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSniper_Audio" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
-				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
-			</AudioLoopUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
-			</AudioLoopUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_RailGunAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_GDIArmoryRailgunTech</TriggeredBy>
-			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_RailgunModelCondition" AddConditionFlags="USER_1">
-				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
-			</ModelConditionUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_SniperModelCondition" AddConditionFlags="USER_2">
-				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
-			</ModelConditionUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="RIDER2">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="RIDER2">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="RIDER2">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER2">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER2">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
@@ -290,11 +298,23 @@
 			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</AudioLoopUpgrade>
-			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDITiberiumFieldSuitsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<ModelConditionUpgrade id="ModuleTag_SniperModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSniper_Audio" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_RailgunModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GenericSpotterFunctions">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -317,9 +337,10 @@
 			<AudioEntry Sound="GDI_Sniper_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="GDI_Sniper_VoiceSelectMS" AudioType="voiceSelect"/>
 			<AudioEntry Sound="GDI_Sniper_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
-			<!-- Triggered when told to garrison Deployed Reckoners -->
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
 			<ObjectSpecificEntry Sound="GDI_Sniper_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="GDI_Sniper_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
 		</AudioArrayVoice>
-		<VisionInfo VisionRange="525" ShroudClearingRange="500" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="525" ShroudClearingRange="450" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 	</GameObject>
 </AssetDeclaration>

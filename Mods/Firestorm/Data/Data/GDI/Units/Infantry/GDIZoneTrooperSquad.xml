@@ -15,9 +15,7 @@
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXZoneTrpr_FP"/>
 				</ModelConditionState>
@@ -26,18 +24,9 @@
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
@@ -46,9 +35,11 @@
 		<Behaviors>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIZoneTrooperSquadRangefinder"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="ZoneTrooperSquadRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="4" ObjectStatusOfContained="" ConditionForEntry="INVALID">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
@@ -62,6 +53,8 @@
 				</RankInfo>
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
 			</HordeContain>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<SpecialPower id="ModuleTag_JumpJets" SpecialPowerTemplate="SpecialPowerGetToJumpJetRange" UpdateModuleStartsAttack="true"/>
 			<SpecialAbilityUpdate id="ModuleTag_JumpJetUpdate" SpecialPowerTemplate="SpecialPowerGetToJumpJetRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="420.0" ChainedButton="Command_ZoneTrooperSquadFireJumpJets"/>
 			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPowerJumpJetDispatch">
@@ -73,24 +66,23 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_JumpJetTriggerUpdate" SpecialWeapon="ZoneTrooperFireJumpJets" SpecialPowerTemplate="SpecialPowerJumpJetHordeTrigger" UnpackTime=".2s" PackTime=".2s" TriggerAttributeModifier="AttributeModifier_JumpJets" AttributeModifierDuration="3s" BusyForDuration="3s" WhichSpecialWeapon="1"/>
 			<BezierProjectile id="ModuleTag_Projectile" FirstHeightMin="50" FirstHeightMax="50" SecondHeightMin="50" SecondHeightMax="50" FirstPercentIndent="30" SecondPercentIndent="70" TumbleRandomly="true" CrushStyle="true" BounceCount="0" FinalStuckTime="1.766s" PreLandingStateTime="0.3s"/>
 			<!-- Scanner Packs -->
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400" InitiallyDisabled="true">
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400" InitiallyDisabled="true" ExtraForbiddenKindOf="">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</StealthDetectorUpdate>
 			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AttributeModifierUpgrade>
 			<!-- Auto Injectors -->
-			<AttributeModifierUpgrade id="ModuleTag_AutoInjectorsAttribute" AttributeModifier="ZoneTrooper_AutoInjectors">
-				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
-			</AttributeModifierUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
 				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
 			</ModelConditionUpgrade>
-			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
+			<AttributeModifierUpgrade id="ModuleTag_AutoInjectorsAttribute" AttributeModifier="ZoneTrooper_AutoInjectors">
+				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			</AttributeModifierUpgrade>
 		</Behaviors>
 		<AI>
-			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</HordeAIUpdate>
 		</AI>
 		<Body>

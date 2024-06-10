@@ -1,7 +1,8 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIOxTransport\GUVEHDROPSHIP_FP.w3x"/>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml" />
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
 	<GameObject id="GDIV35Ox" inheritFrom="BaseAircraft" SelectPortrait="Portrait_GDIOx" ButtonImage="Portrait_GDIOx" Side="GDI" BuildCost="10" BuildTime="1.0" CommandSet="GDIHammerheadCommandSet" KindOf="CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE" VoicePriority="52" EditorName="GDIV35Ox" Description="Desc:GDIOx" TypeDescription="Type:GDIOx">
@@ -16,25 +17,29 @@
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
 					<Turret TurretID="1"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUDROPSHIP_FP"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="GUDROPSHIP_SKN"/>
 					<Texture Original="GuDropShip" New="GuDropShipD"/>
 					<Texture Original="GBWarFacBib" New="GBWarFacBib_D"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_LFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_GUDROPSHIP" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_GUDROPSHIP" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_GUDROPSHIP" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="GUDROPSHIP_SKN"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="GUDROPSHIP_FP"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_LFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_GUDROPSHIP" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RANDOMSTART">
 					<Animation AnimationName="GUDROPSHIP_IDLA" AnimationMode="LOOP"/>
@@ -67,88 +72,57 @@
 					<Animation AnimationName="GUDROPSHIP_CLSA" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Lfan" AttachToBoneInAnotherModule="FX_Lfan">
+			<ScriptedModelDraw id="ModuleTag_EngineParticles" AttachToBoneInAnotherModule="FX_Lfan">
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIOxTransportHoverFlames" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Rfan" AttachToBoneInAnotherModule="FX_Rfan">
+			<ScriptedModelDraw id="ModuleTag_EngineParticles2" AttachToBoneInAnotherModule="FX_Rfan">
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIOxTransportHoverFlames" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" ExtraPublicBone="FX_Lfan FX_Rfan">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER MOVING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LANDING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 MOVING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 LANDING">
-					<Model Name=""/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
-					<TurretSettings TurretTurnRate="360">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-			</WeaponSetUpdate>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<FlammableUpdate id="ModuleTag_Flammable" AflameDuration="5s" AflameDamageAmount="3" AflameDamageDelay=".5s"/>
-			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
-				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
-				<DieMuxData DeathTypes="ALL"/>
-				<PassengerData BonePrefix="BONEGARRISON">
-					<Filter Rule="NONE" Include="INFANTRY"/>
-				</PassengerData>
-			</HordeTransportContain>
-			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
-			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIDropShipDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<FX Type="INITIAL">
 					<FX>FX_GDI_Ox_VoiceDie</FX>
 				</FX>
@@ -157,10 +131,29 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
+					<TurretSettings TurretTurnRate="360">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+			</HordeTransportContain>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
 		</Behaviors>
 		<AI>
 			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false" DelayAFterLoadingOrUnloading="1s">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</TransportHelicopterAIUpdate>
 		</AI>
 		<Body>
@@ -197,7 +190,7 @@
 			<AudioEntry Sound="V35DropShipMoveStart" AudioType="soundMoveStart"/>
 		</AudioArraySound>
  		<EvaEvents EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="100" ShroudClearingRange="600"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
 	</GameObject>
 </AssetDeclaration>

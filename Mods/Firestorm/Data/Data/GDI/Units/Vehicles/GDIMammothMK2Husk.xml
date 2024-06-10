@@ -1,10 +1,9 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIMammothMK2Husk" inheritFrom="BaseVehicle" Side="GDI" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS IMMOBILE VEHICLE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE" EditorName="GDIMammothMK2Husk">
+	<GameObject id="GDIMammothMK2Husk" inheritFrom="BaseVehicle" Side="GDI" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE VEHICLE" EditorName="GDIMammothMK2Husk">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:JuggernautHusk</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -55,19 +54,21 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="4s" MaxLifetime="4s"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="5s" SinkRate="2.0" DestructionDelay="14s">
-				<DieMuxData DeathTypes="ALL"/>
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIMammothMechHuskDebris</OCL>
 				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="4s" MaxLifetime="4s"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="=$MECH_HUSK_HEALTH"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>
 		</Body>
  		<EvaEvents EvaEventPromotedOwner="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventDieOwner=""/>
 		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>

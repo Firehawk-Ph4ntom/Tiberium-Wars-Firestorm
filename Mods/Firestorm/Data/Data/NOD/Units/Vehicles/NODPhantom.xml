@@ -26,7 +26,7 @@
 			<RequiredObject>NODSecretShrine</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Locomotor="GDIRigLocomotor" Condition="NORMAL" Speed="60"/>
+		<LocomotorSet Locomotor="GDIRigLocomotor" Condition="NORMAL" Speed="75"/>
 		<Draws>
 			<TankDraw id="ModuleTag_Draw" TrackMarks="FXTankTrack" ExtraPublicBone="FXTracksL FXTracksR" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
@@ -35,16 +35,19 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="NUREPVEH_FP"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED">
+					<Model Name="NUREPVEH_SN"/>
+					<Texture Original="NURepVeh" New="NURepVeh_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING DAMAGED">
+					<Model Name="NUREPVEH_SN"/>
+					<Texture Original="NURepVeh" New="NURepVeh_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Model Name="NUREPVEH_SN"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="NUREPVEHR_SKN"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED" RetainSubObjects="true">
-					<Model Name="NUREPVEH_SN"/>
-					<Texture Original="NURepVeh" New="NURepVeh_D"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING DAMAGED" RetainSubObjects="true">
-					<Model Name="NUREPVEH_SN"/>
-					<Texture Original="NURepVeh" New="NURepVeh_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="NUREPVEH_SKN"/>
@@ -54,10 +57,10 @@
 					<Model Name="NUREPVEH_SKN"/>
 					<Texture Original="NURepVeh" New="NURepVeh_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" RetainSubObjects="true">
-					<Model Name="NUREPVEH_SN"/>
-				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
@@ -87,20 +90,32 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NUREPVEH_AN" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="5"/>
 				</AnimationState>
-				<LeftTread>"FXTracksL"</LeftTread>
-				<RightTread>"FXTracksR"</RightTread>
+				<LeftTread>"TreadsL"</LeftTread>
+				<RightTread>"TreadsR"</RightTread>
 			</TankDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
@@ -108,72 +123,71 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMamm_FX"/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL_DYNAMIC" Texture="Decal_Repair_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>NODPhantomRepairDrone</SpawnTemplate>
-			</SpawnBehavior>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODPhantomDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="NOD_Generic_VoiceDieMS2"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
 			</FXListBehavior>
-			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
-			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>NODPhantomRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<xi:include href="DATA:Includes/GenericUnpackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericUnpackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="1.5s" CheckBuildAssistant="true">
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>NODPhantomDeployed</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
-			<AISpecialPowerUpdate id="ModuleTag_RigUnpackAI" CommandButtonName="Command_UnPackPhantom" SpecialPowerAIType="SPECIAL_POWER_AOE_BUFF" UnitKindOf="VEHICLE" MinimumCutoff="5"/>
+			<AISpecialPowerUpdate id="ModuleTag_PhantomUnpackAI" CommandButtonName="Command_UnPackPhantom" SpecialPowerRadius="300" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
@@ -184,7 +198,7 @@
 		</Body>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
-				<ModelConditionSound Sound="NOD_Specter_deploy" RequiredFlags="UNPACKING" ExcludedFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_Phantom_Pack" RequiredFlags="UNPACKING" ExcludedFlags="DYING"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
@@ -200,15 +214,9 @@
 			<AudioEntry Sound="GDI_MRT_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="NOD_Phantom_VoiceSelectMS" AudioType="voiceSelect"/>
 			<AudioEntry Sound="NOD_Phantom_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
-			<!-- Triggered when built from GDI factories -->
-			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="GDIReclamatorHub"/>
-			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="GDIWarFactory"/>
 			<!-- Triggered when built from Nod factories -->
 			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="NODWarmechFacility"/>
 			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="NODDropZone"/>
-			<!-- Triggered when built from Alien factories -->
-			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="AlienWarpChasm"/>
-			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="AlienGateway"/>
 			<!-- Safety in case we do this in some campaign mission -->
 			<ObjectSpecificEntry Sound="NOD_Phantom_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="ReinforcementBay"/>
 		</AudioArrayVoice>
@@ -217,6 +225,6 @@
 			<AudioEntry Sound="PitbullIdleLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="350" ShroudClearingRange="300"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 	</GameObject>
 </AssetDeclaration>

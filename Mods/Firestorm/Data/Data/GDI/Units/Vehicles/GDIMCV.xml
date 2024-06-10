@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIMCV\GUMCV_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMCV\GUMCV_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMCV\GUMCVR_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMCV\GUMCVUPAK_SN_CTR.w3x"/>
@@ -18,6 +19,9 @@
 					<Model Name="GUMCV_SKN_FS"/>
 					<Texture Original="HC_GB_Conyard01" New="HC_GB_Conyard02"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUMCV_FP_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED">
 					<Model Name="GUMCVUPAK_SN_FS"/>
@@ -57,35 +61,45 @@
 					<Texture Original="HC_GB_Conyard01" New="HC_GB_Conyard02"/>
 					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="GUMCV_FP"/>
-				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMING_OUT_OF_FACTORY" StateName="STATE_built">
+					<Animation AnimationName="GUMCV_BLDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GUMCVUPAK_AN" AnimationMode="ONCE_BACKWARDS"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMING_OUT_OF_FACTORY" StateName="STATE_built">
-					<Animation AnimationName="GUMCV_BLDA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
-					<Animation AnimationName="GUMCV_BLDA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUMCV_BLDA" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</TruckDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
-					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
 					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
@@ -93,53 +107,53 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMamm_FX"/>
+					<Model Name="GUMAMM_FX_FS"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<ParticleSysBone BoneName="FXTracksLF" FXParticleSystemTemplate="TreadDust" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="TreadDust" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksLF" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<ProductionUpdateInfo id="ModuleTag_ProductionInfo"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="12.5s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIMCVDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="GDI_MCV_VoiceDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
 			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<ProductionUpdateInfo id="ModuleTag_ProductionInfo"/>
 			<xi:include href="DATA:Includes/GenericUnpackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericUnpackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="3.15s" CheckBuildAssistant="true">
@@ -147,6 +161,8 @@
 				<ReplacementTemplate>GDIConstructionYard</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_MCVBuildConyardAI" CommandButtonName="Command_UnPackGDIMCV" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
@@ -178,14 +194,8 @@
 			<AudioEntry Sound="GDI_MCV_VoiceMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="GDI_MCV_VoiceSelectMS" AudioType="voiceSelect"/>
 			<!-- Triggered when built from GDI factories -->
-			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="GDIReclamatorHub"/>
 			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="GDIWarFactory"/>
-			<!-- Triggered when built from Nod factories -->
-			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="NODWarmechFacility"/>
-			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="NODDropZone"/>
-			<!-- Triggered when built from Alien factories -->
-			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="AlienWarpChasm"/>
-			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="AlienGateway"/>
+			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="GDIReclamatorHub"/>
 			<!-- Triggered when built from Reinforcement Bay -->
 			<ObjectSpecificEntry Sound="GDI_MCV_VoiceCreate2" AudioType="voiceCreatedFrom" TargetObject="ReinforcementBay"/>
 		</AudioArrayVoice>

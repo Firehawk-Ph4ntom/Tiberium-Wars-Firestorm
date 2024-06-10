@@ -1,9 +1,10 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDICommando\GU_CMMNDO_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="GDICommando_EA" inheritFrom="BaseInfantry" SelectPortrait="Portrait_GDICommando" ButtonImage="Portrait_GDICommando" Side="GDI" BuildCost="2000" BuildTime="20" CommandSet="GDICommandoCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_PLACE_CHARGE SNIPER CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="120" EditorName="GDICommando_EA" Description="Desc:GDICommando" TypeDescription="Type:GDICommando" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
+	<GameObject id="GDICommando_EA" inheritFrom="BaseInfantry" SelectPortrait="Portrait_GDICommando" ButtonImage="Portrait_GDICommando" Side="GDI" BuildCost="2000" BuildTime="20" CommandSet="GDICommandoCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_PLACE_CHARGE CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="120" EditorName="GDICommando_EA" Description="Desc:GDICommando" TypeDescription="Type:GDICommando" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1" ProductionQueueType="VEHICLE">
 		<DisplayName xai:joinAction="Replace" xmlns:xai="uri:ea.com:eala:asset:instance">Name:GDICommando</DisplayName>
 		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
@@ -12,43 +13,48 @@
 			<RequiredObject>GDIArmory</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GDICommandoArmor" DamageFX="InfantryDamageFX"/>
-		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="60"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="75"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" ExtraPublicBone="B_WEAPONA_FX">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GU_Cmmndo_SKN"/>
+					<Model Name="GU_Cmmndo_SKN_FS"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXCommando_FP"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name="GUGar_Comm"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<Model Name="GUGARRIFLE"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName=""/>
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ENGAGED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Animation AnimationName="GUGAR_RIFL" AnimationMode="LOOP"/>
+					<Animation AnimationName="GUGAR_ZONE" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="GU_Cmmndo_BIDA" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="GU_Cmmndo_BIFA" AnimationMode="ONCE" AnimationPriority="15"/>
+					<Animation AnimationName="GU_Cmmndo_BIFB" AnimationMode="ONCE" AnimationPriority="15"/>
+					<Animation AnimationName="GU_Cmmndo_BIFC" AnimationMode="ONCE" AnimationPriority="3"/>
+					<Animation AnimationName="GU_Cmmndo_BIFD" AnimationMode="ONCE" AnimationPriority="25"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end; if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
 					<Animation AnimationName="GU_Cmmndo_FLYA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
 					<Animation AnimationName="GU_Cmmndo_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
@@ -57,32 +63,26 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
 					<Animation AnimationName="GU_Cmmndo_CDTB" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_bored">
-					<Animation AnimationName="GU_Cmmndo_BIDA" AnimationMode="ONCE" AnimationPriority="50"/>
-					<Animation AnimationName="GU_Cmmndo_BIFA" AnimationMode="ONCE" AnimationPriority="15"/>
-					<Animation AnimationName="GU_Cmmndo_BIFC" AnimationMode="ONCE" AnimationPriority="3"/>
-					<Animation AnimationName="GU_Cmmndo_BIFD" AnimationMode="ONCE" AnimationPriority="25"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end if Prev == "STATE_SelectedPose" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end </Script>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED DYING" StateName="STATE_Suppressed">
 					<Animation AnimationName="GU_Cmmndo_SDIA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
 					<Animation AnimationName="GU_Cmmndo_KDIA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimNickName="DTA" AnimationName="GU_Cmmndo_DIEA" AnimationMode="ONCE" AnimationPriority="50"/>
-					<Animation AnimationName="GU_Cmmndo_DIEB" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="GU_Cmmndo_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GU_Cmmndo_DIEB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE UNPACKING" StateName="State_JumpJetInitiate">
-					<Animation AnimationName="GU_Cmmndo_JMPA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GU_Cmmndo_AIDA" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="SPINE1" FXParticleSystemTemplate="GDIZTJumpStartDist" FollowBone="true"/>
 					<ParticleSysBone BoneName="SPINE1" FXParticleSystemTemplate="GDIZTJumpStartFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="SPINE1" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
-					<ParticleSysBone BoneName="SPINE1" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
-					<ParticleSysBone BoneName="SPINE1" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="SPINE" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="SPINE" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ABOUT_TO_HIT" StateName="State_AboutToLand">
 					<Animation AnimationName="GU_Cmmndo_LNDB" AnimationMode="ONCE"/>
@@ -103,66 +103,68 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
 					<Animation AnimationName="GU_Cmmndo_SMVA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED USING_WEAPON_A" StateName="STATE_Suppressed">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_A">
 					<Animation AnimationName="GU_Cmmndo_SATA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ENGAGED" StateName="STATE_Suppressed">
+					<Animation AnimationName="GU_Cmmndo_SATA" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
 					<Animation AnimationName="GU_Cmmndo_SIDA" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="GU_Cmmndo_SIFA" AnimationMode="ONCE" AnimationPriority="1"/>
 					<Animation AnimationName="GU_Cmmndo_SIFB" AnimationMode="ONCE" AnimationPriority="1"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
-					<Animation AnimationName="GU_Cmmndo_SDVA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed" Flags="START_FRAME_LAST">
-					<Animation AnimationName="GU_Cmmndo_SGTA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_A">
 					<Animation AnimationName="GU_Cmmndo_KAKA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING" StateName="STATE_Cover">
-					<Animation AnimationName="GU_Cmmndo_CRNA" AnimationMode="LOOP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ENGAGED" StateName="STATE_Cover">
+					<Animation AnimationName="GU_Cmmndo_KAKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" StateName="STATE_CoverAttention" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_CoverAttention">
 					<Animation AnimationName="GU_Cmmndo_KAIA" AnimationMode="ONCE" AnimationPriority="10"/>
 					<Animation AnimationName="GU_Cmmndo_KAFA" AnimationMode="ONCE" AnimationPriority="1"/>
 					<Animation AnimationName="GU_Cmmndo_KAFB" AnimationMode="ONCE" AnimationPriority="1"/>
 					<Animation AnimationName="GU_Cmmndo_KAFC" AnimationMode="ONCE" AnimationPriority="1"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" AllowRepeatInRandomPick="true" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
 					<Animation AnimationName="GU_Cmmndo_KBIA" AnimationMode="ONCE" AnimationPriority="10" AnimationBlendTime="10"/>
 					<Animation AnimationName="GU_Cmmndo_KBFA" AnimationMode="ONCE" AnimationPriority="2" AnimationBlendTime="10"/>
 					<Animation AnimationName="GU_Cmmndo_KBFC" AnimationMode="ONCE" AnimationPriority="2"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_CoverAttention" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverAttention" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING FIRING_A" Flags="RANDOMSTART">
-					<Animation AnimationName="GU_Cmmndo_ATRA" AnimationMode="LOOP" Distance="75"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="GU_Cmmndo_ATRA" AnimationMode="LOOP" Distance="90"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
-					<Animation AnimationName="GU_Cmmndo_RUNA" AnimationMode="LOOP" Distance="75"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="GU_Cmmndo_RUNA" AnimationMode="LOOP" Distance="90"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A">
 					<Animation AnimationName="GU_Cmmndo_ATKA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED">
-					<Animation AnimationName="GU_Cmmndo_AIDA" AnimationMode="LOOP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED" StateName="STATE_Selected">
+					<Animation AnimationName="GU_Cmmndo_ATKA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<!-- EMOTIONS -->
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="GU_Cmmndo_CHRA" AnimationMode="LOOP"/>
-					<Animation AnimationName="GU_Cmmndo_CHRB" AnimationMode="LOOP"/>
+					<Animation AnimationName="GU_Cmmndo_CHRA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GU_Cmmndo_CHRB" AnimationMode="ONCE"/>
 				</AnimationState>
 				<!-- SELECTED -->
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_SelectedPose">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
 					<Animation AnimationName="GU_Cmmndo_AIDA" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="5"/>
 					<Animation AnimationName="GU_Cmmndo_AIFA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5"/>
 					<Animation AnimationName="GU_Cmmndo_AIFB" AnimationMode="ONCE" AnimationPriority="25" AnimationBlendTime="5"/>
 					<Animation AnimationName="GU_Cmmndo_AIFC" AnimationMode="ONCE" AnimationPriority="25" AnimationBlendTime="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
 				<!-- TRANSITIONS -->
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
+					<Animation AnimationName="GU_Cmmndo_SDVA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GU_Cmmndo_SDVA" AnimationMode="ONCE_BACKWARDS"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
 					<Animation AnimationName="GU_Cmmndo_BATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
 				</AnimationState>
@@ -176,113 +178,81 @@
 					<Animation AnimationName="GU_Cmmndo_KBTA" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED">
 					<Model Name="FXSUPPRESSIONSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDISniper" TracerHitFx="FX_GDISniperBulletHit" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.3" MaxTracersPerFrame="0.4" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDISniper" TracerHitFx="FX_GDISniperBulletHit" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.5" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDISniperHeroic" TracerHitFx="FX_GDISniperBulletHitHeroic" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.6" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDISniperHeroic" TracerHitFx="FX_GDISniperBulletHitHeroic" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.3" MaxTracersPerFrame="0.4" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeterancy" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.5" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeterancy" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.6" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDraw2" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDISniper" TracerHitFx="FX_GDISniperBulletHit" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDraw2" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.3" MaxTracersPerFrame="0.4" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDISniper" TracerHitFx="FX_GDISniperBulletHit" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy2" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.5" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDISniperHeroic" TracerHitFx="FX_GDISniperBulletHitHeroic" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy2" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.6" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDISniperHeroic" TracerHitFx="FX_GDISniperBulletHitHeroic" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo2" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo2" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.3" MaxTracersPerFrame="0.4" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeterancy2" MinLength="75" MaxLength="75" Width="5" MinSpeed="35" MaxSpeed="35" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.5" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeterancy2" MinLength="35" MaxLength="35" Width="3" MinSpeed="60" MaxSpeed="80" SpreadAngle="2" MinTracersPerFrame="0.5" MaxTracersPerFrame="0.6" FrameLifeTime="35" WeaponSlotType="TERTIARY_WEAPON" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICommandoRailCarbine"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICommandoRailCarbineHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="SECONDARY_WEAPON" Template="GDICommandoSatchelChargeDispatchWeapon"/>
-					<Weapon Ordering="TERTIARY_WEAPON" Template="GDICommandoRailCarbineContained"/>
-					<Weapon Ordering="TERTIARY_WEAPON" Template="GDICommandoRailCarbineContainedHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<EmotionTrackerUpdate id="Module_ETU">
-				<TauntAndPointExcluded Rule="NONE"/>
-				<AddEmotion>CheerIdle_Base</AddEmotion>
-				<AddEmotion>CheerBusy_Base</AddEmotion>
-			</EmotionTrackerUpdate>
-			<SpecialPowerDispatchSpecialPower id="ModuleTag_SatchelChargeDispatch" SpecialPowerTemplate="SpecialPower_GDICommandoJumpJet_Dispatch">
-				<SpecialPower SpecialPowerTemplate="SpecialPowerTriggerJumpJets"/>
-				<SpecialPower SpecialPowerTemplate="SpecialPower_JumpJetPlaceSatchelCharge"/>
-			</SpecialPowerDispatchSpecialPower>
-			<!-- Walk up and place non-sticky satchel charge (on buildings) -->
-			<SpecialPower id="ModuleTag_SatchelCharge" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_SatchelChargeUpdate" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge" SpecialWeapon="GDICommandoSatchelChargeWeapon" UnpackTime="0s" PackTime="0s" StartAbilityRange="15.0" BusyForDuration="0.1s" WhichSpecialWeapon="1" WeaponSlotType="TERTIARY_WEAPON" WeaponSlotID="6" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK IGNORE_FACING_CHECK"/>
-			<!-- Use jumpjet then walk up and place non-sticky satchel charge (on buildings) -->
-			<SpecialPower id="ModuleTag_JumpJetPlaceSatchelCharge" SpecialPowerTemplate="SpecialPower_JumpJetPlaceSatchelCharge" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate SpecialWeapon="ZoneTrooperFireJumpJets" id="ModuleTag_JumpJetPlaceSatchelChargeUpdate" SpecialPowerTemplate="SpecialPower_JumpJetPlaceSatchelCharge" UnpackTime="0s" PackTime="0s" StartAbilityRange="300.0" BusyForDuration="4s" WhichSpecialWeapon="1" OffsetTargetLocationFromObject="true" WeaponSlotType="TERTIARY_WEAPON" WeaponSlotID="5" ChainedButton="Command_GDICommandoPlaceSatchelCharge"/>
-			<!-- Fire jump jets -->
-			<SpecialPower id="ModuleTag_JumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate SpecialWeapon="ZoneTrooperFireJumpJets" id="ModuleTag_JumpJetUpdate" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UnpackTime="0s" UnpackSound="GDI_Commando_JumpJetStart" PackTime="0s" StartAbilityRange="420.0" BusyForDuration="2.5s" WhichSpecialWeapon="1" WeaponSlotType="TERTIARY_WEAPON" WeaponSlotID="5" TriggerSound="GDI_Commando_JumpJetFireMS"/>
-			<BezierProjectile id="ModuleTag_Projectile" FirstHeightMin="104" FirstHeightMax="104" SecondHeightMin="52" SecondHeightMax="52" FirstPercentIndent="20" SecondPercentIndent="70" TumbleRandomly="true" CrushStyle="true" BounceCount="0" FinalStuckTime="1.766s" PreLandingStateTime="0.3s"/>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibs</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="EXPLODED"/>
@@ -291,7 +261,7 @@
 				</FX>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsRad</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="POISONED"/>
@@ -300,7 +270,7 @@
 				</FX>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsChar</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="BURNED"/>
@@ -316,31 +286,59 @@
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXListBlood">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
-				<Event FX="FX_InfBlood"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXListScorch">
 				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXListRad">
 				<DieMuxData DeathTypes="POISONED"/>
-				<Event FX="FX_InfRadGoo"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
 			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICommandoRailCarbine"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICommandoRailCarbineHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GDICommandoSatchelChargeDispatchWeapon"/>
+					<Weapon Ordering="TERTIARY_WEAPON" Template="GDICommandoRailCarbineContained"/>
+					<Weapon Ordering="TERTIARY_WEAPON" Template="GDICommandoRailCarbineContainedHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
+			<EmotionTrackerUpdate id="Module_ETU">
+				<TauntAndPointExcluded Rule="NONE"/>
+				<AddEmotion>CheerIdle_Base</AddEmotion>
+				<AddEmotion>CheerBusy_Base</AddEmotion>
+			</EmotionTrackerUpdate>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_RifleSoldier_FS</Key>
+			</LargeGroupAudioUpdate>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_SatchelChargeDispatch" SpecialPowerTemplate="SpecialPower_GDICommandoJumpJet_Dispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPowerTriggerJumpJets"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_JumpJetPlaceSatchelCharge"/>
+			</SpecialPowerDispatchSpecialPower>
+			<!-- Walk up and place non-sticky satchel charge (on buildings) -->
+			<SpecialPower id="ModuleTag_SatchelCharge" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_SatchelChargeUpdate" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge" SpecialWeapon="GDICommandoSatchelChargeWeapon" UnpackTime="0s" PackTime="0s" StartAbilityRange="15.0" BusyForDuration="0.1s" WhichSpecialWeapon="1" WeaponSlotType="TERTIARY_WEAPON" WeaponSlotID="6" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK IGNORE_FACING_CHECK"/>
+			<!-- Use jumpjet then walk up and place non-sticky satchel charge (on buildings) -->
+			<SpecialPower id="ModuleTag_JumpJetPlaceSatchelCharge" SpecialPowerTemplate="SpecialPower_JumpJetPlaceSatchelCharge" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_JumpJetPlaceSatchelChargeUpdate" SpecialWeapon="ZoneTrooperFireJumpJets" SpecialPowerTemplate="SpecialPower_JumpJetPlaceSatchelCharge" UnpackTime=".4s" UnpackSound="GDI_ZoneTrooper_JumpJetStart" StartAbilityRange="420" PackTime=".4s" TriggerAttributeModifier="AttributeModifier_JumpJets" AttributeModifierDuration="3s" BusyForDuration="3s" WhichSpecialWeapon="1" WeaponSlotID="5" TriggerSound="ZoneTrooperJumpJetFire" ChainedButton="Command_GDICommandoPlaceSatchelCharge"/>
+			<!-- Fire jump jets -->
+			<SpecialPower id="ModuleTag_JumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_JumpJetUpdate" SpecialWeapon="ZoneTrooperFireJumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UnpackTime=".4s" UnpackSound="GDI_ZoneTrooper_JumpJetStart" StartAbilityRange="420" PackTime=".4s" TriggerAttributeModifier="AttributeModifier_JumpJets" AttributeModifierDuration="3s" BusyForDuration="3s" WhichSpecialWeapon="1" WeaponSlotID="5" TriggerSound="ZoneTrooperJumpJetFire" WeaponSlotType="TERTIARY_WEAPON" FaceTarget="true"/>
+			<BezierProjectile id="ModuleTag_Projectile" FirstHeightMin="50" FirstHeightMax="50" SecondHeightMin="50" SecondHeightMax="50" FirstPercentIndent="30" SecondPercentIndent="70" TumbleRandomly="true" CrushStyle="true" BounceCount="0" FinalStuckTime="1.766s" GroundHitFX="FX_ZoneTrooperJumpJetHitsGround" PreLandingStateTime="0.3s"/>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="0.5s" Suppressability="1000" SuppressionDuration="1.5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
-			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<!-- HE Ammo -->
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
@@ -349,7 +347,7 @@
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</AudioLoopUpgrade>
 			<!-- Scanner Packs -->
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400" InitiallyDisabled="true">
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400" InitiallyDisabled="true" ExtraForbiddenKindOf="">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</StealthDetectorUpdate>
 			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
@@ -362,7 +360,7 @@
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s"/>
+				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -370,17 +368,19 @@
 		</Body>
 		<ClientBehaviors>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
-				<Sound Sound="GDI_Commando_JumpJetLand" Animation="GU_Cmmndo_LNDB" Frame="8"/>
 				<Sound Sound="Bodyfall" Animation="GU_Cmmndo_LNDA" Frame="5"/>
 			</AnimationSoundClientBehavior>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="GDI_ZoneRaider_JumpJetLand" RequiredFlags="ABOUT_TO_HIT" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="7.0" MinorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_Commando_VoiceAttack" AudioType="voiceAttack"/>
 			<AudioEntry Sound="GDI_Commando_VoiceAttackC4" AudioType="voiceAttackStructure"/>
-			<AudioEntry Sound="GDI_Commando_VoiceCreateMS" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_Commando_VoiceCreate2" AudioType="voiceCreated"/>
 			<AudioEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceGarrison"/>
 			<AudioEntry Sound="GDI_Commando_VoiceMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="GDI_Commando_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
@@ -392,8 +392,9 @@
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiatePlaceSatchelChargeSticky"/>
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiateJumpJetPlaceSatchelCharge"/>
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiateJumpJetPlaceSatchelChargeSticky"/>
-			<!-- Triggered when told to garrison Deployed Reckoners -->
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
 			<ObjectSpecificEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
 		</AudioArrayVoice>
 		<EvaEvents EvaEventDetectedEnemy="EnemyCommandoDetected" EvaEnemyObjectSightedEvent="EnemyCommandoDetected"/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>

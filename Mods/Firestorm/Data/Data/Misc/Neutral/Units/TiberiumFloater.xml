@@ -9,17 +9,18 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="TiberiumFloater" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NeutralTiberiumFloater" ButtonImage="Portrait_NeutralTiberiumFloater" Side="GDI" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS AIRCRAFT PRODUCED_AT_HELIPAD HAS_HEALTH_BAR SCORE CAN_BE_FAVORITE_UNIT NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED" ThreatLevel="10" EditorName="TiberiumFloater" TypeDescription="Type:Visceroid" Description="Desc:TiberiumFloater" WeaponCategory="LIGHTNING">
+	<GameObject id="TiberiumFloater" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NeutralTiberiumFloater" ButtonImage="Portrait_NeutralTiberiumFloater" Side="GDI" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE AIRCRAFT PRODUCED_AT_HELIPAD HAS_HEALTH_BAR NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT TIBERIUM_BASED" ThreatLevel="10" EditorName="TiberiumFloater" TypeDescription="Type:Visceroid" Description="Desc:TiberiumFloater" WeaponCategory="LIGHTNING">
 		<DisplayName>Name:TiberiumFloater</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="AlienVehicleDamageFX"/>
 		<LocomotorSet Speed="45" Locomotor="GDIKodiakLocomotor"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="false">
+			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="MUFLOATER_SKN"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON_"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON_"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="MUFLOATER_SKN"/>
 					<ParticleSysBone BoneName="Bone_M10" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
@@ -42,15 +43,9 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="TiberiumFloaterLightningWeapon"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="150" ExtraForbiddenKindOf="MINE"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<Sound List="ALI_TiberianFiend_SoundDie"/>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_TiberianFiend_SoundDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -62,25 +57,47 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_VeinholeMonsterDie"/>
 			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="TiberiumFloaterLightningWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="150" ExtraForbiddenKindOf="MINE"/>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="AggressiveOnly"/>
 		</Behaviors>
 		<AI>
 			<!-- If you make that wander distance small, like about 10 or so, they'll walk around really funkily (don't know if you want that) -->
 			<WanderAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" WanderDistance="80" AttackAll="true" Selectable="true">
-				<UnitAITargetChooserData RotateToTargetWhenAiming="false" CanAutoAcquireNonAutoAcquirable="true"/>
+				<UnitAITargetChooserData RotateToTargetWhenAiming="false" CanAutoAcquireNonAutoAcquirable="true" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</WanderAIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="12000"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="50.0" MinorRadius="10.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+			<Shape Type="CYLINDER" MajorRadius="22" Height="15.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="-5"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="35.0" MinorRadius="7.0" Height="5.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="-2"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="7.0" MinorRadius="35.0" Height="5.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="-2"/>
+			</Shape>
 		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_PAC_SoundSelect" AudioType="voiceSelect"/>
+			<AudioEntry Sound="ALI_PAC_SoundAttack" AudioType="voiceAttack"/>
+		</AudioArrayVoice>
 		<AudioArraySound>
+			<AudioEntry Sound="ALI_PAC_SoundMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_PAC_SoundCreate" AudioType="soundCreated"/>
 			<AudioEntry Sound="ALI_PAC_IdleLoop" AudioType="soundAmbient"/>
 			<AudioEntry Sound="ALI_PAC_MoveLoop" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventDieOwner="" EvaEventDamagedOwner="" EvaEventDamagedFromShroudedSourceOwner="" EvaEventDamagedByFireOwner="" EvaEventAmbushed="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventAvailableForProduction="" EvaEventProductionStarted="" EvaEventBuildOnHold="" EvaEventBuildCancelled="" EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

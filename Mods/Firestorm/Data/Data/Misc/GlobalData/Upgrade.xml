@@ -2,12 +2,82 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 
 	<UpgradeTemplate
+		id="Upgrade_AnyFaction"
+		Type="PLAYER"
+		Options="DO_NOT_TRANSFER"/>
+
+	<UpgradeTemplate
 		id="BasePlayerUpgrade"
 		Type="PLAYER"
 		ResearchCompleteEvaEvent="UpgradeComplete"
 		LocalPlayerProductionStartedEvaEvent="None"
 		LocalPlayerBuildOnHoldEvaEvent="BuildOnHold"
 		LocalPlayerBuildCancelledEvaEvent="BuildCancelled"/>
+
+	<UpgradeTemplate
+		id="Upgrade_Transporting"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeGreenOne"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeGreenTwo"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeGreenThree"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeGreenFour"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeBlueOne"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeBlueTwo"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeBlueThree"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeBlueFour"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeRedOne"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeRedTwo"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeRedThree"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeRedFour"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeGreenTib"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeBlueTib"
+		Type="OBJECT"/>
+
+	<UpgradeTemplate
+		id="Upgrade_UpgradeRedTib"
+		Type="OBJECT"/>
+
 
 	<!-- Multifunction Upgrades -->
 
@@ -50,7 +120,7 @@
 		inheritFrom="BasePlayerUpgrade"
 		Type="OBJECT"
 		DisplayName="Name:AvatarPurchaseInvisibility"
-		BuildTime="20s"
+		BuildTime="15s"
 		BuildCost="800"
 		SkirmishAIHeuristic="IGNORE">
 		<GameDependency>
@@ -63,8 +133,8 @@
 		inheritFrom="BasePlayerUpgrade"
 		Type="OBJECT"
 		DisplayName="Name:AvatarPurchaseSecondaryLaser"
-		BuildTime="20s"
-		BuildCost="600"
+		BuildTime="15s"
+		BuildCost="1000"
 		SkirmishAIHeuristic="IGNORE">
 		<GameDependency>
 			<NeededUpgrade>Upgrade_AvatarCommandeer</NeededUpgrade>
@@ -76,8 +146,21 @@
 		inheritFrom="BasePlayerUpgrade"
 		Type="OBJECT"
 		DisplayName="Name:AvatarPurchaseStealthDetection"
-		BuildTime="20s"
-		BuildCost="400"
+		BuildTime="15s"
+		BuildCost="600"
+		SkirmishAIHeuristic="IGNORE">
+		<GameDependency>
+			<NeededUpgrade>Upgrade_AvatarCommandeer</NeededUpgrade>
+		</GameDependency>
+	</UpgradeTemplate>
+
+	<UpgradeTemplate
+		id="Upgrade_AvatarEnergyShield"
+		inheritFrom="BasePlayerUpgrade"
+		Type="OBJECT"
+		DisplayName="Name:AvatarPurchaseEnergyShield"
+		BuildTime="15s"
+		BuildCost="2000"
 		SkirmishAIHeuristic="IGNORE">
 		<GameDependency>
 			<NeededUpgrade>Upgrade_AvatarCommandeer</NeededUpgrade>
@@ -90,10 +173,11 @@
 		Type="OBJECT"
 		DisplayName="Name:BehemothPurchaseRocketPod"
 		BuildTime="10s"
-		BuildCost="500"
-		SkirmishAIHeuristic="IMPORTANT">
+		BuildCost="400"
+		SkirmishAIHeuristic="IGNORE">
 		<GameDependency>
 			<ForbiddenUpgrade>Upgrade_BehemothGrenadeLauncher</ForbiddenUpgrade>
+			<ForbiddenUpgrade>Upgrade_BehemothRailguns</ForbiddenUpgrade>
 		</GameDependency>
 	</UpgradeTemplate>
 
@@ -103,10 +187,25 @@
 		Type="OBJECT"
 		DisplayName="Name:BehemothPurchaseGrenadeLauncher"
 		BuildTime="10s"
-		BuildCost="500"
+		BuildCost="900"
 		SkirmishAIHeuristic="IGNORE">
 		<GameDependency>
 			<ForbiddenUpgrade>Upgrade_BehemothRocketPod</ForbiddenUpgrade>
+			<ForbiddenUpgrade>Upgrade_BehemothRailguns</ForbiddenUpgrade>
+		</GameDependency>
+	</UpgradeTemplate>
+
+	<UpgradeTemplate
+		id="Upgrade_BehemothRailguns"
+		inheritFrom="BasePlayerUpgrade"
+		Type="OBJECT"
+		DisplayName="Name:BehemothPurchaseRailguns"
+		BuildTime="10s"
+		BuildCost="1300"
+		SkirmishAIHeuristic="IGNORE">
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_BehemothRocketPod</ForbiddenUpgrade>
+			<ForbiddenUpgrade>Upgrade_BehemothGrenadeLauncher</ForbiddenUpgrade>
 		</GameDependency>
 	</UpgradeTemplate>
 
@@ -139,13 +238,15 @@
 	<UpgradeTemplate
 		id="Upgrade_SelectLoad_SniperRailgun"
 		inheritFrom="Upgrade_SelectLoad_RailCannon"
+		DisplayName="Name:SelectLoadOutSniperRailgun"
 		BuildTime="30s"/>
 
 	<UpgradeTemplate
 		id="Upgrade_SelectLoad_SniperRifle"
 		inheritFrom="BasePlayerUpgrade"
 		Type="OBJECT"
-		DisplayName="Name:SelectLoadOutSniperRailgun"
+		DisplayName="Name:SelectLoadOutSniperRifle"
+		ResearchCompleteEvaEvent=""
 		BuildTime="30s"
 		SkirmishAIHeuristic="IGNORE"/>
 
@@ -222,8 +323,8 @@
 		Description="UpgradeDesc:AdaptiveArmor"
 		TypeDescription="UpgradeType:AdaptiveArmor"
 		AcquireHint="UpgradePrereq:AdaptiveArmor"
-		BuildTime="90s"
-		BuildCost="3000"
+		BuildTime="105s"
+		BuildCost="3500"
 		ResearchSound="GDI_AdaptiveArmor_Upgrade"
 		IconImage="Button_AbilityAdaptiveArmor"
 		SkirmishAIHeuristic="IMPORTANT"/>
@@ -290,8 +391,7 @@
 		BuildTime="120s"
 		BuildCost="4000"
 		ResearchSound="GDI_Overkill_Upgrade"
-		IconImage="Button_Upgrade_Overkill"
-		SkirmishAIHeuristic="IMPORTANT"/>
+		IconImage="Button_Upgrade_Overkill"/>
 
 	<UpgradeTemplate
 		id="Upgrade_ZoneTrooperAutoInjectors"
@@ -328,7 +428,8 @@
 		BuildTime="75s"
 		BuildCost="2500"
 		ResearchSound="GDI_SelfRepair_Upgrade"
-		IconImage="Button_UpgradeSelfRepair"/>
+		IconImage="Button_UpgradeSelfRepair"
+		SkirmishAIHeuristic="IMPORTANT"/>
 
 	<UpgradeTemplate
 		id="Upgrade_SonicRepulsionField"
@@ -349,8 +450,8 @@
 		Description="UpgradeDesc:ThermoBaricMissiles"
 		TypeDescription="UpgradeType:ThermoBaricMissiles"
 		AcquireHint="UpgradePrereq:ThermoBaricMissiles"
-		BuildTime="105s"
-		BuildCost="3500"
+		BuildTime="120s"
+		BuildCost="4000"
 		ResearchSound="GDI_Sandstorm_ThermoBaricMissilesUpgrade"
 		IconImage="Button_Upgrade_ThermoBaricMissiles"
 		SkirmishAIHeuristic="IMPORTANT"/>
@@ -427,8 +528,8 @@
 		inheritFrom="BasePlayerUpgrade"
 		DisplayName="UPGRADE:GDIPowerPlantTurbine"
 		Type="OBJECT"
-		BuildTime="4s"
-		BuildCost="400"
+		BuildTime="5s"
+		BuildCost="500"
 		ResearchSound="GDI_PowerPlantUpgraded1HeavyTurbinesMS"
 		ResearchCompleteEvaEvent="None"
 		SkirmishAIHeuristic="IMPORTANT">
@@ -468,8 +569,7 @@
 		BuildTime="75s"
 		BuildCost="2500"
 		ResearchSound="NOD_TiberiumCoreMissile_Upgrade"
-		IconImage="Button_BlueTibCatalyst"
-		SkirmishAIHeuristic="IMPORTANT">
+		IconImage="Button_BlueTibCatalyst">
 		<GameDependency>
 			<NeededUpgrade>Upgrade_NODTechCenterTibCoreMissiles</NeededUpgrade>
 		</GameDependency>
@@ -495,8 +595,8 @@
 		Description="UpgradeDesc:AvatarCommandeer"
 		TypeDescription="UpgradeType:AvatarCommandeer"
 		AcquireHint="UpgradePrereq:AvatarCommandeer"
-		BuildTime="45s"
-		BuildCost="1500"
+		BuildTime="60s"
+		BuildCost="2000"
 		ResearchSound="GDI_RailGun_Upgrade"
 		IconImage="Button_AbilityCommandeerWeapon"
 		SkirmishAIHeuristic="IGNORE"/>
@@ -525,7 +625,7 @@
 		BuildCost="1000"
 		ResearchSound="NOD_DisruptionPod_Upgrade"
 		IconImage="Button_Upgrade_DisruptionPods"
-		SkirmishAIHeuristic="IMPORTANT"/>
+		SkirmishAIHeuristic="IGNORE"/>
 
 	<UpgradeTemplate
 		id="Upgrade_FirestormIgnition"
@@ -613,8 +713,7 @@
 		BuildTime="45s"
 		BuildCost="1500"
 		ResearchSound="NOD_QuadTurrets_Upgrade"
-		IconImage="Button_Upgrade_QuadTurrets"
-		SkirmishAIHeuristic="IMPORTANT"/>
+		IconImage="Button_Upgrade_QuadTurrets"/>
 
 	<UpgradeTemplate
 		id="Upgrade_NODStealthGenerator"
@@ -682,12 +781,24 @@
 		SkirmishAIHeuristic="IMPORTANT"/>
 
 	<UpgradeTemplate
+		id="Upgrade_NODDisruptionModules"
+		inheritFrom="BasePlayerUpgrade"
+		DisplayName="UpgradeName:NODDisruptionModules"
+		Description="UpgradeDesc:NODDisruptionModules"
+		TypeDescription="UpgradeType:NODDisruptionModules"
+		AcquireHint="UpgradePrereq:NODDisruptionModules"
+		BuildTime="75s"
+		BuildCost="2500"
+		ResearchSound="ALI_AdvancedProduction_Upgrade"
+		IconImage="Button_Upgrade_DisruptionModules"/>
+
+	<UpgradeTemplate
 		id="Upgrade_NODLiquidTiberiumCore"
 		inheritFrom="BasePlayerUpgrade"
 		DisplayName="UPGRADE:NODLiquidTiberiumCore"
 		Type="OBJECT"
-		BuildTime="4s"
-		BuildCost="400"
+		BuildTime="5s"
+		BuildCost="500"
 		ResearchSound="NOD_PowerPlantUpgradeMS"
 		ResearchCompleteEvaEvent="None"
 		SkirmishAIHeuristic="IMPORTANT">
@@ -703,7 +814,7 @@
 		DisplayName="Name:StealthGenAbility"
 		BuildTime="5s"
 		BuildCost="100"
-		ResearchSound="NOD_Awakened_ChargedParticleBeamGunAvailable"
+		ResearchSound="NOD_StealthGenerators_Upgrade"
 		SkirmishAIHeuristic="IGNORE">
 		<GameDependency>
 			<NeededUpgrade>Upgrade_NODStealthGenerator</NeededUpgrade>
@@ -713,6 +824,12 @@
 	<UpgradeTemplate
 		id="Upgrade_LeviathanBuilt"
 		Type="PLAYER"
+		BuildCost="0"
+		BuildTime="0.0s"/>
+
+	<UpgradeTemplate
+		id="Upgrade_ActivateDisruptionModule"
+		Type="OBJECT"
 		BuildCost="0"
 		BuildTime="0.0s"/>
 
@@ -814,11 +931,10 @@
 		Description="UpgradeDesc:AlienMinorForcefieldGenerators"
 		TypeDescription="UpgradeType:AlienMinorForcefieldGenerators"
 		AcquireHint="UpgradePrereq:AlienMinorForcefieldGenerators"
-		BuildTime="60s"
-		BuildCost="2000"
+		BuildTime="45s"
+		BuildCost="1500"
 		ResearchSound="ALI_AttenudatedForcefield_Upgrade"
-		IconImage="Button_Upgrade_AttForcefields"
-		SkirmishAIHeuristic="IMPORTANT"/>
+		IconImage="Button_Upgrade_AttForcefields"/>
 
 	<UpgradeTemplate
 		id="Upgrade_OverlordsBlessing"
@@ -843,7 +959,8 @@
 		BuildTime="120s"
 		BuildCost="4000"
 		ResearchSound="GDI_RailGun_Upgrade"
-		IconImage="Button_Upgrade_AlienDevastation"/>
+		IconImage="Button_Upgrade_AlienDevastation"
+		SkirmishAIHeuristic="IMPORTANT"/>
 
 	<UpgradeTemplate
 		id="Upgrade_AlienShardLaunchers"
@@ -902,8 +1019,8 @@
 		Description="UpgradeDesc:ALIENForcefieldGenerators"
 		TypeDescription="UpgradeType:ALIENForcefieldGenerators"
 		AcquireHint="UpgradePrereq:ALIENForcefieldGenerators"
-		BuildTime="120s"
-		BuildCost="4000"
+		BuildTime="90s"
+		BuildCost="3000"
 		ResearchSound="ALI_ForcefieldGenerator_Upgrade"
 		IconImage="Button_UpgradeForcefieldGenerator"
 		SkirmishAIHeuristic="IMPORTANT"/>
@@ -933,12 +1050,24 @@
 		IconImage="Button_AbilityIonStorm"/>
 
 	<UpgradeTemplate
+		id="Upgrade_IonEMPStorm"
+		inheritFrom="BasePlayerUpgrade"
+		DisplayName="UpgradeName:IonEMPStorm"
+		Description="UpgradeDesc:IonEMPStorm"
+		TypeDescription="UpgradeType:IonEMPStorm"
+		AcquireHint="UpgradePrereq:IonEMPStorm"
+		BuildTime="90s"
+		BuildCost="3000"
+		ResearchSound="GDI_RailGun_Upgrade"
+		IconImage="Button_Upgrade_EMPStorm"/>
+
+	<UpgradeTemplate
 		id="Upgrade_FusionCore"
 		inheritFrom="BasePlayerUpgrade"
 		DisplayName="UPGRADE:AlienFusionCore"
 		Type="OBJECT"
-		BuildTime="4s"
-		BuildCost="400"
+		BuildTime="5s"
+		BuildCost="500"
 		ResearchSound="ALI_Reactor_Upgraded1FusionCoreMS2"
 		ResearchCompleteEvaEvent="None"
 		SkirmishAIHeuristic="IMPORTANT">
@@ -946,6 +1075,10 @@
 			<RequiredObject>AlienControlCenter</RequiredObject>
 		</GameDependency>
 	</UpgradeTemplate>
+
+	<UpgradeTemplate
+		id="Upgrade_TibChargeNoAttack"
+		Type="OBJECT"/>
 
 	<UpgradeTemplate
 		id="Upgrade_ProductionDummy"

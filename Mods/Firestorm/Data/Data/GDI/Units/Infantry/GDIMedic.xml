@@ -27,33 +27,36 @@
 				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Model Name="GUGARPISTOL"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEPON"/>
-					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEPON"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="LEFTHAND"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName=""/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="PROPS1"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="LEFTHAND"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR">
 					<Model Name="GUCENGINEER_SKN"/>
 					<Texture Original="GUCEngineer" New="GUMedic"/>
 					<Texture Original="HC_GUCEngineer" New="HC_GUMedic"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ENGAGED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Animation AnimationName="GUGAR_RIFL" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Bored">
-					<Animation AnimationName="GUEngineer_BIDA" AnimationMode="ONCE" AnimationPriority="10"/>
-					<Animation AnimationName="GUEngineer_BIFA" AnimationMode="ONCE" AnimationPriority="1"/>
-					<Animation AnimationName="GUEngineer_BIFB" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="GUCEngineer_BIFZ" AnimationMode="ONCE" AnimationPriority="8"/>
-					<Animation AnimationName="GUEngineer_BIFD" AnimationMode="ONCE" AnimationPriority="1"/>
-					<Script> CurDrawableShowSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_attentionToBored") end if Prev == "STATE_stunned_flailing" then CurDrawableSetTransitionAnimState("STATE_stunned_landing") end if Prev == "STATE_firing" then CurDrawableSetTransitionAnimState("TRANS_toStandingGunHolstered") end </Script>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="GUEngineer_BIDA" AnimationMode="ONCE" AnimationPriority="10" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUEngineer_BIFA" AnimationMode="ONCE" AnimationPriority="1" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUEngineer_BIFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUCEngineer_BIFZ" AnimationMode="ONCE" AnimationPriority="8" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="GUEngineer_BIFD" AnimationMode="ONCE" AnimationPriority="1" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Script> CurDrawableShowSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end; if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; if Prev == "STATE_firing" then CurDrawableSetTransitionAnimState("TRANS_toStandingGunHolstered") end; if Prev == "STATE_CoverFiring" then CurDrawableSetTransitionAnimState("TRANS_toCoverGunHolstered") end; if Prev == "STATE_SuppressedFiring" then CurDrawableSetTransitionAnimState("TRANS_toSuppressedGunHolstered") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" StateName="STATE_stunned_flailing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
 					<Animation AnimationName="GUEngineer_FLYA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" StateName="STATE_stunned_landing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
 					<Animation AnimationName="GUEngineer_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
@@ -65,52 +68,67 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
 					<Animation AnimationName="GUEngineer_KDIA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimNickName="DTA" AnimationName="GUEngineer_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUEngineer_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CAPTURING" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
-					<Animation AnimationName="GUEngineer_KBIA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED USING_WEAPON_A" StateName="STATE_SuppressedFiring">
-					<Animation AnimationName="GUCEngineer_SATB" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressedGunHolstered") end </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE SUPPRESSED" StateName="STATE_Suppressed">
+					<Animation AnimationName="GUEngineer_SIDA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationMustCompleteBlend="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE" StateName="STATE_Cover">
+					<Animation AnimationName="GUEngineer_KBIA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationMustCompleteBlend="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
 					<Animation AnimationName="GUEngineer_SMVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_A">
+					<Animation AnimationName="GUCEngineer_SATB" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ENGAGED" StateName="STATE_SuppressedFiring">
+					<Animation AnimationName="GUCEngineer_SATB" AnimationMode="MANUAL"/>
+					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_SuppressedFiring" then CurDrawableSetTransitionAnimState("TRANS_GunHolsteredSuppressed") end; if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressedGunHolstered") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
 					<Animation AnimationName="GUEngineer_SIDA" AnimationMode="ONCE"/>
 					<Animation AnimationName="GUEngineer_SIFA" AnimationMode="ONCE"/>
 					<Animation AnimationName="GUEngineer_SIFB" AnimationMode="ONCE"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" and Prev ~= "STATE_SuppressedFiring" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") if Prev == "STATE_SuppressedFiring" then CurDrawableSetTransitionAnimState("TRANS_toSuppressedGunHolstered") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_SuppressedFiring" then CurDrawableSetTransitionAnimState("TRANS_toSuppressedGunHolstered") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING" Flags="RANDOMSTART" StateName="STATE_Cover">
-					<Animation AnimationName="GUEngineer_CRNA" AnimationMode="LOOP" Distance="75"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_A">
+					<Animation AnimationName="GUCEngineer_KAKA2" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED COVER" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ENGAGED" StateName="STATE_CoverFiring">
+					<Animation AnimationName="GUCEngineer_KAKA2" AnimationMode="MANUAL"/>
+					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverFiring" then CurDrawableSetTransitionAnimState("TRANS_GunHolsteredCover") end; if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_fromCoverGunHolstered") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" StateName="STATE_Cover">
 					<Animation AnimationName="GUEngineer_KAIA" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_CoverFiring">
-					<Animation AnimationName="GUCEngineer_KAKA2" AnimationMode="LOOP"/>
-					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_fromCoverGunHolstered") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverFiring" then CurDrawableSetTransitionAnimState("TRANS_toCoverGunHolstered") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
-					<Animation AnimationName="GUEngineer_KBIA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
 					<Animation AnimationName="GUEngineer_KBIA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
 					<Animation AnimationName="GUEngineer_KBFA" AnimationMode="ONCE" AnimationPriority="7" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
 					<Animation AnimationName="GUEngineer_KBFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
 					<Animation AnimationName="GUEngineer_KBFC" AnimationMode="ONCE" AnimationPriority="7" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_CoverFiring" then CurDrawableSetTransitionAnimState("TRANS_toCoverGunHolstered") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverFiring" then CurDrawableSetTransitionAnimState("TRANS_toCoverGunHolstered") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="GUCEngineer_ATRA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" StateName="STATE_firing" FrameForPristineBonePositions="5">
-					<Animation AnimationName="GUCEngineer_ATKA2" AnimationMode="ONCE" AnimationBlendTime="0" UseWeaponTiming="true"/>
-					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Bored" then CurDrawableSetTransitionAnimState("TRANS_fromStandingGunHolstered") end if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_fromStandingGunHolstered") end </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="GUCEngineer_RUNB1" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
-					<Animation AnimationName="GUCEngineer_RUNB1" AnimationMode="LOOP" AnimationSpeedFactorMin="1.0" AnimationSpeedFactorMax="1.0"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A" FrameForPristineBonePositions="5">
+					<Animation AnimationName="GUCEngineer_ATKA2" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED" StateName="STATE_firing">
+					<Animation AnimationName="GUCEngineer_ATKA2" AnimationMode="MANUAL"/>
+					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" or Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_fromStandingGunHolstered") end; if Prev == "STATE_firing" then CurDrawableSetTransitionAnimState("TRANS_GunHolsteredStanding") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="GUEngineer_CHRA" AnimationMode="ONCE"/>
@@ -121,22 +139,25 @@
 					<Animation AnimationName="GUEngineer_AIFA" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
 					<Animation AnimationName="GUEngineer_AIFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
 					<Animation AnimationName="GUEngineer_AIFC" AnimationMode="ONCE" AnimationPriority="2" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
-					<Script> CurDrawableShowSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end if Prev == "STATE_Bored" then CurDrawableSetTransitionAnimState("TRANS_boredToAttention") end if Prev == "STATE_firing" then CurDrawableSetTransitionAnimState("TRANS_toStandingGunHolstered") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; if Prev == "STATE_firing" then CurDrawableSetTransitionAnimState("TRANS_toStandingGunHolstered") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_boredToAttention">
-					<Animation AnimationName="GUEngineer_BATA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="GUEngineer_BATA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.1" AnimationSpeedFactorMax="1.3"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_attentionToBored">
-					<Animation AnimationName="GUEngineer_ABTA" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="GUEngineer_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.1" AnimationSpeedFactorMax="1.3"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
 					<Animation AnimationName="GUEngineer_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed">
-					<Animation AnimationName="GUEngineer_SGTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUEngineer_SDVA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromStandingGunHolstered">
 					<Animation AnimationName="GUCEngineer_ATKA1" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_GunHolsteredStanding">
+					<Animation AnimationName="GUCEngineer_ATKA2" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toStandingGunHolstered">
 					<Animation AnimationName="GUCEngineer_ATKA3" AnimationMode="ONCE"/>
@@ -144,29 +165,41 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromCoverGunHolstered">
 					<Animation AnimationName="GUCEngineer_KAKA1" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_GunHolsteredCover">
+					<Animation AnimationName="GUCEngineer_KAKA2" AnimationMode="ONCE"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toCoverGunHolstered">
 					<Animation AnimationName="GUCEngineer_KAKA3" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressedGunHolstered">
-					<Animation AnimationName="GUCEngineer_SATA" AnimationMode="ONCE"/>
+					<Animation AnimationName="GUCEngineer_SATA" AnimationMode="ONCE" AnimationSpeedFactorMin="2" AnimationSpeedFactorMax="2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_GunHolsteredSuppressed">
+					<Animation AnimationName="GUCEngineer_SATB" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressedGunHolstered">
 					<Animation AnimationName="GUCEngineer_SATC" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED">
 					<Model Name="FXSUPPRESSIONSIGN"/>
 				</ModelConditionState>
@@ -193,67 +226,61 @@
 			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="GDI_Engineer_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="POISONED"/>
+				<Sound Type="INITIAL" List="GDI_Engineer_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="GDI_Engineer_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<Sound Type="INITIAL" List="GDI_Engineer_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatMedicPistol"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatMedicPistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibs</OCL>
-				</OCL>
-				<Sound List="GDI_Engineer_VoiceDie"/>
-				<DieMuxData DeathTypes="EXPLODED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsRad</OCL>
-				</OCL>
-				<Sound List="GDI_Engineer_VoiceDie"/>
-				<DieMuxData DeathTypes="POISONED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsChar</OCL>
-				</OCL>
-				<Sound List="GDI_Engineer_VoiceDie"/>
-				<DieMuxData DeathTypes="BURNED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound List="GDI_Engineer_VoiceDie"/>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
-				<Event FX="FX_InfBlood"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListRad">
-				<DieMuxData DeathTypes="POISONED"/>
-				<Event FX="FX_InfRadGoo"/>
-			</FXListBehavior>
-			<LargeGroupAudioUpdate id="LGAU">
-				<Key>GDI_RifleSoldier</Key>
-			</LargeGroupAudioUpdate>
+			<Physics id="ModuleTag_Physics"/>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
-			<xi:include href="DATA:Includes\GDICallForTransport.xml"/>
-			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDITiberiumFieldSuitsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_Medic_FS</Key>
+			</LargeGroupAudioUpdate>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
@@ -261,11 +288,12 @@
 			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData SympathyRange="100"/>
+				<UnitAITargetChooserData SympathyRange="100" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -277,7 +305,7 @@
 			</AnimationSoundClientBehavior>
 		</ClientBehaviors>
 		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="7.0" MinorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_CombatEngineer_VoiceAttack" AudioType="voiceAttack"/>
@@ -287,9 +315,10 @@
 			<AudioEntry Sound="GDI_Engineer_VoiceMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="GDI_Engineer_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="GDI_Medic_VoiceSelectMS" AudioType="voiceSelect"/>
-			<!-- Triggered when told to garrison Deployed Reckoners -->
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
 			<ObjectSpecificEntry Sound="GDI_Engineer_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="GDI_Engineer_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
 		</AudioArrayVoice>
-		<VisionInfo VisionRange="200" ShroudClearingRange="200" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="200" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 	</GameObject>
 </AssetDeclaration>

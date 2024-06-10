@@ -4,7 +4,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NukeTransport" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NukeTransport" ButtonImage="Portrait_NukeTransport" Side="Neutral" BuildCost="2500" BuildTime="25" CommandSet="EmptyCommandSet" KindOf="SELECTABLE CAN_CAST_REFLECTIONS VEHICLE" EditorName="NeutralNukeTransport">
+	<GameObject id="NukeTransport" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NukeTransport" ButtonImage="Portrait_NukeTransport" Side="Neutral" BuildCost="2500" BuildTime="25" CommandSet="GenericUnitNoAttackCommandSet" KindOf="SELECTABLE CAN_CAST_REFLECTIONS VEHICLE" EditorName="NeutralNukeTransport">
 		<DisplayName xai:joinAction="Replace">Name:NeutralNukeTransport</DisplayName>
 		<ArmorSet Armor="GenericMCVArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="NODLTTLocomotor" Condition="NORMAL" Speed="60"/>
@@ -28,16 +28,18 @@
 				<OCL Type="INITIAL">
 					<OCL>OCL_NeurtralTransportDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="GDI_Generic_VoiceDieMS2"/>
 			</SlowDeath>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="NuclearMissile">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
 			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="NuclearMissile">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>

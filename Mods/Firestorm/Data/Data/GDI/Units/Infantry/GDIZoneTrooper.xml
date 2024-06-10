@@ -21,7 +21,6 @@
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_DIED.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_FIRC.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_FLYA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_GTPA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_IDLA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_IDLB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneTrooper\GUZnTrpr_IDLC.w3x"/>
@@ -59,19 +58,28 @@
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_OR_PREATTACK_A"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ATTACKING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Animation AnimationName="GUGAR_ZONE" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="GUZnTrpr_BRDA_FS" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="75" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZnTrpr_BRDC_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="6" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZnTrpr_BRDD_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZnTrpr_BRDE_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="25" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZnTrpr_BRDF_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="25" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZnTrpr_BRDG_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="6" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end </Script>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="GUZnTrpr_BRDA_FS" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="75" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" />
+					<Animation AnimationName="GUZnTrpr_BRDE_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="25" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" />
+					<Animation AnimationName="GUZnTrpr_BRDF_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="25" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" />
+					<Animation AnimationName="GUZnTrpr_BRDG_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="6" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" />
+					<Animation AnimationName="GUZnTrpr_BRDC_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="6" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" />
+					<Animation AnimationName="GUZnTrpr_BRDD_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" />
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState("TRANS_AboutToHitGround_To_Idle") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
+					<Animation AnimationName="GUZNTRPR_FLYA_FS" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
+					<Animation AnimationName="GUZNTRPR_LNDA_FS" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
 					<Animation AnimationName="GUZNTRPR_DIED_FS" AnimationMode="ONCE"/>
@@ -79,25 +87,36 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
 					<Animation AnimationName="GUZNTRPR_CDTC_FS" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="GUZNTRPR_DIEA_FS" AnimationMode="ONCE"/>
 					<Animation AnimationName="GUZNTRPR_DIEB_FS" AnimationMode="ONCE"/>
 					<Animation AnimationName="GUZNTRPR_DIEC_FS" AnimationMode="ONCE"/>
 					<Animation AnimationName="GUZNTRPR_DIED_FS" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE UNPACKING" StateName="State_JumpJetInitiate">
 					<Animation AnimationName="GUZNTRPR_JET1_FS" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTJumpStartDist" FollowBone="true"/>
 					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTJumpStartFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_L" FXParticleSystemTemplate="GDIZTJumpStartDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_L" FXParticleSystemTemplate="GDIZTJumpStartFire" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ABOUT_TO_HIT" StateName="State_AboutToLand">
 					<Animation AnimationName="GUZNTRPR_JET4_FS" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE PACKING" StateName="State_JumpJetJumping">
 					<Animation AnimationName="GUZNTRPR_JET2_FS" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="MAIN_THRSTR" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
-					<ParticleSysBone BoneName="MAIN_THRSTR" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
-					<ParticleSysBone BoneName="MAIN_THRSTR" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_L" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_L" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="Main_Thrstr_L" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
@@ -107,50 +126,38 @@
 					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING" Flags="RANDOMSTART">
-					<Animation AnimationName="GUZNTRPR_FLYA_FS" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
-					<Animation AnimationName="GUZNTRPR_LNDA_FS" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_STANDING_UP">
-					<Animation AnimationName="GUZNTRPR_GTPA_FS" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED">
-					<Animation AnimationName="GUZNTRPR_LNDA_FS" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING FIRING_OR_PREATTACK_A" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING WEAPONSLOTID_01" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="GUZNTRPR_RUNA_FS" AnimationMode="LOOP" Distance="50"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="GUZNTRPR_RUNB_FS" AnimationMode="LOOP" Distance="50"/>
 					<Animation AnimationName="GUZNTRPR_RUNC_FS" AnimationMode="LOOP" Distance="50"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
-					<Animation AnimationName="GUZnTrpr_FIRC_FS" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A">
+					<Animation AnimationName="GUZNTRPR_FIRC_FS" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_Selected">
 					<Animation AnimationName="GUZNTRPR_FIRC_FS" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE" ConditionsYes="EMOTION_CELEBRATING">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="GUZNTRPR_CHRA_FS" AnimationMode="ONCE" AnimationBlendTime="10" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 					<Animation AnimationName="GUZNTRPR_CHRC_FS" AnimationMode="ONCE" AnimationBlendTime="10" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
-					<Animation AnimationName="GUZnTrpr_IDLA_FS" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="50" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Animation AnimationName="GUZnTrpr_IDLB_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="25" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Animation AnimationName="GUZnTrpr_IDLC_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Animation AnimationName="GUZnTrpr_IDLD_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="25" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Animation AnimationName="GUZnTrpr_IDLE_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationPriority="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end </Script>
+					<Animation AnimationName="GUZNTRPR_IDLA_FS" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="50"/>
+					<Animation AnimationName="GUZNTRPR_IDLB_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="25"/>
+					<Animation AnimationName="GUZNTRPR_IDLC_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="15"/>
+					<Animation AnimationName="GUZNTRPR_IDLD_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="25"/>
+					<Animation AnimationName="GUZNTRPR_IDLE_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="15"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_AboutToHitGround_To_Idle">
 					<Animation AnimationName="GUZNTRPR_JET5_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
-					<Animation AnimationName="GUZNTRPR_ATNA_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZNTRPR_ATNB_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Animation AnimationName="GUZNTRPR_ATNC_FS" AnimationMode="ONCE" AnimationBlendTime="5" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="GUZNTRPR_ATNA_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="GUZNTRPR_ATNB_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="GUZNTRPR_ATNC_FS" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
 					<Animation AnimationName="GUZNTRPR_2BRD_FS" AnimationMode="ONCE" AnimationBlendTime="18" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
@@ -158,11 +165,9 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawJumpJetFX">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle">
-					<Script> CurDrawableHideSubObject("UGJump") Prev = CurDrawablePrevAnimationState() if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end </Script>
+					<Script> CurDrawableHideSubObject("UGJump") Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState("TRANS_AboutToHitGround_To_Idle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE UNPACKING" StateName="State_JumpJetInitiate">
@@ -172,7 +177,7 @@
 					<Script> CurDrawableHideSubObject("UGJump") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE PACKING" StateName="State_JumpJetJumping">
-					<Script> CurDrawableShowSubObject("UGJump") Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
+					<Script> CurDrawableShowSubObject("UGJump") Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState("TRANS_AboutToHitGround_To_Idle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="THROWN_PROJECTILE">
 					<Script> CurDrawableShowSubObject("UGJump") </Script>
@@ -183,22 +188,38 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
 					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="Zt_Spine2" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXspotlight"/>
+					<Model Name="FXspotlight_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 			</SpotlightDraw>
 			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="1" LaserStateID="1" UseDistortionShader="true">
 				<FXShader ShaderName="Laser.fx">
@@ -214,52 +235,53 @@
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="POISONED"/>
+				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIZoneTrooperRailgun"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<SpecialPower id="ModuleTag_JumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_JumpJetUpdate" SpecialWeapon="ZoneTrooperFireJumpJets" SpecialPowerTemplate="SpecialPowerTriggerJumpJets" UnpackTime=".4s" UnpackSound="GDI_ZoneTrooper_JumpJetStart" PackTime=".4s" BusyForDuration="3s" WhichSpecialWeapon="1" TriggerSound="ZoneTrooperJumpJetFire" WeaponSlotType="TERTIARY_WEAPON"/>
 			<BezierProjectile id="ModuleTag_Projectile" FirstHeightMin="50" FirstHeightMax="50" SecondHeightMin="50" SecondHeightMax="50" FirstPercentIndent="30" SecondPercentIndent="70" TumbleRandomly="true" CrushStyle="true" BounceCount="0" FinalStuckTime="1.766s" GroundHitFX="FX_ZoneTrooperJumpJetHitsGround" PreLandingStateTime="0.3s"/>
-			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibs</OCL>
-				</OCL>
-				<Sound List="GDI_ZoneTrooper_VoiceDie"/>
-				<DieMuxData DeathTypes="EXPLODED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsRad</OCL>
-				</OCL>
-				<Sound List="GDI_ZoneTrooper_VoiceDie"/>
-				<DieMuxData DeathTypes="POISONED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
-					<OCL>OCL_InfGibsChar</OCL>
-				</OCL>
-				<Sound List="GDI_ZoneTrooper_VoiceDie"/>
-				<DieMuxData DeathTypes="BURNED"/>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound List="GDI_ZoneTrooper_VoiceDie"/>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
-				<Event FX="FX_InfBlood"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListRad">
-				<DieMuxData DeathTypes="POISONED"/>
-				<Event FX="FX_InfRadGoo"/>
-			</FXListBehavior>
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>GDI_ZoneTrooper</Key>
 			</LargeGroupAudioUpdate>
@@ -277,19 +299,19 @@
 				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
 			</AudioLoopUpgrade>
 			<!-- Scanner Packs -->
-			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
-				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
-			</AttributeModifierUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsScanner" ShowSubObjects="UGSCANNER">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</SubObjectsUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIZoneTrooperFunctions">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -308,7 +330,7 @@
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="7.0" MinorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_ZoneTrooper_VoiceAttack" AudioType="voiceAttack"/>
@@ -320,8 +342,9 @@
 			<AudioEntry Sound="GDI_ZoneTrooper_VoiceSelectMS2" AudioType="voiceSelect"/>
 			<AudioEntry Sound="GDI_ZoneTrooper_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
 			<NamedEntry Sound="GDI_ZoneTrooper_VoiceMoveJumpJet" Name="InitiateJumpJets"/>
-			<!-- Triggered when told to garrison Deployed Reckoners -->
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
 			<ObjectSpecificEntry Sound="GDI_ZoneTrooper_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="GDI_ZoneTrooper_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
 		</AudioArrayVoice>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>

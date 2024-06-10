@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
 	</Includes>
-	<GameObject id="NODCyborgInfantrySquad" inheritFrom="BaseSquad" KindOf="SELECTABLE CAN_ATTACK INFANTRY SCORE ATTACK_NEEDS_LINE_OF_SIGHT HORDE PATH_THROUGH_INFANTRY ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT" Description="Desc:NODCyborgInfantry" TypeDescription="Type:NODCyborgInfantry" Side="NOD" EditorName="NODCyborgGunnerSquad" BuildTime="6" CommandSet="NODCyborgInfantryCommandSet" SelectPortrait="Portrait_CyborgInfantry" ButtonImage="Portrait_CyborgInfantry" WeaponCategory="GUN" UnitTypeIcon="RiflemenIcon" BuildCost="600">
+	<GameObject id="NODCyborgInfantrySquad" inheritFrom="BaseSquad" KindOf="SELECTABLE CAN_ATTACK INFANTRY SCORE ATTACK_NEEDS_LINE_OF_SIGHT HORDE PATH_THROUGH_INFANTRY ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT TIBERIUM_BASED" Description="Desc:NODCyborgInfantry" TypeDescription="Type:NODCyborgInfantry" Side="NOD" EditorName="NODCyborgGunnerSquad" BuildTime="6" CommandSet="NODCyborgInfantryCommandSet" SelectPortrait="Portrait_CyborgInfantry" ButtonImage="Portrait_CyborgInfantry" WeaponCategory="GUN" UnitTypeIcon="RiflemenIcon" BuildCost="600">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCyborgInfantry</DisplayName>
 		<DisplayUpgrade>Upgrade_NodTechCenterChargedParticleBeam</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_NODEmpBurst</DisplayUpgrade>
@@ -12,9 +12,7 @@
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXRIFLE_FP"/>
 				</ModelConditionState>
@@ -23,18 +21,9 @@
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
@@ -46,12 +35,9 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="CyborgMinigunRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<BannerCarrierUpgrade id="ModuleTag_BannerCarrierUpgrade" Permanent="true">
-				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
-			</BannerCarrierUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_BlackTemplarsAudioLoop" SoundToPlay="NOD_BlackTemplars_UpgradeMS">
-				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
-			</AudioLoopUpgrade>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID" BannerCarrierByUpgradeOnly="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
@@ -64,18 +50,7 @@
 					<Position X="10" Y="20"/>
 				</RankInfo>
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
-				<BannerCarrierPosition>
-					<UnitType>NODBlackTemplar</UnitType>
-					<Pos x="35" y="0"/>
-				</BannerCarrierPosition>
-				<BannerCarriersAllowed>NODBlackTemplar</BannerCarriersAllowed>
 			</HordeContain>
-			<StatusBitsUpgrade id="ModuleTag_DummyUpgradeForWB" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
-				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
-			</ModelConditionUpgrade>
 			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
 				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
@@ -83,7 +58,8 @@
 			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
 				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
 			</StealthUpgrade>
-			<xi:include href="DATA:Includes/NodCallForTransportInfantry.xml"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
+			<!-- EMP Blast -->
 			<SpecialPower id="ModuleTag_EMPBlastGetInRange" SpecialPowerTemplate="EMPBlastGetInRange" UpdateModuleStartsAttack="true"/>
 			<SpecialAbilityUpdate id="ModuleTag_EMPBlastGetInRangeUpdate" SpecialPowerTemplate="EMPBlastGetInRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="250.0" ChainedButton="Command_NODEMPBlast"/>
 			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="EMPBlastDispatch">
@@ -93,11 +69,17 @@
 			<HordeDispatchSpecialPower id="ModuleTag_EMPBlast" SpecialPowerTemplate="EMPBlast"/>
 			<SpecialPower id="ModuleTag_EMPBlastTrigger" SpecialPowerTemplate="EMPBlastTrigger" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPBlastTriggerUpdate" SpecialPowerTemplate="EMPBlastTrigger" SpecialWeapon="HordeSpecialRangeAttack" UnpackTime="0s" PackTime="0.0s" BusyForDuration="1s" WhichSpecialWeapon="1"/>
-			<AISpecialPowerUpdate id="ModuleTag_NODCyborgEmpPulse" CommandButtonName="Command_NODEMPBlastGetInRange" SpecialPowerRadius="250" UnitKindOf="VEHICLE FS_POWER FS_BASE_DEFENSE" EnemyUnitInclude="VEHICLE FS_POWER FS_BASE_DEFENSE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<AISpecialPowerUpdate id="ModuleTag_NODCyborgEmpPulse" CommandButtonName="Command_NODEMPBlastGetInRange" SpecialPowerRadius="250" UnitKindOf="VEHICLE" EnemyUnitInclude="VEHICLE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" UpdateTime="10s" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</ModelConditionUpgrade>
 		</Behaviors>
 		<AI>
-			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</HordeAIUpdate>
 		</AI>
 		<Body>

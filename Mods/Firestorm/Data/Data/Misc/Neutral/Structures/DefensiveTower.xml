@@ -6,7 +6,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
-	<GameObject id="DefensiveTower" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_TechBuildingDefensiveTower" ButtonImage="Portrait_TechBuildingDefensiveTower" Side="GDI" BuildTime="15" BuildCost="1500" CommandSet="EmptyCommandSet" KindOf="STRUCTURE CAN_ATTACK SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY IGNORE_FOR_VICTORY AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE COVER CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS NEUTRAL_TECH" EditorName="DefensiveTower" WeaponCategory="CANNON" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingDefensiveTower">
+	<GameObject id="DefensiveTower" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_TechBuildingDefensiveTower" ButtonImage="Portrait_TechBuildingDefensiveTower" Side="GDI" BuildTime="15" BuildCost="1500" CommandSet="GenericStructureSelfRepairCommandSet" KindOf="STRUCTURE FS_BASE_DEFENSE CAN_ATTACK SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY IGNORE_FOR_VICTORY AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE COVER CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS NEUTRAL_TECH" EditorName="DefensiveTower" WeaponCategory="CANNON" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingDefensiveTower">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TechBuildingDefensiveTower</DisplayName>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<Draws>
@@ -31,45 +31,46 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBDefTow_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBDefTow_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="CBDefTow_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="CBDefTow_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NeutralDefensiveTowerCannon"/>
-					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-75d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+					<TurretSettings TurretTurnRate="290" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-10d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
-			</FXListBehavior>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="BuildingPowerFunctions">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -77,35 +78,14 @@
 		</Body>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="6.61454" MinorRadius="13.0224" Height="14.8827" ContactPointGeneration="STRUCTURE">
-				<Offset x="2.53894" y="-17.7596"/>
+				<Offset x="2.53894" y="-17.7596" z="0"/>
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="15.363" MinorRadius="15.363" Height="69.0392" ContactPointGeneration="STRUCTURE">
-				<Offset x="2.95235" y="1.0505"/>
+			<Shape Type="CYLINDER" MajorRadius="15.363" Height="69.0392" ContactPointGeneration="STRUCTURE">
+				<Offset x="2.95235" y="1.0505" z="0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-8.03337" y="-9.13983" z="-2.11332e-007"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="12.7738" y="-9.13983" z="66.9918"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="12.7738" y="11.6674" z="6.98181e-007"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-8.03337" y="11.6674" z="66.9918"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-8.03337" y="-9.13983" z="66.9918"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="12.7738" y="-9.13983" z="-2.11332e-007"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="12.7738" y="11.6674" z="66.9918"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-8.03337" y="11.6674" z="6.98181e-007"/>
-			</ContactPoint>
+			<Shape Type="CYLINDER" MajorRadius="33" Height="2" ContactPointGeneration="STRUCTURE">
+				<Offset x="2.95235" y="0" z="0"/>
+			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="DefensiveTower_Select" AudioType="voiceSelect"/>
@@ -114,6 +94,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="500" ShroudClearingRange="500"/>
+		<VisionInfo VisionRange="475" ShroudClearingRange="500"/>
 	</GameObject>
 </AssetDeclaration>

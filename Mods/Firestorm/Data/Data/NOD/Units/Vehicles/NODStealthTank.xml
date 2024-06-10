@@ -17,7 +17,7 @@
 		<LocomotorSet Locomotor="NODStealthTankLocomotor" Condition="NORMAL" Speed="120.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
-			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR FXTracksB FXWeaponL FXWeaponR" TrackMarks="FXTankTrack3" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+			<TankDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR FXTracksB" TrackMarks="FXTankTrack3" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="NUSTLTHTNK_SKN_FS"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeaponL"/>
@@ -38,7 +38,6 @@
 					<Model Name="NUSTLTHTNK_SKN_FS"/>
 					<Texture Original="NUSTealthTank" New="NUSTealthTankD"/>
 					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue_D"/>
-					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
@@ -46,7 +45,6 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="NUSTLTHTNK_SKN_FS"/>
 					<Texture Original="NUSTealthTank" New="NUSTealthTankD"/>
-					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
@@ -54,21 +52,21 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_5" RetainSubObjects="true">
 					<Model Name="NUSTLTHTNK_SKN_FS"/>
 					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue"/>
-					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
 					<Model Name="NUSTLTHTNK_SKN_FS"/>
-					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 					<ParticleSysBone BoneName="BONE_REAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5" RetainSubObjects="true">
 					<Model Name="NUSTLTHTNK_SKN_FS"/>
 					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue"/>
-					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSLEFTBACK") CurDrawableHideSubObject("TREADSRIGHTBACK") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSLEFTBACK") CurDrawableHideSubObject("TREADSRIGHTBACK") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
@@ -117,29 +115,25 @@
 					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSLEFTBACK") CurDrawableHideSubObject("TREADSRIGHTBACK") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
-				<LeftTread>"FXTracksL"</LeftTread>
-				<RightTread>"FXTracksR"</RightTread>
+				<LeftTread>"TreadsL"</LeftTread>
+				<RightTread>"TreadsR"</RightTread>
 				<ArticulationBone ArticulationBoneName="Bone_ArmR" ArticulationHelperBoneName="FXTracksL"/>
 				<ArticulationBone ArticulationBoneName="Bone_ArmL" ArticulationHelperBoneName="FXTracksR"/>
 				<ArticulationBone ArticulationBoneName="Bone_Rear" ArticulationHelperBoneName="FXTracksB"/>
 			</TankDraw>
-			<TankDraw id="ModuleTag_Stealth" ExtraPublicBone="FXTracksL FXTracksR FXTracksB" OkToChangeModelColor="true" InvertStealthOpacity="true">
+			<TankDraw id="ModuleTag_Stealth" ExtraPublicBone="FXTracksL FXTracksR FXTracksB" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" OkToChangeModelColor="true" InvertStealthOpacity="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUSTLTHTNKSTLTH_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED BACKING_UP">
 					<Animation AnimationName="NUSTLTHTNK_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
 					<Animation AnimationName="NUSTLTHTNK_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -147,7 +141,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED BACKING_UP">
 					<Animation AnimationName="NUSTLTHTNK_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
 					<Animation AnimationName="NUSTLTHTNK_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -155,7 +149,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
 					<Animation AnimationName="NUSTLTHTNK_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
 					<Animation AnimationName="NUSTLTHTNK_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -163,7 +157,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
 					<Animation AnimationName="NUSTLTHTNK_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
 					<Animation AnimationName="NUSTLTHTNK_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -171,7 +165,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
 					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -180,46 +174,56 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="NUSTLTHTNK_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
-				<LeftTread>"FXTracksL"</LeftTread>
-				<RightTread>"FXTracksR"</RightTread>
+				<LeftTread>"TreadsL"</LeftTread>
+				<RightTread>"TreadsR"</RightTread>
 				<ArticulationBone ArticulationBoneName="Bone_ArmR" ArticulationHelperBoneName="FXTracksL"/>
 				<ArticulationBone ArticulationBoneName="Bone_ArmL" ArticulationHelperBoneName="FXTracksR"/>
 				<ArticulationBone ArticulationBoneName="Bone_Rear" ArticulationHelperBoneName="FXTracksB"/>
 			</TankDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMAMM_FX"/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<!-- Removing Cloaking Field update -->
+			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Remove"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIStealthTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="NOD_StealthTank_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODStealthTankRocket"/>
@@ -229,36 +233,25 @@
 					<Weapon Ordering="SECONDARY_WEAPON" Template="NODStealthTankRocketTibCore" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<Weapon Ordering="SECONDARY_WEAPON" Template="NODStealthTankRocketBlueTibCore" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="400" TurretPitchRate="100" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<!-- Removing Cloaking Field update -->
-			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Remove"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
 				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" ForbiddenStatus="IS_FIRING_WEAPON"/>
 			</InvisibilityUpdate>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_GDIStealthTankDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
-				<Sound Type="INITIAL" List="NOD_StealthTank_VoiceDie"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
-			</FXListBehavior>
 			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_TibCoreMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTibCoreMissiles" ShowSubObjects="TIBCOREMISSILEL TIBCOREMISSILER">
 				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
 			</SubObjectsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
-			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_TibCoreMissilesAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
 				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
@@ -268,10 +261,11 @@
 			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_5">
 				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
 			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODAttackBikeFunctions">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>

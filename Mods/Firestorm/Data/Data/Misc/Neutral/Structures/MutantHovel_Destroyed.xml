@@ -1,0 +1,66 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralMutantHovel\TBMUTNTHOVL_D3.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="MutantHovel_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralMutantHovelDestroyed" ButtonImage="Portrait_NeutralMutantHovelDestroyed" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE SELECTABLE HUSK" EditorName="MutantHovel_Destroyed" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingMutantHovelDestroyed">
+		<DisplayName>Name:MutantHovelDestroyed</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TBMutntHovl_D3"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TBMutntHovl_D3_FS" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="TBMutntHovl_D3_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" EvaEventForReplace="BuildingRepaired" EvaEventForCaptureAndReplace="BuildingRepaired" FXForReplace="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Husk_Captured" ReplaceWith="OCL_MutantHovel_Rebuilt" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="46" Height="3" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="8" Height="57" ContactPointGeneration="STRUCTURE">
+				<Offset x="-1" y="1" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="25" Height="20" ContactPointGeneration="STRUCTURE">
+				<Offset x="-5" y="-35" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="5" MinorRadius="5" Height="10" ContactPointGeneration="STRUCTURE">
+				<Offset x="-5.2" y="-65" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="15" MinorRadius="30" Height="20" ContactPointGeneration="STRUCTURE">
+				<Offset x="0" y="45" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="5" MinorRadius="5" Height="10" ContactPointGeneration="STRUCTURE">
+				<Offset x="1" y="80" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="25" MinorRadius="14" Height="19" ContactPointGeneration="STRUCTURE">
+				<Offset x="37" y="0" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="35" MinorRadius="17" Height="19" ContactPointGeneration="STRUCTURE">
+				<Offset x="-50" y="2" z="0.0"/>
+			</Shape>
+			 <Shape Type="BOX" MajorRadius="15" MinorRadius="15" Height="24.5" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<EvaEvents EvaEventDamagedOwner="" EvaEventSoldOwner="" EvaEventRepairingOwner=""/>
+		<VisionInfo VisionRange="0" ShroudClearingRange="0"/>
+	</GameObject>
+</AssetDeclaration>

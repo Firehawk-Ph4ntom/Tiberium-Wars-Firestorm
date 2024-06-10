@@ -14,35 +14,28 @@
 		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="45"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXMedic_FP"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
 					<Model Name="GUMEDICSQUADMARKER"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Heal_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
-				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Heal_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -52,6 +45,8 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMedicRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
@@ -65,35 +60,38 @@
 				</RankInfo>
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
 			</HordeContain>
-			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Suppression_Squad" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<PassiveAreaEffectBehavior id="ModuleTag_HealAttribute" EffectRadius="150" HealingPercentPerSecond="8%" SurveyDelayFrames="15" HealFX="FX_GDI_Heal" AffectUnderAttack="true">
 				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE">
+					<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
 					<!-- NOD Cyborgs -->
 					<ExcludeThing>NODCyborgInfantry</ExcludeThing>
 					<ExcludeThing>NODAscended</ExcludeThing>
 					<ExcludeThing>NODReaper</ExcludeThing>
 					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
 				</AllowFilter>
 			</PassiveAreaEffectBehavior>
-			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
 			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
-				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
-			</ModelConditionUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</HordeAIUpdate>
 		</AI>
 		<Body>
 			<ImmortalBody id="ModuleTag_Body" MaxHealth="1.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="30.0" Height="13.0"/>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="25.0" Height="13.0"/>
 		</Geometry>
-		<VisionInfo VisionRange="200" ShroudClearingRange="200" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="200" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 	</GameObject>
 </AssetDeclaration>

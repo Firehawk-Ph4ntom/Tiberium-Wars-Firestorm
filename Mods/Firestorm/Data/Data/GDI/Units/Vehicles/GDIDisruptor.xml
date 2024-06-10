@@ -1,0 +1,246 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDisruptor.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDisruptor_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDisruptor_Heroic.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDisruptor_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDisruptor_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDisruptorTreads.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\HC_GUDisruptor.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTOR_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTOR_FX.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTOR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTOR_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTORR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTORR_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIDisruptor\GUDISRUPTORR01_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIDisruptor" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIDisruptorTank" ButtonImage="Portrait_GDIDisruptorTank" Side="GDI" BuildCost="2200" BuildTime="22" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="BLAST" VoicePriority="220" EditorName="GDIDisruptor" Description="Desc:GDIDisruptorTank" TypeDescription="Type:GDIDisruptorTank">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIDisruptorTank</DisplayName>
+		<GameDependency>
+			<RequiredObject>GDIArmory</RequiredObject>
+		</GameDependency>
+		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIMammothLocomotor" Condition="NORMAL" Speed="50.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" TrackMarks="EXTnkTrack" ExtraPublicBone="FXTracksLR FXTracksRR FXTracksLF FXTracksRF" TrackMarksLeftBone="FXTracksLR" TrackMarksRightBone="FXTracksRR" OkToChangeModelColor="true" TreadAnimationRate="2" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="GUDISRUPTOR_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<Turret TurretNameKey="TURRET" TurretPitch="BARREL" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUDISRUPTOR_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
+					<Model Name="GUDISRUPTORR_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GUDISRUPTORR_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8" RetainSubObjects="true">
+					<Model Name="GUDISRUPTOR_SKNADAR"/>
+					<Texture Original="GUDisruptor" New="GUDisruptor_D"/>
+					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="GUDISRUPTOR_SKN"/>
+					<Texture Original="GUDisruptor" New="GUDisruptor_D"/>
+					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_3" RetainSubObjects="true">
+					<Model Name="GUDISRUPTOR_SKNADAR"/>
+					<Texture Original="GUDisruptor" New="GUDisruptor_Heroic"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8" RetainSubObjects="true">
+					<Model Name="GUDISRUPTOR_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3" RetainSubObjects="true">
+					<Model Name="GUDISRUPTOR_SKN"/>
+					<Texture Original="GUDisruptor" New="GUDisruptor_Heroic"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSMOVE") </Script>
+				</AnimationState>
+				<LeftTread>TreadsL1</LeftTread>
+				<LeftTread>TreadsL2</LeftTread>
+				<RightTread>TreadsR1</RightTread>
+				<RightTread>TreadsR2</RightTread>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMADGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMADGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUDISRUPTOR_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="FXTracksLF" FXParticleSystemTemplate="TreadDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="TreadDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksLF" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUDISRUPTOR_FX"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="8.5s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIDisruptorTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplodeWithVoice"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIDisruptorSonicCannon"/>
+					<TurretSettings TurretTurnRate="60" TurretPitchRate="20" MinimumPitch="-10d" PitchHeight="90%" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<ModelConditionUpgrade id="ModuleTag_Veterancy_Upgrade" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="9000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="23.0" MinorRadius="10.0" Height="15.0" ContactPointGeneration="VEHICLE">
+				<Offset x="4" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="12.5" MinorRadius="5.0" Height="11.5" ContactPointGeneration="VEHICLE">
+				<Offset x="15" y="11" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="12.5" MinorRadius="5.0" Height="11.5" ContactPointGeneration="VEHICLE">
+				<Offset x="15" y="-11" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="5.0" Height="12.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-12" y="11" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="5.0" Height="12.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-12" y="-11" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="13.0" Height="6.5" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="15"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_Disruptor_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_Disruptor_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_Disruptor_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_Disruptor_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_Disruptor_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_Disruptor_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<AudioEntry Sound="GDI_Disruptor_VoiceSelectMS" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="MammothMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="MammothIdleLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="375" ShroudClearingRange="400"/>
+		<CrusherInfo CrusherLevel="2" CrushableLevel="3"/>
+	</GameObject>
+</AssetDeclaration>

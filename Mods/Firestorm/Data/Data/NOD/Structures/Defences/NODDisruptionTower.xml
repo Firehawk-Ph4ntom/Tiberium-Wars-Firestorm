@@ -1,15 +1,17 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\NODDisruptionTower\NBDISTTWR_ASN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODDisruptionTower\NBDISTTWR_ASN_STLTH.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODDisruptionTower\NBDISTTWR_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODDisruptionTower\NBDISTTWR_D2SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODDisruptionTower\NBDISTTWR_D3SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODDisruptionTower\NBDISTTWR_STLTH.w3x"/>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODDisruptionTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODDisruptionTower" ButtonImage="Portrait_NODDisruptionTower" Side="NOD" BuildCost="2000" BuildTime="20" EnergyProduction="-15" CommandSet="NODBaseDefenseCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_BASE_DEFENSE POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER BROADCASTS_INVISIBILITY" PlacementViewAngle="225d" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="NODDisruptionTower" Description="Desc:NODDisruptionTower" TypeDescription="Type:NODDisruptionTower">
+	<GameObject id="NODDisruptionTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODDisruptionTower" ButtonImage="Portrait_NODDisruptionTower" Side="NOD" BuildCost="1200" BuildTime="12" EnergyProduction="-15" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_BASE_DEFENSE POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER BROADCASTS_INVISIBILITY" PlacementViewAngle="225d" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="NODDisruptionTower" Description="Desc:NODDisruptionTower" TypeDescription="Type:NODDisruptionTower">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODDisruptionTower</DisplayName>
+		<DisplayUpgrade>Upgrade_NODDisruptionModules</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODOperationsCenter</RequiredObject>
 			<RequiredObject>NODSecretShrine</RequiredObject>
@@ -29,64 +31,74 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NBDistTwr_D2SN_FS"/>
-					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerDist" FollowBone="true"/>
-					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="NODBunkerDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="NODBunkerFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="NBDistTwr_FS"/>
 					<Texture Original="NBDistTwr" New="NBDistTwrD"/>
-					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="NBDistTwr_AAN" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBDistTwr_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBDistTwr_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NBDistTwr_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBDistTwr_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Stealth" OkToChangeModelColor="true" InvertStealthOpacity="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBDISTTWR_STLTH"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBDISTTWR_ASN_STLTH"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBDISTTWR_STLTH"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBDistTwr_AAN" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_1" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_NodCloakingField" FireWhenSkipped="true"/>
 				</AnimationState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXInvisBone"/>
-					<ShadowInfo Type="ADDITIVE_DECAL_DYNAMIC" Texture="Decal_Sensor" SizeX="1020" SizeY="1020" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
-				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Small"/>
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Die"/>
 				<Event Index="onCreate" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Created"/>
 			</FXListBehavior>
@@ -94,37 +106,64 @@
 			<InvisibilityUpdate id="ModuleTag_Invisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="450" UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
 				<BroadcastObjectFilter Rule="ALL" Relationship="ALLIES">
+					<ExcludeThing>NODDisruptionTower</ExcludeThing>
+					<ExcludeThing>NODPhantomDeployed</ExcludeThing>
 					<ExcludeThing>Viceroid</ExcludeThing>
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienPhaseShield</ExcludeThing>
 					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
 					<ExcludeThing>AlienWormHole</ExcludeThing>
-					<ExcludeThing>AlienWormHoleMarker</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
+			<InvisibilityUpdate id="ModuleTag_AdvInvisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="450" OpacityMin="30%" OpacityMax="100%" UpdatePeriod="0.1s">
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED"/>
+				<RequiresUpgrade>Upgrade_ActivateDisruptionModule</RequiresUpgrade>
+				<BroadcastObjectFilter Rule="NONE" Relationship="ALLIES">
+					<IncludeThing>NODDisruptionTower</IncludeThing>
+					<IncludeThing>NODPhantomDeployed</IncludeThing>
+				</BroadcastObjectFilter>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_DisruptionModulesTrigger">
+				<TriggeredBy>Upgrade_ActivateDisruptionModule</TriggeredBy>
+			</StealthUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DisruptionModuleModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODDisruptionModules</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_DisruptionModuleAudioLoop" SoundToPlay="ALI_AdvancedProduction_Upgrade">
+				<TriggeredBy>Upgrade_NODDisruptionModules</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODDisruptionTowerFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
 		</Body>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
-				<ModelConditionSound Sound="NOD_DisruptionTower_OnLoop" ExcludedFlags="STRUCTURE_UNPACKING UNDERPOWERED AFFECTED_BY_EMP BUILD_PLACEMENT_CURSOR"/>
+				<ModelConditionSound Sound="NOD_DisruptionTower_OnLoop" ExcludedFlags="STRUCTURE_UNPACKING UNDERPOWERED AFFECTED_BY_EMP BUILD_PLACEMENT_CURSOR PARALYZED"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="20.0" Height="55.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="13.0" Height="55.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="3.0" Height="10.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="15" y="0" z="0" />
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="3.0" Height="10.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-7.5" y="13.5" z="0" />
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="3.0" Height="10.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="-7.8" y="-13.5" z="0" />
+			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="NOD_DisruptionTowerSelect" AudioType="voiceSelect"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
-			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
-			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 			<AudioEntry Sound="NOD_DisruptionTower_OnlineMS" AudioType="soundReenabled"/>
 			<AudioEntry Sound="NOD_DisruptionTower_OfflineMS" AudioType="soundDisabled"/>
 			<AudioEntry Sound="BuildingGenericPowerOffMS" AudioType="soundDisabledOnCreation"/>

@@ -1,0 +1,235 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAvenger.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAvenger_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAvenger_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAvenger_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAVENGER_DIG.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAVENGER_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAVENGER_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODAvengerTank\NUAVENGER_SKNR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="NODAvengerTank" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODAvengerTank" ButtonImage="Portrait_NODAvengerTank" Side="NOD" BuildCost="1100" BuildTime="11" CommandSet="NODAvengerTankCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="184" EditorName="NODAvengerTank" Description="Desc:NODAvengerTank" TypeDescription="Type:NODAvengerTank">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODAvengerTank</DisplayName>
+		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor_DozerBlade" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="NODAvengerTankLocomotor" Condition="NORMAL" Speed="75.0"/>
+		<LocomotorSet Condition="NORMAL_UPGRADED" Locomotor="GDIPredatorTankDeployedLocomotor"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" InitialRecoilSpeed="8.0" MaxRecoilDistance="8.0" RecoilDamping="2.0" RecoilSettleSpeed="2.0" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR" TrackMarks="FXTankTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="NUAVENGER_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRETFX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="GUN"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRETFX"/>
+					<Turret TurretNameKey="TURRET" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUAVENGER_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NUAVENGER_SKNR"/>
+					<Texture Original="NUAvenger" New="NUAvenger_D"/>
+					<Texture Original="NUDevil" New="NUDevil_D"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="NUAVENGER_SKN"/>
+					<Texture Original="NUAvenger" New="NUAvenger_D"/>
+					<Texture Original="NUDevil" New="NUDevil_D"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="NUAVENGER_SKN"/>
+					<ParticleSysBone BoneName="FXDAMAGE01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXDAMAGE02" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableShowSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableShowSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<FXEvent Frame="2" Effect="FXGuardianTankDigInDust" Bone="BONE_DOZERBLADE" FireWhenSkipped="true"/>
+					<Animation AnimationName="NUAVENGER_DIG" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableShowSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2" Flags="START_FRAME_LAST">
+					<FXEvent Frame="22" Effect="FXGuardianTankDigInDust" Bone="BONE_DOZERBLADE" FireWhenSkipped="true"/>
+					<Animation AnimationName="NUAVENGER_DIG" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableShowSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DEPLOYED" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUAVENGER_DIG" AnimationMode="MANUAL"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
+				</AnimationState>
+				<LeftTread>"TreadsL"</LeftTread>
+				<RightTread>"TreadsR"</RightTread>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="8s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="NOD_AvengerTank_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODAvengerTankCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODAvengerTankCannonDeployed" ObjectStatus="IMMOBILE"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODAvengerTankFirestormCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODAvengerTankFirestormCannonDeployed" ObjectStatus="WEAPON_UPGRADED_01 IMMOBILE"/>
+					<TurretSettings TurretTurnRate="200" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<!-- Dig Ability -->
+			<!-- Dig In -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_DigInUpgrade" SpecialPowerTemplate="SpecialPower_GuardianTankDigIn" PreparationTime="1.3s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_UnPack" />
+			<SpecialPower id="ModuleTag_DigInSP" SpecialPowerTemplate="SpecialPower_GuardianTankDigIn" SetModelCondition="USER_1" SetModelConditionTime="1.3s" UpdateModuleStartsAttack="true" DisableDuringAnimDuration="true"/>
+			<!-- Dig Out -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_DigOutUpgrade" SpecialPowerTemplate="SpecialPower_GuardianTankDigOut" PreparationTime="1.3s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_Pack" />
+			<SpecialPower id="ModuleTag_DigOutSP" SpecialPowerTemplate="SpecialPower_GuardianTankDigOut" SetModelCondition="USER_2" SetModelConditionTime="1.3s" UpdateModuleStartsAttack="true" DisableDuringAnimDuration="true"/>
+			<LocomotorSetUpgrade id="ModuleTag_LocomotorSetUpgrade">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+			</LocomotorSetUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemovePackUpgrade">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<UpgradeToRemove>Upgrade_Pack</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUnPackUpgrade">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<UpgradeToRemove>Upgrade_UnPack</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_UnPackModelCondition" AddConditionFlags="DEPLOYED">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_AvengerTankDigIn">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_UnpackUpgrade" StatusToSet="IMMOBILE">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_PackUpgrade" StatusToClear="IMMOBILE">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3400"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_UnitBurrow" RequiredFlags="USER_1" ExcludedFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_UnitBurrow" RequiredFlags="USER_2" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20" MinorRadius="15.0" Height="12.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-5" y="0" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="NOD_AvengerTank_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="PredatorIdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="PredatorMoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+		<CrusherInfo CrusherLevel="2" CrushableLevel="2"/>
+	</GameObject>
+</AssetDeclaration>

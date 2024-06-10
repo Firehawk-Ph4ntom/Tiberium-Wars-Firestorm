@@ -1,5 +1,5 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODParkedVenom" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODVenom" ButtonImage="Portrait_NODVenom" EditorName="NODParkedVenom" EditorSorting="MISC_MAN_MADE" Description="Desc:NODVenom" TypeDescription="Type:NODVenom" ThreatLevel="1">
+	<GameObject id="NODParkedVenom" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT" SelectPortrait="Portrait_NODVenom" ButtonImage="Portrait_NODVenom" EditorName="NODParkedVenom" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedAircraft" ThreatLevel="1">
 		<DisplayName>Name:NODVenom</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
 		<Draws>
@@ -7,9 +7,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUVENOM_SKN_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10">
 					<Model Name="NUVENOM_UGCP_SKN"/>
 					<Texture Original="NuVenom" New="NuVenomD"/>
@@ -18,7 +16,7 @@
 					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUVENOM_SKN_FS"/>
 					<Texture Original="NuVenom" New="NuVenomD"/>
 					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
@@ -32,7 +30,7 @@
 					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
 					<ParticleSysBone BoneName="BONE_TAILFIN" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="NUVENOM_SKN_FS"/>
 					<Texture Original="NuVenom" New="NuVenomD"/>
 					<Texture Original="NUVenomSG" New="NUVenomSG_D"/>
@@ -47,25 +45,25 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_NODVenomInitialDebrisUpgraded</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
-			</SlowDeath>
+			<!-- Normal Dying -->
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODVenomInitialDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
+			</SlowDeath>
+			<!-- Upgraded Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVenomInitialDebrisUpgraded</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
-			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
+			<Physics id="ModuleTag_Physics"/>
 			<ModelConditionUpgrade id="ModuleTag_ParticleBeamModelCondition" AddConditionFlags="USER_10">
 				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -88,6 +86,7 @@
 			</Shape>
 		</Geometry>
 		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
 		<CrusherInfo CrushableLevel="3"/>
 	</GameObject>
 </AssetDeclaration>

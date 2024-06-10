@@ -12,9 +12,7 @@
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXRocket_FP"/>
 				</ModelConditionState>
@@ -23,18 +21,9 @@
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
@@ -46,6 +35,8 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="SquadMissileRangefinder"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="2" ObjectStatusOfContained="" ConditionForEntry="INVALID">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
@@ -58,24 +49,23 @@
 				</RankInfo>
 				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
 			</HordeContain>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<AimWeapon id="ModuleTag_AimWeapon" AimHighThreshold="0.5"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<!-- This starts the build and makes an object to prevent other digins at this location -->
 			<OCLSpecialPower id="SpecialPower_DigInTrigger" SpecialPowerTemplate="SpecialPowerInfantryDigInTrigger" UpdateModuleStartsAttack="true" OCL="OCL_GDIInfantryDigInTrigger" CreateLocation="CREATE_AT_LOCATION" RegisterObjectsWithSpecialAbilityUpdate="true"/>
-			<SpecialAbilityUpdate id="SpecialPower_DigInTriggerUpdate" SpecialPowerTemplate="SpecialPowerInfantryDigInTrigger" PreparationTime="5s" Options="CHECK_CHAINED_COMMAND SHOW_PREPARATION_PROGRESS DESTROY_OCL_REGISTERED_OBJECTS_ON_EXIT" StartAbilityRange="15" UnpackingVariation="1" ChainedButton="Command_GDIDigIn"/>
+			<SpecialAbilityUpdate id="SpecialPower_DigInTriggerUpdate" SpecialPowerTemplate="SpecialPowerInfantryDigInTrigger" PreparationTime="5s" Options="CHECK_CHAINED_COMMAND SHOW_PREPARATION_PROGRESS DESTROY_OCL_REGISTERED_OBJECTS_ON_EXIT" StartAbilityRange="1" UnpackingVariation="1" ChainedButton="Command_GDIDigIn"/>
 			<!-- This actually enters the building -->
 			<CreateAndEnterObjectSpecialPower id="ModuleTag_InfantryDigIn" SpecialPowerTemplate="SpecialPowerInfantryDigIn" OCL="OCL_GDIInfantryDigIn" CreateLocation="CREATE_AT_LOCATION"/>
-			<AimWeapon id="ModuleTag_AimWeapon" AimHighThreshold="0.5"/>
-			<xi:include href="DATA:Includes/GDICallForTransport.xml"/>
-			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="750" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="750" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Suppression_Squad" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</ModelConditionUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
-				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
-			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeSquad.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</HordeAIUpdate>
 		</AI>
 		<Body>

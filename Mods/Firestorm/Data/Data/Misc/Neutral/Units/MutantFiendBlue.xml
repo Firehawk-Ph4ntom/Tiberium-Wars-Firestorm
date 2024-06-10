@@ -4,6 +4,7 @@
 		<Include type="instance" source="MutantFiend.xml"/>
 	</Includes>
 	<GameObject id="MutantFiendBlue" inheritFrom="MutantFiend" EditorName="TiberianFiendBlue" SelectPortrait="Portrait_NeutralTiberianFiendBlue" ButtonImage="Portrait_NeutralTiberianFiendBlue">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantFiendBlue</DisplayName>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" ExtraPublicBone="SHRDLNCH01 SHRDLNCH02 SHRDLNCH03 SHRDLNCH04">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -11,6 +12,8 @@
 					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="SHRDLNCH"/>
 					<WeaponLaunchBone WeaponSlotType="SECONDARY_WEAPON" BoneName="BAT_HeadW"/>
 				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
 					<Model Name="CUTIBFIEND_SKN"/>
 					<Texture Original="CUTibFiend01" New="CUTibFiend03Blue"/>
@@ -23,7 +26,10 @@
 					<Model Name="CUTIBFIEND_SKN"/>
 					<Texture Original="CUTibFiend01" New="CUTibFiend01Blue"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="CUTIBFIEND_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="45"/>
 					<Animation AnimationName="CUTIBFIEND_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="35"/>
 					<Animation AnimationName="CUTIBFIEND_IDLC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="20"/>
@@ -32,23 +38,20 @@
 					<Animation AnimationName="CUTIBFIEND_DIEA" AnimationMode="ONCE"/>
 					<Animation AnimationName="CUTIBFIEND_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="RANDOMSTART">
 					<Animation AnimationName="CUTIBFIEND_TNL1" AnimationMode="LOOP"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" Flags="RANDOMSTART">
 					<Animation AnimationName="CUTIBFIEND_TNR1" AnimationMode="LOOP"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT" Flags="RANDOMSTART">
 					<Animation AnimationName="CUTIBFIEND_TRNL" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT" Flags="RANDOMSTART">
 					<Animation AnimationName="CUTIBFIEND_TRNR" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
 					<Animation AnimationName="CUTIBFIEND_RUNA" AnimationMode="LOOP" Distance="50"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_B">
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
@@ -63,21 +66,13 @@
 					<Animation AnimationName="CUTIBFIEND_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_UnderRage" xai:joinAction="Replace">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
-					<Model Name="FXRAGEEFFECTSIGN"/>
+			<ScriptedModelDraw id="ModuleTag_Particles4" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="TibFiendInfusionBlue"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -93,7 +88,7 @@
 			</CreateObjectDie>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" xai:joinAction="Replace" MaxHealth="800"/>
+			<ActiveBody id="ModuleTag_Body" xai:joinAction="Replace" MaxHealth="600"/>
 		</Body>
 	</GameObject>
 </AssetDeclaration>

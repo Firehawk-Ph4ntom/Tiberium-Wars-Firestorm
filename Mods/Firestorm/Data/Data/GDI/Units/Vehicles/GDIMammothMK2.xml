@@ -44,7 +44,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIMammothMK2" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS SCORE CAN_SEE_THROUGH_STRUCTURE HUGE_VEHICLE UNIQUE_UNIT CAN_BE_FAVORITE_UNIT LARGE_RECTANGLE_PATHFIND VEHICLE SLAVE_OWNER" Description="Desc:GDIMammothMK2" TypeDescription="Type:GDIMammothMK2" BuildFadeInOnCreateTimeSeconds="0.25s" Side="GDI" EditorName="GDIMammothMK2" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_GDIMammothMK2" ButtonImage="Portrait_GDIMammothMK2" VoicePriority="246" ThreatLevel="10" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
+	<GameObject id="GDIMammothMK2" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS SCORE CAN_SEE_THROUGH_STRUCTURE HUGE_VEHICLE UNIQUE_UNIT CAN_BE_FAVORITE_UNIT LARGE_RECTANGLE_PATHFIND VEHICLE" Description="Desc:GDIMammothMK2" TypeDescription="Type:GDIMammothMK2" BuildFadeInOnCreateTimeSeconds="0.25s" Side="GDI" EditorName="GDIMammothMK2" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_GDIMammothMK2" ButtonImage="Portrait_GDIMammothMK2" VoicePriority="246" ThreatLevel="10" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMammothMK2</DisplayName>
 		<GameDependency>
 			<RequiredObject>GDIAdvancedLab</RequiredObject>
@@ -53,7 +53,6 @@
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
 		<ArmorSet Armor="GDIEpicVehicleUnitArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="GDIMammothMechLocomotor" Condition="NORMAL" Speed="32"/>
-		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" ExtraPublicBone="MUZZLEFLASH_01 MUZZLEFLASH_02 FXMISSILER_01 FXMISSILER_02 FXMISSILEL_01 FXMISSILEL_02 FXGUNUG_01 FXGUNUG_02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -78,6 +77,9 @@
 					<Turret TurretNameKey="turretrailgun_R" TurretPitch="B_Railgun_R" TurretID="4"/>
 					<Turret TurretNameKey="turretrailgun_L" TurretPitch="B_Railgun_L" TurretID="5"/>
 					<Turret TurretNameKey="Turret_UG" TurretPitch="TurretPitch_UG" TurretID="6"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUMAMMOTHMK4_FP"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="GUMAMMOTHMK4H_SKN"/>
@@ -251,10 +253,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUMAMMOTHMK4ADAR_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="GUMAMMOTHMK4_FP"/>
-				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
 					<Animation AnimationName="GUMAMMOTHMK4_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5" AnimationPriority="90"/>
 					<Animation AnimationName="GUMAMMOTHMK4_BIDB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5" AnimationPriority="90"/>
 					<Animation AnimationName="GUMAMMOTHMK4_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.7" AnimationPriority="50"/>
@@ -264,19 +263,18 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="GUMAMMOTHMK4_DIEA" AnimationMode="ONCE"/>
-					<FXEvent Frame="60" Effect="FXGuardianTankDigInDust" Bone="Railgun_L" FireWhenSkipped="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Animation AnimationName="GUMAMMOTHMK4_BIDA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="GUMAMMOTHMK4_WLKA" AnimationMode="LOOP" Distance="45"/>
 					<FXEvent Frame="50" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FR" FireWhenSkipped="true"/>
 					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RR" FireWhenSkipped="true"/>
 					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FL" FireWhenSkipped="true"/>
 					<FXEvent Frame="50" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RL" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="GUMAMMOTHMK4_WLKA" AnimationMode="LOOP" Distance="45"/>
 					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FR" FireWhenSkipped="true"/>
 					<FXEvent Frame="50" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RR" FireWhenSkipped="true"/>
@@ -297,13 +295,18 @@
 					<FXEvent Frame="50" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FL" FireWhenSkipped="true"/>
 					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RL" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
 					<Animation AnimationName="GUMAMMOTHMK4_ACCL" AnimationMode="ONCE"/>
-					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FR" FireWhenSkipped="true"/>
-					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RL" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
 					<Animation AnimationName="GUMAMMOTHMK4_DECL" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING ATTACKING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="GUMAMMOTHMK4_WLKA" AnimationMode="LOOP" Distance="45"/>
+					<FXEvent Frame="50" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FR" FireWhenSkipped="true"/>
+					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RR" FireWhenSkipped="true"/>
+					<FXEvent Frame="25" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_FL" FireWhenSkipped="true"/>
+					<FXEvent Frame="50" Effect="FX_GDIMammothMechFootprint" Bone="B_FOOT_RL" FireWhenSkipped="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="GUMAMMOTHMK4_WLKA" AnimationMode="LOOP" Distance="45"/>
@@ -318,34 +321,36 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTL") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTR") </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTL") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTR") </Script>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTL") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTR") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
-					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTL") CurDrawableHideSubObjectPermanently("FLASHINGLIGHTR") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTL") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTR") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTL") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTR") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTL") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTR") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTL") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTR") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
 					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTL") CurDrawableShowSubObjectPermanently("FLASHINGLIGHTR") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
@@ -408,55 +413,52 @@
 			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2Gun"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2GunHEAmmo" ObjectStatus="RIDER3"/>
 					<TurretSettings TurretTurnRate="180" TurretPitchRate="90" MinimumPitch="-80d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" MaxDeflectionClockwise="120d" MaxDeflectionAntiClockwise="120d" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true" ParentID="4">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2RocketPods"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2ThermobaricRocketPods" ObjectStatus="RIDER1"/>
 					<TurretSettings TurretTurnRate="120" TurretPitchRate="60" MinimumPitch="-15d" PitchHeight="90%" MaxDeflectionAntiClockwise="50d" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
 				<WeaponSlotHierarchicalTurret ID="3" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true" ParentID="5">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2RocketPods"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2ThermobaricRocketPods" ObjectStatus="RIDER1"/>
 					<TurretSettings TurretTurnRate="120" TurretPitchRate="60" MinimumPitch="-15d" PitchHeight="90%" MaxDeflectionClockwise="50d" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
 				<WeaponSlotHierarchicalTurret ID="4" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2RailCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2RailCannonAccelerated" ObjectStatus="WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="25" TurretPitchRate="40" MinimumPitch="-45d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="10" MaxDeflectionClockwise="25d" MaxDeflectionAntiClockwise="15d" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
 				<WeaponSlotHierarchicalTurret ID="5" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2RailCannon2"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2RailCannon2Accelerated" ObjectStatus="WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="25" TurretPitchRate="40" MinimumPitch="-45d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="10" MaxDeflectionClockwise="15d" MaxDeflectionAntiClockwise="25d" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
 				<WeaponSlotTurret ID="6" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2AARailgun"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMammothMk2AARailgunAccelerated" ObjectStatus="WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" MinimumPitch="5d" PitchHeight="75%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>GDIMammothMK2DummyDrone</SpawnTemplate>
-			</SpawnBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<LaserState id="ModuleTag_LaserState2" LaserId="2"/>
 			<LaserState id="ModuleTag_LaserState3" LaserId="3"/>
@@ -467,62 +469,54 @@
 			<CreateObjectDie id="ModuleTag_CreateObjectDieUpgraded" CreationList="GDIMammothMechDieOCLAdaptive">
 				<DieMuxData RequiredStatus="RIDER2" DeathTypes="ALL"/>
 			</CreateObjectDie>
-			<DestroyDie id="ModuleTag_DestroyDie">
+			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIMammothExplodeWithVoice"/>
 			</FXListBehavior>
-			<StatusBitsUpgrade id="ModuleTag_ADAR" StatusToSet="RIDER2">
-				<TriggeredBy>Upgrade_AdaptiveArmor</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER3">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER4">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER4">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="UG_AMMO">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</AudioLoopUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER3">
-				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_ADARDeathUpgrade" StatusToSet="RIDER2">
+				<TriggeredBy>Upgrade_AdaptiveArmor</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="RIDER4">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="RIDER4">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="RIDER4">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER4">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
-				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
-			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailgunAcceleratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIWolverineFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="19500"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="19000"/>
 		</Body>
 		<ClientBehaviors>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_WLKA" Frame="0 25"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_HTRR" Frame="0 30"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_HTRL" Frame="0 30"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_DECL" Frame="0"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_ACCL" Frame="0"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_DIEA" Frame="0"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_BIFA" Frame="0 75"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_BIFB" Frame="0"/>
-				<Sound Sound="NOD_Redeemer_Footstep" Animation="GUMAMMOTHMK4_BIFC" Frame="0"/>
+				<Sound Sound="NOD_AvatarWarMech_Footstep2" Animation="GUMAMMOTHMK4_BIFA" Frame="0 75"/>
+				<Sound Sound="NOD_AvatarWarMech_Footstep2" Animation="GUMAMMOTHMK4_BIFB" Frame="0"/>
+				<Sound Sound="NOD_AvatarWarMech_Footstep2" Animation="GUMAMMOTHMK4_BIFC" Frame="0"/>
 			</AnimationSoundClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
@@ -561,7 +555,7 @@
 			<AudioEntry Sound="GDI_Juggernaught_MoveStartMS" AudioType="soundMoveStart"/>
 			<AudioEntry Sound="PredatorIdleLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="425" ShroudClearingRange="500"/>
-		<CrusherInfo CrusherLevel="4" CrushableLevel="4" CrushDecelerationPercent="25%"/>
+		<VisionInfo VisionRange="425" ShroudClearingRange="450"/>
+		<CrusherInfo CrusherLevel="4" CrushableLevel="4" CrushDecelerationPercent="40%"/>
 	</GameObject>
 </AssetDeclaration>

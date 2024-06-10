@@ -78,9 +78,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="GUAIRCRAFTF_FP"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8">
 					<Model Name="GUAIRCRAFTF_SKNADAR"/>
 					<Texture Original="GUAircraftF" New="GUAircraftF_D"/>
@@ -159,6 +157,7 @@
 					<ParticleSysBone BoneName="B_EngineRR" FXParticleSystemTemplate="Venomexhaust" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
 					<Animation AnimationName="GUAIRCRAFTF_TRNL" AnimationMode="LOOP" AnimationBlendTime="30"/>
 				</AnimationState>
@@ -180,13 +179,9 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUAIRCRAFTF_RDR_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8">
 					<Model Name="GUAIRCRAFTF_RDR_SKNADAR"/>
 					<Texture Original="GBCommandPost" New="GBCommandPostD"/>
 				</ModelConditionState>
@@ -197,133 +192,132 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUAIRCRAFTF_RDR_SKNADAR"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="GUAIRCRAFTF_RDR" AnimationMode="LOOP" AnimationSpeedFactorMin="2" AnimationSpeedFactorMax="2"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GUAIRCRAFTF_RDR" AnimationMode="LOOP" AnimationSpeedFactorMin="2" AnimationSpeedFactorMax="2"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GUAIRCRAFTF_RDR" AnimationMode="LOOP" AnimationSpeedFactorMin="2" AnimationSpeedFactorMax="2"/>
-				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableShowSubObjectPermanently("FXGLOWS") CurDrawableShowSubObjectPermanently("FXGLOWS01") CurDrawableShowSubObjectPermanently("FXGLOWS02") CurDrawableShowSubObjectPermanently("FXGLOWS03") CurDrawableShowSubObjectPermanently("FXGLOWS04") CurDrawableShowSubObjectPermanently("FXGLOWS05") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") CurDrawableHideSubObjectPermanently("FXGLOWS01") CurDrawableHideSubObjectPermanently("FXGLOWS02") CurDrawableHideSubObjectPermanently("FXGLOWS03") CurDrawableHideSubObjectPermanently("FXGLOWS04") CurDrawableHideSubObjectPermanently("FXGLOWS05") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("FXGLOWS") CurDrawableHideSubObjectPermanently("FXGLOWS01") CurDrawableHideSubObjectPermanently("FXGLOWS02") CurDrawableHideSubObjectPermanently("FXGLOWS03") CurDrawableHideSubObjectPermanently("FXGLOWS04") CurDrawableHideSubObjectPermanently("FXGLOWS05") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" ExtraPublicBone="B_EngineRF B_EngineLF">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_EngineRF" AttachToBoneInAnotherModule="B_EngineRF">
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust" FollowBone="true"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIAircraft_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_EngineLF" AttachToBoneInAnotherModule="B_EngineLF">
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust" FollowBone="true"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIAircraft_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakFirestormThunderCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="120" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-55d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="-45d" MaxDeflectionAntiClockwise="90d" MaxDeflectionClockwise="90d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-				<WeaponSlotTurret ID="2">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakFirestormThunderCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="120" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-55d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="45d" MaxDeflectionAntiClockwise="90d" MaxDeflectionClockwise="90d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-				<WeaponSlotTurret ID="3">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakFirestormThunderCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="120" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-55d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="45d" MaxDeflectionAntiClockwise="135d" MaxDeflectionClockwise="90d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-				<WeaponSlotTurret ID="4">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegun"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegunHEAmmo" ObjectStatus="WEAPON_UPGRADED_02"/>
-					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" MaxDeflectionAntiClockwise="60d" MaxDeflectionClockwise="60d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-				<WeaponSlotTurret ID="5">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegun"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegunHEAmmo" ObjectStatus="WEAPON_UPGRADED_02"/>
-					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="45d" MaxDeflectionAntiClockwise="60d" MaxDeflectionClockwise="60d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-				<WeaponSlotTurret ID="6">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegun"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegunHEAmmo" ObjectStatus="WEAPON_UPGRADED_02"/>
-					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="180d" MaxDeflectionAntiClockwise="45d" MaxDeflectionClockwise="45d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_GDIKodiakAdaptiveDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
-				<FX Type="INITIAL">
-					<FX>FX_GDI_Kodiak_VoiceDie</FX>
-				</FX>
-			</SlowDeath>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<!-- Normal Dying -->
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIKodiakDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Kodiak_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<!-- Upgraded Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIKodiakAdaptiveDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4"/>
 				<FX Type="INITIAL">
 					<FX>FX_GDI_Kodiak_VoiceDie</FX>
 				</FX>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event FX="FX_GDIAirVehicleExplode"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakFirestormThunderCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="120" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-55d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="-45d" MaxDeflectionAntiClockwise="90d" MaxDeflectionClockwise="90d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakFirestormThunderCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="120" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-55d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="45d" MaxDeflectionAntiClockwise="90d" MaxDeflectionClockwise="90d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="3">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakFirestormThunderCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="120" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-55d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="45d" MaxDeflectionAntiClockwise="135d" MaxDeflectionClockwise="90d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="4">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegun"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegunHEAmmo" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" MaxDeflectionAntiClockwise="60d" MaxDeflectionClockwise="60d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="5">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegun"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegunHEAmmo" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="45d" MaxDeflectionAntiClockwise="60d" MaxDeflectionClockwise="60d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="6">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegun"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIKodiakMachinegunHEAmmo" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0" NaturalTurretAngle="180d" MaxDeflectionAntiClockwise="45d" MaxDeflectionClockwise="45d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_KodiakBuilt"/>
+			<UpgradeDie id="ModuleTag_UpgradeDie" UpgradeId="Upgrade_KodiakBuilt">
+				<DieMuxData DeathTypes="ALL"/>
+			</UpgradeDie>
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -336,19 +330,14 @@
 			<AudioLoopUpgrade id="ModuleTag_OverkillAudioLoop" SoundToPlay="GDI_Overkill_Upgrade">
 				<TriggeredBy>Upgrade_GDIOverkill</TriggeredBy>
 			</AudioLoopUpgrade>
-			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_KodiakBuilt"/>
-			<UpgradeDie id="ModuleTag_UpgradeDie" UpgradeId="Upgrade_KodiakBuilt">
-				<DieMuxData DeathTypes="ALL"/>
-			</UpgradeDie>
 			<StatusBitsUpgrade id="ModuleTag_AdaptiveArmorDeathUpgrade" StatusToSet="RIDER4">
 				<TriggeredBy>Upgrade_AdaptiveArmor</TriggeredBy>
 			</StatusBitsUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -358,7 +347,7 @@
 			<Shape Type="BOX" MajorRadius="50.0" MinorRadius="15" Height="20.0" ContactPointGeneration="VEHICLE">
 				<Offset x="5" y="0" z="0"/>
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="15.0" MinorRadius="15" Height="20.0" ContactPointGeneration="VEHICLE">
+			<Shape Type="CYLINDER" MajorRadius="15.0" Height="20.0" ContactPointGeneration="VEHICLE">
 				<Offset x="0" y="23" z="0"/>
 			</Shape>
 			<Shape Type="BOX" MajorRadius="55.0" MinorRadius="10" Height="20.0" ContactPointGeneration="VEHICLE">
@@ -390,6 +379,6 @@
 			<AudioEntry Sound="GDI_Kodiak_MoveStart" AudioType="soundMoveStart"/>
 			<AudioEntry Sound="GDI_Kodiak_MoveLoopSound" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="400" ShroudClearingRange="450"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

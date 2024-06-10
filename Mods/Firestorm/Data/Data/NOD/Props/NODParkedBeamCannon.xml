@@ -1,5 +1,5 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODParkedBeamCannon" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODBeamCannon" ButtonImage="Portrait_NODBeamCannon" EditorName="NODParkedBeamCannon" EditorSorting="MISC_MAN_MADE" Description="Desc:NODBeamCannon" TypeDescription="Type:NODBeamCannon" ThreatLevel="1">
+	<GameObject id="NODParkedBeamCannon" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS VEHICLE" SelectPortrait="Portrait_NODBeamCannon" ButtonImage="Portrait_NODBeamCannon" EditorName="NODParkedBeamCannon" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedVehicle" ThreatLevel="1">
 		<DisplayName>Name:NODBeamCannon</DisplayName>
 		<ArmorSet Armor="GenericVehicleArmor_DozerBlade" DamageFX="VehicleDamageFX"/>
 		<Draws>
@@ -9,12 +9,14 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="NUBEAMCANNONR_SKN"/>
-					<ParticleSysBone BoneName="CHASIS01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="CHASIS01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="CHASIS01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_HULLREAR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ARMOR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_DOZERBLADE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="NUBEAMCANNON_SKN"/>
@@ -41,40 +43,48 @@
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") CurDrawableShowSubObject("DOZERSTOP") CurDrawableHideSubObject("DOZERMOVE") CurDrawableHideSubObject("DOZERBACK") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DeathFX">
+			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMAMM_FX"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7.5s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODBasiliskBeamDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
 			</FXListBehavior>
-			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
+			<Physics id="ModuleTag_Physics"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
 		</Body>
-		<Geometry IsSmall="true">
-			<Shape Type="BOX" MajorRadius="19" MinorRadius="10.0" Height="11.5" ContactPointGeneration="VEHICLE"/>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="16" MinorRadius="8.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+			<Shape Type="BOX" MajorRadius="18.5" MinorRadius="4.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="9.925539" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="18.5" MinorRadius="4.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="-9.925539" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="11" MinorRadius="6.0" Height="8.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-1" y="0" z="10"/>
+			</Shape>
 		</Geometry>
 		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
 		<CrusherInfo CrushableLevel="2"/>
 	</GameObject>
 </AssetDeclaration>

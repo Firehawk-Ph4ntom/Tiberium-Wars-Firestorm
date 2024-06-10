@@ -8,7 +8,7 @@
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
 		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryAlienDamageFX"/>
-		<LocomotorSet Locomotor="AlienRazorDroneLocomotor" Condition="NORMAL" Speed="70"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="70"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseYAxisForTurretRotation="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -16,22 +16,22 @@
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMuzzle"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMuzzle"/>
 					<Turret TurretNameKey="B_TURRET" TurretPitch="B_TILT" TurretID="1"/>
+					<Turret TurretID="2"/>
 				</ModelConditionState>
 				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
-					<Model Name="AURazDro_SKN"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDALIEN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
 					<Animation AnimationName="AURazDro_BIDB" AnimationMode="ONCE" AnimationPriority="80" AnimationBlendTime="15"/>
 					<Animation AnimationName="AURazDro_BIFA" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="5"/>
+					<Animation AnimationName="AURazDro_BIFB" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="5"/>
 					<Animation AnimationName="AURazDro_BIFC" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="5"/>
 					<Animation AnimationName="AURazDro_BIFE" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="5"/>
 					<Animation AnimationName="AURazDro_BIFF" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "ATNB" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
 					<Animation AnimationName="AURazDro_CDTA" AnimationMode="ONCE"/>
@@ -43,48 +43,55 @@
 					<Animation AnimationName="AURazDro_KDIA" AnimationMode="ONCE"/>
 					<Animation AnimationName="AURazDro_KDIB" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="AURazDro_DIEA" AnimationMode="ONCE"/>
 					<Animation AnimationName="AURazDro_DIEB" AnimationMode="ONCE"/>
 					<Animation AnimationName="AURazDro_DIEC" AnimationMode="ONCE"/>
 					<Animation AnimationName="AURazDro_DIED" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
-					<Animation AnimationName="AURazDro_RUNB" AnimationMode="LOOP" AnimationBlendTime="5" Distance="80"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToRun") end </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_Cover">
-					<Animation AnimationName="AURazDro_KAKA" AnimationMode="LOOP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
+					<Animation AnimationName="AURazDro_KAKA" AnimationMode="ONCE" UseWeaponTiming="true" AnimationBlendTime="10"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ENGAGED" StateName="STATE_Cover">
+					<Animation AnimationName="AURazDro_KAKA" AnimationMode="MANUAL" AnimationBlendTime="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" AllowRepeatInRandomPick="true" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
 					<Animation AnimationName="AURazDro_KAIA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
 					<Animation AnimationName="AURazDro_KAFA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_RunToCover") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_RunToCover") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING FIRING_OR_PREATTACK_A" StateName="STATE_Run" Flags="RANDOMSTART">
-					<Animation AnimationName="AURazDro_RUNB" AnimationMode="LOOP" AnimationBlendTime="5" Distance="80"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToRun") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING ENGAGED" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AURazDro_RUNA" AnimationMode="LOOP" Distance="80" AnimationPriority="30" AnimationBlendTime="10"/>
 					<Animation AnimationName="AURazDro_RUNB" AnimationMode="LOOP" Distance="80" AnimationPriority="30" AnimationBlendTime="10"/>
 					<Animation AnimationName="AURazDro_RUNC" AnimationMode="LOOP" Distance="80" AnimationPriority="25" AnimationBlendTime="5"/>
-					<Animation AnimationName="AURazDro_RUNC" AnimationMode="LOOP" Distance="80" AnimationPriority="20" AnimationBlendTime="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToRun") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToRun") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AURazDro_RUNA" AnimationMode="LOOP" Distance="80" AnimationPriority="30" AnimationBlendTime="10"/>
+					<Animation AnimationName="AURazDro_RUNB" AnimationMode="LOOP" Distance="80" AnimationPriority="30" AnimationBlendTime="10"/>
+					<Animation AnimationName="AURazDro_RUNC" AnimationMode="LOOP" Distance="80" AnimationPriority="25" AnimationBlendTime="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToRun") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
 					<Animation AnimationName="AURazDro_ATKA" AnimationMode="ONCE" UseWeaponTiming="true" AnimationBlendTime="10"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED" StateName="STATE_Selected">
 					<Animation AnimationName="AURazDro_ATKA" AnimationMode="MANUAL" AnimationBlendTime="10"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
-					<Animation AnimNickName="ATNB" AnimationName="AURazDro_AIDA" AnimationMode="ONCE" AnimationPriority="80"/>
-					<Animation AnimNickName="ATNB" AnimationName="AURazDro_AIFA" AnimationMode="ONCE" AnimationPriority="40"/>
-					<Animation AnimNickName="ATNB" AnimationName="AURazDro_AIFB" AnimationMode="ONCE" AnimationPriority="40"/>
-					<Animation AnimNickName="ATNB" AnimationName="AURazDro_AIFC" AnimationMode="ONCE" AnimationPriority="30"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_boredToAttention") end; </Script>
+					<Animation AnimationName="AURazDro_AIDA" AnimationMode="ONCE" AnimationPriority="80"/>
+					<Animation AnimationName="AURazDro_AIFA" AnimationMode="ONCE" AnimationPriority="40"/>
+					<Animation AnimationName="AURazDro_AIFB" AnimationMode="ONCE" AnimationPriority="40"/>
+					<Animation AnimationName="AURazDro_AIFC" AnimationMode="ONCE" AnimationPriority="30"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_boredToAttention">
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
 					<Animation AnimationName="AURazDro_BATB" AnimationMode="ONCE" AnimationBlendTime="5"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
@@ -99,29 +106,49 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="RRLEG2">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="RLLEG2">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles3">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<LaserDraw id="ModuleTag_LaserDraw" Texture1_UTile="1" Texture1_VTile=".5" Texture1_UScrollRate="0" Texture1_VScrollRate=".2" Texture1_NumFrames="1" Texture1_FrameRate="30" Texture2_UTile="1" Texture2_VTile=".3" Texture2_UScrollRate="0" Texture2_VScrollRate=".7" Texture2_NumFrames="1" Texture2_FrameRate="30" LaserWidth="8" LaserStateID="1">
@@ -202,46 +229,59 @@
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Disintegrator_SoundDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_AlienInfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Disintegrator_SoundDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" Fade="true" FadeDelay="1.75s" FadeTime="0.45s" DestructionDelay="2.25s">
+				<DieMuxData DeathTypes="DETONATED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
+				<Event Index="onDeath" FX="FX_AlienBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorDroneWeapon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorDroneWeapon_BlueIchorInfused" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="200" MinimumPitch="-5d" PitchHeight="90%" AllowsPitch="true" MaxDeflectionAntiClockwise="95d" MaxDeflectionClockwise="95d">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorDroneForceFireDummyWeapon"/>
+					<TurretSettings TurretTurnRate="200" MaxDeflectionAntiClockwise="95d" MaxDeflectionClockwise="95d">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
 			<SweepingLaserState id="ModuleTag_LaserState" LaserId="1" Radius="15" SweepFXList="FX_AlienBuzzerHit" VeteranSweepFXList="FX_AlienBuzzerHitHeroic" SweepWeapon="AlienRazorDroneSweepWeapon"/>
 			<SweepingLaserState id="ModuleTag_LaserState2" LaserId="2" Radius="15" SweepFXList="FX_AlienBuzzerHit" VeteranSweepFXList="FX_AlienBuzzerHitHeroic" SweepWeapon="AlienRazorDroneBlueIchorSweepWeapon"/>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
-				<Sound Type="INITIAL" List="ALI_Disintegrator_SoundDie"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
-				<Event FX="FX_AlienBlood"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
-				<Event FX="FX_InfScorch"/>
-			</FXListBehavior>
-			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
-					<OCL>OCL_AlienInfGibs</OCL>
-				</OCL>
-				<Sound List="ALI_Disintegrator_SoundDie"/>
-				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
-			</SlowDeath>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="AlienRazorDroneDeathMine">
-				<DieMuxData DeathTypes="DETONATED EXPLODED BURNED LASERED"/>
-			</FireWeaponWhenDead>
-			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" Fade="true" FadeDelay="1.75s" FadeTime="0.45s" DestructionDelay="2.25s">
-				<DieMuxData DeathTypes="DETONATED"/>
-			</SlowDeath>
 			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>ALI_RazorDrone</Key>
 			</LargeGroupAudioUpdate>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="AlienRazorDroneDeathBomb">
+				<DieMuxData DeathTypes="DETONATED EXPLODED BURNED LASERED"/>
+			</FireWeaponWhenDead>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -249,23 +289,11 @@
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
-			</StatusBitsUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CheckVisionRange="true" CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CheckVisionRange="true" CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>

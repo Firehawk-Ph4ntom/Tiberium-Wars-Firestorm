@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
 	</Includes>
-	<GameObject id="TiberiumSpike" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralTiberiumSpike" ButtonImage="Portrait_NeutralTiberiumSpike" Side="Neutral" BuildTime="15" CommandSet="TibSpikeCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_CASH_PRODUCER FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE" EditorName="TiberiumSpike" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingTiberiumSpike">
+	<GameObject id="TiberiumSpike" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralTiberiumSpike" ButtonImage="Portrait_NeutralTiberiumSpike" CommandSet="GenericStructureSelfRepairCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_CASH_PRODUCER FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE" EditorName="TiberiumSpike" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingTiberiumSpike">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TechBuildingTiberiumSpike</DisplayName>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<Draws>
@@ -20,37 +20,44 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="TBTibSpk_D1"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" StateName="STATE_bored">
-					<Animation AnimationName="TBTibSpk_AN" AnimationMode="ONCE" AnimationPriority="10"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="TBTibSpk_AN" AnimationMode="LOOP" AnimationPriority="10"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="TBTibSpk_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="TBTibSpk_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="TBTibSpk_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="TBTibSpk_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="TiberiumSpikeOCL">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
 			</CreateObjectDie>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" InitialCaptureBonus="500" DepositInterval="1s" DepositAmount="10" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
 			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="1500" OnDieSpawnPercentage="25"/>
-			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" InitialCaptureBonus="750" DepositInterval="1s" DepositAmount="15" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
@@ -59,34 +66,10 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="20.7703" MinorRadius="20.7703" Height="20.2843"/>
-			<Shape Type="BOX" MajorRadius="10.3081" MinorRadius="10.3081" Height="104.6667">
+			<Shape Type="CYLINDER" MajorRadius="20.7703" Height="20.2843" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="10.3081" MinorRadius="10.3081" Height="104.6667" ContactPointGeneration="STRUCTURE">
 				<Offset z="20.2845" />
 			</Shape>
-			<ContactPoint>
-				<Pos x="-5.9209" y="-6.0696"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="4.9307" y="-6.0696" z="119.205"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="4.9307" y="4.782"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-5.9209" y="4.782" z="119.205"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-5.9209" y="-6.0696" z="119.205"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="4.9307" y="-6.0696"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="4.9307" y="4.782" z="119.205"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-5.9209" y="4.782"/>
-			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="TiberiumSpike_Select" AudioType="voiceSelect"/>

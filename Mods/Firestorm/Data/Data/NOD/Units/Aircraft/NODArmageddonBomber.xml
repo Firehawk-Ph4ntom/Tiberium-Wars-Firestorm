@@ -7,61 +7,62 @@
 	<GameObject id="NODArmageddonBomber" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODArmageddonBomber" ButtonImage="Portrait_NODArmageddonBomber" Side="NOD" BuildCost="10" BuildTime="1.0" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR SUMMONED NO_COLLIDE" VoicePriority="-4" EditorName="NODArmageddonBomber" Description="Desc:NODArmageddonBomber" TypeDescription="Type:NODArmageddonBomber">
 		<DisplayName xai:joinAction="Replace">Name:NODCarryall</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Locomotor="NODArmageddonBomberLocomotor" Condition="NORMAL" Speed="300.0"/>
+		<LocomotorSet Locomotor="GenericJetAircraftLocomotor" Condition="NORMAL" Speed="300.0"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="30"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUArmag_SKN_FS"/>
 					<ParticleSysBone BoneName="FX_BOMB" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUArmag_SKN_FS"/>
 					<Texture Original="NUArmag" New="NUArmagD"/>
-					<ParticleSysBone BoneName="Bone_Engine_LF" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="orcadamagefire" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="orcadamagesmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="NUArmag_SKN_FS"/>
 					<Texture Original="NUArmag" New="NUArmagD"/>
-					<ParticleSysBone BoneName="Bone_Engine_LF" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUArmag_IDLA" AnimationMode="LOOP"/>
+					<Animation AnimationName="NUArmag_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUArmag_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUArmag_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUArmag_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUArmag_TRNR" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimNickName="HVRA" AnimationName="NUArmag_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUArmag_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
-			<RunOffMapBehavior id="ModuleTag_RunOffMapBehavior" RequiresSpecificTrigger="true" FlyingOffMap="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODArmageddonBomberInitialDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="NOD_Generic_VoiceDieMS2"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<RunOffMapBehavior id="ModuleTag_RunOffMapBehavior" RequiresSpecificTrigger="true" FlyingOffMap="true"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<JetAIUpdate id="ModuleTag_AI" CirclesForAttack="true" AutoAcquireEnemiesWhenIdle="NO">
+				<LockonInfo/>
+			</JetAIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000"/>
@@ -73,8 +74,8 @@
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="15.5" MinorRadius="15.5" Height="7.0"/>
-			<Shape Type="BOX" MajorRadius="22.0" MinorRadius="6.0" Height="7.0"/>
+			<Shape Type="CYLINDER" MajorRadius="15.5" Height="7.0" ContactPointGeneration="VEHICLE"/>
+			<Shape Type="BOX" MajorRadius="22.0" MinorRadius="6.0" Height="7.0" ContactPointGeneration="VEHICLE"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="NOD_Carryall_VoiceCreate" AudioType="voiceCreated"/>
@@ -89,6 +90,6 @@
 			<AudioEntry Sound="NOD_CarryAll_MoveLoop" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventPromotedOwner="" EvaEventDieOwner=""/>
-		<VisionInfo VisionRange="100" ShroudClearingRange="600"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
 	</GameObject>
 </AssetDeclaration>

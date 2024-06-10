@@ -1,10 +1,9 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
-	<GameObject id="NODLaserCannonSpawn" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_NODLaserTurret" ButtonImage="Portrait_NODLaserTurret" Side="NOD" BuildCost="400" BuildTime="4" CommandSet="GDIWatchTowerCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED AUTO_ACQUIRABLE_BY_AI COVER CAN_ATTACK NOT_SELLABLE KEEP_CLASSIFIED_WHEN_DEAD ATTACK_NEEDS_LINE_OF_SIGHT CANT_TOGGLE_POWER CAN_SEE_THROUGH_STRUCTURE FS_BASE_DEFENSE LINE_OF_SIGHT_IGNORES_BUILDINGS" PlacementViewAngle="225d" EditorName="NODLaserTurret" Description="Desc:NODLaserCannonSpawn" WeaponCategory="CANNON" TypeDescription="Type:NODLaserCannon">
+	<GameObject id="NODLaserCannonSpawn" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_NODLaserTurret" ButtonImage="Portrait_NODLaserTurret" Side="NOD" BuildCost="400" BuildTime="4" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED AUTO_ACQUIRABLE_BY_AI COVER CAN_ATTACK NOT_SELLABLE KEEP_CLASSIFIED_WHEN_DEAD ATTACK_NEEDS_LINE_OF_SIGHT CANT_TOGGLE_POWER CAN_SEE_THROUGH_STRUCTURE FS_BASE_DEFENSE LINE_OF_SIGHT_IGNORES_BUILDINGS" PlacementViewAngle="225d" EditorName="NODLaserTurret" Description="Desc:NODLaserCannonSpawn" WeaponCategory="CANNON" TypeDescription="Type:NODLaserCannon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODLaserCannon</DisplayName>
 		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
@@ -30,32 +29,33 @@
 					<Model Name="NBLsrCann_SKN_FS"/>
 					<Texture Original="NBLsrCann" New="NBLsrCannD"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="NBLsrCann_IDLA" AnimationMode="ONCE"/>
-				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<Animation AnimationName="NBLsrCann_BLD" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="NBLsrCann_BLD" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REPAIRING_DISABLED" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
-					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="ONCE"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
+					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="MANUAL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBLsrCann_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NBLsrCann_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBLsrCann_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20">
@@ -124,16 +124,9 @@
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODLaserCannonWeapon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODLaserCannonPurifyingWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="360" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="180.0">
-						<TurretAITargetChooserData StartupDelay="1.5s"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-			</WeaponSetUpdate>
-			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="7.0s">
+				<DieMuxData DeathTypes="SUICIDED"/>
+			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_NOD_DefensiveTurret_Explode"/>
@@ -141,40 +134,41 @@
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
 			</FXListBehavior>
-			<SlavedUpdate id="ModuleTag_SlavedUpdate" DieOnMastersDeath="true" DieOnMastersDeathType="SUICIDED"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODLaserCannonWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODLaserCannonPurifyingWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="360" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="180.0">
+						<TurretAITargetChooserData StartupDelay="1.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="7.0s">
-				<DieMuxData DeathTypes="SUICIDED"/>
-			</SlowDeath>
+			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" DieOnMastersDeath="true" DieOnMastersDeathType="SUICIDED"/>
 			<KeepObjectDie id="ModuleTag_KeepObjectForRepair">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
 			</KeepObjectDie>
 			<InitiateRepairDie id="ModuleTag_InitiateRepair" DelayTime="20s" Options="REPAIR_INSTANT" InstantRepairModelCondition="USER_1" InstantRepairAnimDuration="1.5s" MasterDeadDieFX="FX_TEMPLarge">
 				<Die DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
 			</InitiateRepairDie>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepairNODDefenseSpawns.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepairNODDefenseSpawns.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>

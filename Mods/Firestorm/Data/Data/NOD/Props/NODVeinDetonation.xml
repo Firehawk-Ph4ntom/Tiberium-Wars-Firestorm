@@ -1,4 +1,37 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Vein Det Dummy -->
+	<GameObject id="NODVeinDetonationDummy" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" Side="NOD" EditorName="NODVeinDetonationDummy" EditorSorting="SYSTEM">
+		<DisplayName>NODVeinDetonation</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NODVeinDetonation">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="2.5s" MaxLifetime="2.5s"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+		</Body>
+		<VisionInfo VisionRange="100" ShroudClearingRange="175"/>
+	</GameObject>
+	<!-- Vein Det Dummy Blue -->
+	<GameObject id="NODVeinDetonationDummyBlue" inheritFrom="NODVeinDetonationDummy" EditorName="NODVeinDetonationDummyBlue">
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_NODVeinDetonationBlue">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+		</Behaviors>
+	</GameObject>
 	<!-- Green Vein Det -->
 	<GameObject id="NODVeinDetonation" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" Side="NOD" EditorName="NODVeinDetonation" EditorSorting="SYSTEM">
 		<DisplayName>NODVeinDetonation</DisplayName>
@@ -18,9 +51,9 @@
 			</FireWeaponUpdate>
 		</Behaviors>
 		<Body>
-			<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
 		</Body>
-		<VisionInfo VisionRange="100" ShroudClearingRange="180"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="175"/>
 	</GameObject>
 	<!-- Blue Vein Det -->
 	<GameObject id="NODVeinDetonationBlue" inheritFrom="NODVeinDetonation" EditorName="NODVeinDetonationBlue">

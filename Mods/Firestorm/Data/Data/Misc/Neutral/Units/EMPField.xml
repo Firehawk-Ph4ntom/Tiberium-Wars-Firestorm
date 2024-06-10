@@ -5,7 +5,7 @@
 		<DisplayName>EMPField</DisplayName>
 		<ArmorSet Armor="NoArmor" />
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="" />
 				</ModelConditionState>
@@ -25,13 +25,21 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100" />
 		</Body>
 	</GameObject>
-	<!-- EMP Field for Air units (Specifically Scrin Air) -->
+	<!-- EMP Field for Air units (Specifically meant against shielded Scrin Air) -->
 	<GameObject id="EMPField_Air" inheritFrom="EMPField" EditorName="EMPField_Air">
 		<Behaviors>
 			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Remove"/>
 			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" xai:joinAction="Replace" MinLifetime="1s" MaxLifetime="1s" />
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="EMPControlCenterWeapon2" FireDelay="0s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+	</GameObject>
+	<!-- EMP Field for Air units (Specifically meant against shielded Scrin Air) -->
+	<GameObject id="IonCannonEMPField_Air" inheritFrom="EMPField_Air" EditorName="IonCannonEMPField_Air">
+		<Behaviors>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
+				<FireWeaponNugget WeaponName="IonCannonEMPFieldWeapon" FireDelay="0s" OneShot="true"/>
 			</FireWeaponUpdate>
 		</Behaviors>
 	</GameObject>

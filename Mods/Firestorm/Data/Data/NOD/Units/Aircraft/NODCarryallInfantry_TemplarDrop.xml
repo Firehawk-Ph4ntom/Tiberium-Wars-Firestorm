@@ -3,16 +3,19 @@
 		<!-- Base Object -->
 		<Include type="instance" source="NODCarryallInfantry.xml"/>
 	</Includes>
-	<GameObject id="NODCarryallInfantry_TemplarDrop" inheritFrom="NODCarryallInfantry" EditorName="NODCarryallInfantry_TemplarDrop" KindOf="CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE">
+	<GameObject id="NODCarryallInfantry_TemplarDrop" inheritFrom="NODCarryallInfantry" EditorName="NODCarryallInfantry_TemplarDrop" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE">
 		<Behaviors>
 			<HordeTransportContain xai:joinAction="Overwrite" id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true">
-				<PassengerFilter Rule="ANY" Include="INFANTRY"/>
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
 				<PassengerData BonePrefix="BONEGARRISON">
 					<Filter Rule="NONE" Include="INFANTRY"/>
 				</PassengerData>
 				<InitialPayload Name="NODBlackHandSquad_Veteran" Count="1"/>
 			</HordeTransportContain>
+			<StatusBitsUpgrade id="ModuleTag_Unselectable" xai:joinAction="Remove"/>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" xai:joinAction="Remove"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUpgrade" xai:joinAction="Remove"/>
 		</Behaviors>
 		<EvaEvents EvaEventDamagedOwner="ReinforcementsUnderAttack"/>
 	</GameObject>

@@ -17,9 +17,10 @@
 					<ParticleSysBone BoneName="Bone_01" FXParticleSystemTemplate="AUBuzzer" FollowBone="true"/>
 					<ParticleSysBone BoneName="Bone_02" FXParticleSystemTemplate="AUBuzzer" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name=""/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXBuzzer_FP"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1 USER_2">
 					<Model Name="AUBuzz_SKN"/>
 					<Texture Original="AUShkTrpr" New="AUShkTrpr_B"/>
@@ -46,7 +47,6 @@
 					<ParticleSysBone BoneName="Bone_00" FXParticleSystemTemplate="AUBuzzer_Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="Bone_01" FXParticleSystemTemplate="AUBuzzer_Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="Bone_02" FXParticleSystemTemplate="AUBuzzer_Blue" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<Model Name="AUBuzz_SKN"/>
@@ -54,10 +54,6 @@
 					<ParticleSysBone BoneName="Bone_00" FXParticleSystemTemplate="AUBuzzer_Green" FollowBone="true"/>
 					<ParticleSysBone BoneName="Bone_01" FXParticleSystemTemplate="AUBuzzer_Green" FollowBone="true"/>
 					<ParticleSysBone BoneName="Bone_02" FXParticleSystemTemplate="AUBuzzer_Green" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXBuzzer_FP"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
 					<Model Name="AUBUZZERSQUADMARKER"/>
@@ -65,46 +61,64 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="AUBuzz_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_CHILD" Flags="RANDOMSTART">
 					<Animation AnimationName="AUBuzzCombIdle" AnimationMode="LOOP" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A">
 					<Animation AnimationName="AUBuzz_ATKA" AnimationMode="LOOP"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusionBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusion"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="30" SizeY="30" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="2.4" DestructionDelay="4s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Buzzers_Die"/>
+			</SlowDeath>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienBuzzerWeapon"/>
@@ -113,29 +127,23 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienBuzzerWeapon_ClearGarrison" ObjectStatus="ATTACKING_GARRISONED_STRUCTURE"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<EmotionTrackerUpdate id="Module_ETU">
 				<TauntAndPointExcluded Rule="NONE"/>
 			</EmotionTrackerUpdate>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="2.4" DestructionDelay="4s">
-				<DieMuxData DeathTypes="ALL"/>
-				<Sound Type="INITIAL" List="ALI_Buzzers_Die"/>
-			</SlowDeath>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<CombineSpecialPower id="ModuleTag_CombineSpecialPower" SpecialPowerTemplate="SpecialPowerCombineWithUnit" UpdateModuleStartsAttack="false"/>
-			<AISpecialPowerUpdate id="ModuleTag_AlienCombineAI" CommandButtonName="Command_CombineWithUnit" SpecialPowerAIType="SPECIAL_POWER_BUFF_ALLY" SpecialPowerRadius="50.0" UnitKindOf="VEHICLE" AllyUnitExclude="AIRCRAFT EXPANSION_UNIT"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" xai:joinAction="Replace" AttributeModifier="AttributeModifier_TiberiumInfusion">
-				<CustomAnimAndDuration AnimState="USER_1"/>
-				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
-			</AttributeModifierUpgrade>
+			<AISpecialPowerUpdate id="ModuleTag_AlienCombineAI" CommandButtonName="Command_CombineWithUnit" SpecialPowerAIType="SPECIAL_POWER_BUFF_ALLY" SpecialPowerRadius="50.0" UnitKindOf="VEHICLE TIBERIUM_BASED HEALED_BY_TIBERIUM" AllyUnitExclude="EXPANSION_UNIT"/>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" CanAttackWhileContained="true">
-				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s"/>
+				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -163,7 +171,7 @@
 			<AudioEntry Sound="ALI_Buzzers_MoveStart2" AudioType="soundMoveStart"/>
 		</AudioArraySound>
 		<ShadowInfo Type="VOLUME"/>
-		<VisionInfo VisionRange="350" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="300" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="3" UseCrushAttack="false"/>
 	</GameObject>
 </AssetDeclaration>

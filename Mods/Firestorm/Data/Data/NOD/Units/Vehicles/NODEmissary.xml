@@ -1,5 +1,6 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUV_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUV_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUVR_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUVUPAK_SN_CTR.w3x"/>
@@ -21,54 +22,73 @@
 					<Model Name="NUSUV_SN_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="NUSUV_FP"/>
+					<Model Name="NUSUV_FP_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Model Name="NUSuvUPAK_SN_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="NUSUVR_SN_FS"/>
+					<ParticleSysBone BoneName="FXFIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUSUV_SN_FS"/>
 					<Texture Original="NUSuv" New="NUSuv_D"/>
+					<ParticleSysBone BoneName="FXFIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST" StateName="STATE_StartPak">
+					<Animation AnimationName="NUSuvUPAK_A" AnimationMode="ONCE_BACKWARDS"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_StartPak" and Prev ~= "TRANS_IntoPak" then CurDrawableSetTransitionAnimState("TRANS_IntoPak") end; </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" Flags="START_FRAME_LAST" StateName="TRANS_IntoPak">
+					<Animation AnimationName="NUSuvUPAK_C" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
+				</AnimationState>
 			</TruckDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TV">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
 					<FXEvent Frame="1" Effect="FX_PropagandaPulse" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="566" SizeY="566" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -77,13 +97,15 @@
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODSurveyorDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="NOD_Emmisary_VoiceDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
 			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<xi:include href="DATA:Includes/GenericUnpackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericUnpackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" CheckBuildAssistant="true">
@@ -91,18 +113,32 @@
 				<ReplacementTemplate>NODMiniMCVOutpost</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_EmissaryDeployOutpost" CommandButtonName="Command_UnPackEmissary" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
-			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
-			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Emissary_AttributeModifier" RefreshDelay="1s" Range="150" InitiallyActive="true">
+			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Emissary_AttributeModifier" RefreshDelay="1s" Range="250" InitiallyActive="true">
 				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
 			</AttributeModifierAuraUpdate>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2000.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
 		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="NOD_Emissary_Unpack3" Animation="NUSuvUPAK_A" Frame="2"/>
+				<Sound Sound="NOD_Emissary_Unpack2" Animation="NUSuvUPAK_A" Frame="20"/>
+				<Sound Sound="NOD_Emissary_Unpack1" Animation="NUSuvUPAK_A" Frame="78"/>
+				<Sound Sound="NOD_Emissary_UnpackMore6" Animation="NUSuvUPAK_C" Frame="2"/>
+				<Sound Sound="NOD_Emissary_UnpackMore5" Animation="NUSuvUPAK_C" Frame="18 68"/>
+				<Sound Sound="NOD_Emissary_UnpackMore4" Animation="NUSuvUPAK_C" Frame="19"/>
+				<Sound Sound="NOD_Emissary_UnpackMore3" Animation="NUSuvUPAK_C" Frame="45"/>
+				<Sound Sound="NOD_Emissary_UnpackMore2" Animation="NUSuvUPAK_C" Frame="55"/>
+				<Sound Sound="NOD_Emissary_UnpackMore1" Animation="NUSuvUPAK_C" Frame="75"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="15.5" MinorRadius="4.0" Height="18" ContactPointGeneration="VEHICLE">
 				<Offset x="-3" y="0" z="0"/>
@@ -115,10 +151,14 @@
 			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
-			<AudioEntry Sound="NOD_Emissary_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_Emissary_VoicePackedUp" AudioType="voiceCreated"/>
 			<AudioEntry Sound="NOD_Emissary_VoiceMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="NOD_Emissary_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="NOD_Emissary_VoiceSelectMS" AudioType="voiceSelect"/>
+			<!-- Triggered when built from NOD Conyard -->
+			<ObjectSpecificEntry Sound="NOD_Emissary_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="NODConstructionYard"/>
+			<!-- Triggered when built from Reinforcement Bay -->
+			<ObjectSpecificEntry Sound="NOD_Emissary_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="ReinforcementBay"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
 			<AudioEntry Sound="NOD_Emissary_MoveStart" AudioType="soundMoveStart"/>

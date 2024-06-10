@@ -1,0 +1,22 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="NODCarryallVehicle.xml"/>
+	</Includes>
+	<GameObject id="NODCarryallVehicle_PhantomStealthTank" inheritFrom="NODCarryallVehicle" EditorName="NODCarryallVehicle_PhantomStealthTank" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE">
+		<Behaviors>
+			<HordeTransportContain xai:joinAction="Overwrite" id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true">
+				<PassengerFilter Rule="NONE" Include="VEHICLE"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="VEHICLE"/>
+				</PassengerData>
+				<InitialPayload Name="NODStealthTank_Veteran" Count="1"/>
+			</HordeTransportContain>
+			<StatusBitsUpgrade id="ModuleTag_Unselectable" xai:joinAction="Remove"/>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" xai:joinAction="Remove"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUpgrade" xai:joinAction="Remove"/>
+		</Behaviors>
+		<EvaEvents EvaEventDamagedOwner="ReinforcementsUnderAttack"/>
+	</GameObject>
+</AssetDeclaration>

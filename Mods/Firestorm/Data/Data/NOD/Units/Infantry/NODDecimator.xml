@@ -1,0 +1,214 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDecimator.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDecimator_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDecimator_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDecimator_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDecimator_UG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDecimator_UGB.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_ATKA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_BIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_BIDB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_BIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_BIFB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_BIFC.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_BIFD.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_DIEB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODDecimator\NUDECIMATOR_WLKA.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="NODDecimator" inheritFrom="BaseInfantry" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY ATTACK_NEEDS_LINE_OF_SIGHT CAN_BE_FAVORITE_UNIT TIBERIUM_BASED HEALED_BY_TIBERIUM" Description="Desc:NODDecimator" TypeDescription="Type:NODDecimator" Side="NOD" EditorName="NODDecimator" ThreatLevel="10" BuildTime="4.5" SelectPortrait="Portrait_NODDecimator" ButtonImage="Portrait_NODDecimator" VoicePriority="92" WeaponCategory="MISSILE" UnitTypeIcon="MissilemenIcon" BuildCost="450" ProductionQueueType="VEHICLE">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODDecimator</DisplayName>
+		<DisplayUpgrade>Upgrade_NODTechCenterTibCoreMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_BlueTiberiumCatalyst</DisplayUpgrade>
+		<ArmorSet Armor="NODHeavyCyborgArmor" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Speed="55" Locomotor="HumanLocomotor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="FXMISSILE_01 FXMISSILE_02 FXMISSILEPOD_01 FXMISSILEPOD_02">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUDECIMATOR_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILE_"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILE_"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILEPOD_"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILEPOD_"/>
+					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMORTAR"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name="NUGARDECIMATOR"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILE_"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILE_"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILEPOD_"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMISSILEPOD_"/>
+					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMORTAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NUDECIMATOR_SKN"/>
+					<Texture Original="NUDecimator" New="NUDecimator_D"/>
+					<Texture Original="NUMech" New="NUMechD"/>
+					<ParticleSysBone BoneName="RR_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="RF_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="LF_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="LR_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="SPINE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="SPINE01" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="LEFT_ARM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="LEFT_ARM" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="RIGHT_FOREARM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="RIGHT_FOREARM" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUDECIMATOR_SKN"/>
+					<Texture Original="NUDecimator" New="NUDecimator_D"/>
+					<Texture Original="NUMech" New="NUMechD"/>
+					<ParticleSysBone BoneName="RR_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="RF_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="LF_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="LR_LEG" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="SPINE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="SPINE01" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="LEFT_ARM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="LEFT_ARM" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="RIGHT_FOREARM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="RIGHT_FOREARM" FXParticleSystemTemplate="HealingFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name="NUDECIMATOR_SKN"/>
+					<Texture Original="NUDecimator" New="NUDecimator_UGB"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NUDECIMATOR_SKN"/>
+					<Texture Original="NUDecimator" New="NUDecimator_UG"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="NUDECIMATOR_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5" AnimationPriority="80"/>
+					<Animation AnimationName="NUDECIMATOR_BIDB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5" AnimationPriority="80"/>
+					<Animation AnimationName="NUDECIMATOR_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.9" AnimationPriority="40"/>
+					<Animation AnimationName="NUDECIMATOR_BIFB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.9" AnimationPriority="20"/>
+					<Animation AnimationName="NUDECIMATOR_BIFC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.6" AnimationSpeedFactorMax="0.7" AnimationPriority="20"/>
+					<Animation AnimationName="NUDECIMATOR_BIFD" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.9" AnimationPriority="40"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUDECIMATOR_DIEA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.25" AnimationSpeedFactorMax="1.25"/>
+					<Animation AnimationName="NUDECIMATOR_DIEB" AnimationMode="ONCE" AnimationSpeedFactorMin="1.25" AnimationSpeedFactorMax="1.25"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="NUDECIMATOR_BIDA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" Flags="RANDOMSTART">
+					<Animation AnimationName="NUDECIMATOR_WLKA" AnimationMode="LOOP" Distance="20" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="NUDECIMATOR_WLKA" AnimationMode="LOOP" Distance="20" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WEAPONSLOTID_01">
+					<Animation AnimationName="NUDECIMATOR_ATKA" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
+					<Animation AnimationName="NUDECIMATOR_BIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="5s" DestructionDelay="7s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="NOD_CyborgGunner_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_RANDOM">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorRocketWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorTibCoreRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorBlueTibCoreRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorRocketAAWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorTibCoreRocketAAWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorBlueTibCoreRocketAAWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="3">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODDecimatorWebWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
+				<InvisibilityNugget/>
+				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
+				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
+			</StealthUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_TibCoreMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_TibCoreMissilesModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_TibCoreMissilesAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="600"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="NOD_Cyborg_Footstep1" Animation="NUDECIMATOR_WLKA" Frame="0 20"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="10" Height="15" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_SilentOne_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<AudioEntry Sound="NOD_SilentOne_VoiceSelectMS" AudioType="voiceSelect"/>
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
+			<ObjectSpecificEntry Sound="NOD_SilentOne_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="NOD_SilentOne_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
+		</AudioArrayVoice>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

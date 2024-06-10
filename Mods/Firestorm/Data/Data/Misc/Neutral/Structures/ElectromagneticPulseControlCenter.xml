@@ -32,36 +32,44 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBEMPD3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBEMPD2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="CBEMPD2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="CBEMPD3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 			</SlowDeath>
-			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForRepair="BuildingRepaired" EvaEventForCapture="EnemyBuildingCapturedPowersAvailable" FXForRepair="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured">
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
+			<!-- EMP Strike -->
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerEMP" SpecialPowerTemplate="SpecialPowerEMPControlCenter" UpdateModuleStartsAttack="true" AvailableAtStart="false" OCL="OCL_EMPControlCenterShroudRevealer" CreateLocation="CREATE_AT_LOCATION" TriggerFX="FX_EMP_ControlCenter_WeaponStart"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_WeaponFireSpecialAbilityUpdateEMP" UnpackTime="2s" PreparationTime="0.1s" PackTime="2s" SpecialPowerTemplate="SpecialPowerEMPControlCenter" SpecialWeapon="EMPControlCenterWeapon" WhichSpecialWeapon="1" DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
+			<AISpecialPowerUpdate id="ModuleTag_EMPControlCenterAI" CommandButtonName="Command_EMPControlCenterEMP" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForRepair="BuildingRepaired" EvaEventForCapture="EnemyBuildingCapturedPowersAvailable" FXForRepair="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ImmediatelyEnabled="true">
 				<CanEnterFilter Rule="NONE">
 					<IncludeThing>GDIEngineer</IncludeThing>
 					<IncludeThing>NODSaboteur</IncludeThing>
 					<IncludeThing>AlienAssimilator</IncludeThing>
 				</CanEnterFilter>
 			</EngineerContain>
-			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerEMP" SpecialPowerTemplate="SpecialPowerEMPControlCenter" UpdateModuleStartsAttack="true" AvailableAtStart="false" OCL="OCL_EMPControlCenterShroudRevealer" CreateLocation="CREATE_AT_LOCATION" TriggerFX="FX_EMP_ControlCenter_WeaponStart"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_WeaponFireSpecialAbilityUpdateEMP" UnpackTime="2s" PreparationTime="0.1s" PackTime="2s" SpecialPowerTemplate="SpecialPowerEMPControlCenter" SpecialWeapon="EMPControlCenterWeapon" WhichSpecialWeapon="1" DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
-			<AISpecialPowerUpdate id="ModuleTag_EMPControlCenterAI" CommandButtonName="Command_EMPControlCenterEMP" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
@@ -70,36 +78,31 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="17.889" MinorRadius="18.281" Height="68.8869" ContactPointGeneration="STRUCTURE">
-				<Offset z="17.9483"/>
+			<Shape Type="BOX" MajorRadius="37" MinorRadius="37" Height="18.5" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="10" Height="18.5" ContactPointGeneration="STRUCTURE">
+				<Offset x="38" y="38" z="0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="46.0929" MinorRadius="47.1028" Height="18.4735" ContactPointGeneration="STRUCTURE">
-				<Offset x="-2.05226" y="0.468147"/>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="10" Height="18.5" ContactPointGeneration="STRUCTURE">
+				<Offset x="38" y="-38" z="0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-36.5161" y="-35.037"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.6288" y="-35.0369" z="13.1842"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.6288" y="31.108"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-36.5161" y="31.108" z="13.1842"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-36.5161" y="-35.0369" z="13.1842"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.6288" y="-35.037"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.6288" y="31.108" z="13.1842"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-36.5161" y="31.108"/>
-			</ContactPoint>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="10" Height="18.5" ContactPointGeneration="STRUCTURE">
+				<Offset x="-38" y="38" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="10" Height="18.5" ContactPointGeneration="STRUCTURE">
+				<Offset x="-38" y="-38" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5" Height="87" ContactPointGeneration="STRUCTURE">
+				<Offset x="15" y="15" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5" Height="87" ContactPointGeneration="STRUCTURE">
+				<Offset x="15" y="-15" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5" Height="87" ContactPointGeneration="STRUCTURE">
+				<Offset x="-15" y="15" z="0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="5" Height="87" ContactPointGeneration="STRUCTURE">
+				<Offset x="-15" y="-15" z="0"/>
+			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="EMPControlCenter_Select" AudioType="voiceSelect"/>
@@ -109,6 +112,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="400" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

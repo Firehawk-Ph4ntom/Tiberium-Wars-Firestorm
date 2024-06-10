@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset"	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Includes>
-		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
-	</Includes>
 	<GameObject
 		id="NODPowerStore"
 		Side="NOD"
@@ -50,7 +47,7 @@
 				TriggerAttributeModifierOnClones="AttributeModifier_Cloned"
 				MinDestinationRadius="10"
 				MaxDestinationRadius="100"
-				ClonedObjectLifetime="=$DECOY_ARMY_UNIT_DURATION"
+				ClonedObjectLifetime="59s"
 				TriggerFX="FX_NodDecoyArmy"
 				DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
 
@@ -60,9 +57,10 @@
 				SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile"
 				UpdateModuleStartsAttack="true"/>
 			<ActivateModuleSpecialPower
-				id="ModuleTag_ManipulatorDeviceUpdate"
+				id="ModuleTag_RadarJammingMissileUpdate"
 				SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile"
-				UnpackTime="5.0s">
+				UnpackTime="1s"
+				DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED PARALYZED UNDERPOWERED TEMPORARILY_BUSY">
 				<SpecialPowerModules
 					ModuleId="ModuleTag_RadarJammingMissile"
 					TriggerType="SELF_POSITION"/>
@@ -71,7 +69,7 @@
 				id="ModuleTag_RadarJammingMissile"
 				SpecialPowerTemplate="SpecialPowerRadarJamMissile"
 				JamRadius="-1.0"
-				JamDuration="10s"/>
+				JamDuration="15s"/>
 			<MonitorSpecialPowerTimerUpdate
 				id="ModuleTag_RadarMissileReadyToFireUpdate"
 				SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile"
@@ -112,18 +110,23 @@
 				UpdateModuleStartsAttack="true"
 				SpecialPowerTemplate="SpecialPower_CloakingField"
 				TriggerFX="FX_NodCloakingField"
-				Radius="=$CLOAKING_FIELD_RADIUS">
+				Radius="100">
 				<AcceptObjectFilter
-					Rule="ANY"
+					Rule="NONE"
 					Relationship="ALLIES"
-					Include="VEHICLE"
-					Exclude="AIRCRAFT">
+					Include="VEHICLE">
+					<!-- NOD Cyborgs -->
 					<IncludeThing>NODCyborgInfantry</IncludeThing>
 					<IncludeThing>NODCyborgInfantrySquad</IncludeThing>
 					<IncludeThing>NODAscended</IncludeThing>
 					<IncludeThing>NODAscendedSquad</IncludeThing>
+					<IncludeThing>NODAscendedSquad_Veteran</IncludeThing>
 					<IncludeThing>NODReaper</IncludeThing>
 					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODDecimatorSquad</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
 				</AcceptObjectFilter>
 				<UpgradeTemplate>Upgrade_CloakingFieldInvisibility</UpgradeTemplate>
 			</GrantUpgradeAreaOfEffectSpecialPower>
@@ -132,6 +135,14 @@
 				SpecialPowerTemplate="SpecialPower_CloakingField"
 				SpecialWeapon="CloakingFieldKillInfantryWeapon"
 				WhichSpecialWeapon="1"/>
+
+			<!-- Phantom Army -->
+			<OCLSpecialPower
+				id="ModuleTag_CallSupportPhantomArmy"
+				SpecialPowerTemplate="SpecialPowerCallSupportPhantomArmy"
+				TriggerFX="FX_GDICallForTransportFlare"
+				OCL="OCL_CallSupportPhantomArmy"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"/>
 
 			<!-- Catalyst Missile -->
 			<SpecialPower
@@ -147,16 +158,15 @@
 				PackTime="1s"
 				StartAbilityRange="50000.0"
 				BusyForDuration="2s"
-				WhichSpecialWeapon="1"/>
+				WhichSpecialWeapon="1"
+				DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
 
 			<!-- Seed Tiberium -->
 			<SpecialPowerDispatchSpecialPower
 				id="ModuleTag_DispatchSpecialPowerTiberiumSeed"
 				SpecialPowerTemplate="SpecialPowerSeedTiberium">
-				<SpecialPower
-					SpecialPowerTemplate="SpecialPowerSeedTiberium_Green"/>
-				<SpecialPower
-					SpecialPowerTemplate="SpecialPowerSeedTiberium_Blue"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerSeedTiberium_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerSeedTiberium_Blue"/>
 			</SpecialPowerDispatchSpecialPower>
 			<OCLSpecialPower
 				id="ModuleTag_OCLSpecialPowerSeedTiberium_Green"
@@ -171,36 +181,22 @@
 				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"
 				DestinationOCL="OCL_NODSeedTiberiumBeacon"/>
 
-			<!-- Summon Leviathan -->
-			<OCLSpecialPower
-				id="ModuleTag_OCLSpecialPowerSummonLeviathan"
-				SpecialPowerTemplate="SpecialPower_SummonNODLeviathan"
-				OCL="OCL_SummonNODLeviathan"
-				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
-				<NearestSecondaryObjectFilter
-					Rule="ANY"
-					Relationship="SAME_PLAYER">
-					<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
-				</NearestSecondaryObjectFilter>
-			</OCLSpecialPower>
-
 			<!-- Tib Vein Detonation -->
 			<SpecialPowerDispatchSpecialPower
 				id="ModuleTag_DispatchSpecialPowerTibVeinDetonation"
 				SpecialPowerTemplate="SpecialPowerTibVeinDetonation">
-				<SpecialPower
-					SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Green"/>
-				<SpecialPower
-					SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Blue"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Blue"/>
 			</SpecialPowerDispatchSpecialPower>
 			<OCLSpecialPower
 				id="ModuleTag_OCLSpecialPowerTibVeinDetonationGreen"
 				SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Green"
-				OCL="OCL_NODVeinDetonation" CreateLocation="CREATE_AT_LOCATION"/>
+				OCL="OCL_NODVeinDetonationDummy"
+				CreateLocation="CREATE_AT_LOCATION"/>
 			<OCLSpecialPower
 				id="ModuleTag_OCLSpecialPowerTibVeinDetonationBlue"
 				SpecialPowerTemplate="SpecialPowerTibVeinDetonation_Blue"
-				OCL="OCL_NODVeinDetonationBlue"
+				OCL="OCL_NODVeinDetonationDummyBlue"
 				CreateLocation="CREATE_AT_LOCATION"/>
 
 			<!-- Redemption -->
@@ -218,6 +214,19 @@
 				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"
 				DestinationOCL="OCL_NODTiberiumVaporBeacon"/>
 
+			<!-- Summon Leviathan -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerSummonLeviathan"
+				SpecialPowerTemplate="SpecialPower_SummonNODLeviathan"
+				OCL="OCL_SummonNODLeviathan"
+				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter
+					Rule="ANY"
+					Relationship="SAME_PLAYER">
+					<IncludeThing>NODTemple</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+
 			<!-- Master Computer CounterMeasures -->
 			<SpecialPower
 				id="ModuleTag_ComputerCounterMeasures"
@@ -229,18 +238,21 @@
 				WhichSpecialWeapon="1"/>
 
 			<!-- Nuclear Missile -->
-			<SpecialPower
+			<OCLSpecialPower
 				id="ModuleTag_NuclearMissile"
 				SpecialPowerTemplate="SpecialPowerNuclearMissile"
 				UpdateModuleStartsAttack="true"
-				AvailableAtStart="false"/>
+				AvailableAtStart="false"
+				OCL="OCL_IonCannonShroudRevealer"
+				CreateLocation="CREATE_AT_LOCATION"/>
 			<WeaponFireSpecialAbilityUpdate
 				id="ModuleTag_NuclearMissileUpdate"
 				SpecialPowerTemplate="SpecialPowerNuclearMissile"
 				SpecialWeapon="NuclearMissileSeedWeapon"
-				UnpackTime="5.0s"
+				UnpackTime="4.5s"
 				PackTime="0s"
-				WhichSpecialWeapon="1"/>
+				WhichSpecialWeapon="1"
+				DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
 			<MonitorSpecialPowerTimerUpdate
 				id="ModuleTag_NuclearMissileReadyToFireUpdate"
 				SpecialPowerTemplate="SpecialPowerNuclearMissile"
@@ -268,6 +280,12 @@
 				id="AnnounceRedShadowStrikeReady"
 				AnnouncementEventOwner="ReinforcementsReady"
 				SpecialPowerTemplate="SpecialPowerRedShadowStrikeTeam"
+				JustMonitorPercentReady="true"/>
+
+			<EvaAnnounceSpecialPowerReadyClientUpdate
+				id="AnnouncePhantomArmyReady"
+				AnnouncementEventOwner="ReinforcementsReady"
+				SpecialPowerTemplate="SpecialPowerCallSupportPhantomArmy"
 				JustMonitorPercentReady="true"/>
 
 			<EvaAnnounceSpecialPowerReadyClientUpdate

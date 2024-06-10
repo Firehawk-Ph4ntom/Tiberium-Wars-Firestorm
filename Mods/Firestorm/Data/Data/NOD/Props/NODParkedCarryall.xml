@@ -1,11 +1,28 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODParkedCarryall" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" EditorName="NODParkedCarryall" EditorSorting="MISC_MAN_MADE" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
+	<GameObject id="NODParkedCarryall" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" EditorName="NODParkedCarryall" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedAircraft" ThreatLevel="1">
 		<DisplayName>Name:NODCarryall</DisplayName>
-		<ArmorSet Armor="NoArmor"/>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX" id="Armor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="NPCarryall"/>
+					<Model Name="NUCARRYALL_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Texture Original="NUCarryAll" New="NUCarryAll_D"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -14,25 +31,42 @@
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODCarryAllInitialDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
 			</FXListBehavior>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
+			<Physics id="ModuleTag_Physics"/>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="300"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="35.0" MinorRadius="20.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="10.0" z="10.0"/>
+			<Shape Type="BOX" MajorRadius="35.0" MinorRadius="8.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="13.0" y="0" z="10.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="3.0" MinorRadius="15.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="28.0" y="0" z="10.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="28.0" y="20" z="10.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="28.0" y="-20" z="10.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="3.0" MinorRadius="15.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="2.5" y="0" z="10.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="2.5" y="20" z="10.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="2.5" y="-20" z="10.0"/>
 			</Shape>
 		</Geometry>
 		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
 		<CrusherInfo CrushableLevel="3"/>
 	</GameObject>
 </AssetDeclaration>

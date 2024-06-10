@@ -15,10 +15,9 @@
 		<Include type="all" source="ART:Firestorm\Structures\NODOperationsCenter\NBOpCenterX_RDY.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODOperationsCenter\NBOPCENTERX_SKN.w3x"/>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODOperationsCenter" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODOperationsCenter" ButtonImage="Portrait_NODOperationsCenter" Side="NOD" BuildCost="1500" BuildTime="15" EnergyProduction="-8" CommandSet="NODOperationsCenterCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR" PlacementViewAngle="315d" EditorName="NODOperationsCenter" Description="Desc:NODOperationsCenter" TypeDescription="Type:NODOperationsCenter">
+	<GameObject id="NODOperationsCenter" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODOperationsCenter" ButtonImage="Portrait_NODOperationsCenter" Side="NOD" BuildCost="1500" BuildTime="15" EnergyProduction="-10" CommandSet="NODOperationsCenterCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR" PlacementViewAngle="315d" EditorName="NODOperationsCenter" Description="Desc:NODOperationsCenter" TypeDescription="Type:NODOperationsCenter">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODOperationsCenter</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
 		<GameDependency>
@@ -58,17 +57,18 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBOpCenD3_AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBOpCenD2_AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NBOpCenD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBOPCEND3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Draw_Missile" OkToChangeModelColor="true">
@@ -76,12 +76,8 @@
 					<Model Name="NBOpCenterX_SKN_FS"/>
 					<Texture Original="NBOpCenter" New="NBOpCenter2"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NBOpCenterX_SKN_FS"/>
 					<Texture Original="NBOpCenter2" New="NBOpCenter_D2"/>
@@ -89,10 +85,11 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="NBOpCenterX_IDLA_FS" AnimationMode="LOOP" AnimationBlendTime="0"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Ready" and Prev ~= "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_FIRING") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Ready" and Prev ~= "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_FIRING") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIALPOWER1_READY" StateName="STATE_Ready">
 					<Animation AnimationName="NBOPCENTERX_RDY_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
@@ -111,10 +108,12 @@
 					<ParticleSysBone BoneName="FX_Rocket04" FXParticleSystemTemplate="NodNukeMissleFire" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Draw_Dish" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw_Radar" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NBOpCenter_Dish"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NBOpCenter_Dish"/>
 					<Texture Original="NBOpCenter2" New="NBOpCenter_D2"/>
@@ -123,29 +122,21 @@
 					<Model Name="NBOpCenter_Dish"/>
 					<Texture Original="NBOpCenter2" New="NBOpCenter_D2"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="NBOpCenter_Dish" AnimationMode="LOOP" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="NBOPCENTER_LF"/>
 					<Texture Original="NURadr" New="NURadrD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="NBOPCENTER_LF"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -154,52 +145,56 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<RadarBehavior id="ModuleTag_RadarBehavior"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_TEMPLarge"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Medium"/>
 			</FXListBehavior>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsQuadTurrets" ShowSubObjects="UG_QUADTURRETS">
-				<TriggeredBy>Upgrade_NODQuadTurrets</TriggeredBy>
-			</SubObjectsUpgrade>
+			<RadarBehavior id="ModuleTag_RadarBehavior"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>Tier2DummyDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<!-- Decoy Army -->
+			<SpecialPower id="ModuleTag_StoreObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerCloneObjectSelect" TriggerFX="FX_NodDecoyArmy"/>
+			<StoreObjectsSpecialPowerUpdate id="ModuleTag_StoreObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerCloneObjectSelect" StartRechargeOnExit="true" Radius="100"/>
+			<SpecialPower id="ModuleTag_CloneStoredObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerCloneObjectSpawn" UpdateModuleStartsAttack="true"/>
+			<CloneStoredObjectsSpecialPowerUpdate id="ModuleTag_CloneStoredObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerCloneObjectSpawn" StartRechargeOnExit="true" TriggerAttributeModifierOnClones="AttributeModifier_Cloned" MinDestinationRadius="10" MaxDestinationRadius="100" ClonedObjectLifetime="59s" TriggerFX="FX_NodDecoyArmy" DisabledTypesToProcess="USER_PARALYZED EMP HELD UNDERPOWERED PARALYZED TEMPORARILY_BUSY"/>
+			<!-- Radar Jam -->
+			<SpecialPower id="ModuleTag_DispatchRadarJammingMissile" SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile" UpdateModuleStartsAttack="true"/>
+			<ActivateModuleSpecialPower id="ModuleTag_RadarJammingMissileUpdate" SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile" UnpackTime="1s" DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY">
+				<SpecialPowerModules ModuleId="ModuleTag_RadarJammingMissile" TriggerType="SELF_POSITION"/>
+			</ActivateModuleSpecialPower>
+			<RadarJamSpecialPower id="ModuleTag_RadarJammingMissile" SpecialPowerTemplate="SpecialPowerRadarJamMissile" JamRadius="-1.0" JamDuration="15s"/>
+			<MonitorSpecialPowerTimerUpdate id="ModuleTag_RadarMissileReadyToFireUpdate" SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile" ReadyCondition="SPECIALPOWER1_READY"/>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDozerBlades" ShowSubObjects="UG_DOZERBLADES">
 				<TriggeredBy>Upgrade_NODDozerBlades</TriggeredBy>
+			</SubObjectsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsQuadTurrets" ShowSubObjects="UG_QUADTURRETS">
+				<TriggeredBy>Upgrade_NODQuadTurrets</TriggeredBy>
 			</SubObjectsUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsSigGen" ShowSubObjects="UG_SIGGEN">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</SubObjectsUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<!-- Decoy Army -->
-			<SpecialPower id="ModuleTag_StoreObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerCloneObjectSelect" TriggerFX="FX_NodDecoyArmy"/>
-			<StoreObjectsSpecialPowerUpdate id="ModuleTag_StoreObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerCloneObjectSelect" StartRechargeOnExit="true" Radius="100"/>
-			<SpecialPower id="ModuleTag_CloneStoredObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerCloneObjectSpawn" UpdateModuleStartsAttack="true"/>
-			<CloneStoredObjectsSpecialPowerUpdate id="ModuleTag_CloneStoredObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerCloneObjectSpawn" StartRechargeOnExit="true" TriggerAttributeModifierOnClones="AttributeModifier_Cloned" MinDestinationRadius="10" MaxDestinationRadius="100" ClonedObjectLifetime="=$DECOY_ARMY_UNIT_DURATION" TriggerFX="FX_NodDecoyArmy" DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
-			<!-- Radar Jam -->
-			<SpecialPower id="ModuleTag_DispatchRadarJammingMissile" SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile" UpdateModuleStartsAttack="true"/>
-			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdate" SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile" UnpackTime="2s" DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY">
-				<SpecialPowerModules ModuleId="ModuleTag_RadarJammingMissile" TriggerType="SELF_POSITION"/>
-			</ActivateModuleSpecialPower>
-			<RadarJamSpecialPower id="ModuleTag_RadarJammingMissile" SpecialPowerTemplate="SpecialPowerRadarJamMissile" JamRadius="-1.0" JamDuration="15s"/>
-			<MonitorSpecialPowerTimerUpdate id="ModuleTag_RadarMissileReadyToFireUpdate" SpecialPowerTemplate="SpecialPowerDispatchRadarJammingMissile" ReadyCondition="SPECIALPOWER1_READY"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
@@ -238,14 +233,17 @@
 			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="20.0" Height="20.0" ContactPointGeneration="STRUCTURE">
 				<Offset x="5.0" y="-17.0" z="0"/>
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="4.0" Height="45.0" ContactPointGeneration="NONE">
-				<Offset x="7.0" y="-14.0" z="20"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="46.8567" MinorRadius="27.4004" Height="9.27532" ContactPointGeneration="STRUCTURE">
+			<Shape Type="BOX" MajorRadius="38" MinorRadius="27.4004" Height="5" ContactPointGeneration="STRUCTURE">
 				<Offset x="2.41555" y="18.8839" z="0.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="29.4575" MinorRadius="19.6674" Height="9.27532" ContactPointGeneration="STRUCTURE">
+			<Shape Type="BOX" MajorRadius="29.4575" MinorRadius="19.6674" Height="5" ContactPointGeneration="STRUCTURE">
 				<Offset x="2.41555" y="-25.3502" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="29" Height="5" ContactPointGeneration="STRUCTURE">
+				<Offset x="24.41555" y="18.8839" z="0.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="29" Height="5" ContactPointGeneration="STRUCTURE">
+				<Offset x="-19.41555" y="18.8839" z="0.0"/>
 			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
@@ -255,7 +253,7 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

@@ -1,0 +1,569 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPaladinTank.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPaladinTankD.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPaladinTank_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUZnPaladinTank.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUZnPaladinTankD.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUZnPaladinTankHeroic.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\HC_GUPaladinTank.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_RAIL_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_RAIL_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_RAILACCEL_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_RAILACCEL_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_SONIC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANK_SONIC_SKNADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANKR_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIPaladinTank\GUPALADINTANKRADAR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIPaladinTank" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIPaladinTank" ButtonImage="Portrait_GDIPaladinTank" Side="GDI" BuildCost="1200" BuildTime="12" CommandSet="GDIPredatorCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="184" EditorName="GDIPaladinTank" Description="Desc:GDIPaladinTank" TypeDescription="Type:GDIPaladinTank">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIPaladinTank</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIArmoryRailgunTech</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GDIPredatorTankLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TankDraw id="ModuleTag_Draw" InitialRecoilSpeed="8.0" MaxRecoilDistance="4.0" RecoilDamping="2.0" RecoilSettleSpeed="2.0" OkToChangeModelColor="true" ExtraPublicBone="FXTracksL FXTracksR" TrackMarks="FXTankTrack" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" TreadAnimationRate="0.15" TreadDriveSpeedFraction="0.25" TreadPivotSpeedFraction="0.9">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_MINIGUN_"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_MINIGUN_"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_MINIGUN_"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLE01"/>
+					<WeaponRecoilBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="RECOILER"/>
+					<WeaponMuzzleFlash WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLEFLASH"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMUZZLE01"/>
+					<Turret TurretNameKey="Turret" TurretPitch="Barrel" TurretID="2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUPREDTANK_FP"/>
+				</ModelConditionState>
+				<!-- Adaptive Armor RUBBLE model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
+					<Model Name="GUPALADINTANKRADAR"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Normal RUBBLE model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GUPALADINTANKR_FS"/>
+					<Texture Original="HC_GBWarFacBib" New="HC_GUPaladinTank"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Rail Gun Accelerator Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Rail Gun Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Rail Gun Accelerator Adaptive Armor model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Rail Gun Adaptive Armor model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Adaptive Armor model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator REALLYDAMAGED model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun REALLYDAMAGED model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator REALLYDAMAGED model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Normal REALLYDAMAGED model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun REALLYDAMAGED model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Normal REALLYDAMAGED model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUPaladinTankD"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BARREL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Heroic) (Rail Gun Accelerator model) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_3 USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_3 USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator Adaptive Armor model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Non-Heroic) (Rail Gun Accelerator model) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator Adaptive Armor model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKNADAR"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Heroic) (Rail Gun model) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_3 USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_3 USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun Adaptive Armor model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Non-Heroic) (Rail Gun model) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun Adaptive Armor model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKNADAR"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Heroic) -->
+				<!-- For some reason, Adaptive armor model is making the textures switch to the Non-Heroic version when EMP'ed or Underpowered,
+						despite it not being defined to use those textures -->
+
+				<!-- The fix I found for this so far was to "reverse switch" the textures, so when unit is EMP'ed/Underpowered,
+						we tell the unit to NOT use those heroic textures, making it switch back to the Heroic ones instead -->
+
+				<!-- maybe there is a better way? -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_3 USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_3 USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Adaptive Armor model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- States related to when unit is EMP'ed or UNDERPOWERED (Non-Heroic) -->
+				<!-- For some reason, Adaptive armor model is making the textures switch to the Heroic version when EMP'ed or Underpowered,
+						despite it not being defined to use those textures -->
+
+				<!-- The fix I found for this so far was to "reverse switch" the textures, so when unit is EMP'ed/Underpowered,
+						we tell the unit to use those heroic textures, making it switch back to the default ones instead -->
+
+				<!-- maybe there is a better way? -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKNADAR"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Adaptive Armor model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SKNADAR"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- Normal model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTankHeroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAILACCEL_SKN"/>
+				</ModelConditionState>
+				<!-- Normal model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_12" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_SONIC_SKN"/>
+					<Texture Original="GUPaladinTank" New="GUZnPaladinTank"/>
+				</ModelConditionState>
+				<!-- Rail Gun model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10" RetainSubObjects="true">
+					<Model Name="GUPALADINTANK_RAIL_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<LeftTread>"TreadsL"</LeftTread>
+				<RightTread>"TreadsR"</RightTread>
+			</TankDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitLargeGDI" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="RIDER2 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerHeroic" TracerHitFx="FX_BulletHitLargeGDIHeroic" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="RIDER2" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="RIDER2"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeterancy" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.4" MaxTracersPerFrame="0.5" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="RIDER3" RequiredStatus="RIDER2"/>
+			</TracerModelDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="2" LaserStateID="1" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_01"/>
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7.5s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIPredatorTankDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="GDI_PredatorTank_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPaladinTankGun"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPaladinTankGunHEAmmo" ObjectStatus="RIDER2"/>
+					<TurretSettings TurretTurnRate="200">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPaladinTankCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankRailgun" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankRailgunAccelerated" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIPredatorTankSonicCannon" ObjectStatus="RIDER1"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-15d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotHierarchicalTurret>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SonicCannon</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_RailCannon</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER1" StatusToClear="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</StatusBitsUpgrade>
+			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<ModelConditionUpgrade id="ModuleTag_Veterancy_ModelCondition" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</ModelConditionUpgrade>
+			<!-- Rail Gun -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- HE Ammo -->
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER2">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER3">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER3">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="UG_AMMO">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Loadouts -->
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsUGRAIL" ShowSubObjects="UGRAIL_01">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_SonicCannonModelCondition" AddConditionFlags="USER_12">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_RemoveSubObjectsUGRAIL" HideSubObjects="UGRAIL_01">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSonicShell_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Accelerator -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailgunAcceleratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+			<xi:include href="DATA:Includes/GDICallSupportVeterancy.xml"/>
+			<xi:include href="DATA:Includes/GDICallSupportVeterancyUpgrade.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIWolverineFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3400"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="14.5" MinorRadius="8.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-4" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="18.8" MinorRadius="5.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-1" y="8.313910" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="18.8" MinorRadius="5.0" Height="10.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-1" y="-8.029760" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceCreate2" AudioType="voiceCreated"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceMove2" AudioType="voiceMove"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceSelectMS2" AudioType="voiceSelect"/>
+			<AudioEntry Sound="GDI_PredatorTank_VoiceSelectBattleMS2" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="PredatorIdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="PredatorMoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

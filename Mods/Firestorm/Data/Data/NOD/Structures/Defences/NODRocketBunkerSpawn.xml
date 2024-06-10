@@ -1,0 +1,185 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NODRocketBunker\NBRDEFENSE_UGTCM_D2_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRocketBunker\NBRDEFENSE_UGTCM_D3_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRocketBunker\NBRDEFENSE_UGTCM_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRocketBunker\NBRDEFENSE_UGTCMBLD_AAN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
+	</Includes>
+	<GameObject id="NODRocketBunkerSpawn" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_NODSAMTurret" ButtonImage="Portrait_NODSAMTurret" Side="NOD" BuildCost="400" BuildTime="4.0" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE FS_BASE_DEFENSE POWERED CAN_CAST_REFLECTIONS AUTO_ACQUIRABLE_BY_AI COVER CAN_ATTACK NOT_SELLABLE KEEP_CLASSIFIED_WHEN_DEAD CANT_TOGGLE_POWER CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS" PlacementViewAngle="225d" EditorName="NODSAMTurretHub" WeaponCategory="MISSILE" Description="Desc:NODRocketBunkerSpawn" TypeDescription="Type:NODRocketBunker">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODRocketBunker</DisplayName>
+		<DisplayUpgrade>Upgrade_NODTechCenterTibCoreMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_BlueTiberiumCatalyst</DisplayUpgrade>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<SkirmishAIInformation BaseBuildingLocation="CENTER"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="FX_WEAPEN01 FX_WEAPEN02 FX_WEAPEN03" OkToChangeModelColor="True">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRDEFENSE_UGTCM_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPEN"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPEN"/>
+					<Turret TurretNameKey="TORRET" TurretPitch="TORRET_PITCH" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REPAIRING_DISABLED USER_5 USER_7">
+					<Model Name="NBRDEFENSE_UGTCM_D3_SKN"/>
+					<Texture Original="NUTibCoreMissles_D" New="NUTibCoreMisslesBlue_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REPAIRING_DISABLED">
+					<Model Name="NBRDEFENSE_UGTCM_D3_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_7 STRUCTURE_UNPACKING">
+					<Model Name="NBRDEFENSE_UGTCM_SKN"/>
+					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBRDEFENSE_UGTCM_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_5 USER_7">
+					<Model Name="NBRDEFENSE_UGTCM_D3_SKN"/>
+					<Texture Original="NUTibCoreMissles_D" New="NUTibCoreMisslesBlue_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NBRDEFENSE_UGTCM_D3_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_7 REALLYDAMAGED">
+					<Model Name="NBRDEFENSE_UGTCM_D2_SKN"/>
+					<Texture Original="NUTibCoreMissles_D" New="NUTibCoreMisslesBlue_D"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBRDEFENSE_UGTCM_D2_SKN"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_7 DAMAGED">
+					<Model Name="NBRDEFENSE_UGTCM_SKN"/>
+					<Texture Original="NBDefense" New="NBDefenseD"/>
+					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue_D"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBRDEFENSE_UGTCM_SKN"/>
+					<Texture Original="NBDefense" New="NBDefenseD"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="NODBunkerSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_7">
+					<Model Name="NBRDEFENSE_UGTCM_SKN"/>
+					<Texture Original="NUTibCoreMissles" New="NUTibCoreMisslesBlue"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Script> CurDrawableHideSubObject("HOSE") CurDrawableHideSubObject("TIBCOREMISSILE") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Animation AnimationName="NBRDEFENSE_UGTCMBLD_AAN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBRDEFENSE_UGTCMBLD_AAN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REPAIRING_DISABLED" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBRDefense_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBRDefense_D3AN" AnimationMode="MANUAL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBRDefense_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="NBRDefense_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBRDefense_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="7.0s">
+				<DieMuxData DeathTypes="SUICIDED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_NOD_DefensiveTurret_Explode"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="3.3s"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRocketBunkerSpawnWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRocketBunkerSpawnTibCoreWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODRocketBunkerSpawnBlueTibCoreWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="360" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="180.0">
+						<TurretAITargetChooserData StartupDelay="2s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" DieOnMastersDeath="true" DieOnMastersDeathType="SUICIDED"/>
+			<KeepObjectDie id="ModuleTag_KeepObjectForRepair">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			</KeepObjectDie>
+			<InitiateRepairDie id="ModuleTag_InitiateRepair" DelayTime="20s" Options="REPAIR_INSTANT" InstantRepairModelCondition="USER_1" InstantRepairAnimDuration="3.3s" MasterDeadDieFX="FX_TEMPLarge">
+				<Die DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			</InitiateRepairDie>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepairNODDefenseSpawns.xml"/>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_TibCoreMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_TibCoreMissilesModelCondition" AddConditionFlags="USER_5">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTibCoreMissiles" ShowSubObjects="TIBCOREMISSILE HOSE">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_TibCoreMissilesAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_7">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="AIUpdate" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODRocketBunkerSpawnFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1000.0"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_GenericTurret_Regenerate" RequiredFlags="USER_1"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="16.0" Height="27.0" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_RocketBunkerHubSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_GenericTurret_MoveStart" AudioType="soundTurretMoveLoop"/>
+			<AudioEntry Sound="NOD_GenericTurret_Deploy" AudioType="soundPrepositioned"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="475" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

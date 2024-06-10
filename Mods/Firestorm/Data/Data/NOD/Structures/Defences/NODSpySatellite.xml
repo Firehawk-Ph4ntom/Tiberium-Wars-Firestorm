@@ -43,38 +43,32 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="NBLABRAD_AAN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBLABRAD_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBLABRAD_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NBLABRAD_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBLABRAD_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CivBuildingDust" FollowBone="false"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CivBuildingDust02" FollowBone="false"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="NBLABRAD_LF"/>
 					<Texture Original="NURadr" New="NURadrD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="NBLABRAD_LF"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -83,21 +77,20 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>ShroudClearingDrone</SpawnTemplate>
-			</SpawnBehavior>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
+			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
@@ -105,19 +98,21 @@
 				<Event Index="onTransitionToRubble" FX="FX_AwesomeXplosion"/>
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchMedium"/>
 			</FXListBehavior>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
-			<xi:include href="DATA:Includes/AdvancedNODBuildingDestruction.xml"/>
-			<xi:include href="DATA:Includes/AdvancedNODBuildingSuicide.xml"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>ShroudClearingDrone</SpawnTemplate>
+			</SpawnBehavior>
 			<OCLSpecialPower id="ModuleTag_GlobalStealthScanSpecialPower" SpecialPowerTemplate="SpecialPower_GlobalStealthScan" OCL="OCL_StealthScanDrone" CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
 				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
 					<IncludeThing>NODSpySatellite</IncludeThing>
 				</NearestSecondaryObjectFilter>
 			</OCLSpecialPower>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/AdvancedNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/AdvancedNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
@@ -144,10 +139,10 @@
 			<Shape Type="BOX" MajorRadius="13.5328" MinorRadius="12.2507" Height="68.0912" ContactPointGeneration="STRUCTURE">
 				<Offset x="-63.8176" y="-15.741" z="0.0"/>
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="12.8047" MinorRadius="12.8047" Height="72.0798" ContactPointGeneration="INFANTRY">
+			<Shape Type="CYLINDER" MajorRadius="12.8047" Height="72.0798" ContactPointGeneration="INFANTRY">
 				<Offset x="-42.3077" y="-56.1253" z="0.0"/>
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="25.8899" MinorRadius="25.8899" Height="87.4644" ContactPointGeneration="INFANTRY">
+			<Shape Type="CYLINDER" MajorRadius="25.8899" Height="87.4644" ContactPointGeneration="INFANTRY">
 				<Offset x="-42.0228" y="6.55277" z="0.0"/>
 			</Shape>
 		</Geometry>
@@ -158,7 +153,7 @@
 			<AudioEntry Sound="HumanFaction_LargeBuilding_LightDamage_MS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_LargeBuilding_HeavyDamage_MS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="100" ShroudClearingRange="1000"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

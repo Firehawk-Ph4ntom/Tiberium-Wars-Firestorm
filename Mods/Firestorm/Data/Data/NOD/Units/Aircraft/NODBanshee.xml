@@ -27,7 +27,7 @@
 			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Speed="180" Locomotor="GenericJetAircraftLocomotor"/>
+		<LocomotorSet Speed="175" Locomotor="GenericJetAircraftLocomotor"/>
 		<LocomotorSet Speed="30" Condition="TAXIING" Locomotor="BasicHelicopterTaxiLocomotor"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
@@ -40,9 +40,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="NUBANSHEE_FP"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUBANSHEE_SKN"/>
 					<Texture Original="NUBanshee" New="NUBansheeD"/>
@@ -123,6 +121,12 @@
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="GDIFireHawkUpgrade02" FollowBone="true"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" ConditionsYes="MOVING">
 					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="15"/>
 					<Animation AnimationName="NUBANSHEE_FLYB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
@@ -134,52 +138,47 @@
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="GDIFireHawkUpgrade02" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
-					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
-					<Animation AnimationName="NUBANSHEE_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODBansheePlasmaCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODBansheePlasmaCannonBlueTibCore" ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<ReturnToProducerSpecialPower id="ModuleTag_ReturnToProducerSpecialPower" SpecialPowerTemplate="SpecialPowerReturnToProducer"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODBansheeDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="NOD_Banshee_VoiceDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
-			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_1">
-				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
-			</ModelConditionUpgrade>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODBansheePlasmaCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODBansheePlasmaCannonBlueTibCore" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<ReturnToProducerSpecialPower id="ModuleTag_ReturnToProducerSpecialPower" SpecialPowerTemplate="SpecialPowerReturnToProducer"/>
 			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_BlueTibCoreAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</AudioLoopUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<JetAIUpdate id="ModuleTag_AI" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true" CirclesForAttack="true" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+			<JetAIUpdate id="ModuleTag_AI" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true" CirclesForAttack="true" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GenericJetAircraftDisableAIFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 				<LockonInfo/>
 			</JetAIUpdate>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="4200"/>
 		</Body>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
@@ -188,7 +187,7 @@
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="18" MinorRadius="18" Height="7" ContactPointGeneration="VEHICLE"/>
+			<Shape Type="CYLINDER" MajorRadius="18" Height="7" ContactPointGeneration="VEHICLE"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="NOD_Banshee_VoiceAttack" AudioType="voiceAttack"/>
@@ -205,6 +204,6 @@
 			<AudioEntry Sound="VertigoBomberIdleMoveLoopMS" AudioType="soundAmbient"/>
 			<AudioEntry Sound="VertigoBomberIdleMoveLoopMS" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
+		<VisionInfo VisionRange="450" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

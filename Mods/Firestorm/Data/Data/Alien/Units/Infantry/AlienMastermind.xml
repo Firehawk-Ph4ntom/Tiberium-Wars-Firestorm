@@ -13,8 +13,7 @@
 			<RequiredObject>AlienReactor</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericHeavyTrooperArmor_TiberiumInfused" DamageFX="InfantryAlienDamageFX"/>
-		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="90"/>
-		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="80"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -25,50 +24,49 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXCommando_FP"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
-					<Model Name="AUMSTRMIND_SKN_FS"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name="AUMSTRMIND_SKN_FS"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name=""/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDALIEN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RANDOMSTART">
-					<Animation AnimationName="AUMstrmind_BIDA" AnimationMode="LOOP"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "ATNB" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle">
+					<Animation AnimationName="AUMstrmind_BIDA" AnimationMode="LOOP"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
 					<Animation AnimationName="AUMstrmind_CDTA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
 					<Animation AnimationName="AUMstrmind_CDTA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="AUMstrmind_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING FIRING_OR_PREATTACK_A" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUMstrmind_RUNA" AnimationMode="LOOP" Distance="40"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A AIM_HIGH" FrameForPristineBonePositions="5">
-					<Animation AnimationName="AUMstrmind_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
-					<Animation AnimationName="AUMstrmind_ATKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUMstrmind_RUNA" AnimationMode="LOOP" Distance="40"/>
 					<Animation AnimationName="AUMstrmind_RUNB" AnimationMode="LOOP" Distance="40"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected">
-					<Animation AnimNickName="ATNB" AnimationName="AUMstrmind_AIDA" AnimationMode="LOOP" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_boredToAttention") end; </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A AIM_HIGH" FrameForPristineBonePositions="5" StateName="STATE_Selected">
+					<Animation AnimationName="AUMstrmind_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_boredToAttention">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5" StateName="STATE_Selected">
+					<Animation AnimationName="AUMstrmind_ATKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected">
+					<Animation AnimationName="AUMstrmind_AIDA" AnimationMode="LOOP" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
 					<Animation AnimationName="AUMstrmind_BATA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
@@ -76,100 +74,151 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusionBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusion"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="B_LTBACK3">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4" AttachToBoneInAnotherModule="B_RTBACK3">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles5">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlaceManipulatorDevice"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<EmotionTrackerUpdate id="Module_ETU">
-				<TauntAndPointExcluded Rule="NONE"/>
-			</EmotionTrackerUpdate>
-			<!-- Manipulator Device -->
-			<SpecialPower id="ModuleTag_ManipulatorDevice" SpecialPowerTemplate="SpecialPower_ManipulateObject" AvailableAtStart="false" UpdateModuleStartsAttack="true"/>
-			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdate" SpecialPowerTemplate="SpecialPower_ManipulateObject" StartAbilityRange="200" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE">
-				<SpecialPowerModules ModuleId="ModuleTag_ManipulatorDeviceWorker" TriggerType="TARGET_OBJECT"/>
-			</ActivateModuleSpecialPower>
-			<TemporaryOwnerSpecialPower id="ModuleTag_ManipulatorDeviceWorker" SpecialPowerTemplate="SpecialPowerDummyTriggered3" UpdateModuleStartsAttack="false"/>
-			<AISpecialPowerUpdate id="ModuleTag_AlienMastermindManipulator" CommandButtonName="Command_AlienMastermindManipulatorDevice" UnitKindOf="STRUCTURE" EnemyUnitExclude="FS_BASE_DEFENSE" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
-			<!-- Teleport Objects -->
-			<SpecialPower id="ModuleTag_StoreObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerMastermindTeleportObjectSelect"/>
-			<StoreObjectsSpecialPowerUpdate id="ModuleTag_StoreObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerMastermindTeleportObjectSelect" Radius="50"/>
-			<SpecialPower id="ModuleTag_TeleportStoredObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerMastermindTeleportObject" UpdateModuleStartsAttack="true"/>
-			<TeleportToCasterSpecialPower id="ModuleTag_TeleportStoredObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerMastermindTeleportObject" RequireStoredObjects="false" TriggerFX="FX_AlienMMTP" KillObjectsIfPlacedInBadSpot="true" MinDestinationRadius="0" MaxDestinationRadius="50"/>
-			<!-- Blink Packs -->
-			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
-			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" DestinationWeapon="AlienShockTrooperBlinkWeapon2" SourceWeapon="AlienShockTrooperBlinkWeapon" FadeInTime="2s" UnpackTime="1s" PackTime="1s" BusyDuration="1.2s" MaxDistance="750" StartAbilityRange="750" UnpackingVariation="1"/>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_AlienInfGibs</OCL>
 				</OCL>
-				<Sound List="ALI_MasterMind_SoundDie"/>
 				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_MasterMind_SoundDie"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsChar</OCL>
 				</OCL>
-				<Sound List="ALI_MasterMind_SoundDie"/>
 				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="ALI_MasterMind_SoundDie"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound List="ALI_MasterMind_SoundDie"/>
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_MasterMind_SoundDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXListBlood">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
-				<Event FX="FX_AlienBlood"/>
+				<Event Index="onDeath" FX="FX_AlienBlood"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXListScorch">
 				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onBecomingTemporaryOwner" FX="FX_MasterMindLinkFX"/>
 			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlaceManipulatorDevice"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
+			<EmotionTrackerUpdate id="Module_ETU">
+				<TauntAndPointExcluded Rule="NONE"/>
+			</EmotionTrackerUpdate>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>ALI_ShockTrooper</Key>
+			</LargeGroupAudioUpdate>
+			<!-- Blink Packs -->
+			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
+			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" DestinationWeapon="AlienShockTrooperBlinkWeapon2" SourceWeapon="AlienShockTrooperBlinkWeapon" FadeInTime="2s" UnpackTime="1s" PackTime="1s" BusyDuration="1.2s" StartAbilityRange="750" UnpackingVariation="1"/>
+			<!-- Manipulator Device -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_ManipulateObject">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_ManipulateObject_Structure" />
+				<SpecialPower SpecialPowerTemplate="SpecialPower_ManipulateObject_Others" />
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_ManipulatorDeviceStructure" SpecialPowerTemplate="SpecialPower_ManipulateObject_Structure" UpdateModuleStartsAttack="true" AvailableAtStart="false"/>
+			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdateStructure" SpecialPowerTemplate="SpecialPower_ManipulateObject_Structure" StartAbilityRange="200" PreparationTime="1s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE SHOW_PREPARATION_PROGRESS" FaceTarget="true">
+				<SpecialPowerModules ModuleId="ModuleTag_ManipulatorDeviceWorker" TriggerType="TARGET_OBJECT" />
+			</ActivateModuleSpecialPower>
+			<SpecialPower id="ModuleTag_ManipulatorDeviceOthers" SpecialPowerTemplate="SpecialPower_ManipulateObject_Others" UpdateModuleStartsAttack="true" AvailableAtStart="false"/>
+			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdateOthers" SpecialPowerTemplate="SpecialPower_ManipulateObject_Others" StartAbilityRange="200" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" FaceTarget="true">
+				<SpecialPowerModules ModuleId="ModuleTag_ManipulatorDeviceWorker" TriggerType="TARGET_OBJECT" />
+			</ActivateModuleSpecialPower>
+			<TemporaryOwnerSpecialPower id="ModuleTag_ManipulatorDeviceWorker" SpecialPowerTemplate="SpecialPowerDummyTriggered3" UpdateModuleStartsAttack="false"/>
+			<AISpecialPowerUpdate id="ModuleTag_ManipulatorDeviceAI" CommandButtonName="Command_AlienMastermindManipulatorDevice" UnitKindOf="STRUCTURE" EnemyUnitExclude="FS_BASE_DEFENSE" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<!-- Teleport Objects -->
+			<SpecialPower id="ModuleTag_StoreObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerMastermindTeleportObjectSelect"/>
+			<StoreObjectsSpecialPowerUpdate id="ModuleTag_StoreObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerMastermindTeleportObjectSelect" Radius="50"/>
+			<SpecialPower id="ModuleTag_TeleportStoredObjectsSpecialPower" SpecialPowerTemplate="SpecialPowerMastermindTeleportObject" UpdateModuleStartsAttack="true"/>
+			<TeleportToCasterSpecialPower id="ModuleTag_TeleportStoredObjectsSpecialPowerUpdate" SpecialPowerTemplate="SpecialPowerMastermindTeleportObject" RequireStoredObjects="false" TriggerFX="FX_AlienMMTP" KillObjectsIfPlacedInBadSpot="false" MinDestinationRadius="0" MaxDestinationRadius="50"/>
 			<AimWeapon id="ModuleTag_AimWeapon" AimHighThreshold="0.5"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" xai:joinAction="Replace" AttributeModifier="AttributeModifier_TiberiumInfusion">
-				<CustomAnimAndDuration AnimState="USER_1"/>
-				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
-			</AttributeModifierUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -187,7 +236,7 @@
 			<NamedEntry Sound="ALI_MasterMind_SoundTeleportMS" Name="InitiateTeleportAbility"/>
 		</AudioArrayVoice>
 		<EvaEvents EvaEventDetectedEnemy="EnemyCommandoDetected" EvaEnemyObjectSightedEvent="EnemyCommandoDetected" EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="250" ShroudClearingRange="200" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="250" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="3" UseCrushAttack="false"/>
 	</GameObject>
 </AssetDeclaration>

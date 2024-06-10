@@ -4,6 +4,7 @@
 		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple_D1.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NB_Temple_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_AAN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_D2AN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODTempleOfRedemption\NBTEMPLE_D2SN_CTR.w3x"/>
@@ -13,7 +14,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODTemple" inheritFrom="BaseStructure" KindOf="STRUCTURE SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED FS_TECH_CENTER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" Description="Desc:NODTemple" TypeDescription="Type:NODTemple" PlacementViewAngle="315d" Side="NOD" EditorName="NODTempleOfRedemption" BuildTime="30" EnergyProduction="-12" CommandSet="NODTempleCommandSet" SelectPortrait="Portrait_NODTemple" ButtonImage="Portrait_NODTemple" ThreatLevel="8" BuildCost="3000" MaxSimultaneousOfType="1">
+	<GameObject id="NODTemple" inheritFrom="BaseStructure" KindOf="STRUCTURE SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" Description="Desc:NODTemple" TypeDescription="Type:NODTemple" PlacementViewAngle="315d" Side="NOD" EditorName="NODTempleOfRedemption" BuildTime="30" EnergyProduction="-15" CommandSet="NODTempleCommandSet" SelectPortrait="Portrait_NODTemple" ButtonImage="Portrait_NODTemple" ThreatLevel="8" BuildCost="3000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODTemple</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
 		<GameDependency>
@@ -24,6 +25,9 @@
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBTEMPLE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Model Name="NBTEMPLE"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
@@ -38,36 +42,33 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Animation AnimationName="GBLABRAD_AAN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+					<Animation AnimationName="NBTEMPLE_AAN" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBTEMPLE_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBTEMPLE_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NBTEMPLE_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBTEMPLE_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="NBTEMPLE_LF"/>
 					<Texture Original="NURadr" New="NURadrD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="NBTEMPLE_LF"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -76,19 +77,20 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -97,19 +99,25 @@
 				<Event Index="onTransitionToRubble" FX="FX_AwesomeXplosion"/>
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchMedium"/>
 			</FXListBehavior>
-			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Redemption -->
 			<OCLSpecialPower id="ModuleTag_OCLRedemption" SpecialPowerTemplate="SpecialPower_Redemption" OCL="OCL_RedemptionPodBeacon" CreateLocation="CREATE_AT_LOCATION"/>
 			<AISpecialPowerUpdate id="ModuleTag_RedemptionAI" CommandButtonName="Command_Redemption" SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT" SpecialPowerRadius="300" ReinforceDistance="100"/>
 			<!-- Air Dispersion -->
 			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerAirDispersion" SpecialPowerTemplate="SpecialPowerAirDispersion" OCL="OCL_NODAirDispersion" CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE" DestinationOCL="OCL_NODTiberiumVaporBeacon"/>
 			<AISpecialPowerUpdate id="ModuleTag_TiberiumFacilityAirDispersion" CommandButtonName="Command_TiberiumFacilityAirDispersion" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<!-- Summon Leviathan -->
+			<OCLSpecialPower id="ModuleTag_OCLSpecialPowerSummonLeviathan" SpecialPowerTemplate="SpecialPower_SummonNODLeviathan" OCL="OCL_SummonNODLeviathan" CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter Rule="ANY" Relationship="SAME_PLAYER">
+					<IncludeThing>NODTemple</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+			<AISpecialPowerUpdate id="ModuleTag_SpecialPowerSummonLeviathan" CommandButtonName="Command_SummonNODLeviathan" SpecialPowerRadius="999999.0" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
 			<!-- Master Computer CounterMeasures -->
 			<SpecialPower id="ModuleTag_ComputerCounterMeasures" SpecialPowerTemplate="SpecialPowerComputerCounterMeasures"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ComputerCounterMeasuresUpdate" SpecialPowerTemplate="SpecialPowerComputerCounterMeasures" SpecialWeapon="ComputerCounterMeasures" WhichSpecialWeapon="1"/>
 			<AISpecialPowerUpdate id="ModuleTag_ComputerCountermeasuresAI" CommandButtonName="Command_ComputerCounterMeasures" SpecialPowerAIType="SPECIAL_POWER_EMP_COUNTER"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/AdvancedNODBuildingDestruction.xml"/>

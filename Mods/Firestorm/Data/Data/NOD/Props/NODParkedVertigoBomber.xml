@@ -1,5 +1,5 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODParkedVertigoBomber" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_NODVertigoBomber" ButtonImage="Portrait_NODVertigoBomber" EditorName="NODParkedVertigoBomber" EditorSorting="MISC_MAN_MADE" Description="Desc:NODVertigo" TypeDescription="Type:NODVertigo" ThreatLevel="1">
+	<GameObject id="NODParkedVertigoBomber" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT" SelectPortrait="Portrait_NODVertigoBomber" ButtonImage="Portrait_NODVertigoBomber" EditorName="NODParkedVertigoBomber" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedAircraft" ThreatLevel="1">
 		<DisplayName>Name:NODVertigo</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
 		<Draws>
@@ -7,9 +7,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUVERT_SKN_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUVERT_SKN_FS"/>
 					<Texture Original="NUVert" New="NUVertD"/>
@@ -25,31 +23,31 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_NODDisruptionVertigoBomberDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
-			</SlowDeath>
+			<!-- Normal Dying -->
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODVertigoBomberDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
+			</SlowDeath>
+			<!-- Upgraded Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODDisruptionVertigoBomberDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
 			<StatusBitsUpgrade id="ModuleTag_DisruptionPodDeathUpgrade" StatusToSet="RIDER4">
 				<TriggeredBy>Upgrade_VertigoDisruptionPod</TriggeredBy>
 			</StatusBitsUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDisruptionPod" ShowSubObjects="UG_RD">
 				<TriggeredBy>Upgrade_VertigoDisruptionPod</TriggeredBy>
 			</SubObjectsUpgrade>
-			<FireWeaponWhenDead id="ModuleTag_DeathWeapon" InitiallyActive="true" DeathWeapon="ExplodingParkedVehicleWeapon" ContinueToBezierDestination="false">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODVertigoFunctions"/>
@@ -57,10 +55,11 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
 		</Body>
-		<Geometry>
-			<Shape Type="BOX" MajorRadius="18.0" MinorRadius="20.0" Height="7.0"/>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="18" Height="7" ContactPointGeneration="VEHICLE"/>
 		</Geometry>
 		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
 		<CrusherInfo CrushableLevel="3"/>
 	</GameObject>
 </AssetDeclaration>

@@ -2,10 +2,12 @@
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIPowerPlant\GBPOWERSRF_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIPowerPlant\GBPWRPLNTD2_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIPowerPlant\GBPWRPLNTD3_AN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIPowerPlant\GBPWRPLNTD3_SN_CTR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="GDIPowerPlant" inheritFrom="BaseStructure" ButtonImage="Portrait_GDIPowerPlant" SelectPortrait="Portrait_GDIPowerPlant" Side="GDI" BuildCost="600" BuildTime="6" EnergyProduction="20" EnergyBonus="20" CommandSet="GDIPowerPlantCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_POWER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EditorName="GDIPowerPlant" Description="Desc:GDIPowerPlant" TypeDescription="Type:GDIPowerPlant">
+	<GameObject id="GDIPowerPlant" inheritFrom="BaseStructure" ButtonImage="Portrait_GDIPowerPlant" SelectPortrait="Portrait_GDIPowerPlant" Side="GDI" BuildCost="700" BuildTime="7" EnergyProduction="20" EnergyBonus="15" CommandSet="GDIPowerPlantCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_POWER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EditorName="GDIPowerPlant" Description="Desc:GDIPowerPlant" TypeDescription="Type:GDIPowerPlant">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIPowerPlant</DisplayName>
 		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
 		<GameDependency>
@@ -21,17 +23,16 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GBPwrPlnt"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
-					<Model Name="GBPwrPlnt"/>
-				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Model Name="GBPwrPlnt_ASN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="GBPwrPlntD3_SN"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBPWRPLNTD3_SN_FS"/>
+					<Texture Original="GBBib" New="GBBib_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="GBPWRPLNTD2_SN_FS"/>
+					<Texture Original="GBBib" New="GBBib_D"/>
 					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDIPPDamagedSteam" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDISiloDamagedDist2" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone03" FXParticleSystemTemplate="GDIPPDamagedFire" FollowBone="true"/>
@@ -39,7 +40,9 @@
 					<ParticleSysBone BoneName="FXBone03" FXParticleSystemTemplate="GDIRefineryDamagedDist" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GBPWRPLNTD2_SN_FS"/>
+					<Model Name="GBPwrPlnt"/>
+					<Texture Original="GBPowerP" New="GBPowerP_D"/>
+					<Texture Original="GBBib" New="GBBib_D"/>
 					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDIPPDamagedSteam" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="GDISiloDamagedDist2" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone03" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
@@ -49,26 +52,25 @@
 					<Animation AnimationName="GBPwrPlnt_AAN" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="GBPwrPlntD2_AN" AnimationMode="MANUAL"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBPwrPlntD3_AN_FS" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBPwrPlntD2_AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_DamagedToReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_DamagedToReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="GBPwrPlntD3_AN" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GBPwrPlntD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBPwrPlntD3_AN_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_DamagedToReallyDamaged">
-					<Animation AnimationName="GBPwrPlntD2_AN" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawPowerUpgrade" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_2">
 					<Model Name="GBPwrPlntT_SKN"/>
 					<Texture Original="GBPowerP" New="GBPowerP_D"/>
 				</ModelConditionState>
@@ -86,28 +88,32 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="GBPwrPlntT_IDL" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_2">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED USER_2">
 					<Script> CurDrawableHideSubObjectPermanently("TURBINEGLOWS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_2">
 					<Script> CurDrawableHideSubObjectPermanently("TURBINEGLOWS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_2">
+					<Script> CurDrawableHideSubObjectPermanently("TURBINEGLOWS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="GBPwrPlntT_IDL" AnimationMode="LOOP"/>
 					<Script> CurDrawableShowSubObjectPermanently("TURBINEGLOWS") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableShowSubObjectPermanently("POWERPLANTGLOWS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableHideSubObjectPermanently("POWERPLANTGLOWS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHT_02") CurDrawableHideSubObjectPermanently("POWERPLANTGLOWS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
@@ -128,13 +134,14 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXBone01">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 UNDERPOWERED"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 AFFECTED_BY_EMP"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerSmokeDistortion" FollowBone="true"/>
@@ -142,42 +149,40 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TurbineA">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 UNDERPOWERED"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 AFFECTED_BY_EMP"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerTurbineDistortionA" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="TurbineB">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 UNDERPOWERED"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 AFFECTED_BY_EMP"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPowerTurbineDistortionA" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="GBPOWERSRF_SKN"/>
 					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="GBPOWERSRF_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -186,22 +191,29 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<RandomModelCondition id="Module_RandomModelCondition" Conditions="USER_1"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_PowerPlantTurbine</TriggeredBy>
 			</PowerUpgrade>
@@ -210,13 +222,6 @@
 				<TriggeredBy>Upgrade_PowerPlantTurbine</TriggeredBy>
 			</SubObjectsUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="CATALYST"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
-			</FXListBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericGDIBuildingDestruction.xml"/>
@@ -239,30 +244,6 @@
 			<Shape Type="BOX" MajorRadius="30.0" MinorRadius="32.5" Height="18.0" ContactPointGeneration="STRUCTURE">
 				<Offset x="0" y="-9" z="0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-20.0" y="24.0" z="30"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="26.0" y="24.0" z="0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="26.0" y="-32.0" z="30"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="26.0" y="24.0" z="0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-26.0" y="-32.0" z="30"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="26.0" y="24.0" z="0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-26.0" y="-32.0" z="30"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-20.0" y="24.0" z="0"/>
-			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_PowerPlantSelect" AudioType="voiceSelect"/>

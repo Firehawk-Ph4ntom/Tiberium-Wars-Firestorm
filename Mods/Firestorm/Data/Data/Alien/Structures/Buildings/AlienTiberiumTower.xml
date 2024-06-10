@@ -10,7 +10,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienTiberiumTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_ALIENExtractor" ButtonImage="Portrait_ALIENExtractor" Side="ALIEN" BuildCost="2500" BuildTime="25" RefundValue="500" PlacementViewAngle="225d" CommandSet="AlienTiberiumTowerCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienExtractor" Description="Desc:ALIENTiberiumTower" TypeDescription="Type:AlienTiberiumTower" EnergyProduction="-10">
+	<GameObject id="AlienTiberiumTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_ALIENExtractor" ButtonImage="Portrait_ALIENExtractor" Side="ALIEN" BuildCost="2500" BuildTime="25" RefundValue="500" PlacementViewAngle="225d" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienExtractor" Description="Desc:ALIENTiberiumTower" TypeDescription="Type:AlienTiberiumTower" EnergyProduction="-15">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENTiberiumTower</DisplayName>
 		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
@@ -41,6 +41,14 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="ABTiberTow_D2SN_FS"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="ABTIBERTOWIONSHIELD_SKN"/>
@@ -49,6 +57,10 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="ABTiberTow_SKN_FS"/>
 					<Texture Original="ABTiberTow" New="ABTiberTow_D"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
 					<Model Name="ABTIBERTOWIONSHIELD_SKN"/>
@@ -56,17 +68,17 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="ABTiberTow_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="ABTiberTowBld_AAN" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABTiberTow_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABTiberTow_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="ABTiberTow_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -79,41 +91,43 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="ABTiber_TIB_SKN"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_none" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="ABTiber_TIB_LOA" AnimationMode="ONCE_BACKWARDS"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="ABTiber_TIB_LOA" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING_ACTIVE" StateName="STATE_loading">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING_ACTIVE">
 					<Animation AnimationName="ABTiber_TIB_LOA" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Draw_Arm" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+			<ScriptedModelDraw id="ModuleTag_Draw_Arm" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="ABTiberTowX_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
 					<Model Name="ABTIBERTOWXIONSHIELD_SKN"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="ABTiberTowX_IDL" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" StateName="STATE_loading">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
 					<Animation AnimationName="ABTiberTowX_D3" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING_ACTIVE" StateName="STATE_loading">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOCKING_ACTIVE">
 					<Animation AnimationName="ABTiberTowX_LOA" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TIBSTEAM01">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -121,11 +135,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TIBSTEAM02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -133,11 +148,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="TIBSTEAM03">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -145,11 +161,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles4" AttachToBoneInAnotherModule="TIBSTEAM04">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -157,11 +174,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles5" AttachToBoneInAnotherModule="TIBSTEAM05">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -169,11 +187,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles6" AttachToBoneInAnotherModule="TIBSTEAM06">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -181,11 +200,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles7" AttachToBoneInAnotherModule="TIBSTEAM07">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
@@ -193,11 +213,12 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles8" AttachToBoneInAnotherModule="TIBRECTUM">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec01" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
@@ -205,33 +226,49 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles9">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Alien_Hexapod_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction">
+				<UnitCreatePoint x="56.860000" y="0.0" z="0.0"/>
+				<NaturalRallyPoint x="109.776950" y="0.0" z="0.0"/>
+			</QueueProductionExitUpdate>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedL"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedL"/>
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
 			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.75s"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" ShareUpgrades="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>AlienExplorerOutpostDummyDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<SpawnBehavior id="ModuleTag_Spawn2" SpawnNumberData="1" SpawnReplaceDelayData="9999s" IsOneShotData="true" FadeInTime="1.0s" InitialDelay="2.0s" CanReclaimOrphans="false">
+				<SpawnTemplate>AlienHarvester</SpawnTemplate>
+			</SpawnBehavior>
 			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="99999999"/>
 			<SupplyCenterCreate id="ModuleTag_SupplyCenterCreate"/>
 			<SupplyCenterDockUpdate id="SupplyCenter" NumberApproachPositions="-1" AllowsPassthrough="true" GoToRallyPointAfterDock="true" MinDockTime="9s" ObjectsInLineWeight="9s" DistributedDeposit="true">
@@ -240,46 +277,29 @@
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="FactionStructureTiberiumFieldOCL">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
 			</CreateObjectDie>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="ALI_Building_Die"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
-			<QueueProductionExitUpdate id="ModuleTag_QueueProduction">
-				<UnitCreatePoint x="56.860000" y="0.0" z="0.0"/>
-				<NaturalRallyPoint x="110.0" y="0.0" z="0.0"/>
-			</QueueProductionExitUpdate>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" ShareUpgrades="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>AlienExplorerOutpostDummyDrone</SpawnTemplate>
-			</SpawnBehavior>
-			<SpawnBehavior id="ModuleTag_Spawn2" SpawnNumberData="1" SpawnReplaceDelayData="9999s" IsOneShotData="true" FadeInTime="1.0s" InitialDelay="2.0s" CanReclaimOrphans="false">
-				<SpawnTemplate>AlienHarvester</SpawnTemplate>
-			</SpawnBehavior>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericAlienBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="25.0568" MinorRadius="8.5811" Height="45.3082">
+			<Shape Type="BOX" MajorRadius="25.0568" MinorRadius="8.5811" Height="45.3082" ContactPointGeneration="STRUCTURE">
 				<Offset x="18.0" y="0.0" z="0.0" />
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="45.0" MinorRadius="45.0" Height="20.0">
+			<Shape Type="CYLINDER" MajorRadius="45.0" Height="20.0" ContactPointGeneration="STRUCTURE">
 				<Offset x="0.0" y="0.0" z="0.0" />
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="40.0" MinorRadius="40.0" Height="10.0">
+			<Shape Type="CYLINDER" MajorRadius="40.0" Height="10.0" ContactPointGeneration="STRUCTURE">
 				<Offset x="41.1781" y="0.0" z="0.0" />
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="17.1" MinorRadius="17.1" Height="64.8" ContactPointGeneration="STRUCTURE">
+			<Shape Type="CYLINDER" MajorRadius="17.1" Height="64.8" ContactPointGeneration="STRUCTURE">
 				<Offset x="0.0" y="0.0" z="0.0" />
 			</Shape>
 		</Geometry>

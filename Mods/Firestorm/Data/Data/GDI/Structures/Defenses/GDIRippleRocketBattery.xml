@@ -22,11 +22,11 @@
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="fx_weapon01 fx_weapon02 fx_weapon03 fx_weapon04 fx_weapon05 fx_weapon06 fx_weapon07 fx_weapon08 fx_weapon09 fx_weapon10 fx_weapon11 fx_weapon12 fx_weapon13 fx_weapon14 fx_weapon15 fx_weapon16 fx_weapon17 fx_weapon18 fx_weapon19 fx_weapon20 fx_weapon21 fx_weapon22 fx_weapon23 fx_weapon24 fx_weapon25 fx_weapon26 fx_weapon27 fx_weapon28 fx_weapon29 fx_weapon30 fx_weapon31 fx_weapon32" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="FX_Weapon01 FX_Weapon02 FX_Weapon03 FX_Weapon04 FX_Weapon05 FX_Weapon06 FX_Weapon07 FX_Weapon08 FX_Weapon09 FX_Weapon10 FX_Weapon11 FX_Weapon12 FX_Weapon13 FX_Weapon14 FX_Weapon15 FX_Weapon16 FX_Weapon17 FX_Weapon18 FX_Weapon19 FX_Weapon20 FX_Weapon21 FX_Weapon22 FX_Weapon23 FX_Weapon24 FX_Weapon25 FX_Weapon26 FX_Weapon27 FX_Weapon28 FX_Weapon29 FX_Weapon30 FX_Weapon31 FX_Weapon32" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GSL_STRUCTUREF_SKN"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="fx_weapon"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
 					<Turret TurretNameKey="turret" TurretPitch="pitch" TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
@@ -42,53 +42,50 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="GSL_STRUCTUREF_SKN"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="GSL_STRUCTUREF_AIDA" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GSL_STRUCTUREF_BLDA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.7" AnimationSpeedFactorMax="0.7"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GSL_STRUCTUREF_AIDA" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GSL_STRUCTUREF_AIDA" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBAABAT_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
-					<Animation AnimationName="GBAABAT_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
-					<Animation AnimationName="GBAABAT_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="GBAABAT_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="b_base" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXspotlight"/>
+					<Model Name="FXspotlight_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 			</SpotlightDraw>
 		</Draws>
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRippleRocketBatteryArtilleryMissile" ObjectStatus="RIDER1"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRippleRocketBatteryThermoBaricArtilleryMissile" ObjectStatus="RIDER1 WEAPON_UPGRADED_01"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRippleRocketBatterySonicArtillery" ObjectStatus="RIDER2"/>
-					<TurretSettings TurretTurnRate="250" TurretPitchRate="150" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
-						<TurretAITargetChooserData StartupDelay="1.5s"/>
+					<TurretSettings TurretTurnRate="180" TurretPitchRate="100" MinimumPitch="-60d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
+						<TurretAITargetChooserData StartupDelay="1.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
@@ -107,21 +104,6 @@
 			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER2" StatusToClear="RIDER1">
 				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
 			</StatusBitsUpgrade>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
-			</FXListBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
-			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -134,10 +116,13 @@
 			<AudioLoopUpgrade id="ModuleTag_SelectLoadout02_Audio" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
 			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>

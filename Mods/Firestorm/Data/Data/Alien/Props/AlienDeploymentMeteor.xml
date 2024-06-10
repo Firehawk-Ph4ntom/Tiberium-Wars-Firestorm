@@ -1,6 +1,6 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<!-- Large Deployment Meteor -->
-	<GameObject id="AlienDeploymentMeteor" Side="Alien" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienDeploymentMeteor">
+	<GameObject id="AlienDeploymentMeteor" Side="ALIEN" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienDeploymentMeteor">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
@@ -13,21 +13,21 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="AlienDeploymentMeteorCrusherWeapon">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.4s" MaxLifetime="1.4s"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_AlienTibRockHit"/>
 			</FXListBehavior>
-			<DestroyDie id="ModuleTag_Die">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
+			<Physics id="ModuleTag_Physics" GravityMultiplier="18.0"/>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonAlienMCV">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
-			<Physics id="ModuleTag_Physics" GravityMultiplier="18.0"/>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="AlienDeploymentMeteorCrusherWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.4s" MaxLifetime="1.4s"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
@@ -48,14 +48,14 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" DeathWeapon="AlienDeploymentMeteorSmallCrusherWeapon">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
 			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_AlienTibRockMeteorHit"/>
 			</FXListBehavior>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Remove"/>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" DeathWeapon="AlienDeploymentMeteorSmallCrusherWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
 		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

@@ -36,33 +36,27 @@
 					<Model Name="ABTIBPODBLUE_SKN"/>
 					<Texture Original="AURprTripod" New="AURprTripodBlue"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="BlueHexapodTibInfusion"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3 STRUCTURE_UNPACKING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3">
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BlueHexapodTibInfusion" FollowBone="true"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
-				</AnimationState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="HexapodTibInfusion"/>
+				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FX_WEAPON01">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3 STRUCTURE_UNPACKING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienBlueRefineryRec01" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
@@ -72,10 +66,30 @@
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Alien_Hexapod_CO" SizeX="340" SizeY="340" OpacityPeak="0.25" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<FireWeaponWhenDead id="ModuleTag_CatalystDeathWeapon" xai:joinAction="Remove"/>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<SlowDeath id="ModuleTag_Death" DestructionDelay="3s" FadeTime="3s" Fade="true">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedS"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedS"/>
+				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleS"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="0.1s"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienIchorPodSporeWeapon"/>
@@ -86,42 +100,30 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>AlienIchorPodDummyDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="25s" MaxLifetime="25s"/>
-			<SlowDeath id="ModuleTag_Death" DestructionDelay="3s" FadeTime="3s" Fade="true">
-				<Sound Type="INITIAL" List="ALI_Building_Die"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedS"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedS"/>
-				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleS"/>
-			</FXListBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="0.1s"/>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="30s" MaxLifetime="30s"/>
 			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_3">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</ModelConditionUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData/>
+				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="30" MinorRadius="30" Height="70" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="30" Height="70" ContactPointGeneration="STRUCTURE"/>
 		</Geometry>
 		<AudioArraySound xai:joinAction="Replace">
 			<AudioEntry Sound="ALI_Building_LightDamage" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
 			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="350" ShroudClearingRange="320"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
 	</GameObject>
 </AssetDeclaration>

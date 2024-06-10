@@ -6,7 +6,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODMiniMCVOutpost" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODOutpost" ThreatLevel="10" ButtonImage="Portrait_NODOutpost" Side="NOD" BuildCost="1500" BuildTime="15" CommandSet="EmptyCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER OUTPOST PROJECT_BUILDABILITY_FOR_ALLIES" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="NODEmissaryOutpost" TypeDescription="Type:Outpost" Description="Desc:NODOutpost">
+	<GameObject id="NODMiniMCVOutpost" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODOutpost" ThreatLevel="10" ButtonImage="Portrait_NODOutpost" Side="NOD" BuildCost="1500" BuildTime="15" CommandSet="NODMiniMCVOutpostCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER OUTPOST PROJECT_BUILDABILITY_FOR_ALLIES" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="NODEmissaryOutpost" TypeDescription="Type:Outpost" Description="Desc:NODOutpost">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODOutpost</DisplayName>
 		<ArmorSet Armor="GenericExpansionUnitArmor" DamageFX="FactionStructureDamageFX"/>
 		<Draws>
@@ -27,14 +27,22 @@
 					<Model Name="NUSuvUPAK_SN_FS"/>
 					<Texture Original="NUSuv" New="NUSuv_D"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="NUSuvUPAK_IDLA" AnimationMode="LOOP"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_StartUnpak" then CurDrawableSetTransitionAnimState("TRANS_UPakToIdle") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_StartUnpak" then CurDrawableSetTransitionAnimState("TRANS_UPakToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" StateName="STATE_StartUnpak">
 					<Animation AnimationName="NUSuvUPAK_B" AnimationMode="LOOP"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_StartUnpak" and Prev ~= "TRANS_IntoUPak" then CurDrawableSetTransitionAnimState("TRANS_IntoUPak") end </Script>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_StartUnpak" and Prev ~= "TRANS_IntoUPak" then CurDrawableSetTransitionAnimState("TRANS_IntoUPak") end; </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUOut_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUOut_D2AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoUPak">
 					<Animation AnimationName="NUSuvUPAK_A" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -42,71 +50,68 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_UPakToIdle">
 					<Animation AnimationName="NUSuvUPAK_C" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
-					<Animation AnimationName="NUOut_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
-					<Animation AnimationName="NUOut_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_LAST">
-					<Animation AnimationName="NUSuvUPAK_IDLA" AnimationMode="MANUAL"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NUOut_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NUOut_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TV">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
 					<FXEvent Frame="1" Effect="FX_PropagandaPulse" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="506" SizeY="506" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="566" SizeY="566" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_BuildDamaged_Small"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
 			</FXListBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackCompleteSound="NOD_Outpost_UnpackCompleteMS" UnpackTime="5.0s"/>
-			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
-			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackCompleteSound="NOD_Outpost_UnpackCompleteMS" UnpackTime="15s"/>
+			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
+			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="7s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>NODEmissary</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Emissary_AttributeModifier" RefreshDelay="1s" Range="250" InitiallyActive="true">
 				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
 			</AttributeModifierAuraUpdate>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2300.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
 		</Body>
 		<ClientBehaviors>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
@@ -132,7 +137,7 @@
 			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 		<ProjectedBuildabilityInfo Radius="300" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" ModelConditionsToReject="STRUCTURE_UNPACKING"/>
 	</GameObject>
 </AssetDeclaration>

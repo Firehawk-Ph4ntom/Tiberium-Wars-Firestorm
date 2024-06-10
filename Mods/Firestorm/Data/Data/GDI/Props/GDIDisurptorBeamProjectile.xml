@@ -1,0 +1,50 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="GDIDisurptorBeamProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIDisurptorBeamProjectile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXDISRUPTORSONICWAVE" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="DisruptorRingTrail_Dist" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDI_DisruptorBeamImpact"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GDIDisruptorBeamProjectileWeapon" FireInterval="0.066s"/>
+			</FireWeaponUpdate>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="33%" SecondPercentIndent="66%" FlightPathAdjustDistPerSecond="300" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIDisurptorBeamProjectile_Veteran" inheritFrom="GDIDisurptorBeamProjectile" EditorName="GDIDisurptorBeamProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXDISRUPTORSONICWAVE_HEROIC" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="DisruptorRingTrail_Dist" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDI_DisruptorBeamImpactHeroic"/>
+			</FXListBehavior>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
+				<FireWeaponNugget WeaponName="GDIDisruptorBeamProjectileWeapon_Veteran" FireInterval="0.0528s"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

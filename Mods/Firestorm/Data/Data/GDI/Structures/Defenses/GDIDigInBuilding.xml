@@ -1,9 +1,9 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData/GlobalDefines.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="GDIDigInBuilding" SelectPortrait="Portrait_GDIDigInBuilding" ButtonImage="Portrait_GDIDigInBuilding" Side="GDI" EditorSorting="STRUCTURE" BuildCost="=$GDI_DIGIN_BUILDING_PRICE" BuildTime="10.0" CommandSet="GDIDigInGarrisonCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS GARRISON AUTO_ACQUIRABLE_BY_AI COVER CIVILIAN_BUILDING NOT_SELLABLE CAN_SEE_THROUGH_STRUCTURE AUTO_RALLYPOINT IGNORE_FOR_VICTORY GARRISONABLE_UNTIL_DESTROYED" RadarPriority="STRUCTURE" EditorName="GDIFoxhole" Description="Desc:GDIDigInBuilding">
+	<GameObject id="GDIDigInBuilding" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDIDigInBuilding" ButtonImage="Portrait_GDIDigInBuilding" Side="GDI" BuildCost="100" BuildTime="10" CommandSet="GDIDigInGarrisonCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS GARRISON AUTO_ACQUIRABLE_BY_AI COVER CIVILIAN_BUILDING NOT_SELLABLE CAN_SEE_THROUGH_STRUCTURE AUTO_RALLYPOINT IGNORE_FOR_VICTORY GARRISONABLE_UNTIL_DESTROYED" EditorName="GDIFoxhole" Description="Desc:GDIDigInBuilding" CampnessValue="200" CampnessValueRadius="30">
 		<DisplayName>Name:GDIDigInBuilding</DisplayName>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<Draws>
@@ -27,29 +27,37 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBDugOut_AAN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBDugOut_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBDugOut_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="GBDugOut_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="GBDugOut_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<HordeGarrisonContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE CAN_ATTACK" ContainMax="2" EnterSound="GenericBuilding_Garrison" ExitSound="GenericBuilding_Ungarrison" AllowEnemiesInside="true" AllowAlliesInside="true" AllowNeutralInside="true" AllowOwnPlayerInsideOverride="true" ShowPips="true" KillPassengersOnDeath="false">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -59,16 +67,11 @@
 				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<ExitOffset x="0" y="-80" z="0"/>
 			</HordeGarrisonContain>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
-			</FXListBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2000.0"/>
@@ -78,16 +81,11 @@
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_FoxHole_Select" AudioType="voiceSelect"/>
-			<AudioEntry EvaEvent="BuildingStolen" AudioType="voiceDefectingAway"/>
-			<AudioEntry EvaEvent="EnemyBuildingCaptured" AudioType="voiceDefectingTowards"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
 			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
-			<AudioEntry Sound="GDI_BuildingPlaced" AudioType="soundUnderConstruction"/>
 		</AudioArraySound>
-		<EvaEvents EvaEventProductionStarted="BuildingConstructionStarted" EvaEventProductionComplete="BuildingConstructionComplete" EvaEventDamagedOwner="StructureUnderAttack" EvaEventSoldOwner="StructureSold" EvaEventRepairingOwner="StructureRepairing" EvaEnemyObjectSightedEvent="EnemyCampSighted" EvaEventAvailableForProduction="NewConstructionOptions" EvaEventPlacementFailed="StructurePlacementFailed" EvaEventCannotBuildDueToFullBuildQueue="StructureCannotBuildDueToFullBuildQueue" EvaEventBuildOnHold="BuildOnHold" EvaEventBuildCancelled="BuildCancelled" EvaEventManuallyPoweredOff="BuildingManuallyPoweredDown" EvaEventManuallyPoweredOn="BuildingManuallyPoweredUp"/>
-		<ShadowInfo Type="VOLUME"/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

@@ -16,15 +16,13 @@
 	<GameObject id="NODVertigo_SpyPlane" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODVertigoBomber" ButtonImage="Portrait_NODVertigoBomber" Side="NOD" KindOf="CAN_CAST_REFLECTIONS AIRCRAFT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL" EditorName="NODVertigo_SpyPlane">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODVertigo</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Locomotor="NODVertigoLocomotor" Condition="NORMAL" Speed="400.0"/>
+		<LocomotorSet Locomotor="GenericJetAircraftLocomotor" Condition="NORMAL" Speed="400.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NU_SPYVERT_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NU_SPYVERT_SKN"/>
 					<Texture Original="NU_SpyVert" New="NU_SpyVert_D"/>
@@ -100,6 +98,12 @@
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="GDIFireHawkUpgrade02" FollowBone="true"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" ConditionsYes="MOVING">
 					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="ONCE" AnimationBlendTime="15"/>
 					<ParticleSysBone BoneName="FX_Jet_L" FXParticleSystemTemplate="Banshee_Embers" FollowBone="true"/>
@@ -109,23 +113,13 @@
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="Banshee_HoverFlamesB" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Jet_R" FXParticleSystemTemplate="GDIFireHawkUpgrade02" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
-					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
-					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
-				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Stealth" OkToChangeModelColor="true" InvertStealthOpacity="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NU_SPYVERT_STLTH"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="JUST_BUILT">
 					<Animation AnimationName="NUVert_BLD" AnimationMode="ONCE"/>
 				</AnimationState>
@@ -150,14 +144,14 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
 					<Animation AnimationName="NU_SPYVERT_TRNL" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" ConditionsYes="MOVING">
-					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="ONCE" AnimationBlendTime="15"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
 					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
 					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" Flags="RESTART_ANIM_WHEN_COMPLETE DO_NOT_PLAY_WHEN_UNPOWERED" ConditionsYes="MOVING">
+					<Animation AnimationName="NU_SPYVERT_IDLA" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawContrail" OkToChangeModelColor="true" AttachToBoneInAnotherModule="SPYVERTBONES" ExtraPublicBone="BONE_NUSPYVERTR1 BONE_NUSPYVERTR2 BONE_NUSPYVERTL1 BONE_NUSPYVERTL2">
@@ -168,19 +162,15 @@
 					<ParticleSysBone BoneName="BONE_NUSPYVERTL1" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_NUSPYVERTL2" FXParticleSystemTemplate="AlienStormRiderContrail" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<StrafeAreaUpdate id="ModuleTag_StrafeAreaUpdate" WeaponName="NODSpyPlaneRadarScanPingWeapon" PreattackDistance="40" Radius="20" MinRadius="10"/>
-			<RunOffMapBehavior id="ModuleTag_RunOffMapBehavior" FlyingOffMap="true" RequiresSpecificTrigger="true"/>
-			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
-				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
-			</InvisibilityUpdate>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODVertigoBomberDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
 				<FX Type="INITIAL">
 					<FX>FX_NOD_VertigoBomber_VoiceDie</FX>
 				</FX>
@@ -189,6 +179,13 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
+			</InvisibilityUpdate>
+			<StrafeAreaUpdate id="ModuleTag_StrafeAreaUpdate" WeaponName="NODSpyPlaneRadarScanPingWeapon" PreattackDistance="40" Radius="20" MinRadius="10"/>
+			<RunOffMapBehavior id="ModuleTag_RunOffMapBehavior" FlyingOffMap="true" RequiresSpecificTrigger="true"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
@@ -217,6 +214,6 @@
 		<AudioArraySound>
 			<AudioEntry Sound="NOD_SpyVertigo_FlyByLoopMS" AudioType="soundAmbient" />
 		</AudioArraySound>
-		<VisionInfo VisionRange="300" ShroudClearingRange="75"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="75"/>
 	</GameObject>
 </AssetDeclaration>

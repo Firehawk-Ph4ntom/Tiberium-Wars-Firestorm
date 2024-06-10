@@ -78,13 +78,12 @@
 					<ParticleSysBone BoneName="BEAMAUXILLERY01" FXParticleSystemTemplate="FXIonCannonAuxBeamDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BEAMAUXILLERY01" FXParticleSystemTemplate="FXIonCannonAuxBeamFire" FollowBone="true"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" ConditionsYes="IDLE">
-					<Animation AnimationName="FXIONCANNON" AnimationMode="ONCE" AnimNickName="IDL"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="FXIONCANNON" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="7.7s" MaxLifetime="7.7s"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onCreate" FX="FX_GDI_IonCannon_Shockwave"/>
@@ -93,15 +92,15 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_IonCannon_ScorchNugget"/>
 			</FXListBehavior>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" DeathWeapon="IonCannonFinalWeapon" InitiallyActive="true">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
 			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="500">
 				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
 			</DestroyObjectsUpdate>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" DeathWeapon="IonCannonFinalWeapon" InitiallyActive="true">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="IonCannonWeapon_Stage1" FireDelay="2.5s" OneShot="true"/>
 				<FireWeaponNugget WeaponName="IonCannonWeapon_Stage2" FireDelay="3.1s" OneShot="true"/>
@@ -110,6 +109,7 @@
 				<FireWeaponNugget WeaponName="IonCannonWeapon_Stage5" FireDelay="4.9s" OneShot="true"/>
 				<FireWeaponNugget WeaponName="IonCannonWeapon_Stage6" FireDelay="5.5s" OneShot="true"/>
 			</FireWeaponUpdate>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="7.7s" MaxLifetime="7.7s"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>

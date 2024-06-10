@@ -3,13 +3,58 @@
 		<!-- Base Object -->
 		<Include type="instance" source="NODCarryall.xml"/>
 	</Includes>
-	<GameObject id="NODCarryallVehicle" inheritFrom="NODCarryall" EditorName="NODCarryallVehicle" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL">
+	<GameObject id="NODCarryallVehicle" inheritFrom="NODCarryall" SelectPortrait="Portrait_NODCarryallVehicle" ButtonImage="Portrait_NODCarryallVehicle" EditorName="NODCarryallVehicle" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" ExtraPublicBone="BONEGARRISON01" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Turret TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUVEHCARRYALL_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Texture Original="NUCarryAll" New="NUCarryAll_D"/>
+					<ParticleSysBone BoneName="Bone_Engine_LF" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_LF" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_LF" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUCARRYALL_SKN_FS"/>
+					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_Engine_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="NUCarryAll_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="NUCarryAll_TRNL" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="NUCarryAll_TRNR" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="NUCarryAll_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Animation AnimationName="NUCarryAll_OPNA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING">
+					<Animation AnimationName="NUCarryAll_CLSA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
 		<Behaviors>
 			<HordeTransportContain xai:joinAction="Overwrite" id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true" ExtendedExitContainerChecks="true">
 				<PassengerFilter Rule="NONE">
 					<IncludeThing>NODAttackBike</IncludeThing>
 					<IncludeThing>NODScorpionBuggy</IncludeThing>
-					<IncludeThing>NODMarauder</IncludeThing>
 					<IncludeThing>NODRaiderTank</IncludeThing>
 					<IncludeThing>NODHarvester</IncludeThing>
 					<IncludeThing>NODFlameTank</IncludeThing>
@@ -17,6 +62,8 @@
 					<IncludeThing>NODBeamCannon</IncludeThing>
 					<IncludeThing>NODPhantom</IncludeThing>
 					<IncludeThing>NODStealthTank</IncludeThing>
+					<IncludeThing>NODStealthTank_Veteran</IncludeThing>
+					<IncludeThing>NODSpiderDrone</IncludeThing>
 					<IncludeThing>NODSpecterArtillery</IncludeThing>
 					<IncludeThing>NODEmissary</IncludeThing>
 				</PassengerFilter>
@@ -25,10 +72,18 @@
 					<Filter Rule="NONE" Include="VEHICLE"/>
 				</PassengerData>
 			</HordeTransportContain>
+			<StatusBitsUpgrade id="ModuleTag_Unselectable" StatusToClear="UNSELECTABLE">
+				<TriggeredBy>Upgrade_Transporting</TriggeredBy>
+			</StatusBitsUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUpgrade">
+				<TriggeredBy>Upgrade_Transporting</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ObjectDefault</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
 		</Behaviors>
 		<AI>
 			<TransportHelicopterAIUpdate xai:joinAction="Overwrite" id="ModuleTag_AI" AILuaEventsList="NODCarryall_SummonedForVehicleFunctions" FlyOffMapOnUnload="true">
-				<UnitAITargetChooserData SympathyRange="100.0"/>
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</TransportHelicopterAIUpdate>
 		</AI>
 	</GameObject>

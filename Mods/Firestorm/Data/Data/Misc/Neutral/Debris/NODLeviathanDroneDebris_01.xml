@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:BaseObjects/BaseDebris.xml"/>
+	</Includes>
+	<GameObject id="NODLeviathanDroneDebris_01" inheritFrom="BaseDebris" EditorName="NODLeviathanDroneDebris_01">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUL_AIRCRAFTM_DRONE"/>
+					<Texture Original="NUL_AircraftM" New="NUL_AircraftM_DMG"/>
+					<ParticleSysBone BoneName="DRONE" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="DRONE" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="DRONE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<Physics id="ModuleTag_Physics" TumbleRandomly="true" MaxXRotationVelocity="360" MaxYRotationVelocity="0" MaxZRotationVelocity="0" BounceCount="0" KillWhenRestingOnGround="true" GroundHitFX="FX_GDIAirVehicleExplode"/>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

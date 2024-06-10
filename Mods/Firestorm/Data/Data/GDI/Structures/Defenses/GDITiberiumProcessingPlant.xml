@@ -16,14 +16,14 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="GDITiberiumProcessingPlant" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS FS_CASH_PRODUCER STRUCTURE POWERED NOT_AUTOACQUIRABLE FS_MONEY_STORAGE COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:GDITiberiumProcessingPlant" ThreatLevel="10" TypeDescription="Type:GDITiberiumProcessingPlant" PlacementViewAngle="315d" Side="GDI" EditorName="GDITiberiumProcessingPlant" BuildTime="30" EnergyProduction="-15" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_GDIDefenseGridBuilding" ButtonImage="Portrait_GDIDefenseGridBuilding" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="3000" MaxSimultaneousOfType="1">
+	<GameObject id="GDITiberiumProcessingPlant" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS STRUCTURE POWERED NOT_AUTOACQUIRABLE FS_MONEY_STORAGE COVER AUTO_ACQUIRABLE_BY_AI" Description="Desc:GDITiberiumProcessingPlant" ThreatLevel="10" TypeDescription="Type:GDITiberiumProcessingPlant" PlacementViewAngle="315d" Side="GDI" EditorName="GDITiberiumProcessingPlant" BuildTime="30" EnergyProduction="-15" CommandSet="GenericStructureCommandSet" SelectPortrait="Portrait_GDIDefenseGridBuilding" ButtonImage="Portrait_GDIDefenseGridBuilding" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="3000" MaxSimultaneousOfType="1">
 		<DisplayName>Name:GDITiberiumProcessingPlant</DisplayName>
 		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDIArmory</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericMediumBuildingArmor" DamageFX="VehicleDamageFX"/>
-		<SkirmishAIInformation BaseBuildingLocation="BACK"/>
+		<SkirmishAIInformation BaseBuildingLocation="HOMEBASE"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -44,36 +44,36 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Animation AnimationName="GBDEFENSE_AAN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
+					<Animation AnimationName="GBDEFENSE_AAN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBDEFENSE_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBDEFENSE_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="GBDefense_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="GBDefense_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTR01") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTR01") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTR01") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
@@ -93,17 +93,13 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="GBDEFENSESRF_SKN"/>
 					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="GBDEFENSESRF_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -112,21 +108,19 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="16000" OnDieSpawnPercentage="25"/>
-			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="2s" DepositAmount="10" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
-				<Sound List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -134,16 +128,16 @@
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
 			</FXListBehavior>
-			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="TIBPlant_CashBoost" InitiallyActive="true" Range="99999" RefreshDelay="0.01s">
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="30000" OnDieSpawnPercentage="25"/>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="AttributeModifier_ProcessingPlantCashBoost" InitiallyActive="true" Range="99999" RefreshDelay="0.01s">
 				<ObjectFilter Rule="ANY" Relationship="SAME_PLAYER" Include="SUPPLY_GATHERING_CENTER HARVESTER"/>
 			</AttributeModifierAuraUpdate>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingSuicide.xml"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
@@ -152,16 +146,16 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
 		</Body>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="55" MinorRadius="55" Height="85" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="CYLINDER" MajorRadius="55" Height="85" ContactPointGeneration="STRUCTURE"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_TiberiumPlant_Select" AudioType="voiceSelect"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
-			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
-			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_LightDamage_MS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_HeavyDamage_MS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
-		<ProjectedBuildabilityInfo Radius="175" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

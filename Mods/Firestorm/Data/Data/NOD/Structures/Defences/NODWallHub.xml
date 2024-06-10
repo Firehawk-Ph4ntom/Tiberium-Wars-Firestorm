@@ -15,7 +15,7 @@
 	<GameObject id="NODWallHub" inheritFrom="BaseWallHUB" Side="NOD" SelectPortrait="Portrait_NODWallHub" ButtonImage="Portrait_NODWallHub" CommandSet="NODWallHubCommandSet" EditorName="NODWallHub" Description="Desc:NODWallHub" TypeDescription="Type:NODWallHub">
 		<DisplayName>Name:NODWallHub</DisplayName>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NBWallHub_FS"/>
 				</ModelConditionState>
@@ -35,21 +35,22 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="NBWallHub_A" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Tiny_Light" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBWallHub_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBWallHub_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="NBWallHub_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBWallHub_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Tiny_Light" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -60,9 +61,9 @@
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Tiny"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Tiny"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Tiny"/>
 			</FXListBehavior>
 			<WallHubBehavior id="ModuleTag_SoWeCanBuildWalls" BuilderRadius="8" HubCapTemplateId="NODWallHub" DefaultSegmentTemplateId="NODWallSegment" CliffCapTemplateId="NODWallHub" Options="16">
 				<SegmentPattern>NODWallSegment</SegmentPattern>

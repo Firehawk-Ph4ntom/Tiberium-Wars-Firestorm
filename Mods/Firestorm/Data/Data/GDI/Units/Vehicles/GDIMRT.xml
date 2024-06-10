@@ -16,114 +16,139 @@
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRTR05.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRTRAD.w3x"/>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml" />
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIMRT" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_CAST_REFLECTIONS TRANSPORT SCORE CAN_REVERSE_MOVE VEHICLE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIMRT" TypeDescription="Type:GDIMRT" Side="GDI" EditorName="GDIMRT" BuildTime="7" CommandSet="GDIMRTCommandSet" SelectPortrait="Portrait_GDIMRT" ButtonImage="Portrait_GDIMRT" VoicePriority="62" ThreatLevel="10" BuildCost="700">
+	<GameObject id="GDIMRT" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE TRANSPORT VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIMRT" TypeDescription="Type:GDIMRT" Side="GDI" EditorName="GDIMRT" BuildTime="7" CommandSet="GDIMRTCommandSet" SelectPortrait="Portrait_GDIMRT" ButtonImage="Portrait_GDIMRT" VoicePriority="62" ThreatLevel="10" BuildCost="700">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMRT</DisplayName>
 		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
 		<ArmorSet Armor="GenericLightVehicleArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="GDIAPCLocomotor" Condition="NORMAL" Speed="72.0"/>
 		<Draws>
-			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" ExtraPublicBone="BONEGARRISON01 BONEGARRISON02 BONEGARRISON03 BONEGARRISON04 BONEGARRISON05 BONEGARRISON06 BONEGARRISON07 BONEGARRISON08 BONEGARRISON09 BONEGARRISON10" TrackMarksLeftBone="Bone_TireLR" TrackMarksRightBone="Bone_TireRR" OkToChangeModelColor="true" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" LeftRearTireBone="Bone_TireLR1" RightRearTireBone="Bone_TireRR1" MidLeftRearTireBone="Bone_TireLR" MidRightRearTireBone="Bone_TireRR" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25">
+			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" ExtraPublicBone="BoneGarrison01 BoneGarrison02 BoneGarrison03 BoneGarrison04 BoneGarrison05 BoneGarrison06 BoneGarrison07 BoneGarrison08 BoneGarrison09 BoneGarrison10" TrackMarksLeftBone="Bone_TireLR" TrackMarksRightBone="Bone_TireRR" OkToChangeModelColor="true" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" LeftRearTireBone="Bone_TireLR1" RightRearTireBone="Bone_TireRR1" MidLeftRearTireBone="Bone_TireLR" MidRightRearTireBone="Bone_TireRR" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUMRT_SKN"/>
 					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
 					<Turret TurretID="2"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUMRT_FP"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
 					<Model Name="GUMRTRAD"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="GUMRTR"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8">
 					<Model Name="GUMRT_SKNADAR"/>
 					<Texture Original="GUMRT" New="GUMRT_D"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="GUMRT_SKN"/>
 					<Texture Original="GUMRT" New="GUMRT_D"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="BoneGarrison01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUMRT_SKNADAR"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="GUMRT_FP"/>
-				</ModelConditionState>
 			</TruckDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableShowSubObjectPermanently("FLASHINGLIGHTS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
-					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("FLASHINGLIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="225" SizeY="225" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="283" SizeY="283" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIMRTDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="GDI_GuardianAPC_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonFakeWeapon"/>
 					<TurretSettings TurretTurnRate="360" TurretPitchRate="360" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 				<WeaponSlotTurret ID="2">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonAntiAirFakeWeapon" ObjectStatus="RIDER1"/>
 					<TurretSettings TurretTurnRate="360">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>GDIMRTRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -133,6 +158,7 @@
 				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="MutantMarauderSquad" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIMissileSoldierSquad" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaiderSquad" ObjectStatus="RIDER1"/>
@@ -140,31 +166,20 @@
 				<MemberTemplateStatusInfo ThingTemplate="NODReaper" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
 			</HordeTransportContain>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_GDIMRTDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
-				<Sound Type="INITIAL" List="GDI_GuardianAPC_VoiceDie"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
-			</FXListBehavior>
-			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
-			<SpecialPower id="ModuleTag_FireMinefield" SpecialPowerTemplate="SpecialPowerGDI_APCMinefield" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_FireMinefieldUpdate" SpecialPowerTemplate="SpecialPowerGDI_APCMinefield" SpecialWeapon="GDIAPCMinefield" StartAbilityRange="10.0" UnpackTime="0.4s" PackTime="0.4s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE"/>
 			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Lay Minefield -->
+			<SpecialPower id="ModuleTag_FireMinefield" SpecialPowerTemplate="SpecialPowerGDI_APCMinefield" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_FireMinefieldUpdate" SpecialPowerTemplate="SpecialPowerGDI_APCMinefield" SpecialWeapon="GDIAPCMinefield" StartAbilityRange="10.0" UnpackTime="0.2s" PackTime="0.2s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE"/>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
 			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>GDIMRTRepairDrone</SpawnTemplate>
-			</SpawnBehavior>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
 			<TransportAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
-				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
+				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</TransportAIUpdate>
 		</AI>
 		<Body>
@@ -180,7 +195,6 @@
 			<AudioEntry Sound="GDI_MRT_VoiceSelectMS" AudioType="voiceSelect"/>
 			<AudioEntry Sound="GDI_MRT_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
 			<NamedEntry Sound="GDI_MRT_VoiceMineDrop" Name="InitiateAPCMinefield"/>
-			<NamedEntry Sound="GDI_MRT_VoiceMove" Name="InitiateRepair"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
 			<AudioEntry Sound="GuardianAPCMoveStart" AudioType="soundMoveStart"/>

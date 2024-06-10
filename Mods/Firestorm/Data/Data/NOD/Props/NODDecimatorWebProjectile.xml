@@ -1,0 +1,28 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<GameObject id="NODDecimatorWebProjectile" EditorSorting="SYSTEM" Side="NOD" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" EditorName="NODDecimatorWebProjectile">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRDefMis"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_NODWebProjectileHit"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FireWeaponWhenDead id="ModuleTag_FinalWeapon" InitiallyActive="true" DeathWeapon="NODDecimatorCyborgWebWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="80" FirstHeightMax="80" SecondHeightMin="40" SecondHeightMax="40" FirstPercentIndent="25%" SecondPercentIndent="66%" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+		</Body>
+	</GameObject>
+</AssetDeclaration>

@@ -25,14 +25,22 @@
 					<Model Name="GUSUVUPAK_SN_FS"/>
 					<Texture Original="GB_Suv" New="GU_Suv_D"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="GUSUVUPAK_IDLA" AnimationMode="LOOP"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_StartUnpak" then CurDrawableSetTransitionAnimState("TRANS_UPakToIdle") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_StartUnpak" then CurDrawableSetTransitionAnimState("TRANS_UPakToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" StateName="STATE_StartUnpak">
 					<Animation AnimationName="GUSUVUPAK_UPK2" AnimationMode="LOOP"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_StartUnpak" and Prev ~= "TRANS_IntoUPak" then CurDrawableSetTransitionAnimState("TRANS_IntoUPak") end </Script>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_StartUnpak" and Prev ~= "TRANS_IntoUPak" then CurDrawableSetTransitionAnimState("TRANS_IntoUPak") end; </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUOutD3_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUOutD2_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoUPak">
 					<Animation AnimationName="GUSUVUPAK_UPK1" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -40,36 +48,25 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_UPakToIdle">
 					<Animation AnimationName="GUSUVUPAK_UPK3" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
-					<Animation AnimationName="GUOutD3_AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
-					<Animation AnimationName="GUOutD2_AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="MAINTAIN_FRAME_ACROSS_STATES DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="GUSUVUPAK_IDLA" AnimationMode="LOOP"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="GUOutD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="GUOutD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
@@ -89,48 +86,53 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="BONE_R03" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXSPOTLIGHT"/>
+					<Model Name="FXspotlight_FS"/>
 				</ModelConditionState>
 			</SpotlightDraw>
 		</Draws>
 		<Behaviors>
-			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="2" SpawnReplaceDelayData="0.1s" InitialBurst="2" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>GDIRepairDrone</SpawnTemplate>
-			</SpawnBehavior>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
 			</FXListBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackCompleteSound="GDI_Outpost_UnpackCompleteMS" UnpackTime="5s"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackCompleteSound="GDI_Outpost_UnpackCompleteMS" UnpackTime="15s"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300"/>
+			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
+			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="7s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>GDISurveyor</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="2" InitialBurst="2" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>GDIRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericGDIBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2300.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
 		</Body>
 		<ClientBehaviors>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
@@ -155,7 +157,7 @@
 			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 		<ProjectedBuildabilityInfo Radius="300" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" ModelConditionsToReject="STRUCTURE_UNPACKING"/>
 	</GameObject>
 </AssetDeclaration>

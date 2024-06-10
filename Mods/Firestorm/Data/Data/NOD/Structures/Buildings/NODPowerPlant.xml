@@ -8,7 +8,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODPowerPlant" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODPowerPlant" ButtonImage="Portrait_NODPowerPlant" Side="NOD" BuildCost="600" BuildTime="6" EnergyProduction="20" EnergyBonus="20" CommandSet="NODPowerPlantCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_POWER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="45d" EditorName="NODPowerPlant" Description="Desc:NODPowerPlant" TypeDescription="Type:NODPowerPlant">
+	<GameObject id="NODPowerPlant" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODPowerPlant" ButtonImage="Portrait_NODPowerPlant" Side="NOD" BuildCost="700" BuildTime="7" EnergyProduction="20" EnergyBonus="15" CommandSet="NODPowerPlantCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_POWER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="45d" EditorName="NODPowerPlant" Description="Desc:NODPowerPlant" TypeDescription="Type:NODPowerPlant">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPowerPlant</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
@@ -28,7 +28,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Model Name="NBPower_ASN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
 					<Model Name="NBPowerD3_SN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
@@ -40,54 +40,55 @@
 					<ParticleSysBone BoneName="FXBone03" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="NBPowerD2_SN"/>
+					<Model Name="NBPower"/>
+					<Texture Original="NBPower" New="NBPowerD"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="NodPPSparks" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="NodPPSparks" FollowBone="true"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="NBPower_AAN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" StateName="STATE_Damaged" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="NBPowerD2_AN" AnimationMode="MANUAL"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBPowerD3_AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NBPowerD2_AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_DamagedToReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_DamagedToReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="NBPowerD3_AN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="NBPowerD2_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_DamagedToReallyDamaged">
-					<Animation AnimationName="NBPowerD2_AN" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBPowerD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawPowerUpgrade" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2 DYING">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_1 USER_2">
 					<Model Name="NBPOWERUG"/>
 					<Texture Original="NBChemicalPt" New="NBChemicalPtD_B"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DYING">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_1">
 					<Model Name="NBPOWERUG"/>
 					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1 USER_2">
 					<Model Name="NBPOWERUG"/>
 					<Texture Original="NBChemicalPt" New="NBChemicalPtD_B"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
 					<Model Name="NBPOWERUG"/>
 					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1 USER_2">
 					<Model Name="NBPOWERUG"/>
 					<Texture Original="NBChemicalPt" New="NBChemicalPtD_B"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
 					<Model Name="NBPOWERUG"/>
 					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
 				</ModelConditionState>
@@ -101,42 +102,35 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="NBPOWERUG" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
-					<Animation AnimationName="NBPOWERUG" AnimationMode="LOOP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBPOWERUG_D3AN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged">
 					<Animation AnimationName="NBPOWERUG_D3AN" AnimationMode="MANUAL"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="NBPOWERUG_D3AN" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBPOWERUG_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 USER_1 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 USER_1 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1 USER_6">
 					<Model Name="NBPowerTibC_LF"/>
 					<Texture Original="NURadr" New="NURadrD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="NBPower_LF"/>
 					<Texture Original="NURadr" New="NURadrD"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 USER_1 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1 USER_6">
 					<Model Name="NBPowerTibC_LF"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="NBPower_LF"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 USER_1">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_6">
 					<Model Name="NBPowerTibC_LF"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -145,11 +139,11 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_LF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_NOD_LaserFencing" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
@@ -157,8 +151,8 @@
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -167,92 +161,68 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Medium"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<PowerUpgrade id="ModuleTag_PowerUpgrade">
-				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
-			</PowerUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTibCore">
-				<CustomAnimAndDuration AnimState="USER_1"/>
-				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
-			</SubObjectsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_LiquidTibCoreUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_ShowSubObjectsBlueTibCore" AddConditionFlags="USER_2">
-				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
-			</ModelConditionUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
 				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>NODPowerPlantDrone</SpawnTemplate>
 			</SpawnBehavior>
+			<PowerUpgrade id="ModuleTag_PowerUpgrade">
+				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
+			</PowerUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_LiquidTibCoreUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE" StatusToClear="RIDER4">
+				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTibCore">
+				<CustomAnimAndDuration AnimState="USER_1"/>
+				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
+			</SubObjectsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_ShowSubObjectsBlueTibCore" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODPowerPlantFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="27.7657" MinorRadius="16.6304" Height="28.8532" ContactPointGeneration="STRUCTURE">
-				<Offset x="0.710335" y="0.435268" z="0.0"/>
+			<Shape Type="BOX" MajorRadius="39" MinorRadius="23" Height="15" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2" y="0" z="0.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="32.7635" MinorRadius="21.9521" Height="14.4266" ContactPointGeneration="STRUCTURE">
-				<Offset x="0.710335" y="0.435268" z="0.0"/>
+			<Shape Type="BOX" MajorRadius="29" MinorRadius="17" Height="15" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2" y="0" z="15"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="4.0" MinorRadius="4.0" Height="14.4266" ContactPointGeneration="STRUCTURE">
+			<Shape Type="BOX" MajorRadius="19" MinorRadius="11" Height="20" ContactPointGeneration="STRUCTURE">
+				<Offset x="-2" y="0" z="30.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="6.0" Height="14.4266" ContactPointGeneration="STRUCTURE">
 				<Offset x="-19.8892" y="-32.8606" z="0.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="4.0" MinorRadius="8.88" Height="24.5252" ContactPointGeneration="STRUCTURE">
+			<Shape Type="BOX" MajorRadius="8.88" MinorRadius="8.88" Height="24.5252" ContactPointGeneration="STRUCTURE">
 				<Offset x="1.16163" y="-24.6029" z="0.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="4.0" MinorRadius="8.88" Height="24.5252" ContactPointGeneration="STRUCTURE">
+			<Shape Type="BOX" MajorRadius="8.88" MinorRadius="8.88" Height="24.5252" ContactPointGeneration="STRUCTURE">
 				<Offset x="1.16163" y="25.4366" z="0.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="6.0" MinorRadius="6.0" Height="15.0036" ContactPointGeneration="STRUCTURE">
+			<Shape Type="CYLINDER" MajorRadius="8.5" Height="15.0036" ContactPointGeneration="STRUCTURE">
 				<Offset x="-22.7741" y="33.5058" z="0.0"/>
 			</Shape>
 			<Shape Type="BOX" MajorRadius="4.0" MinorRadius="4.0" Height="52.32" ContactPointGeneration="STRUCTURE">
 				<Offset x="14.1122" y="22.6757" z="0.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="2.5" MinorRadius="2.5" Height="65.9232" ContactPointGeneration="STRUCTURE">
-				<Offset x="14.1122" y="22.6757" z="0.0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="13.5707" MinorRadius="16.6304" Height="37.9647" ContactPointGeneration="STRUCTURE">
-				<Offset x="0.710334" y="0.435268" z="0.0"/>
+			<Shape Type="BOX" MajorRadius="2.5" MinorRadius="2.5" Height="13.6032" ContactPointGeneration="STRUCTURE">
+				<Offset x="14.1122" y="22.6757" z="52.32"/>
 			</Shape>
 			<!--  Tiberium Core  -->
-			<Shape Type="BOX" MajorRadius="13.2939" MinorRadius="7.9971" Height="16.6174">
-				<Offset x="-54.1601" y="0.732512" z="0.0"/>
+			<Shape Type="BOX" MajorRadius="14" MinorRadius="15" Height="11" ContactPointGeneration="NONE">
+				<Offset x="-54.1601" y="0" z="0.0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-15.7387" y="-15.4544" z="1.69766"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="16.1939" y="-15.4544" z="33.6302"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="16.1939" y="16.4782" z="1.69766"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-15.7387" y="16.4782" z="33.6302"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-15.7387" y="-15.4544" z="33.6302"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="16.1939" y="-15.4544" z="1.69766"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="16.1939" y="16.4782" z="33.6302"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-15.7387" y="16.4782" z="1.69766"/>
-			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="NOD_PowerPlantSelect" AudioType="voiceSelect"/>

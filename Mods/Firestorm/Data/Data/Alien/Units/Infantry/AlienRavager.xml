@@ -22,8 +22,8 @@
 	</Includes>
 	<GameObject id="AlienRavager" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienRavager" ButtonImage="Portrait_AlienRavager" Side="ALIEN" BuildCost="300" BuildTime="3" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT TIBERIUM_BASED CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM" WeaponCategory="GUN" VoicePriority="133" EditorName="AlienRavager" Description="Desc:AlienRavager" TypeDescription="Type:AlienRavager" UnitTypeIcon="ScrinRavagerpip">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienRavager</DisplayName>
-		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
 		<ArmorSet Armor="AlienRavagerArmor" DamageFX="InfantryAlienDamageFX"/>
 		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="80.0"/>
 		<Draws>
@@ -34,22 +34,19 @@
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_MUZZLE"/>
 				</ModelConditionState>
 				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name=""/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDALIEN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<Model Name="AUSTALKERBLUESHARD_SKN"/>
 					<Texture Original="AUStalker" New="AUStalkerB"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
-					<Model Name="AUStalker_SKN"/>
-					<Texture Original="AUStalker" New="AUStalkerB"/>
-				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Idle" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="AUStalker_BATA" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="5"/>
 					<Animation AnimationName="AUStalker_BIDA" AnimationMode="ONCE" AnimationPriority="30" AnimationBlendTime="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "ATNB" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
 					<Animation AnimationName="AUStalker_CDTA" AnimationMode="ONCE"/>
@@ -57,27 +54,33 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
 					<Animation AnimationName="AUStalker_CDTA" AnimationMode="ONCE"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="AUStalker_DIEA" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="5"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE" FrameForPristineBonePositions="28">
 					<Animation AnimationName="AUStalker_ATKA" AnimationMode="ONCE" AnimationPriority="80"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUStalker_RUNA" AnimationBlendTime="5" AnimationPriority="60" AnimationMode="LOOP"/>
 					<Animation AnimationName="AUStalker_RUNB" AnimationBlendTime="5" AnimationPriority="30" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="24">
 					<Animation AnimationName="AUStalker_ATKB" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
 					<Animation AnimationName="AUStalker_BATA" AnimationMode="ONCE" AnimationBlendTime="5"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RANDOMSTART RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
-					<Animation AnimNickName="ATNB" AnimationName="AUStalker_AIDA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationPriority="50" AnimationMustCompleteBlend="false"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_boredToAttention") end; </Script>
+					<Animation AnimationName="AUStalker_AIDA" AnimationMode="ONCE" AnimationBlendTime="10" AnimationPriority="50"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_boredToAttention">
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
 					<Animation AnimationName="AUStalker_BATA" AnimationMode="ONCE" AnimationBlendTime="5"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
@@ -86,89 +89,100 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="B_LEG_LT3">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="B_LEG_RT3">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles3">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRavagerPlasmaDiscLauncher"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRavagerShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRavagerBluePlasmaDiscLauncher" ObjectStatus="WEAPON_UPGRADED_02"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRavagerBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<LaserState id="ModuleTag_LaserState" LaserId="0"/>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_AlienInfGibs</OCL>
 				</OCL>
-				<Sound List="ALI_Stalker_SoundDie"/>
 				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Stalker_SoundDie"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsChar</OCL>
 				</OCL>
-				<Sound List="ALI_Stalker_SoundDie"/>
 				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="ALI_Stalker_SoundDie"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound List="ALI_Stalker_SoundDie"/>
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Stalker_SoundDie"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXListBlood">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
-				<Event FX="FX_AlienBlood"/>
+				<Event Index="onDeath" FX="FX_AlienBlood"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXListScorch">
 				<DieMuxData DeathTypes="BURNED"/>
-				<Event FX="FX_InfScorch"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
 			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRavagerShardWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRavagerBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
 			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>ALI_ShockTrooper</Key>
 			</LargeGroupAudioUpdate>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<ModelConditionUpgrade id="ModuleTag_ShardLaunchersModelCondition" AddConditionFlags="USER_1">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</ModelConditionUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsShard" ShowSubObjects="AUSTALKER_SHARD AUSTALKER_GUN">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</SubObjectsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+			<!-- Tiberium Agitation -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_ExplosiveTiberium" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" SpecialWeapon="AlienRavagerTiberiumAgitation" UnpackTime="0.9s" PackTime="0.5s" BusyForDuration="1.5s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<SpecialPower id="ModuleTag_ExplosiveTiberiumBlue" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveTiberiumBlueUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" SpecialWeapon="AlienRavagerTiberiumAgitationBlueIchor" UnpackTime="0.9s" PackTime="0.5s" BusyForDuration="1.5s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
@@ -177,20 +191,12 @@
 			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<!-- Tiberium Agitation -->
-			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation">
-				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green"/>
-				<SpecialPower SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue"/>
-			</SpecialPowerDispatchSpecialPower>
-			<SpecialPower id="ModuleTag_ExplosiveTiberium_Green" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveGreenTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Green" SpecialWeapon="AlienRavagerTiberiumAgitation" UnpackTime="0.9s" PackTime="0.5s" BusyForDuration="1.5s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
-			<SpecialPower id="ModuleTag_ExplosiveTiberium_Blue" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveBlueTiberiumUpdate" SpecialPowerTemplate="SpecialPower_UseTiberiumAgitation_Blue" SpecialWeapon="AlienRavagerTiberiumAgitationBlueIchor" UnpackTime="0.9s" PackTime="0.5s" BusyForDuration="1.5s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienRavagerFunctions">
-				<UnitAITargetChooserData/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>

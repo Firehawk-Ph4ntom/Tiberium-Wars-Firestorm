@@ -19,7 +19,7 @@
 		<ArmorSet Armor="GenericMediumBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="FRONT"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GBBARRACKS_SKN_FS"/>
 					<Texture Original="GBWarFacBib" New="GBArmory"/>
@@ -66,44 +66,41 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="GBBarracks_IDLA_FS" AnimationMode="LOOP"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="GBBarracks_IDLA_FS" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBBarracks_AAN" AnimationMode="ONCE"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR" Flags="START_FRAME_FIRST">
-					<Animation AnimationName="GBBarracks_IDLA_FS" AnimationMode="MANUAL"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBBarracks_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GBBarracks_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="GBBarracks_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="GBBarracks_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Draw_Door" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GBBarrDoor_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
-					<Model Name="GBBarrDoor_SKN"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
-					<Model Name="GBBarrDoor_SKN"/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="MANUAL"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Animation AnimationName="GBBARRDOOR_A" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.6" AnimationSpeedFactorMax="0.6"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
-					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="MANUAL"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Animation AnimationName="GBBarrDoor_OPN" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_WAITING_OPEN" Flags="START_FRAME_FIRST">
 					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="MANUAL"/>
@@ -114,21 +111,18 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING" StateName="STATE_Closed">
 					<Animation AnimationName="GBBarrDoor_CLS" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="GBBarrDoor_OPN" AnimationMode="ONCE"/>
-				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
@@ -148,17 +142,13 @@
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRFDraw" OkToChangeModelColor="true" UseStandardModelNames="true" StaticModelLODMode="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 REALLYDAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_6">
 					<Model Name="GBBARRACKSSRF_SKN"/>
 					<Texture Original="GBTibWallHub" New="GBTibWallHub_D"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DAMAGED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_6">
 					<Model Name="GBBARRACKSSRF_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6">
@@ -173,24 +163,24 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_SRF_FXList">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_6" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_GDI_SonicRepulsionField" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="INFANTRY" NumDoorAnimations="1" DoorOpeningTime="0.66s" DoorWaitOpenTime="1.0s" DoorCloseTime="0.66s"/>
-			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" PlacementViewAngle="45d" ExitDelay="1">
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
 				<UnitCreatePoint x="0.0" y="25.0"/>
 				<NaturalRallyPoint x="60.0" y="20.0"/>
 			</QueueProductionExitUpdate>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -198,14 +188,8 @@
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
 			</FXListBehavior>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
-			<xi:include href="DATA:Includes/GenericGDIBuildingDestruction.xml"/>
-			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
-			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
-			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="5s" ResetInitialTeamOnCapture="true">
+			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="3s" ResetInitialTeamOnCapture="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
 				<PassengerData BonePrefix="ROOTTRANSFORM">
@@ -216,6 +200,12 @@
 			<ModelConditionUpgrade id="ModuleTag_TibFieldSuitsModelCondition" Permanent="true" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
 			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingDestruction.xml"/>
+			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
@@ -260,30 +250,6 @@
 			<Shape Type="BOX" MajorRadius="1.56245" MinorRadius="4.78775" Height="25.0958" ContactPointGeneration="STRUCTURE">
 				<Offset x="-24.3959" y="-36.3315" z="-2.68064e-006"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-14.7758" y="-24.9922" z="0.0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.2522" y="-24.9922" z="17.6454"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.2522" y="39.9894" z="0.0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-14.7758" y="39.9894" z="17.6454"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-14.7758" y="-24.9922" z="17.6454"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.2522" y="-24.9922" z="0.0"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.2522" y="39.9894" z="17.6454"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-14.7758" y="39.9894" z="0.0"/>
-			</ContactPoint>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_BarracksSelect" AudioType="voiceSelect"/>

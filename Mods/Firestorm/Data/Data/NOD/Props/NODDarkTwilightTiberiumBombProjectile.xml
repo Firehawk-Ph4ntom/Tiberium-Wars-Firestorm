@@ -1,0 +1,82 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="NODDarkTwilightTiberiumBombProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="NOD" EditorName="NODDarkTwilightTiberiumBombProjectile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXTIBBALL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TwilightBlastTrail_proj" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_TwilightBombHit"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_TiberiumBomblets">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="33%" SecondPercentIndent="66%" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Normal Projectile -->
+	<GameObject id="NODDarkTwilightTiberiumBombProjectileHeroic" inheritFrom="NODDarkTwilightTiberiumBombProjectile" EditorName="NODDarkTwilightTiberiumBombProjectileHeroic">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXTIBBALLRED"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TwilightBlastTrail_proj" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_RedTiberiumBomblets">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Projectile -->
+	<GameObject id="NODDarkTwilightTiberiumBombProjectileBlue" inheritFrom="NODDarkTwilightTiberiumBombProjectile" EditorName="NODDarkTwilightTiberiumBombProjectileBlue">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXTIBBALLBLUE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TwilightBlastTrail_projBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_TwilightBombHitBlue"/>
+			</FXListBehavior>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_BlueTiberiumBomblets">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Projectile -->
+	<GameObject id="NODDarkTwilightTiberiumBombProjectileBlueHeroic" inheritFrom="NODDarkTwilightTiberiumBombProjectileBlue" EditorName="NODDarkTwilightTiberiumBombProjectileBlueHeroic">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXTIBBALLRED"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TwilightBlastTrail_projBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_RedUpgradedTiberiumBomblets">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

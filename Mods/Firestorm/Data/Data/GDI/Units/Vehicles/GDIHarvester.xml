@@ -1,11 +1,18 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHarvester_TibBlue.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHarvester_TibRed.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHvyHarv.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHvyHarv_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHvyHarv_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHvyHarvD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\HC_GUHvyHarv.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_TIB1_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_TIB2_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_TIB3_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_TIB4_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_TIBMETER_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARV_SKNADAR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARVR_CTR.w3x"/>
@@ -15,9 +22,10 @@
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARVR04_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIHarvester\GUHVYHARVRAD_CTR.w3x"/>
 		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml" />
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIHarvester" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIHarvester" ButtonImage="Portrait_GDIHarvester" Side="GDI" BuildCost="1500" BuildTime="15" CommandSet="GDIHarvesterCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE TRANSPORT VEHICLE HARVESTER MOVE_FOR_NOONE IGNORES_SELECT_ALL CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" VoicePriority="24" EditorName="GDIHarvester" Description="Desc:GDIHarvester" TypeDescription="Type:GDIHarvester">
+	<GameObject id="GDIHarvester" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIHarvester" ButtonImage="Portrait_GDIHarvester" Side="GDI" BuildCost="1500" BuildTime="15" CommandSet="GDIHarvesterCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE TRANSPORT VEHICLE HARVESTER PATH_THROUGH_EACH_OTHER PATH_THROUGH_INFANTRY IGNORES_SELECT_ALL CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" VoicePriority="24" EditorName="GDIHarvester" Description="Desc:GDIHarvester" TypeDescription="Type:GDIHarvester">
 		<DisplayName xai:joinAction="Replace">Name:GDIHarvester</DisplayName>
 		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
@@ -33,177 +41,347 @@
 					<Turret TurretID="1"/>
 					<Turret TurretID="2"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="GUHVYHARV_FP"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
 					<Model Name="GUHVYHARVRAD"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTRACKSL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="GUHVYHARVR"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTRACKSL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8" RetainSubObjects="true">
 					<Model Name="GUHVYHARV_SKNADAR"/>
 					<Texture Original="GUHvyHarv" New="GUHvyHarvD"/>
-					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTRACKSL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="GUHVYHARV_SKN"/>
 					<Texture Original="GUHvyHarv" New="GUHvyHarvD"/>
-					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTRACKSL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_8" RetainSubObjects="true">
 					<Model Name="GUHVYHARV_SKNADAR"/>
-					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTRACKSL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
 					<Model Name="GUHVYHARV_SKN"/>
-					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTRACKSL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="GUHVYHARV" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8" RetainSubObjects="true">
 					<Model Name="GUHVYHARV_SKNADAR"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="GUHVYHARV_FP"/>
-				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="IDL"/>
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_PREPARATION">
-					<Animation AnimationName="GUHRVSTR_PREP" AnimationMode="ONCE" AnimNickName="PREP" AnimationBlendTime="15"/>
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_32">
-					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP" AnimNickName="HARVEST"/>
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("Tib") CurDrawableHideSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
-					<ParticleSysBone BoneName="FXClawL" FXParticleSystemTemplate="HarvesterRocksRed" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXClawR" FXParticleSystemTemplate="HarvesterRocksRed" FollowBone="true"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_31">
-					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP" AnimNickName="HARVEST"/>
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("Tib") CurDrawableHideSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
-					<ParticleSysBone BoneName="FXClawL" FXParticleSystemTemplate="HarvesterRocksBlue" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXClawR" FXParticleSystemTemplate="HarvesterRocksBlue" FollowBone="true"/>
+					<Animation AnimationName="GUHRVSTR_PREP" AnimationMode="ONCE" AnimationBlendTime="15"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION">
-					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP" AnimNickName="HARVEST"/>
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("Tib") CurDrawableHideSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
-					<ParticleSysBone BoneName="FXClawL" FXParticleSystemTemplate="HarvesterRocks" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXClawR" FXParticleSystemTemplate="HarvesterRocks" FollowBone="true"/>
+					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP"/>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="MOV"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="MOV"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="MOV"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="MOV"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="MOV"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableShowSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
-					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP" AnimNickName="MOV"/>
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("Tib") CurDrawableShowSubObject("Tib_Stop") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
-				<LeftTread>FXTracksL</LeftTread>
-				<RightTread>FXTracksR</RightTread>
 			</TankDraw>
-			<ScriptedModelDraw id="ModuleTag_Draw_TIB">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUHRVSTR_TIB"/>
+			<!-- Draw TIB meter -->
+			<ScriptedModelDraw id="ModuleTag_Draw_TIBMeter">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_16">
+					<Model Name="GUHVYHARV_TIBMETER"/>
+					<Texture Original="GUHarvester_Tib" New="GUHarvester_TibRed"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_15">
+					<Model Name="GUHVYHARV_TIBMETER"/>
+					<Texture Original="GUHarvester_Tib" New="GUHarvester_TibBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_14">
+					<Model Name="GUHVYHARV_TIBMETER"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
-					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") CurDrawableHideSubObject("FXGlows_25") CurDrawableHideSubObject("FXGlows_50") CurDrawableHideSubObject("FXGlows_75") CurDrawableHideSubObject("FXGlows_100") </Script>
+					<Animation AnimationName="GUHRVSTR_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableHideSubObject("TIB") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") CurDrawableHideSubObject("FXGlows_25") CurDrawableHideSubObject("FXGlows_50") CurDrawableHideSubObject("FXGlows_75") CurDrawableHideSubObject("FXGlows_100") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableHideSubObject("TIB") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_1">
-					<Script> CurDrawableShowSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") CurDrawableShowSubObject("FXGlows_25") CurDrawableHideSubObject("FXGlows_50") CurDrawableHideSubObject("FXGlows_75") CurDrawableHideSubObject("FXGlows_100") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableHideSubObject("TIB") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_2">
-					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableShowSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") CurDrawableHideSubObject("FXGlows_25") CurDrawableShowSubObject("FXGlows_50") CurDrawableHideSubObject("FXGlows_75") CurDrawableHideSubObject("FXGlows_100") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableHideSubObject("TIB") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_3">
-					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableShowSubObject("Tib_75") CurDrawableHideSubObject("Tib_100") CurDrawableHideSubObject("FXGlows_25") CurDrawableHideSubObject("FXGlows_50") CurDrawableShowSubObject("FXGlows_75") CurDrawableHideSubObject("FXGlows_100") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_PREPARATION">
+					<Animation AnimationName="GUHRVSTR_PREP" AnimationMode="ONCE" AnimationBlendTime="15"/>
+					<Script> CurDrawableShowSubObject("TIB_STOP") CurDrawableHideSubObject("TIB") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MONEY_STORED_AMOUNT_4">
-					<Script> CurDrawableHideSubObject("Tib_25") CurDrawableHideSubObject("Tib_50") CurDrawableHideSubObject("Tib_75") CurDrawableShowSubObject("Tib_100") CurDrawableHideSubObject("FXGlows_25") CurDrawableHideSubObject("FXGlows_50") CurDrawableHideSubObject("FXGlows_75") CurDrawableShowSubObject("FXGlows_100") </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_16">
+					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HarvesterDustRed" FollowBone="true"/>
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableShowSubObject("TIB") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_15">
+					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HarvesterDustBlue" FollowBone="true"/>
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableShowSubObject("TIB") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_14">
+					<Animation AnimationName="GUHRVSTR_HARV" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HarvesterDustGreen" FollowBone="true"/>
+					<Script> CurDrawableHideSubObject("TIB_STOP") CurDrawableShowSubObject("TIB") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<!-- Draw TIB1 models -->
+			<ScriptedModelDraw id="ModuleTag_Draw_TIB">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_39">
+					<Model Name="GUHVYHARV_TIB1"/>
+					<Texture Original="GBRefinery" New="GBRefineryRed"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_35">
+					<Model Name="GUHVYHARV_TIB1"/>
+					<Texture Original="GBRefinery" New="GBRefineryBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_31">
+					<Model Name="GUHVYHARV_TIB1"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<!-- Draw TIB2 models -->
+			<ScriptedModelDraw id="ModuleTag_Draw_TIB2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_40">
+					<Model Name="GUHVYHARV_TIB2"/>
+					<Texture Original="GBRefinery" New="GBRefineryRed"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_36">
+					<Model Name="GUHVYHARV_TIB2"/>
+					<Texture Original="GBRefinery" New="GBRefineryBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_32">
+					<Model Name="GUHVYHARV_TIB2"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<!-- Draw TIB3 models -->
+			<ScriptedModelDraw id="ModuleTag_Draw_TIB3">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_41">
+					<Model Name="GUHVYHARV_TIB3"/>
+					<Texture Original="GBRefinery" New="GBRefineryRed"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_37">
+					<Model Name="GUHVYHARV_TIB3"/>
+					<Texture Original="GBRefinery" New="GBRefineryBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_33">
+					<Model Name="GUHVYHARV_TIB3"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<!-- Draw TIB4 models -->
+			<ScriptedModelDraw id="ModuleTag_Draw_TIB4">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_42">
+					<Model Name="GUHVYHARV_TIB4"/>
+					<Texture Original="GBRefinery" New="GBRefineryRed"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_38">
+					<Model Name="GUHVYHARV_TIB4"/>
+					<Texture Original="GBRefinery" New="GBRefineryBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_34">
+					<Model Name="GUHVYHARV_TIB4"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHT_01") CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHT_01") CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMamm_FX"/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HarvesterDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FXClawL">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_16">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksRed" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksRed2" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksDustRed" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_15">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksBlue2" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksDustBlue" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_14">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocks" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocks2" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksDust" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="FXClawR">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_16">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksRed" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksRed2" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksDustRed" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_15">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksBlue2" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksDustBlue" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="HARVEST_ACTION USER_14">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocks" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocks2" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="HarvesterRocksDust" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<!-- Return to Dock Button Power -->
-			<ReturnToDockSpecialPower id="ModuleTag_ReturnToDock" SpecialPowerTemplate="SpecialPower_ReturnToDock"/>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="HarvesterDeathTiberiumOCL">
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIHarvesterDebris</OCL>
+				</OCL>
 				<DieMuxData DeathTypes="ALL"/>
-			</CreateObjectDie>
+				<Sound Type="INITIAL" List="GDI_Harvester_VoiceDie"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonFakeWeapon"/>
 					<TurretSettings TurretTurnRate="360">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 				<WeaponSlotTurret ID="2">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonAntiAirFakeWeapon" ObjectStatus="RIDER1"/>
 					<TurretSettings TurretTurnRate="360">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -213,6 +391,7 @@
 				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="MutantMarauderSquad" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIMissileSoldierSquad" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaiderSquad" ObjectStatus="RIDER1"/>
@@ -220,37 +399,37 @@
 				<MemberTemplateStatusInfo ThingTemplate="NODReaper" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
 			</HordeTransportContain>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_GDIHarvesterDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="TOPPLED"/>
-				<Sound Type="INITIAL" List="GDI_Harvester_VoiceDie"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
-			</FXListBehavior>
 			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking or when attacking -->
 			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Replace" UpdatePeriod="0.1s">
 				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A RELOADING_A USING_WEAPON_A" ForbiddenStatus="IS_FIRING_WEAPON USING_ABILITY IS_AIMING_WEAPON SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING DOCKING"/>
 				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
 			</InvisibilityUpdate>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Return to Dock Button Power -->
+			<ReturnToDockSpecialPower id="ModuleTag_ReturnToDock" SpecialPowerTemplate="SpecialPower_ReturnToDock"/>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
 			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHarvesterUpgradesForTib.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="300" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="true">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
+			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="false" AILuaEventsList="GenericHarvesterFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</SupplyTruckAIUpdate>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="5500"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5250"/>
 		</Body>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="10.0" Height="15.0" ContactPointGeneration="VEHICLE"/>
+			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="3" Height="8" ContactPointGeneration="VEHICLE">
+				<Offset x="3" y="-14.5" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="3" Height="8" ContactPointGeneration="VEHICLE">
+				<Offset x="3" y="14.5" z="0"/>
+			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="GDI_HeavyHarvester_VoiceAttack" AudioType="voiceAttack"/>
@@ -270,6 +449,6 @@
 			<AudioEntry Sound="HarvesterAmbientLoopMS" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventDieOwner="HarvesterLost" EvaEventDamagedOwner="HarvesterUnderAttack" EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="275" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
 	</GameObject>
 </AssetDeclaration>

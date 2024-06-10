@@ -9,67 +9,73 @@
 		<ArmorSet Armor="GenericLightInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
 		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="75.0"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="false">
+			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUVisrod_SKN"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_bored">
-					<Animation AnimationName="NUVisrod_IDLA" AnimationMode="ONCE" AnimationPriority="30" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NUVisrod_IDLA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" StateName="STATE_Cover">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="NUVisrod_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
-					<Animation AnimationName="NUVisrod_MOVA" AnimationMode="LOOP" AnimationPriority="30" Distance="30"/>
+					<Animation AnimationName="NUVisrod_MOVA" AnimationMode="LOOP" Distance="30"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A FIRING_OR_PREATTACK_A" StateName="STATE_FIRING">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
 					<Animation AnimationName="NUVisrod_ATKA" AnimationMode="ONCE" UseWeaponTiming="true"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_FIRING" then CurDrawableSetTransitionAnimState("STATE_ENGAGED") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_ENGAGED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
 					<Animation AnimationName="NUVisrod_ATKA" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_ENGAGED" then CurDrawableSetTransitionAnimState("STATE_FIRING") end; </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Viceroid_SoundDie"/>
+			</SlowDeath>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NeutralViceroidSpittleWeapon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<EmotionTrackerUpdate id="Module_ETU">
 				<TauntAndPointExcluded Rule="NONE"/>
 			</EmotionTrackerUpdate>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<Sound Type="INITIAL" List="ALI_Viceroid_SoundDie"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="AggressiveOnly"/>
 		</Behaviors>
 		<AI>
 			<!-- If you make that wander distance small, like about 10 or so, they'll walk around really funkily (don't know if you want that) -->
 			<WanderAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" WanderDistance="100" AttackAll="true" Selectable="true">
-				<UnitAITargetChooserData CanAutoAcquireNonAutoAcquirable="true"/>
+				<UnitAITargetChooserData CanAutoAcquireNonAutoAcquirable="true" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</WanderAIUpdate>
 		</AI>
 		<Body>
@@ -88,6 +94,6 @@
 			<AudioEntry Sound="ALI_Viceroid_AmbientDelayedLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventDieOwner="" EvaEventDamagedOwner="" EvaEventDamagedFromShroudedSourceOwner="" EvaEventDamagedByFireOwner="" EvaEventAmbushed="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventAvailableForProduction="" EvaEventProductionStarted="" EvaEventBuildOnHold="" EvaEventBuildCancelled="" EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="115" ShroudClearingRange="0" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="200" ShroudClearingRange="0" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 	</GameObject>
 </AssetDeclaration>

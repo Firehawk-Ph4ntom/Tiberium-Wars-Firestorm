@@ -12,7 +12,7 @@
 					<Model Name="CBSatLnch_D1"/>
 					<Texture Original="CBSatLnch_D" New="CBSatLnch"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Model Name="CBSatLnch_D3"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
@@ -24,9 +24,14 @@
 					<Texture Original="CBSatLnch" New="CBSatLnch_D"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="CBSatLnch_D3_FS" AnimationMode="MANUAL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_XLarge" FollowBone="true"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBSatLnch_D2" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="CBSatLnch_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -34,133 +39,40 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" xai:joinAction="Remove"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true" MaxQueueEntries="2"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
 				<Event Index="onTransitionToRubble" FX="FX_AwesomeXplosion"/>
-				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchMedium"/>
+				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchLarge"/>
 			</FXListBehavior>
-			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true" MaxQueueEntries="2"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2s"/>
 			<StorePurchasedUpgradeBehavior id="StorePurchasedUpgradeBehavior" MaxPlayerUpgrades="2"/>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SatelliteLaunchFacility_Destroyed">
-				<DieMuxData DeathTypes="ALL"/>
-			</CreateObjectDie>
-			<DestroyDie id="ModuleTag_DestroyDie">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
 			<AttributeModifierAuraUpdate id="ModuleTag_MultifunctionCenterSpeedAttribute" AttributeModifierName="Modifier_MultifunctionUpgradeCenterSpeed" Range="99999" RefreshDelay="0.01s">
 				<TriggeredBy>Upgrade_MultifunctionUpgradeCenterSpeed</TriggeredBy>
-				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK">
-					<!-- GDI -->
-					<ExcludeThing>GDIMammothMK2Husk</ExcludeThing>
-					<ExcludeThing>GDIMammothMK2AdaptiveArmorHusk</ExcludeThing>
-					<ExcludeThing>GDIOrcaBattleFortress</ExcludeThing>
-					<!-- Nod -->
-					<ExcludeThing>NODPhantomDeployed</ExcludeThing>
-					<ExcludeThing>NODReckonerDeployed</ExcludeThing>
-					<ExcludeThing>NODReckonerDeployedHusk</ExcludeThing>
-					<!-- Alien -->
-					<ExcludeThing>AlienPlanetaryAnnihilatorHusk</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilatorHuskUpgraded</ExcludeThing>
-					<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
-				</ObjectFilter>
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK"/>
 			</AttributeModifierAuraUpdate>
 			<AttributeModifierAuraUpdate id="ModuleTag_MultifunctionCenterDamageAttribute" AttributeModifierName="Modifier_MultifunctionUpgradeCenterDamage" Range="99999" RefreshDelay="0.01s">
 				<TriggeredBy>Upgrade_MultifunctionUpgradeCenterDamage</TriggeredBy>
-				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="FS_BASE_DEFENSE INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK">
-					<IncludeThing>DefensiveTower</IncludeThing>
-					<!-- GDI -->
-					<ExcludeThing>GDIHarvester</ExcludeThing>
-					<ExcludeThing>GDIMCV</ExcludeThing>
-					<ExcludeThing>GDIMRT</ExcludeThing>
-					<ExcludeThing>GDIRig</ExcludeThing>
-					<ExcludeThing>GDISurveyor</ExcludeThing>
-					<ExcludeThing>GDIMammothMK2Husk</ExcludeThing>
-					<ExcludeThing>GDIMammothMK2AdaptiveArmorHusk</ExcludeThing>
-					<ExcludeThing>GDIOrcaBattleFortress</ExcludeThing>
-					<ExcludeThing>GDIOrcaBattleFortressUnpacking</ExcludeThing>
-					<ExcludeThing>GDIV35Ox</ExcludeThing>
-					<ExcludeThing>GDIV35Ox_Summoned</ExcludeThing>
-					<ExcludeThing>GDIV35Ox_SummonedForVehicle</ExcludeThing>
-					<!-- Nod -->
-					<ExcludeThing>NODSaboteur</ExcludeThing>
-					<ExcludeThing>NODHarvester</ExcludeThing>
-					<ExcludeThing>NODMCV</ExcludeThing>
-					<ExcludeThing>NODPhantom</ExcludeThing>
-					<ExcludeThing>NODPhantomDeployed</ExcludeThing>
-					<ExcludeThing>NODReckoner</ExcludeThing>
-					<ExcludeThing>NODReckonerDeployed</ExcludeThing>
-					<ExcludeThing>NODReckonerDeployedHusk</ExcludeThing>
-					<ExcludeThing>NODEmissary</ExcludeThing>
-					<ExcludeThing>NODCarryall</ExcludeThing>
-					<ExcludeThing>NODCarryallInfantry</ExcludeThing>
-					<ExcludeThing>NODCarryallVehicle</ExcludeThing>
-					<ExcludeThing>NODDisruptionTower</ExcludeThing>
-					<ExcludeThing>NODPropagandaTower</ExcludeThing>
-					<!-- Alien -->
-					<ExcludeThing>AlienAssimilator</ExcludeThing>
-					<ExcludeThing>AlienMastermind</ExcludeThing>
-					<ExcludeThing>AlienHarvester</ExcludeThing>
-					<ExcludeThing>AlienExplorer</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilatorHusk</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilatorHuskUpgraded</ExcludeThing>
-					<ExcludeThing>AlienMCV</ExcludeThing>
-					<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
-					<ExcludeThing>AlienPhaseGenerator</ExcludeThing>
-				</ObjectFilter>
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="FS_BASE_DEFENSE INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK"/>
 			</AttributeModifierAuraUpdate>
 			<AttributeModifierAuraUpdate id="ModuleTag_MultifunctionCenterArmorAttribute" AttributeModifierName="Modifier_MultifunctionUpgradeCenterArmor" Range="99999" RefreshDelay="0.01s">
 				<TriggeredBy>Upgrade_MultifunctionUpgradeCenterArmor</TriggeredBy>
-				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="STRUCTURE INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK WALL_HUB WALL_SEGMENT"/>
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="STRUCTURE INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK WALL_HUB WALL_SEGMENT CIVILIAN_BUILDING"/>
 			</AttributeModifierAuraUpdate>
 			<AttributeModifierAuraUpdate id="ModuleTag_MultifunctionCenterROFAttribute" AttributeModifierName="Modifier_MultifunctionUpgradeCenterROF" Range="99999" RefreshDelay="0.01s">
 				<TriggeredBy>Upgrade_MultifunctionUpgradeCenterROF</TriggeredBy>
-				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="FS_BASE_DEFENSE INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK">
-					<IncludeThing>DefensiveTower</IncludeThing>
-					<!-- GDI -->
-					<ExcludeThing>GDIHarvester</ExcludeThing>
-					<ExcludeThing>GDIMCV</ExcludeThing>
-					<ExcludeThing>GDIMRT</ExcludeThing>
-					<ExcludeThing>GDIRig</ExcludeThing>
-					<ExcludeThing>GDISurveyor</ExcludeThing>
-					<ExcludeThing>GDIMammothMK2Husk</ExcludeThing>
-					<ExcludeThing>GDIMammothMK2AdaptiveArmorHusk</ExcludeThing>
-					<ExcludeThing>GDIOrcaBattleFortress</ExcludeThing>
-					<ExcludeThing>GDIOrcaBattleFortressUnpacking</ExcludeThing>
-					<ExcludeThing>GDIV35Ox</ExcludeThing>
-					<ExcludeThing>GDIV35Ox_Summoned</ExcludeThing>
-					<ExcludeThing>GDIV35Ox_SummonedForVehicle</ExcludeThing>
-					<!-- Nod -->
-					<ExcludeThing>NODSaboteur</ExcludeThing>
-					<ExcludeThing>NODHarvester</ExcludeThing>
-					<ExcludeThing>NODMCV</ExcludeThing>
-					<ExcludeThing>NODPhantom</ExcludeThing>
-					<ExcludeThing>NODPhantomDeployed</ExcludeThing>
-					<ExcludeThing>NODReckoner</ExcludeThing>
-					<ExcludeThing>NODReckonerDeployed</ExcludeThing>
-					<ExcludeThing>NODReckonerDeployedHusk</ExcludeThing>
-					<ExcludeThing>NODEmissary</ExcludeThing>
-					<ExcludeThing>NODCarryall</ExcludeThing>
-					<ExcludeThing>NODCarryallInfantry</ExcludeThing>
-					<ExcludeThing>NODCarryallVehicle</ExcludeThing>
-					<ExcludeThing>NODDisruptionTower</ExcludeThing>
-					<ExcludeThing>NODPropagandaTower</ExcludeThing>
-					<!-- Alien -->
-					<ExcludeThing>AlienAssimilator</ExcludeThing>
-					<ExcludeThing>AlienMastermind</ExcludeThing>
-					<ExcludeThing>AlienHarvester</ExcludeThing>
-					<ExcludeThing>AlienExplorer</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilatorHusk</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilatorHuskUpgraded</ExcludeThing>
-					<ExcludeThing>AlienMCV</ExcludeThing>
-					<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
-					<ExcludeThing>AlienPhaseGenerator</ExcludeThing>
-				</ObjectFilter>
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="FS_BASE_DEFENSE INFANTRY VEHICLE AIRCRAFT" Exclude="HUSK"/>
 			</AttributeModifierAuraUpdate>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SatelliteLaunchFacility_Destroyed">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
@@ -169,43 +81,26 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="76.0807" MinorRadius="24.0922" Height="22.8242" ContactPointGeneration="STRUCTURE">
-				<Offset x="0.201096" y="35.1478"/>
+			<Shape Type="BOX" MajorRadius="105" MinorRadius="25" Height="28" ContactPointGeneration="STRUCTURE">
+				<Offset x="10" y="50" z="0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="24.0922" MinorRadius="59.1739" Height="22.8242" ContactPointGeneration="STRUCTURE">
-				<Offset x="-51.7874" y="-0.779198"/>
+			<Shape Type="BOX" MajorRadius="25" MinorRadius="77" Height="28" ContactPointGeneration="STRUCTURE">
+				<Offset x="-68" y="0" z="0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="54.1018" MinorRadius="31.2776" Height="5.07204" ContactPointGeneration="STRUCTURE">
-				<Offset x="15.4172" y="-9.2326"/>
+			<Shape Type="BOX" MajorRadius="82" MinorRadius="50" Height="2" ContactPointGeneration="STRUCTURE">
+				<Offset x="30" y="-18" z="0"/>
 			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="7.2719" MinorRadius="7.2719" Height="76.0807" ContactPointGeneration="STRUCTURE">
-				<Offset x="-17.5511" y="-2.46988"/>
+			<Shape Type="CYLINDER" MajorRadius="10" Height="115" ContactPointGeneration="STRUCTURE">
+				<Offset x="-16" y="-7" z="0"/>
 			</Shape>
-			<ContactPoint>
-				<Pos x="-44.529" y="-29.9765"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="-29.9765" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="44.1944"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-44.529" y="44.1944" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-44.529" y="-29.9765" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="-29.9765"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="29.642" y="44.1944" z="17.0326"/>
-			</ContactPoint>
-			<ContactPoint>
-				<Pos x="-44.529" y="44.1944"/>
-			</ContactPoint>
 		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_ArmorySelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_LightDamage_MS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_HeavyDamage_MS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

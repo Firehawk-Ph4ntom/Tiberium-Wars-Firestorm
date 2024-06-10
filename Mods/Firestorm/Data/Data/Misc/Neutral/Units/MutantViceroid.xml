@@ -10,7 +10,6 @@
 		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTVICEROID_MOVB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\MutantViceroid\TTVICEROID_SKN.w3x"/>
 		<!-- Base Object -->
-		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml"/>
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
 	<GameObject id="MutantViceroid" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantViceroid" ButtonImage="Portrait_MutantViceroid" Side="GDI" BuildTime="1.4" BuildCost="140" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SURPRISE_ATTACKER HEALED_BY_TIBERIUM TIBERIUM_BASED ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="8" EditorName="MutantViceroid" Description="Desc:MutantViceroid" TypeDescription="Type:MutantViceroid" UnitTypeIcon="FanaticIcon">
@@ -25,10 +24,7 @@
 					<Model Name="TTVICEROID_SKN"/>
 				</ModelConditionState>
 				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
-					<Model Name=""/>
-				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="TTVICEROID_AIDA" AnimationMode="ONCE" AnimationPriority="10"/>
 				</AnimationState>
@@ -40,39 +36,54 @@
 					<Animation AnimationName="TTVICEROID_MOVB" AnimationMode="LOOP"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_AlienInfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
+				<Sound List="ALI_MutantViceroid_SoundDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_MutantViceroid_SoundDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" Fade="true" FadeDelay="0.5s" FadeTime="0.45s" DestructionDelay="2.25s">
+				<DieMuxData DeathTypes="DETONATED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
+				<Event Index="onDeath" FX="FX_AlienBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODFanaticBomb"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
-				<Sound Type="INITIAL" List="ALI_MutantViceroid_SoundDie"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED"/>
-				<Event FX="FX_AlienBlood"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
-				<Event FX="FX_InfScorch"/>
-			</FXListBehavior>
-			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
-				<OCL>
-					<OCL>OCL_AlienInfGibs</OCL>
-				</OCL>
-				<Sound List="ALI_MutantViceroid_SoundDie"/>
-				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
-			</SlowDeath>
+			<Physics id="ModuleTag_Physics"/>
 			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="MutantViceroidDeathBomb">
 				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
 			</FireWeaponWhenDead>
-			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" Fade="true" FadeDelay="1.75s" FadeTime="0.45s" DestructionDelay="2.25s">
-				<DieMuxData DeathTypes="DETONATED"/>
-			</SlowDeath>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>ALI_RazorDrone</Key>
 			</LargeGroupAudioUpdate>
@@ -82,12 +93,6 @@
 			<AudioLoopUpgrade id="ModuleTag_TibInfusionAudioLoop" SoundToPlay="NOD_TiberiumInfusion_Upgrade">
 				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
 			</AudioLoopUpgrade>
-			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
-				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
-			</AttributeModifierUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
-				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
-			</AudioLoopUpgrade>
 			<!-- Scanner Packs -->
 			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
@@ -95,17 +100,23 @@
 			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData SympathyRange="100.0" CheckVisionRange="true"/>
+				<UnitAITargetChooserData SympathyRange="100.0" CheckVisionRange="true" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="150"/>
 		</Body>
 		<Geometry IsSmall="true">
-			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="ALI_MutantViceroid_SoundAttack" AudioType="voiceAttack"/>

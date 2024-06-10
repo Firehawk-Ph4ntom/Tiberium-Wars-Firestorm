@@ -10,7 +10,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienPlasmaMissileBattery" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_ALIENPlasmaMissileBattery" ButtonImage="Portrait_ALIENPlasmaMissileBattery" Side="ALIEN" BuildCost="800" PlacementViewAngle="315d" BuildTime="8" CommandSet="AlienPlasmaMissileBatteryCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AUTO_ACQUIRABLE_BY_AI COVER POWERED FS_BASE_DEFENSE CAN_ATTACK CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="MISSILE" EditorName="AlienPlasmaMissileBattery" TypeDescription="Type:AlienPlasmaMissileBattery" EnergyProduction="-6" Description="Desc:ALIENPlasmaMissileBattery">
+	<GameObject id="AlienPlasmaMissileBattery" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_ALIENPlasmaMissileBattery" ButtonImage="Portrait_ALIENPlasmaMissileBattery" Side="ALIEN" BuildCost="800" PlacementViewAngle="315d" BuildTime="8" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AUTO_ACQUIRABLE_BY_AI COVER POWERED FS_BASE_DEFENSE CAN_ATTACK CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="MISSILE" EditorName="AlienPlasmaMissileBattery" TypeDescription="Type:AlienPlasmaMissileBattery" EnergyProduction="-6" Description="Desc:ALIENPlasmaMissileBattery">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENPlasmaMissileBattery</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
@@ -33,7 +33,6 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE USER_1">
 					<Model Name="ABPMBATBLUESHARD_D3SN_FS"/>
 					<Texture Original="AUStalker" New="AUStalkerB"/>
-					<Texture Original="TibCrystal01" New="TibCrystal01Blue"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
 					<Model Name="ABPMBAT_D3SN_FS"/>
@@ -41,33 +40,34 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
 					<Model Name="ABPMBATBLUESHARD_D2SN_FS"/>
 					<Texture Original="AUStalker" New="AUStalkerB"/>
-					<Texture Original="TibCrystal01" New="TibCrystal01Blue"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="ABPMBAT_D2SN_FS"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1">
 					<Model Name="ABPMBATBLUESHARD_FS"/>
 					<Texture Original="ABPMBat" New="ABPMBat_D"/>
 					<Texture Original="AUStalker" New="AUStalkerB"/>
-					<Texture Original="TibCrystal01" New="TibCrystal01Blue"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="ABPMBAT_FS"/>
 					<Texture Original="ABPMBat" New="ABPMBat_D"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<Model Name="ABPMBATBLUESHARD_FS"/>
 					<Texture Original="AUStalker" New="AUStalkerB"/>
-					<Texture Original="TibCrystal01" New="TibCrystal01Blue"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
@@ -78,11 +78,11 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABPMBat_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABPMBat_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="ABPMBat_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -93,24 +93,24 @@
 			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="Turret_Pitch" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXAspotlight"/>
+					<Model Name="FXAspotlight_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 			</SpotlightDraw>
 		</Draws>
 		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedS"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedS"/>
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleS"/>
 			</FXListBehavior>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="ALI_Building_Die"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.75s"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryWeapon"/>
@@ -118,12 +118,13 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryBluePlasmaDiscWeapon" ObjectStatus="WEAPON_UPGRADED_02"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryBlueShardLauncher" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" PitchHeight="65%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
-						<TurretAITargetChooserData StartupDelay="1.0s"/>
+						<TurretAITargetChooserData StartupDelay="1.0s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -133,9 +134,6 @@
 			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
 				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
 			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -146,19 +144,19 @@
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
+			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienPhotonCannonFunctions">
-				<UnitAITargetChooserData CanPickDynamicTargets="false"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="7000"/>
 		</Body>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="6.87629" MinorRadius="6.87629" Height="34.3848" ContactPointGeneration="STRUCTURE">
+			<Shape Type="CYLINDER" MajorRadius="6.87629" Height="34.3848" ContactPointGeneration="STRUCTURE">
 				<Offset x="0.246861" y="-0.11898" z="0.0"/>
 			</Shape>
 		</Geometry>

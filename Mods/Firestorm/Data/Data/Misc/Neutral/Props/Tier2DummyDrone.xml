@@ -1,0 +1,38 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Drone for Tier 2 Buildings -->
+	<GameObject id="Tier2DummyDrone" KindOf="DRONE STRUCTURE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" Side="Neutral" EditorName="Tier2DummyDrone" EditorSorting="SYSTEM">
+		<DisplayName>Name:Tier2Tech</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="9999999.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="600" GuardMaxRange="0" GuardWanderRange="0" AttackRange="0" DieOnMastersDeath="true"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>IonStorm</SpawnTemplate>
+			</SpawnBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModulTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Drone for Tier 3 Buildings -->
+	<GameObject id="Tier3DummyDrone" inheritFrom="Tier2DummyDrone" EditorName="Tier3DummyDrone">
+		<DisplayName xai:joinAction="Replace">Name:Tier3Tech</DisplayName>
+	</GameObject>
+</AssetDeclaration>

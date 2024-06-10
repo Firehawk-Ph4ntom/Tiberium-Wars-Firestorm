@@ -52,11 +52,11 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABSigTran_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="ABSigTran_D2AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="ABSigTran_D2AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -67,14 +67,23 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedM"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedM"/>
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleM"/>
 			</FXListBehavior>
-			<ProductionUpdate id="ModuleTag_Production" Type="UPGRADE" GiveNoXP="true"/>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2.0s"/>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
+				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>IonStorm</SpawnTemplate>
+			</SpawnBehavior>
 			<!-- WormHole -->
 			<OCLSpecialPower id="ModuleTag_WormHolePower" SpecialPowerTemplate="SpecialPower_WormHole" OCL="OCL_AlienWormHole" CreateLocation="CREATE_AT_LOCATION"/>
 			<!-- Mothership -->
@@ -83,22 +92,12 @@
 					<IncludeThing>AlienSignalTransmitter</IncludeThing>
 				</NearestSecondaryObjectFilter>
 			</OCLSpecialPower>
-			<AISpecialPowerUpdate id="ModuleTag_SummonMothershipAI" CommandButtonName="Command_SummonMothership" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="999999"/>
 			<!-- Temporal WormHole -->
 			<OCLSpecialPower id="ModuleTag_TemporalWormHolePower" SpecialPowerTemplate="SpecialPower_TemporalWormHole" OCL="OCL_TemporalWormhole" CreateLocation="CREATE_AT_LOCATION"/>
-			<AISpecialPowerUpdate id="ModuleTag_TemporalWormholeAI" CommandButtonName="Command_SpecialPowerTemporalWormhole" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="999999" EnemyUnitInclude="FS_BASE_DEFENSE INFANTRY VEHICLE"/>
+			<AISpecialPowerUpdate id="ModuleTag_TemporalWormholeAI" CommandButtonName="Command_SpecialPowerTemporalWormhole" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="999999"/>
 			<!-- Alien Blink Pods -->
 			<OCLSpecialPower id="ModuleTag_OCLAlienBlinkPods" SpecialPowerTemplate="SpecialPower_AlienBlinkPods" TriggerFX="FX_AlienMMTP" OCL="OCL_AlienBlinkPods" CreateLocation="CREATE_AT_LOCATION"/>
-			<AISpecialPowerUpdate id="ModuleTag_AlienBlinkPodsAI" CommandButtonName="Command_AlienBlinkPods" SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT" SpecialPowerRadius="300" ReinforceDistance="100"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="ALI_Building_Die"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
-				<TriggeredBy>Upgrade_AlienIonAtmosphere</TriggeredBy>
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>IonStorm</SpawnTemplate>
-			</SpawnBehavior>
+			<AISpecialPowerUpdate id="ModuleTag_AlienBlinkPodsAI" CommandButtonName="Command_AlienBlinkPods" SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT" SpecialPowerRadius="300" ReinforceDistance="300"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
@@ -109,7 +108,7 @@
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="8000.0"/>
 		</Body>
 		<ClientUpdates>
 			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceBlinkPodsReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPower_AlienBlinkPods" JustMonitorPercentReady="true"/>

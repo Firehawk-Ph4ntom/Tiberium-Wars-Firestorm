@@ -5,14 +5,12 @@
 	</Includes>
 	<GameObject id="NODPhantomDeployed" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODPhantom" ButtonImage="Portrait_NODPhantom" Side="NOD" BuildCost="1800" BuildTime="18" CommandSet="NODPhantomDeployedCommandSet" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS VEHICLE NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI VALID_TARGET_FOR_C4 BROADCASTS_INVISIBILITY" ThreatLevel="10" VoicePriority="80" EditorName="NODPhantomDeployed" Description="Desc:NODPhantomDeployed" TypeDescription="Type:NODPhantomDeployed">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPhantomDeployed</DisplayName>
+		<DisplayUpgrade>Upgrade_NODDisruptionModules</DisplayUpgrade>
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUREPVEH_SN"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="NUREPVEHR_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED">
 					<Model Name="NUREPVEH_SN"/>
@@ -22,6 +20,12 @@
 					<Model Name="NUREPVEH_SN"/>
 					<Texture Original="NURepVeh" New="NURepVeh_D"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Model Name="NUREPVEH_SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NUREPVEHR_SKN"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NUREPVEH_SN"/>
 					<Texture Original="NURepVeh" New="NURepVeh_D"/>
@@ -29,9 +33,6 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="NUREPVEH_SN"/>
 					<Texture Original="NURepVeh" New="NURepVeh_D"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
-					<Model Name="NUREPVEH_SN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="NUREPVEH_IDL" AnimationMode="LOOP" AnimationBlendTime="5"/>
@@ -44,9 +45,8 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUREPVEH_STLTH"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="NUREPVEH_IDL" AnimationMode="LOOP" AnimationBlendTime="5"/>
 				</AnimationState>
@@ -56,15 +56,27 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Lights">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
@@ -73,90 +85,97 @@
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMAMM_FX"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FXHULKFIRE" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
-					<Animation AnimationName="FXInvisBone" AnimationMode="ONCE"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING USER_1" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="ONCE"/>
 					<FXEvent Frame="1" Effect="FX_NodCloakingField" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal2" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Sensor" SizeX="510" SizeY="510" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_NODPhantomDebris</OCL>
 				</OCL>
-				<Sound List="HumanFaction_MediumBuilding_DieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
 			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Die"/>
+				<Event Index="onCreate" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Created"/>
+			</FXListBehavior>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>NODRepairDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
-				<Event FX="FX_DisruptionTower_Die" ForceUseDoFXObj="true"/>
-				<Event Index="onCreate" FX="FX_DisruptionTower_Created" ForceUseDoFXObj="true"/>
-			</FXListBehavior>
 			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="1.6s">
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>NODPhantom</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
-			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerRepairVehicle" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<InvisibilityUpdate xai:joinAction="Replace" id="ModuleTag_Invisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="225" UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
 				<BroadcastObjectFilter Rule="ALL" Relationship="ALLIES">
+					<ExcludeThing>NODDisruptionTower</ExcludeThing>
+					<ExcludeThing>NODPhantomDeployed</ExcludeThing>
 					<ExcludeThing>Viceroid</ExcludeThing>
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienPhaseShield</ExcludeThing>
 					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
 					<ExcludeThing>AlienWormHole</ExcludeThing>
-					<ExcludeThing>AlienWormHoleMarker</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
-			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
-				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
+			<InvisibilityUpdate id="ModuleTag_AdvInvisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="450" OpacityMin="30%" OpacityMax="100%" UpdatePeriod="0.1s">
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED"/>
+				<RequiresUpgrade>Upgrade_ActivateDisruptionModule</RequiresUpgrade>
+				<BroadcastObjectFilter Rule="NONE" Relationship="ALLIES">
+					<IncludeThing>NODDisruptionTower</IncludeThing>
+					<IncludeThing>NODPhantomDeployed</IncludeThing>
+				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_DisruptionModulesTrigger">
+				<TriggeredBy>Upgrade_ActivateDisruptionModule</TriggeredBy>
+			</StealthUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DisruptionModuleModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODDisruptionModules</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_DisruptionModuleAudioLoop" SoundToPlay="ALI_AdvancedProduction_Upgrade">
+				<TriggeredBy>Upgrade_NODDisruptionModules</TriggeredBy>
+			</AudioLoopUpgrade>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODDisruptionTowerFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2400"/>
@@ -164,7 +183,7 @@
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="GDI_Rig_Unpack1" RequiredFlags="UNPACKING"/>
-				<ModelConditionSound Sound="NOD_DisruptionTower_OnLoop" ExcludedFlags="UNPACKING UNDERPOWERED AFFECTED_BY_EMP"/>
+				<ModelConditionSound Sound="NOD_DisruptionTower_OnLoop" ExcludedFlags="UNPACKING UNDERPOWERED AFFECTED_BY_EMP PARALYZED"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
@@ -179,14 +198,13 @@
 			<AudioEntry Sound="GDI_ForwardBaseCommandSelect" AudioType="voiceSelect"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
-			<AudioEntry Sound="PitbullIdleLoop" AudioType="soundAmbient"/>
-			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
-			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 			<AudioEntry Sound="NOD_DisruptionTower_OnlineMS" AudioType="soundReenabled"/>
 			<AudioEntry Sound="NOD_DisruptionTower_OfflineMS" AudioType="soundDisabled"/>
 		</AudioArraySound>
 		<EvaEvents EvaEventPromotedOwner=""/>
-		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
 	</GameObject>
 </AssetDeclaration>

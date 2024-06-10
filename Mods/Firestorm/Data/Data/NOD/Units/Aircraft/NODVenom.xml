@@ -1,13 +1,16 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVenomSG_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVENOM_DUMMYSTLTH.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVENOM_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVENOM_SKN_UGCP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVENOM_STLTH.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVENOM_STLTH_UGCP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODVenom\NUVENOMR_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="NODVenom" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODVenom" ButtonImage="Portrait_NODVenom" Side="NOD" BuildCost="800" BuildTime="8" CommandSet="NODVenomCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE HAS_HEALTH_BAR AIRCRAFT PRODUCED_AT_HELIPAD ASSAULT_AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_SEE_THROUGH_STRUCTURE NO_COLLIDE CAN_BE_FAVORITE_UNIT" VoicePriority="152" EditorName="NODVenom" WeaponCategory="GUN" Description="Desc:NODVenom" TypeDescription="Type:NODVenom">
+	<GameObject id="NODVenom" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODVenom" ButtonImage="Portrait_NODVenom" Side="NOD" BuildCost="800" BuildTime="8" CommandSet="NODVenomCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE HAS_HEALTH_BAR AIRCRAFT BEAM_TARGET_REFLECTOR PRODUCED_AT_HELIPAD ASSAULT_AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_SEE_THROUGH_STRUCTURE NO_COLLIDE CAN_BE_FAVORITE_UNIT" VoicePriority="152" EditorName="NODVenom" WeaponCategory="GUN" Description="Desc:NODVenom" TypeDescription="Type:NODVenom">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODVenom</DisplayName>
 		<DisplayUpgrade>Upgrade_NODStealthGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_NodTechCenterChargedParticleBeam</DisplayUpgrade>
@@ -28,9 +31,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="NUVENOM_FP"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10">
 					<Model Name="NUVENOM_UGCP_SKN"/>
 					<Texture Original="NuVenom" New="NuVenomD"/>
@@ -64,8 +65,8 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="NUVENOM_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="90"/>
-					<Animation AnimationName="NUVENOM_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
 					<Animation AnimationName="NUVENOM_HSTL" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
@@ -84,108 +85,98 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
 					<Animation AnimationName="NUVENOM_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<Animation AnimationName="NUVENOM_MOV" AnimationMode="LOOP" AnimationBlendTime="15"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<SpotlightDraw id="ModuleTag_SpotLight" AttachToBoneInAnotherModule="TURRET" RefreshTime="2.0s" SweepTime="1.0s">
+			<ScriptedModelDraw id="ModuleTag_Stealth" OkToChangeModelColor="true" InvertStealthOpacity="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXSPOTLIGHT"/>
+					<Model Name="NUVENOM_DUMMYSTLTH"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_2">
+					<Model Name="NUVENOM_STLTH_UGCP"/>
 				</ModelConditionState>
-			</SpotlightDraw>
-			<ScriptedModelDraw id="ModuleTag_Engine_L" AttachToBoneInAnotherModule="Bone_Engine_L">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODVenom_HoverFlamesB" FollowBone="true"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust2" FollowBone="true"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Model Name="NUVENOM_STLTH"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUVENOM_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="90"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NUVENOM_HSTL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NUVENOM_HSTR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NUVENOM_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="NUVENOM_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="NUVENOM_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="NUVENOM_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="NUVENOM_MOV" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Engine_R" AttachToBoneInAnotherModule="Bone_Engine_R">
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
-					<Model Name="FXInvisBone"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODVenom_HoverFlamesB" FollowBone="true"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust2" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name="FXInvisBone"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles" OkToChangeModelColor="true" ExtraPublicBone="Bone_Engine_R Bone_Engine_L">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER MOVING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER TURN_RIGHT_HIGH_SPEED">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER TURN_LEFT_HIGH_SPEED">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER TURN_RIGHT">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER TURN_LEFT">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 MOVING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 TURN_RIGHT_HIGH_SPEED">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 TURN_LEFT_HIGH_SPEED">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 TURN_RIGHT">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 TURN_LEFT">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
-					<Model Name=""/>
-					<ParticleSysBone BoneName="ROOTTRANSFORM" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" ExtraPublicBone="Bone_Engine_L Bone_Engine_R">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER MOVING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LANDING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_EngineParticles" AttachToBoneInAnotherModule="Bone_Engine_L">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone_FS"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODVenom_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust2" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_EngineParticles2" AttachToBoneInAnotherModule="Bone_Engine_R">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone_FS"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODVenom_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust2" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_SpotLight" AttachToBoneInAnotherModule="TURRET" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+			</SpotlightDraw>
 			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerNOD" TracerHitFx="FX_BulletHitLargeNOD" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
@@ -207,40 +198,51 @@
 						</Texture>
 					</Constants>
 				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDistort2" UseDistortionShader="true" Texture1_UTile="1" Texture1_VTile=".5" Texture1_UScrollRate="0" Texture1_VScrollRate=".2" Texture1_NumFrames="1" Texture1_FrameRate="30" Texture2_UTile="1" Texture2_VTile="2" Texture2_UScrollRate="0" Texture2_VScrollRate=".7" Texture2_NumFrames="1" Texture2_FrameRate="30" LaserWidth="40" WeaponSlotID="1" LaserStateID="1">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXRailGunCoreDistortion</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXRailGunCoreMask</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_03"/>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_01"/>
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<!-- Normal Dying -->
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVenomInitialDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
+				<FX Type="INITIAL">
+					<FX>FX_NOD_Venom_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<!-- Upgraded Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVenomInitialDebrisUpgraded</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4"/>
+				<FX Type="INITIAL">
+					<FX>FX_NOD_Venom_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODVenomMinigun"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODVenomParticleBeam" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="250" TurretPitchRate="250" AllowsPitch="true" MinimumPitch="-80d" PitchHeight="0%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<InvisibilityUpdate id="ModuleTag_VenomInvisibility" UpdatePeriod="0.1s">
-				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A PREATTACK_B FIRING_B FIRING_OR_PREATTACK_B RELOADING_B USING_WEAPON_B SPECIAL_WEAPON_ONE" ForbiddenStatus="IS_FIRING_WEAPON USING_ABILITY IS_AIMING_WEAPON SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" NoStealthForAttackWindow="3s"/>
-				<RequiresUpgrade>Upgrade_ActivateVenomStealth</RequiresUpgrade>
-			</InvisibilityUpdate>
-			<StealthUpgrade id="ModuleTag_VenomStealthTrigger">
-				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
-			</StealthUpgrade>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_ChargedPartBeamUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -250,47 +252,28 @@
 			<AudioLoopUpgrade id="ModuleTag_ChargedPartBeamAudioLoop" SoundToPlay="NOD_Awakened_ChargedParticleBeamGunAvailable">
 				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
 			</AudioLoopUpgrade>
+			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%">
+				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A PREATTACK_B FIRING_B FIRING_OR_PREATTACK_B RELOADING_B USING_WEAPON_B SPECIAL_WEAPON_ONE" ForbiddenStatus="IS_FIRING_WEAPON USING_ABILITY IS_AIMING_WEAPON SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" NoStealthForAttackWindow="3s"/>
+				<RequiresUpgrade>Upgrade_ActivateVenomStealth</RequiresUpgrade>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_VenomStealthTrigger">
+				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
+			</StealthUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_VenomStealthModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
+			</ModelConditionUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_VenomStealthSubObject" ShowSubObjects="SIGGEN">
 				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
 			</SubObjectsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_VenomStealthDeathUpgrade" StatusToSet="RIDER4">
 				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
 			</StatusBitsUpgrade>
-			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
-			<SlowDeath id="ModuleTag_UpgradedDeath" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_NODVenomInitialDebrisUpgraded</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
-				<FX Type="INITIAL">
-					<FX>FX_NOD_Venom_VoiceDie</FX>
-				</FX>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_NODVenomInitialDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4" DeathTypesForbidden="TOPPLED"/>
-				<FX Type="INITIAL">
-					<FX>FX_NOD_Venom_VoiceDie</FX>
-				</FX>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
-			</FXListBehavior>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericUser1ModelCondition.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="SignatureGeneratorUpgradeSound" SoundToPlay="NOD_StealthGenerators_Upgrade">
-				<TriggeredBy>Upgrade_ActivateVenomStealth</TriggeredBy>
-			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODVenomFunctions">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0"/>
-			</AIUpdate>
+			<JetAIUpdate id="ModuleTag_AI" NeedsRunway="false" KeepsParkingSpaceWhenAirborne="false" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODVenomFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<LockonInfo />
+			</JetAIUpdate>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="1800"/>
@@ -319,6 +302,6 @@
 			<AudioEntry Sound="NOD_Venom_MoveStart" AudioType="soundMoveStart"/>
 			<AudioEntry Sound="NOD_Venom_MoveLoop" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>

@@ -7,6 +7,7 @@
 		<Include type="all" source="ART:Firestorm\Units\AlienPlanetaryAnnihilator\AUSEEDER_R02.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienPlanetaryAnnihilator\AUSEEDER_R03.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienPlanetaryAnnihilator\AUSEEDER_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienPlanetaryAnnihilator\AUSEEDER_SKN_CB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienPlanetaryAnnihilator\AUSEEDER_WLKA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienPlanetaryAnnihilator\AUSEEDERH_DIEA.w3x"/>
 		<!-- Base Object -->
@@ -21,7 +22,6 @@
 		</GameDependency>
 		<ArmorSet Armor="AlienEpicVehicleUnitArmor" DamageFX="AlienVehicleDamageFX"/>
 		<LocomotorSet Speed="40" Locomotor="AlienEradicatorHexapodLocomotor"/>
-		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -35,6 +35,7 @@
 					<WeaponLaunchBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_C"/>
 					<Turret TurretNameKey="Turret_A" TurretPitch="Pitch_A" TurretID="1"/>
 					<Turret TurretNameKey="Turret_B" TurretPitch="Pitch_B" TurretID="2"/>
+					<Turret TurretID="3"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AUSEEDER_FP"/>
@@ -42,22 +43,57 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="AUSEEDER_SKN"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1 USER_3">
+					<Model Name="AUSEEDER_SKN_CB"/>
+					<Texture Original="AUEradHex" New="AUEradHex_D"/>
+					<Texture Original="AUEradHex2" New="AUEradHex2_D"/>
+					<Texture Original="AUStalker" New="AUStalkerB"/>
+					<Texture Original="ABRiftGen" New="ABRiftGenD"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterAmbientCloudBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurtBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2Blue" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_3">
 					<Model Name="AUSEEDER_SKN"/>
 					<Texture Original="AUEradHex" New="AUEradHex_D"/>
 					<Texture Original="AUEradHex2" New="AUEradHex2_D"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<Texture Original="AUStalker" New="AUStalkerB"/>
+					<Texture Original="ABRiftGen" New="ABRiftGenD"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
@@ -69,18 +105,23 @@
 					<Model Name="AUSEEDER_SKN"/>
 					<Texture Original="AUEradHex" New="AUEradHex_D"/>
 					<Texture Original="AUEradHex2" New="AUEradHex2_D"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<Texture Original="ABRiftGen" New="ABRiftGenD"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RL" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
@@ -88,16 +129,37 @@
 					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_1 USER_3">
+					<Model Name="AUSEEDER_SKN_CB"/>
+					<Texture Original="AUEradHex" New="AUEradHex_Blue"/>
+					<Texture Original="AUEradHex2" New="AUEradHex2_Blue"/>
+					<Texture Original="AUStalker" New="AUStalkerB"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterAmbientCloudBlue" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_3">
 					<Model Name="AUSEEDER_SKN"/>
 					<Texture Original="AUEradHex" New="AUEradHex_Blue"/>
 					<Texture Original="AUEradHex2" New="AUEradHex2_Blue"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<Texture Original="AUStalker" New="AUStalkerB"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5Blue" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
@@ -105,21 +167,30 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="AUSEEDER_SKN"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="UPLeg_RR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FR" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt4" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire01" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_3">
+					<Model Name="AUSEEDER_SKN_CB"/>
+					<Texture Original="AUEradHex" New="AUEradHex_Blue"/>
+					<Texture Original="AUEradHex2" New="AUEradHex2_Blue"/>
+					<Texture Original="AUStalker" New="AUStalkerB"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
 					<Model Name="AUSEEDER_SKN"/>
 					<Texture Original="AUEradHex" New="AUEradHex_Blue"/>
 					<Texture Original="AUEradHex2" New="AUEradHex2_Blue"/>
+					<Texture Original="AUStalker" New="AUStalkerB"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="AUSEEDER_BIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -131,6 +202,11 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Animation AnimationName="AUSEEDER_BIDA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Animation AnimationName="AUSEEDER_BIDA" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="FXWeapon_C" FXParticleSystemTemplate="NODObeliskFireDistort"/>
+					<ParticleSysBone BoneName="FXWeapon_C" FXParticleSystemTemplate="NODObeliskFireGlowGreen"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="AUSEEDER_WLKA" AnimationMode="LOOP" Distance="60"/>
 					<FXEvent Frame="25" Effect="FX_AlienEradicatorFP" Bone="Foot_FR" FireWhenSkipped="true"/>
@@ -138,35 +214,13 @@
 					<FXEvent Frame="50" Effect="FX_AlienEradicatorFP" Bone="Foot_FL" FireWhenSkipped="true"/>
 					<FXEvent Frame="50" Effect="FX_AlienEradicatorFP" Bone="Foot_RR" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
-					<Animation AnimationName="AUSEEDER_BIDA" AnimationMode="ONCE"/>
-					<ParticleSysBone BoneName="FXWeapon_C" FXParticleSystemTemplate="NODObeliskFireDistort"/>
-					<ParticleSysBone BoneName="FXWeapon_C" FXParticleSystemTemplate="NODObeliskFireGlowGreen"/>
-				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawCombined">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_PARENT">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombine" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombineGlow" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueHexapodTibInfusion" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FXWeapon_A">
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXWeapon_A">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2 USER_3"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienBlueRefineryRec01" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
@@ -176,39 +230,44 @@
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueHexapodTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="HexapodTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawCombined">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMBINED_PARENT">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombine" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AUBuzzerCombineGlow" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXINVISBONE"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXINVISBONE"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Alien_Hexapod_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawForcefield" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name=""/>
-				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
 					<Model Name="FXSHLDERADHEX"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Alien_Hexapod_CO" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<LaserDraw id="ModuleTag_TiberiumLaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="100" LaserStateID="1" WeaponSlotID="1">
@@ -279,60 +338,62 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_2"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_ALI_Eradicator_Explode"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
+				<WeaponSlotHierarchicalTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorMegaLaser"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorMegaLaser_BlueIchor" ObjectStatus="WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="90" TurretPitchRate="45" MinimumPitch="-30d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="45" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
-				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true" ParentID="1">
+				<WeaponSlotHierarchicalTurret ID="2" ParentID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorPlasmaDiscLauncher"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorShardLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorBluePlasmaDiscLauncher" ObjectStatus="WEAPON_UPGRADED_02"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorBlueShardLauncher" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="90" TurretPitchRate="45" MinimumPitch="-30d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="45" AllowsPitch="true">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true"/>
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
+				<WeaponSlotTurret ID="3">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorForceFireDummyWeapon"/>
+					<TurretSettings TurretTurnRate="90">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>AlienEradicatorHexapodDummyDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<!-- Dying, Spawn a husk -->
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="AlienPlanetaryAnnihilatorDieOCL">
-				<DieMuxData ExemptStatus="WEAPON_UPGRADED_01" DeathTypes="ALL"/>
-			</CreateObjectDie>
-			<CreateObjectDie id="ModuleTag_CreateObjectDieUpgraded" CreationList="AlienPlanetaryAnnihilatorDieOCLBlueIchor">
-				<DieMuxData RequiredStatus="WEAPON_UPGRADED_01" DeathTypes="ALL"/>
-			</CreateObjectDie>
-			<DestroyDie id="ModuleTag_DestroyDie">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event FX="FX_ALI_Eradicator_Explode"/>
-			</FXListBehavior>
-			<FXListBehavior id="ModuleTag_FXListAlienVehicleBlood">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_AlienInfantryDeathFX"/>
-			</FXListBehavior>
 			<SweepingLaserState id="ModuleTag_LaserState" LaserId="1" Radius="1" SweepFXList="FX_TiberiumMegaLaserBlast"/>
 			<SweepingLaserState id="ModuleTag_LaserState2" LaserId="2" Radius="1" SweepFXList="FX_TiberiumMegaLaserBlastBlue"/>
+			<!-- Dying, Spawn a husk -->
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="AlienPlanetaryAnnihilatorDieOCL">
+				<DieMuxData ExemptStatus="WEAPON_UPGRADED_02" DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDieUpgraded" CreationList="AlienPlanetaryAnnihilatorDieOCLBlueIchor">
+				<DieMuxData RequiredStatus="WEAPON_UPGRADED_02" DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
+			<!-- Leech Ability -->
+			<SpecialPower id="ModuleTag_SpecialPowerLeech" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_LeechBeamAbilityUpdate" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" SpecialWeapon="AlienAnnihilatorLeechBeam" StartAbilityRange="350" UnpackTime="2.2s" PackTime="2s" BusyForDuration="2.4s" WhichSpecialWeapon="1" WeaponSlotID="3" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<AISpecialPowerUpdate id="ModuleTag_FireLeechBeamAI" CommandButtonName="Command_FireLeechBeam" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="350" UnitKindOf="HARVESTER TIBERIUM_BASED" AllyUnitExclude="HARVESTER TIBERIUM_BASED HUSK" EnemyUnitInclude="HARVESTER TIBERIUM_BASED" EnemyUnitExclude="STRUCTURE HUSK" UpdateTime="1.5s"/>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveAreaEffectBehaviorUpdate" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
 			</PassiveAreaEffectBehavior>
-			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
-			<StatusBitsUpgrade id="ModuleTag_GDIFaction" StatusToSet="RIDER1">
-				<TriggeredBy>Upgrade_GDIFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_NODFaction" StatusToSet="RIDER1">
-				<TriggeredBy>Upgrade_NODFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AlienFaction" StatusToSet="RIDER1">
-				<TriggeredBy>Upgrade_AlienFaction</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER1">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
@@ -340,6 +401,12 @@
 			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
 			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_ShardLaunchersModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsShard" ShowSubObjects="UG_SHARD UG_SHARDWEAPON">
+				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
+			</SubObjectsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
 				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
 			</AudioLoopUpgrade>
@@ -352,21 +419,15 @@
 			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/DoesContainTiberium.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<!-- Forcefield Generator -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<!-- Leech Ability -->
-			<SpecialPower id="ModuleTag_SpecialPowerLeech" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_LeechBeamAbilityUpdate" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" SpecialWeapon="AlienAnnihilatorLeechBeam" StartAbilityRange="350" UnpackTime="2.2s" PackTime="2s" BusyForDuration="2.4s" WhichSpecialWeapon="1" WeaponSlotID="3" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
-			<AISpecialPowerUpdate id="ModuleTag_FireLeechBeamAI" CommandButtonName="Command_FireLeechBeam" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="350" EnemyUnitInclude="FS_MONEY_STORAGE"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienPhotonCannonFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
-			<ShieldBody id="ModuleTag_Body" MaxHealth="14000" ShieldAmount="2500" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="120s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="14000" ShieldAmount="3000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="105s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
 		</Body>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
@@ -374,7 +435,6 @@
 				<ModelConditionSound Sound="NOD_Obelisk_LaserChargeUp" RequiredFlags="UNPACKING"/>
 			</ModelConditionAudioLoopClientBehavior>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
-				<Sound Sound="ALI_Eradicator_Footstep" Animation="AUSEEDER_WLKA" Frame="0 25"/>
 				<Sound Sound="ALI_Eradicator_BodyfallMS" Animation="AUSEEDER_DIEA" Frame="20"/>
 			</AnimationSoundClientBehavior>
 		</ClientBehaviors>
@@ -406,7 +466,7 @@
 			<NamedEntry Sound="ALI_Buzzers_SoundSplit" Name="UncombineWithUnit"/>
 			<NamedEntry Sound="ALI_Eradicator_SoundAttackMS" Name="VoiceLeechBeam"/>
 		</AudioArrayVoice>
-		<VisionInfo VisionRange="400" ShroudClearingRange="500"/>
-		<CrusherInfo CrusherLevel="4" CrushableLevel="4" CrushDecelerationPercent="25%"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="450"/>
+		<CrusherInfo CrusherLevel="4" CrushableLevel="4" CrushDecelerationPercent="40%"/>
 	</GameObject>
 </AssetDeclaration>

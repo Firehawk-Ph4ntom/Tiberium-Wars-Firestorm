@@ -1,24 +1,20 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<GameObject id="VeinholeMonster" Side="Neutral" KindOf="SELECTABLE STRUCTURE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE TIBERIUM_BASED IGNORE_FOR_VICTORY" EditorName="VeinholeMonster" SelectPortrait="Portrait_NeutralVeinholeMonster" ButtonImage="Portrait_NeutralVeinholeMonster" EditorSorting="MISC_NATURAL">
-		<DisplayName>Name:VeinholeMonster</DisplayName>
-		<ArmorSet Armor="VeinholeMonsterArmor" DamageFX="VehicleDamageFX"/>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="VeinholeMonster" inheritFrom="BaseStructure" Side="Neutral" KindOf="SELECTABLE STRUCTURE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE TIBERIUM_BASED IGNORE_FOR_VICTORY" EditorName="VeinholeMonster" SelectPortrait="Portrait_NeutralVeinholeMonster" ButtonImage="Portrait_NeutralVeinholeMonster" EditorSorting="MISC_NATURAL">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:VeinholeMonster</DisplayName>
+		<ArmorSet Armor="VeinholeMonsterArmor" DamageFX="AlienVehicleDamageFX"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
-				<ModelConditionState id="DefaultState" ParseCondStateType="PARSE_DEFAULT">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="TIBWEINMOSTER_SKN"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="TIBWEINMOSTER_SKN"/>
-					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="TIBWEINMOSTER_R"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="TIBWEINMOSTER_SKN"/>
@@ -36,8 +32,15 @@
 					<ParticleSysBone BoneName="FX_Damage01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt5" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Damage01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="TIBWEINMOSTER_R"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="TIBWEINMOSTER_SKN"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
 					<Animation AnimationName="TIBWEINMOSTER_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="15"/>
@@ -47,11 +50,11 @@
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkRate="2" SinkDelay="5s" DestructionDelay="10s">
-				<OCL>
+				<OCL Type="INITIAL">
 					<OCL>OCL_VeinholeMonsterDebris</OCL>
 				</OCL>
-				<Sound List="ALI_Eradicator_SoundDieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_Eradicator_SoundDieMS"/>
 			</SlowDeath>
 			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" DeathWeapon="VeinholeMonsterDeathWeapon" InitiallyActive="true">
 				<DieMuxData DeathTypes="ALL"/>
@@ -61,7 +64,7 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>
 		</Body>
 		<Geometry>
-			<Shape Type="CYLINDER" MajorRadius="30" Height="15"/>
+			<Shape Type="CYLINDER" MajorRadius="60" Height="15" ContactPointGeneration="STRUCTURE"/>
 		</Geometry>
 		<ShadowInfo Type="VOLUME"/>
 	</GameObject>

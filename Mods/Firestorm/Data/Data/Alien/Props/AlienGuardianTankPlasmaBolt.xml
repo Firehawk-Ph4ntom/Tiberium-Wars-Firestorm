@@ -1,0 +1,85 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="AlienGuardianTankPlasmaBolt" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED SMALL_MISSILE" Side="ALIEN" EditorName="AlienGuardianTankPlasmaBolt" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXALIENBOMB"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienFusionTrail" FollowBone="true" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDarkMatterBombTrail" FollowBone="true" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_PlasmaBoltExplode"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="33%" SecondPercentIndent="66%" FlightPathAdjustDistPerSecond="300" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="AlienGuardianTankPlasmaBolt_Veteran" inheritFrom="AlienGuardianTankPlasmaBolt" EditorName="AlienGuardianTankPlasmaBolt_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXALIENBOMB"/>
+					<Texture Original="FXMuzzleAlien" New="FXMuzzleAlienRed"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienFusionTrailHeroic" FollowBone="true" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDarkMatterBombTrailHeroic" FollowBone="true" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_PlasmaBoltExplodeHeroic"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Projectile -->
+	<GameObject id="AlienGuardianTankTiberiumPlasmaBolt" inheritFrom="AlienGuardianTankPlasmaBolt" EditorName="AlienGuardianTankTiberiumPlasmaBolt">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXALIENBOMB"/>
+					<Texture Original="FXMuzzleAlien" New="FXMuzzleAlienGreen"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienFusionTrailTiberium" FollowBone="true" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDarkMatterBombTrailTiberium" FollowBone="true" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_TiberiumPlasmaBoltExplode"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Blue Projectile -->
+	<GameObject id="AlienGuardianTankBlueTiberiumPlasmaBolt" inheritFrom="AlienGuardianTankPlasmaBolt" EditorName="AlienGuardianTankBlueTiberiumPlasmaBolt">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXALIENBOMB"/>
+					<Texture Original="FXMuzzleAlien" New="FXMuzzleAlienBlue"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienFusionTrailTiberiumBlue" FollowBone="true" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDarkMatterBombTrailTiberiumBlue" FollowBone="true" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_BlueTiberiumPlasmaBoltExplode"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>
