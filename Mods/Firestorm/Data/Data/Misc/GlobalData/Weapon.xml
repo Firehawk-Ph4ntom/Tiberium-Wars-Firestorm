@@ -9458,11 +9458,7 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIDisruptorSonicCannonWarhead"
-				ProjectileTemplate="GDIDisurptorBeamProjectile">
-				<VeterancyProjectiles
-					VeterancyLevel="HEROIC"
-					ProjectileTemplate="GDIDisurptorBeamProjectile_Veteran"/>
-			</ProjectileNugget>
+				ProjectileTemplate="GDIDisurptorBeamProjectile"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -9470,8 +9466,20 @@
 		id="GDIDisruptorSonicCannonWarhead"
 		Name="GDIDisruptorSonicCannonWarhead"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
-		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		ProjectileCollidesWith="ENEMIES NEUTRAL"
+		HitStoredTarget="true">
 		<Nuggets>
+			<DamageContainedNugget
+				MaxUnitsToDamage="1"
+				WindowBlastFX="FX_GDIDisruptorGarrisonClear"
+				Damage="60"
+				DamageType="GRENADE"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_RIFLE">
+				<DamageObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageContainedNugget>
 			<DamageNugget
 				Damage="30"
 				DamageTaperOff="10"
@@ -9487,19 +9495,17 @@
 						Exclude="HUSK"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="80%">
-					<Filter
-						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
-						Include="STRUCTURE"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Relationship="ENEMIES NEUTRAL"
-						Include="TIBERIUM_BASED"
-						Exclude="STRUCTURE"/>
+						Include="TIBERIUM_BASED"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="1800%">
@@ -9526,7 +9532,7 @@
 			MaxSeconds="0.066s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="15"
+				Damage="20"
 				DamageTaperOff="5"
 				Radius="15"
 				DamageType="GRENADE"
@@ -9544,7 +9550,14 @@
 					<Filter
 						Rule="NONE"
 						Relationship="ENEMIES NEUTRAL"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
@@ -9553,6 +9566,92 @@
 						Relationship="ENEMIES NEUTRAL"
 						Include="TIBERIUM_BASED"
 						Exclude="STRUCTURE"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="1800%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="50"
+				Suppression="75"
+				DurationSeconds="7.5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIDisruptorSonicCannon_Veteran"
+		Name="GDIDisruptorSonicCannon_Veteran"
+		AttackRange="325"
+		WeaponSpeed="325"
+		MinTargetPitch="-15d"
+		MaxTargetPitch="15d"
+		FiringLoopSound="GDI_Disruptor_SonicCannonFire"
+		FireFX="FX_ShattererSonicFire_NoSound"
+		FireVeteranFX="FX_ShattererSonicFireHeroic_NoSound"
+		ClipSize="40"
+		ReAcquireDetailType="PER_CLIP"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<FiringDuration
+			MinSeconds="0.066s"
+			MaxSeconds="0.066s"/>
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIDisruptorSonicCannonWarhead_Veteran"
+				ProjectileTemplate="GDIDisurptorBeamProjectile_Veteran"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIDisruptorSonicCannonWarhead_Veteran"
+		Name="GDIDisruptorSonicCannonWarhead_Veteran"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL"
+		HitStoredTarget="true">
+		<Nuggets>
+			<DamageContainedNugget
+				MaxUnitsToDamage="1"
+				WindowBlastFX="FX_GDIDisruptorGarrisonClearHeroic"
+				Damage="60"
+				DamageType="GRENADE"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_RIFLE">
+				<DamageObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageContainedNugget>
+			<DamageNugget
+				Damage="30"
+				DamageTaperOff="10"
+				Radius="30"
+				DamageType="GRENADE"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="ALL"
+						Relationship="ALLIES"
+						Exclude="HUSK"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Relationship="ENEMIES NEUTRAL"
+						Include="TIBERIUM_BASED"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="1800%">
@@ -9597,7 +9696,14 @@
 					<Filter
 						Rule="NONE"
 						Relationship="ENEMIES NEUTRAL"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
@@ -9608,7 +9714,7 @@
 						Exclude="STRUCTURE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="1200%">
+					Scalar="1800%">
 					<Filter
 						Rule="NONE"
 						Include="TIBERIUM"/>
