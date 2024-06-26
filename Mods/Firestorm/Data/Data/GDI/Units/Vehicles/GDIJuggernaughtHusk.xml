@@ -32,7 +32,7 @@
 					<ParticleSysBone BoneName="B_SHELL01" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="B_SHELL01" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GUBEHEMOTH_DIEA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
@@ -43,6 +43,9 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<xi:include href="DATA:Includes/GenericHuskLifetimeUpdate.xml"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="13s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIJuggernaughtHuskDebris</OCL>
@@ -53,8 +56,6 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch"/>
 			</FXListBehavior>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceCaptureHusk" NameOfVoiceToUseForHostileEnter="VoiceCaptureHusk" EvaEventForReplace="HuskRepaired" EvaEventForCaptureAndReplace="HuskRepaired" FXForReplace="FX_Husk_Repaired" FXForCapture="FX_Husk_Captured" FXForCaptureAndReplace="FX_Husk_Captured" ReplaceWith="GDIJuggernaughtHuskReplace" ImmediatelyEnabled="true">
 				<CanEnterFilter Rule="NONE">
 					<IncludeThing>GDIEngineer</IncludeThing>
@@ -62,7 +63,6 @@
 					<IncludeThing>AlienAssimilator</IncludeThing>
 				</CanEnterFilter>
 			</EngineerContain>
-			<xi:include href="DATA:Includes/GenericHuskLifetimeUpdate.xml"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>

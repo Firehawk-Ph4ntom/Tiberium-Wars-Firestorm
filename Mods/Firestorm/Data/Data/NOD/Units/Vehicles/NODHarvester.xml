@@ -284,8 +284,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking or harvesting -->
-			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Remove"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODHarvesterDebris</OCL>
@@ -297,13 +297,12 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
 			</FXListBehavior>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<!-- Return to Dock Button Power -->
-			<ReturnToDockSpecialPower id="ModuleTag_ReturnToDock" SpecialPowerTemplate="SpecialPower_ReturnToDock"/>
-			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
+			<!-- Override the Nod Cloaking Field in BaseVehicle to prevent stealth during docking or harvesting -->
+			<InvisibilityUpdate id="ModuleTag_Invisibility" xai:joinAction="Replace" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
 				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" ForbiddenStatus="DOCKING" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
 			</InvisibilityUpdate>
+			<!-- Return to Dock Button Power -->
+			<ReturnToDockSpecialPower id="ModuleTag_ReturnToDock" SpecialPowerTemplate="SpecialPower_ReturnToDock"/>
 			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHarvesterUpgradesForTib.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>

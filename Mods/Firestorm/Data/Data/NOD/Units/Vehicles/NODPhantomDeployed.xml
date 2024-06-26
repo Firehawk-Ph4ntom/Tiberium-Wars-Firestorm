@@ -114,6 +114,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODPhantomDebris</OCL>
@@ -129,20 +131,7 @@
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Die"/>
 				<Event Index="onCreate" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Created"/>
 			</FXListBehavior>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
-				<Die DeathTypes="ALL"/>
-				<SpawnTemplate>NODRepairDrone</SpawnTemplate>
-			</SpawnBehavior>
-			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
-			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
-			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="1.6s">
-				<TriggeredBy>Upgrade_Pack</TriggeredBy>
-				<ReplacementTemplate>NODPhantom</ReplacementTemplate>
-			</ReplaceSelfUpgrade>
-			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<InvisibilityUpdate xai:joinAction="Replace" id="ModuleTag_Invisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="225" UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
 				<BroadcastObjectFilter Rule="ALL" Relationship="ALLIES">
@@ -155,6 +144,17 @@
 					<ExcludeThing>AlienWormHole</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>NODRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
+			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="1.6s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>NODPhantom</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<InvisibilityUpdate id="ModuleTag_AdvInvisibility" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="450" OpacityMin="30%" OpacityMax="100%" UpdatePeriod="0.1s">
 				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED"/>
 				<RequiresUpgrade>Upgrade_ActivateDisruptionModule</RequiresUpgrade>

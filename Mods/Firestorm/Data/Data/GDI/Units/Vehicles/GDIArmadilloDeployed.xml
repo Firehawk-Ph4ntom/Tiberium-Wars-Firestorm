@@ -143,6 +143,8 @@
 			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIArmadilloAPCMinigun"/>
@@ -152,8 +154,6 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="3" Slots="3" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -165,20 +165,20 @@
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 			</HordeTransportContain>
-			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIArmadilloExplodeWithVoice"/>
-			</FXListBehavior>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_GDIArmadilloDeployedDebris">
 				<DieMuxData ExemptStatus="RIDER2" DeathTypes="ALL"/>
 			</CreateObjectDie>
 			<CreateObjectDie id="ModuleTag_CreateObjectDieUpgraded" CreationList="OCL_GDIArmadilloDeployedAdaptiveArmorDebris">
 				<DieMuxData RequiredStatus="RIDER2" DeathTypes="ALL"/>
 			</CreateObjectDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIArmadilloExplodeWithVoice"/>
+			</FXListBehavior>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
 			<AttributeModifierUpgrade id="ModuleTag_AnyFaction2" AttributeModifier="AttributeModifier_ArmadilloDeployed">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>

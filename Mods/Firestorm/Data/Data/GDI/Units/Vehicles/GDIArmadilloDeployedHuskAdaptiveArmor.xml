@@ -14,7 +14,16 @@
 					<ParticleSysBone BoneName="CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GUARMADILLO_SKNRADAR"/>
+					<ParticleSysBone BoneName="CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="CHASSIS" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUARMADILLO_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GUARMADILLO_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
@@ -31,18 +40,14 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
 		</Behaviors>
-		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
-		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>
 		</Body>
 		<EvaEvents EvaEventPromotedOwner="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventDieOwner=""/>
 		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>

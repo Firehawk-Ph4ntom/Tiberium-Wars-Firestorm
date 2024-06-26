@@ -293,6 +293,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_RANDOM">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIJuggernaughtArtilleryCannon"/>
@@ -373,19 +375,17 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<!-- Dying, Spawn a husk -->
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="GDIJuggernaughtDieOCL">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
-			<DestroyDie id="ModuleTag_Die">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIMammothExplodeWithVoice"/>
 			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<!-- Spot Target Bombard -->
 			<SpecialPower id="ModuleTag_Bombardement" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIJuggernaughtArtilleryBombard" id="ModuleTag_BombardementUpdate" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UnpackTime="2.0s" PackTime="2.0s" PersistentPrepTime="5.0s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>

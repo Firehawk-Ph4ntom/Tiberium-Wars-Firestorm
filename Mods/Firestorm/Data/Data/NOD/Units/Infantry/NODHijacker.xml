@@ -145,6 +145,13 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<EmotionTrackerUpdate id="Module_ETU">
+				<TauntAndPointExcluded Rule="NONE"/>
+				<AddEmotion>CheerIdle_Base</AddEmotion>
+				<AddEmotion>CheerBusy_Base</AddEmotion>
+			</EmotionTrackerUpdate>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibs</OCL>
@@ -185,24 +192,12 @@
 				<DieMuxData DeathTypes="POISONED"/>
 				<Event Index="onDeath" FX="FX_InfRadGoo"/>
 			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODHijackerCaptureGetInRange"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
-			<EmotionTrackerUpdate id="Module_ETU">
-				<TauntAndPointExcluded Rule="NONE"/>
-				<AddEmotion>CheerIdle_Base</AddEmotion>
-				<AddEmotion>CheerBusy_Base</AddEmotion>
-			</EmotionTrackerUpdate>
-			<!-- Capture Vehicle -->
-			<SpecialPower id="ModuleTag_CaptureVehicleGetInRange" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_HijackerCapture" ChainedButton="Command_CaptureVehicleTrigger" SpecialWeapon="GenericHijackerCaptureTrigger"/>
-			<SpecialPower id="ModuleTag_CaptureVehicleSP" SpecialPowerTemplate="SpecialPowerCaptureVehicle" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicle" StartAbilityRange="20" PreparationTime="0.25s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureVehicle" SpecialWeapon="GenericEngineerSuicideWeapon"/>
 			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
 				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" HintDetectableStates="IS_ATTACKING" ForbiddenConditions="MOVING" ForbiddenConditionExceptions="MOVING MOVING_OUT_OF_THE_WAY"/>
 			</InvisibilityUpdate>
@@ -213,6 +208,11 @@
 			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
 				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
 			</StealthUpgrade>
+			<!-- Capture Vehicle -->
+			<SpecialPower id="ModuleTag_CaptureVehicleGetInRange" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_HijackerCapture" ChainedButton="Command_CaptureVehicleTrigger" SpecialWeapon="GenericHijackerCaptureTrigger"/>
+			<SpecialPower id="ModuleTag_CaptureVehicleSP" SpecialPowerTemplate="SpecialPowerCaptureVehicle" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicle" StartAbilityRange="20" PreparationTime="0.25s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureVehicle" SpecialWeapon="GenericEngineerSuicideWeapon"/>
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>GDI_Medic_FS</Key>
 			</LargeGroupAudioUpdate>

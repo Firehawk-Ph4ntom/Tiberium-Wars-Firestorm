@@ -161,6 +161,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODPhantomDebris</OCL>
@@ -172,20 +174,17 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
 			</FXListBehavior>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>NODPhantomRepairDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<xi:include href="DATA:Includes/GenericUnpackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericUnpackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="1.5s" CheckBuildAssistant="true">
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>NODPhantomDeployed</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
-			<AISpecialPowerUpdate id="ModuleTag_PhantomUnpackAI" CommandButtonName="Command_UnPackPhantom" SpecialPowerRadius="300" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
 			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>

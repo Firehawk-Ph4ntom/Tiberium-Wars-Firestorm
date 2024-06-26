@@ -20,7 +20,22 @@
 					<ParticleSysBone BoneName="BONE_EXTB" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_RIGHTTREAD" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NURECKONER_R_NOISE"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+					<Texture Original="NUReckoner" New="NUReckoner_D"/>
+					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_EXTB" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_EXTB" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_EXTB" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_RIGHTTREAD" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NURECKONER_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NURECKONER_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
@@ -37,18 +52,17 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDozerBlades" ShowSubObjects="DOZERBLADE">
 				<TriggeredBy>Upgrade_NODDozerBlades</TriggeredBy>
 			</SubObjectsUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="UG_SPEAKERS">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</SubObjectsUpgrade>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODReckonerHuskFunctions"/>

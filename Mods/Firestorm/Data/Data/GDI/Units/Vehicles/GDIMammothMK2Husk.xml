@@ -37,7 +37,36 @@
 					<ParticleSysBone BoneName="B_MPod_L" FXParticleSystemTemplate="RedeemerDamagedSpurt" FollowBone="true"/>
 					<ParticleSysBone BoneName="B_MPod_L" FXParticleSystemTemplate="RedeemerDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="GUMAMMOTHMK4H_SKN"/>
+					<Texture Original="GUMammMK4" New="GUMammMK4_D"/>
+					<Texture Original="GUMammMK4W" New="GUMammMK4W_D"/>
+					<ParticleSysBone BoneName="turretrailgun_L" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="turretrailgun_L" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="turretrailgun_L" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="turretrailgun_R" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="turretrailgun_R" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="turretrailgun_R" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="mainbone" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="mainbone" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="mainbone" FXParticleSystemTemplate="GDIMammothDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="RedeemerDamagedElectric" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="RedeemerDamagedElectricFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="RedeemerDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="leg_rr" FXParticleSystemTemplate="RedeemerDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FL" FXParticleSystemTemplate="RedeemerDamagedElectric" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FL" FXParticleSystemTemplate="RedeemerDamagedElectricFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FL" FXParticleSystemTemplate="RedeemerDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="Calf_FL" FXParticleSystemTemplate="RedeemerDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_MPod_L" FXParticleSystemTemplate="RedeemerDamagedElectric" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_MPod_L" FXParticleSystemTemplate="RedeemerDamagedElectricFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_MPod_L" FXParticleSystemTemplate="RedeemerDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_MPod_L" FXParticleSystemTemplate="RedeemerDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="GUMAMMOTHMK4_DIEA" AnimationMode="ONCE"/>
 					<FXEvent Frame="45" Effect="FXGuardianTankDigInDust" Bone="Railgun_L" FireWhenSkipped="true"/>
 				</AnimationState>
@@ -54,18 +83,21 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="4s" MaxLifetime="4s"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="5s" SinkRate="2.0" DestructionDelay="14s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_GDIMammothMechHuskDebris</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="4s" MaxLifetime="4s"/>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="UG_AMMO">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</SubObjectsUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDIWolverineFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>

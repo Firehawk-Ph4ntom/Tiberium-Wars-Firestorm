@@ -141,6 +141,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonFakeWeapon"/>
@@ -155,8 +157,6 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="3" Slots="3" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="GenericBuilding_Garrison" ExitSound="GenericBuilding_Ungarrison" KillPassengersOnDeath="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -174,17 +174,17 @@
 				<MemberTemplateStatusInfo ThingTemplate="NODReaper" ObjectStatus="RIDER1"/>
 				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
 			</HordeTransportContain>
-			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NODDeployedReckonerDebris">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_NOD_DeployedReckonerExplodeWithVoice"/>
 			</FXListBehavior>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NODDeployedReckonerDebris">
-				<DieMuxData DeathTypes="ALL"/>
-			</CreateObjectDie>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
 			<AttributeModifierUpgrade id="ModuleTag_AnyFaction" AttributeModifier="AttributeModifier_ReckonerDeployed">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
