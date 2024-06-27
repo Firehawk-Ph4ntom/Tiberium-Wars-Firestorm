@@ -478,6 +478,12 @@ function OnTibChargeNoAttackEnd(self)
 	ObjectRemoveUpgrade( self, "Upgrade_TibChargeNoAttack" )
 end
 
+function OnNODPropagandaUpgradePurchased(self)
+	if ObjectHasUpgrade ( self, "Upgrade_PropagandaBuff" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_DummyPropagandaBuff" )
+	end
+end
+
 function CheckJetAircraftAmmoDepleted(self)
 	if IsUnitAI(self) then
 		if UnitAmmoCount.self == nil then

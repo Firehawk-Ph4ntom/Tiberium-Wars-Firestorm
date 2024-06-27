@@ -369,7 +369,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODFlameTankPilotDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODFlameTankPilotFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODFlameTankPilotGlow" FollowBone="true"/>
@@ -385,7 +385,7 @@
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED USER_3">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED USER_1">
 					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="453" SizeY="453" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
@@ -526,7 +526,7 @@
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
-			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_3"/>
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
@@ -606,9 +606,12 @@
 			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_3">
+			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</ModelConditionUpgrade>
+			<PassiveAreaEffectBehavior id="ModuleTag_HealAttribute" EffectRadius="200" HealingPercentPerSecond="1%" SurveyDelayFrames="15" UpgradeRequired="Upgrade_DummyPropagandaBuff" HealFX="FX_GDI_Heal" AffectUnderAttack="true" NonStackable="true">
+				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
+			</PassiveAreaEffectBehavior>
 			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Purifier_AttributeModifier" RefreshDelay="1s" Range="200">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>

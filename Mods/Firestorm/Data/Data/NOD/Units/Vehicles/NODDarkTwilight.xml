@@ -30,6 +30,7 @@
 	</Includes>
 	<GameObject id="NODDarkTwilight" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE HUGE_VEHICLE LARGE_RECTANGLE_PATHFIND VEHICLE SIEGE_WEAPON UNIQUE_UNIT CAN_BE_FAVORITE_UNIT" Description="Desc:NODDarkTwilight" TypeDescription="Type:NODDarkTwilight" ThreatLevel="10" Side="NOD" EditorName="NODDarkTwilight" BuildTime="50" CommandSet="GenericUnitCommandSet" SelectPortrait="Portrait_NODDefender" ButtonImage="Portrait_NODDefender" VoicePriority="242" WeaponCategory="CANNON" BuildCost="5000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODDarkTwilight</DisplayName>
+		<DisplayUpgrade>Upgrade_PropagandaBuff</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODTiberiumLiquidationFacility</RequiredObject>
@@ -267,7 +268,7 @@
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED USER_1">
 					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="679" SizeY="679" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
@@ -304,9 +305,19 @@
 					<Weapon Template="NODDarkTwilightArtilleryCannonUpgraded" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Twilight_AttributeModifier" RefreshDelay="1s" Range="300" InitiallyActive="true">
+			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+			</ModelConditionUpgrade>
+			<PassiveAreaEffectBehavior id="ModuleTag_HealAttribute" EffectRadius="300" HealingPercentPerSecond="1%" SurveyDelayFrames="15" UpgradeRequired="Upgrade_DummyPropagandaBuff" HealFX="FX_GDI_Heal" AffectUnderAttack="true" NonStackable="true">
+				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
+			</PassiveAreaEffectBehavior>
+			<AttributeModifierAuraUpdate id="ModuleTag_PropgandaAttribute" AttributeModifierName="NOD_Twilight_AttributeModifier" RefreshDelay="1s" Range="300">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
 			</AttributeModifierAuraUpdate>
+			<AudioLoopUpgrade id="ModuleTag_PropgandaAudioLoop" SoundToPlay="GDI_AdaptiveArmor_Upgrade">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+			</AudioLoopUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -318,7 +329,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODPropagandaBuffFunctions">
 				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
