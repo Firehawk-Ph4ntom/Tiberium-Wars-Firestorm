@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01Blue.xml"/>
@@ -50,9 +50,6 @@
 					<Texture Original="CUTibFiend01" New="CUTibFiend02"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name="CUTIBFIEND_SKN"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
 					<Model Name="CUTIBFIEND_SKN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
@@ -204,15 +201,135 @@
 			<Shape Type="BOX" MajorRadius="14" MinorRadius="7" Height="11.5" ContactPointGeneration="INFANTRY"/>
 		</Geometry>
 		<AudioArrayVoice>
-			<AudioEntry Sound="ALI_Viceroid_SoundAttack" AudioType="voiceAttack"/>
-			<AudioEntry Sound="ALI_Viceroid_SoundCreate" AudioType="voiceCreated"/>
-			<AudioEntry Sound="ALI_Viceroid_SoundMove" AudioType="voiceMove"/>
-			<AudioEntry Sound="ALI_Viceroid_SoundSelect" AudioType="voiceSelect"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_MutantViceroid_SoundSelect" AudioType="voiceSelect"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
 			<AudioEntry Sound="ALI_Viceroid_AmbientDelayedLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
+	</GameObject>
+	<!-- Tamed Fiends -->
+	<GameObject id="MutantFiendTamed" inheritFrom="MutantFiend" EditorName="MutantFiendTamed" BuildCost="250" BuildTime="2.5" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT TIBERIUM_BASED CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM" ThreatLevel="10" VoicePriority="8" CommandSet="EmptyCommandSet" Description="Desc:TamedMutantFiend" TypeDescription="Type:TamedMutantFiend" UnitTypeIcon="ScrinRavagerpip">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TamedMutantFiend</DisplayName>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" ExtraPublicBone="SHRDLNCH01 SHRDLNCH02 SHRDLNCH03 SHRDLNCH04">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<WeaponLaunchBone WeaponSlotType="PRIMARY_WEAPON" BoneName="SHRDLNCH"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<!-- Upgraded Textures -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_3">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend03Blue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_2">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend02Blue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_1">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend01Blue"/>
+				</ModelConditionState>
+				<!-- Unupgraded Textures -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend03"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Model Name="CUTIBFIEND_SKN"/>
+					<Texture Original="CUTibFiend01" New="CUTibFiend02"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="CUTIBFIEND_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="45"/>
+					<Animation AnimationName="CUTIBFIEND_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="35"/>
+					<Animation AnimationName="CUTIBFIEND_IDLC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="20"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="CUTIBFIEND_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="CUTIBFIEND_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="RANDOMSTART">
+					<Animation AnimationName="CUTIBFIEND_TNL1" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" Flags="RANDOMSTART">
+					<Animation AnimationName="CUTIBFIEND_TNR1" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT" Flags="RANDOMSTART">
+					<Animation AnimationName="CUTIBFIEND_TRNL" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT" Flags="RANDOMSTART">
+					<Animation AnimationName="CUTIBFIEND_TRNR" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="CUTIBFIEND_RUNA" AnimationMode="LOOP" Distance="50"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_A">
+					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+					<Animation AnimationName="CUTIBFIEND_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_4">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="TibFiendInfusionBlue"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="TibFiendInfusion"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="30" SizeY="15" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Remove"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" xai:joinAction="Remove"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="TamedTiberianFiendShardWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="TamedTiberianFiendBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_5">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

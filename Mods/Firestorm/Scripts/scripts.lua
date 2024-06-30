@@ -597,6 +597,9 @@ function SquadLookupTable(x)  -- x = object template
 	-- Mutant Marauders
 	elseif strfind(tostring(x), "1AF4B91") ~= nil then
 		ans = 5*delay5
+	-- Mutant Fiends
+	elseif strfind(tostring(x), "F5D5BCD2") ~= nil then
+		ans = 2*delay5
 	-- Mutant Viceroids
 	elseif strfind(tostring(x), "EAAE1E11") ~= nil then
 		ans = 5*delay5
