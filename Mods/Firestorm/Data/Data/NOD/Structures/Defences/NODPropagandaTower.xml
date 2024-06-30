@@ -14,7 +14,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODPropagandaTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODPropagandaTower" ButtonImage="Portrait_NODPropagandaTower" Side="NOD" BuildCost="1200" BuildTime="12" EnergyProduction="-5" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_BASE_DEFENSE POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="-45d" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="NODVoiceOfKane" Description="Desc:NODPropagandaTower" TypeDescription="Type:NODPropagandaTower">
+	<GameObject id="NODPropagandaTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODPropagandaTower" ButtonImage="Portrait_NODPropagandaTower" Side="NOD" BuildCost="1200" BuildTime="12" EnergyProduction="-5" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE CAN_ATTACK SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_BASE_DEFENSE POWERED NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="-45d" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="NODVoiceOfKane" Description="Desc:NODPropagandaTower" TypeDescription="Type:NODPropagandaTower">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPropagandaTower</DisplayName>
 		<GameDependency>
 			<RequiredObject>NODSecretShrine</RequiredObject>
@@ -64,14 +64,6 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
-					<Model Name="FXInvisBone_FS"/>
-					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="905" SizeY="905" OverrideLODVisibility="true" MaxHeight="350" UseHouseColor="true" Texture="Decal_LeadershipBuff" LocalPlayerOnly="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
@@ -85,6 +77,11 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Small"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="3.4s"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODPropagandaTowerDummyWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
 			<PassiveAreaEffectBehavior id="ModuleTag_HealAttribute" EffectRadius="400" HealingPercentPerSecond="1%" SurveyDelayFrames="15" HealFX="FX_GDI_Heal" AffectUnderAttack="true" NonStackable="true">
 				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
 			</PassiveAreaEffectBehavior>
@@ -110,6 +107,6 @@
 			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
 			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="400" ShroudClearingRange="500"/>
 	</GameObject>
 </AssetDeclaration>
