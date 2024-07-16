@@ -11,7 +11,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="CBPrpagand"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Model Name="CBPrpagand_D3"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
@@ -22,9 +22,9 @@
 					<Texture Original="CBPrpagand" New="CBPrpagand_D1"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBPrpagand_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="CBPrpagand_D2" AnimationMode="MANUAL"/>
@@ -33,23 +33,22 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="CBPrpagand_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
-					<Animation AnimationName="CBPrpagand_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
-				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2s"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NeutralExpansionOutpost_Destroyed">
 				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
+			</CreateObjectDie>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_MediumScorch"/>
 			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
