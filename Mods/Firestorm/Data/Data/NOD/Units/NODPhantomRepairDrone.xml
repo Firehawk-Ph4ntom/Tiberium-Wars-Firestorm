@@ -4,6 +4,31 @@
 		<Include type="instance" source="NODRepairDrone.xml"/>
 	</Includes>
 	<GameObject id="NODPhantomRepairDrone" inheritFrom="NODRepairDrone" EditorName="NODPhantomRepairDrone">
-		<LocomotorSet Speed="125" Locomotor="NODRepairDroneLocomotor"/>
+		<Behaviors>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" HealingPointsPerSecond="150" HealFX="FX_Repair" AffectAttached="true" AffectUnderAttack="true">
+				<AllowFilter Rule="ANY" Relationship="ALLIES" Include="VEHICLE STRUCTURE" Exclude="AIRCRAFT">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
+			<AttachUpdate id="ModuleTag_AttachUpdate" ParentStatus="UNDERGOING_REPAIR" Range="150" CloseEnoughRange="20" InitialAttachDelay="0.5s" Flags="FIND_BEST_PARENT UNCONTAINED_ONLY ONE_ATTACH_PER_PARENT" Teleport="false" DetachWhenParentHealed="true" DetachWhenParentOutOfSlavedRange="true" RequireFullyHealedToDetach="true" ScanForNewParentWhenDetached="true" CanAttachToHordeMembers="true">
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="VEHICLE STRUCTURE" Exclude="AIRCRAFT">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</ObjectFilter>
+			</AttachUpdate>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
