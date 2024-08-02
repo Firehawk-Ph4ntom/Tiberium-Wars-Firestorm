@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Ion Storm -->
 	<GameObject id="IonStorm" Side="Neutral" KindOf="CAN_ATTACK UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE TAINTEFFECT" EditorSorting="MISC_NATURAL" EditorName="IonStorm" WeaponCategory="LIGHTNING">
 		<DisplayName>Name:IonStorm</DisplayName>
 		<ArmorSet Armor="IonStormArmor"/>
@@ -61,5 +61,55 @@
 			<AudioEntry Sound="ALI_StormColumn_AmbientLoopMS" AudioType="soundAmbient"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+	</GameObject>
+	<!-- Ion Storm on Redzone Tiberium Fields -->
+	<GameObject id="TiberiumFieldIonStorm" inheritFrom="IonStorm" EditorName="TiberiumFieldIonStorm">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="Weaponfx_01 Weaponfx_02 Weaponfx_03 Weaponfx_04 Weaponfx_05" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXIonStormBone"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="Weaponfx_"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="Weaponfx_"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="IonStormCarrierClouds" FollowBone="false"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="IonStormCarrierGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="IonStormCarrierLightning" FollowBone="false"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
+					<Model Name="FXIonStormBone"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="IonStormMissileJammerWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+	<!-- Temporary Ion Storm -->
+	<GameObject id="IonStormTemporary" inheritFrom="IonStorm" EditorName="IonStormTemporary">
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="20s" MaxLifetime="20s"/>
+		</Behaviors>
+		<AudioArraySound xai:joinAction="Replace">
+			<AudioEntry Sound="ALI_PAC_StormLoopMS" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+	<!-- PAC Ion Storm -->
+	<GameObject id="PlanetaryAssaultCarrierIonStorm" inheritFrom="IonStorm" EditorName="PlanetaryAssaultCarrierIonStorm">
+		<Behaviors>
+			<OCLMonitorUpdate id="ModuleTag_OCLMonitorUpdate" Options="KILL_WHEN_RELEASED"/>
+		</Behaviors>
+		<AudioArraySound xai:joinAction="Replace">
+			<AudioEntry Sound="ALI_PAC_StormLoopMS" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+	<!-- Retribution Ion Storm -->
+	<GameObject id="IonRetributionIonStorm" inheritFrom="IonStormTemporary" EditorName="IonRetributionIonStorm">
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" xai:joinAction="Replace" MinLifetime="15s" MaxLifetime="15s"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
