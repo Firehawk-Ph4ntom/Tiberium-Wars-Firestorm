@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSUPPRESSIONSIGN.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEEFFECTSIGN.w3x" type="all"/>
+		<!-- For GDI Carrier -->
+		<Include source="DATA:GDI\Units\GDICarrier.xml" type="instance"/>
+		<!-- Using Vanilla Commando instead of Zone Commando -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- Civilian Structures -->
+		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock01.xml" type="instance"/>
+		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock03.xml" type="instance"/>
+		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock04.xml" type="instance"/>
+		<Include source="DATA:Civilian/Washington_DC_DC/Props/DCPSupply02.xml" type="instance"/>
+		<!-- For Nod Commando -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODCommando.xml" type="instance"/>
+		<!-- For Nod Fanatics -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODFanaticSquad.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Command Post -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
+		<!-- For Nod Carryall -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NodCarryallInfantry.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+	</Includes>
+
+	<!-- Removing upgrades from Command Post -->
+	<LogicCommandSet
+		id="GDICommandPostCommandSet">
+		<Cmd>Command_CommandPostRadarScan</Cmd>
+		<Cmd>Command_CommandPostBombingRun</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Objective 1: Destroy the GDS Pathe -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_1_3_Objective_1"
+			Description="SCRIPT:NOD_1_3_Obj_1_Detail">
+			<PresentationSettings
+				ID="NOD_ToW_1_3_Objective_1"
+				Dialog="MN13_NodEVA11"
+				UseDynamicZoom="False">
+				<Duration>12s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--Objective 2: Destroy the Port Authority Building -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_1_3_Objective_2"
+			Description="SCRIPT:NOD_1_3_Obj_2_Detail">
+			<PresentationSettings
+				ID="NOD_ToW_1_3_Objective_2"
+				Dialog="MN13_NodEVA04"
+				UseDynamicZoom="False">
+				<Duration>7s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Bonus Objective 1: Find the missing Saboteur -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_3_Objective_3"
+			Description="SCRIPT:NOD_1_3_Obj_3_Detail">
+			<PresentationSettings
+				ID="NOD_ToW_1_3_BonObjective_1a"
+				Dialog="MN13_NodEVA09">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Bonus Objective 2: Take Over the Command Post-->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_3_Objective_4"
+			Description="SCRIPT:NOD_1_3_Obj_4_Detail">
+			 <PresentationSettings
+				ID="NOD_ToW_1_3_BonObjective_2"
+				Dialog="MN13_NodEVA06">
+				<Duration>3.5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Overall Improved Armor -->
+	<ArmorTemplate
+		id="NODCommandoArmor">
+		<Armor Damage="CANNON" Percent="50%" />
+		<Armor Damage="ROCKET" Percent="25%" />
+		<Armor Damage="GRENADE" Percent="50%" />
+		<Armor Damage="GUN" Percent="50%" />
+		<Armor Damage="SNIPER" Percent="25%" />
+	</ArmorTemplate>
+
+	<!-- Increased health from 500 | Increased speed from 60 | Increased armor -->
+	<GameObject
+		id="NODCommando"
+		inheritFrom="NODCommando">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="85" />
+		<ArmorSet
+			Armor="NODCommandoArmor"
+			DamageFX="InfantryDamageFX"/>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="1300.0" />
+		</Body>
+	</GameObject>
+
+	<!-- Adding stealth detection -->
+	<GameObject
+		id="GDICommando_EA"
+		inheritFrom="GDICommando_EA">
+		<Behaviors>
+			<StealthDetectorUpdate
+				id="ModuleTag_StealthDetect"
+				DetectionRange="500" />
+		</Behaviors>
+	</GameObject>
+
+	<!-- Nerfed weapon -->
+	<WeaponTemplate
+		id="GDICommandoRailCarbine"
+		Name="GDICommandoRailCarbine"
+		AttackRange="200.0"
+		WeaponSpeed="999999.0"
+		FireSound="GDI_Commando_Weapon1FireMS"
+		FireSoundPerClip="GDI_Commando_Weapon1Fire"
+		FireFX="FX_GDICommandoFire"
+		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS"
+		ClipSize="20"
+		CanFireWhileMoving="true"
+		AcceptableAimDelta="10d">
+		<FiringDuration
+			MinSeconds="0.2s"
+			MaxSeconds="0.3s" />
+		<ClipReloadTime
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s" />
+		<Nuggets>
+			<DamageNugget
+				Damage="50.0"
+				DamageType="SNIPER"
+				DamageFXType="GDI_MACHINEGUN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE VALID_TARGET_FOR_C4" />
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="10.0"
+				Suppression="25"
+				DurationSeconds="5s">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE VALID_TARGET_FOR_C4" />
+			</SuppressionNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Added Armor vs. Sniper -->
+	<ArmorTemplate
+		id="GDICommandoArmor">
+		<Armor Damage="CANNON" Percent="50%"/>
+		<Armor Damage="ROCKET" Percent="25%" />
+		<Armor Damage="GRENADE" Percent="75%" />
+		<Armor Damage="GUN" Percent="100%" />
+		<Armor Damage="SNIPER" Percent="20%" />
+	</ArmorTemplate>
+
+	<!-- Increased Damage | Doesn't Hurt Nod Commando -->
+	<WeaponTemplate
+		id="ExplodingBarrelWeapon"
+		Name="ExplodingBarrelWeapon"
+		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS"
+		FireFX="FX_NODBombHit">
+		<Nuggets>
+			<DamageNugget
+				Damage="4000"
+				Radius="100"
+				DamageType="CANNON"
+				DeathType="BURNED">
+				<DamageScalarDetails
+					Scalar="1%">
+					<Filter
+						Rule="NONE"
+						Include="UNIQUE_UNIT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="60"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Overall Improved Armor -->
+	<ArmorTemplate
+		id="NODVenomArmor">
+		<Armor Damage="CANNON" Percent="50" />
+		<Armor Damage="ROCKET" Percent="50" />
+		<Armor Damage="GRENADE" Percent="50" />
+		<Armor Damage="GUN" Percent="50" />
+		<Armor Damage="SNIPER" Percent="1" />
+	</ArmorTemplate>
+
+	<!-- Increased Locomotor from 70 -->
+	<GameObject
+		id="NodFanaticSquad"
+		inheritFrom="NodFanaticSquad">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="90.0" />
+	</GameObject>
+
+	<!-- Increased damage from 500 | Changed explosion effect -->
+	<WeaponTemplate
+		id="NODFanaticDeathBomb"
+		Name="NODFanaticDeathBomb"
+		FireFX="FX_NODBombHit"
+		RadiusDamageAffects="ENEMIES NEUTRALS SELF"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<DamageNugget
+				Damage="1000"
+				Radius="60"
+				DamageType="MINE"
+				DamageFXType="NOD_GRENADE"
+				DeathType="DETONATED">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="COMMANDCENTER">
+						<!-- Deals only 50% of their damage to these units when they get Dozer Blades upgrade -->
+						<IncludeThing>NODRaiderTank</IncludeThing>
+						<IncludeThing>NODReckoner</IncludeThing>
+						<IncludeThing>NODReckonerDeployed</IncludeThing>
+					</Filter>
+					<RequiredUpgrade>Upgrade_NODDozerBlades</RequiredUpgrade>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE">
+						<!-- Deals only 50% of their damage to these units because they start off with Dozer Blades -->
+						<IncludeThing>NODAvengerTank</IncludeThing>
+						<IncludeThing>NODBeamCannon</IncludeThing>
+						<IncludeThing>NODToxinTank</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<!-- Allied Mutant Viceroids -->
+						<IncludeThing>MutantViceroid</IncludeThing>
+						<IncludeThing>MutantViceroidSquad</IncludeThing>
+						<!-- Allied Nod Fanatics -->
+						<IncludeThing>NODFanatic</IncludeThing>
+						<IncludeThing>NODFanaticSquad</IncludeThing>
+						<!-- Allied Scrin Disintigrators -->
+						<IncludeThing>AlienRazorDrones</IncludeThing>
+						<IncludeThing>AlienRazorDroneSquad</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Reduce Range from 400 -->
+	<WeaponTemplate
+		id="GDIMissileBatteryMissileLauncher"
+		Name="GDIMissileBatteryMissileLauncher"
+		AttackRange="225"
+		WeaponSpeed="300"
+		MinTargetPitch="-15d"
+		MaxTargetPitch="15d"
+		FireFX="FX_GDIMissileManFire"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		FireSound="GDI_MissileSoldier_MissileFire"
+		ClipSize="4"
+		ReAcquireDetailType="PER_CLIP"
+		RotatingTurret="true"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY">
+		<FiringDuration
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
+		<ClipReloadTime
+			MinSeconds="2.2s"
+			MaxSeconds="2.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIMissileBatteryMissileWarhead"
+				ProjectileTemplate="GDIMissileSoldierMissileProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDIMissileSoldierMissileProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Reduced Damage from 300 -->
+	<WeaponTemplate
+		id="GDIMissileBatteryMissileWarhead"
+		Name="GDIMissileBatteryMissileWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="125"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="65%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Reduce Range from was 350 -->
+	<WeaponTemplate
+		id="GDIWatchTowerGun"
+		Name="GDIWatchTowerGun" 
+		AttackRange="225.0" 
+		WeaponSpeed="999999.0"
+		FireSoundPerClip="GDI_WatchTower_GunFire_v2"
+		ReAcquireDetailType="PRE_FIRE"
+		FireFX="FX_GDIWatchTowerFire"
+		FireVeteranFX="FX_GDIWatchTowerFireHeroic"
+		ClipSize="8"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="0.01s"
+			MaxSeconds="0.01s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="15"
+				DamageType="GUN"
+				DamageFXType="GDI_RIFLE"/>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="25"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Unsellable and can't toggle power | Costs 0 power -->
+	<GameObject
+		id="GDICommandPost"
+		inheritFrom="GDICommandPost"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR NOT_SELLABLE"
+		EnergyProduction="0"/>
+
+	<!-- Increased capacity to 6 slots -->
+	<GameObject
+		id="NODCarryallInfantry"
+		inheritFrom="NODCarryallInfantry">
+		<Behaviors>
+			<HordeTransportContain
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="6"
+				Slots="6"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY" />
+				<DieMuxData
+					DeathTypes="ALL" />
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY" />
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Added DO_NOT_CLASSIFY Kindof -->
+	<GameObject
+		id="DCBDock01"
+		inheritFrom="DCBDock01"
+		KindOf="STRUCTURE UNATTACKABLE IMMOBILE CAN_CAST_REFLECTIONS NO_COLLIDE DO_NOT_CLASSIFY"/>
+
+	<!-- Added DO_NOT_CLASSIFY Kindof -->
+	<GameObject
+		id="DCBDock03"
+		inheritFrom="DCBDock03"
+		KindOf="STRUCTURE UNATTACKABLE IMMOBILE CAN_CAST_REFLECTIONS NO_COLLIDE DO_NOT_CLASSIFY"/>
+
+	<!-- Added DO_NOT_CLASSIFY Kindof -->
+	<GameObject
+		id="DCBDock04"
+		inheritFrom="DCBDock04"
+		KindOf="STRUCTURE UNATTACKABLE IMMOBILE CAN_CAST_REFLECTIONS NO_COLLIDE DO_NOT_CLASSIFY"/>
+
+	<!-- Rainy Weather -->
+	<Weather
+		id="Weather">
+		<Rain
+			RainTexture="FXRainDrop"
+			IsRaining="true"
+			NumRaindropsPerBox="2500"
+			RainBoxWidth="1000.0"
+			RainBoxLength="1000.0"
+			RainBoxHeight="300.0"
+			MinWidth="1"
+			MaxWidth="4"
+			MinHeight="25.0"
+			MaxHeight="100.0"
+			MinSpeed="250.0"
+			MaxSpeed="270.0"
+			MinAlpha=".3"
+			MaxAlpha=".5"
+			WindStrength="10.0"/>
+		<Lightning
+			LightningEnabled="true"
+			LightningDuration="1"
+			LightningChance="50">
+			<LightningFactor
+				Type="UNIFORM"
+				Low="3.0"
+				High="3.0"/>
+		</Lightning>
+		<Spell
+			SpellEnabled="true"
+			SpellDuration="200"/>
+		<Cloud>
+			<CloudTextureSize x="660.0" y="660.0"/>
+			<CloudOffsetPerSecond x="-.03" y="-.02"/>
+		</Cloud>
+		<WeatherData id="RAINY" HasLightning="true" />
+		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
+		<WeatherData id="SUNNY" HasLightning="false" />
+		<WeatherData id="CLOUDY" HasLightning="false" />
+	</Weather>
+</AssetDeclaration>
