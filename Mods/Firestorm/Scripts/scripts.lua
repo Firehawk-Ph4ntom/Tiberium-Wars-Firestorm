@@ -424,6 +424,14 @@ function OnAlienAdvProductionPurchased(self)
 	end
 end
 
+function OnGDIAircraftCreated(self)
+	ObjectGrantUpgrade( self, "Upgrade_AirSupremacyDummyUpgrade" )
+end
+
+function OnGDIAirSupremacyPurchased(self)
+	ObjectGrantUpgrade( self, "Upgrade_AirSupremacyLevelup" )
+end
+
 function OnAlienMotherShipCreated(self)
 	ObjectSetObjectStatus( self, "AIRBORNE_TARGET" )
 end
