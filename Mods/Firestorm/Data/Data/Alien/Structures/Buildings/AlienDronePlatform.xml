@@ -93,7 +93,26 @@
 					<Animation AnimationName="ABDronePlatD3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXSTASISHEALZONE"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Sensor" SizeX="340" SizeY="340" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal2" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="60" SizeY="60" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
@@ -133,6 +152,7 @@
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>AlienMCV</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="1" HealingDelay="4s" StartHealingDelay="2s" Radius="150" HealFXList="FX_AlienBlinkUnPack" SpawnFXList="FX_AlienBlinkUnPack" RespawnMinimumDelay="4s" InitiallyActive="true" HealOnlyIfNotUnderAttack="true" HealOnlyIfNotInCombat="true" NonStackable="true" RespawnNearbyHordeMembers="true"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<PowerUpdate id="ModuleTag_PowerGenerator" Type="BACKUP_GENERATOR" Duration="10s" ReloadTime="30s"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
