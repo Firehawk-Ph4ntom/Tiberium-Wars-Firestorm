@@ -23,6 +23,7 @@
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_Weapon"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_Weapon"/>
+					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
 					<Model Name="NBObeliskA_SN_FS"/>
@@ -258,12 +259,15 @@
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1">
+				<WeaponSlotTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODObeliskLaser"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODObeliskPurifyingLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<Weapon Ordering="SECONDARY_WEAPON" Template="NODObeliskAntiInfantryLaser"/>
 					<Weapon Ordering="SECONDARY_WEAPON" Template="NODObeliskAntiInfantryPurifyingLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
+					<TurretSettings TurretTurnRate="2000">
+						<TurretAITargetChooserData StartupDelay="0.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<SweepingLaserState id="ModuleTag_AntiInfantryLaserState" LaserId="2" Radius="25.0" SweepFXList="FX_NodLaserSweep" VeteranSweepFXList="FX_NodLaserSweepHeroic" SweepWeapon="NODObeliskSweepWeapon"/>
@@ -292,7 +296,7 @@
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>

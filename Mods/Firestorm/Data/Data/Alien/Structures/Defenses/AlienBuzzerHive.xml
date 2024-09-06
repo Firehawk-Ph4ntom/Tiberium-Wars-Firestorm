@@ -31,6 +31,7 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="ABBHive"/>
+					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING USER_1 USER_2">
 					<Model Name="ABTIBBHIVEBLD_SKN"/>
@@ -186,9 +187,12 @@
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2.0s"/>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1">
+				<WeaponSlotTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienBuzzerHiveWeapon"/>
-				</WeaponSlotHardpoint>
+					<TurretSettings TurretTurnRate="2000">
+						<TurretAITargetChooserData StartupDelay="1s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" InitialBurst="3" SpawnReplaceDelayData="0.1s" SpawnInsideBuilding="true" CombineOnCreate="true" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
 				<Die DeathTypes="ALL"/>
@@ -206,7 +210,7 @@
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" MaxCombineChildren="3" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" IdleScanDelay="0.1s" ReacquireDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
