@@ -48,10 +48,9 @@
 		<UnitModifierByName UnitName="GDIFireHawk" UnitPreferenceOffensiveModifier="999%" UnitPreferenceDefensiveModifier="999%"/>
 		<UnitModifierByName UnitName="GDIJetpackTrooper" UnitPreferenceOffensiveModifier="999%" UnitPreferenceDefensiveModifier="999%"/>
 		<UnitModifierByName UnitName="MutantMarauderSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
+		<UnitModifierByName UnitName="MutantFiendSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="MutantViceroidSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
-		<UnitModifierByName UnitName="MutantGhostStalker" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="GDIZoneDefenderSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
-		<UnitModifierByName UnitName="GDICommando_EA" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="GDIRifleSoldierSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="GDIMissileSoldierSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="GDIGrenadeSoldierSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
@@ -90,8 +89,8 @@
 		<UnitModifierByName UnitName="NODBanshee" UnitPreferenceOffensiveModifier="999%" UnitPreferenceDefensiveModifier="999%"/>
 		<UnitModifierByName UnitName="NODRocketVenom" UnitPreferenceOffensiveModifier="999%" UnitPreferenceDefensiveModifier="999%"/>
 		<UnitModifierByName UnitName="MutantMarauderSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
+		<UnitModifierByName UnitName="MutantFiendSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="MutantViceroidSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
-		<UnitModifierByName UnitName="MutantGhostStalker" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="NODDecimatorSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="NODObliterator" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="NODMilitantSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
@@ -136,8 +135,8 @@
 		<UnitModifierByName UnitName="AlienConquerorBattleship" UnitPreferenceOffensiveModifier="999%" UnitPreferenceDefensiveModifier="999%"/>
 		<UnitModifierByName UnitName="AlienScourgeGunship" UnitPreferenceOffensiveModifier="999%" UnitPreferenceDefensiveModifier="999%"/>
 		<UnitModifierByName UnitName="MutantMarauderSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
+		<UnitModifierByName UnitName="MutantFiendSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="MutantViceroidSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
-		<UnitModifierByName UnitName="MutantGhostStalker" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="AlienHunterSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="AlienGroundShakerSquad" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
 		<UnitModifierByName UnitName="AlienBuzzers" UnitPreferenceOffensiveModifier="0%" UnitPreferenceDefensiveModifier="0%"/>
@@ -387,6 +386,34 @@
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Engineer">
 			<TeamTemplate MinUnits="2" MaxUnits="8" IncludeKindOf="" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienAssimilator"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="MutantGhostStalker_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToGroundStructureHeuristic" TargetType="Commando"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Commando">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="MutantGhostStalker"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="GDICommando_EA_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToGroundStructureHeuristic" TargetType="Commando"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Commando">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="GDICommando_EA"/>
 			</TeamTemplate>
 		</Tactic>
 	</AIStrategicStateDefinition>
