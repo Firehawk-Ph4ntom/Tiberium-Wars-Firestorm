@@ -15,6 +15,7 @@
 	<GameObject id="GDIMissileBattery" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_GDIMissileBattery" ButtonImage="Portrait_GDIMissileBattery" Side="GDI" BuildCost="800" BuildTime="8" EnergyProduction="-8" CommandSet="GDIMissileBatteryCommandSet" KindOf="STRUCTURE CAN_ATTACK SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_BASE_DEFENSE POWERED AUTO_ACQUIRABLE_BY_AI COVER CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS" PlacementViewAngle="225d" EditorName="GDIMissileBattery" WeaponCategory="MISSILE" TypeDescription="Type:GDIAABattery" Description="Desc:GDIMissileBattery">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMissileBattery</DisplayName>
 		<DisplayUpgrade>Upgrade_ThermoBaricMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIArmorySonicWeaponry</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDICommandPost</RequiredObject>
 		</GameDependency>
@@ -55,7 +56,6 @@
 				<Animation AnimationName="GBAABAT_D3AN" AnimationMode="MANUAL"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 ENGAGED"/>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="GBAABAT_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
@@ -67,18 +67,6 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR"/>
 			</SpotlightDraw>
-			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="1" Texture2_VTile="1" Texture1_VScrollRate="0" Texture2_VScrollRate="1" LaserWidth="30" LaserStateID="1" WeaponSlotID="2">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXGrid_3</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXInterlacedMask2</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-			</LaserDraw>
 		</Draws>
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
@@ -99,34 +87,26 @@
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryMissileLauncher" ObjectStatus="RIDER1"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryThermoBaricMissileLauncher" ObjectStatus="RIDER1 WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryRadarLockMissileLauncher" ObjectStatus="RIDER2"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryRadarLockThermoBaricMissileLauncher" ObjectStatus="RIDER2 WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="0d" PitchHeight="75%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
-						<TurretAITargetChooserData StartupDelay="0.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-				<WeaponSlotTurret ID="2">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryRadarTargeter" ObjectStatus="RIDER2"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatterySonicCannonLauncher" ObjectStatus="RIDER2"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="0d" PitchHeight="75%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData StartupDelay="0.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
-			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_SelectLoad_NormalLauncher"/>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" UpgradeToGrant="Upgrade_SelectLoad_MissileArtillery"/>
 			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
-				<TriggeredBy>Upgrade_SelectLoad_NormalLauncher</TriggeredBy>
-				<UpgradeToRemove>Upgrade_SelectLoad_RadarLock</UpgradeToRemove>
+				<TriggeredBy>Upgrade_SelectLoad_MissileArtillery</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SonicArtillery</UpgradeToRemove>
 			</RemoveUpgradeUpgrade>
 			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
-				<TriggeredBy>Upgrade_SelectLoad_RadarLock</TriggeredBy>
-				<UpgradeToRemove>Upgrade_SelectLoad_NormalLauncher</UpgradeToRemove>
+				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_MissileArtillery</UpgradeToRemove>
 			</RemoveUpgradeUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="RIDER1" StatusToClear="RIDER2">
-				<TriggeredBy>Upgrade_SelectLoad_NormalLauncher</TriggeredBy>
+				<TriggeredBy>Upgrade_SelectLoad_MissileArtillery</TriggeredBy>
 			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER2" StatusToClear="RIDER1">
-				<TriggeredBy>Upgrade_SelectLoad_RadarLock</TriggeredBy>
+				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
 			</StatusBitsUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
@@ -134,17 +114,11 @@
 			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_RadarLockModelCondition" AddConditionFlags="USER_1">
-				<TriggeredBy>Upgrade_SelectLoad_RadarLock</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_SelectLoadout02_Audio" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_SelectLoad_RadarLock</TriggeredBy>
-			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_NormalLauncherModelCondition" RemoveConditionFlags="USER_1">
-				<TriggeredBy>Upgrade_SelectLoad_NormalLauncher</TriggeredBy>
-			</ModelConditionUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_SelectLoadout01_Audio" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_SelectLoad_NormalLauncher</TriggeredBy>
+				<TriggeredBy>Upgrade_SelectLoad_MissileArtillery</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadout02_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/RepairAlliesEngineerContain.xml"/>
