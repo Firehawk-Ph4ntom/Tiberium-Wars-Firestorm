@@ -201,8 +201,7 @@ function OnGDITankArmoryCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_Injector", true )
 	ObjectHideSubObjectPermanently( self, "UG_GRENADEEMP", true )
 	ObjectHideSubObjectPermanently( self, "UG_GRENADEEMP01", true )
-	ObjectHideSubObjectPermanently( self, "UG_CompositeArmor", true )
-	ObjectHideSubObjectPermanently( self, "UG_CompositeArmor02", true )
+	ObjectHideSubObjectPermanently( self, "CRATE", true )
 end
 
 function OnGDIBattleBaseCreated(self)
