@@ -77,6 +77,12 @@ IF EXIST "%SDK_DIR%Mods\%modname%\Data\maps" (
 		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Data\maps" )
 	XCOPY "%SDK_DIR%Mods\%modname%\Data\maps" "%SDK_DIR%BuiltMods\Mods\%modname%\Data\maps" /e /y )
 
+IF EXIST "%SDK_DIR%Mods\%modname%\Data\movies" (
+	@ECHO Copying movies
+	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\Data\movies" (
+		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Data\movies" )
+	XCOPY "%SDK_DIR%Mods\%modname%\Data\movies" "%SDK_DIR%BuiltMods\Mods\%modname%\Data\movies" /e /y )
+
 @ECHO Creating Mod Big and Skudef file...
 tools\MakeBig.exe -f "%SDK_DIR%BuiltMods\Mods\%modname%" -x:*.asset -o:"%SDK_DIR%BuiltMods\Mods\%modname%_%modversion%.big"
 
