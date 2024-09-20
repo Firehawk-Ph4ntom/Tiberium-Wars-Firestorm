@@ -3,7 +3,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01CY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01Blue.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01BlueCY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01Red.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend01REF.xml"/>
@@ -11,12 +10,10 @@
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend02.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend02CY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend02Blue.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend02BlueCY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend02Red.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03CY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03Blue.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03BlueCY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03Red.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_ATKA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_ATKB.w3x"/>
@@ -27,10 +24,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_LNDA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_RUNA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_SKN.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_TNL1.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_TNR1.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_TRNL.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_TRNR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
@@ -66,18 +59,6 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="CUTIBFIEND_DIEA" AnimationMode="ONCE"/>
 					<Animation AnimationName="CUTIBFIEND_LNDA" AnimationMode="ONCE"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="RANDOMSTART">
-					<Animation AnimationName="CUTIBFIEND_TNL1" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" Flags="RANDOMSTART">
-					<Animation AnimationName="CUTIBFIEND_TNR1" AnimationMode="LOOP"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT" Flags="RANDOMSTART">
-					<Animation AnimationName="CUTIBFIEND_TRNL" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT" Flags="RANDOMSTART">
-					<Animation AnimationName="CUTIBFIEND_TRNR" AnimationMode="LOOP" AnimationSpeedFactorMin="1.8" AnimationSpeedFactorMax="2.2"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
 					<Animation AnimationName="CUTIBFIEND_RUNA" AnimationMode="LOOP" Distance="50"/>
@@ -191,7 +172,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NeutralViceroidFunctions">
 				<UnitAITargetChooserData SympathyRange="100" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -221,6 +202,8 @@
 	<!-- Tamed Fiends -->
 	<GameObject id="MutantFiendTamed" inheritFrom="MutantFiend" EditorName="MutantFiendTamed" BuildCost="133" BuildTime="1.3" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT TIBERIUM_BASED CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM" ThreatLevel="10" VoicePriority="8" CommandSet="EmptyCommandSet" Description="Desc:TamedMutantFiend" TypeDescription="Type:TamedMutantFiend" UnitTypeIcon="ScrinRavagerpip">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:TamedMutantFiend</DisplayName>
+		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AlienAdvancedArticulators</DisplayUpgrade>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" ExtraPublicBone="SHRDLNCH01 SHRDLNCH02 SHRDLNCH03 SHRDLNCH04">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -309,18 +292,29 @@
 					<Animation AnimationName="CUTIBFIEND_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles4" xai:joinAction="Replace">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5 USER_4">
-					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="TibFiendInfusionBlue"/>
+			<ScriptedModelDraw id="ModuleTag_Particles5" AttachToBoneInAnotherModule="B_RFOOTLW">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
-					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="TibFiendInfusion"/>
-				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles6" AttachToBoneInAnotherModule="B_RFOOTRW">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" xai:joinAction="Remove"/>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXInvisBone_FS"/>
@@ -335,25 +329,23 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="TamedTiberianFiendShardWeapon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="TamedTiberianFiendBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_5">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<ModelConditionUpgrade id="ModuleTag_AdvArticulatorsModelCondition" xai:joinAction="Replace" AddConditionFlags="USER_10">
+				<TriggeredBy>Upgrade_AlienAdvancedArticulators</TriggeredBy>
 			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</AudioLoopUpgrade>
+			<!-- Scanner Packs -->
 			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AttributeModifierUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsScanner" ShowSubObjects="UGSCANNER">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</SubObjectsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AudioLoopUpgrade>
-			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantViceroidEnhancement">
 				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
 			</AttributeModifierUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_CyberneticAugmentModelCondition" AddConditionFlags="USER_7">

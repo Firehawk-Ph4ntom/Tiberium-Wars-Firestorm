@@ -14,8 +14,8 @@
 	</Includes>
 	<GameObject id="MutantViceroid" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantViceroid" ButtonImage="Portrait_MutantViceroid" Side="GDI" BuildTime="1.4" BuildCost="140" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY SURPRISE_ATTACKER HEALED_BY_TIBERIUM TIBERIUM_BASED ATTACK_FROM_STRUCTURE_ONLY_WHEN_GARRISONED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="8" EditorName="MutantViceroid" Description="Desc:MutantViceroid" TypeDescription="Type:MutantViceroid" UnitTypeIcon="FanaticIcon">
 		<DisplayName>Name:MutantViceroid</DisplayName>
-		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
-		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AlienAdvancedArticulators</DisplayUpgrade>
 		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
 		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="80.0"/>
 		<Draws>
@@ -36,7 +36,29 @@
 					<Animation AnimationName="TTVICEROID_MOVB" AnimationMode="LOOP"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles">
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="V_LEG10">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="V_LEG11">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 MOVING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienSpeedTrails" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
@@ -49,6 +71,16 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
 					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -87,20 +119,18 @@
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>ALI_RazorDrone</Key>
 			</LargeGroupAudioUpdate>
-			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
-				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
-			</AttributeModifierUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_TibInfusionAudioLoop" SoundToPlay="NOD_TiberiumInfusion_Upgrade">
-				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
-			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Scanner Packs -->
 			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AttributeModifierUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsScanner" ShowSubObjects="UGSCANNER">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</SubObjectsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
 				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
 			</AudioLoopUpgrade>
-			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantViceroidEnhancement">
 				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
 			</AttributeModifierUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
@@ -108,7 +138,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NeutralViceroidFunctions">
 				<UnitAITargetChooserData SympathyRange="100.0" CheckVisionRange="true" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
