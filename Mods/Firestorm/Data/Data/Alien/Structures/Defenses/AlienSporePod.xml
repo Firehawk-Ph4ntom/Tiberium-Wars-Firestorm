@@ -15,8 +15,9 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienSporePod" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTerraformingNexus" ButtonImage="Portrait_AlienTerraformingNexus" Side="ALIEN" BuildCost="1500" BuildTime="15" PlacementViewAngle="315d" CommandSet="GenericStructureNoPowerToggleCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER IGNORE_FOR_VICTORY HEALED_BY_TIBERIUM FS_MONEY_STORAGE" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="TIBERIUM_FIELD" BuildInProximityToSamePlayerStucture="false" BuildOnRequiredObjectKindOf="TIBERIUM_FIELD HARVESTABLE" EditorName="AlienTerraformingNexus" Description="Desc:AlienTerraNexus" TypeDescription="Type:AlienTerraNexus" EnergyProduction="-5">
+	<GameObject id="AlienSporePod" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTerraformingNexus" ButtonImage="Portrait_AlienTerraformingNexus" Side="ALIEN" BuildCost="1500" BuildTime="15" PlacementViewAngle="315d" CommandSet="GenericStructureNoPowerToggleCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_CASH_PRODUCER TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER IGNORE_FOR_VICTORY HEALED_BY_TIBERIUM FS_MONEY_STORAGE" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="TIBERIUM_FIELD" BuildInProximityToSamePlayerStucture="false" BuildOnRequiredObjectKindOf="TIBERIUM_FIELD HARVESTABLE" EditorName="AlienTerraformingNexus" Description="Desc:AlienTerraNexus" TypeDescription="Type:AlienTerraNexus" EnergyProduction="-5">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienTerraNexus</DisplayName>
+		<DisplayUpgrade>Upgrade_OverlordsBlessing</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>AlienTiberiumTower</RequiredObject>
@@ -125,6 +126,7 @@
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
 			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="99999999"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" DepositInterval="5s" DepositAmount="15" Flags="ACTIVE_WHEN_REPAIRING" GiveNoXP="true" Upgrade="Upgrade_OverlordsBlessing"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="ALI_Building_Die"/>
@@ -143,9 +145,34 @@
 			<TiberiumGrowthModBehavior id="ModuleTag_TiberiumGrowth" GreenTiberiumMultiplier="1.5" BlueTiberiumMultiplier="1.5">
 				<DieMuxData DeathTypes="ALL"/>
 			</TiberiumGrowthModBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">
+					<ExcludeThing>AlienHarvester</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+				</AllowFilter>
 			</PassiveAreaEffectBehavior>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Harvester_Green">
+				<AllowFilter Rule="NONE">
+					<IncludeThing>AlienHarvester</IncludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Tripod_Green">
+				<AllowFilter Rule="NONE">
+					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Green">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE HUGE_VEHICLE"/>
+			</PassiveAreaEffectBehavior>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorStructure" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" AffectUnderAttack="true">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM STRUCTURE"/>
+			</PassiveAreaEffectBehavior>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Infantry_Green">
+				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM INFANTRY"/>
+			</PassiveAreaEffectBehavior>
+			<AudioLoopUpgrade id="ModuleTag_OverlordsBlessingAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_OverlordsBlessing</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
