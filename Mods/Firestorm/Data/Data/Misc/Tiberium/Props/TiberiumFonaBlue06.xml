@@ -1,57 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="TiberiumFonaBlue06" KindOf="IMMOBILE NOT_AUTOACQUIRABLE STRUCTURE CRUSHABLE_OBSTACLE RESIST_EMP IGNORE_FOR_VICTORY TIBERIUM_BASED" Side="Neutral" EditorName="TiberiumFaunaBlue07" EditorSorting="MISC_NATURAL" CommandSet="EmptyCommandSet">
-		<DisplayName>Name:NeutralTiberiumFona</DisplayName>
-		<ArmorSet Armor="TiberiumCrystalArmor" DamageFX="AlienVehicleDamageFX"/>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="TiberiumFona03.xml"/>
+	</Includes>
+	<GameObject id="TiberiumFonaBlue06" inheritFrom="TiberiumFona03" EditorName="TiberiumFonaBlue06">
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw">
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="TIBERIUMFONABLUE07_SKN"/>
+					<Model Name="TIBERIUMFONA03_SKN"/>
+					<Texture Original="TiberiumTD" New="TiberiumTDBlue"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCellAuraBlue" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<AttributeModifierPoolUpdate id="ModuleTag_AttributeModifier"/>
-			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="UNUSED_06"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_TibCellDeathBlue"/>
 			</FXListBehavior>
-			<ToppleUpdate id="ModuleTag_ToppleUpdate" ToppleFX="FX_TibCellDeathBlue" KillWhenToppled="true"/>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="10.0" SurveyDelayFrames="15" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Vehicle_Blue">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">
-					<ExcludeThing>AlienHarvester</ExcludeThing>
-					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" EffectRadius="10.0" SurveyDelayFrames="15" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Harvester_Blue">
-				<AllowFilter Rule="NONE">
-					<IncludeThing>AlienHarvester</IncludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" EffectRadius="10.0" SurveyDelayFrames="15" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Tripod_Blue">
-				<AllowFilter Rule="NONE">
-					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" EffectRadius="10.0" SurveyDelayFrames="15" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Blue">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE HUGE_VEHICLE"/>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" EffectRadius="10.0" SurveyDelayFrames="15" HealingPercentPerSecond="5%" HealFX="FX_Tiberium_Heal_Infantry_Blue">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM INFANTRY"/>
-			</PassiveAreaEffectBehavior>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+			<ToppleUpdate id="ModuleTag_ToppleUpdate" xai:joinAction="Append" ToppleFX="FX_TibCellDeathBlue"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" xai:joinAction="Append" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Vehicle_Blue"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" xai:joinAction="Append" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Harvester_Blue"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" xai:joinAction="Append" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Tripod_Blue"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" xai:joinAction="Append" HealingPercentPerSecond="3%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Blue"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorStructure" xai:joinAction="Append" HealingPercentPerSecond="3%"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" xai:joinAction="Append" HealingPercentPerSecond="5%" HealFX="FX_Tiberium_Heal_Infantry_Blue"/>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="BlueTiberiumCrystalWeapon" FireDelay="3s"/>
 			</FireWeaponUpdate>
 		</Behaviors>
-		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2500"/>
-		</Body>
-		<ShadowInfo Type="VOLUME"/>
-		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
 	</GameObject>
 </AssetDeclaration>
