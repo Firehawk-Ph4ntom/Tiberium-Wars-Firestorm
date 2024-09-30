@@ -12,6 +12,7 @@
 	<GameObject id="AlienStingray" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienStingray" ButtonImage="Portrait_AlienStingray" Side="ALIEN" BuildCost="1200" BuildTime="12" CommandSet="AlienStingrayCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="LIGHTNING" VoicePriority="100" EditorName="AlienStingray" Description="Desc:AlienStingray" TypeDescription="Type:AlienStingray">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienStingray</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_IonRetribution</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>AlienControlCenter</RequiredObject>
 		</GameDependency>
@@ -115,6 +116,13 @@
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
 			<SpecialPower id="ModuleTag_ChargeDefenses" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ChargeDefensesUpdate" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" StartAbilityRange="250" PersistentPrepTime="1s" UnpackTime="1.5s" PackTime="1s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" StartRechargeOnExit="true" SpecialWeapon="AlienStingrayLightningChargeWeapon" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" WeaponSlotID="1"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_IonStormVengeance">
+				<DieMuxData DeathTypes="ALL" />
+				<UpgradeRequired>Upgrade_IonRetribution</UpgradeRequired>
+			</CreateObjectDie>
+			<AudioLoopUpgrade id="ModuleTag_IonRetributionAudioLoop" SoundToPlay="ALI_AdvancedArticulators_Upgrade">
+				<TriggeredBy>Upgrade_IonRetribution</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
