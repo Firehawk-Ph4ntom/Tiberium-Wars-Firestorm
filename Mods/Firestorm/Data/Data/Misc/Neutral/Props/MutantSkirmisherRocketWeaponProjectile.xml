@@ -1,0 +1,74 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="MutantSkirmisherRocketWeaponProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED SMALL_MISSILE" Side="NOD" EditorName="MutantSkirmisherRocketWeaponProjectile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor" DamageFX="SmallMissileDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NPMISSILE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_MutantSkirmisherProjectileHit"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_GDIMissleSmallHit"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="150" FirstHeightMax="175" SecondHeightMin="100" SecondHeightMax="150" FirstPercentIndent="20%" SecondPercentIndent="66%" GroundHitFX="FX_GDIShellMiss" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="MutantSkirmisherRocketWeaponProjectile_Veteran" inheritFrom="MutantSkirmisherRocketWeaponProjectile" EditorName="MutantSkirmisherRocketWeaponProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreakHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+	<!-- Normal Blue Tib Core Projectile -->
+	<GameObject id="MutantSkirmisherRocketWeaponProjectileBlueTibCore" inheritFrom="MutantSkirmisherRocketWeaponProjectile" EditorName="MutantSkirmisherRocketWeaponProjectileBlueTibCore">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="BLUETIBMISSILE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantSkirmisherProjectileTrailBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_MutantSkirmisherProjectileHitBlue"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Blue Tib Core Projectile -->
+	<GameObject id="MutantSkirmisherRocketWeaponProjectileBlueTibCore_Vet" inheritFrom="MutantSkirmisherRocketWeaponProjectile" EditorName="MutantSkirmisherRocketWeaponProjectileBlueTibCore_Vet">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreakHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantSkirmisherProjectileTrailBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+</AssetDeclaration>
