@@ -1,0 +1,216 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMantis.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMantis_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMantis_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMantis_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_ACCL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_DECL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_HSTL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_HSTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_IDLB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_MOV.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_TRNL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODMantis\NUMANTIS_TRNR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="NODMantis" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODMantis" ButtonImage="Portrait_NODMantis" Side="NOD" BuildCost="1500" BuildTime="15" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE HAS_HEALTH_BAR AIRCRAFT PRODUCED_AT_HELIPAD ASSAULT_AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_SEE_THROUGH_STRUCTURE NO_COLLIDE CAN_BE_FAVORITE_UNIT" VoicePriority="152" EditorName="NODMantis" WeaponCategory="MISSILE" Description="Desc:NODMantis" TypeDescription="Type:NODMantis" ProductionQueueType="VEHICLE">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODMantis</DisplayName>
+		<DisplayUpgrade>Upgrade_NODTechCenterTibCoreMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_BlueTiberiumCatalyst</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="30"/>
+		<LocomotorSet Locomotor="NODVenomLocomotor" Condition="NORMAL" Speed="180"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="FXWeapon_01 FXWeapon_02" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUMANTIS_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUMANTIS_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUMANTIS_SKN"/>
+					<Texture Original="NUMantis" New="NUMantis_D"/>
+					<ParticleSysBone BoneName="R_JOINT" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="R_JOINT" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="R_JOINT" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_THRUSTER" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_THRUSTER" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_THRUSTER" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUMANTIS_SKN"/>
+					<Texture Original="NUMantis" New="NUMantis_D"/>
+					<ParticleSysBone BoneName="R_JOINT" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_THRUSTER" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUMANTIS_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="90"/>
+					<Animation AnimationName="NUMANTIS_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="10"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="NUMANTIS_HSTL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="NUMANTIS_HSTR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="NUMANTIS_TRNL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="NUMANTIS_TRNR" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="NUMANTIS_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="NUMANTIS_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="NUMANTIS_MOV" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" ExtraPublicBone="BONE_ENGINE_L BONE_ENGINE_R">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER MOVING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LANDING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaJetWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustDesert" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_EngineParticles" AttachToBoneInAnotherModule="BONE_ENGINE_L">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone_FS"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODVenom_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust2" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_EngineParticles2" AttachToBoneInAnotherModule="BONE_ENGINE_R">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone_FS"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODVenom_HoverFlamesB" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="Venomexhaust2" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_SpotLight" AttachToBoneInAnotherModule="BONE_SPOTLIGHT" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXspotlight_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+			</SpotlightDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<!-- Normal Dying -->
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODVenomInitialDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
+				<FX Type="INITIAL">
+					<FX>FX_NOD_Venom_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMantisRocketWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMantisTibCoreRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODMantisBlueTibCoreRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_TibCoreMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</StatusBitsUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsTibCoreMissiles" ShowSubObjects="TIBCOREMISSILEL TIBCOREMISSILER">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</SubObjectsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_TibCoreMissilesAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODTechCenterTibCoreMissiles</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_6">
+				<TriggeredBy>Upgrade_BlueTiberiumCatalyst</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1800"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_Venom_MoveAscend" RequiredFlags="CLIMBING"/>
+				<ModelConditionSound Sound="NOD_Venom_IdleLoop" ExcludedFlags="MOVING DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="BOX" MajorRadius="16.0" MinorRadius="9.0" Height="8">
+				<Offset z="5.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Mantis_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_Mantis_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_Mantis_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_Mantis_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_Mantis_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Mantis_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="NOD_Mantis_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_Venom_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="NOD_Venom_MoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

@@ -1,0 +1,125 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCondor_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCondor_HC.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCondor_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCondor_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCondorD_UGCA.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_ACCL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_CLS.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_DECL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_HVR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_OPN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_R01.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_R02.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_R04.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIColossusCarryAll\GUCARRYALL_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="GDIV35Ox_SummonedForVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIV35Ox_CallSupportColossusWalker" inheritFrom="GDIV35Ox_SummonedForVehicle" EditorName="GDIV35Ox_CallSupportColossusWalker" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE" Description="Desc:GDIOx">
+		<LocomotorSet Locomotor="GDIDropshipLocomotor" Condition="NORMAL" Speed="115.0" xai:joinAction="Replace"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="115.0" xai:joinAction="Replace"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" ExtraPublicBone="BONEGARRISON" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUCARRYALL_SKN"/>
+					<ParticleSysBone BoneName="FX_RRfan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RLFan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FLFan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FRFan" FXParticleSystemTemplate="orcaexhaust" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUCARRYALL_SKN"/>
+					<Texture Original="GUOrcaCarryall" New="GUOrcaCarryall_D"/>
+					<ParticleSysBone BoneName="FXBACK" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBACK" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBACK" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFRONT" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFRONT" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXFRONT" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FAN_RF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FAN_LR" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GUCARRYALL_SKN"/>
+					<ParticleSysBone BoneName="FXBACK" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FAN_RF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FAN_LR" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="GUCARRYALL_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="5" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE">
+					<Animation AnimationName="GUCARRYALL_ACCL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE">
+					<Animation AnimationName="GUCARRYALL_DECL" AnimationMode="ONCE" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="GUCARRYALL_HVR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_OPENING">
+					<Animation AnimationName="GUCARRYALL_OPN" AnimationMode="ONCE" AnimationBlendTime="5"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DOOR_1_CLOSING">
+					<Animation AnimationName="GUCARRYALL_CLS" AnimationMode="ONCE" AnimationBlendTime="5"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_EngineParticles" xai:joinAction="Remove"/>
+			<ScriptedModelDraw id="ModuleTag_EngineParticles2" xai:joinAction="Remove"/>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDIColossusCarryAllDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Ox_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<HordeTransportContain xai:joinAction="Replace" id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true">
+				<PassengerFilter Rule="NONE" Include="VEHICLE"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="VEHICLE"/>
+				</PassengerData>
+				<InitialPayload Name="GDIColossus" Count="1"/>
+			</HordeTransportContain>
+			<StatusBitsUpgrade id="ModuleTag_Unselectable" xai:joinAction="Remove"/>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" xai:joinAction="Remove"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUpgrade" xai:joinAction="Remove"/>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate xai:joinAction="Replace" id="ModuleTag_AI" FlyOffMapOnUnload="true" AILuaEventsList="AlienMCVUnpackingEventsList">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</TransportHelicopterAIUpdate>
+		</AI>
+		<Geometry xai:joinAction="Replace">
+			<Shape Type="CYLINDER" MajorRadius="19" Height="13.0" ContactPointGeneration="VEHICLE">
+				<Offset x="2.0" y="0.0" z="15"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="8.0" MinorRadius="26.0" Height="13.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-33.0" y="0.0" z="15"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="8.0" MinorRadius="26.0" Height="13.0" ContactPointGeneration="VEHICLE">
+				<Offset x="26.0" y="0.0" z="15"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="48.0" MinorRadius="5.0" Height="13.0" ContactPointGeneration="VEHICLE">
+				<Offset x="5.0" y="0.0" z="15"/>
+			</Shape>
+		</Geometry>
+		<EvaEvents EvaEventDamagedOwner="ReinforcementsUnderAttack"/>
+	</GameObject>
+</AssetDeclaration>
