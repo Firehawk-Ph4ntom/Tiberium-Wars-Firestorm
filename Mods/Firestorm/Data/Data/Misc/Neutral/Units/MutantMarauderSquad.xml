@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
 	</Includes>
-	<GameObject id="MutantMarauderSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_MutantMaurader" ButtonImage="Portrait_MutantMaurader" Side="GDI" BuildCost="600" BuildTime="6" CommandSet="GenericMutantInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY CAN_BE_FAVORITE_UNIT SCORE TIBERIUM_BASED" WeaponCategory="GUN" EditorName="MutantMarauderSquad" Description="Desc:NeutralMutantMarauder" TypeDescription="Type:NeutralMutantMarauder" UnitTypeIcon="MutantMarauderIcon">
+	<GameObject id="MutantMarauderSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_MutantMaurader" ButtonImage="Portrait_MutantMaurader" Side="GDI" BuildCost="500" BuildTime="5" CommandSet="GenericMutantInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY CAN_BE_FAVORITE_UNIT SCORE TIBERIUM_BASED" WeaponCategory="GUN" EditorName="MutantMarauderSquad" Description="Desc:NeutralMutantMarauder" TypeDescription="Type:NeutralMutantMarauder" UnitTypeIcon="MutantMarauderIcon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NeutralMutantMarauder</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
@@ -37,6 +37,14 @@
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_17">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_HordeBonus" SizeX="32" SizeY="32" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
@@ -50,7 +58,7 @@
 			<BannerCarrierUpgrade id="ModuleTag_BannerCarrierUpgrade" Permanent="true">
 				<TriggeredBy>Upgrade_BlackHandBlackTemplarsUpgrade</TriggeredBy>
 			</BannerCarrierUpgrade>
-			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="5" ObjectStatusOfContained="" ConditionForEntry="INVALID">
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" MeleeAttackLeashDistance="1" Slots="5" ObjectStatusOfContained="" ConditionForEntry="INVALID" BannerCarrierByUpgradeOnly="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData/>
 				<InitialPayload Name="MutantMarauder" Count="5"/>

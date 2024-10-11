@@ -1,0 +1,378 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\MutantSentinel\NUMutantSentinel.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantSentinel\HC_NUMutantSentinel.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantSentinel\MU_SENTINEL_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="MutantSentinel" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantSentinel" ButtonImage="Portrait_MutantSentinel" Side="GDI" BuildCost="200" BuildTime="2" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="GUN" ThreatLevel="10" VoicePriority="116" EditorName="MutantSentinel" Description="Desc:MutantSentinel" TypeDescription="Type:MutantSentinel" UnitTypeIcon="ShadowIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantSentinel</DisplayName>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
+		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="100"/>
+		<LocomotorSet Locomotor="FlyingShadowLocomotor" Condition="NORMAL_UPGRADED" Speed="170.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2" RecoilSettleSpeed="3" OkToChangeModelColor="true" ExtraPublicBone="B_WEAPONA_FX B_WEAPONB_FX">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="MU_SENTINEL_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="B_WEAPONB_FX"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="B_WEAPONB_FX"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="B_WEAPONB_FX"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="SECONDARY_WEAPON" BoneName="B_WEAPONB_FX"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name="NUGAR_SHAD_FS"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ENGAGED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Animation AnimationName="NUGar_Shad" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="NUSHDW_BIDA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSHDW_BIDB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSHDW_BIFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSHDW_BIFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSHDW_BIFC" AnimationMode="ONCE" AnimationPriority="1"/>
+					<Animation AnimationName="NUSHDW_BIFD" AnimationMode="ONCE" AnimationPriority="1"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end; if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; if Prev == "STATE_Flying" then CurDrawableSetTransitionAnimState("TRANS_Landing") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="NUSHDW_CDTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="NUSHDW_CDTB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED DYING" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUSHDW_SDIA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
+					<Animation AnimationName="NUSHDW_KDIA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUSHDW_KDIB" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUSHDW_KDIC" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING FLYING">
+					<Animation AnimationName="NUSHDW_FLDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING LOCOMOTOR_NORMAL_UPGRADED">
+					<Animation AnimationName="NUSHDW_FLDB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUSHDW_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUSHDW_DIEB" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUSHDW_DIEC" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" StateName="STATE_PreparingToTakeOff">
+					<Animation AnimationName="NUSHDW_DPLY" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED" StateName="STATE_Flying" Flags="RANDOMSTART">
+					<Animation AnimationName="NUSHDW_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
+					<Animation AnimationName="NUSHDW_SMVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ENGAGED" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUSHDW_SATA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUSHDW_SIDA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUSHDW_SIFA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUSHDW_SIFB" AnimationMode="ONCE"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ENGAGED" StateName="STATE_Cover">
+					<Animation AnimationName="NUSHDW_KAKA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_CoverAttention">
+					<Animation AnimationName="NUSHDW_KAIA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSHDW_KAIB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSHDW_KAFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSHDW_KAFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSHDW_KAFC" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" AllowRepeatInRandomPick="true" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
+					<Animation AnimationName="NUSHDW_KBIA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSHDW_KBIB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUSHDW_KBFA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSHDW_KBFB" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUSHDW_KBFC" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverAttention" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUSHDW_ATRA" AnimationMode="LOOP" Distance="75"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUSHDW_RUNA" AnimationMode="LOOP" Distance="75" AnimationSpeedFactorMin="1.2" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUSHDW_RUNB" AnimationMode="LOOP" Distance="75" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A">
+					<Animation AnimationName="NUSHDW_ATKA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED" StateName="STATE_Selected">
+					<Animation AnimationName="NUSHDW_ATKA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUSHDW_CHRA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUSHDW_CHRB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
+					<Animation AnimationName="NUSHDW_AIDA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSHDW_AIDB" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSHDW_AIFA" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSHDW_AIFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Animation AnimationName="NUSHDW_AIFC" AnimationMode="ONCE" AnimationPriority="1" AnimationBlendTime="5" AnimationMustCompleteBlend="true"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; if Prev == "STATE_Flying" then CurDrawableSetTransitionAnimState("TRANS_Landing") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
+					<Animation AnimationName="NUSHDW_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUSHDW_SDVB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed">
+					<Animation AnimationName="NUSHDW_SGTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="NUSHDW_BATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="NUSHDW_BATB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="NUSHDW_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="NUSHDW_ABTB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverAttentionToCover">
+					<Animation AnimationName="NUSHDW_KATA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverToCoverAttention">
+					<Animation AnimationName="NUSHDW_KBTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_Landing">
+					<Animation AnimationName="NUSHDW_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED">
+					<Model Name="FXSUPPRESSIONSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerNOD" WeaponSlotType="PRIMARY_WEAPON" TracerHitFx="FX_BulletHitNOD" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerHeroic" WeaponSlotType="PRIMARY_WEAPON" TracerHitFx="FX_BulletHitGDIHeroic" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" WeaponSlotType="PRIMARY_WEAPON" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" WeaponSlotType="PRIMARY_WEAPON" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw2" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerNOD" WeaponSlotType="SECONDARY_WEAPON" TracerHitFx="FX_BulletHitNOD" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy2" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerHeroic" WeaponSlotType="SECONDARY_WEAPON" TracerHitFx="FX_BulletHitGDIHeroic" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo2" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" WeaponSlotType="SECONDARY_WEAPON" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeteran2" MinLength="30" MaxLength="30" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" WeaponSlotType="SECONDARY_WEAPON" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_FlyingDeath" SinkRate="2.4" SinkDelay="7s" FlingForce="1" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" RequiredStatus="AIRBORNE_TARGET" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<FX Type="INITIAL">
+					<FX>FX_Mutant_Sentinel_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_StandingDeath" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" ExemptStatus="AIRBORNE_TARGET" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<FX Type="INITIAL">
+					<FX>FX_Mutant_Sentinel_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<FX Type="INITIAL">
+					<FX>FX_Mutant_Sentinel_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="POISONED"/>
+				<FX Type="INITIAL">
+					<FX>FX_Mutant_Sentinel_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<FX Type="INITIAL">
+					<FX>FX_Mutant_Sentinel_VoiceDie</FX>
+				</FX>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="MutantSentinelMachinePistol"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="MutantSentinelMachinePistol"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="MutantSentinelMachinePistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="MutantSentinelMachinePistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove" IgnoreSuppressionObjectStatus="AIRBORNE_TARGET"/>
+			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
+			<!-- Glider Ability -->
+			<!-- Lift Off -->
+			<SpecialPower id="ModuleTag_LiftOffSP" SpecialPowerTemplate="SpecialPower_GliderLiftOff" UpdateModuleStartsAttack="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_GliderLiftOff" UnpackTime="0s" BusyForDuration="1s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY APPROACH_UNTIL_MEMBERS_IN_RANGE" SetObjectStatusOnTrigger="NO_ATTACK NO_AUTO_ACQUIRE"/>
+			<!-- Land -->
+			<SpecialPower id="ModuleTag_LandSP" SpecialPowerTemplate="SpecialPower_GliderLand" UpdateModuleStartsAttack="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_GliderLand" UnpackTime="0s" BusyForDuration="1.0s" StartAbilityRange="30.0" LandingRange="320" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY APPROACH_UNTIL_MEMBERS_IN_RANGE" ClearObjectStatusOnExit="NO_ATTACK NO_AUTO_ACQUIRE"/>
+			<!-- Explosive Charges -->
+			<SpecialPower id="ModuleTag_ExplosiveCharges" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge_NOD"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ExplosiveChargesUpdate" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge_NOD" SpecialWeapon="NODShadowPlaceExplosiveCharge" UnpackTime="0s" PackTime="0s" StartAbilityRange="15.0" BusyForDuration="0.1s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="75.0" Options="FLIP_OWNER_AFTER_PACKING USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK IGNORE_FACING_CHECK CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE CHECK_PREVENT_CONDITIONS"/>
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantViceroidEnhancement">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
+				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_TibInfusionAudioLoop" SoundToPlay="NOD_TiberiumInfusion_Upgrade">
+				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="150"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Bodyfall" Animation="NUShdw_LNDA" Frame="5"/>
+				<Sound Sound="Bodyfall" Animation="NUShdw_LNDB" Frame="5"/>
+			</AnimationSoundClientBehavior>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_ShadowSquad_FlyingIdlingLoop" RequiredFlags="FLYING" ExcludedFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_ShadowSquad_RunningLoop" RequiredFlags="MOVING" ExcludedFlags="FLYING DECELERATE DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+			<ModelConditionSoundSelectorClientBehavior id="MCSSCB">
+				<Override RequiredFlags="FLYING">
+					<AudioArrayVoice>
+						<AudioEntry Sound="Mutant_Sentinel_VoiceSelectGlidersMS" AudioType="voiceSelect"/>
+					</AudioArrayVoice>
+					<AudioArraySound>
+						<AudioEntry Sound="NOD_ShadowSquad_MoveStartFlyingMS" AudioType="soundMoveStart"/>
+					</AudioArraySound>
+				</Override>
+			</ModelConditionSoundSelectorClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="Mutant_Sentinel_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="Mutant_Sentinel_VoiceCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="Mutant_Sentinel_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="Mutant_Sentinel_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="Mutant_Sentinel_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="Mutant_Sentinel_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="Mutant_Sentinel_VoiceSpecial" Name="InitiatePlaceSatchelCharge_NOD"/>
+			<NamedEntry Sound="Mutant_Sentinel_VoiceMove" Name="InitiatePlaceArtilleryBeacon"/>
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
+			<ObjectSpecificEntry Sound="Mutant_Sentinel_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="Mutant_Sentinel_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
+		</AudioArrayVoice>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+	</GameObject>
+</AssetDeclaration>

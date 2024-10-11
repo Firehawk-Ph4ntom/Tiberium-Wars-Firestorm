@@ -3,13 +3,13 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
 	</Includes>
-	<GameObject id="MutantSkirmisherSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_MutantSkirmisher" ThreatLevel="10" ButtonImage="Portrait_MutantSkirmisher" Side="GDI" BuildCost="1200" BuildTime="12" CommandSet="GenericMutantInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SCORE SIEGE_WEAPON CAN_BE_FAVORITE_UNIT TIBERIUM_BASED" WeaponCategory="BLAST" EditorName="MutantSkirmisherSquad" Description="Desc:MutantSkirmisher" TypeDescription="Type:MutantSkirmisher" UnitTypeIcon="MissilemenIcon">
+	<GameObject id="MutantSkirmisherSquad" inheritFrom="BaseSquad" SelectPortrait="Portrait_MutantSkirmisher" ThreatLevel="10" ButtonImage="Portrait_MutantSkirmisher" Side="GDI" BuildCost="1000" BuildTime="10" CommandSet="GenericMutantInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK INFANTRY HORDE ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND PATH_THROUGH_INFANTRY SCORE SIEGE_WEAPON CAN_BE_FAVORITE_UNIT SKIRMISH_AI_DONT_GARRISON TIBERIUM_BASED" WeaponCategory="BLAST" EditorName="MutantSkirmisherSquad" Description="Desc:MutantSkirmisher" TypeDescription="Type:MutantSkirmisher" UnitTypeIcon="MissilemenIcon">
 		<DisplayName xai:joinAction="Replace" xmlns:xai="uri:ea.com:eala:asset:instance">Name:MutantSkirmisher</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<DisplayUpgrade>Upgrade_BlackHandBlackTemplarsUpgrade</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
 		<GameDependency>
-			<RequiredObject>Tier2DummyDrone</RequiredObject>
+			<RequiredObject>Tier3DummyDrone</RequiredObject>
 		</GameDependency>
 		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="45"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
@@ -29,6 +29,14 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
 					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_17">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_HordeBonus" SizeX="32" SizeY="32" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>

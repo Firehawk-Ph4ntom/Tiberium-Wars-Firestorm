@@ -5,7 +5,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="MutantGhostStalker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantGhostStalker" ButtonImage="Portrait_MutantGhostStalker" Side="GDI" BuildCost="2000" BuildTime="20" CommandSet="GenericMutantInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM TIBERIUM_BASED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="120" EditorName="MutantGhostStalker" Description="Desc:MutantGhostStalker" TypeDescription="Type:MutantGhostStalker" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
+	<GameObject id="MutantGhostStalker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantGhostStalker" ButtonImage="Portrait_MutantGhostStalker" Side="GDI" BuildCost="1500" BuildTime="15" CommandSet="GenericMutantInfantryUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM TIBERIUM_BASED" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="120" EditorName="MutantGhostStalker" Description="Desc:MutantGhostStalker" TypeDescription="Type:MutantGhostStalker" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantGhostStalker</DisplayName>
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
@@ -190,6 +190,14 @@
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_HordeLeadership" SizeX="566" SizeY="566" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="1" LaserStateID="1" UseDistortionShader="true">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
@@ -266,6 +274,26 @@
 			</LargeGroupAudioUpdate>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="Mutant_GhostStalker_AttributeModifier" RefreshDelay="0.1s" Range="250" InitiallyActive="true">
+				<ObjectFilter Rule="NONE" Relationship="ALLIES">
+					<!-- Only to Mutant Hovel Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantMarauderSquad</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendSquad</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantViceroidSquad</IncludeThing>
+					<IncludeThing>MutantSentinel</IncludeThing>
+					<IncludeThing>MutantSentinelSquad</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantSkirmisherSquad</IncludeThing>
+				</ObjectFilter>
+			</AttributeModifierAuraUpdate>
 			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
 				<CustomAnimAndDuration AnimState="USER_1"/>
 				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>

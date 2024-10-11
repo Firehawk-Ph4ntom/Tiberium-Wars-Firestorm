@@ -1,0 +1,322 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\MutantSalvager\HC_MUCloth.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantSalvager\HC_MUSalvager.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantSalvager\MUCloth.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantSalvager\MUSalvager.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantSalvager\MUSALVAGER_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="MutantSalvager" inheritFrom="BaseInfantry" SelectPortrait="Portrait_MutantSalvager" ButtonImage="Portrait_MutantSalvager" ThreatLevel="10" Side="GDI" BuildCost="700" BuildTime="7" CommandSet="MutantSalvagerCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON IGNORES_SELECT_ALL ENGINEER CAN_CAPTURE CAN_BE_FAVORITE_UNIT TIBERIUM_BASED HEALED_BY_TIBERIUM" VoicePriority="64" EditorName="MutantSalvager" Description="Desc:MutantSalvager" TypeDescription="Type:MutantSalvager" UnitTypeIcon="EngineerIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantSalvager</DisplayName>
+		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
+		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="47"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="MUSALVAGER_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="FXEngineer_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="NUMiltn_BIDA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="15" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUMiltn_BIDB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="15" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUMiltn_BIFA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="5" AnimationBlendTime="15"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressed") end; if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
+					<Animation AnimationName="NUMiltn_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
+					<Animation AnimationName="NUMiltn_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="NUMiltn_CDTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED DYING" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUMiltn_SDIA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER DYING" StateName="STATE_Cover">
+					<Animation AnimationName="NUMiltn_KDIA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUMiltn_KDIB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUMiltn_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUMiltn_DIEB" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUMiltn_DIEC" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED MOVING" StateName="STATE_Suppressed" Flags="RANDOMSTART">
+					<Animation AnimationName="NUMiltn_SMVA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Suppressed">
+					<Animation AnimationName="NUMiltn_SIDA" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="NUMiltn_SIFA" AnimationMode="ONCE" AnimationPriority="1"/>
+					<Animation AnimationName="NUMiltn_SIFB" AnimationMode="ONCE" AnimationPriority="1"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Suppressed" and Prev ~= "TRANS_toSuppressed" then CurDrawableSetTransitionAnimState("TRANS_toSuppressed") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_CoverAttention">
+					<Animation AnimationName="NUMiltn_KAIA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUMiltn_KAIB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_CoverToCoverAttention") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER" AllowRepeatInRandomPick="true" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Cover">
+					<Animation AnimationName="NUMiltn_KBIA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="NUMiltn_KBIB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverAttention" then CurDrawableSetTransitionAnimState("TRANS_CoverAttentionToCover") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUMiltn_RUNA" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
+					<Animation AnimationName="NUMiltn_RUNC" AnimationMode="LOOP" AnimationPriority="25" Distance="75"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="EMOTION_CELEBRATING" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUMiltn_CHRA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUMiltn_CHRB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
+					<Animation AnimationName="NUMiltn_AIDA" AnimationMode="ONCE" AnimationPriority="15" AnimationBlendTime="10"/>
+					<Animation AnimationName="NUMiltn_AIFA" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
+					<Animation AnimationName="NUMiltn_AIFB" AnimationMode="ONCE" AnimationPriority="5" AnimationBlendTime="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_toSuppressed">
+					<Animation AnimationName="NUMiltn_SDVA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_fromSuppressed" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUMiltn_SDVA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="NUMiltn_BATB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.3"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="NUMiltn_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUMiltn_ABTB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverAttentionToCover">
+					<Animation AnimationName="NUMiltn_KATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_CoverToCoverAttention">
+					<Animation AnimationName="NUMiltn_KBTA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FollowBone="true" FXParticleSystemTemplate="NODTibInfusion"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Suppressed" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED">
+					<Model Name="FXSUPPRESSIONSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_17">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_HordeBonus" SizeX="32" SizeY="32" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<EmotionTrackerUpdate id="Module_ETU">
+				<TauntAndPointExcluded Rule="NONE"/>
+				<AddEmotion>CheerIdle_Base</AddEmotion>
+				<AddEmotion>CheerBusy_Base</AddEmotion>
+			</EmotionTrackerUpdate>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="NOD_Saboteur_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="POISONED"/>
+				<Sound Type="INITIAL" List="NOD_Saboteur_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="NOD_Saboteur_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
+				<Sound Type="INITIAL" List="NOD_Saboteur_VoiceDie"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Fade" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<DieMuxData DeathTypes="DETONATED" />
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODHijackerCaptureGetInRange"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
+			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_Medic_FS</Key>
+			</LargeGroupAudioUpdate>
+			<InvisibilityUpdate id="ModuleTag_InvisibilityUpdate" Options="BROADCAST_INVERSE STARTS_ACTIVE" BroadcastRange="25" UpdatePeriod="0.1s">
+				<InvisibilityNugget ForbiddenConditions="ATTACKING PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A RELOADING_A USING_WEAPON_A" ForbiddenStatus="IS_FIRING_WEAPON USING_ABILITY IS_AIMING_WEAPON SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING"/>
+				<BroadcastObjectFilter Rule="ANY" Include="TIBERIUM TIBERIUM_FIELD"/>
+			</InvisibilityUpdate>
+			<!-- Capture Building -->
+			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_EngineerCapture" ChainedButton="Command_CaptureBuildingTrigger" SpecialWeapon="GenericEngineerCaptureTrigger"/>
+			<SpecialPower id="ModuleTag_CaptureBuildingSP" SpecialPowerTemplate="SpecialPowerCaptureBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureBuilding" StartAbilityRange="20" PreparationTime="3s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureBuilding" SpecialWeapon="GenericEngineerSuicideWeapon"/>
+			<AISpecialPowerUpdate id="ModuleTag_CaptureBuildingAI" CommandButtonName="Command_CaptureBuilding" SpecialPowerAIType="SPECIAL_POWER_CAPTURE_BUILDING"/>
+			<!-- Capture Vehicle -->
+			<SpecialPower id="ModuleTag_CaptureVehicleGetInRange" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_HijackerCapture" ChainedButton="Command_CaptureVehicleTrigger" SpecialWeapon="GenericHijackerCaptureTrigger"/>
+			<SpecialPower id="ModuleTag_CaptureVehicleSP" SpecialPowerTemplate="SpecialPowerCaptureVehicle" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicle" StartAbilityRange="20" PreparationTime="0.25s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureVehicle" SpecialWeapon="GenericEngineerSuicideWeapon"/>
+			<!-- Booby Trap -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_BoobyTrapDispatch" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBuilding"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBridge"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk"/>
+			</SpecialPowerDispatchSpecialPower>
+			<!-- Place booby trap on a tech building -->
+			<SpecialPower id="ModuleTag_BoobyTrapTechBuilding" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapTechBuildingUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtTechBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" BusyForDuration="0.66s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="15.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING"/>
+			<!-- Place booby trap on a garrisonable building -->
+			<SpecialPower id="ModuleTag_BoobyTrapBuilding" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapBuildingUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBuilding" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" BusyForDuration="0.66s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="15.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE"/>
+			<!-- Place booby trap on a bridge -->
+			<SpecialPower id="ModuleTag_BoobyTrapBridge" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBridge" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapBridgeUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtBridge" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtBridgeWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="2.0" ContactPointOverride="CENTER" BusyForDuration="0.66s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="15.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING"/>
+			<!-- Place booby trap on a husk -->
+			<SpecialPower id="ModuleTag_BoobyTrapHusk" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapHuskUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtHuskWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" BusyForDuration="0.66s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="15.0" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK FLIP_OWNER_AFTER_PACKING"/>
+			<!-- Repair CIV Building -->
+			<SpecialPower id="ModuleTag_RepairCivBuilding" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="2s" PackTime="1s" StartAbilityRange="5.0" BusyForDuration="1s" WhichSpecialWeapon="1" FleeRangeAfterCompletion="15.0" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE FLIP_OWNER_AFTER_PACKING USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
+			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
+				<CustomAnimAndDuration AnimState="USER_1"/>
+				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_TibInfusionAudioLoop" SoundToPlay="NOD_TiberiumInfusion_Upgrade">
+				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_CyberneticAugmentAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_CyberneticAugmentAudioLoop" SoundToPlay="NOD_CyberAugment_Upgrade">
+				<TriggeredBy>Upgrade_CyberneticAugmentation</TriggeredBy>
+			</AudioLoopUpgrade>
+			<!-- Scanner Packs -->
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect2" DetectionRange="300" InitiallyDisabled="true" ExtraForbiddenKindOf="">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</StealthDetectorUpdate>
+			<AttributeModifierUpgrade id="ModuleTag_ScannerPacksAttribute" AttributeModifier="ZoneTrooper_ScannerPack">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ScannerPackAudioLoop" SoundToPlay="GDI_ScannerPacks_Upgrade">
+				<TriggeredBy>Upgrade_ZoneTrooperScannerPack</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="90.0"/>
+		</Body>
+		<ClientBehaviors>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="Bodyfall" Animation="NUSABTR_LNDA" Frame="5"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="INFANTRY"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="Mutant_Salvager_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="Mutant_Salvager_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="Mutant_Salvager_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="Mutant_Salvager_VoiceMove" Name="VoiceBoobyTrap"/>
+			<NamedEntry Sound="Mutant_Salvager_VoiceCapture" Name="VoiceEngineerRepair"/>
+			<NamedEntry Sound="Mutant_Salvager_VoiceCapture" Name="VoiceCaptureBuilding"/>
+			<NamedEntry Sound="Mutant_Salvager_VoiceCapture" Name="VoiceCaptureHusk"/>
+		</AudioArrayVoice>
+		<EvaEvents EvaEventPromotedOwner="" EvaEventDetectedEnemy="EnemyEngineerDetected" EvaEnemyObjectSightedEvent="EnemyEngineerDetected"/>
+		<VisionInfo VisionRange="100" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+	</GameObject>
+</AssetDeclaration>
