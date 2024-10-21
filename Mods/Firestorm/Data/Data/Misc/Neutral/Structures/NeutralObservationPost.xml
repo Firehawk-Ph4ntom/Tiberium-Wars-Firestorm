@@ -1,11 +1,11 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
-		<Include type="instance" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar.xml"/>
-		<Include type="instance" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar_D.xml"/>
-		<Include type="instance" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar_NRM.xml"/>
-		<Include type="instance" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar_SPM.xml"/>
-		<Include type="instance" source="ART:Firestorm\Structures\NeutralObservationPost\NBTECHRADAR_AIDA.w3x"/>
-		<Include type="instance" source="ART:Firestorm\Structures\NeutralObservationPost\NBTECHRADAR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralObservationPost\NBTechRadar_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralObservationPost\NBTECHRADAR_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralObservationPost\NBTECHRADAR_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
 	</Includes>
@@ -17,8 +17,9 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NBTECHRADAR_SKN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="GBAABAT_D3SN"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBTECHRADAR_D3"/>
+					<Texture Original="NBTechRadar" New="NBTechRadar_D"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="NBTECHRADAR_SKN"/>
@@ -30,27 +31,27 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="NBTECHRADAR_AIDA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
-					<Animation AnimationName="GBAABat_D3AN" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
-					<Animation AnimationName="GBAABat_D3AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBTECHRADAR_D3" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2s"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_ObservationPost_Destroyed">
 				<DieMuxData DeathTypes="ALL"/>
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
-			</SlowDeath>
+			</CreateObjectDie>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_MediumScorch"/>
 			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="600"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">

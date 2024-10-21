@@ -1,0 +1,44 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="TiberiumSilo_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralTiberiumSiloDestroyed" ButtonImage="Portrait_NeutralTiberiumSiloDestroyed" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE SELECTABLE HUSK" EditorName="TiberiumSilo_Destroyed" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingTiberiumSiloDestroyed">
+		<DisplayName>Name:TiberiumSiloDestroyed</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="CBSilo_D3"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="CBSilo_D3" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="CBSilo_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" EvaEventForReplace="BuildingRepaired" EvaEventForCaptureAndReplace="BuildingRepaired" FXForReplace="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Husk_Captured" ReplaceWith="OCL_TiberiumSilo_Rebuilt" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+		</Behaviors>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="20.7703" Height="20.2843" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="10.3081" MinorRadius="10.3081" Height="104.6667" ContactPointGeneration="STRUCTURE">
+				<Offset z="20.2845" />
+			</Shape>
+		</Geometry>
+		<EvaEvents EvaEventDamagedOwner="" EvaEventSoldOwner="" EvaEventRepairingOwner=""/>
+		<VisionInfo VisionRange="0" ShroudClearingRange="0"/>
+	</GameObject>
+</AssetDeclaration>

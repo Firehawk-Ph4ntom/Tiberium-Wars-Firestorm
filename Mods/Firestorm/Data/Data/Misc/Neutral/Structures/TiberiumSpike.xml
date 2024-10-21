@@ -11,8 +11,8 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="TBTibSpk_SN"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="TBTibSpk_D3"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="TBTibSpk_D3_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="TBTibSpk_D2"/>
@@ -23,9 +23,10 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
 					<Animation AnimationName="TBTibSpk_AN" AnimationMode="LOOP" AnimationPriority="10"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
-					<Animation AnimationName="TBTibSpk_D3" AnimationMode="MANUAL"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TBTibSpk_D3" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Medium" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
 					<Animation AnimationName="TBTibSpk_D2" AnimationMode="MANUAL"/>
@@ -34,28 +35,24 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
 					<Animation AnimationName="TBTibSpk_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
-					<Animation AnimationName="TBTibSpk_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Medium" FollowBone="false"/>
-				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="2s"/>
 			<DistributedMoney id="ModuleTag_DistributedMoney" Capacity="1500" OnDieSpawnPercentage="25"/>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="TiberiumSpikeOCL">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="SUICIDED"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_TiberiumSpike_Destroyed">
+				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
 			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" InitialCaptureBonus="500" DepositInterval="1s" DepositAmount="10" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="4s" SinkRate="3.0" DestructionDelay="8.0s">
-				<DieMuxData DeathTypes="ALL"/>
-				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
-			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_MediumScorch"/>
 			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
