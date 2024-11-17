@@ -140,11 +140,11 @@ end
 
 function OnGDITechCenterCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_Mortar", true )
-	ObjectHideSubObjectPermanently( self, "UG_Rail", true )
 	ObjectHideSubObjectPermanently( self, "UG_Scan", true )
+	ObjectHideSubObjectPermanently( self, "UG_Rail", true )
 	ObjectHideSubObjectPermanently( self, "B_MortarRound_1", true )
-	ObjectHideSubObjectPermanently( self, "UG_Adaptive01", true )
 	ObjectHideSubObjectPermanently( self, "UG_Adaptive", true )
+	ObjectHideSubObjectPermanently( self, "UG_Adaptive01", true )
 	ObjectHideSubObjectPermanently( self, "FXELEC01", true )
 	ObjectHideSubObjectPermanently( self, "PLANE02", true )
 end
@@ -176,12 +176,12 @@ function OnGDICommandPostCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_StealthDetector", true )
 	ObjectHideSubObjectPermanently( self, "UG_StealthDetector01", true )
 	ObjectHideSubObjectPermanently( self, "UG_StealthDetector02", true )
-	ObjectHideSubObjectPermanently( self, "UG_StealthDetector03", true )
 	ObjectHideSubObjectPermanently( self, "UG_Scan02", true )
 	ObjectHideSubObjectPermanently( self, "UG_APAmmo", true )
 	ObjectHideSubObjectPermanently( self, "UG_APAmmo02", true )
 	ObjectHideSubObjectPermanently( self, "UG_Scan01", true )
 	ObjectHideSubObjectPermanently( self, "UG_APAmmo01", true )
+	ObjectHideSubObjectPermanently( self, "UG_StealthDetector03", true )
 end
 
 function OnGDICommandPostPowerOutage(self)
@@ -194,11 +194,6 @@ function OnGDICommandPostPowerRestored(self)
 	if ObjectHasUpgrade( self, "Upgrade_ZoneTrooperScannerPack" ) == 1 then
 		ObjectHideSubObjectPermanently( self, "UG_StealthDetector01", false )
 	end
-end
-
-function OnGDIPowerPlantCreated(self)
-	ObjectHideSubObjectPermanently( self, "Turbines", true )
-	ObjectHideSubObjectPermanently( self, "TurbineGlows", true )
 end
 
 function OnGDITankArmoryCreated(self)
@@ -296,8 +291,8 @@ end
 
 function OnGDIZoneTrooperCreated(self)
 	ObjectSetObjectStatus( self, "CAN_SPOT_FOR_BOMBARD" )
-	ObjectHideSubObjectPermanently( self, "UGSCANNER", true )
 	ObjectHideSubObjectPermanently( self, "UGINJECTOR", true )
+	ObjectHideSubObjectPermanently( self, "UGSCANNER", true )
 end
 
 function OnGDIGrenadeSoldierCreated(self)
@@ -393,7 +388,6 @@ function OnNODRedeemerWarmechCreated(self)
 end
 
 function OnNODAvatarCreated(self)
-	ObjectHideSubObjectPermanently( self, "NUBEAM", true )
 	ObjectHideSubObjectPermanently( self, "S_DETECTOR", true )
 	ObjectHideSubObjectPermanently( self, "S_GENERATOR", true )
 end
@@ -456,8 +450,6 @@ end
 
 function OnAlienDevastatorWarshipCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_SHARD", true )
-	ObjectHideSubObjectPermanently( self, "UG_SHARD01", true )
-	ObjectHideSubObjectPermanently( self, "UG_SHARD02", true )
 end
 
 function OnNODRocketBunkerCreated(self)
