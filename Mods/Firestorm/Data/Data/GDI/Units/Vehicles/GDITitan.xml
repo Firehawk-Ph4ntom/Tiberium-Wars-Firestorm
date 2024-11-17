@@ -1,4 +1,4 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTitan.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTitan_D.xml"/>
@@ -301,6 +301,14 @@
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Laser RangeFinder -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDILaserRangeFinderUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<AttributeModifierUpgrade id="ModuleTag_LaserRangeFinderAttribute" xai:joinAction="Replace" AttributeModifier="AttributeModifier_LaserRangeFinderMech">
+				<TriggeredBy>Upgrade_GDILaserRangeFinderUpgrade</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsLASER" xai:joinAction="Replace" ShowSubObjects="LASER LASERPOINTER">
+				<TriggeredBy>Upgrade_GDILaserRangeFinderUpgrade</TriggeredBy>
+			</SubObjectsUpgrade>
 			<!-- Rail Gun -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Accelerator -->
@@ -309,7 +317,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIMammothTankFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

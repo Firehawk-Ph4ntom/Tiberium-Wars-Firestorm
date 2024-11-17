@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIMammoth\GUMamm_SPM_KW.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMammoth\GUMammTrd2.xml"/>
@@ -421,6 +421,11 @@
 			<ModelConditionUpgrade id="ModuleTag_Veterancy_Upgrade" AddConditionFlags="USER_3">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</ModelConditionUpgrade>
+			<!-- Laser RangeFinder -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDILaserRangeFinderUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsLASER" xai:joinAction="Replace" ShowSubObjects="LASER LASERPOINTER">
+				<TriggeredBy>Upgrade_GDILaserRangeFinderUpgrade</TriggeredBy>
+			</SubObjectsUpgrade>
 			<!-- Rail Gun -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- ThermoBaric Missiles -->
@@ -453,7 +458,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIMammothTankFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

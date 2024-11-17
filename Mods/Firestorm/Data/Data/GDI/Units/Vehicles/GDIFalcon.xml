@@ -21,10 +21,10 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIFalcon" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIFalcon" TypeDescription="Type:GDIFalcon" Side="GDI" EditorName="GDIFalcon" BuildTime="8" CommandSet="GDIFalconCommandSet" SelectPortrait="Portrait_GDIFalcon" ButtonImage="Portrait_GDIFalcon" VoicePriority="164" ThreatLevel="10" WeaponCategory="MISSILE" BuildCost="800">
+	<GameObject id="GDIFalcon" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIFalcon" TypeDescription="Type:GDIFalcon" Side="GDI" EditorName="GDIFalcon" BuildTime="8" CommandSet="GenericGDIVehicleCommandSet" SelectPortrait="Portrait_GDIFalcon" ButtonImage="Portrait_GDIFalcon" VoicePriority="164" ThreatLevel="10" WeaponCategory="MISSILE" BuildCost="800">
 		<DisplayName>Name:GDIFalcon</DisplayName>
-		<DisplayUpgrade>Upgrade_GDIArmoryPitbullMortar</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_ThermoBaricMissiles</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
 		<ArmorSet Armor="GenericHoverVehicleArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Speed="100" Locomotor="GDISandstormLocomotor"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
@@ -32,11 +32,9 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUFALCON_SKN"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MORTARTUBE"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MORTARTUBE"/>
-					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
-					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
-					<Turret TurretNameKey="TURRET" TurretPitch="TURRET_PITCH" TurretID="2"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<Turret TurretNameKey="TURRET" TurretPitch="TURRET_PITCH" TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="GUFALCON_FP"/>
@@ -186,34 +184,16 @@
 			</FXListBehavior>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="400"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHierarchicalTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" ParentID="2">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconMortar" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="300">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
-					</TurretSettings>
-				</WeaponSlotHierarchicalTurret>
-				<WeaponSlotHierarchicalTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+				<WeaponSlotTurret ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconRocketWeapon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconThermoBaricRocketWeapon" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIFalconThermoBaricRocketWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="300" TurretPitchRate="300" MinimumPitch="-10d" PitchHeight="90%" AllowsPitch="true" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
-				</WeaponSlotHierarchicalTurret>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
-			<!-- Mortar Bombardement -->
-			<SpecialPower id="ModuleTag_Bombardement" SpecialPowerTemplate="SpecialPower_MortarBombardement" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIFalconMortarBombard" id="ModuleTag_BombardementUpdate" SpecialPowerTemplate="SpecialPower_MortarBombardement" UnpackTime="2s" PackTime="2s" PersistentPrepTime="2.5s" StartAbilityRange="600.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
-			<StatusBitsUpgrade id="ModuleTag_MortarUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_GDIArmoryPitbullMortar</TriggeredBy>
-			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsMortar" ShowSubObjects="MortorTube">
-				<TriggeredBy>Upgrade_GDIArmoryPitbullMortar</TriggeredBy>
-			</SubObjectsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_MortarAudioLoop" SoundToPlay="GDI_Mortar_Upgrade">
-				<TriggeredBy>Upgrade_GDIArmoryPitbullMortar</TriggeredBy>
-			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_02">
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
@@ -224,7 +204,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDIPitbullFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
 				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

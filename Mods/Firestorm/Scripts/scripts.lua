@@ -304,10 +304,6 @@ function OnGenericSpotterCreated(self)
 	ObjectSetObjectStatus( self, "CAN_SPOT_FOR_BOMBARD" )
 end
 
-function OnGDIPitbullCreated(self)
-	ObjectHideSubObjectPermanently( self, "MortorTube", true )
-end
-
 function OnGDIAPCCreated(self)
 	ObjectHideSubObjectPermanently( self, "APC_UGAB", true )
 	ObjectHideSubObjectPermanently( self, "APC_UGTURRET", true )
@@ -427,6 +423,21 @@ end
 
 function OnGDIAirSupremacyPurchased(self)
 	ObjectGrantUpgrade( self, "Upgrade_AirSupremacyLevelup" )
+end
+
+function OnGDIPredatorTankCreated(self)
+	ObjectHideSubObjectPermanently( self, "LASER", true )
+end
+
+function OnGDIMammothTankCreated(self)
+	ObjectHideSubObjectPermanently( self, "LASERPOINTER", true )
+	ObjectHideSubObjectPermanently( self, "LASER", true )
+end
+
+function OnGDIPaladinTankCreated(self)
+	ObjectHideSubObjectPermanently( self, "UG_AMMO", true )
+	ObjectHideSubObjectPermanently( self, "LASERPOINTER", true )
+	ObjectHideSubObjectPermanently( self, "LASER", true )
 end
 
 function OnAlienMotherShipCreated(self)
