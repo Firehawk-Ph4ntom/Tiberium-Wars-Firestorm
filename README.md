@@ -2,7 +2,7 @@
 Tiberium Wars Firestorm mod source code
 
 
-This is the source code for the Tiberium Wars Firestorm mod. It includes the vanilla CnC3 SDK by EA, plus some additional add-ons by Bibber (not all)
+This is the source code for the Tiberium Wars Firestorm mod. It includes the vanilla CnC3 SDK by EA, plus some additional add-ons by Bibber and Darth Jane.
 Buildmod.bat and Buildmap.bat are custom-made by me with the help of Jenkins.
 You may download this source code and work with it as you please, everything is included here, from audio to art to all the mod files themselves.
 

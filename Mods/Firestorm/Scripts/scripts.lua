@@ -370,10 +370,6 @@ function OnNODVenomCreated(self)
 	ObjectHideSubObjectPermanently( self, "SIGGEN", true )
 end
 
-function OnNODVertigoCreated(self)
-	ObjectHideSubObjectPermanently( self, "UG_RD", true )
-end
-
 function OnNODAttackBikeCreated(self)
 	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILEL", true )
 	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILER", true )
@@ -436,7 +432,6 @@ end
 
 function OnGDIPaladinTankCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_AMMO", true )
-	ObjectHideSubObjectPermanently( self, "LASERPOINTER", true )
 	ObjectHideSubObjectPermanently( self, "LASER", true )
 end
 

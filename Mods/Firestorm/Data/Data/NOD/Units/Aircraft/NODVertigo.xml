@@ -8,7 +8,6 @@
 	</Includes>
 	<GameObject id="NODVertigo" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODVertigoBomber" ButtonImage="Portrait_NODVertigoBomber" Side="NOD" BuildCost="1600" BuildTime="16" CommandSet="NODVertigoCommandSet" KindOf="CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE SCORE AIRCRAFT HAS_HEALTH_BAR BOMBER_AIRCRAFT ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS NO_COLLIDE CAN_BE_FAVORITE_UNIT CAN_SEE_THROUGH_STRUCTURE" WeaponCategory="BLAST" VoicePriority="140" EditorName="NODVertigo" ThreatLevel="10" BuildFadeInOnCreateTimeSeconds="1.5s" Description="Desc:NODVertigo" TypeDescription="Type:NODVertigo">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODVertigo</DisplayName>
-		<DisplayUpgrade>Upgrade_VertigoDisruptionPod</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
@@ -131,22 +130,11 @@
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<!-- Normal Dying -->
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_NODVertigoBomberDebris</OCL>
-				</OCL>
-				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER4"/>
-				<FX Type="INITIAL">
-					<FX>FX_NOD_VertigoBomber_VoiceDie</FX>
-				</FX>
-			</SlowDeath>
-			<!-- Upgraded Dying -->
-			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NODDisruptionVertigoBomberDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER4"/>
+				<DieMuxData DeathTypes="ALL"/>
 				<FX Type="INITIAL">
 					<FX>FX_NOD_VertigoBomber_VoiceDie</FX>
 				</FX>
@@ -179,21 +167,6 @@
 			<!-- Targeted (Allies) -->
 			<SpecialPower id="ModuleTag_TargetedDisruptionPod_Allies" SpecialPowerTemplate="SpecialPowerDisruptionPod_Targeted_Allies" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_TargetedDisruptionPodUpdate_Allies" SpecialPowerTemplate="SpecialPowerDisruptionPod_Targeted_Allies" SpecialWeapon="NODVertigoDisruptionStickyPodWeapon_Allies" WhichSpecialWeapon="1" StartAbilityRange="200.0" FaceTarget="false"/>
-			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
-				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_DisruptionPodDeathUpgrade" StatusToSet="RIDER4">
-				<TriggeredBy>Upgrade_VertigoDisruptionPod</TriggeredBy>
-			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDisruptionPod" ShowSubObjects="UG_RD">
-				<TriggeredBy>Upgrade_VertigoDisruptionPod</TriggeredBy>
-			</SubObjectsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_DisruptionPodAudioLoop" SoundToPlay="NOD_DisruptionPod_Upgrade">
-				<TriggeredBy>Upgrade_VertigoDisruptionPod</TriggeredBy>
-			</AudioLoopUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -202,7 +175,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<JetAIUpdate id="ModuleTag_AI" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true" CirclesForAttack="true" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODVertigoFunctions">
+			<JetAIUpdate id="ModuleTag_AI" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" ReturnToBaseWhenVictimDead="true" CirclesForAttack="true" AutoAcquireEnemiesWhenIdle="NO">
 				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 				<LockonInfo/>
 			</JetAIUpdate>
