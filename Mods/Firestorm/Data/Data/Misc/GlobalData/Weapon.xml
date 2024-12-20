@@ -7993,6 +7993,7 @@
 				DamageType="GRENADE"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
+				<!-- Geometry of these structures messes with carpet bomb damage -->
 				<DamageScalarDetails
 					Scalar="120%">
 					<Filter
@@ -8001,25 +8002,33 @@
 						<IncludeThing>AlienRiftGenerator</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
+				<!-- Just enough damage reduction to make killing them with a resonable amount of Firehawks -->
 				<DamageScalarDetails
 					Scalar="90%">
 					<Filter
 						Rule="NONE">
+						<!-- Infantry -->
+						<IncludeThing>GDICommando_EA</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+						<!-- Structures -->
 						<IncludeThing>GDIRefinery</IncludeThing>
 						<IncludeThing>GDIWarFactory</IncludeThing>
 						<IncludeThing>GDIArmory</IncludeThing>
 						<IncludeThing>NODRefinery</IncludeThing>
 						<IncludeThing>NODDropZone</IncludeThing>
-						<IncludeThing>NODTempleOfNOD</IncludeThing>
 						<IncludeThing>AlienGateway</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
+				<!-- Overall damage reduction to structures excluding a few -->
 				<DamageScalarDetails
 					Scalar="60%">
 					<Filter
 						Rule="NONE"
 						Include="STRUCTURE"
 						Exclude="FS_BASE_DEFENSE">
+						<!-- Commando Armor is weak vs Grenade dmg type -->
+						<IncludeThing>NODCommando</IncludeThing>
+						<!-- Some structures are in other filters or there is no dmg reduction vs them -->
 						<ExcludeThing>GDIConstructionYard</ExcludeThing>
 						<ExcludeThing>GDIRefinery</ExcludeThing>
 						<ExcludeThing>GDIWarFactory</ExcludeThing>
@@ -8032,6 +8041,30 @@
 						<ExcludeThing>AlienDronePlatform</ExcludeThing>
 						<ExcludeThing>AlienGateway</ExcludeThing>
 						<ExcludeThing>AlienRiftGenerator</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Necessary in order to not have a firehawk kill infantry hordes with a snap of finger -->
+				<DamageScalarDetails
+					Scalar="30%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDICommando_EA</ExcludeThing>
+						<ExcludeThing>NODCommando</ExcludeThing>
+						<ExcludeThing>NODReaper</ExcludeThing>
+						<ExcludeThing>NODCyborgCommando</ExcludeThing>
+						<ExcludeThing>NODObliterator</ExcludeThing>
+						<ExcludeThing>NODHijacker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Advanced cyborgs barely take any damage, increase dmg vs them -->
+				<DamageScalarDetails
+					Scalar="165%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
 				<DamageScalarDetails
