@@ -568,7 +568,7 @@ function SquadLookupTable(x)  -- x = object template
 		ans = 6*delay1
 	-- Shadow Team
 	elseif strfind(tostring(x), "A6E10008") ~= nil then
-		ans = 4*delay1
+		ans = 5*delay1
 	-- Cyborg Gunners
 	elseif strfind(tostring(x), "346EDC73") ~= nil then
 		ans = 3*delay1

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSUPPRESSIONSIGN.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEEFFECTSIGN.w3x" type="all"/>
+		<!-- For GDI Ion Cannon -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml"/>
+		<!-- For Nod Temple of Nod -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODTempleOfNOD.xml"/>
+		<!-- For Alien Rift Generator -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Structures\Defenses\AlienRiftGenerator.xml"/>
+		<!-- For Disruption Tower -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODDisruptionTower.xml"/>
+		<!-- For the Crate Perimeter Ramps -->
+		<Include type="instance" source="DATA:Civilian\EEurope_EE\Props\EEBRamp01.xml"/>
+		<!-- For Temple Prime -->
+		<Include type="instance" source="DATA:NOD\Structures_SinglePlayerCampaign\NSTemplePrime.xml"/>
+		<!-- For Ion Disruption Generators -->
+		<Include type="instance" source="DATA:NOD\Structures_SinglePlayerCampaign\NSIonDisruptionFieldGenerator.xml"/>
+		<!-- For Nod StrongHold Buildings -->
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding1.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding3.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding5.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding6.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo03.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo04.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo06.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo08.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo10.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo11.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSiloCR.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSDockHQ3.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter3.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+	</Includes>
+
+	<LogicCommandSet
+		id="NODTemplePrimeCommandSet">
+		<Cmd>Command_PurchaseAvatarCommandeer</Cmd>
+		<Cmd>Command_PurchaseCyberneticAugmentation</Cmd>
+		<Cmd>Command_PurchaseUpgradeDisruptionModules</Cmd>
+		<Cmd>Command_Redemption</Cmd>
+		<Cmd>Command_ComputerCounterMeasures</Cmd>
+		<Cmd>Command_SummonNODLeviathan</Cmd>
+		<Cmd>Command_TiberiumFacilityAirDispersion</Cmd>
+	</LogicCommandSet>
+
+	<!-- Making Temple Prime like the Temple of Redemption -->
+	<GameObject
+		id="NOD_TemplePrime"
+		inheritFrom="NOD_TemplePrime"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS FS_TECHNOLOGY POWERED NOT_AUTOACQUIRABLE COVER KEEP_CLASSIFIED_WHEN_DEAD RESIST_EMP"
+		CommandSet="NODTemplePrimeCommandSet">
+		<Behaviors>
+			<ProductionUpdate
+				id="ModuleTag_Production"
+				Type="UPGRADE"
+				GiveNoXP="true"/>
+			<!-- Redemption -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLRedemption"
+				SpecialPowerTemplate="SpecialPower_Redemption"
+				OCL="OCL_RedemptionPodBeacon"
+				CreateLocation="CREATE_AT_LOCATION"/>
+			<AISpecialPowerUpdate
+				id="ModuleTag_RedemptionAI"
+				CommandButtonName="Command_Redemption"
+				SpecialPowerAIType="SPECIAL_POWER_REINFORCEMENT"
+				SpecialPowerRadius="300"
+				ReinforceDistance="100"/>
+			<!-- Air Dispersion -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerAirDispersion"
+				SpecialPowerTemplate="SpecialPowerAirDispersion"
+				OCL="OCL_NODAirDispersion"
+				CreateLocation="CREATE_AT_EDGE_NEAR_SOURCE"
+				DestinationOCL="OCL_NODTiberiumVaporBeacon"/>
+			<AISpecialPowerUpdate
+				id="ModuleTag_TiberiumFacilityAirDispersion"
+				CommandButtonName="Command_TiberiumFacilityAirDispersion"
+				SpecialPowerRadius="999999.0"
+				UnitKindOf="FS_POWER"
+				SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
+			<!-- Summon Leviathan -->
+			<OCLSpecialPower
+				id="ModuleTag_OCLSpecialPowerSummonLeviathan"
+				SpecialPowerTemplate="SpecialPower_SummonNODLeviathan"
+				OCL="OCL_SummonNODLeviathan"
+				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter
+					Rule="ANY"
+					Relationship="SAME_PLAYER">
+					<IncludeThing>NODTemple</IncludeThing>
+					<IncludeThing>NOD_TemplePrime</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+			<AISpecialPowerUpdate
+				id="ModuleTag_SpecialPowerSummonLeviathan"
+				CommandButtonName="Command_SummonNODLeviathan"
+				SpecialPowerRadius="999999.0"
+				SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<!-- Master Computer CounterMeasures -->
+			<SpecialPower
+				id="ModuleTag_ComputerCounterMeasures"
+				SpecialPowerTemplate="SpecialPowerComputerCounterMeasures"/>
+			<WeaponFireSpecialAbilityUpdate
+				id="ModuleTag_ComputerCounterMeasuresUpdate"
+				SpecialPowerTemplate="SpecialPowerComputerCounterMeasures"
+				SpecialWeapon="ComputerCounterMeasures"
+				WhichSpecialWeapon="1"/>
+			<AISpecialPowerUpdate
+				id="ModuleTag_ComputerCountermeasuresAI"
+				CommandButtonName="Command_ComputerCounterMeasures"
+				SpecialPowerAIType="SPECIAL_POWER_EMP_COUNTER"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="NOD_IonDisruptionFieldGenerator"
+		inheritFrom="NOD_IonDisruptionFieldGenerator"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI RESIST_EMP">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Superweapon buildings don't cost any power -->
+	<GameObject
+		id="GDIIonCannonControl"
+		inheritFrom="GDIIonCannonControl"
+		EnergyProduction="0"/>
+
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD"
+		EnergyProduction="0"/>
+
+	<GameObject
+		id="AlienRiftGenerator"
+		inheritFrom="AlienRiftGenerator"
+		EnergyProduction="0"/>
+
+	<!-- Remove Geometry from the Ramps at the Crate Perimeter, added NO_COLLIDE -->
+	<GameObject
+		id="TemplePrimeRamp01"
+		inheritFrom="TemplePrimeRamp01"
+		KindOf="STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS UNATTACKABLE NOT_AUTOACQUIRABLE DO_NOT_CLASSIFY NO_COLLIDE">
+		<Geometry
+			xai:joinAction="Remove"/>
+	</GameObject>
+
+	<!-- Shouldn't affect Compound Structures -->
+	<GameObject
+		id="NODDisruptionTower"
+		inheritFrom="NODDisruptionTower">
+		<Behaviors>
+			<InvisibilityUpdate
+				id="ModuleTag_Invisibility"
+				Options="BROADCAST STARTS_ACTIVE"
+				BroadcastRange="450"
+				UpdatePeriod="0.1s">
+				<InvisibilityNugget/>
+				<BroadcastObjectFilter
+					Rule="ALL"
+					Relationship="ALLIES">
+					<ExcludeThing>NODDisruptionTower</ExcludeThing>
+					<ExcludeThing>NODPhantomDeployed</ExcludeThing>
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>AlienCrystalShield</ExcludeThing>
+					<ExcludeThing>AlienPhaseShield</ExcludeThing>
+					<ExcludeThing>AlienTemporalWormhole</ExcludeThing>
+					<ExcludeThing>AlienWormHole</ExcludeThing>
+					<!-- Compound Structures -->
+					<ExcludeThing>NOD_TemplePrime</ExcludeThing>
+					<ExcludeThing>NOD_IonDisruptionFieldGenerator</ExcludeThing>
+					<ExcludeThing>NOD_SiloCR</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding1</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding2</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding3</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding5</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding6</ExcludeThing>
+					<ExcludeThing>NOD_Silo03</ExcludeThing>
+					<ExcludeThing>NOD_Silo04</ExcludeThing>
+					<ExcludeThing>NOD_Silo06</ExcludeThing>
+					<ExcludeThing>NOD_Silo08</ExcludeThing>
+					<ExcludeThing>NOD_Silo11</ExcludeThing>
+					<ExcludeThing>NOD_Silo10</ExcludeThing>
+					<ExcludeThing>NOD_DockHQ3</ExcludeThing>
+					<ExcludeThing>NOD_CommandCenter2</ExcludeThing>
+					<ExcludeThing>NOD_CommandCenter3</ExcludeThing>
+				</BroadcastObjectFilter>
+			</InvisibilityUpdate>
+		</Behaviors>
+	</GameObject>
+
+
+	<!-- New OCL, only meant to spawn the EVA unit for "Battle Control Expanded" -->
+	<ObjectCreationList
+		id="OCL_SummonBattleControlOnlineEVAUnit">
+		<CreateObject
+			Options="IGNORE_ALL_OBJECTS"
+			Disposition="ON_GROUND_ALIGNED">
+			<CreateObject>GenericBattleControlOnlineEvaUnit</CreateObject>
+		</CreateObject>
+	</ObjectCreationList>
+
+	<!-- Deployment Beacons for all factions don't spawn MCVs, just for the EVA units -->
+	<GameObject	id="GDIDeploymentPodBeacon" Side="GDI" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE IGNORED_IN_FINDPOSITIONAROUND" EditorName="GDIDeploymentPodBeacon" EditorSorting="MISC_MAN_MADE">
+		<DisplayName>GDIDeploymentPodBeacon</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="23s" MaxLifetime="23s"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonBattleControlOnlineEVAUnit">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GenericEstBattleEVAUnitSpawner" FireDelay="0.1s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+	</GameObject>
+
+	<GameObject	id="NODDeploymentPodBeacon" Side="NOD" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE IGNORED_IN_FINDPOSITIONAROUND" EditorName="NODDeploymentPodBeacon" EditorSorting="MISC_MAN_MADE">
+		<DisplayName>NODDeploymentPodBeacon</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="23s" MaxLifetime="23s"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonBattleControlOnlineEVAUnit">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GenericEstBattleEVAUnitSpawner" FireDelay="0.1s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+	</GameObject>
+
+	<GameObject	id="AlienDeploymentMeteorBeacon" Side="ALIEN" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE IGNORED_IN_FINDPOSITIONAROUND" EditorName="AlienDeploymentMeteorBeacon" EditorSorting="MISC_MAN_MADE">
+		<DisplayName>AlienDeploymentMeteorBeacon</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="23s" MaxLifetime="23s"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonBattleControlOnlineEVAUnit">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="GenericEstBattleEVAUnitSpawner" FireDelay="0.1s" OneShot="true"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_4_Objective_1"
+			Description="SCRIPT:GDI_3_4_Objective_1_Detail">
+			<PresentationSettings
+				ID="GDI_3_4_Objective_1"
+				Dialog="MG34_GDIEVA03"
+				UseDynamicZoom="false">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_4_Objective_2"
+			Description="SCRIPT:GDI_3_4_Objective_2_Detail">
+			<PresentationSettings
+				ID="GDI_3_4_Objective_2"
+				UseDynamicZoom="false">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_4_Objective_3"
+			Description="SCRIPT:GDI_3_4_Objective_3_Detail">
+			<PresentationSettings
+				ID="GDI_3_4_Objective_3"
+				UseDynamicZoom="false">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_4_Objective_5"
+			Description="SCRIPT:GDI_3_4_Objective_5_Detail">
+			<PresentationSettings
+				ID="GDI_3_4_Objective_5"
+				Dialog="MG34_GDIEVA07"
+				UseDynamicZoom="false">
+				<Duration>5s</Duration>
+				<CameraStartAngle>310d</CameraStartAngle>
+				<CameraEndAngle>320d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- NOD Underground tunnel entrance -->
+	<GameObject
+		id="NOD_SiloCR"
+		inheritFrom="NOD_SiloCR"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 1 -->
+	<GameObject
+		id="NOD_StrongholdBuilding1"
+		inheritFrom="NOD_StrongholdBuilding1"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 2 -->
+	<GameObject
+		id="NOD_StrongholdBuilding2"
+		inheritFrom="NOD_StrongholdBuilding2"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 3 -->
+	<GameObject
+		id="NOD_StrongholdBuilding3"
+		inheritFrom="NOD_StrongholdBuilding3"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 5 -->
+	<GameObject
+		id="NOD_StrongholdBuilding5"
+		inheritFrom="NOD_StrongholdBuilding5"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 6 -->
+	<GameObject
+		id="NOD_StrongholdBuilding6"
+		inheritFrom="NOD_StrongholdBuilding6"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Radar -->
+	<GameObject
+		id="NOD_Silo03"
+		inheritFrom="NOD_Silo03"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Control Tower -->
+	<GameObject
+		id="NOD_Silo04"
+		inheritFrom="NOD_Silo04"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Large Defense Set -->
+	<GameObject
+		id="NOD_Silo06"
+		inheritFrom="NOD_Silo06"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Power Generator -->
+	<GameObject
+		id="NOD_Silo08"
+		inheritFrom="NOD_Silo08"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Pod -->
+	<GameObject
+		id="NOD_Silo11"
+		inheritFrom="NOD_Silo11"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Oil Tank -->
+	<GameObject
+		id="NOD_Silo10"
+		inheritFrom="NOD_Silo10"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Dock HQ 3 -->
+	<GameObject
+		id="NOD_DockHQ3"
+		inheritFrom="NOD_DockHQ3"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Command Center 2 -->
+	<GameObject
+		id="NOD_CommandCenter2"
+		inheritFrom="NOD_CommandCenter2"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Command Center 3 -->
+	<GameObject
+		id="NOD_CommandCenter3"
+		inheritFrom="NOD_CommandCenter3"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+</AssetDeclaration>
