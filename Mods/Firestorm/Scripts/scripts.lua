@@ -380,7 +380,7 @@ function OnNODRedeemerWarmechCreated(self)
 end
 
 function OnNODAvatarCreated(self)
-	ObjectHideSubObjectPermanently( self, "S_DETECTOR", true )
+	ObjectHideSubObjectPermanently( self, "WEBLAUNCHER", true )
 	ObjectHideSubObjectPermanently( self, "S_GENERATOR", true )
 end
 

@@ -1,4 +1,5 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Decimator Projectile -->
 	<GameObject id="NODDecimatorWebProjectile" EditorSorting="SYSTEM" Side="NOD" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" EditorName="NODDecimatorWebProjectile">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -19,10 +20,19 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
-			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="80" FirstHeightMax="80" SecondHeightMin="40" SecondHeightMax="40" FirstPercentIndent="25%" SecondPercentIndent="66%" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="80" FirstHeightMax="80" SecondHeightMin="40" SecondHeightMax="40" FirstPercentIndent="25%" SecondPercentIndent="66%" FlightPathAdjustDistPerSecond="300" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
 		</Body>
+	</GameObject>
+	<!-- Purifier Projectile -->
+	<GameObject id="NODAvatarWebProjectile" inheritFrom="NODDecimatorWebProjectile" EditorName="NODAvatarWebProjectile">
+		<Behaviors>
+			<FireWeaponWhenDead id="ModuleTag_FinalWeapon" xai:joinAction="Replace" InitiallyActive="true" DeathWeapon="NODAvatarWebWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Replace" SecondHeightMin="10" SecondHeightMax="20" FirstPercentIndent="33%" SecondPercentIndent="66%" FlightPathAdjustDistPerSecond="300" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true" />
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
