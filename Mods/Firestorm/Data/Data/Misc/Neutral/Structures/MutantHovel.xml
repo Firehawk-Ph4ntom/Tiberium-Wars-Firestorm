@@ -34,6 +34,14 @@
 					<Animation AnimationName="TBMutntHovl_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_HordeLeadership" SizeX="566" SizeY="566" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="INFANTRY"/>
@@ -54,8 +62,13 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
-			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="4" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="3s" ResetInitialTeamOnCapture="true">
-				<PassengerFilter Rule="NONE">
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="MutantHovel_AttributeModifier" RefreshDelay="0.1s" Range="250" InitiallyActive="true">
+				<ObjectFilter Rule="NONE" Relationship="ALLIES">
+					<!-- Only to Mutant Hovel/Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
 					<IncludeThing>MutantMarauder</IncludeThing>
 					<IncludeThing>MutantMarauderSquad</IncludeThing>
 					<IncludeThing>MutantFiendTamed</IncludeThing>
@@ -63,10 +76,31 @@
 					<IncludeThing>MutantSalvager</IncludeThing>
 					<IncludeThing>MutantViceroid</IncludeThing>
 					<IncludeThing>MutantViceroidSquad</IncludeThing>
-					<IncludeThing>MutantSkirmisher</IncludeThing>
-					<IncludeThing>MutantSkirmisherSquad</IncludeThing>
 					<IncludeThing>MutantSentinel</IncludeThing>
 					<IncludeThing>MutantSentinelSquad</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantSkirmisherSquad</IncludeThing>
+					<IncludeThing>MutantGhostStalker</IncludeThing>
+				</ObjectFilter>
+			</AttributeModifierAuraUpdate>
+			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="4" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="3s" ResetInitialTeamOnCapture="true">
+				<PassengerFilter Rule="NONE">
+					<!-- Only to Mutant Hovel/Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantMarauderSquad</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendSquad</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantViceroidSquad</IncludeThing>
+					<IncludeThing>MutantSentinel</IncludeThing>
+					<IncludeThing>MutantSentinelSquad</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantSkirmisherSquad</IncludeThing>
 					<IncludeThing>MutantGhostStalker</IncludeThing>
 				</PassengerFilter>
 				<DieMuxData DeathTypes="ALL"/>
