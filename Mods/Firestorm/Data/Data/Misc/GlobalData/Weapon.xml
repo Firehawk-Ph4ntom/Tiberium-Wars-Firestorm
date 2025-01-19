@@ -860,6 +860,20 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="NODDecimatorSquadRangeFinder"
+		Name="NODDecimatorSquadRangeFinder"
+		AttackRange="375"
+		AcceptableAimDelta="45d"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		LeechRangeWeapon="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="NODBlackHandFlamethrowerRangeFinder"
 		Name="NODBlackHandFlamethrowerRangeFinder"
 		AttackRange="130"
@@ -11412,6 +11426,57 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="NODDarknessObeliskPurifyingSweepWeapon"
+		Name="NODDarknessObeliskPurifyingSweepWeapon"
+		RadiusDamageAffects="ENEMIES NEUTRALS">
+		<Nuggets>
+			<DamageNugget
+				Damage="2000"
+				Radius="5"
+				DamageType="CANNON"
+				DeathType="LASERED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageNugget>
+			<DamageNugget
+				Damage="100"
+				Radius="5"
+				DelayTimeSeconds="1s"
+				DamageType="CANNON"
+				DeathType="LASERED"
+				DamageFXType="NOD_FLAMETHROWER">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageNugget>
+			<DamageNugget
+				Damage="100"
+				Radius="5"
+				DelayTimeSeconds="2s"
+				DamageType="CANNON"
+				DeathType="LASERED"
+				DamageFXType="NOD_FLAMETHROWER">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageNugget>
+			<DamageNugget
+				Damage="100"
+				Radius="5"
+				DelayTimeSeconds="3s"
+				DamageType="CANNON"
+				DeathType="LASERED"
+				DamageFXType="NOD_FLAMETHROWER">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="NODShredderTurretFakeWeapon"
 		Name="NODShredderTurretFakeWeapon"
 		AttackRange="350"
@@ -11463,7 +11528,8 @@
 	<WeaponTemplate
 		id="NODShredderTurretWarhead"
 		Name="NODShredderTurretWarhead"
-		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
 				Damage="40"
@@ -20622,26 +20688,25 @@
 	<WeaponTemplate
 		id="NODDecimatorRocketWeapon"
 		Name="NODDecimatorRocketWeapon"
-		AttackRange="300"
+		AttackRange="425"
 		AcceptableAimDelta="10d"
 		WeaponSpeed="300"
 		FireFX="FX_NODAttackBikeMissleFire"
 		FireVeteranFX="FX_NODAttackBikeMissleFireHeroic"
 		FireSound="NOD_RocketMilitant_RocketLaunch1"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="2"
-		ShotsPerBarrel="1"
+		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE">
 		<ClipReloadTime
-			MinSeconds="3s"
-			MaxSeconds="3.2s"/>
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="NODDecimatorRocketWarhead"
-				ProjectileTemplate="NODMilitantRocketWeaponProjectile">
+				WarheadTemplate="NODDecimatorRocketDummyWarhead"
+				ProjectileTemplate="NODDecimatorRocketWeaponProjectile">
 				<VeterancyProjectiles
 					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
+					ProjectileTemplate="NODDecimatorRocketWeaponProjectile_Veteran"/>
 			</ProjectileNugget>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -20650,6 +20715,141 @@
 				Rule="NONE"
 				Include="INFANTRY"/>
 		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorTibCoreRocketWeapon"
+		Name="NODDecimatorTibCoreRocketWeapon"
+		AttackRange="425"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="300"
+		FireSound="NOD_RocketMilitant_RocketLaunch1"
+		FireFX="FX_NODMissileManFireTibCore"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE">
+		<ClipReloadTime
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketDummyWarhead"
+				ProjectileTemplate="NODDecimatorTibCoreRocketWeaponProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODDecimatorTibCoreRocketWeaponProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorBlueTibCoreRocketWeapon"
+		Name="NODDecimatorBlueTibCoreRocketWeapon"
+		AttackRange="425"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="300"
+		FireSound="NOD_RocketMilitant_RocketLaunch1"
+		FireFX="FX_NODMissileManFireBlueTibCore"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE">
+		<ClipReloadTime
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketDummyWarhead"
+				ProjectileTemplate="NODDecimatorBlueTibCoreRocketWeaponProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODDecimatorBlueTibCoreRocketWeaponProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorRocketDummyWarhead"
+		Name="NODDecimatorRocketDummyWarhead"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="1"
+				DamageType="GRENADE"
+				DamageFXType="GDI_RIFLE"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorRocketClusterWeapon"
+		Name="NODDecimatorRocketClusterWeapon"
+		AttackRange="300"
+		WeaponSpeed="200"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		ScatterRadius="70"
+		ScatterLength="70"
+		ScatterIndependently="true">
+		<ClipReloadTime
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorRocketClusterWeaponHeroic"
+		Name="NODDecimatorRocketClusterWeaponHeroic"
+		AttackRange="300"
+		WeaponSpeed="200"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		ScatterRadius="70"
+		ScatterLength="70"
+		ScatterIndependently="true">
+		<ClipReloadTime
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgClusterProjectile_Veteran"/>
+		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
@@ -20659,11 +20859,18 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="150"
-				Radius="8"
+				Damage="200"
+				Radius="25"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
-				DamageFXType="GDI_MISSILE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -20672,36 +20879,61 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="NODDecimatorTibCoreRocketWeapon"
-		Name="NODDecimatorTibCoreRocketWeapon"
+		id="NODDecimatorTibCoreRocketClusterWeapon"
+		Name="NODDecimatorTibCoreRocketClusterWeapon"
 		AttackRange="300"
-		AcceptableAimDelta="10d"
-		WeaponSpeed="300"
-		FireSound="NOD_RocketMilitant_RocketLaunch1"
-		FireFX="FX_NODMissileManFireTibCore"
-		FireVeteranFX="FX_GDIMissileManFireHeroic"
-		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="2"
-		ShotsPerBarrel="1"
-		ReAcquireDetailType="PRE_FIRE">
+		WeaponSpeed="200"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		ScatterRadius="70"
+		ScatterLength="70"
+		ScatterIndependently="true">
 		<ClipReloadTime
-			MinSeconds="3s"
-			MaxSeconds="3.2s"/>
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
-				ProjectileTemplate="NODMilitantRocketTibCoreProjectile">
-				<VeterancyProjectiles
-					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NODMilitantRocketTibCoreProjectile_Veteran"/>
-			</ProjectileNugget>
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile"/>
 		</Nuggets>
-		<ScatterRadiusVsType
-			Radius="40">
-			<Filter
-				Rule="NONE"
-				Include="INFANTRY"/>
-		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorTibCoreRocketClusterWeaponHeroic"
+		Name="NODDecimatorTibCoreRocketClusterWeaponHeroic"
+		AttackRange="300"
+		WeaponSpeed="200"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		ScatterRadius="70"
+		ScatterLength="70"
+		ScatterIndependently="true">
+		<ClipReloadTime
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgTibCoreClusterProjectile_Veteran"/>
+		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
@@ -20711,11 +20943,18 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="250"
-				Radius="8"
+				Damage="300"
+				Radius="25"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
-				DamageFXType="NOD_MISSILE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -20724,36 +20963,61 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="NODDecimatorBlueTibCoreRocketWeapon"
-		Name="NODDecimatorBlueTibCoreRocketWeapon"
+		id="NODDecimatorBlueTibCoreRocketClusterWeapon"
+		Name="NODDecimatorBlueTibCoreRocketClusterWeapon"
 		AttackRange="300"
-		AcceptableAimDelta="10d"
-		WeaponSpeed="300"
-		FireSound="NOD_RocketMilitant_RocketLaunch1"
-		FireFX="FX_NODMissileManFireBlueTibCore"
-		FireVeteranFX="FX_GDIMissileManFireHeroic"
-		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="2"
-		ShotsPerBarrel="1"
-		ReAcquireDetailType="PRE_FIRE">
+		WeaponSpeed="200"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		ScatterRadius="70"
+		ScatterLength="70"
+		ScatterIndependently="true">
 		<ClipReloadTime
-			MinSeconds="3s"
-			MaxSeconds="3.2s"/>
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
-				ProjectileTemplate="NODMilitantRocketTibCoreMissileProjectileBlue">
-				<VeterancyProjectiles
-					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NODMilitantRocketTibCoreMissileProjectileBlue_Vet"/>
-			</ProjectileNugget>
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile"/>
 		</Nuggets>
-		<ScatterRadiusVsType
-			Radius="40">
-			<Filter
-				Rule="NONE"
-				Include="INFANTRY"/>
-		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDecimatorBlueTibCoreRocketClusterWeaponHeroic"
+		Name="NODDecimatorBlueTibCoreRocketClusterWeaponHeroic"
+		AttackRange="300"
+		WeaponSpeed="200"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		ScatterRadius="70"
+		ScatterLength="70"
+		ScatterIndependently="true">
+		<ClipReloadTime
+			MinSeconds="4s"
+			MaxSeconds="4.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile_Veteran"/>
+			<ProjectileNugget
+				WarheadTemplate="NODDecimatorBlueTibCoreRocketWarhead"
+				ProjectileTemplate="NODDecimatorCyborgBlueTibCoreClusterProjectile_Veteran"/>
+		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
@@ -20763,11 +21027,18 @@
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="350"
-				Radius="8"
+				Damage="400"
+				Radius="25"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
-				DamageFXType="ALIEN_BOMB"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -23089,7 +23360,7 @@
 	<WeaponTemplate
 		id="NODDarkTwilightArtilleryCannon"
 		Name="NODDarkTwilightArtilleryCannon"
-		AttackRange="475"
+		AttackRange="525"
 		ScatterLength="30"
 		ScatterRadius="30"
 		MinimumAttackRange="150"
@@ -23176,7 +23447,7 @@
 	<WeaponTemplate
 		id="NODDarkTwilightArtilleryCannonUpgraded"
 		Name="NODDarkTwilightArtilleryCannonUpgraded"
-		AttackRange="475"
+		AttackRange="525"
 		ScatterLength="30"
 		ScatterRadius="30"
 		MinimumAttackRange="150"

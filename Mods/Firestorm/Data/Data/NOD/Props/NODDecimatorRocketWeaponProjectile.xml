@@ -1,0 +1,161 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="NODDecimatorRocketWeaponProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED SMALL_MISSILE" Side="NOD" EditorName="NODDecimatorRocketWeaponProjectile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor" DamageFX="SmallMissileDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPG"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrail_Flash" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" IgnoreProjectileState="true" MinLifetime="0.5s" MaxLifetime="0.7s"/>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_DecimatorClusterRocketFire"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_DecimatorClusterRocketFire"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" ContinueToBezierDestination="true" DeathWeapon="NODDecimatorRocketClusterWeapon">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+			</FireWeaponWhenDead>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="80" FirstHeightMax="80" SecondHeightMin="40" SecondHeightMax="40" FirstPercentIndent="25%" SecondPercentIndent="66%" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="NODDecimatorRocketWeaponProjectile_Veteran" inheritFrom="NODDecimatorRocketWeaponProjectile" EditorName="NODDecimatorRocketWeaponProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailHeroic_Flash" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_DecimatorClusterRocketFireHeroic"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_DecimatorClusterRocketFireHeroic"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" ContinueToBezierDestination="true" DeathWeapon="NODDecimatorRocketClusterWeaponHeroic">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+	</GameObject>
+	<!-- Normal Tib Core Projectile -->
+	<GameObject id="NODDecimatorTibCoreRocketWeaponProjectile" inheritFrom="NODDecimatorRocketWeaponProjectile" EditorName="NODDecimatorTibCoreRocketWeaponProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NPMISSILE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailGreen" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailGreen_Flash" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_DecimatorTibCoreClusterRocketFire"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_DecimatorTibCoreClusterRocketFire"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" ContinueToBezierDestination="true" DeathWeapon="NODDecimatorTibCoreRocketClusterWeapon">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Tib Core Projectile -->
+	<GameObject id="NODDecimatorTibCoreRocketWeaponProjectile_Veteran" inheritFrom="NODDecimatorTibCoreRocketWeaponProjectile" EditorName="NODDecimatorTibCoreRocketWeaponProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailGreen" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailGreen_Flash" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_DecimatorTibCoreClusterRocketFireHeroic"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_DecimatorTibCoreClusterRocketFireHeroic"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" ContinueToBezierDestination="true" DeathWeapon="NODDecimatorTibCoreRocketClusterWeaponHeroic">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+	</GameObject>
+	<!-- Normal Blue Tib Core Projectile -->
+	<GameObject id="NODDecimatorBlueTibCoreRocketWeaponProjectile" inheritFrom="NODDecimatorRocketWeaponProjectile" EditorName="NODDecimatorBlueTibCoreRocketWeaponProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="BLUETIBMISSILE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailBlue_Flash" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_DecimatorBlueTibCoreClusterRocketFire"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_DecimatorBlueTibCoreClusterRocketFire"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" ContinueToBezierDestination="true" DeathWeapon="NODDecimatorBlueTibCoreRocketClusterWeapon">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Blue Tib Core Projectile -->
+	<GameObject id="NODDecimatorBlueTibCoreRocketWeaponProjectile_Veteran" inheritFrom="NODDecimatorBlueTibCoreRocketWeaponProjectile" EditorName="NODDecimatorBlueTibCoreRocketWeaponProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailBlue_Flash" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event FX="FX_DecimatorBlueTibCoreClusterRocketFireHeroic"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event FX="FX_DecimatorBlueTibCoreClusterRocketFireHeroic"/>
+			</FXListBehavior>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Replace" InitiallyActive="true" ContinueToBezierDestination="true" DeathWeapon="NODDecimatorBlueTibCoreRocketClusterWeaponHeroic">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+			</FireWeaponWhenDead>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>
