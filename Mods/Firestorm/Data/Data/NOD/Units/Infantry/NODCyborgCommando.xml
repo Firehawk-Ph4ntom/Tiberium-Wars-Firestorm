@@ -44,8 +44,10 @@
 					<Model Name="NUCYBCOMM_SKN"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
-					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON"/>
-					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="3" WeaponSlotType="SECONDARY_WEAPON" BoneName="FX_WEAPON"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXCOMMANDO_FP"/>
@@ -54,6 +56,8 @@
 					<Model Name="GUGAR_NUCYBRGCOMM"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
 					<Model Name="NUCYBCOMM_SKN"/>
@@ -128,10 +132,10 @@
 					<Animation AnimationName="NUCYBCOMM_WLKA" AnimationMode="LOOP" Distance="45" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" FrameForPristineBonePositions="5">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WEAPONSLOTID_01" FrameForPristineBonePositions="5">
 					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
 					<Animation AnimationName="NUCYBCOMM_ATKA" AnimationMode="MANUAL"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
@@ -161,6 +165,40 @@
 					<Model Name="FXRAGEEFFECTSIGN"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<StreamDraw id="ModuleTag_StreamDraw" ArcHeightFactor="0.0625" UVWorldSize="100.0" TubeRadius="0.5" StreamStateID="1">
+				<FXShader ShaderName="Stream.fx" TechniqueIndex="1">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXFireStream</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXFireStream</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ParticleSystems>
+					<ParticleSys>NUBlkHndStreamFlame</ParticleSys>
+					<ParticleSys>NUBlkHndStreamGlow</ParticleSys>
+					<ParticleSys>NUBlkHndStreamDistort</ParticleSys>
+				</ParticleSystems>
+			</StreamDraw>
+			<StreamDraw id="ModuleTag_StreamDraw2" ArcHeightFactor="0.0625" UVWorldSize="100.0" TubeRadius="0.5" StreamStateID="2">
+				<FXShader ShaderName="Stream.fx" TechniqueIndex="1">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXFireStream_Blue</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXFireStream_Blue</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ParticleSystems>
+					<ParticleSys>NUBlkHndPurifyingStrmFlame</ParticleSys>
+					<ParticleSys>NUBlkHndPurifyingStrmGlow</ParticleSys>
+					<ParticleSys>NUBlkHndStreamDistort</ParticleSys>
+				</ParticleSystems>
+			</StreamDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
@@ -176,13 +214,18 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_HeavyCyborgExplosion"/>
 			</FXListBehavior>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint ID="1" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_RANDOM">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoTiberiumPlasmaCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoBlueTiberiumPlasmaCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoFlamer"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCyborgCommandoPurifyingFlamer" ObjectStatus="WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<StreamState id="ModuleTag_StreamState" StreamId="1"/>
+			<StreamState id="ModuleTag_StreamState2" StreamId="2"/>
 			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
 				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
@@ -193,7 +236,7 @@
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
 			<!-- EMP Blast -->
 			<SpecialPower id="ModuleTag_EMPBlast" SpecialPowerTemplate="SpecialPower_CommandoEMPBlast" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPBlastUpdate" SpecialPowerTemplate="SpecialPower_CommandoEMPBlast" StartAbilityRange="300" UnpackTime="0.5s" PackTime="0.3s" TriggerSound="NOD_CyborgCommando_EMPLaserFire" FaceTarget="true" SpecialWeapon="NODCyborgCommandoEMPCannon" WhichSpecialWeapon="1" BusyForDuration="0.6s" WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPBlastUpdate" SpecialPowerTemplate="SpecialPower_CommandoEMPBlast" StartAbilityRange="300" UnpackTime="0.5s" PackTime="0.3s" TriggerSound="NOD_CyborgCommando_EMPLaserFire" FaceTarget="true" SpecialWeapon="NODCyborgCommandoEMPCannon" WhichSpecialWeapon="1" BusyForDuration="0.6s" WeaponSlotID="3" WeaponSlotType="SECONDARY_WEAPON"/>
 			<AISpecialPowerUpdate id="ModuleTag_NODCommandoEMPBlastAI" CommandButtonName="Command_NODCommandoEMPBlast" SpecialPowerRadius="300" UnitKindOf="VEHICLE" EnemyUnitInclude="VEHICLE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" UpdateTime="15s" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
 			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
@@ -206,6 +249,15 @@
 			</AudioLoopUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_EMPCoilsAudioLoop" SoundToPlay="NOD_EMPcoils_Upgrade">
 				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</AudioLoopUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_PurifyingFlameUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlackHandSecretShrinePurifyingFlame</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PurifyingFlameModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_BlackHandSecretShrinePurifyingFlame</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PurifyingFlameAudioLoop" SoundToPlay="NOD_PurifyingFlame_UpgradeMS">
+				<TriggeredBy>Upgrade_BlackHandSecretShrinePurifyingFlame</TriggeredBy>
 			</AudioLoopUpgrade>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
