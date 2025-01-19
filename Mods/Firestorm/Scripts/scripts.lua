@@ -493,6 +493,18 @@ function OnNODPropagandaUpgradePurchased(self)
 	end
 end
 
+function OnNODTiberiumInfusionUpgradePurchased(self)
+	if ObjectHasUpgrade ( self, "Upgrade_TiberiumInfusion" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_TiberiumInfusionDummy" )
+	end
+end
+
+function OnAlienIchorPlatingUpgradePurchased(self)
+	if ObjectHasUpgrade ( self, "Upgrade_IchorPlating" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_IchorPlatingDummy" )
+	end
+end
+
 function CheckJetAircraftAmmoDepleted(self)
 	if IsUnitAI(self) then
 		if UnitAmmoCount.self == nil then
