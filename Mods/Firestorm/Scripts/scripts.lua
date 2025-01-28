@@ -404,6 +404,7 @@ function OnNODScorpionBuggyCreated(self)
 end
 
 function OnGDICommandoCreated(self)
+	ObjectSetObjectStatus( self, "CAN_SPOT_FOR_BOMBARD" )
 	ObjectHideSubObjectPermanently( self, "FX_GLOWHEROIC", true )
 end
 
