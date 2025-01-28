@@ -846,6 +846,20 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="GDIZoneRaiderSquadRangeFinder"
+		Name="GDIZoneRaiderSquadRangeFinder"
+		AttackRange="275"
+		AcceptableAimDelta="45d"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		LeechRangeWeapon="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="ShockTrooperRangefinder"
 		Name="ShockTrooperRangefinder"
 		AttackRange="250"
@@ -3688,7 +3702,7 @@
 			MaxSeconds="0.1s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="400"
+				Damage="300"
 				DamageType="SNIPER"
 				DamageFXType="GDI_RIFLE">
 				<SpecialObjectFilter
@@ -3929,11 +3943,38 @@
 	<WeaponTemplate
 		id="GDIZoneRaiderShockWaveCannon"
 		Name="GDIZoneRaiderShockWaveCannon"
-		AttackRange="300"
+		AttackRange="325"
 		WeaponSpeed="999999"
 		FireSound="GDI_SonicEmitter_WeaponFire"
 		FireFX="FX_ShattererSonicFire"
 		FireVeteranFX="FX_ShattererSonicFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="1"
+		AcceptableAimDelta="5d"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
+		<ClipReloadTime
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
+		<Nuggets>
+			<ActivateLinearDamageNugget
+				Lifetime="2s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIZoneRaiderShockWaveOverloadCannon"
+		Name="GDIZoneRaiderShockWaveOverloadCannon"
+		AttackRange="325"
+		WeaponSpeed="999999"
+		FireFX="FX_OverloadShattererSonicFire"
+		FireVeteranFX="FX_OverloadShattererSonicFireHeroic"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		ClipSize="1"
 		AcceptableAimDelta="5d"
@@ -3962,10 +4003,10 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<Nuggets>
 			<DamageNugget
-				Damage="200"
-				Radius="5"
+				Damage="375"
+				Radius="10"
 				DeathType="BURNED"
-				DamageType="CANNON">
+				DamageType="GRENADE">
 				<DamageScalarDetails
 					Scalar="0%">
 					<Filter
@@ -3973,58 +4014,100 @@
 						Relationship="ALLIES"
 						Exclude="HUSK"/>
 				</DamageScalarDetails>
-			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDIZoneRaiderShockWaveOverloadCannon"
-		Name="GDIZoneRaiderShockWaveOverloadCannon"
-		AttackRange="300"
-		WeaponSpeed="300"
-		FireFX="FX_OverloadShattererSonicFire"
-		FireVeteranFX="FX_OverloadShattererSonicFireHeroic"
-		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="1"
-		AcceptableAimDelta="5d"
-		ReAcquireDetailType="PRE_FIRE"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<PreAttackDelay
-			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
-		<FiringDuration
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
-		<ClipReloadTime
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
-		<Nuggets>
-			<ActivateLinearDamageNugget
-				Lifetime="2s"/>
-			<ProjectileNugget
-				WarheadTemplate="GDIZoneRaiderOverloadBeamWarhead"
-				ProjectileTemplate="GDIZoneRaiderOverloadBeamProjectile"/>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDIZoneRaiderOverloadBeamWarhead"
-		Name="GDIZoneRaiderOverloadBeamWarhead"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
-		ProjectileCollidesWith="ENEMIES NEUTRAL"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<Nuggets>
-			<DamageNugget
-				Damage="100"
-				Radius="5"
-				DeathType="BURNED"
-				DamageType="CANNON">
+				<!-- Do not multiply damage unnecessarily -->
 				<DamageScalarDetails
 					Scalar="0%">
 					<Filter
-						Rule="ALL"
-						Relationship="ALLIES"
-						Exclude="HUSK"/>
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Strong vs Grenade damage -->
+				<DamageScalarDetails
+					Scalar="60%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDICommando_EA</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="40%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDICommando</IncludeThing>
+						<IncludeThing>AlienMastermind</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Necessary in order to not have Zone Shatterers kill infantry hordes with a snap of finger -->
+				<DamageScalarDetails
+					Scalar="20%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDICommando</ExcludeThing>
+						<ExcludeThing>GDICommando_EA</ExcludeThing>
+						<ExcludeThing>NODReaper</ExcludeThing>
+						<ExcludeThing>NODCyborgCommando</ExcludeThing>
+						<ExcludeThing>NODObliterator</ExcludeThing>
+						<ExcludeThing>NODHijacker</ExcludeThing>
+						<ExcludeThing>AlienMastermind</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Lower damage a bit vs Adv. Cyborgs and tanks -->
+				<DamageScalarDetails
+					Scalar="80%">
+					<Filter
+						Rule="NONE"
+						Include="VEHICLE"
+						Exclude="TIBERIUM_BASED">
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Deal more damage to Tiberium Based objects -->
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Relationship="ENEMIES NEUTRAL"
+						Include="TIBERIUM_BASED">
+						<!-- Neutral Units -->
+						<ExcludeThing>Viceroid</ExcludeThing>
+						<ExcludeThing>MutantFiend</ExcludeThing>
+						<ExcludeThing>MutantFiendTamed</ExcludeThing>
+						<ExcludeThing>MutantFiendBlue</ExcludeThing>
+						<ExcludeThing>MutantFiendRed</ExcludeThing>
+						<ExcludeThing>MutantMarauder</ExcludeThing>
+						<ExcludeThing>MutantSalvager</ExcludeThing>
+						<ExcludeThing>MutantSkirmisher</ExcludeThing>
+						<ExcludeThing>MutantSentinel</ExcludeThing>
+						<ExcludeThing>MutantViceroid</ExcludeThing>
+						<ExcludeThing>MutantGhostStalker</ExcludeThing>
+						<!-- Nod Infantry -->
+						<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+						<ExcludeThing>NODTiberiumTrooper</ExcludeThing>
+						<ExcludeThing>NODAscended</ExcludeThing>
+						<ExcludeThing>NODReaper</ExcludeThing>
+						<ExcludeThing>NODCyborgCommando</ExcludeThing>
+						<ExcludeThing>NODDecimator</ExcludeThing>
+						<ExcludeThing>NODObliterator</ExcludeThing>
+						<ExcludeThing>NODHijacker</ExcludeThing>
+						<!-- Alien Infantry -->
+						<ExcludeThing>AlienBuzzers</ExcludeThing>
+						<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+						<ExcludeThing>AlienRazorDrones</ExcludeThing>
+						<ExcludeThing>AlienAssimilator</ExcludeThing>
+						<ExcludeThing>AlienShockTrooper</ExcludeThing>
+						<ExcludeThing>AlienRavager</ExcludeThing>
+						<ExcludeThing>AlienMastermind</ExcludeThing>
+						<ExcludeThing>AlienHunter</ExcludeThing>
+						<ExcludeThing>AlienCultist</ExcludeThing>
+						<ExcludeThing>AlienGroundShaker</ExcludeThing>
+					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -5561,7 +5644,7 @@
 	<WeaponTemplate
 		id="GDIWolverineMachineGun"
 		Name="GDIWolverineMachineGun"
-		AttackRange="300"
+		AttackRange="285"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
 		FireSound="GDI_Wolverine_GunFireLoop"
@@ -5590,7 +5673,7 @@
 	<WeaponTemplate
 		id="GDIWolverineMachineGunHEAmmo"
 		Name="GDIWolverineMachineGunHEAmmo"
-		AttackRange="300"
+		AttackRange="285"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
 		FireSound="GDI_Wolverine_GunFireLoop"
@@ -5621,12 +5704,39 @@
 	<WeaponTemplate
 		id="GDIZoneShattererShockWaveCannon"
 		Name="GDIZoneShattererShockWaveCannon"
-		AttackRange="350"
+		AttackRange="325"
 		AcceptableAimDelta="15d"
 		WeaponSpeed="999999"
 		FireSound="GDI_SonicEmitter_WeaponFire"
 		FireFX="FX_ShattererSonicFire"
 		FireVeteranFX="FX_ShattererSonicFireHeroic"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
+		<ClipReloadTime
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
+		<Nuggets>
+			<ActivateLinearDamageNugget
+				Lifetime="2s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIZoneShattererShockWaveCannonOverloadBeam"
+		Name="GDIZoneShattererShockWaveCannonOverloadBeam"
+		AttackRange="325"
+		AcceptableAimDelta="15d"
+		WeaponSpeed="999999"
+		FireSound="GDI_SonicEmitter_WeaponFire"
+		FireFX="FX_OverloadShattererSonicFire"
+		FireVeteranFX="FX_OverloadShattererSonicFireHeroic"
 		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
@@ -5653,10 +5763,10 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<Nuggets>
 			<DamageNugget
-				Damage="800"
+				Damage="1500"
 				Radius="10"
 				DeathType="BURNED"
-				DamageType="CANNON">
+				DamageType="GRENADE">
 				<DamageScalarDetails
 					Scalar="0%">
 					<Filter
@@ -5664,58 +5774,100 @@
 						Relationship="ALLIES"
 						Exclude="HUSK"/>
 				</DamageScalarDetails>
-			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDIZoneShattererShockWaveCannonOverloadBeam"
-		Name="GDIZoneShattererShockWaveCannonOverloadBeam"
-		AttackRange="350"
-		AcceptableAimDelta="15d"
-		WeaponSpeed="300"
-		FireSound="GDI_SonicEmitter_WeaponFire"
-		FireFX="FX_OverloadShattererSonicFire"
-		FireVeteranFX="FX_OverloadShattererSonicFireHeroic"
-		ClipSize="1"
-		ReAcquireDetailType="PRE_FIRE"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<PreAttackDelay
-			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
-		<FiringDuration
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
-		<ClipReloadTime
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
-		<Nuggets>
-			<ActivateLinearDamageNugget
-				Lifetime="2s"/>
-			<ProjectileNugget
-				WarheadTemplate="GDIZoneShattererOverloadBeamWarhead"
-				ProjectileTemplate="GDIZoneShattererOverloadBeamProjectile"/>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDIZoneShattererOverloadBeamWarhead"
-		Name="GDIZoneShattererOverloadBeamWarhead"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
-		ProjectileCollidesWith="ENEMIES NEUTRAL"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<Nuggets>
-			<DamageNugget
-				Damage="400"
-				Radius="10"
-				DeathType="BURNED"
-				DamageType="CANNON">
+				<!-- Do not multiply damage unnecessarily -->
 				<DamageScalarDetails
 					Scalar="0%">
 					<Filter
-						Rule="ALL"
-						Relationship="ALLIES"
-						Exclude="HUSK"/>
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Strong vs Grenade damage -->
+				<DamageScalarDetails
+					Scalar="60%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDICommando_EA</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="40%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDICommando</IncludeThing>
+						<IncludeThing>AlienMastermind</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Necessary in order to not have Zone Shatterers kill infantry hordes with a snap of finger -->
+				<DamageScalarDetails
+					Scalar="20%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDICommando</ExcludeThing>
+						<ExcludeThing>GDICommando_EA</ExcludeThing>
+						<ExcludeThing>NODReaper</ExcludeThing>
+						<ExcludeThing>NODCyborgCommando</ExcludeThing>
+						<ExcludeThing>NODObliterator</ExcludeThing>
+						<ExcludeThing>NODHijacker</ExcludeThing>
+						<ExcludeThing>AlienMastermind</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Lower damage a bit vs Adv. Cyborgs and tanks -->
+				<DamageScalarDetails
+					Scalar="80%">
+					<Filter
+						Rule="NONE"
+						Include="VEHICLE"
+						Exclude="TIBERIUM_BASED">
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Deal more damage to Tiberium Based objects -->
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Relationship="ENEMIES NEUTRAL"
+						Include="TIBERIUM_BASED">
+						<!-- Neutral Units -->
+						<ExcludeThing>Viceroid</ExcludeThing>
+						<ExcludeThing>MutantFiend</ExcludeThing>
+						<ExcludeThing>MutantFiendTamed</ExcludeThing>
+						<ExcludeThing>MutantFiendBlue</ExcludeThing>
+						<ExcludeThing>MutantFiendRed</ExcludeThing>
+						<ExcludeThing>MutantMarauder</ExcludeThing>
+						<ExcludeThing>MutantSalvager</ExcludeThing>
+						<ExcludeThing>MutantSkirmisher</ExcludeThing>
+						<ExcludeThing>MutantSentinel</ExcludeThing>
+						<ExcludeThing>MutantViceroid</ExcludeThing>
+						<ExcludeThing>MutantGhostStalker</ExcludeThing>
+						<!-- Nod Infantry -->
+						<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+						<ExcludeThing>NODTiberiumTrooper</ExcludeThing>
+						<ExcludeThing>NODAscended</ExcludeThing>
+						<ExcludeThing>NODReaper</ExcludeThing>
+						<ExcludeThing>NODCyborgCommando</ExcludeThing>
+						<ExcludeThing>NODDecimator</ExcludeThing>
+						<ExcludeThing>NODObliterator</ExcludeThing>
+						<ExcludeThing>NODHijacker</ExcludeThing>
+						<!-- Alien Infantry -->
+						<ExcludeThing>AlienBuzzers</ExcludeThing>
+						<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+						<ExcludeThing>AlienRazorDrones</ExcludeThing>
+						<ExcludeThing>AlienAssimilator</ExcludeThing>
+						<ExcludeThing>AlienShockTrooper</ExcludeThing>
+						<ExcludeThing>AlienRavager</ExcludeThing>
+						<ExcludeThing>AlienMastermind</ExcludeThing>
+						<ExcludeThing>AlienHunter</ExcludeThing>
+						<ExcludeThing>AlienCultist</ExcludeThing>
+						<ExcludeThing>AlienGroundShaker</ExcludeThing>
+					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -9833,7 +9985,7 @@
 		id="GDISonicShockWaveCannonOverloadBeam"
 		Name="GDISonicShockWaveCannonOverloadBeam"
 		AttackRange="375"
-		WeaponSpeed="300"
+		WeaponSpeed="999999"
 		FireFX="FX_OverloadShattererSonicFire"
 		FireVeteranFX="FX_OverloadShattererSonicFireHeroic"
 		ClipSize="1"
@@ -9851,9 +10003,6 @@
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
-			<ProjectileNugget
-				WarheadTemplate="GDITerrainformingStationOverloadBeamWarhead"
-				ProjectileTemplate="GDISonicEmitterOverloadBeamProjectile"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -9875,27 +10024,15 @@
 						Relationship="ALLIES"
 						Exclude="HUSK"/>
 				</DamageScalarDetails>
-			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDITerrainformingStationOverloadBeamWarhead"
-		Name="GDITerrainformingStationOverloadBeamWarhead"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
-		ProjectileCollidesWith="ENEMIES NEUTRAL">
-		<Nuggets>
-			<DamageNugget
-				Damage="800"
-				Radius="10"
-				DeathType="BURNED"
-				DamageType="CANNON">
+				<!-- Do not multiply damage unnecessarily -->
 				<DamageScalarDetails
 					Scalar="0%">
 					<Filter
-						Rule="ALL"
-						Relationship="ALLIES"
-						Exclude="HUSK"/>
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -10588,6 +10725,16 @@
 				DamageType="GRENADE"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
+				<!-- Do not multiply damage unnecessarily -->
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="500%">
 					<Filter
@@ -24239,6 +24386,16 @@
 						Rule="ALL"
 						Relationship="ALLIES"
 						Exclude="HUSK"/>
+				</DamageScalarDetails>
+				<!-- Do not multiply damage unnecessarily -->
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="385%">

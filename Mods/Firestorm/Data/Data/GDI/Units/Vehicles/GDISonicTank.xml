@@ -12,6 +12,8 @@
 		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\GUStlShat2_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\GUStlShat2_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\GUStlShat2_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\GUStlShatUpgr.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\GUStlShat2Upgr.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\HC_GUShatterer.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\HC_GUStlShat.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIShatterer\HC_GUStlShat2.xml"/>
@@ -36,7 +38,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDISonicTank" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDISonicTank" TypeDescription="Type:GDISonicTank" Side="GDI" EditorName="GDIZoneShatterer" BuildTime="16" CommandSet="GenericGDIVehicleCommandSet" SelectPortrait="Portrait_ZoneShatterer" ButtonImage="Portrait_ZoneShatterer" VoicePriority="211" ThreatLevel="10" WeaponCategory="CANNON" BuildCost="1600">
+	<GameObject id="GDISonicTank" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDISonicTank" TypeDescription="Type:GDISonicTank" Side="GDI" EditorName="GDIZoneShatterer" BuildTime="16" CommandSet="GenericGDIVehicleCommandSet" SelectPortrait="Portrait_ZoneShatterer" ButtonImage="Portrait_ZoneShatterer" VoicePriority="211" ThreatLevel="10" WeaponCategory="BLAST" BuildCost="1600">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDISonicTank</DisplayName>
 		<DisplayUpgrade>Upgrade_GDIEnhancedResonanceTech</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
@@ -44,8 +46,8 @@
 			<RequiredObject>GDICommandPost</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericHoverVehicleArmor" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Locomotor="GDISonicTankLocomotor" Condition="NORMAL" Speed="60.0"/>
-		<SkirmishAIInformation ConquerMetricsOverrideDPS="300" ConquerMetricsOverrideDamageType="CANNON" UnitBuilderStandardCombatUnit="true"/>
+		<LocomotorSet Locomotor="GDISonicTankLocomotor" Condition="NORMAL" Speed="65.0"/>
+		<SkirmishAIInformation ConquerMetricsOverrideDPS="300" ConquerMetricsOverrideDamageType="GRENADE" UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -83,8 +85,18 @@
 					<ParticleSysBone BoneName="BODY" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BODY" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_2">
+					<Model Name="GUSTLSHAT_SKNADAR"/>
+					<Texture Original="GUStlShat" New="GUStlShatUpgr"/>
+					<Texture Original="GUStlShat2" New="GUStlShat2Upgr"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUSTLSHAT_SKNADAR"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Model Name="GUStlShat_SKN"/>
+					<Texture Original="GUStlShat" New="GUStlShatUpgr"/>
+					<Texture Original="GUStlShat2" New="GUStlShat2Upgr"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="GUStlShat_IDLA" AnimationMode="LOOP" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
@@ -170,11 +182,17 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIZoneShattererShockWaveCannonOverloadBeam" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
-			<LinearDamageUpdate id="ModuleTag_LinearDamageUpdate" StartDistanceOffset="25" Radius="5" Length="375" SweepFXList="FX_TeraSweep_ZS" SweepWeapon="GDIZoneShattererSweepWeapon" Speed="125"/>
+			<LinearDamageUpdate id="ModuleTag_LinearDamageUpdate" StartDistanceOffset="25" Radius="5" Length="350" SweepFXList="FX_TeraSweep_ZS" SweepWeapon="GDIZoneShattererSweepWeapon" Speed="125"/>
 			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
 			<StatusBitsUpgrade id="ModuleTag_EnhancedResonanceTechUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIEnhancedResonanceTech</TriggeredBy>
 			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_EnhancedResonanceTechModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_GDIEnhancedResonanceTech</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_EnhancedResonanceTechAttribute" AttributeModifier="AttributeModifier_ImprovedResonanceTech">
+				<TriggeredBy>Upgrade_GDIEnhancedResonanceTech</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_EnhancedResonanceTechAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_GDIEnhancedResonanceTech</TriggeredBy>
 			</AudioLoopUpgrade>
