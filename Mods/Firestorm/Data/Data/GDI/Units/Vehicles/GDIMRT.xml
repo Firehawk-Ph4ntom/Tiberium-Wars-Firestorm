@@ -4,8 +4,6 @@
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRT_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRT_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRT_SPM.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRTTread.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRTTreadD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\HC_GUMRT.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRT_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMRT\GUMRT_FX_CTR.w3x"/>
@@ -27,8 +25,8 @@
 		<ArmorSet Armor="GenericLightVehicleArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="GDIAPCLocomotor" Condition="NORMAL" Speed="65.0"/>
 		<Draws>
-			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" ExtraPublicBone="BoneGarrison01 BoneGarrison02 BoneGarrison03 BoneGarrison04 BoneGarrison05 BoneGarrison06 BoneGarrison07 BoneGarrison08 BONE_TREDSL BONE_TREDSR" TrackMarksLeftBone="Bone_TireLF" TrackMarksRightBone="Bone_TireRF" OkToChangeModelColor="true" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" ExtraPublicBone="BoneGarrison01 BoneGarrison02 BoneGarrison03 BoneGarrison04 BoneGarrison05 BoneGarrison06 BoneGarrison07 BoneGarrison08 FXTRACKSL FXTRACKSR" TrackMarksLeftBone="Bone_TireLF" TrackMarksRightBone="Bone_TireRF" OkToChangeModelColor="true" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_TireLF" RightFrontTireBone="Bone_TireRF" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="GUMRT_SKN"/>
 					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
 					<Turret TurretID="2"/>
@@ -38,14 +36,12 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_8">
 					<Model Name="GUMRTRAD"/>
-					<Texture Original="GUMRTTread" New="GUMRTTreadD"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="GUMRTR"/>
-					<Texture Original="GUMRTTread" New="GUMRTTreadD"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -53,7 +49,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8" RetainSubObjects="true">
 					<Model Name="GUMRT_SKNADAR"/>
 					<Texture Original="GUMRT" New="GUMRT_D"/>
-					<Texture Original="GUMRTTread" New="GUMRTTreadD"/>
+					<Texture Original="GURig" New="GURig_D"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -61,7 +57,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="GUMRT_SKN"/>
 					<Texture Original="GUMRT" New="GUMRT_D"/>
-					<Texture Original="GUMRTTread" New="GUMRTTreadD"/>
+					<Texture Original="GURig" New="GURig_D"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -70,27 +66,39 @@
 					<Model Name="GUMRT_SKNADAR"/>
 				</ModelConditionState>
 			</TruckDraw>
-			<TankDraw id="ModuleTag_Draw2" TrackMarks="FXTankTrack" ExtraPublicBone="BONE_TREDSL BONE_TREDSR" TrackMarksLeftBone="BONE_TREDSL" TrackMarksRightBone="BONE_TREDSR" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
+			<TankDraw id="ModuleTag_Draw2" TrackMarks="FXTankTrack" ExtraPublicBone="FXTRACKSL FXTRACKSR" TrackMarksLeftBone="FXTRACKSL" TrackMarksRightBone="FXTRACKSR" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GUMRT_FX"/>
+					<Model Name="NURECKONER_FX"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED">
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
-					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT BACKING_UP">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableShowSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP">
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableShowSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
-					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
+					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableShowSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableHideSubObject("TREADSBACK") </Script>
 				</AnimationState>
 				<LeftTread>"TreadsL"</LeftTread>
 				<RightTread>"TreadsR"</RightTread>
