@@ -86,8 +86,11 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryMissileLauncher" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryMissileLauncher_Dummy" ObjectStatus="RIDER1 WEAPON_UPGRADED_02"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryThermoBaricMissileLauncher" ObjectStatus="RIDER1 WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatteryThermoBaricMissileLauncher_Dummy" ObjectStatus="RIDER1 WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatterySonicCannonLauncher" ObjectStatus="RIDER2"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIMissileBatterySonicCannonLauncher_Dummy" ObjectStatus="RIDER2 WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="0d" PitchHeight="75%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData StartupDelay="0.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
@@ -120,12 +123,15 @@
 			<AudioLoopUpgrade id="ModuleTag_SelectLoadout02_Audio" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_SelectLoad_SonicArtillery</TriggeredBy>
 			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_MissileBatteryNoAttack">
+				<TriggeredBy>Upgrade_WeaponSwapNoAttack</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/RepairAlliesEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GenericWeaponSwapNoAttackFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

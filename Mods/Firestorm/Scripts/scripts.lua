@@ -440,6 +440,14 @@ function OnAlienMotherShipCreated(self)
 	ObjectSetObjectStatus( self, "AIRBORNE_TARGET" )
 end
 
+function OnWeaponSwapNoAttack(self)
+	ObjectGrantUpgrade( self, "Upgrade_WeaponSwapNoAttack" )
+end
+
+function OnWeaponSwapNoAttackEnd(self)
+	ObjectRemoveUpgrade( self, "Upgrade_WeaponSwapNoAttack" )
+end
+
 function OnAlienEradicatorHexapodCreated(self)
 	ObjectHideSubObjectPermanently( self, "AUTELEPORT_RR", true )
 	ObjectHideSubObjectPermanently( self, "FX_HEALTHRINGS_RR", true )
