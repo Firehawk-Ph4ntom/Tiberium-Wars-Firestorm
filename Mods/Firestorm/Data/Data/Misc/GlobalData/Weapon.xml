@@ -24708,7 +24708,7 @@
 	<WeaponTemplate
 		id="AlienStingrayLightningChargeWeapon"
 		Name="AlienStingrayLightningChargeWeapon"
-		AttackRange="250"
+		AttackRange="200"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
 		FireFX="FX_AlienIonChargeFire">
@@ -24726,6 +24726,7 @@
 				<SpecialObjectFilter
 					Rule="NONE"
 					Relationship="ALLIES">
+					<IncludeThing>AlienLightningSpike</IncludeThing>
 					<IncludeThing>AlienStormColumn</IncludeThing>
 				</SpecialObjectFilter>
 			</AttributeModifierNugget>
@@ -26577,6 +26578,138 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="AlienLightningSpikeWeaponCharged"
+		Name="AlienLightningSpikeWeaponCharged"
+		AttackRange="375"
+		WeaponSpeed="999999"
+		FireSound="ALI_ChargedLightningSpike_WeaponFireMS"
+		FireFX="FX_LightningSpikeChargedFire"
+		ClipSize="1"
+		RotatingTurret="true"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE">
+		<FiringDuration
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<ClipReloadTime
+			MinSeconds="1s"
+			MaxSeconds="1.5s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				HitGroundFX="FX_LightningSpikeChargedHit"/>
+			<DamageNugget
+				Damage="290"
+				Radius="5"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="ALIEN_ION">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE">
+						<!-- Alien Air -->
+						<IncludeThing>AlienMCV</IncludeThing>
+						<IncludeThing>AlienMCVUnpacking</IncludeThing>
+						<IncludeThing>AlienStormrider</IncludeThing>
+						<IncludeThing>AlienDevastatorWarship</IncludeThing>
+						<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+						<IncludeThing>AlienInvaderFighter</IncludeThing>
+						<IncludeThing>AlienConquerorBattleship</IncludeThing>
+						<IncludeThing>AlienBattleshipFighter</IncludeThing>
+						<IncludeThing>AlienScourgeGunship</IncludeThing>
+						<IncludeThing>AlienMothership</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="75"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="30">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienLightningSpikeWeaponChargedUpgraded"
+		Name="AlienLightningSpikeWeaponChargedUpgraded"
+		AttackRange="375"
+		WeaponSpeed="999999"
+		FireSound="ALI_ChargedLightningSpike_WeaponFireMS"
+		FireFX="FX_LightningEMPStormFire"
+		FireVeteranFX="FX_LightningEMPStormFireHeroic"
+		ClipSize="1"
+		RotatingTurret="true"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE">
+		<FiringDuration
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<ClipReloadTime
+			MinSeconds="1s"
+			MaxSeconds="1.5s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				HitGroundFX="FX_LightningSpikeChargedHit"/>
+			<DamageNugget
+				Damage="290"
+				Radius="5"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="ALIEN_ION">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE">
+						<!-- Alien Air -->
+						<IncludeThing>AlienMCV</IncludeThing>
+						<IncludeThing>AlienMCVUnpacking</IncludeThing>
+						<IncludeThing>AlienStormrider</IncludeThing>
+						<IncludeThing>AlienDevastatorWarship</IncludeThing>
+						<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+						<IncludeThing>AlienInvaderFighter</IncludeThing>
+						<IncludeThing>AlienConquerorBattleship</IncludeThing>
+						<IncludeThing>AlienBattleshipFighter</IncludeThing>
+						<IncludeThing>AlienScourgeGunship</IncludeThing>
+						<IncludeThing>AlienMothership</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<ProjectileNugget
+				WarheadTemplate="AlienStormColumnLightningEMPWeapon"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="75"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="30">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="AlienLightningEMPWarhead"
 		Name="AlienLightningEMPWarhead"
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
@@ -28310,7 +28443,7 @@
 		AttackRange="375"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
-		FireSound="ALI_StormColumn_BigWeaponFire"
+		FireSound="ALI_ChargedStormColumn_BigWeaponFireMS"
 		FireFX="FX_LightningSpikeChargedFire"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY ANTI_STRUCTURE"
@@ -28374,7 +28507,7 @@
 		AttackRange="375"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
-		FireSound="ALI_StormColumn_BigWeaponFire"
+		FireSound="ALI_ChargedStormColumn_BigWeaponFireMS"
 		FireFX="FX_LightningEMPStormFire"
 		FireVeteranFX="FX_LightningEMPStormFireHeroic"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
@@ -32704,7 +32837,7 @@
 	<WeaponTemplate
 		id="AlienShockTrooperLightningChargeWeapon"
 		Name="AlienShockTrooperLightningChargeWeapon"
-		AttackRange="250"
+		AttackRange="200"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="99999"
 		FireFX="FX_AlienIonChargeFire">
@@ -32722,6 +32855,7 @@
 				<SpecialObjectFilter
 					Rule="NONE"
 					Relationship="ALLIES">
+					<IncludeThing>AlienLightningSpike</IncludeThing>
 					<IncludeThing>AlienStormColumn</IncludeThing>
 				</SpecialObjectFilter>
 			</AttributeModifierNugget>
