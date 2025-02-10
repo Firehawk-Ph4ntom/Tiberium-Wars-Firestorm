@@ -545,7 +545,7 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<Nuggets>
 			<DamageNugget
-				Damage="500"
+				Damage="600"
 				Radius="60"
 				DamageType="MINE"
 				DamageFXType="NOD_GRENADE"
@@ -3955,13 +3955,13 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
 			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
+			MaxSeconds="0.5s" />
 		<FiringDuration
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<ClipReloadTime
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -3982,13 +3982,13 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
 			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
+			MaxSeconds="0.5s" />
 		<FiringDuration
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<ClipReloadTime
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -4003,8 +4003,8 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<Nuggets>
 			<DamageNugget
-				Damage="375"
-				Radius="10"
+				Damage="150"
+				Radius="11"
 				DeathType="BURNED"
 				DamageType="GRENADE">
 				<DamageScalarDetails
@@ -4024,90 +4024,36 @@
 						<IncludeThing>Tier3DummyDrone</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
-				<!-- Strong vs Grenade damage -->
+				<!-- Damage to GDI/Nod Structures -->
 				<DamageScalarDetails
-					Scalar="60%">
+					Scalar="150%">
 					<Filter
-						Rule="NONE">
-						<IncludeThing>GDICommando_EA</IncludeThing>
-						<IncludeThing>NODHijacker</IncludeThing>
-					</Filter>
+						Rule="ANY"
+						Include="STRUCTURE"
+						Exclude="TIBERIUM_BASED"/>
 				</DamageScalarDetails>
+				<!-- Damage to Scrin Structures and Vehicles -->
 				<DamageScalarDetails
-					Scalar="40%">
+					Scalar="200%">
 					<Filter
-						Rule="NONE">
-						<IncludeThing>GDICommando</IncludeThing>
-						<IncludeThing>AlienMastermind</IncludeThing>
-					</Filter>
+						Rule="ANY"
+						Include="TIBERIUM_BASED"
+						Exclude="INFANTRY"/>
 				</DamageScalarDetails>
-				<!-- Necessary in order to not have Zone Shatterers kill infantry hordes with a snap of finger -->
+				<!-- Damage to Human Infantry -->
 				<DamageScalarDetails
-					Scalar="20%">
+					Scalar="50%">
 					<Filter
 						Rule="NONE"
-						Include="INFANTRY">
-						<ExcludeThing>GDICommando</ExcludeThing>
-						<ExcludeThing>GDICommando_EA</ExcludeThing>
-						<ExcludeThing>NODReaper</ExcludeThing>
-						<ExcludeThing>NODCyborgCommando</ExcludeThing>
-						<ExcludeThing>NODObliterator</ExcludeThing>
-						<ExcludeThing>NODHijacker</ExcludeThing>
-						<ExcludeThing>AlienMastermind</ExcludeThing>
-					</Filter>
+						Include="INFANTRY"
+						Exclude="TIBERIUM_BASED"/>
 				</DamageScalarDetails>
-				<!-- Lower damage a bit vs Adv. Cyborgs and tanks -->
+				<!-- Damage to Scrin and Mutant Infantry -->
 				<DamageScalarDetails
-					Scalar="80%">
+					Scalar="75%">
 					<Filter
 						Rule="NONE"
-						Include="VEHICLE"
-						Exclude="TIBERIUM_BASED">
-						<IncludeThing>NODReaper</IncludeThing>
-						<IncludeThing>NODCyborgCommando</IncludeThing>
-						<IncludeThing>NODObliterator</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
-				<!-- Deal more damage to Tiberium Based objects -->
-				<DamageScalarDetails
-					Scalar="125%">
-					<Filter
-						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
-						Include="TIBERIUM_BASED">
-						<!-- Neutral Units -->
-						<ExcludeThing>Viceroid</ExcludeThing>
-						<ExcludeThing>MutantFiend</ExcludeThing>
-						<ExcludeThing>MutantFiendTamed</ExcludeThing>
-						<ExcludeThing>MutantFiendBlue</ExcludeThing>
-						<ExcludeThing>MutantFiendRed</ExcludeThing>
-						<ExcludeThing>MutantMarauder</ExcludeThing>
-						<ExcludeThing>MutantSalvager</ExcludeThing>
-						<ExcludeThing>MutantSkirmisher</ExcludeThing>
-						<ExcludeThing>MutantSentinel</ExcludeThing>
-						<ExcludeThing>MutantViceroid</ExcludeThing>
-						<ExcludeThing>MutantGhostStalker</ExcludeThing>
-						<!-- Nod Infantry -->
-						<ExcludeThing>NODCyborgInfantry</ExcludeThing>
-						<ExcludeThing>NODTiberiumTrooper</ExcludeThing>
-						<ExcludeThing>NODAscended</ExcludeThing>
-						<ExcludeThing>NODReaper</ExcludeThing>
-						<ExcludeThing>NODCyborgCommando</ExcludeThing>
-						<ExcludeThing>NODDecimator</ExcludeThing>
-						<ExcludeThing>NODObliterator</ExcludeThing>
-						<ExcludeThing>NODHijacker</ExcludeThing>
-						<!-- Alien Infantry -->
-						<ExcludeThing>AlienBuzzers</ExcludeThing>
-						<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
-						<ExcludeThing>AlienRazorDrones</ExcludeThing>
-						<ExcludeThing>AlienAssimilator</ExcludeThing>
-						<ExcludeThing>AlienShockTrooper</ExcludeThing>
-						<ExcludeThing>AlienRavager</ExcludeThing>
-						<ExcludeThing>AlienMastermind</ExcludeThing>
-						<ExcludeThing>AlienHunter</ExcludeThing>
-						<ExcludeThing>AlienCultist</ExcludeThing>
-						<ExcludeThing>AlienGroundShaker</ExcludeThing>
-					</Filter>
+						Include="INFANTRY TIBERIUM_BASED"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -5644,7 +5590,7 @@
 	<WeaponTemplate
 		id="GDIWolverineMachineGun"
 		Name="GDIWolverineMachineGun"
-		AttackRange="285"
+		AttackRange="275"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
 		FireSound="GDI_Wolverine_GunFireLoop"
@@ -5660,7 +5606,7 @@
 			MaxSeconds="0.01s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="22"
+				Damage="20"
 				DamageType="GUN"
 				DamageFXType="GDI_RIFLE"/>
 			<SuppressionNugget
@@ -5673,7 +5619,7 @@
 	<WeaponTemplate
 		id="GDIWolverineMachineGunHEAmmo"
 		Name="GDIWolverineMachineGunHEAmmo"
-		AttackRange="285"
+		AttackRange="275"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="999999"
 		FireSound="GDI_Wolverine_GunFireLoop"
@@ -5689,7 +5635,7 @@
 			MaxSeconds="0.01s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="33"
+				Damage="30"
 				Radius="2"
 				DamageType="GUN"
 				DeathType="BURNED"
@@ -5704,7 +5650,7 @@
 	<WeaponTemplate
 		id="GDIZoneShattererShockWaveCannon"
 		Name="GDIZoneShattererShockWaveCannon"
-		AttackRange="325"
+		AttackRange="300"
 		AcceptableAimDelta="15d"
 		WeaponSpeed="999999"
 		FireSound="GDI_SonicEmitter_WeaponFire"
@@ -5715,13 +5661,13 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
 			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
+			MaxSeconds="0.5s" />
 		<FiringDuration
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<ClipReloadTime
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<Nuggets>
 			<ActivateLinearDamageNugget
 				Lifetime="2s"/>
@@ -5731,7 +5677,7 @@
 	<WeaponTemplate
 		id="GDIZoneShattererShockWaveCannonOverloadBeam"
 		Name="GDIZoneShattererShockWaveCannonOverloadBeam"
-		AttackRange="325"
+		AttackRange="300"
 		AcceptableAimDelta="15d"
 		WeaponSpeed="999999"
 		FireSound="GDI_SonicEmitter_WeaponFire"
@@ -5742,16 +5688,16 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
 			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
+			MaxSeconds="0.5s" />
 		<FiringDuration
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<ClipReloadTime
 			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MaxSeconds="1.5s" />
 		<Nuggets>
 			<ActivateLinearDamageNugget
-				Lifetime="2s"/>
+				Lifetime="2s" />
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -5763,8 +5709,8 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<Nuggets>
 			<DamageNugget
-				Damage="1500"
-				Radius="10"
+				Damage="600"
+				Radius="22"
 				DeathType="BURNED"
 				DamageType="GRENADE">
 				<DamageScalarDetails
@@ -5784,90 +5730,36 @@
 						<IncludeThing>Tier3DummyDrone</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
-				<!-- Strong vs Grenade damage -->
+				<!-- Damage to GDI/Nod Structures -->
 				<DamageScalarDetails
-					Scalar="60%">
+					Scalar="150%">
 					<Filter
-						Rule="NONE">
-						<IncludeThing>GDICommando_EA</IncludeThing>
-						<IncludeThing>NODHijacker</IncludeThing>
-					</Filter>
+						Rule="ANY"
+						Include="STRUCTURE"
+						Exclude="TIBERIUM_BASED"/>
 				</DamageScalarDetails>
+				<!-- Damage to Scrin Structures and Vehicles -->
 				<DamageScalarDetails
-					Scalar="40%">
+					Scalar="200%">
 					<Filter
-						Rule="NONE">
-						<IncludeThing>GDICommando</IncludeThing>
-						<IncludeThing>AlienMastermind</IncludeThing>
-					</Filter>
+						Rule="ANY"
+						Include="TIBERIUM_BASED"
+						Exclude="INFANTRY"/>
 				</DamageScalarDetails>
-				<!-- Necessary in order to not have Zone Shatterers kill infantry hordes with a snap of finger -->
+				<!-- Damage to Human Infantry -->
 				<DamageScalarDetails
-					Scalar="20%">
+					Scalar="50%">
 					<Filter
 						Rule="NONE"
-						Include="INFANTRY">
-						<ExcludeThing>GDICommando</ExcludeThing>
-						<ExcludeThing>GDICommando_EA</ExcludeThing>
-						<ExcludeThing>NODReaper</ExcludeThing>
-						<ExcludeThing>NODCyborgCommando</ExcludeThing>
-						<ExcludeThing>NODObliterator</ExcludeThing>
-						<ExcludeThing>NODHijacker</ExcludeThing>
-						<ExcludeThing>AlienMastermind</ExcludeThing>
-					</Filter>
+						Include="INFANTRY"
+						Exclude="TIBERIUM_BASED"/>
 				</DamageScalarDetails>
-				<!-- Lower damage a bit vs Adv. Cyborgs and tanks -->
+				<!-- Damage to Scrin and Mutant Infantry -->
 				<DamageScalarDetails
-					Scalar="80%">
+					Scalar="75%">
 					<Filter
 						Rule="NONE"
-						Include="VEHICLE"
-						Exclude="TIBERIUM_BASED">
-						<IncludeThing>NODReaper</IncludeThing>
-						<IncludeThing>NODCyborgCommando</IncludeThing>
-						<IncludeThing>NODObliterator</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
-				<!-- Deal more damage to Tiberium Based objects -->
-				<DamageScalarDetails
-					Scalar="125%">
-					<Filter
-						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
-						Include="TIBERIUM_BASED">
-						<!-- Neutral Units -->
-						<ExcludeThing>Viceroid</ExcludeThing>
-						<ExcludeThing>MutantFiend</ExcludeThing>
-						<ExcludeThing>MutantFiendTamed</ExcludeThing>
-						<ExcludeThing>MutantFiendBlue</ExcludeThing>
-						<ExcludeThing>MutantFiendRed</ExcludeThing>
-						<ExcludeThing>MutantMarauder</ExcludeThing>
-						<ExcludeThing>MutantSalvager</ExcludeThing>
-						<ExcludeThing>MutantSkirmisher</ExcludeThing>
-						<ExcludeThing>MutantSentinel</ExcludeThing>
-						<ExcludeThing>MutantViceroid</ExcludeThing>
-						<ExcludeThing>MutantGhostStalker</ExcludeThing>
-						<!-- Nod Infantry -->
-						<ExcludeThing>NODCyborgInfantry</ExcludeThing>
-						<ExcludeThing>NODTiberiumTrooper</ExcludeThing>
-						<ExcludeThing>NODAscended</ExcludeThing>
-						<ExcludeThing>NODReaper</ExcludeThing>
-						<ExcludeThing>NODCyborgCommando</ExcludeThing>
-						<ExcludeThing>NODDecimator</ExcludeThing>
-						<ExcludeThing>NODObliterator</ExcludeThing>
-						<ExcludeThing>NODHijacker</ExcludeThing>
-						<!-- Alien Infantry -->
-						<ExcludeThing>AlienBuzzers</ExcludeThing>
-						<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
-						<ExcludeThing>AlienRazorDrones</ExcludeThing>
-						<ExcludeThing>AlienAssimilator</ExcludeThing>
-						<ExcludeThing>AlienShockTrooper</ExcludeThing>
-						<ExcludeThing>AlienRavager</ExcludeThing>
-						<ExcludeThing>AlienMastermind</ExcludeThing>
-						<ExcludeThing>AlienHunter</ExcludeThing>
-						<ExcludeThing>AlienCultist</ExcludeThing>
-						<ExcludeThing>AlienGroundShaker</ExcludeThing>
-					</Filter>
+						Include="INFANTRY TIBERIUM_BASED"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -10079,11 +9971,11 @@
 		ReAcquireDetailType="PRE_FIRE"
 		RotatingTurret="true">
 		<PreAttackDelay
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
 		<FiringDuration
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s"/>
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
 		<ClipReloadTime
 			MinSeconds="1s"
 			MaxSeconds="1s"/>
@@ -11303,7 +11195,7 @@
 		AttackRange="375"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
-		FireSound="NBObelisk_LaserFire"
+		FireSound="NOD_Obelisk_LaserFireMS"
 		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE">
 		<PreAttackDelay
@@ -11384,7 +11276,7 @@
 		AttackRange="375"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
-		FireSound="NBObelisk_LaserFire"
+		FireSound="NOD_Obelisk_LaserFireMS"
 		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE">
 		<PreAttackDelay
@@ -11415,7 +11307,7 @@
 					Exclude="INFANTRY"/>
 			</DamageNugget>
 			<DamageNugget
-				Damage="125"
+				Damage="250"
 				DelayTimeSeconds="1s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11425,7 +11317,7 @@
 					Exclude="INFANTRY"/>
 			</DamageNugget>
 			<DamageNugget
-				Damage="125"
+				Damage="250"
 				DelayTimeSeconds="2s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11435,7 +11327,7 @@
 					Exclude="INFANTRY"/>
 			</DamageNugget>
 			<DamageNugget
-				Damage="125"
+				Damage="250"
 				DelayTimeSeconds="3s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11485,7 +11377,7 @@
 					Exclude="INFANTRY"/>
 			</DamageNugget>
 			<DamageNugget
-				Damage="125"
+				Damage="250"
 				DelayTimeSeconds="1s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11495,7 +11387,7 @@
 					Exclude="INFANTRY"/>
 			</DamageNugget>
 			<DamageNugget
-				Damage="125"
+				Damage="250"
 				DelayTimeSeconds="2s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11505,7 +11397,7 @@
 					Exclude="INFANTRY"/>
 			</DamageNugget>
 			<DamageNugget
-				Damage="125"
+				Damage="250"
 				DelayTimeSeconds="3s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11523,19 +11415,20 @@
 		AttackRange="375"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
-		FireSound="NBObelisk_LaserFire"
-		ClipSize="1"
+		FireSound="NOD_Obelisk_LaserFireMS"
+		ClipSize="3"
+		ShotsPerBarrel="1"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ReAcquireDetailType="PRE_FIRE">
 		<PreAttackDelay
 			MinSeconds="2s"
 			MaxSeconds="2s"/>
 		<FiringDuration
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="1.8s"
+			MaxSeconds="1.8s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.75s"
@@ -11545,7 +11438,7 @@
 					Include="INFANTRY"/>
 			</ActivateLaserNugget>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				DamageType="CANNON"
 				DeathType="LASERED"
 				DamageFXType="GDI_RIFLE">
@@ -11568,7 +11461,7 @@
 		RadiusDamageAffects="ENEMIES NEUTRALS">
 		<Nuggets>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				Radius="5"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11586,19 +11479,20 @@
 		AttackRange="375"
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
-		FireSound="NBObelisk_LaserFire"
-		ClipSize="1"
+		FireSound="NOD_Obelisk_LaserFireMS"
+		ClipSize="3"
+		ShotsPerBarrel="1"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ReAcquireDetailType="PRE_FIRE">
 		<PreAttackDelay
 			MinSeconds="2s"
 			MaxSeconds="2s"/>
 		<FiringDuration
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="1.8s"
+			MaxSeconds="1.8s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.75s"
@@ -11608,7 +11502,7 @@
 					Include="INFANTRY"/>
 			</ActivateLaserNugget>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				DamageType="CANNON"
 				DeathType="LASERED"
 				DamageFXType="GDI_RIFLE">
@@ -11633,7 +11527,7 @@
 		RadiusDamageAffects="ENEMIES NEUTRALS">
 		<Nuggets>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				Radius="5"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -11685,18 +11579,19 @@
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
 		FireSound="NBObelisk_LaserFire"
-		ClipSize="1"
+		ClipSize="3"
+		ShotsPerBarrel="1"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ReAcquireDetailType="PRE_FIRE">
 		<PreAttackDelay
 			MinSeconds="2s"
 			MaxSeconds="2s"/>
 		<FiringDuration
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="1.8s"
+			MaxSeconds="1.8s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.75s"
@@ -11706,7 +11601,7 @@
 					Include="INFANTRY"/>
 			</ActivateLaserNugget>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				DamageType="CANNON"
 				DeathType="LASERED"
 				DamageFXType="GDI_RIFLE">
@@ -11730,18 +11625,19 @@
 		AcceptableAimDelta="180d"
 		WeaponSpeed="999999"
 		FireSound="NBObelisk_LaserFire"
-		ClipSize="1"
+		ClipSize="3"
+		ShotsPerBarrel="1"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ReAcquireDetailType="PRE_FIRE">
 		<PreAttackDelay
 			MinSeconds="2s"
 			MaxSeconds="2s"/>
 		<FiringDuration
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="1.8s"
+			MaxSeconds="1.8s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.75s"
@@ -11751,7 +11647,7 @@
 					Include="INFANTRY"/>
 			</ActivateLaserNugget>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				DamageType="CANNON"
 				DeathType="LASERED"
 				DamageFXType="GDI_RIFLE">
@@ -11774,7 +11670,7 @@
 		RadiusDamageAffects="ENEMIES NEUTRALS">
 		<Nuggets>
 			<DamageNugget
-				Damage="2000"
+				Damage="1000"
 				Radius="5"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -12596,7 +12492,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to Scrin allied units and Nod Cyborgs except Scrin Epic Units -->
+			<!-- Heal to Scrin allied units and Nod Cyborgs -->
 			<DamageNugget
 				Damage="9"
 				Radius="25"
@@ -12644,6 +12540,8 @@
 					<IncludeThing>AlienStingray</IncludeThing>
 					<IncludeThing>AlienMechapede</IncludeThing>
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 					<IncludeThing>AlienExplorer</IncludeThing>
 					<IncludeThing>AlienGuardianTank</IncludeThing>
 					<IncludeThing>AlienIrradiator</IncludeThing>
@@ -12659,20 +12557,6 @@
 					<IncludeThing>AlienBattleshipFighter</IncludeThing>
 					<IncludeThing>AlienScourgeGunship</IncludeThing>
 					<IncludeThing>AlienMothership</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to Scrin Epic Units -->
-			<DamageNugget
-				Damage="7"
-				Radius="25"
-				DelayTimeSeconds="0.5s"
-				DamageType="HEALING">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Relationship="ALLIES">
-					<!-- NOD Cyborgs -->
-					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- Clear Garrison -->
@@ -13035,7 +12919,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to Scrin allied units and Nod Cyborgs except Scrin Epic Units -->
+			<!-- Heal to Scrin allied units and Nod Cyborgs -->
 			<DamageNugget
 				Damage="11"
 				Radius="25"
@@ -13083,6 +12967,8 @@
 					<IncludeThing>AlienStingray</IncludeThing>
 					<IncludeThing>AlienMechapede</IncludeThing>
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 					<IncludeThing>AlienExplorer</IncludeThing>
 					<IncludeThing>AlienGuardianTank</IncludeThing>
 					<IncludeThing>AlienIrradiator</IncludeThing>
@@ -13098,20 +12984,6 @@
 					<IncludeThing>AlienBattleshipFighter</IncludeThing>
 					<IncludeThing>AlienScourgeGunship</IncludeThing>
 					<IncludeThing>AlienMothership</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to Scrin Epic Units -->
-			<DamageNugget
-				Damage="9"
-				Radius="25"
-				DelayTimeSeconds="0.5s"
-				DamageType="HEALING">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Relationship="ALLIES">
-					<!-- NOD Cyborgs -->
-					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- Clear Garrison -->
@@ -13474,7 +13346,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to Scrin allied units and Nod Cyborgs except Scrin Epic Units -->
+			<!-- Heal to Scrin allied units and Nod Cyborgs -->
 			<DamageNugget
 				Damage="9"
 				Radius="25"
@@ -13522,6 +13394,8 @@
 					<IncludeThing>AlienStingray</IncludeThing>
 					<IncludeThing>AlienMechapede</IncludeThing>
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 					<IncludeThing>AlienExplorer</IncludeThing>
 					<IncludeThing>AlienGuardianTank</IncludeThing>
 					<IncludeThing>AlienIrradiator</IncludeThing>
@@ -13537,20 +13411,6 @@
 					<IncludeThing>AlienBattleshipFighter</IncludeThing>
 					<IncludeThing>AlienScourgeGunship</IncludeThing>
 					<IncludeThing>AlienMothership</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to Scrin Epic Units -->
-			<DamageNugget
-				Damage="7"
-				Radius="25"
-				DelayTimeSeconds="0.5s"
-				DamageType="HEALING">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Relationship="ALLIES">
-					<!-- NOD Cyborgs -->
-					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- Clear Garrison -->
@@ -13913,7 +13773,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to Scrin allied units and Nod Cyborgs except Scrin Epic Units -->
+			<!-- Heal to Scrin allied units and Nod Cyborgs -->
 			<DamageNugget
 				Damage="11"
 				Radius="25"
@@ -13961,6 +13821,8 @@
 					<IncludeThing>AlienStingray</IncludeThing>
 					<IncludeThing>AlienMechapede</IncludeThing>
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 					<IncludeThing>AlienExplorer</IncludeThing>
 					<IncludeThing>AlienGuardianTank</IncludeThing>
 					<IncludeThing>AlienIrradiator</IncludeThing>
@@ -13976,20 +13838,6 @@
 					<IncludeThing>AlienBattleshipFighter</IncludeThing>
 					<IncludeThing>AlienScourgeGunship</IncludeThing>
 					<IncludeThing>AlienMothership</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to Scrin Epic Units -->
-			<DamageNugget
-				Damage="9"
-				Radius="25"
-				DelayTimeSeconds="0.5s"
-				DamageType="HEALING">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Relationship="ALLIES">
-					<!-- NOD Cyborgs -->
-					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- Clear Garrison -->
@@ -16447,7 +16295,7 @@
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<Nuggets>
 			<DamageNugget
-				Damage="500"
+				Damage="600"
 				Radius="60"
 				DamageType="MINE"
 				DamageFXType="NOD_GRENADE"
@@ -29644,7 +29492,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to Scrin allied units and Nod Cyborgs except Scrin Epic Units -->
+			<!-- Heal to Scrin allied units and Nod Cyborgs -->
 			<DamageNugget
 				Damage="18"
 				Radius="25"
@@ -29692,6 +29540,8 @@
 					<IncludeThing>AlienStingray</IncludeThing>
 					<IncludeThing>AlienMechapede</IncludeThing>
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 					<IncludeThing>AlienExplorer</IncludeThing>
 					<IncludeThing>AlienGuardianTank</IncludeThing>
 					<IncludeThing>AlienIrradiator</IncludeThing>
@@ -29707,20 +29557,6 @@
 					<IncludeThing>AlienBattleshipFighter</IncludeThing>
 					<IncludeThing>AlienScourgeGunship</IncludeThing>
 					<IncludeThing>AlienMothership</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to Scrin Epic Units -->
-			<DamageNugget
-				Damage="15"
-				Radius="25"
-				DelayTimeSeconds="0.5s"
-				DamageType="HEALING">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Relationship="ALLIES">
-					<!-- NOD Cyborgs -->
-					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- Garrison clear -->
@@ -30090,7 +29926,7 @@
 					<IncludeThing>Viceroid</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-			<!-- Heal to Scrin allied units and Nod Cyborgs except Scrin Epic Units -->
+			<!-- Heal to Scrin allied units and Nod Cyborgs -->
 			<DamageNugget
 				Damage="22"
 				Radius="25"
@@ -30138,6 +29974,8 @@
 					<IncludeThing>AlienStingray</IncludeThing>
 					<IncludeThing>AlienMechapede</IncludeThing>
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 					<IncludeThing>AlienExplorer</IncludeThing>
 					<IncludeThing>AlienGuardianTank</IncludeThing>
 					<IncludeThing>AlienIrradiator</IncludeThing>
@@ -30153,20 +29991,6 @@
 					<IncludeThing>AlienBattleshipFighter</IncludeThing>
 					<IncludeThing>AlienScourgeGunship</IncludeThing>
 					<IncludeThing>AlienMothership</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
-			<!-- Heal to Scrin Epic Units -->
-			<DamageNugget
-				Damage="18"
-				Radius="25"
-				DelayTimeSeconds="0.5s"
-				DamageType="HEALING">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Relationship="ALLIES">
-					<!-- NOD Cyborgs -->
-					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
-					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- Garrison clear -->
@@ -32107,13 +31931,21 @@
 					Scalar="50%">
 					<Filter
 						Rule="NONE"
-						Include="INFANTRY"/>
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+					</Filter>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="175%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -32168,7 +32000,8 @@
 					Scalar="70%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
@@ -32181,7 +32014,15 @@
 					Scalar="80%">
 					<Filter
 						Rule="NONE"
-						Include="INFANTRY"/>
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="140%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -32243,13 +32084,21 @@
 					Scalar="50%">
 					<Filter
 						Rule="NONE"
-						Include="INFANTRY"/>
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+					</Filter>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="175%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -32304,7 +32153,8 @@
 					Scalar="70%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
@@ -32317,7 +32167,15 @@
 					Scalar="80%">
 					<Filter
 						Rule="NONE"
-						Include="INFANTRY"/>
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="140%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
