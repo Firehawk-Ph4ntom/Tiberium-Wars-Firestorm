@@ -1,0 +1,202 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZOR_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZOR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZORR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZOR_FLYA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZOR_FLYB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZOR_FLYC.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\AURAZOR_FLYD.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienRazorback\FXSHLDRAZOR_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="AlienRazorback" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienRazorback" ButtonImage="Portrait_AlienRazorback" Side="ALIEN" BuildCost="900" BuildTime="9" CommandSet="AlienRazorbackCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="MISSILE" VoicePriority="180" EditorName="AlienRazorback" Description="Desc:AlienRazorback" TypeDescription="Type:AlienRazorback">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienRazorback</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
+		<LocomotorSet Locomotor="AlienRazorbackGroundLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<LocomotorSet Locomotor="AlienRazorbackFlyingLocomotor" Condition="NORMAL_UPGRADED" Speed="135.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AURAZOR_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWEAPON"/>
+					<Turret TurretNameKey="B_TURRET" TurretPitch="B_PITCH" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="AURAZOR_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="AURAZORR_SKN"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="AURAZOR_SKN"/>
+					<Texture Original="AUAnhlTrpd" New="AUAnhlTrpd_D"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
+					<Animation AnimationName="AUSeekerR" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Animation AnimationName="AURAZOR_FLYA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+					<Animation AnimationName="AURAZOR_FLYB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2" Flags="START_FRAME_LAST">
+					<Animation AnimationName="AURAZOR_FLYA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+					<Animation AnimationName="AURAZOR_FLYB" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="0.8"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="AURAZOR_FLYC" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="AURAZOR_FLYD" AnimationMode="ONCE" AnimationPriority="50" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_UnderRage" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEEFFECTSIGN"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawForcefield" OkToChangeModelColor="true" AttachToBoneInAnotherModule="BONE_SHLD">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
+					<Model Name="FXSHLDRAZOR"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FLYING USER_2 USER_19">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_19">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FLYING USER_19">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FLYING"/>
+			</ScriptedModelDraw>
+			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="RAZOR" RefreshTime="2.0s" SweepTime="1.0s">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXAspotlight_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+			</SpotlightDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_03"/>
+			</TracerModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_ALIENSeekerDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+				<Sound Type="INITIAL" List="ALI_GunWalker_SoundDie2"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_ALIENVehicleExplodeScorch"/>
+			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="550"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackGroundCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackFlyingCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-10d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<!-- Glider ability -->
+			<!-- Lift Off -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_RazorbackLiftOffDispatch" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffDispatch" RequireAllPowersToFunction="true">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_LiftOffSP" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UpdateModuleStartsAttack="true" SetModelCondition="USER_1" SetModelConditionTime="1.2s" DisableDuringAnimDuration="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UnpackTime="0s" BusyForDuration="1.2s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" SetObjectStatusOnTrigger="WEAPON_UPGRADED_01"/>
+			<!-- Land -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_RazorbackLandDispatch" SpecialPowerTemplate="SpecialPower_RazorbackLandDispatch" RequireAllPowersToFunction="true">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload"/>
+			</SpecialPowerDispatchSpecialPower>
+			<SpecialPower id="ModuleTag_LandSP" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UpdateModuleStartsAttack="true" SetModelCondition="USER_2" SetModelConditionTime="1.2s" DisableDuringAnimDuration="true"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UnpackTime="0s" StartAbilityRange="0" LandingRange="0" BusyForDuration="1.2s" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" ClearObjectStatusOnExit="WEAPON_UPGRADED_01"/>
+			<!-- Dummy SP to reload both ability buttons -->
+			<SpecialPower id="ModuleTag_DummyReload" SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload" UpdateModuleStartsAttack="true"/>
+			<SpecialAbilityUpdate id="ModuleTag_DummyReloadUpdate" SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload" />
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="2100" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="1000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="90s" ShieldActiveModelCondition="USER_19"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="ALI_SeekerTank_IdleLoop" RequiredFlags="USER_19" ExcludedFlags="DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+			<ModelConditionSoundSelectorClientBehavior id="MCSSCB">
+				<Override RequiredFlags="FLYING">
+					<AudioArraySound>
+						<AudioEntry Sound="ALI_Stormrider_MoveStart" AudioType="soundMoveStart"/>
+						<AudioEntry Sound="ALI_Stormrider_MoveLoop" AudioType="soundMoveLoop"/>
+						<AudioEntry Sound="ALI_Stormrider_IdleLoop" AudioType="soundAmbient"/>
+					</AudioArraySound>
+				</Override>
+			</ModelConditionSoundSelectorClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="10.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_GunWalker_SoundAttack2" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_GunWalker_SoundCreate2" AudioType="voiceCreated"/>
+			<AudioEntry Sound="ALI_GunWalker_SoundMove2" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_GunWalker_SoundSelect2" AudioType="voiceSelect"/>
+			<NamedEntry Sound="ALI_GunWalker_SoundMove2" Name="InitiateRazorbackTakeOff"/>
+			<NamedEntry Sound="ALI_GunWalker_SoundMove2" Name="InitiateRazorbackLand"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_SeekerTank_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_SeekerTank_IdleLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="600"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>
