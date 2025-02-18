@@ -616,6 +616,9 @@ function SquadLookupTable(x)  -- x = object template
 	-- Terminators
 	elseif strfind(tostring(x), "D8D33555") ~= nil then
 		ans = 3*delay5
+	-- Mindbreaker Swarm
+	elseif strfind(tostring(x), "1764350F") ~= nil then
+		ans = 4*delay5
 	-- Cultists
 	elseif strfind(tostring(x), "D6D67027") ~= nil then
 		ans = 4*delay5

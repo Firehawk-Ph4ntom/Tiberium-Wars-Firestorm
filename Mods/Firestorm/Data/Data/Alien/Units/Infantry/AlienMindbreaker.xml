@@ -1,0 +1,170 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="instance" source="ART:Firestorm\Units\AlienMindbreaker\FXSHLDMINDBREAKER.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="AlienMindbreaker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienMindbreaker" ButtonImage="Portrait_AlienMindbreaker" Side="ALIEN" BuildCost="175" BuildTime="1.75" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS CAN_SEE_THROUGH_STRUCTURE NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="GUN" VoicePriority="104" EditorName="AlienMindbreaker" Description="Desc:AlienMindbreaker" TypeDescription="Type:AlienMindbreaker" ProductionQueueType="VEHICLE">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENRazorDrones</DisplayName>
+		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
+		<ArmorSet Armor="GenericArmoredSoldierArmor_TiberiumInfused" DamageFX="InfantryAlienDamageFX"/>
+		<LocomotorSet Locomotor="AlienMindbreakerLocomotor" Condition="NORMAL" Speed="70"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="AURPRDRN_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="BONE"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="BONE"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="AURPRDRN_IDLA" AnimationMode="ONCE" AnimationPriority="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING ATTACKING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_ACCL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_DECL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="AURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawForcefield" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
+					<Model Name="FXSHLDMINDBREAKER"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" UseDistortionShader="false" Texture1_UTile="1" Texture1_VTile="1" Texture1_UScrollRate="0" Texture1_VScrollRate="1.5" Texture1_NumFrames="1" Texture1_FrameRate="30" Texture2_UTile="1" Texture2_VTile="1" Texture2_UScrollRate="0" Texture2_VScrollRate="-0.25" Texture2_NumFrames="8" Texture2_FrameRate="35" LaserWidth="10" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx" TechniqueIndex="0">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXEMP</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLightning</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" />
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" UseDistortionShader="false" Texture1_UTile="1" Texture1_VTile="1" Texture1_UScrollRate="0" Texture1_VScrollRate="1.5" Texture1_NumFrames="1" Texture1_FrameRate="30" Texture2_UTile="1" Texture2_VTile="1" Texture2_UScrollRate="0" Texture2_VScrollRate="-0.25" Texture2_NumFrames="8" Texture2_FrameRate="35" LaserWidth="10" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx" TechniqueIndex="0">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXEMPHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLightning</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_03" />
+			</LaserDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_AlienInfGibs</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Prodigy_DieMS"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="BURNED"/>
+				<Sound Type="INITIAL" List="ALI_Prodigy_DieMS"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED"/>
+				<Sound Type="INITIAL" List="ALI_Prodigy_DieMS"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_AlienMechapedeExplodeScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED"/>
+				<Event Index="onDeath" FX="FX_AlienBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienMindbreakerProtonWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="400.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="312" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="100" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="90s" ShieldActiveModelCondition="USER_19"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_Prodigy_SoundAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="ALI_Prodigy_SoundCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="ALI_Prodigy_SoundMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="ALI_Prodigy_SoundSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_DevastatorWarship_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="ALI_DevastatorWarship_MoveLoop" AudioType="soundMoveLoop"/>
+			<AudioEntry Sound="ALI_DevastatorWarship_AmbientDelayedLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo xai:joinAction="Remove"/>
+	</GameObject>
+</AssetDeclaration>
