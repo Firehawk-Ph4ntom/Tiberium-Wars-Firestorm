@@ -1,15 +1,18 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
-		<Include type="instance" source="ART:Firestorm\Units\AlienMindbreaker\FXSHLDMINDBREAKER.w3x"/>
+		<Include type="instance" source="ART:Firestorm\Units\AlienHiveStalker\AURPRDRONE_FP.w3x"/>
+		<Include type="instance" source="ART:Firestorm\Units\AlienHiveStalker\AURPRDRNION_SKN.w3x"/>
+		<Include type="instance" source="ART:Firestorm\Units\AlienHiveStalker\FXSHLDHIVESTALKER.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="AlienMindbreaker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienMindbreaker" ButtonImage="Portrait_AlienMindbreaker" Side="ALIEN" BuildCost="175" BuildTime="1.75" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS CAN_SEE_THROUGH_STRUCTURE NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT INFANTRY AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="GUN" VoicePriority="104" EditorName="AlienMindbreaker" Description="Desc:AlienMindbreaker" TypeDescription="Type:AlienMindbreaker" ProductionQueueType="VEHICLE">
-		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENRazorDrones</DisplayName>
+	<GameObject id="AlienHiveStalker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienHiveStalker" ButtonImage="Portrait_AlienHiveStalker" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS CAN_SEE_THROUGH_STRUCTURE NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT PRODUCED_AT_HELIPAD INFANTRY AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="GUN" VoicePriority="104" EditorName="AlienHiveStalker" Description="Desc:AlienHiveStalker" TypeDescription="Type:AlienHiveStalker" ProductionQueueType="AIRCRAFT" UnitTypeIcon="RazorDroneIcon">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienHiveStalker</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
-		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_IonStormArmor</DisplayUpgrade>
 		<ArmorSet Armor="GenericArmoredSoldierArmor_TiberiumInfused" DamageFX="InfantryAlienDamageFX"/>
-		<LocomotorSet Locomotor="AlienMindbreakerLocomotor" Condition="NORMAL" Speed="70"/>
+		<LocomotorSet Locomotor="AlienHiveStalkerLocomotor" Condition="NORMAL" Speed="70"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -17,11 +20,18 @@
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="BONE"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="BONE"/>
 				</ModelConditionState>
-				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="AURPRDRONE_FP"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_5">
+					<Model Name="AURPRDRNION_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE RANDOMSTART" AllowRepeatInRandomPick="true">
 					<Animation AnimationName="AURPRDRN_IDLA" AnimationMode="ONCE" AnimationPriority="30"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING ATTACKING" Flags="RANDOMSTART">
 					<Animation AnimationName="AURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
 				</AnimationState>
@@ -67,7 +77,8 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
-					<Model Name="FXSHLDMINDBREAKER"/>
+					<Model Name="FXSHLDHIVESTALKER"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="AUDronShipDecalIdle" SizeX="25" SizeY="25" MaxHeight="300" OverrideLODVisibility="true" UseHouseColor="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<LaserDraw id="ModuleTag_LaserDraw" UseDistortionShader="false" Texture1_UTile="1" Texture1_VTile="1" Texture1_UScrollRate="0" Texture1_VScrollRate="1.5" Texture1_NumFrames="1" Texture1_FrameRate="30" Texture2_UTile="1" Texture2_VTile="1" Texture2_UScrollRate="0" Texture2_VScrollRate="-0.25" Texture2_NumFrames="8" Texture2_FrameRate="35" LaserWidth="10" LaserStateID="1">
@@ -99,6 +110,10 @@
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<EmotionTrackerUpdate id="Module_ETU">
+				<TauntAndPointExcluded Rule="NONE"/>
+			</EmotionTrackerUpdate>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_AlienInfGibs</OCL>
@@ -132,7 +147,7 @@
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienMindbreakerProtonWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHiveStalkerProtonWeapon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
@@ -140,22 +155,25 @@
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</StatusBitsUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<StatusBitsUpgrade id="ModuleTag_IonStormDeathUpgrade" xai:joinAction="Remove"/>
+			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<JetAIUpdate id="ModuleTag_AI" NeedsRunway="false" KeepsParkingSpaceWhenAirborne="false" AutoAcquireEnemiesWhenIdle="YES">
 				<UnitAITargetChooserData SympathyRange="400.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
-			</AIUpdate>
+				<LockonInfo />
+			</JetAIUpdate>
 		</AI>
 		<Body>
-			<ShieldBody id="ModuleTag_Body" MaxHealth="312" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="100" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="90s" ShieldActiveModelCondition="USER_19"/>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="250" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="100" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="90s" ShieldActiveModelCondition="USER_19"/>
 		</Body>
 		<Geometry IsSmall="true">
 			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="ALI_Prodigy_SoundAttack" AudioType="voiceAttack"/>
-			<AudioEntry Sound="ALI_Prodigy_SoundCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="ALI_Prodigy_SoundCreate" AudioType="voiceCreated"/>
 			<AudioEntry Sound="ALI_Prodigy_SoundMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="ALI_Prodigy_SoundSelect" AudioType="voiceSelect"/>
 		</AudioArrayVoice>

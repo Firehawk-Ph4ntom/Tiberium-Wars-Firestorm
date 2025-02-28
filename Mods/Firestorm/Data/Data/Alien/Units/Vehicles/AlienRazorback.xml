@@ -14,6 +14,7 @@
 	<GameObject id="AlienRazorback" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienRazorback" ButtonImage="Portrait_AlienRazorback" Side="ALIEN" BuildCost="900" BuildTime="9" CommandSet="AlienRazorbackCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="MISSILE" VoicePriority="180" EditorName="AlienRazorback" Description="Desc:AlienRazorback" TypeDescription="Type:AlienRazorback">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienRazorback</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_PlanetaryDevastation</DisplayUpgrade>
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
 		<LocomotorSet Locomotor="AlienRazorbackGroundLocomotor" Condition="NORMAL" Speed="90.0"/>
 		<LocomotorSet Locomotor="AlienRazorbackFlyingLocomotor" Condition="NORMAL_UPGRADED" Speed="135.0"/>
@@ -82,7 +83,15 @@
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FLYING USER_2 USER_19">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED USER_1 USER_19">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED USER_2 USER_19">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_19">
 					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
 				</ModelConditionState>
@@ -90,12 +99,13 @@
 					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FLYING USER_19">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED USER_19">
 					<Model Name="FXInvisBone_FS"/>
 					<ShadowInfo Type="ADDITIVE_DECAL" SizeX="50" SizeY="40" OverrideLODVisibility="true" MaxHeight="200" UseHouseColor="true" Texture="AUDronShipDecalIdle"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FLYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_NORMAL_UPGRADED"/>
 			</ScriptedModelDraw>
 			<SpotlightDraw id="ModuleTag_Spotlight" AttachToBoneInAnotherModule="RAZOR" RefreshTime="2.0s" SweepTime="1.0s">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -103,16 +113,186 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 			</SpotlightDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FXWEAPON">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_4">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienBlueRefineryRec01" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec01" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienRefineryRec02" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
-				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_03"/>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienTiberiumLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienTiberiumLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_01" ForbiddenStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="2" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="65" LaserStateID="1" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienTiberiumLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienTiberiumLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDraw2" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="2">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienTiberiumLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienTiberiumLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_01" ForbiddenStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort2" Texture1_VTile="0.5" Texture2_VTile="2" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="65" LaserStateID="2" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy2" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="2">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienTiberiumLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienTiberiumLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_03"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade3" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="3">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort3" Texture1_VTile="0.5" Texture2_VTile="2" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="65" LaserStateID="3" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy3" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="3">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1" RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade4" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="4">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienLaser</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort4" Texture1_VTile="0.5" Texture2_VTile="2" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="65" LaserStateID="4" UseDistortionShader="true">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy4" Texture1_VTile="0.5" Texture2_VTile="0.3" Texture1_VScrollRate="0.2" Texture2_VScrollRate="0.7" LaserWidth="50" LaserStateID="4">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXAlienLaserHeroic</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXAlienLaserHeroic</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1" RequiredStatus="WEAPON_UPGRADED_02"/>
+			</LaserDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
@@ -132,31 +312,84 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackGroundCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackFlyingCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackFlyingCannon" ObjectStatus="AIRBORNE_TARGET"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackLaserCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackFlyingLaserCannon" ObjectStatus="AIRBORNE_TARGET WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackLaserCannon_BlueIchor" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackFlyingLaserCannon_BlueIchor" ObjectStatus="AIRBORNE_TARGET WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-10d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackForceFireDummyWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienRazorbackFlyingForceFireDummyWeapon" ObjectStatus="AIRBORNE_TARGET WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="200">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<!-- Glider ability -->
+			<SweepingLaserState id="ModuleTag_LaserState" LaserId="1" Radius="15" SweepFXList="FX_AlienLaserSweepHitGreen" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienRazorbackLaserCannonSweepWeapon"/>
+			<SweepingLaserState id="ModuleTag_LaserState2" LaserId="2" Radius="15" SweepFXList="FX_AlienLaserSweepHitGreen" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienRazorbackFlyingLaserCannonSweepWeapon"/>
+			<SweepingLaserState id="ModuleTag_LaserState3" LaserId="3" Radius="15" SweepFXList="FX_AlienLaserSweepHit" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienRazorbackLaserCannonSweepWeapon_BlueIchor"/>
+			<SweepingLaserState id="ModuleTag_LaserState4" LaserId="4" Radius="15" SweepFXList="FX_AlienLaserSweepHit" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienRazorbackFlyingLaserCannonSweepWeapon_BlueIchor"/>
+			<!-- Transform ability -->
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_RazorbackLand"/>
 			<!-- Lift Off -->
+			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_RazorbackLiftOffUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffDispatch" UpgradeToGive="Upgrade_RazorbackLiftOff"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveRazorbackLiftOffUpgrade">
+				<UpgradeToRemove>Upgrade_RazorbackLiftOff</UpgradeToRemove>
+				<TriggeredBy>Upgrade_RazorbackLand</TriggeredBy>
+			</RemoveUpgradeUpgrade>
 			<SpecialPowerDispatchSpecialPower id="ModuleTag_RazorbackLiftOffDispatch" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffDispatch" RequireAllPowersToFunction="true">
 				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger"/>
 				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload"/>
 			</SpecialPowerDispatchSpecialPower>
 			<SpecialPower id="ModuleTag_LiftOffSP" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UpdateModuleStartsAttack="true" SetModelCondition="USER_1" SetModelConditionTime="1.2s" DisableDuringAnimDuration="true"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UnpackTime="0s" BusyForDuration="1.2s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" SetObjectStatusOnTrigger="WEAPON_UPGRADED_01"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UnpackTime="0s" BusyForDuration="1.2s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" SetObjectStatusOnTrigger="AIRBORNE_TARGET"/>
 			<!-- Land -->
+			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_RazorbackLandUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandDispatch" UpgradeToGive="Upgrade_RazorbackLand"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_RemoveRazorbackLandUpgrade">
+				<UpgradeToRemove>Upgrade_RazorbackLand</UpgradeToRemove>
+				<TriggeredBy>Upgrade_RazorbackLiftOff</TriggeredBy>
+			</RemoveUpgradeUpgrade>
 			<SpecialPowerDispatchSpecialPower id="ModuleTag_RazorbackLandDispatch" SpecialPowerTemplate="SpecialPower_RazorbackLandDispatch" RequireAllPowersToFunction="true">
 				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger"/>
 				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload"/>
 			</SpecialPowerDispatchSpecialPower>
 			<SpecialPower id="ModuleTag_LandSP" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UpdateModuleStartsAttack="true" SetModelCondition="USER_2" SetModelConditionTime="1.2s" DisableDuringAnimDuration="true"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UnpackTime="0s" StartAbilityRange="0" LandingRange="0" BusyForDuration="1.2s" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" ClearObjectStatusOnExit="WEAPON_UPGRADED_01"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UnpackTime="0s" StartAbilityRange="0" LandingRange="0" BusyForDuration="1.2s" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" ClearObjectStatusOnExit="AIRBORNE_TARGET"/>
 			<!-- Dummy SP to reload both ability buttons -->
 			<SpecialPower id="ModuleTag_DummyReload" SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload" UpdateModuleStartsAttack="true"/>
 			<SpecialAbilityUpdate id="ModuleTag_DummyReloadUpdate" SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload" />
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_PlanetaryDevastationUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_PlanetaryDevastationAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PlanetaryDevastationModelCondition" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
+			</ModelConditionUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
