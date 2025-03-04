@@ -15,8 +15,8 @@
 	</Includes>
 	<GameObject id="AlienHunter" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienHunter" ButtonImage="Portrait_AlienHunter" Side="ALIEN" BuildCost="200" BuildTime="2" KindOf="TIBERIUM_BASED SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY PATH_THROUGH_INFANTRY HEALED_BY_TIBERIUM" WeaponCategory="CANNON" VoicePriority="76" EditorName="AlienTerminator" Description="Desc:AlienHunter" TypeDescription="Type:AlienHunter" ProductionQueueType="VEHICLE" UnitTypeIcon="RazorDroneIcon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienHunter</DisplayName>
-		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_IchorPlating</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_AlienAdvancedArticulators</DisplayUpgrade>
 		<ArmorSet Armor="AlienHunterArmor" DamageFX="InfantryAlienDamageFX"/>
 		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="50"/>
 		<Draws>
@@ -30,18 +30,6 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
 					<Model Name="FXWEBBEDALIEN"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_4">
-					<Model Name="AUHUNTER_SKN"/>
-					<Texture Original="AUAnhlTrpd" New="AURprTripodBlue"/>
-					<Texture Original="AUAnhlTrpd_NRM" New="AURprTripod_NRM"/>
-					<Texture Original="AUAnhlTrpd_SPM" New="AURprTripod_SPM"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
-					<Model Name="AUHUNTER_SKN"/>
-					<Texture Original="AUAnhlTrpd" New="AURprTripod"/>
-					<Texture Original="AUAnhlTrpd_NRM" New="AURprTripod_NRM"/>
-					<Texture Original="AUAnhlTrpd_SPM" New="AURprTripod_SPM"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
@@ -129,16 +117,6 @@
 					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
-				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
-				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
-			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
-				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
-				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
-			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
@@ -170,38 +148,12 @@
 			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterPlasmaAutoCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHunterPlasmaCannon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>ALI_RazorDrone</Key>
 			</LargeGroupAudioUpdate>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_ShardLaunchersModelCondition" AddConditionFlags="USER_2">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_4">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIchorPlatingUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>

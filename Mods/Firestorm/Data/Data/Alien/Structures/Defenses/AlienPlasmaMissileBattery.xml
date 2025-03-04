@@ -10,9 +10,8 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienPlasmaMissileBattery" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_ALIENPlasmaMissileBattery" ButtonImage="Portrait_ALIENPlasmaMissileBattery" Side="ALIEN" BuildCost="800" PlacementViewAngle="315d" BuildTime="8" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AUTO_ACQUIRABLE_BY_AI COVER POWERED FS_BASE_DEFENSE CAN_ATTACK CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="MISSILE" EditorName="AlienPlasmaMissileBattery" TypeDescription="Type:AlienPlasmaMissileBattery" EnergyProduction="-8" Description="Desc:ALIENPlasmaMissileBattery">
+	<GameObject id="AlienPlasmaMissileBattery" inheritFrom="BaseDefenceStructure" SelectPortrait="Portrait_AlienPlasmaMissileBattery" ButtonImage="Portrait_AlienPlasmaMissileBattery" Side="ALIEN" BuildCost="800" PlacementViewAngle="315d" BuildTime="8" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AUTO_ACQUIRABLE_BY_AI COVER POWERED FS_BASE_DEFENSE CAN_ATTACK CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM" WeaponCategory="MISSILE" EditorName="AlienPlasmaMissileBattery" TypeDescription="Type:AlienPlasmaMissileBattery" EnergyProduction="-8" Description="Desc:ALIENPlasmaMissileBattery">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENPlasmaMissileBattery</DisplayName>
-		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>AlienControlCenter</RequiredObject>
@@ -113,28 +112,14 @@
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="200"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryWeapon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryShardLauncherWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryBluePlasmaDiscWeapon" ObjectStatus="WEAPON_UPGRADED_02"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryBlueShardLauncher" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryShardLauncherWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienPlasmaMissileBatteryBlueShardLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="100" PitchHeight="65%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
 						<TurretAITargetChooserData StartupDelay="1s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsShard" ShowSubObjects="UG_SHARD UG_SHARDWEAPON">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</SubObjectsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_1">
@@ -148,7 +133,7 @@
 			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienPhotonCannonFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

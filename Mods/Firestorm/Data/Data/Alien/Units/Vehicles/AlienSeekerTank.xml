@@ -1,7 +1,6 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\AlienSeekerTank\AUSEEKER_SKN.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\AlienSeekerTank\AUSEEKER_SKN_CB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienSeekerTank\AUSEEKERR_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienSeekerTank\FXSHLDSEEKERTANK_CTR.w3x"/>
 		<!-- Base Object -->
@@ -10,7 +9,7 @@
 	<GameObject id="AlienSeekerTank" inheritFrom="BaseVehicle" SelectPortrait="Portrait_ALIENSeeker" ButtonImage="Portrait_ALIENSeeker" Side="ALIEN" BuildCost="800" BuildTime="8" CommandSet="AlienSeekerTankCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="MISSILE" VoicePriority="180" EditorName="AlienSeekerTank" Description="Desc:AlienSeekerTank" TypeDescription="Type:AlienSeekerTank">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENSeekerTank</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
-		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
 		<LocomotorSet Locomotor="AlienSeekerTankLocomotor" Condition="NORMAL" Speed="90.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
@@ -33,15 +32,6 @@
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_2 USER_3">
-					<Model Name="AUSEEKER_SKN_CB_FS"/>
-					<Texture Original="AUSeeker" New="AUSeeker_D"/>
-					<Texture Original="AUStalker" New="AUStalkerB"/>
-					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
-				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="AUSEEKER_SKN_FS"/>
 					<Texture Original="AUSeeker" New="AUSeeker_D"/>
@@ -49,10 +39,6 @@
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow01" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageFireGlow02" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Fire" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
-					<Model Name="AUSEEKER_SKN_CB_FS"/>
-					<Texture Original="AUStalker" New="AUStalkerB"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
@@ -63,11 +49,8 @@
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawCombined">
@@ -124,31 +107,14 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienSeekerTankPlasmaDiskLauncher"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienSeekerTankShardLauncherWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienSeekerTankBluePlasmaDiskLauncher" ObjectStatus="WEAPON_UPGRADED_02"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienSeekerTankBlueShardLauncherWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienSeekerTankBluePlasmaDiskLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="200" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsShard" ShowSubObjects="UG_SHARD UG_SHARDWEAPON">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</SubObjectsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_ShardLaunchersModelCondition" AddConditionFlags="USER_2">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_3">
@@ -161,7 +127,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienPhotonCannonFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

@@ -23,8 +23,8 @@
 		<GameDependency>
 			<RequiredObject>AlienReactor</RequiredObject>
 		</GameDependency>
-		<DisplayUpgrade>Upgrade_AlienShardLaunchers</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienReactorForcefieldGenerator</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_TravelerEngines</DisplayUpgrade>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="AlienVehicleDamageFX"/>
 		<LocomotorSet Locomotor="AlienScourgeGunshipLocomotor" Condition="NORMAL" Speed="90.0"/>
 		<LocomotorSet Speed="30" Condition="TAXIING" Locomotor="BasicHelicopterTaxiLocomotor"/>
@@ -123,16 +123,6 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 			</SpotlightDraw>
-			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.08" MaxTracersPerFrame="0.08" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlien" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHit">
-				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
-				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
-			</TracerModelDraw>
-			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="50.0" MaxLength="50.0" Width="8.0" MinSpeed="25" MaxSpeed="25" SweepSpeed="1.0" SpreadAngle="0.0" MinTracersPerFrame="0.13" MaxTracersPerFrame="0.13" FrameLifeTime="35" WeaponSlotType="PRIMARY_WEAPON" Texture="FXTracerAlienHeroic" UseAdditiveBlending="true" TracerHitFx="FX_AlienAutoCannonHitHeroic">
-				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
-				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
-			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
@@ -162,9 +152,7 @@
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienScourgeGunshipPlasmaAutoCannon"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienScourgeGunshipShardWeapon" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienScourgeGunshipBlueShardWeapon" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienScourgeGunshipPlasmaCannon"/>
 					<TurretSettings TurretTurnRate="180" TurretPitchRate="180" MinimumPitch="-80d" PitchHeight="0%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
@@ -196,24 +184,6 @@
 			</HordeTransportContain>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
 			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_ShardLaunchersUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ShardLaunchersAudioLoop" SoundToPlay="ALI_Stalker_ShardLauncherUpgrade">
-				<TriggeredBy>Upgrade_AlienShardLaunchers</TriggeredBy>
-			</AudioLoopUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
-				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
-			</AudioLoopUpgrade>
 			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienTravelerEnginesUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>

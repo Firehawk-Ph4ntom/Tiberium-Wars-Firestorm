@@ -1,6 +1,8 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Anti-Infantry projectiles -->
+
 	<!-- Normal Projectile -->
-	<GameObject id="AlienTibShardProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="ALIEN" EditorName="AlienTibShardProjectile" EditorSorting="SYSTEM">
+	<GameObject id="AlienRavagerTibShardProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="ALIEN" EditorName="AlienRavagerTibShardProjectile" EditorSorting="SYSTEM">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
@@ -18,14 +20,14 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
-			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="20%" SecondPercentIndent="90%" FlightPathAdjustDistPerSecond="100" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="33%" SecondPercentIndent="66%" FlightPathAdjustDistPerSecond="100" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
 	</GameObject>
 	<!-- Heroic Projectile -->
-	<GameObject id="AlienTibShardProjectile_Veteran" inheritFrom="AlienTibShardProjectile" EditorName="AlienTibShardProjectile_Veteran">
+	<GameObject id="AlienRavagerTibShardProjectile_Veteran" inheritFrom="AlienRavagerTibShardProjectile" EditorName="AlienRavagerTibShardProjectile_Veteran">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -42,7 +44,7 @@
 		</Behaviors>
 	</GameObject>
 	<!-- Normal Upgraded Projectile -->
-	<GameObject id="AlienBlueShardProjectile" inheritFrom="AlienTibShardProjectile" EditorName="AlienBlueShardProjectile">
+	<GameObject id="AlienRavagerBlueShardProjectile" inheritFrom="AlienRavagerTibShardProjectile" EditorName="AlienRavagerBlueShardProjectile">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -59,7 +61,7 @@
 		</Behaviors>
 	</GameObject>
 	<!-- Heroic Upgraded Projectile -->
-	<GameObject id="AlienBlueShardProjectile_Veteran" inheritFrom="AlienTibShardProjectile" EditorName="AlienBlueShardProjectile_Veteran">
+	<GameObject id="AlienRavagerBlueShardProjectile_Veteran" inheritFrom="AlienRavagerTibShardProjectile" EditorName="AlienRavagerBlueShardProjectile_Veteran">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -73,6 +75,69 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_AlienTibShardHitBlueHeroic"/>
 			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Anti-Tank projectiles -->
+
+	<!-- Normal Projectile -->
+	<GameObject id="AlienTibShardProjectile" inheritFrom="AlienRavagerTibShardProjectile" EditorName="AlienTibShardProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBSHARDPROJECTILE_GREEN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibShardProjectile_Trail" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Append" SidewaysDrift="50"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="AlienTibShardProjectile_Veteran" inheritFrom="AlienRavagerTibShardProjectile_Veteran" EditorName="AlienTibShardProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBSHARDPROJECTILE_GREEN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibShardProjectile_Trail_heroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Append" SidewaysDrift="50"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Normal Upgraded Projectile -->
+	<GameObject id="AlienBlueShardProjectile" inheritFrom="AlienRavagerBlueShardProjectile" EditorName="AlienBlueShardProjectile">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBSHARDPROJECTILE_BLUE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibShardProjectile_Trail_blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantSkirmisherProjectileTrailBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Append" SidewaysDrift="50"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Upgraded Projectile -->
+	<GameObject id="AlienBlueShardProjectile_Veteran" inheritFrom="AlienRavagerBlueShardProjectile_Veteran" EditorName="AlienBlueShardProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="TIBSHARDPROJECTILE_BLUE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibShardProjectile_Trail_heroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantSkirmisherProjectileTrailBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Append" SidewaysDrift="50"/>
 		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

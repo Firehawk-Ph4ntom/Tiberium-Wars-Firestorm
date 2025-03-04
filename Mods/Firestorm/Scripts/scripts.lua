@@ -133,11 +133,6 @@ function onAlienMCVUnpackingCreated(self)
 	ObjectSetObjectStatus( self, "UNSELECTABLE" )
 end
 
-function OnAlienPhotonCannonCreated(self)
-	ObjectHideSubObjectPermanently( self, "UG_SHARD", true )
-	ObjectHideSubObjectPermanently( self, "UG_SHARDWEAPON", true )
-end
-
 function OnGDITechCenterCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_Mortar", true )
 	ObjectHideSubObjectPermanently( self, "UG_Scan", true )
