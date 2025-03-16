@@ -32371,12 +32371,23 @@
 		FireSound="ALI_Buzzers_WeaponFire"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		CanFireWhileMoving="true"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		HitStoredTarget="true">
 		<!-- A small amount of damage at a high frequency. -->
 		<FiringDuration
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
 		<Nuggets>
+			<DamageContainedNugget
+				MaxUnitsToDamage="100"
+				Damage="15000000"
+				DamageType="GRENADE"
+				DeathType="EXPLODED"
+				DamageFXType="ALIEN_BUZZER">
+				<DamageObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageContainedNugget>
 			<DamageNugget
 				Damage="125"
 				Radius="5"
@@ -32397,17 +32408,24 @@
 				Suppression="250"
 				DurationSeconds="5s"/>
 		</Nuggets>
+		<HitStoredObjectFilter
+			Rule="NONE"
+			Include="STRUCTURE"/>
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="AlienBuzzerWeapon_ClearGarrison"
-		Name="AlienBuzzerWeapon_ClearGarrison"
-		AttackRange="30"
+		id="AlienBuzzerWeapon_Combined"
+		Name="AlienBuzzerWeapon_Combined"
+		AttackRange="150"
 		LeechRangeWeapon="true"
-		CanFireWhileMoving="true"
-		FinishAttackOnceStarted="false"
+		ChaseWeapon="true"
 		AcceptableAimDelta="360d"
+		FireSound="ALI_Buzzers_WeaponFire"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		CanFireWhileMoving="true"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
 		HitStoredTarget="true">
+		<!-- A small amount of damage at a high frequency. -->
 		<FiringDuration
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
@@ -32422,10 +32440,49 @@
 					Rule="NONE"
 					Include="INFANTRY"/>
 			</DamageContainedNugget>
+			<DamageNugget
+				Damage="125"
+				Radius="5"
+				DamageType="SNIPER"
+				DamageFXType="ALIEN_BUZZER">
+				<DamageScalarDetails
+					Scalar="1%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>AlienBuzzers</IncludeThing>
+						<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="250"
+				DurationSeconds="5s"/>
 		</Nuggets>
+		<CombinedAttackObjectFilter
+			Rule="ANY"
+			Include="INFANTRY CIVILIAN_BUILDING"/>
 		<HitStoredObjectFilter
 			Rule="NONE"
 			Include="STRUCTURE"/>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienBuzzerWeapon_GarrisonedRangeFinder"
+		Name="AlienBuzzerWeapon_GarrisonedRangeFinder"
+		AttackRange="60"
+		LeechRangeWeapon="true"
+		AcceptableAimDelta="360d"
+		CanFireWhileMoving="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="1.0s"
+			MaxSeconds="1.0s" />
+		<SurpriseAttackObjectFilter
+			Rule="ANY"
+			Include="INFANTRY"
+			Relationship="ENEMIES"/>
 	</WeaponTemplate>
 
 	<WeaponTemplate
