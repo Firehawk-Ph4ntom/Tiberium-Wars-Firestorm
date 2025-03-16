@@ -76,8 +76,8 @@
 			MinSeconds="0.2s"
 			MaxSeconds="0.2s"/>
 		<FiringDuration
-			MinSeconds="1.0s"
-			MaxSeconds="1.0s"/>
+			MinSeconds="0.4s"
+			MaxSeconds="0.4s"/>
 		<ClipReloadTime
 			MinSeconds="0.1s"
 			MaxSeconds="0.1s"/>
@@ -1589,17 +1589,17 @@
 						Include="VEHICLE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="150%">
-					<Filter
-						Rule="NONE"
-						Include="CIVILIAN_BUILDING"
-						Exclude="STRUCTURE"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="115%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="90%">
@@ -1668,17 +1668,17 @@
 						Include="VEHICLE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="150%">
-					<Filter
-						Rule="NONE"
-						Include="CIVILIAN_BUILDING"
-						Exclude="STRUCTURE"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="115%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="90%">
@@ -1744,17 +1744,17 @@
 						Include="VEHICLE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="150%">
-					<Filter
-						Rule="NONE"
-						Include="CIVILIAN_BUILDING"
-						Exclude="STRUCTURE"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="115%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="90%">
@@ -3640,14 +3640,14 @@
 					Scalar="125%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="75%">
 					<Filter
 						Rule="NONE"
-						Include="CIVILIAN_BUILDING"
-						Exclude="STRUCTURE"/>
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -9811,17 +9811,25 @@
 						Exclude="HUSK"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="150%">
+					Scalar="80%">
 					<Filter
 						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
-						Include="TIBERIUM_BASED"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Relationship="ENEMIES NEUTRAL"
+						Include="TIBERIUM_BASED"
+						Exclude="STRUCTURE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="1800%">
@@ -9865,7 +9873,6 @@
 					Scalar="80%">
 					<Filter
 						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
 						Include="STRUCTURE"
 						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
@@ -9958,17 +9965,25 @@
 						Exclude="HUSK"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="150%">
+					Scalar="80%">
 					<Filter
 						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
-						Include="TIBERIUM_BASED"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Relationship="ENEMIES NEUTRAL"
+						Include="TIBERIUM_BASED"
+						Exclude="STRUCTURE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="1800%">
@@ -10012,7 +10027,6 @@
 					Scalar="80%">
 					<Filter
 						Rule="NONE"
-						Relationship="ENEMIES NEUTRAL"
 						Include="STRUCTURE"
 						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
@@ -10874,11 +10888,11 @@
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<PreAttackDelay
-			MinSeconds="1.3s"
-			MaxSeconds="1.3s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+			MinSeconds="2.0s"
+			MaxSeconds="2.0s"/>
 		<ClipReloadTime
 			MinSeconds="4s"
 			MaxSeconds="4s"/>
@@ -10982,6 +10996,16 @@
 				DamageType="GRENADE"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
+				<!-- Do not multiply damage unnecessarily -->
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="500%">
 					<Filter
@@ -11038,6 +11062,16 @@
 				DamageType="GRENADE"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
+				<!-- Do not multiply damage unnecessarily -->
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="500%">
 					<Filter
@@ -11094,6 +11128,16 @@
 				DamageType="GRENADE"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
+				<!-- Do not multiply damage unnecessarily -->
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="500%">
 					<Filter
@@ -27087,14 +27131,14 @@
 					Scalar="70%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
-						Include="CIVILIAN_BUILDING"
-						Exclude="STRUCTURE"/>
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="80%">
@@ -27152,14 +27196,14 @@
 					Scalar="70%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"/>
+						Include="STRUCTURE"
+						Exclude="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
-						Include="CIVILIAN_BUILDING"
-						Exclude="STRUCTURE"/>
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="80%">
@@ -30764,16 +30808,16 @@
 				DamageType="ROCKET"
 				DamageFXType="ALIEN_PLASMADISK">
 				<DamageScalarDetails
-					Scalar="25%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="25%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -30828,16 +30872,16 @@
 				DamageType="ROCKET"
 				DamageFXType="ALIEN_PLASMADISK">
 				<DamageScalarDetails
-					Scalar="25%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="25%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -32142,16 +32186,16 @@
 				DeathType="LASERED"
 				DamageFXType="GDI_RIFLE">
 				<DamageScalarDetails
-					Scalar="175%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="175%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -32203,16 +32247,16 @@
 				DeathType="LASERED"
 				DamageFXType="GDI_RIFLE">
 				<DamageScalarDetails
-					Scalar="175%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="175%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -33879,16 +33923,16 @@
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
 				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -33938,16 +33982,16 @@
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
 				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -33997,16 +34041,16 @@
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
 				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
