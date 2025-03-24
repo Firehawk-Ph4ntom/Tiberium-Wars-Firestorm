@@ -371,7 +371,12 @@ function OnNODAttackBikeCreated(self)
 end
 
 function OnNODRedeemerWarmechCreated(self)
+	ObjectHideSubObjectPermanently( self, "FX_LAZERGLOWHEROIC", true )
 	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILEL", true )
+end
+
+function OnNODReaperCreated(self)
+	ObjectHideSubObjectPermanently( self, "FX_LAZERGLOWHEROIC", true )
 end
 
 function OnNODAvatarCreated(self)
