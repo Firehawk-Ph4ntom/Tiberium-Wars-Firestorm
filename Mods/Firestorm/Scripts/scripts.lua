@@ -379,6 +379,10 @@ function OnNODReaperCreated(self)
 	ObjectHideSubObjectPermanently( self, "FX_LAZERGLOWHEROIC", true )
 end
 
+function OnNODCyborgInfantryCreated(self)
+	ObjectHideSubObjectPermanently( self, "WEAPON_EMP", true )
+end
+
 function OnNODAvatarCreated(self)
 	ObjectHideSubObjectPermanently( self, "WEBLAUNCHER", true )
 	ObjectHideSubObjectPermanently( self, "S_GENERATOR", true )

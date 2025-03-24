@@ -128,16 +128,19 @@
 					<Model Name=""/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<Script> CurDrawableShowSubObjectPermanently("FX_GLOW") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
-					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
-					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
@@ -250,12 +253,18 @@
 			<AudioLoopUpgrade id="ModuleTag_ChargedPartBeamAudioLoop" SoundToPlay="NOD_Awakened_ChargedParticleBeamGunAvailable">
 				<TriggeredBy>Upgrade_NodTechCenterChargedParticleBeam</TriggeredBy>
 			</AudioLoopUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowEMPCoilsSubobject" ShowSubObjects="WEAPON_EMP">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</SubObjectsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_EMPCoilsModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</ModelConditionUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_EMPCoilsAudioLoop" SoundToPlay="NOD_EMPcoils_Upgrade">
 				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODCyborgInfantryFunctions">
 				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
