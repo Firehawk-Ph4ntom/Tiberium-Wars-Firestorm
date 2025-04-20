@@ -12,7 +12,8 @@
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
 		<ArmorSet Armor="GenericHoverVehicleArmor_NoDA" DamageFX="AlienVehicleDamageFX"/>
-		<LocomotorSet Locomotor="AlienDevourerTankLocomotor" Condition="NORMAL" Speed="55"/>
+		<LocomotorSet Locomotor="AlienDevourerTankGroundLocomotor" Condition="NORMAL" Speed="55"/>
+		<LocomotorSet Locomotor="AlienDevourerTankWaterLocomotor" Condition="NORMAL_UPGRADED" Speed="55.0"/>
 		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
@@ -92,10 +93,10 @@
 			<ScriptedModelDraw id="ModuleTag_Particles">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4 USER_3">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
@@ -156,7 +157,27 @@
 			</WeaponSetUpdate>
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
 			<SpecialPower id="ModuleTag_TiberiumThiefSpecialPower" SpecialPowerTemplate="SpecialPower_ConversionBeam" UpdateModuleStartsAttack="true"/>
-			<TiberiumThiefSpecialAbilityUpdate id="ModuleTag_TiberiumThiefSpecialAbilityUpdate" SpecialPowerTemplate="SpecialPower_ConversionBeam" UnpackTime="0.1s" UnpackSound="ALI_DevourerTank_ConversionBeamFire" PersistentPrepTime="10000s" StartAbilityRange="75" TiberiumStolenPerUpdate="1" DelayBetweenThefts="0.3s" TiberiumCapacity="10" ObjectStatusWhenNotEmpty="HAS_TIBERIUM_AMMO" ModelConditionWhenNotEmpty="USER_2" StartRechargeOnExit="true"/>
+			<TiberiumThiefSpecialAbilityUpdate id="ModuleTag_TiberiumThiefSpecialAbilityUpdate" SpecialPowerTemplate="SpecialPower_ConversionBeam" UnpackTime="0.1s" UnpackSound="ALI_DevourerTank_ConversionBeamFire" PersistentPrepTime="10000s" StartAbilityRange="75" TiberiumStolenPerUpdate="1" DelayBetweenThefts="0.3s" TiberiumCapacity="10" ObjectStatusWhenNotEmpty="HAS_TIBERIUM_AMMO" ModelConditionWhenNotEmpty="USER_4" StartRechargeOnExit="true"/>
+			<!-- Toggle Amphi Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleWaterLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleAmphiMode" />
+			<SpecialPower id="ModuleTag_ToggleWaterLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" UpdateModuleStartsAttack="true"/>
+			<!-- Toggle Ground Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleGroundLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleLandMode" />
+			<SpecialPower id="ModuleTag_ToggleGroundLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" UpdateModuleStartsAttack="true"/>
+			<LocomotorSetUpgrade id="ModuleTag_LocomotorSetUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</LocomotorSetUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_AmphiUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleLandMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_LandUpgrade">
+				<TriggeredBy>Upgrade_ToggleLandMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleAmphiMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_AmphibiousMode">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -166,7 +187,7 @@
 			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_ConversionReserves_Upgrade">
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
-			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_TibChargeNoAttack">
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade2" AttributeModifier="AttributeModifier_TibChargeNoAttack">
 				<TriggeredBy>Upgrade_TibChargeNoAttack</TriggeredBy>
 			</AttributeModifierUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>

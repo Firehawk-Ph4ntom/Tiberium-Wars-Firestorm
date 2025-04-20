@@ -17,7 +17,8 @@
 			<RequiredObject>AlienControlCenter</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
-		<LocomotorSet Locomotor="AlienSeekerTankLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<LocomotorSet Locomotor="AlienSeekerTankGroundLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<LocomotorSet Locomotor="AlienSeekerTankWaterLocomotor" Condition="NORMAL_UPGRADED" Speed="90.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -116,6 +117,26 @@
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
 			<SpecialPower id="ModuleTag_ChargeDefenses" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_ChargeDefensesUpdate" SpecialPowerTemplate="SpecialPower_AlienStingrayChargeDefenses" StartAbilityRange="200" PersistentPrepTime="1s" UnpackTime="1.5s" PackTime="1s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" StartRechargeOnExit="true" SpecialWeapon="AlienStingrayLightningChargeWeapon" WhichSpecialWeapon="1" FleeRangeAfterCompletion="0" WeaponSlotID="1"/>
+			<!-- Toggle Amphi Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleWaterLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleAmphiMode" />
+			<SpecialPower id="ModuleTag_ToggleWaterLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" UpdateModuleStartsAttack="true"/>
+			<!-- Toggle Ground Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleGroundLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleLandMode" />
+			<SpecialPower id="ModuleTag_ToggleGroundLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" UpdateModuleStartsAttack="true"/>
+			<LocomotorSetUpgrade id="ModuleTag_LocomotorSetUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</LocomotorSetUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_AmphiUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleLandMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_LandUpgrade">
+				<TriggeredBy>Upgrade_ToggleLandMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleAmphiMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_AmphibiousMode">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_IonStormVengeance">
 				<DieMuxData DeathTypes="ALL" />
 				<UpgradeRequired>Upgrade_IonRetribution</UpgradeRequired>

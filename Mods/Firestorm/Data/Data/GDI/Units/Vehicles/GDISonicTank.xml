@@ -38,7 +38,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDISonicTank" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDISonicTank" TypeDescription="Type:GDISonicTank" Side="GDI" EditorName="GDIZoneShatterer" BuildTime="15" CommandSet="GenericGDIVehicleCommandSet" SelectPortrait="Portrait_ZoneShatterer" ButtonImage="Portrait_ZoneShatterer" VoicePriority="211" ThreatLevel="10" WeaponCategory="BLAST" BuildCost="1500">
+	<GameObject id="GDISonicTank" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT CAN_REVERSE_MOVE VEHICLE CAN_SEE_THROUGH_STRUCTURE LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDISonicTank" TypeDescription="Type:GDISonicTank" Side="GDI" EditorName="GDIZoneShatterer" BuildTime="15" CommandSet="GenericGDIHoverVehicleCommandSet" SelectPortrait="Portrait_ZoneShatterer" ButtonImage="Portrait_ZoneShatterer" VoicePriority="211" ThreatLevel="10" WeaponCategory="BLAST" BuildCost="1500">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDISonicTank</DisplayName>
 		<DisplayUpgrade>Upgrade_GDIEnhancedResonanceTech</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
@@ -46,7 +46,8 @@
 			<RequiredObject>GDICommandPost</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericHoverVehicleArmor" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Locomotor="GDISonicTankLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<LocomotorSet Locomotor="GDISonicTankGroundLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<LocomotorSet Locomotor="GDISonicTankWaterLocomotor" Condition="NORMAL_UPGRADED" Speed="60.0"/>
 		<SkirmishAIInformation ConquerMetricsOverrideDPS="300" ConquerMetricsOverrideDamageType="GRENADE" UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
@@ -85,7 +86,7 @@
 					<ParticleSysBone BoneName="BODY" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BODY" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_3">
 					<Model Name="GUSTLSHAT_SKNADAR"/>
 					<Texture Original="GUStlShat" New="GUStlShatUpgr"/>
 					<Texture Original="GUStlShat2" New="GUStlShat2Upgr"/>
@@ -93,7 +94,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUSTLSHAT_SKNADAR"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
 					<Model Name="GUStlShat_SKN"/>
 					<Texture Original="GUStlShat" New="GUStlShatUpgr"/>
 					<Texture Original="GUStlShat2" New="GUStlShat2Upgr"/>
@@ -137,6 +138,9 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShattererHoverWash" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShattererHoverDust" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShattererDustRocksDesert" FollowBone="true"/>
@@ -184,10 +188,30 @@
 			</WeaponSetUpdate>
 			<LinearDamageUpdate id="ModuleTag_LinearDamageUpdate" StartDistanceOffset="25" Radius="5" Length="325" SweepFXList="FX_TeraSweep_ZS" SweepWeapon="GDIZoneShattererSweepWeapon" Speed="125"/>
 			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<!-- Toggle Amphi Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleWaterLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleAmphiMode" />
+			<SpecialPower id="ModuleTag_ToggleWaterLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" UpdateModuleStartsAttack="true"/>
+			<!-- Toggle Ground Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleGroundLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleLandMode" />
+			<SpecialPower id="ModuleTag_ToggleGroundLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" UpdateModuleStartsAttack="true"/>
+			<LocomotorSetUpgrade id="ModuleTag_LocomotorSetUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</LocomotorSetUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_AmphiUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleLandMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_LandUpgrade">
+				<TriggeredBy>Upgrade_ToggleLandMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleAmphiMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_AmphibiousMode">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_EnhancedResonanceTechUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIEnhancedResonanceTech</TriggeredBy>
 			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_EnhancedResonanceTechModelCondition" AddConditionFlags="USER_2">
+			<ModelConditionUpgrade id="ModuleTag_EnhancedResonanceTechModelCondition" AddConditionFlags="USER_3">
 				<TriggeredBy>Upgrade_GDIEnhancedResonanceTech</TriggeredBy>
 			</ModelConditionUpgrade>
 			<AttributeModifierUpgrade id="ModuleTag_EnhancedResonanceTechAttribute" AttributeModifier="AttributeModifier_ImprovedResonanceTech">

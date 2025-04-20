@@ -13,7 +13,8 @@
 			<RequiredObject>AlienReactor</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericHoverVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
-		<LocomotorSet Locomotor="AlienSeekerTankLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<LocomotorSet Locomotor="AlienSeekerTankGroundLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<LocomotorSet Locomotor="AlienSeekerTankWaterLocomotor" Condition="NORMAL_UPGRADED" Speed="90.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -139,6 +140,26 @@
 			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
 			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseBlinkPack" DestinationWeapon="AlienReaverBlinkPackWeapon2" SourceWeapon="AlienReaverBlinkPackWeapon" FadeInTime="2s" UnpackTime="1s" PackTime="1s" BusyDuration="1.2s" StartAbilityRange="750" UnpackingVariation="1"/>
 			<AISpecialPowerUpdate id="ModuleTag_AlienReaverBlinkAI" CommandButtonName="Command_UseReaverTeleportationPacks" SpecialPowerAIType="SPECIAL_POWER_MOVEMENT" MinimumCutoff="400"/>
+			<!-- Toggle Amphi Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleWaterLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleAmphiMode" />
+			<SpecialPower id="ModuleTag_ToggleWaterLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" UpdateModuleStartsAttack="true"/>
+			<!-- Toggle Ground Mode -->
+			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleGroundLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleLandMode" />
+			<SpecialPower id="ModuleTag_ToggleGroundLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitGroundLocomotor" UpdateModuleStartsAttack="true"/>
+			<LocomotorSetUpgrade id="ModuleTag_LocomotorSetUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</LocomotorSetUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_AmphiUpgrade">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleLandMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_LandUpgrade">
+				<TriggeredBy>Upgrade_ToggleLandMode</TriggeredBy>
+				<UpgradeToRemove>Upgrade_ToggleAmphiMode</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_AmphibiousMode">
+				<TriggeredBy>Upgrade_ToggleAmphiMode</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_BlinkPacksAudioLoop" SoundToPlay="ALI_BlinkPacks_Upgrade">
 				<TriggeredBy>Upgrade_AlienShockTrooperBlinkPack</TriggeredBy>
 			</AudioLoopUpgrade>
