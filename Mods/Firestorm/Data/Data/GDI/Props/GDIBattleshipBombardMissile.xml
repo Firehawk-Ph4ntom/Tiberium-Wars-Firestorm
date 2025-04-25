@@ -1,0 +1,32 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="GDIBattleshipBombardMissile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIBattleshipBombardMissile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMis"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_NODArtShellMiss"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="200" FirstHeightMax="250" SecondHeightMin="200" SecondHeightMax="250" FirstPercentIndent="1" SecondPercentIndent="99" GroundHitFX="FX_NODArtShellGroundHit" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="GDI_BattleshipMissile_IncomingLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+</AssetDeclaration>
