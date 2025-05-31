@@ -30,6 +30,7 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AURAZOR_FP"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING LOCOMOTOR_NORMAL_UPGRADED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="AURAZORR_SKN"/>
 					<ParticleSysBone BoneName="B_TURRET" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
@@ -305,16 +306,25 @@
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+			<!-- Flying Dying -->
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
-					<OCL>OCL_ALIENSeekerDebris</OCL>
+					<OCL>OCL_ALIENRazorbackFlyingDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL"/>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="AIRBORNE_TARGET"/>
+				<Sound Type="INITIAL" List="ALI_GunWalker_SoundDie2"/>
+			</SlowDeath>
+			<!-- Normal Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_ALIENRazorbackDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="AIRBORNE_TARGET"/>
 				<Sound Type="INITIAL" List="ALI_GunWalker_SoundDie2"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_ALIENVehicleExplodeScorch"/>
+				<Event Index="onDeath" FX="FX_ALIENVehicleExplode"/>
 			</FXListBehavior>
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="550"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
@@ -354,7 +364,7 @@
 				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload"/>
 			</SpecialPowerDispatchSpecialPower>
 			<SpecialPower id="ModuleTag_LiftOffSP" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UpdateModuleStartsAttack="true" SetModelCondition="USER_1" SetModelConditionTime="1.2s"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UnpackTime="0s" BusyForDuration="1.2s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" SetObjectStatusOnTrigger="AIRBORNE_TARGET"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LiftOffSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLiftOffTrigger" UnpackTime="0s" BusyForDuration="1.2s" UseUpgradedLocomotor="true" TriggersFlight="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" SetObjectStatusOnTrigger="AIRBORNE_TARGET" ClearObjectStatusOnExit="RIDER2"/>
 			<!-- Land -->
 			<GiveOrRestoreUpgradeSpecialPower id="SpecialPower_RazorbackLandUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandDispatch" UpgradeToGive="Upgrade_RazorbackLand"/>
 			<RemoveUpgradeUpgrade id="ModuleTag_RemoveRazorbackLandUpgrade">
@@ -366,7 +376,7 @@
 				<SpecialPower SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload"/>
 			</SpecialPowerDispatchSpecialPower>
 			<SpecialPower id="ModuleTag_LandSP" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UpdateModuleStartsAttack="true" SetModelCondition="USER_2" SetModelConditionTime="1.2s"/>
-			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UnpackTime="0s" StartAbilityRange="0" LandingRange="0" BusyForDuration="1.2s" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" ClearObjectStatusOnExit="AIRBORNE_TARGET"/>
+			<SwitchLocomotorsSpecialAbilityUpdate id="ModuleTag_LandSPUpdate" SpecialPowerTemplate="SpecialPower_RazorbackLandTrigger" UnpackTime="0s" StartAbilityRange="0" LandingRange="0" BusyForDuration="1.2s" UseUpgradedLocomotor="false" TriggersLanding="true" Options="IGNORE_FACING_CHECK MUST_FINISH_ABILITY" ClearObjectStatusOnExit="AIRBORNE_TARGET" SetObjectStatusOnTrigger="RIDER2"/>
 			<!-- Dummy SP to reload both ability buttons -->
 			<SpecialPower id="ModuleTag_DummyReload" SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload" UpdateModuleStartsAttack="true"/>
 			<SpecialAbilityUpdate id="ModuleTag_DummyReloadUpdate" SpecialPowerTemplate="SpecialPower_RazorbackAbilitiesReload" />
@@ -401,7 +411,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienRazorbackFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -423,7 +433,9 @@
 			</ModelConditionSoundSelectorClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="10.0" Height="10.0" ContactPointGeneration="VEHICLE"/>
+			<Shape Type="CYLINDER" MajorRadius="20.0" Height="6.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="8"/>
+			</Shape>
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="ALI_GunWalker_SoundAttack2" AudioType="voiceAttack"/>

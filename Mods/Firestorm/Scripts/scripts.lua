@@ -518,6 +518,10 @@ function OnAlienIchorPlatingUpgradePurchased(self)
 	end
 end
 
+function OnAlienRazorbackCreated(self)
+	ObjectSetObjectStatus ( self, "RIDER2" )
+end
+
 function CheckJetAircraftAmmoDepleted(self)
 	if IsUnitAI(self) then
 		if UnitAmmoCount.self == nil then
