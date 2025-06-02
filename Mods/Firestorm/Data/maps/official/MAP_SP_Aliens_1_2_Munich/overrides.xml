@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For GDI Engineer Shadow Ability -->
+		<Include source="DATA:FireStorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For Alien Mastermind -->
+		<Include source="DATA:FireStorm\Data\Data\Alien\Units\Infantry\AlienMastermind.xml" type="instance"/>
+		<!-- For GDI Barracks -->
+		<Include source="DATA:FireStorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<!-- For GDI Grid Power Plant -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDITiberiumProcessingPlant.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+	</Includes>
+
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Plant the Mastermind's manipulator device on the GDI barracks -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_2_Objective_1"
+			Description="SCRIPT:Alien_1_2_Obj_1_Detail">
+			<PresentationSettings
+				ID="Alien_1_2_Obj_1"
+				Dialog="MAA2_AlienAI02"
+				CameraFieldOfViewVariance="0">
+				<Duration>9.5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Use the GDI Engineer to shutdown the Defense Grid for the city -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_2_Objective_2"
+			Description="SCRIPT:Alien_1_2_Obj_2_Detail">
+			<PresentationSettings
+				ID="Alien_1_2_Obj_2"
+				Dialog="MAA2_AlienAI03"
+				CameraFieldOfViewVariance="0">
+				<Duration>5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the GDI base -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_2_Objective_3"
+			Description="SCRIPT:Alien_1_2_Obj_3_Detail">
+			<PresentationSettings
+				ID="Alien_1_2_Obj_3"
+				Dialog="MAA2_AlienAI04"
+				CameraFieldOfViewVariance="0">
+				<Duration>8s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Keep your Mastermind alive throughout the entire mission --> 
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Alien_1_2_BonusObjective_1"
+			Description="SCRIPT:Alien_1_2_BonObj_1_Detail">
+			<PresentationSettings
+				ID="Alien_1_2_BonObj_1"
+				Dialog="MAA2_AlienAI07"
+				CameraFieldOfViewVariance="0">
+				<Duration>8s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Shadow Engineer -->
+	<GameObject
+		id="GDIEngineer_ShadowAbility"
+		inheritFrom="GDIEngineer"
+		KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY SCORE ATTACK_NEEDS_LINE_OF_SIGHT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT NOT_AUTOACQUIRABLE"
+		CommandSet="EmptyCommandSet">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<LogicCommand
+		Type="UNIT_BUILD"
+		id="Command_ConstructGDIEngineer">
+		<Object>GDIEngineer_ShadowAbility</Object>
+	</LogicCommand>
+
+	<!-- Removed Energy Requirement -->
+	<GameObject
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks"
+		EnergyProduction="0"/>
+
+	<!-- Increased shroud clearing range from 250 -->
+	<GameObject
+		id="AlienMastermind"
+		inheritFrom="AlienMastermind">
+		<VisionInfo
+			xai:joinAction="Replace"
+			VisionRange="250"
+			ShroudClearingRange="400"
+			MaxVisionBonusPercent="300"
+			VisionBonusTestRadius="200"
+			VisionBonusPercentPerFoot="1"/>
+	</GameObject>
+
+
+	<!-- Excluding GDITiberiumProcessingPlant | Reduced reload time of SP from 30s -->
+	<SpecialPowerTemplate
+		id="SpecialPower_ManipulateObject"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="15s"
+		InitiateSound="ALI_MasterMind_ManipulateStart"
+		DisallowedTargetObjectStatus="UNATTACKABLE"
+		WaypointModeTerminal="false"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ENEMIES NEUTRAL"
+			Exclude="BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
+			<IncludeThing>GDIBattleBase</IncludeThing>
+			<!-- Neutral -->
+			<ExcludeThing>Viceroid</ExcludeThing>
+			<ExcludeThing>MutantGhostStalker</ExcludeThing>
+			<ExcludeThing>SubwayNode</ExcludeThing>
+			<!-- GDI -->
+			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
+			<ExcludeThing>GDICommando</ExcludeThing>
+			<ExcludeThing>GDICommando_EA</ExcludeThing>
+			<ExcludeThing>GDIOrcaBattleFortressUnpacking</ExcludeThing>
+			<ExcludeThing>GDITiberiumProcessingPlant</ExcludeThing>
+			<!-- Nod -->
+			<ExcludeThing>NODCommando</ExcludeThing>
+			<ExcludeThing>NODCyborgCommando</ExcludeThing>
+			<!-- Alien -->
+			<ExcludeThing>AlienWormHole</ExcludeThing>
+			<ExcludeThing>AlienMothership</ExcludeThing>
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienMastermind</ExcludeThing>
+			<ExcludeThing>AlienCultist</ExcludeThing>
+			<ExcludeThing>AlienCultistSquad</ExcludeThing>
+			<ExcludeThing>AlienMechapede</ExcludeThing>
+			<ExcludeThing>AlienBattleshipFighter</ExcludeThing>
+			<ExcludeThing>AlienInvaderFighter</ExcludeThing>
+			<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
+			<ExcludeThing>ABTower</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_ManipulateObject_Others"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="15s"
+		DisallowedTargetObjectStatus="UNATTACKABLE"
+		WaypointModeTerminal="false"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject">
+		<ObjectFilter
+			Rule="ALL"
+			Relationship="ENEMIES NEUTRAL"
+			Exclude="STRUCTURE BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
+			<!-- Neutral -->
+			<ExcludeThing>Viceroid</ExcludeThing>
+			<ExcludeThing>MutantGhostStalker</ExcludeThing>
+			<ExcludeThing>SubwayNode</ExcludeThing>
+			<!-- GDI -->
+			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
+			<ExcludeThing>GDICommando</ExcludeThing>
+			<ExcludeThing>GDICommando_EA</ExcludeThing>
+			<ExcludeThing>GDIOrcaBattleFortressUnpacking</ExcludeThing>
+			<!-- Nod -->
+			<ExcludeThing>NODCommando</ExcludeThing>
+			<ExcludeThing>NODCyborgCommando</ExcludeThing>
+			<!-- Alien -->
+			<ExcludeThing>AlienWormHole</ExcludeThing>
+			<ExcludeThing>AlienMothership</ExcludeThing>
+			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+			<ExcludeThing>AlienMastermind</ExcludeThing>
+			<ExcludeThing>AlienCultist</ExcludeThing>
+			<ExcludeThing>AlienCultistSquad</ExcludeThing>
+			<ExcludeThing>AlienMechapede</ExcludeThing>
+			<ExcludeThing>AlienBattleshipFighter</ExcludeThing>
+			<ExcludeThing>AlienInvaderFighter</ExcludeThing>
+			<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
+			<ExcludeThing>ABTower</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
+		id="SpecialPower_ManipulateObject_Structure"
+		TargetType="OBJECT"
+		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
+		ReloadTime="15s"
+		DisallowedTargetObjectStatus="UNATTACKABLE"
+		WaypointModeTerminal="false"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ENEMIES NEUTRAL"
+			Include="STRUCTURE"
+			Exclude="BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
+			<IncludeThing>GDIBattleBase</IncludeThing>
+			<ExcludeThing>GDITiberiumProcessingPlant</ExcludeThing>
+			<!-- Neutral -->
+			<ExcludeThing>SubwayNode</ExcludeThing>
+			<!-- Alien -->
+			<ExcludeThing>AlienWormHole</ExcludeThing>
+			<ExcludeThing>ABTower</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<!-- Fixed Geometry -->
+	<GameObject
+		id="GDITiberiumProcessingPlant"
+		inheritFrom="GDITiberiumProcessingPlant"
+		KindOf="SELECTABLE IMMOBILE UNIQUE_UNIT CAN_CAST_REFLECTIONS STRUCTURE NOT_AUTOACQUIRABLE COVER AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE"
+		EnergyProduction="0">
+		<Behaviors>
+			<EngineerContain
+				id="ModuleTag_EngineerContain"
+				xai:joinAction="Append">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer_ShadowAbility</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+			<DistributedMoney
+				id="ModuleTag_DistributedMoney"
+				xai:joinAction="Remove"/>
+			<AttributeModifierAuraUpdate
+				id="ModuleTag_AttributeModifierAuraUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Rainy Weather -->
+	<Weather
+		id="Weather">
+		<Rain
+			RainTexture="FXRainDrop"
+			IsRaining="true"
+			NumRaindropsPerBox="2500"
+			RainBoxWidth="1000.0"
+			RainBoxLength="1000.0"
+			RainBoxHeight="300.0"
+			MinWidth="1"
+			MaxWidth="4"
+			MinHeight="25.0"
+			MaxHeight="100.0"
+			MinSpeed="250.0"
+			MaxSpeed="270.0"
+			MinAlpha=".3"
+			MaxAlpha=".5"
+			WindStrength="10.0"/>
+		<Lightning
+			LightningEnabled="true"
+			LightningDuration="1"
+			LightningChance="50">
+			<LightningFactor
+				Type="UNIFORM"
+				Low="3.0"
+				High="3.0"/>
+		</Lightning>
+		<Spell
+			SpellEnabled="true"
+			SpellDuration="200"/>
+		<Cloud>
+			<CloudTextureSize x="660.0" y="660.0"/>
+			<CloudOffsetPerSecond x="-.03" y="-.02"/>
+		</Cloud>
+		<WeatherData id="RAINY" HasLightning="true" />
+		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
+		<WeatherData id="SUNNY" HasLightning="false" />
+		<WeatherData id="CLOUDY" HasLightning="false" />
+	</Weather>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+</AssetDeclaration>

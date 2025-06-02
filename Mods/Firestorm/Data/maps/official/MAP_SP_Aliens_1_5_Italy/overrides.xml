@@ -1,0 +1,368 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Alien Phase Generator -->
+		<Include source="DATA:Alien\Structures_Singleplayer\AlienPhaseGenerator.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For Alien Assimilator -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
+		<!-- Wormhole -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienWormHole.xml" type="instance"/>
+		<!-- Alien Tower -->
+		<Include source="DATA:Alien\Structures\ABTower.xml" type="instance"/>
+		<!-- For Alien Mothership -->
+		<Include source="DATA:FireStorm\Data\Data\Alien\Units\Aircraft\AlienMothership.xml" type="instance"/>
+		<!-- For Alien Signal Transmitter -->
+		<Include source="DATA:FireStorm\Data\Data\Alien\Structures\Buildings\AlienSignalTransmitter.xml" type="instance"/>
+		<!-- For Alien Devastator Warship -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienDevastatorWarship.xml" type="instance"/>
+		<!-- For Alien Planetary Assault Carrier -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienPlanetaryAssaultCarrier.xml" type="instance"/>
+		<!-- For Alien Ichor Reactor -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<!-- Alien Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml"/>
+	</Includes>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="AlienAssimilator"
+		inheritFrom="AlienAssimilator">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Defend the Alien Tower -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_5_Objective_1"
+			Description="SCRIPT:Alien_1_5_Obj_1_Detail">
+			<PresentationSettings
+				ID="Alien_1_5_Obj_1"
+				Dialog="MAA4_AlienAI01"
+				UseDynamicZoom="False">
+				<Duration>9s</Duration>
+				<CameraStartAngle>30d</CameraStartAngle>
+				<CameraEndAngle>55d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Construct a Signal Transmitter -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_5_Objective_2"
+			Description="SCRIPT:Alien_1_5_Obj_2_Detail">
+			<PresentationSettings
+				ID="Alien_1_5_Obj_2"
+				Dialog="MAA4_AlienAI05"
+				UseDynamicZoom="False">
+				<Duration>9s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Guide and protect the Mothership to the Tower -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_5_Objective_3"
+			Description="SCRIPT:Alien_1_5_Obj_3_Detail">
+			<PresentationSettings
+				ID="Alien_1_5_Obj_3"
+				Dialog="MAA4_AlienAI06"
+				UseDynamicZoom="False">
+				<Duration>5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the GDI base -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Alien_1_3_BonusObjective_1"
+			Description="SCRIPT:Alien_1_3_BonObj_1_Detail">
+			<PresentationSettings
+				ID="Alien_1_5_BonObj_1"
+				Dialog="MAA3_AlienAI04">
+				<Duration>5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!--  Alien Tower -->
+	<GameObject
+		id="ABTower"
+		inheritFrom="ABTower"
+		KindOf="STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD SELECTABLE AIRCRAFT_PATH_AROUND RESIST_EMP">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="20000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 3000 | Added Phase Shield Ability -->
+	<GameObject
+		id="Alien_PhaseGenerator"
+		inheritFrom="Alien_PhaseGenerator"
+		CommandSet="AlienPhaseGeneratorCommandSet"
+		KindOf="SELECTABLE STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD AUTO_ACQUIRABLE_BY_AI RESIST_EMP NOT_SELLABLE CAN_ATTACK TIBERIUM_BASED FS_BASE_DEFENSE POWERED COVER HEALED_BY_TIBERIUM">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="AlienPhaseGeneratorDummyWeapon"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<OCLSpecialPower
+				id="ModuleTag_PhaseShieldOCL"
+				SpecialPowerTemplate="SpecialPower_AlienPhaseShield"
+				OCL="OCL_AlienPhasingShield"
+				TriggerFX="FX_AlienShieldPower"
+				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter
+					Rule="ANY"
+					Relationship="SAME_PLAYER">
+					<IncludeThing>Alien_PhaseGenerator</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="20000.0" />
+		</Body>
+		<VisionInfo
+			VisionRange="450"
+			ShroudClearingRange="500"/>
+	</GameObject>
+
+	<!-- SP Doesn't reload | Removed cost -->
+	<SpecialPowerTemplate
+		id="SpecialPower_SummonMothership"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC"
+		ReloadTime="999999s"
+		TargetType="NONE" 
+		Money="0"
+		InitiateAtLocationSound="ALI_MotherShip_SoundCreate"
+		EvaEventToPlayOnInitiateOwner="MothershipDeployed"
+		EvaEventToPlayOnInitiateEnemy="WarningMothershipDeployed">
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_MotherShipBuilt</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<!--  Mothership spawns through a script, overwrite the original SP to not spawn anything -->
+	<GameObject
+		id="AlienSignalTransmitter"
+		inheritFrom="AlienSignalTransmitter">
+		<Behaviors>
+			<OCLSpecialPower
+				id="ModuleTag_SummonMothership"
+				xai:joinAction="Overwrite"
+				SpecialPowerTemplate="SpecialPower_SummonMothership"
+				OCL="OCL_SummonMothership"
+				CreateLocation="CREATE_CLOSEST_TO_SPAWN_POINT"/>
+		</Behaviors>
+	</GameObject>
+
+	<!--  Increased Health from 28000  -->
+	<GameObject
+		id="AlienMothership"
+		inheritFrom="AlienMothership">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				MaxHealth="45000"
+				ShieldAmount="3000"
+				ShieldArmor="ForcefieldFilterDamageArmor"
+				ShieldRechargeIdleTime="105s"
+				ShieldEnabledFX="FX_AlienShieldEnabled"
+				ShieldTakeDamageFX="FX_AlienShieldHit"
+				ShieldDepleteFX="FX_AlienShieldDeplete"
+				ShieldActiveModelCondition="USER_19"/>
+		</Body>
+	</GameObject>
+
+	<!--  Increased LifetimeUpdate to last the whole mission -->
+	<GameObject
+		id="AlienWormhole"
+		inheritFrom="AlienWormhole">
+		<Behaviors>
+			<LifetimeUpdate
+				id="ModuleTag_LifeTimeUpdate"
+				MinLifetime="999999.0s"
+				MaxLifetime="999999.0s"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Can only build 5 of these units -->
+	<GameObject
+		id="AlienDevastatorWarship"
+		inheritFrom="AlienDevastatorWarship"
+		MaxSimultaneousOfType="5"/>
+
+	<!-- Can only build 8 of these units -->
+	<GameObject
+		id="AlienPlanetaryAssaultCarrier"
+		inheritFrom="AlienPlanetaryAssaultCarrier"
+		MaxSimultaneousOfType="8"/>
+
+	<!-- Increased power -->
+	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector"
+		EnergyProduction="30"/>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Alien -->
+	<GameObject
+		id="AlienTiberiumTower"
+		inheritFrom="AlienTiberiumTower"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="AlienFoundryCommandSet">
+		<Cmd>Command_ConstructAlienPowerProjector</Cmd>
+		<Cmd>Command_ConstructAlienTiberiumTower</Cmd>
+		<Cmd>Command_ConstructAlienPortal</Cmd>
+		<Cmd>Command_ConstructAlienGateway</Cmd>
+		<Cmd>Command_ConstructAlienControlCenter</Cmd>
+		<Cmd>Command_ConstructAlienWarpBeacon</Cmd>
+		<Cmd>Command_ConstructAlienStatisChamber</Cmd>
+		<Cmd>Command_ConstructAlienReactor</Cmd>
+		<Cmd>Command_ConstructAlienSignalTransmitter</Cmd>
+		<Cmd>Command_ConstructAlienWarpChasm</Cmd>
+		<Cmd>Command_ConstructAlienStormObelisk</Cmd>
+		<Cmd>Command_ConstructAlienBuzzerHive</Cmd>
+		<Cmd>Command_ConstructAlienPhotonCannon</Cmd>
+		<Cmd>Command_ConstructAlienPlasmaMissileBattery</Cmd>
+		<Cmd>Command_ConstructAlienSporePod</Cmd>
+		<Cmd>Command_ConstructAlienWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+</AssetDeclaration>

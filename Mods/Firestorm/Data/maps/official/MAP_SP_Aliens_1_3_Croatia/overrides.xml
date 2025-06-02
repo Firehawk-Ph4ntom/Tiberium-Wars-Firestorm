@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Alien CDM Towers -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\MutantHovel.xml" type="instance"/>
+		<!-- For Alien CDM Towers -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
+		<!-- For Nod Command Centers -->
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter3.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For Alien Assimilator -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<!-- NOD Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml"/>
+		<!-- Alien Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml"/>
+	</Includes>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="AlienAssimilator"
+		inheritFrom="AlienAssimilator">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!--"Capture the two NOD information facilities."-->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_3_Objective_1"
+			Description="SCRIPT:Alien_1_3_Obj_1_Detail">
+			<PresentationSettings
+				ID="Alien_1_3_Obj_1_1"
+				Dialog="MAA3_AlienAI01"
+				CameraFieldOfViewVariance="0">
+				<Duration>5.5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Alien_1_3_Obj_1_2"
+				CameraFieldOfViewVariance="0">
+				<Duration>5.5s</Duration>
+				<CameraStartAngle>-25d</CameraStartAngle>
+				<CameraEndAngle>25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--"Destroy the defenses around the information facilities."-->
+		<MissionObjectiveTag
+			Script="SCRIPT:Alien_1_3_Objective_2"
+			Description="SCRIPT:Alien_1_3_Obj_2_Detail">
+			<!-- Easy/Normal -->
+			<PresentationSettings
+				ID="Alien_1_3_Obj_2_1EN"
+				Dialog="MAA3_AlienAI02"
+				CameraFieldOfViewVariance="0">
+				<Duration>3s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Alien_1_3_Obj_2_2EN"
+				CameraFieldOfViewVariance="0">
+				<Duration>3s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<!-- Hard -->
+			<PresentationSettings
+				ID="Alien_1_3_Obj_2_1H"
+				Dialog="MAA3_AlienAI02"
+				CameraFieldOfViewVariance="0">
+				<Duration>2.5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Alien_1_3_Obj_2_2H"
+				CameraFieldOfViewVariance="0">
+				<Duration>2.5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--"Destroy the GDI base."-->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Alien_1_3_BonusObjective_1"
+			Description="SCRIPT:Alien_1_3_BonObj_1_Detail">
+			<PresentationSettings
+				ID="Alien_1_3_BonObj_1"
+				CameraFieldOfViewVariance="0"
+				Dialog="MAA3_AlienAI04">
+				<Duration>5s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Nod Command Center 3 -->
+	<GameObject
+		id="NOD_CommandCenter3"
+		inheritFrom="NOD_CommandCenter3"
+		KindOf="SELECTABLE STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+		<Behaviors>
+			<xi:include
+				href="DATA:Includes/GenericEngineerContain.xml" />
+		</Behaviors>
+	</GameObject>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI -->
+	<GameObject
+		id="GDICDMTower"
+		inheritFrom="GDICDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="GDICDMTower2"
+		inheritFrom="GDICDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower"
+		inheritFrom="NODCDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower2"
+		inheritFrom="NODCDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="AlienCDMTower"
+		inheritFrom="AlienCDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="AlienCDMTower2"
+		inheritFrom="AlienCDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="MutantHovel"
+		inheritFrom="MutantHovel"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_BARRACKS AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+
+	<!-- Removed Traveler Engines upgrade -->
+	<LogicCommandSet
+		id="AlienReactorCommandSet">
+		<Cmd>Command_PurchaseUpgradeForcefieldGenerator</Cmd>
+		<Cmd>Command_PurchaseUpgradeBlueIchorInfusion</Cmd>
+		<Cmd>Command_PurchaseIonShields</Cmd>
+		<Cmd>Command_SpecialPowerPhaseField</Cmd>
+		<Cmd>Command_AlienSeedTiberium</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Alien -->
+	<GameObject
+		id="AlienTiberiumTower"
+		inheritFrom="AlienTiberiumTower"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="AlienFoundryCommandSet">
+		<Cmd>Command_ConstructAlienPowerProjector</Cmd>
+		<Cmd>Command_ConstructAlienTiberiumTower</Cmd>
+		<Cmd>Command_ConstructAlienPortal</Cmd>
+		<Cmd>Command_ConstructAlienGateway</Cmd>
+		<Cmd>Command_ConstructAlienControlCenter</Cmd>
+		<Cmd>Command_ConstructAlienWarpBeacon</Cmd>
+		<Cmd>Command_ConstructAlienStatisChamber</Cmd>
+		<Cmd>Command_ConstructAlienReactor</Cmd>
+		<Cmd>Command_ConstructAlienSignalTransmitter</Cmd>
+		<Cmd>Command_ConstructAlienWarpChasm</Cmd>
+		<Cmd>Command_ConstructAlienStormObelisk</Cmd>
+		<Cmd>Command_ConstructAlienBuzzerHive</Cmd>
+		<Cmd>Command_ConstructAlienPhotonCannon</Cmd>
+		<Cmd>Command_ConstructAlienPlasmaMissileBattery</Cmd>
+		<Cmd>Command_ConstructAlienSporePod</Cmd>
+		<Cmd>Command_ConstructAlienWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+</AssetDeclaration>
