@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- Using Vanilla Commando instead of Zone Commando -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- For Subway -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\SubwayNode.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\SubwayHub.xml" type="instance"/>
+		<!-- For Alien CDM Towers -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
+		<!-- For GDI V35 -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_Summoned.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For GDI Tib Silo -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDITiberiumSilo.xml" type="instance"/>
+		<!-- For Tib Silo Field -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Tiberium\TiberiumFieldFromHarvesterDeath.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<!-- NOD Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml"/>
+	</Includes>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Added Auto Acquirable By AI -->
+	<GameObject
+		id="SubwayHub"
+		inheritFrom="SubwayHub"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH AUTO_ACQUIRABLE_BY_AI"/>
+
+	<GameObject
+		id="SubwayNode"
+		inheritFrom="SubwayNode"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE AUTO_RALLYPOINT AUTO_ACQUIRABLE_BY_AI"/>
+
+	<!-- Removing upgrades from Command Post -->
+	<LogicCommandSet
+		id="GDICommandPostCommandSet">
+		<Cmd>Command_CommandPostRadarScan</Cmd>
+		<Cmd>Command_CommandPostBombingRun</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades except for Quad Turrets -->
+	<LogicCommandSet
+		id="NODOperationsCenterCommandSet">
+		<Cmd>Command_PurchaseUpgradeNODQuadTurrets</Cmd>
+		<Cmd>Command_SelectObjectsForClone</Cmd>
+		<Cmd>Command_SpawnObjectsForClone</Cmd>
+		<Cmd>Command_FireRadarJammingMissile</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Increased damage from 350 -->
+	<WeaponTemplate
+		id="GDIGolemCannonWarhead"
+		Name="GDIGolemCannonWarhead"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="500"
+				DamageType="CANNON"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_CANNON"/>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered speed from 160 -->
+	<GameObject
+		id="GDIV35Ox_Summoned"
+		inheritFrom="GDIV35Ox_Summoned">
+		<LocomotorSet
+			Locomotor="GDIDropshipLocomotor"
+			Condition="NORMAL"
+			Speed="145.0"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="145.0"/>
+	</GameObject>
+
+	<!-- Spawn a bigger Tiberium field -->
+	<GameObject
+		id="GDITiberiumSilo"
+		inheritFrom="GDITiberiumSilo">
+		<Behaviors>
+			<CreateObjectDie
+				id="ModuleTag_CreateObjectDie"
+				CreationList="TiberiumSiloOCL">
+				<DieMuxData
+					DeathTypes="ALL"
+					DeathTypesForbidden="SUICIDED"/>
+			</CreateObjectDie>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="TiberiumFieldFromTiberiumSilo"
+		inheritFrom="TiberiumFieldFromHarvesterDeath">
+		<Behaviors>
+			<TiberiumField
+				id="tib_field"
+				xai:joinAction="Append"
+				Radius="100"
+				CrystalGrowthRate="10"
+				KillWhenEmptyAndFinishedSpawning="false"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI -->
+	<GameObject
+		id="GDICDMTower"
+		inheritFrom="GDICDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="GDICDMTower2"
+		inheritFrom="GDICDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower"
+		inheritFrom="NODCDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower2"
+		inheritFrom="NODCDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- 1 Destroy the GDI base -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_1_4_Objective_1"
+			Description="SCRIPT:NOD_TOW_1_4_Objective_1_Detail">
+			<PresentationSettings
+				ID="Nod_1_4_Objective_1_Presentation"
+				Dialog="MN14_NodEVA02">
+				<Duration>3.5s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_1_4_Objective_1_Presentationb">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 2 Destroy Tib Silos -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_4_BonusObjective_1"
+			Description="SCRIPT:NOD_TOW_1_4_BonusObjective_1_Detail">
+			<PresentationSettings
+				ID="Nod_1_4_Objective_2_Presentation"
+				Dialog="MN14_NodEVA05">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>	
+			<PresentationSettings
+				ID="Nod_1_4_Objective_2_Presentationb">
+				<Duration>2.5s</Duration>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Build Shredder Turret -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_4_BonusObjective_3"
+			Description="SCRIPT:NOD_TOW_1_4_BonusObjective_3_Detail">
+			<PresentationSettings
+				ID="Nod_1_4_Objective_4_Presentation"
+				Dialog="MN14_NodEVA16">
+				<Duration>4s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Build Laser Turret -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_4_BonusObjective_4"
+			Description="SCRIPT:NOD_TOW_1_4_BonusObjective_4_Detail">
+			<PresentationSettings
+				ID="Nod_1_4_Objective_5_Presentation"
+				Dialog="MN14_NodEVA15">
+				<Duration>4s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+</AssetDeclaration>

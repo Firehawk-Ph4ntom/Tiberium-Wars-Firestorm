@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For GDI V35 Reinforcements -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_Summoned.xml" type="instance"/>
+		<!-- For Nod Carryall Reinforcements -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallInfantry.xml" type="instance"/>
+		<!-- For GDI Command Post -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
+		<!-- For GDI ASAT Defense System -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDI_ASATDefense.xml" type="instance"/>
+		<!-- For GDI WatchTower -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWatchTower.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Walls -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWallSegment.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWallHub.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+	</Includes>
+
+	<!-- Increased damage from 500 | Changed explosion effect -->
+	<WeaponTemplate
+		id="NODFanaticDeathBomb"
+		Name="NODFanaticDeathBomb"
+		FireFX="FX_NODBombHit"
+		RadiusDamageAffects="ENEMIES NEUTRALS SELF"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<DamageNugget
+				Damage="600"
+				Radius="60"
+				DamageType="MINE"
+				DamageFXType="NOD_GRENADE"
+				DeathType="DETONATED">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="COMMANDCENTER">
+						<!-- Deals only 50% of their damage to these units when they get Dozer Blades upgrade -->
+						<IncludeThing>NODRaiderTank</IncludeThing>
+						<IncludeThing>NODReckoner</IncludeThing>
+						<IncludeThing>NODReckonerDeployed</IncludeThing>
+					</Filter>
+					<RequiredUpgrade>Upgrade_NODDozerBlades</RequiredUpgrade>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE">
+						<!-- Deals only 50% of their damage to these units because they start off with Dozer Blades -->
+						<IncludeThing>NODAvengerTank</IncludeThing>
+						<IncludeThing>NODBeamCannon</IncludeThing>
+						<IncludeThing>NODToxinTank</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<!-- Allied Mutant Viceroids -->
+						<IncludeThing>MutantViceroid</IncludeThing>
+						<IncludeThing>MutantViceroidSquad</IncludeThing>
+						<!-- Allied Nod Fanatics -->
+						<IncludeThing>NODFanatic</IncludeThing>
+						<IncludeThing>NODFanaticSquad</IncludeThing>
+						<!-- Allied Scrin Disintigrators -->
+						<IncludeThing>AlienRazorDrones</IncludeThing>
+						<IncludeThing>AlienRazorDroneSquad</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Unsellable and can't toggle power | Removed upgrade buttons | Costs 0 power -->
+	<GameObject
+		id="GDICommandPost"
+		inheritFrom="GDICommandPost"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR NOT_SELLABLE"
+		EnergyProduction="0"
+		CommandSet="EmptyCommandSet"/>
+
+	<!-- Costs 0 power | Removed Engineer contain -->
+	<GameObject
+		id="GDI_ASATDefense"
+		inheritFrom="GDI_ASATDefense"
+		EnergyProduction="0">
+		<Behaviors>
+			<EngineerContain
+				id="ModuleTag_EngineerContain"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Destroy the wall. -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_0_1_Objective_1"
+			Description="SCRIPT:Nod_TOW_0_1_ObjectiveText_1">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_Objective_1"
+				Dialog="MNPr_NodEVA01">
+				<Duration>6s</Duration>
+				<CameraStartAngle>-2d</CameraStartAngle>
+				<CameraEndAngle>2d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the GDI Command Post. -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_0_1_Objective_2"
+			Description="SCRIPT:Nod_TOW_0_1_ObjectiveText_2">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_Objective_2"
+				Dialog="MNPr_NodEVA02">
+				<Duration>7s</Duration>
+				<CameraStartAngle>-2d</CameraStartAngle>
+				<CameraEndAngle>2d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Secondary Power Plants. -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_0_1_BonusObjective_1"
+			Description="SCRIPT:Nod_TOW_0_1_ObjectiveText_B1">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_1"
+				Dialog="MNPr_NodEVA04">
+				<Duration>2s</Duration>
+				<CameraStartAngle>-2d</CameraStartAngle>
+				<CameraEndAngle>2d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_1a">
+				<Duration>2s</Duration>
+				<CameraStartAngle>-2d</CameraStartAngle>
+				<CameraEndAngle>2d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_1_W">
+				<Duration>3s</Duration>
+				<CameraStartAngle>-2d</CameraStartAngle>
+				<CameraEndAngle>2d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_1_Wa">
+				<Duration>2s</Duration>
+				<CameraStartAngle>-2d</CameraStartAngle>
+				<CameraEndAngle>2d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Primary Power Plants. -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_0_1_BonusObjective_2"
+			Description="SCRIPT:Nod_TOW_0_1_ObjectiveText_B2">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_2a"
+				Dialog="MNPr_NodEVA14">
+				<Duration>2s</Duration>
+				<CameraStartAngle>2d</CameraStartAngle>
+				<CameraEndAngle>-2d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_2">
+				<Duration>2s</Duration>
+				<CameraStartAngle>2d</CameraStartAngle>
+				<CameraEndAngle>-2d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_2_W">
+				<Duration>2s</Duration>
+				<CameraStartAngle>2d</CameraStartAngle>
+				<CameraEndAngle>-2d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Ground Control. -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_0_1_Objective_3"
+			Description="SCRIPT:Nod_TOW_0_1_ObjectiveText_3">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_Objective_3"
+				Dialog="MNPr_NodEVA03">
+				<Duration>8s</Duration>
+				<CameraStartAngle>2d</CameraStartAngle>
+				<CameraEndAngle>-2d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Use these Shadows to destroy the Final Power Plant. -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Nod_TOW_0_1_BonusObjective_4"
+			Description="SCRIPT:Nod_TOW_0_1_Shadows_Arrive">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_4a"
+				Dialog="MNPr_NodEVA06">
+				<Duration>6s</Duration>
+				<CameraStartAngle>2d</CameraStartAngle>
+				<CameraEndAngle>-2d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_4">
+				<Duration>4s</Duration>
+				<CameraStartAngle>2d</CameraStartAngle>
+				<CameraEndAngle>-2d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the Reinforcement Pad. -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Nod_TOW_0_1_BonusObjective_3"
+			Description="SCRIPT:Nod_TOW_0_1_ObjectiveText_B3">
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_3"
+				Dialog="MNPr_NodEVA11">
+				<Duration>4s</Duration>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_TOW_0_1_BonusObjective_3a">
+				<Duration>4s</Duration>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased speed from 100 to 300 | Increased health | Contain Max 3 -->
+	<GameObject
+		id="NODCarryall_SP"
+		inheritFrom="NODCarryallInfantry"
+		EditorName="NODCarryall_SP">
+		<LocomotorSet
+			Locomotor="NODCarryallLocomotor"
+			Condition="NORMAL"
+			Speed="300.0"/>
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Replace"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="3"
+				Slots="3"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true"
+				ExtendedExitContainerChecks="true">
+				<PassengerFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+				<DieMuxData
+					DeathTypes="ALL"/>
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+			</HordeTransportContain>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate
+				xai:joinAction="Replace"
+				id="ModuleTag_AI"
+				FlyOffMapOnUnload="true"
+				AILuaEventsList="GDIV35Ox_SummonedFunctions"
+				DelayAFterLoadingOrUnloading="1s"/>
+		</AI>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="99999"/>
+		</Body>
+	</GameObject>
+
+	<!-- Reduced wall health from 3000 -->
+	<GameObject
+		id="GDIWallSegment"
+		inheritFrom="GDIWallSegment">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="1750"/>
+		</Body>
+	</GameObject>
+
+	<GameObject
+		id="GDIWallHub"
+		inheritFrom="GDIWallHub">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="1750"/>
+		</Body>
+	</GameObject>
+
+	<!-- Adjusted Carryall locomotor to unload quick -->
+	<LocomotorTemplate
+		id="NODCarryallLocomotor"
+		Name="NODCarryallLocomotor"
+		Surfaces="AIR"
+		TurnTimeSeconds="2s"
+		FastTurnRadius="50"
+		Lift="120%"
+		LiftDamaged="80%"
+		MinTurnSpeed="0%"
+		PreferredHeight="140"
+		BehaviorZ="SURFACE_RELATIVE_HEIGHT"
+		Appearance="HOVER"
+		PitchStiffness="0.5"
+		ForwardVelocityPitchFactor="-0.2"
+		LateralVelocityRollFactor="0.1"
+		AirborneTargetingHeight="30"
+		RudderCorrectionDegree="0.169"
+		RudderCorrectionRate="0.027"
+		ElevatorCorrectionDegree="0.103"
+		ElevatorCorrectionRate="0.016"
+		BackingUpAngle="0.5"
+		TakeOffAndLandingSpeed="10"
+		TakeOffAndLandingSlowDownDelta="35"
+		TakeOffAndLandingSlowDownTime="0.5s"
+		LocomotorWorksWhenDead="true"
+		AllowMotiveForceWhileAirborne="true"
+		Apply2DFrictionWhenAirborne="true" />
+
+
+	<!-- Increased attack damage from 20 to 60 | Increased clipsize from 8 to 16 -->
+	<WeaponTemplate
+		id="GDIWatchTowerGun"
+		Name="GDIWatchTowerGun"
+		AttackRange="350"
+		WeaponSpeed="999999"
+		FireSoundPerClip="GDI_WatchTower_GunFire_v2"
+		ReAcquireDetailType="PRE_FIRE"
+		FireFX="FX_GDIWatchTowerFire"
+		FireVeteranFX="FX_GDIWatchTowerFireHeroic"
+		ClipSize="16"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="0.01s"
+			MaxSeconds="0.01s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="60"
+				DamageType="GUN"
+				DamageFXType="GDI_RIFLE"/>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Increased Health | Reduced stealth detection radius from 400 -->
+	<GameObject
+		id="GDIWatchTower"
+		inheritFrom="GDIWatchTower">
+		<Behaviors>
+			<StealthDetectorUpdate
+				id="ModuleTag_StealthDetect"
+				DetectionRange="100"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="99999"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased Shadow team's explosive charge to 1 shot anything -->
+	<WeaponTemplate
+		id="NODExplosiveChargeWeapon"
+		Name="NODExplosiveChargeWeapon"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		FireFX="FX_NODBombHit">
+		<Nuggets>
+			<DamageNugget
+				Damage="10000.0"
+				Radius="45"
+				DamageType="GRENADE"
+				DeathType="TOPPLED"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Contain Max 3 and allow Vehicles inside -->
+	<GameObject
+		id="GDIV35Ox_SP"
+		inheritFrom="GDIV35Ox_Summoned"
+		EditorName="GDIV35Ox_SP">
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Replace"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="3"
+				Slots="3"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true"
+				ExtendedExitContainerChecks="true">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY VEHICLE"/>
+				<DieMuxData
+					DeathTypes="ALL"/>
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="ANY"
+						Include="INFANTRY VEHICLE"/>
+				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+			</HordeTransportContain>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate
+				xai:joinAction="Replace"
+				id="ModuleTag_AI"
+				FlyOffMapOnUnload="true"
+				AILuaEventsList="GDIV35Ox_SummonedFunctions"
+				DelayAFterLoadingOrUnloading="1s"/>
+		</AI>
+	</GameObject>
+</AssetDeclaration>
