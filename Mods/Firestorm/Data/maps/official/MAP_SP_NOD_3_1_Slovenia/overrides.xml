@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Liquid T Transport -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\LiquidTiberiumTransport.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For GDI Wolverines -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIWolverine.xml" type="instance"/>
+		<!-- For GDI Falcons -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIFalcon.xml" type="instance"/>
+		<!-- For GDI Commanoes -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- For NOD Obelisks -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODObelisk.xml" type="instance"/>
+		<!-- For NOD Purifiers -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODAvatar.xml" type="instance"/>
+		<!-- For Infantry Carryall -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallInfantry.xml" type="instance"/>
+		<!-- For NOD Commando -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODCommando.xml" type="instance"/>
+		<!-- For Nod Silo Tower -->
+		<Include type="instance" source="DATA:NOD/Structures_SinglePlayerCampaign/NSSilo01.xml" />
+		<!-- For Nod Silo Control Tower -->
+		<Include type="instance" source="DATA:NOD/Structures_SinglePlayerCampaign/NSSilo04.xml" />
+		<!-- For Nod Silo Power Generator -->
+		<Include type="instance" source="DATA:NOD/Structures_SinglePlayerCampaign/NSSilo08.xml" />
+		<!-- For Nod Silo Oil Tank -->
+		<Include type="instance" source="DATA:NOD/Structures_SinglePlayerCampaign/NSSilo10.xml" />
+		<!-- For Nod Silo Pod -->
+		<Include type="instance" source="DATA:NOD/Structures_SinglePlayerCampaign/NSSilo11.xml" />
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<!-- NOD Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml"/>
+	</Includes>
+
+	<!-- Changing Commando Queue Type -->
+	<GameObject
+		id="GDICommando_EA"
+		inheritFrom="GDICommando_EA"
+		ProductionQueueType="INFANTRY"/>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Replacing the Zone Commando with the vanilla Commando -->
+	<LogicCommandSet
+		id="GDIBarracksCommandSet">
+		<Cmd>Command_ConstructGDIRifleSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIMissileSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIEngineer</Cmd>
+		<Cmd>Command_ConstructGDIGrenadeSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDISniperSquad</Cmd>
+		<Cmd>Command_ConstructGDIMedicSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneTrooperSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneRaiderSquad</Cmd>
+		<Cmd>Command_ConstructGDICommando_EA</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Lowered damage from 700 -->
+	<WeaponTemplate
+		id="GDIJuggernaughtArtilleryWarhead"
+		Name="GDIJuggernaughtArtilleryWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="600"
+				Radius="25"
+				DamageType="CANNON"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_RIFLE"
+				VictimShroudRevealer="ArtilleryShroudRevealer"/>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Overall Improved Armor -->
+	<ArmorTemplate
+		id="NODCommandoArmor">
+		<Armor Damage="CANNON" Percent="50%"/>
+		<Armor Damage="ROCKET" Percent="25%"/>
+		<Armor Damage="GRENADE" Percent="50%"/>
+		<Armor Damage="GUN" Percent="50%"/>
+		<Armor Damage="SNIPER" Percent="25%"/>
+	</ArmorTemplate>
+
+	<!-- Increased health from 500 | Increased armor -->
+	<GameObject
+		id="NODCommando"
+		inheritFrom="NODCommando">
+		<ArmorSet
+			Armor="NODCommandoArmor"
+			DamageFX="InfantryDamageFX"/>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="1000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- 1. Investigate the crash site to the west -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_3_1_Objective_1"
+			Description="SCRIPT:NOD_3_1_Objective_1_Detail">
+			<PresentationSettings
+				ID="NOD_3_1_Obj_1"
+				Dialog="MN31_NodEVA19"
+				UseDynamicZoom="False">
+				<Duration>9s</Duration>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 2. Eliminate the GDI presence in our encampment and secure the device -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_3_1_Objective_2"
+			Description="SCRIPT:NOD_3_1_Objective_2_Detail"> 
+			<PresentationSettings
+				ID="NOD_3_1_Obj_2"
+				Dialog="MN31_NodEVA11"
+				UseDynamicZoom="False">
+				<Duration>4s</Duration>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_3_1_Obj_2b">
+				<Duration>3s</Duration>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 3. Protect the device until the Purifiers arrive -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_3_1_Objective_3"
+			Description="SCRIPT:NOD_3_1_Objective_3_Detail">
+			<PresentationSettings
+				ID="NOD_3_1_Obj_3"
+				Dialog="MN31_NodEVA03">
+				<Duration>7s</Duration>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 4. Move the device to the evacuation point -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_3_1_Objective_4"
+			Description="SCRIPT:NOD_3_1_Objective_4_Detail">
+			<PresentationSettings
+				ID="NOD_3_1_Obj_4"
+				Dialog="MN31_NodEVA04"
+				UseDynamicZoom="False">
+				<Duration>7.5s</Duration>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 5. Destroy the Anti-Air guns to obtain reinforcements -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_3_1_Bonus_Objective_1"
+			Description="SCRIPT:NOD_3_1_Bonus_Objective_1_Detail">
+			<PresentationSettings
+				ID="NOD_3_1_Obj_5"
+				Dialog="MN31_NodEVA05">
+				<Duration>2s</Duration>
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>30d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_3_1_Obj_5b">
+				<Duration>1s</Duration> 
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>30d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_3_1_Obj_5c">
+				<Duration>1s</Duration> 
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>30d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_3_1_Obj_5d">
+				<Duration>1s</Duration> 
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>30d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_3_1_Obj_5e">
+				<Duration>1s</Duration> 
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>30d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_3_1_Obj_5f">
+				<Duration>1s</Duration> 
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>30d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 6. Build three Obelisks of Light -->
+		<MissionObjectiveTag
+			IsBonusObjective="true" 
+			Script="SCRIPT:NOD_3_1_Bonus_Objective_2"
+			Description="SCRIPT:NOD_3_1_Bonus_Objective_2_Detail">
+			<PresentationSettings
+				ID="NOD_3_1_Obj_6"
+				Dialog="MN31_NodEVA21">
+				<Duration>7s</Duration>
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 7. Do not harm the Tiberium Device -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_3_1_Bonus_Objective_4"
+			Description="SCRIPT:NOD_3_1_Bonus_Objective_4_Detail">
+			<PresentationSettings
+				ID="NOD_3_1_Obj_7">
+				<Duration>5s</Duration>
+				<CameraStartAngle>90d</CameraStartAngle>
+				<CameraEndAngle>100d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Increased capacity to 5 slots -->
+	<GameObject
+		id="NODCarryallInfantry"
+		inheritFrom="NODCarryallInfantry">
+		<Behaviors>
+			<HordeTransportContain
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="6"
+				Slots="6"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="false"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="false">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY"/>
+				<DieMuxData
+					DeathTypes="ALL"/>
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased speed from 27 -->
+	<GameObject
+		id="LiquidTiberiumTransport"
+		inheritFrom="LiquidTiberiumTransport">
+		<LocomotorSet
+			Locomotor="NODLTTLocomotor"
+			Condition="NORMAL"
+			Speed="40.0"/>
+	</GameObject>
+
+	<!-- Removed Sonic Repulsion Field upgrade -->
+	<LogicCommandSet
+		id="GDIArmoryCommandSet">
+		<Cmd>Command_PurchaseUpgradeCeramicArmor</Cmd>
+		<Cmd>Command_PurchaseUpgradeTankRailgun</Cmd>
+		<Cmd>Command_PurchaseUpgradeThermoBaricMissiles</Cmd>
+		<Cmd>Command_CallColossusStrike</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Laser Fencing upgrade  -->
+	<LogicCommandSet
+		id="NODTechAssemblyPlantCommandSet">
+		<Cmd>Command_PurchasePurifyingLaser</Cmd>
+		<Cmd>Command_PurchaseUpgradeTibCoreMissiles</Cmd>
+		<Cmd>Command_PurchaseFirestormIgnition</Cmd>
+		<Cmd>Command_CloakingField</Cmd>
+		<Cmd>Command_CallSupportPhantomArmy</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Lowered speed from 55 -->
+	<GameObject
+		id="GDIWolverine"
+		inheritFrom="GDIWolverine">
+		<LocomotorSet
+			Locomotor="ReaperLocomotor"
+			Condition="NORMAL"
+			Speed="40.0"/>
+	</GameObject>
+
+	<!-- Lowered attack range from 300 | Lowered attack damage from 20 -->
+	<WeaponTemplate
+		id="GDIWolverineMachineGun"
+		Name="GDIWolverineMachineGun"
+		AttackRange="200"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="999999"
+		FireSound="GDI_Wolverine_GunFireLoop"
+		FiringLoopSound="GDI_Battery_GunMotorLoop"
+		FireFX="FX_GDIWolverineFire"
+		FireVeteranFX="FX_GDIWolverineFireHeroic"
+		ClipSize="8"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="0.01s"
+			MaxSeconds="0.01s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="10"
+				DamageType="GUN"
+				DamageFXType="GDI_RIFLE"/>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered attack range from 300 | Lowered attack damage from 30 -->
+	<WeaponTemplate
+		id="GDIWolverineMachineGunHEAmmo"
+		Name="GDIWolverineMachineGunHEAmmo"
+		AttackRange="200"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="999999"
+		FireSound="GDI_Wolverine_GunFireLoop"
+		FiringLoopSound="GDI_Battery_GunMotorLoop"
+		FireFX="FX_GDIWolverineFire"
+		FireVeteranFX="FX_GDIWolverineFireHeroic"
+		ClipSize="8"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="0.01s"
+			MaxSeconds="0.01s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="15"
+				Radius="2"
+				DamageType="GUN"
+				DeathType="BURNED"
+				DamageFXType="GDI_RIFLE"/>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered speed from 100 -->
+	<GameObject
+		id="GDIFalcon"
+		inheritFrom="GDIFalcon">
+		<LocomotorSet
+			Locomotor="GDISandstormLocomotor"
+			Condition="NORMAL"
+			Speed="80.0"/>
+	</GameObject>
+
+	<!-- Increased damage from 1000 -->
+	<WeaponTemplate
+		id="ExplodingBarrelWeapon"
+		Name="ExplodingBarrelWeapon"
+		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS"
+		FireFX="FX_NODBombHit">
+		<Nuggets>
+			<DamageNugget
+				Damage="4000"
+				Radius="100"
+				DamageType="CANNON"
+				DeathType="BURNED">
+				<DamageScalarDetails
+					Scalar="1%">
+					<Filter
+						Rule="NONE"
+						Include="UNIQUE_UNIT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Increased Avatar hp -->
+	<GameObject
+		id="NODAvatar"
+		inheritFrom="NODAvatar"
+		CommandSet="GenericUnitCommandSet">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="20000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Overall Improved Armor -->
+	<ArmorTemplate
+		id="NODObeliskArmor">
+		<Armor Damage="CANNON" Percent="50%"/>
+		<Armor Damage="ROCKET" Percent="25%"/>
+		<Armor Damage="GRENADE" Percent="65%"/>
+		<Armor Damage="GUN"	Percent="25%"/>
+		<Armor Damage="SNIPER" Percent="1%"/>
+	</ArmorTemplate>
+
+	<!-- Increased health from 5000 | Increased armor -->
+	<GameObject
+		id="NODObelisk"
+		inheritFrom="NODObelisk">
+		<ArmorSet
+			Armor="NODObeliskArmor"
+			DamageFX="FactionStructureDamageFX"/>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="10000"/>
+		</Body>
+	</GameObject>
+
+	<!-- NOD Silo Tower -->
+	<GameObject
+		id="NOD_Silo01"
+		inheritFrom="NOD_Silo01"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Control Tower -->
+	<GameObject
+		id="NOD_Silo04"
+		inheritFrom="NOD_Silo04"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Power Generator -->
+	<GameObject
+		id="NOD_Silo08"
+		inheritFrom="NOD_Silo08"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Oil Tank -->
+	<GameObject
+		id="NOD_Silo10"
+		inheritFrom="NOD_Silo10"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Pod -->
+	<GameObject
+		id="NOD_Silo11"
+		inheritFrom="NOD_Silo11"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+</AssetDeclaration>

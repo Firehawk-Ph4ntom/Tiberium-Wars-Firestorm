@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\NPCRATE_CTR.w3x" type="all"/>
+		<!-- For CDM Towers -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
+		<!-- For GDI Carrier -->
+		<Include source="DATA:GDI\Structures_SinglePlayerCampaign\GDICarrierSPImmobile.xml" type="instance"/>
+		<!-- For Nod Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For GDI Commandoes -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- Unit Crate -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Crates\UnitCrate.xml" type="instance"/>
+		<!-- For GDI Airfield -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
+		<!-- For Nod Hangar -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHangar.xml" type="instance"/>
+		<!-- For GDI Firehawk -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For Nod Stealth Tank -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODStealthTank.xml" type="instance"/>
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<!-- NOD Global Overrides -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml"/>
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml"/>
+	</Includes>
+
+	<!-- Changing Commando Queue Types -->
+	<GameObject
+		id="GDICommando_EA"
+		inheritFrom="GDICommando_EA"
+		ProductionQueueType="INFANTRY"/>
+
+	<GameObject
+		id="GDICommando"
+		inheritFrom="GDICommando"
+		ProductionQueueType="VEHICLE"/>
+
+	<!-- Removed Explosive Mixture upgrade -->
+	<LogicCommandSet
+		id="NODHangarCommandSet">
+		<Cmd>Command_ConstructNODVenom</Cmd>
+		<Cmd>Command_ConstructNODVertigo</Cmd>
+		<Cmd>Command_ConstructNODBanshee</Cmd>
+		<Cmd>Command_NODRecallAllAircraft</Cmd>
+		<Cmd>Command_RepairAircraft</Cmd>
+		<Cmd>Command_PurchaseNODStealthGenerator</Cmd>
+		<Cmd>Command_CallInSpyPlane</Cmd>
+		<Cmd>Command_CallSupportTemplarDrop</Cmd>
+		<Cmd>Command_NODBurrowMines</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
+	</LogicCommandSet>
+
+	<LogicCommandSet
+		id="GDIDropshipBayCommandSet">
+		<Cmd>Command_ConstructGDIJetpackTrooper</Cmd>
+		<Cmd>Command_ConstructGDIZoneDefenderSquad</Cmd>
+		<Cmd>Command_ConstructGDICommando</Cmd>
+		<Cmd>Command_ConstructGDITitan</Cmd>
+		<Cmd>Command_ConstructGDIArmadillo</Cmd>
+		<Cmd>Command_ConstructGDIDisruptor</Cmd>
+		<Cmd>Command_ConstructGDIOrcaBattleFortress</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Vehicle</Cmd>
+	</LogicCommandSet>
+
+	<!-- Increased speed from 36 | Removed cap delay -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Replacing the Zone Commando with the vanilla Commando -->
+	<LogicCommandSet
+		id="GDIBarracksCommandSet">
+		<Cmd>Command_ConstructGDIRifleSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIMissileSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIEngineer</Cmd>
+		<Cmd>Command_ConstructGDIGrenadeSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDISniperSquad</Cmd>
+		<Cmd>Command_ConstructGDIMedicSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneTrooperSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneRaiderSquad</Cmd>
+		<Cmd>Command_ConstructGDICommando_EA</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Entirely Changed the Artillery Emplacement Weapon -->
+	<WeaponTemplate
+		id="GDISPArtilleryEmplacement"
+		Name="GDISPArtilleryEmplacement"
+		AttackRange="50000"
+		WeaponSpeed="500"
+		MinTargetPitch="-15d"
+		MaxTargetPitch="15d"
+		FireFX="FX_GDI_CommandPostGolemCannonFire"
+		ClipSize="1"
+		ShotsPerBarrel="1"
+		ReAcquireDetailType="PRE_FIRE"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="10s"
+			MaxSeconds="15s" />
+		<Nuggets>
+			<ProjectileNugget 
+				WarheadTemplate="GDIJuggernaughtArtilleryWarhead"
+				ProjectileTemplate="GDISPArtilleryEmplacementShell"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="50">
+			<Filter
+				Rule="NONE"
+				Include="STRUCTURE"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<GameObject
+		id="GDISPArtilleryEmplacementShell"
+		KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED"
+		Side="GDI"
+		EditorName="GDISPArtilleryEmplacementShell"
+		EditorSorting="SYSTEM">
+		<ArmorSet
+			Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw">
+				<ModelConditionState
+					ParseCondStateType="PARSE_DEFAULT">
+					<Model
+						Name="FXARTSHELL"/>
+					<ParticleSysBone
+						BoneName="NONE"
+						FXParticleSystemTemplate="GDIShellTrail"
+						FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyDie
+				id="ModuleTag_Die">
+				<DieMuxData
+					DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile
+				id="ModuleTag_BezierProjectile"
+				FirstHeightMin="0"
+				FirstHeightMax="0"
+				SecondHeightMin="0"
+				SecondHeightMax="0"
+				FirstPercentIndent="33"
+				SecondPercentIndent="66"
+				CurveFlattenMinDist="300"
+				DetonateCallsKill="true" 
+				FlightPathAdjustDistPerSecond="300"
+				FlightPathAdjustStraightOnly="false"
+				OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="100"/>
+		</Body>
+		<AudioArraySound>
+			<AudioEntry
+				Sound="NOD_Specter_ProjectileFlyBy"
+				AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+
+	<!-- Increased clipsize from 4 to 6 -->
+	<WeaponTemplate
+		id="NODStealthTankRocket"
+		Name="NODStealthTankRocket"
+		AttackRange="350"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireFX="FX_Sandstorm_MissileFire"
+		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
+		FireSound="NOD_StealthTank_RocketLaunch"
+		ClipSize="6"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="5s"
+			MaxSeconds="5s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODStealthTankRocketWarhead"
+				ProjectileTemplate="NODStealthTankRocketProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODStealthTankRocketProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- Increased clipsize from 4 to 6 -->
+	<WeaponTemplate
+		id="NODStealthTankRocketTibCore"
+		Name="NODStealthTankRocketTibCore"
+		AttackRange="350"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireFX="FX_StealthTank_TibCoreMissileFire"
+		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
+		FireSound="NOD_StealthTank_RocketLaunch"
+		ClipSize="6"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="5s"
+			MaxSeconds="5s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODStealthTankRocketTibCoreWarhead"
+				ProjectileTemplate="NODStealthTankTibCoreRocketProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODStealthTankTibCoreRocketProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- Increased health from 2000 -->
+	<GameObject
+		id="NODStealthTank"
+		inheritFrom="NODStealthTank">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="2500.0" />
+		</Body>
+	</GameObject>
+
+	<!-- Removed Sonic Repulsion Field upgrade -->
+	<LogicCommandSet
+		id="GDIArmoryCommandSet">
+		<Cmd>Command_PurchaseUpgradeCeramicArmor</Cmd>
+		<Cmd>Command_PurchaseUpgradeTankRailgun</Cmd>
+		<Cmd>Command_PurchaseUpgradeThermoBaricMissiles</Cmd>
+		<Cmd>Command_CallColossusStrike</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Laser Fencing upgrade -->
+	<LogicCommandSet
+		id="NODTechAssemblyPlantCommandSet">
+		<Cmd>Command_PurchasePurifyingLaser</Cmd>
+		<Cmd>Command_PurchaseUpgradeTibCoreMissiles</Cmd>
+		<Cmd>Command_PurchaseFirestormIgnition</Cmd>
+		<Cmd>Command_CloakingField</Cmd>
+		<Cmd>Command_CallSupportPhantomArmy</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI -->
+	<GameObject
+		id="GDICDMTower"
+		inheritFrom="GDICDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="GDICDMTower2"
+		inheritFrom="GDICDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower"
+		inheritFrom="NODCDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower2"
+		inheritFrom="NODCDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Destroy the first Artillery Emplacement -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_2_3_Objective_1"
+			Description="SCRIPT:Nod_TOW_2_3_ObjectiveText_1">
+			<PresentationSettings
+				ID="Nod_2_3_Objective_1"
+				Dialog="MN23_NodEVA10"
+				CameraFieldOfViewVariance="5"
+				UseDynamicZoom="false">
+				<Duration>11s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Second Artillery Emplacement -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_2_3_Objective_2"
+			Description="SCRIPT:Nod_TOW_2_3_ObjectiveText_2">
+			<PresentationSettings
+				ID="Nod_2_3_Objective_2"
+				Dialog="MN23_NodEVA11"
+				CameraFieldOfViewVariance="5"
+				UseDynamicZoom="false">
+				<Duration>15s</Duration>
+				<CameraStartAngle>5d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Third Artillery Emplacement -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_TOW_2_3_Objective_3"
+			Description="SCRIPT:Nod_TOW_2_3_ObjectiveText_3">
+			<PresentationSettings
+				ID="Nod_2_3_Objective_3"
+				Dialog="MN23_NodEVA12"
+				CameraFieldOfViewVariance="5"
+				UseDynamicZoom="false">
+				<Duration>13s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+		        <CameraEndAngle>5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the GDI Construction Yard -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Nod_TOW_2_3_BonusObjective_1"
+			Description="SCRIPT:Nod_TOW_2_3_BonusObj_1_Details">
+			<PresentationSettings
+				ID="Nod_2_3_BonusObjective_1"
+				Dialog="MN23_NodEVA13">
+				<Duration>8s</Duration>
+				<CameraStartAngle>5d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the GDI Aircraft Carrier -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:Nod_TOW_2_3_BonusObjective_2"
+			Description="SCRIPT:Nod_TOW_2_3_BonusObj_2_Details">
+			<PresentationSettings
+				ID="Nod_2_3_BonusObjective_2"
+				Dialog="MN23_NodEVA14"
+				CameraFieldOfViewVariance="-15"
+				UseDynamicZoom="false">
+				<Duration>8s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Allies allowed to dock at airfield -->
+	<GameObject
+		id="NODHangar"
+		inheritFrom="NODHangar">
+		<Behaviors>
+			<ParkingPlaceBehavior
+				id="ModuleTag_ParkingPlaceBehavior">
+				<CanParkHereFilter
+					Relationship="ALLIES SAME_PLAYER"/>
+			</ParkingPlaceBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Unit Crate -->
+	<GameObject
+		id="UnitCrate"
+		inheritFrom="UnitCrate">
+		<Behaviors>
+			<UnitCrateCollide
+				id="ModuleTag_CrateCollide"
+				UnitCount="1"
+				UnitType="NODStealthTank"
+				IsHumanOnlyPickup="true"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased armor and health significantly | changed name -->
+	<GameObject
+		id="GDICarrierSPImmobile"
+		inheritFrom="GDICarrierSPImmobile">
+		<DisplayName
+			xai:joinAction="Replace"
+			xmlns:xai="uri:ea.com:eala:asset:instance">Name:GDICarrier</DisplayName>
+		<ArmorSet
+			Armor="TechStructureArmor"
+			DamageFX="VehicleDamageFX" />
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="30000.0" />
+		</Body>
+	</GameObject>
+
+	<!-- KeepsParkingSpaceWhenAirborne="false" | OutOfAmmoDamagePerSecond="2.5"  -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<AI>
+			<JetAIUpdate
+				id="ModuleTag_AI"
+				AutoAcquireEnemiesWhenIdle="YES"
+				KeepsParkingSpaceWhenAirborne="false"
+				OutOfAmmoDamagePerSecond="2.5"
+				CirclesForAttack="true"
+				ReturnToBaseWhenVictimDead="true"
+				AILuaEventsList="GDIFirehawkFunctions">
+				<UnitAITargetChooserData
+					SympathyRange="100.0"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+	</GameObject>
+
+	<!-- Allies allowed to dock at airfield -->
+	<GameObject
+		id="GDIAirTower"
+		inheritFrom="GDIAirTower">
+		<Behaviors>
+			<ParkingPlaceBehavior
+				id="ModuleTag_ParkingPlaceBehavior">
+				<CanParkHereFilter
+					Relationship="ALLIES SAME_PLAYER"/>
+			</ParkingPlaceBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+</AssetDeclaration>
