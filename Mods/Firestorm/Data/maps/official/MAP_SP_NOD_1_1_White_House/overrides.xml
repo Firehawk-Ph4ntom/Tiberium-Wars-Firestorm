@@ -6,92 +6,26 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<!-- For Nod Saboteur -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- For Tiberium Spike -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
-		<!-- For Tiberium Silo -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
+		<!-- For GDI Orca -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIOrca.xml" type="instance"/>
 		<!-- For GDI V35 -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_SummonedForVehicle.xml" type="instance"/>
-		<!-- For GDI Orca -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIOrca.xml" type="instance"/>
+
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
 
-	<!-- Increased speed from 36 | Removed cap delay -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Added Auto AUTO_ACQUIRABLE_BY_AI Kindof | Increased Deposit amount from 10 | Increased initial cap bonus from 500 -->
-	<GameObject
-		id="TiberiumSpike"
-		inheritFrom="TiberiumSpike"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="25"
-				InitialCaptureBonus="750"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Added Auto AUTO_ACQUIRABLE_BY_AI Kindof | Increased Initial cap bonus from 1000 -->
-	<GameObject
-		id="TiberiumSilo"
-		inheritFrom="TiberiumSilo"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				InitialCaptureBonus="1500"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Removing upgrades from Command Post -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="GDICommandPostCommandSet">
 		<Cmd>Command_CommandPostRadarScan</Cmd>
@@ -101,7 +35,7 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
-	<!-- Removing upgrades from Operations Center -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="NODOperationsCenterCommandSet">
 		<Cmd>Command_SelectObjectsForClone</Cmd>
@@ -111,6 +45,83 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
+
+	<!-- Lowered Speed | Disabled flying off map when empty | Regain initial speed when attacked and when script finished-->
+	<GameObject
+		id="GDIV35Ox_SummonedForVehicle"
+		inheritFrom="GDIV35Ox_SummonedForVehicle">
+		<LocomotorSet
+			Locomotor="GDIDropshipLocomotor"
+			Condition="NORMAL"
+			Speed="80.0"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="80.0"/>
+		<LocomotorSet
+			Locomotor="GDIDropshipLocomotor"
+			Condition="NORMAL_UPGRADED"
+			Speed="160.0"/>
+		<Behaviors>
+			<LocomotorSetUpgrade
+				id="ModuleTag_Locomotor">
+				<TriggeredBy>Upgrade_Orca_Locomotor</TriggeredBy>
+			</LocomotorSetUpgrade>
+			<HordeTransportContain
+				id="ModuleTag_Contain"
+				xai:joinAction="Append"
+				FlyOffMapOnEmpty="false"/>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate
+				xai:joinAction="Append"
+				FlyOffMapOnUnload="false"/>
+		</AI>
+	</GameObject>
+
+	<!-- Lowered speed | Regain initial speed when attacked and when unloading script finished -->
+	<GameObject
+		id="GDIV35Ox"
+		inheritFrom="GDIV35Ox">
+		<LocomotorSet
+			Locomotor="GDIDropshipLocomotor"
+			Condition="NORMAL"
+			Speed="80.0"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="80.0"/>
+		<LocomotorSet
+			Locomotor="GDIDropshipLocomotor"
+			Condition="NORMAL_UPGRADED"
+			Speed="160.0"/>
+		<Behaviors>
+			<LocomotorSetUpgrade
+				id="ModuleTag_Locomotor">
+				<TriggeredBy>Upgrade_Orca_Locomotor</TriggeredBy>
+			</LocomotorSetUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Low speed when flying with the V35s; Regain initial speed when attacked and when unloading script finished -->
+	<GameObject
+		id="GDIOrca"
+		inheritFrom="GDIOrca">
+		<LocomotorSet
+			Locomotor="OrcaLocomotor"
+			Condition="NORMAL"
+			Speed="80.0"/>
+		<LocomotorSet
+			Locomotor="OrcaLocomotor"
+			Condition="NORMAL_UPGRADED"
+			Speed="175.0"/>
+		<Behaviors>
+			<LocomotorSetUpgrade
+				id="ModuleTag_Locomotor">
+				<TriggeredBy>Upgrade_Orca_Locomotor</TriggeredBy>
+			</LocomotorSetUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
@@ -214,122 +225,72 @@
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
 
-	<!-- Lowered Speed | Disabled flying off map when empty | Removed sound effects | Regain initial speed when attacked and when script finished-->
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
 	<GameObject
-		id="GDIV35Ox_SummonedForVehicle"
-		inheritFrom="GDIV35Ox_SummonedForVehicle">
-		<LocomotorSet
-			xai:joinAction="Overwrite"
-			Locomotor="GDIDropshipLocomotor"
-			Condition="NORMAL"
-			Speed="80.0"/>
-		<LocomotorSet
-			xai:joinAction="Overwrite"
-			Locomotor="BasicHelicopterTaxiLocomotor"
-			Condition="TAXIING"
-			Speed="80.0"/>
-		<LocomotorSet
-			Locomotor="GDIDropshipLocomotor"
-			Condition="NORMAL_UPGRADED"
-			Speed="160.0"/>
+		id="TiberiumSpike"
+		inheritFrom="TiberiumSpike"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
 		<Behaviors>
-			<LocomotorSetUpgrade
-				id="ModuleTag_Locomotor">
-				<TriggeredBy>Upgrade_Orca_Locomotor</TriggeredBy>
-			</LocomotorSetUpgrade>
-			<HordeTransportContain
-				xai:joinAction="Overwrite"
-				id="ModuleTag_Contain"
-				ObjectStatusOfContained="UNSELECTABLE"
-				ContainMax="1"
-				Slots="1"
-				AllowEnemiesInside="false"
-				AllowAlliesInside="false"
-				AllowNeutralInside="false"
-				AllowOwnPlayerInsideOverride="true"
-				ShowPips="true"
-				KillPassengersOnDeath="true"
-				FlyOffMapOnEmpty="false">
-				<PassengerFilter
-					Rule="NONE">
-					<IncludeThing>GDIPitbull</IncludeThing>
-					<IncludeThing>GDIPitbull_Veteran</IncludeThing>
-					<IncludeThing>GDIFalcon</IncludeThing>
-					<IncludeThing>GDIPaladinTank</IncludeThing>
-					<IncludeThing>GDIPredator</IncludeThing>
-					<IncludeThing>GDIAPC</IncludeThing>
-					<IncludeThing>GDIAPC_Veteran</IncludeThing>
-					<IncludeThing>GDIWolverine</IncludeThing>
-					<IncludeThing>GDIHarvester</IncludeThing>
-					<IncludeThing>GDIMRT</IncludeThing>
-					<IncludeThing>GDISonicTank</IncludeThing>
-					<IncludeThing>GDIRig</IncludeThing>
-					<IncludeThing>GDISandstorm</IncludeThing>
-					<IncludeThing>GDISurveyor</IncludeThing>
-				</PassengerFilter>
-				<DieMuxData
-					DeathTypes="ALL"/>
-				<PassengerData
-					BonePrefix="BONEGARRISON">
-					<Filter
-						Rule="NONE"
-						Include="VEHICLE"/>
-				</PassengerData>
-			</HordeTransportContain>
-		</Behaviors>
-		<AI>
-			<TransportHelicopterAIUpdate
-				xai:joinAction="Overwrite"
-				id="ModuleTag_AI"
-				AILuaEventsList="GDIV35Ox_SummonedForVehicleFunctions"
-				FlyOffMapOnUnload="false"/>
-		</AI>
-	</GameObject>
-
-	<!-- Lowered speed | Regain initial speed when attacked and when unloading script finished -->
-	<GameObject
-		id="GDIV35Ox"
-		inheritFrom="GDIV35Ox">
-		<LocomotorSet
-			xai:joinAction="Overwrite"
-			Locomotor="GDIDropshipLocomotor"
-			Condition="NORMAL"
-			Speed="80.0"/>
-		<LocomotorSet
-			xai:joinAction="Overwrite"
-			Locomotor="BasicHelicopterTaxiLocomotor"
-			Condition="TAXIING"
-			Speed="80.0"/>
-		<LocomotorSet
-			Locomotor="GDIDropshipLocomotor"
-			Condition="NORMAL_UPGRADED"
-			Speed="160.0"/>
-		<Behaviors>
-			<LocomotorSetUpgrade
-				id="ModuleTag_Locomotor">
-				<TriggeredBy>Upgrade_Orca_Locomotor</TriggeredBy>
-			</LocomotorSetUpgrade>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				DepositAmount="25"
+				InitialCaptureBonus="750"/>
 		</Behaviors>
 	</GameObject>
 
-	<!-- Low speed when flying with the V35s; Regain initial speed when attacked and when unloading script finished -->
 	<GameObject
-		id="GDIOrca"
-		inheritFrom="GDIOrca">
-		<LocomotorSet
-			xai:joinAction="Overwrite"
-			Locomotor="OrcaLocomotor"
-			Condition="NORMAL"
-			Speed="80.0"/>
-		<LocomotorSet
-			Locomotor="OrcaLocomotor"
-			Condition="NORMAL_UPGRADED"
-			Speed="175.0"/>
+		id="TiberiumSilo"
+		inheritFrom="TiberiumSilo"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
 		<Behaviors>
-			<LocomotorSetUpgrade
-				id="ModuleTag_Locomotor">
-				<TriggeredBy>Upgrade_Orca_Locomotor</TriggeredBy>
-			</LocomotorSetUpgrade>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				InitialCaptureBonus="1500"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
 		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

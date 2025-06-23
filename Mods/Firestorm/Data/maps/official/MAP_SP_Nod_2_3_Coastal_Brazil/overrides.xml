@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="us-ascii"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
@@ -9,35 +9,34 @@
 		<Include source="ART:Firestorm\Misc\Models\NPCRATE_CTR.w3x" type="all"/>
 		<!-- For CDM Towers -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
+		<!-- Unit Crate -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Crates\UnitCrate.xml" type="instance"/>
 		<!-- For GDI Carrier -->
 		<Include source="DATA:GDI\Structures_SinglePlayerCampaign\GDICarrierSPImmobile.xml" type="instance"/>
-		<!-- For Nod Saboteur -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For GDI Airfield -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
 		<!-- For GDI Commandoes -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
-		<!-- Unit Crate -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Crates\UnitCrate.xml" type="instance"/>
-		<!-- For GDI Airfield -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
-		<!-- For Nod Hangar -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHangar.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For Nod Hangar -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHangar.xml" type="instance"/>
 		<!-- For Nod Stealth Tank -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODStealthTank.xml" type="instance"/>
+
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
-		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
-		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
-		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml"/>
-		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
 
 	<!-- Changing Commando Queue Types -->
@@ -70,6 +69,7 @@
 		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
 	</LogicCommandSet>
 
+	<!-- Replacing the Zone Commando with the vanilla Commando and vice versa in the build queues -->
 	<LogicCommandSet
 		id="GDIDropshipBayCommandSet">
 		<Cmd>Command_ConstructGDIJetpackTrooper</Cmd>
@@ -85,47 +85,6 @@
 		<Cmd>Command_SetRallyPoint_Vehicle</Cmd>
 	</LogicCommandSet>
 
-	<!-- Increased speed from 36 | Removed cap delay -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Replacing the Zone Commando with the vanilla Commando -->
 	<LogicCommandSet
 		id="GDIBarracksCommandSet">
 		<Cmd>Command_ConstructGDIRifleSoldierSquad</Cmd>
@@ -142,6 +101,31 @@
 		<Cmd>Command_Sell</Cmd>
 		<Cmd>Command_SetDefaultBuilding</Cmd>
 		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Sonic Repulsion Field upgrade -->
+	<LogicCommandSet
+		id="GDIArmoryCommandSet">
+		<Cmd>Command_PurchaseUpgradeCeramicArmor</Cmd>
+		<Cmd>Command_PurchaseUpgradeTankRailgun</Cmd>
+		<Cmd>Command_PurchaseUpgradeThermoBaricMissiles</Cmd>
+		<Cmd>Command_CallColossusStrike</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Laser Fencing upgrade -->
+	<LogicCommandSet
+		id="NODTechAssemblyPlantCommandSet">
+		<Cmd>Command_PurchasePurifyingLaser</Cmd>
+		<Cmd>Command_PurchaseUpgradeTibCoreMissiles</Cmd>
+		<Cmd>Command_PurchaseFirestormIgnition</Cmd>
+		<Cmd>Command_CloakingField</Cmd>
+		<Cmd>Command_CallSupportPhantomArmy</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
 	<!-- Entirely Changed the Artillery Emplacement Weapon -->
@@ -316,36 +300,12 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
+				xai:joinAction="Replace"
 				MaxHealth="2500.0" />
 		</Body>
 	</GameObject>
 
-	<!-- Removed Sonic Repulsion Field upgrade -->
-	<LogicCommandSet
-		id="GDIArmoryCommandSet">
-		<Cmd>Command_PurchaseUpgradeCeramicArmor</Cmd>
-		<Cmd>Command_PurchaseUpgradeTankRailgun</Cmd>
-		<Cmd>Command_PurchaseUpgradeThermoBaricMissiles</Cmd>
-		<Cmd>Command_CallColossusStrike</Cmd>
-		<Cmd>Command_TogglePower</Cmd>
-		<Cmd>Command_SelfRepair</Cmd>
-		<Cmd>Command_Sell</Cmd>
-	</LogicCommandSet>
-
-	<!-- Removed Laser Fencing upgrade -->
-	<LogicCommandSet
-		id="NODTechAssemblyPlantCommandSet">
-		<Cmd>Command_PurchasePurifyingLaser</Cmd>
-		<Cmd>Command_PurchaseUpgradeTibCoreMissiles</Cmd>
-		<Cmd>Command_PurchaseFirestormIgnition</Cmd>
-		<Cmd>Command_CloakingField</Cmd>
-		<Cmd>Command_CallSupportPhantomArmy</Cmd>
-		<Cmd>Command_TogglePower</Cmd>
-		<Cmd>Command_SelfRepair</Cmd>
-		<Cmd>Command_Sell</Cmd>
-	</LogicCommandSet>
-
-	<!-- Added AUTO_ACQUIRABLE_BY_AI -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
 	<GameObject
 		id="GDICDMTower"
 		inheritFrom="GDICDMTower"
@@ -365,6 +325,78 @@
 		id="NODCDMTower2"
 		inheritFrom="NODCDMTower2"
 		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<!-- Allies allowed to dock at airfield -->
+	<GameObject
+		id="NODHangar"
+		inheritFrom="NODHangar">
+		<Behaviors>
+			<ParkingPlaceBehavior
+				id="ModuleTag_ParkingPlaceBehavior"
+				xai:joinAction="Append">
+				<CanParkHereFilter
+					Relationship="ALLIES SAME_PLAYER"/>
+			</ParkingPlaceBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Unit Crate -->
+	<GameObject
+		id="UnitCrate"
+		inheritFrom="UnitCrate">
+		<Behaviors>
+			<UnitCrateCollide
+				id="ModuleTag_CrateCollide"
+				xai:joinAction="Replace"
+				UnitCount="1"
+				UnitType="NODStealthTank"
+				IsHumanOnlyPickup="true"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased armor and health significantly | changed name -->
+	<GameObject
+		id="GDICarrierSPImmobile"
+		inheritFrom="GDICarrierSPImmobile">
+		<DisplayName
+			xai:joinAction="Replace"
+			xmlns:xai="uri:ea.com:eala:asset:instance">Name:GDICarrier</DisplayName>
+		<ArmorSet
+			Armor="TechStructureArmor"
+			DamageFX="VehicleDamageFX" />
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="30000.0" />
+		</Body>
+	</GameObject>
+
+	<!-- KeepsParkingSpaceWhenAirborne="false" | OutOfAmmoDamagePerSecond="2.5"  -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<AI>
+			<JetAIUpdate
+				id="ModuleTag_AI"
+				xai:joinAction="Append"
+				KeepsParkingSpaceWhenAirborne="false"
+				OutOfAmmoDamagePerSecond="2.5"/>
+		</AI>
+	</GameObject>
+
+	<!-- Allies allowed to dock at airfield -->
+	<GameObject
+		id="GDIAirTower"
+		inheritFrom="GDIAirTower">
+		<Behaviors>
+			<ParkingPlaceBehavior
+				id="ModuleTag_ParkingPlaceBehavior"
+				xai:joinAction="Append">
+				<CanParkHereFilter
+					Relationship="ALLIES SAME_PLAYER"/>
+			</ParkingPlaceBehavior>
+		</Behaviors>
+	</GameObject>
 
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
@@ -441,82 +473,6 @@
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
 
-	<!-- Allies allowed to dock at airfield -->
-	<GameObject
-		id="NODHangar"
-		inheritFrom="NODHangar">
-		<Behaviors>
-			<ParkingPlaceBehavior
-				id="ModuleTag_ParkingPlaceBehavior">
-				<CanParkHereFilter
-					Relationship="ALLIES SAME_PLAYER"/>
-			</ParkingPlaceBehavior>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Unit Crate -->
-	<GameObject
-		id="UnitCrate"
-		inheritFrom="UnitCrate">
-		<Behaviors>
-			<UnitCrateCollide
-				id="ModuleTag_CrateCollide"
-				UnitCount="1"
-				UnitType="NODStealthTank"
-				IsHumanOnlyPickup="true"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Increased armor and health significantly | changed name -->
-	<GameObject
-		id="GDICarrierSPImmobile"
-		inheritFrom="GDICarrierSPImmobile">
-		<DisplayName
-			xai:joinAction="Replace"
-			xmlns:xai="uri:ea.com:eala:asset:instance">Name:GDICarrier</DisplayName>
-		<ArmorSet
-			Armor="TechStructureArmor"
-			DamageFX="VehicleDamageFX" />
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				MaxHealth="30000.0" />
-		</Body>
-	</GameObject>
-
-	<!-- KeepsParkingSpaceWhenAirborne="false" | OutOfAmmoDamagePerSecond="2.5"  -->
-	<GameObject
-		id="GDIFireHawk"
-		inheritFrom="GDIFireHawk">
-		<AI>
-			<JetAIUpdate
-				id="ModuleTag_AI"
-				AutoAcquireEnemiesWhenIdle="YES"
-				KeepsParkingSpaceWhenAirborne="false"
-				OutOfAmmoDamagePerSecond="2.5"
-				CirclesForAttack="true"
-				ReturnToBaseWhenVictimDead="true"
-				AILuaEventsList="GDIFirehawkFunctions">
-				<UnitAITargetChooserData
-					SympathyRange="100.0"/>
-				<LockonInfo/>
-			</JetAIUpdate>
-		</AI>
-	</GameObject>
-
-	<!-- Allies allowed to dock at airfield -->
-	<GameObject
-		id="GDIAirTower"
-		inheritFrom="GDIAirTower">
-		<Behaviors>
-			<ParkingPlaceBehavior
-				id="ModuleTag_ParkingPlaceBehavior">
-				<CanParkHereFilter
-					Relationship="ALLIES SAME_PLAYER"/>
-			</ParkingPlaceBehavior>
-		</Behaviors>
-	</GameObject>
-
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
@@ -555,6 +511,31 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
 
 	<!-- NOD -->
 	<GameObject
@@ -596,4 +577,48 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
 </AssetDeclaration>

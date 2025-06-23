@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="us-ascii"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
@@ -11,27 +11,26 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
 		<!-- Unit Crate -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Crates\UnitCrate.xml" type="instance"/>
-		<!-- For Nod Saboteur -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- For Nod Scorpion -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODRaiderTank.xml" type="instance"/>
 		<!-- For Nod Lab Radar Building -->
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSLabRadarBuilding.xml" type="instance"/>
+		<!-- For Nod Scorpion -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODRaiderTank.xml" type="instance"/>
+
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
-		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
-		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
-		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml"/>
-		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
 
-	<!-- Added AUTO_ACQUIRABLE_BY_AI -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
 	<GameObject
 		id="GDICDMTower"
 		inheritFrom="GDICDMTower"
@@ -52,47 +51,7 @@
 		inheritFrom="NODCDMTower2"
 		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
 
-	<!-- Increased speed from 36 | Removed cap delay -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Enabled House colors | doesn't reveal to all -->
+	<!-- Enabled House colors | doesn't reveal to all | Doesn't repair with global repair tool -->
 	<GameObject
 		id="NOD_LabRadarBuilding"
 		inheritFrom="NOD_LabRadarBuilding"
@@ -141,7 +100,7 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
-	<!-- Removing all upgrades -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="GDIAirTowerCommandSet">
 		<Cmd>Command_ConstructGDIOrca</Cmd>
@@ -169,7 +128,7 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
-	<!-- Removed Laser Fencing, Tiberium Core Missiles, and Firestorm shells upgrade -->
+	<!-- Removed Laser Fencing, Tiberium Core Missiles, and Firestorm shells upgrades -->
 	<LogicCommandSet
 		id="NODTechAssemblyPlantCommandSet">
 		<Cmd>Command_PurchasePurifyingLaser</Cmd>
@@ -180,6 +139,7 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
+	<!-- Lowered cost of Scorpion Tank -->
 	<GameObject
 		id="NODRaiderTank"
 		inheritFrom="NODRaiderTank"
@@ -193,7 +153,6 @@
 		<Target>NODRaiderTank</Target>
 		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
-
 	<ExperienceLevelTemplate
 		id="NODRaiderTankExperienceLevel_2" Prerequisite="NODRaiderTankExperienceLevel_1" RequiredExperience="2400" ExperienceAward="1040" ModelConditionState="SPECIAL_CHEERING" Rank="2">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -203,7 +162,6 @@
 		<AttributeModifier>Unit_Veteran</AttributeModifier>
 		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
-
 	<ExperienceLevelTemplate
 		id="NODRaiderTankExperienceLevel_3" Prerequisite="NODRaiderTankExperienceLevel_2" RequiredExperience="4800" ExperienceAward="1280" ModelConditionState="SPECIAL_CHEERING" Rank="3">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -213,7 +171,6 @@
 		<AttributeModifier>Unit_Elite</AttributeModifier>
 		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
-
 	<ExperienceLevelTemplate
 		id="NODRaiderTankExperienceLevel_4" Prerequisite="NODRaiderTankExperienceLevel_3" RequiredExperience="7200" ExperienceAward="1600" ModelConditionState="SPECIAL_CHEERING" Rank="4">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -223,6 +180,19 @@
 		<AttributeModifier>Unit_Heroic</AttributeModifier>
 		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
+
+	<!-- Unit Crate -->
+	<GameObject
+		id="UnitCrate"
+		inheritFrom="UnitCrate">
+		<Behaviors>
+			<UnitCrateCollide
+				id="ModuleTag_CrateCollide"
+				UnitCount="1"
+				UnitType="NODRaiderTank"
+				IsHumanOnlyPickup="true"/>
+		</Behaviors>
+	</GameObject>
 
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
@@ -279,19 +249,6 @@
 			</MissionObjectiveTag>
 	</MissionObjectiveList>
 
-	<!-- Unit Crate -->
-	<GameObject
-		id="UnitCrate"
-		inheritFrom="UnitCrate">
-		<Behaviors>
-			<UnitCrateCollide
-				id="ModuleTag_CrateCollide"
-				UnitCount="1"
-				UnitType="NODRaiderTank"
-				IsHumanOnlyPickup="true"/>
-		</Behaviors>
-	</GameObject>
-
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
@@ -330,6 +287,31 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
 
 	<!-- NOD -->
 	<GameObject
@@ -371,4 +353,48 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
 </AssetDeclaration>

@@ -1,50 +1,38 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<!-- For Tiberium Spike -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- Civilian Structures -->
 		<Include source="Data:Civilian\Washington_DC_DC\Buildings\DCBWse04.xml" type="instance"/>
 		<Include source="DATA:Civilian\Washington_DC_DC\Buildings\DCBRad01.xml" type="instance"/>
-		<!-- For GDI Power Plants -->
+		<!-- For GDI Power Plant -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
-		<!-- For GDI APC -->
+		<!-- For GDI MRT -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMRT.xml" type="instance"/>
 		<!-- For Nod Dropzone -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODDropZone.xml" type="instance"/>
 		<!-- For Nod Operations Center -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODOperationsCenter.xml" type="instance"/>
-		<!-- For Nod Saboteur -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- For Nod Infantry Carryall -->
+		<!-- For Nod Carryall -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallInfantry.xml" type="instance"/>
+
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
 
-	<!-- Added Auto AUTO_ACQUIRABLE_BY_AI Kindof | Increased Deposit amount from 10 | Increased initial cap bonus from 500 -->
-	<GameObject
-		id="TiberiumSpike"
-		inheritFrom="TiberiumSpike"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="25"
-				InitialCaptureBonus="750"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Removing upgrades from Airfield -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="GDIAirTowerCommandSet">
 		<Cmd>Command_ConstructGDIOrca</Cmd>
@@ -61,7 +49,7 @@
 		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
 	</LogicCommandSet>
 
-	<!-- Removing upgrades from Command Post -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="GDICommandPostCommandSet">
 		<Cmd>Command_CommandPostRadarScan</Cmd>
@@ -85,6 +73,8 @@
 		<Cmd>Command_TogglePower</Cmd>
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
 	</LogicCommandSet>
 
 	<!-- Lowered health from 4000 -->
@@ -94,7 +84,8 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
-				MaxHealth="3000"/>
+				xai:joinAction="Replace"
+				MaxHealth="3000.0"/>
 		</Body>
 	</GameObject>
 
@@ -137,73 +128,57 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
-				MaxHealth="2000"
-				InitialHealth="2000" />
+				MaxHealth="2000"/>
 		</Body>
 	</GameObject>
 
-	<!-- Increased speed from 36 | Removed cap delay -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Increased capacity to 10 slots | Increased TAXIING speed from 10 -->
+	<!-- Increased capacity to 10 slots | Lowered Vision Range from 350 | Lowered Shroud Clearing range from 350 -->
 	<GameObject
 		id="NODCarryallInfantry"
 		inheritFrom="NODCarryallInfantry">
-		<LocomotorSet
-			Locomotor="BasicHelicopterTaxiLocomotor"
-			Condition="TAXIING"
-			Speed="100" />
 		<Behaviors>
 			<HordeTransportContain
 				id="ModuleTag_Contain"
-				ContainMax="10"
-				Slots="10">
+				xai:joinAction="Replace"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="3"
+				Slots="3"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true"
+				ExtendedExitContainerChecks="true">
 				<PassengerFilter
 					Rule="ANY"
-					Include="VEHICLE" />
+					Include="INFANTRY VEHICLE"/>
+				<DieMuxData
+					DeathTypes="ALL"/>
 				<PassengerData
 					BonePrefix="BONEGARRISON">
 					<Filter
-						Rule="NONE"
-						Include="VEHICLE" />
+						Rule="ANY"
+						Include="INFANTRY VEHICLE"/>
 				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 			</HordeTransportContain>
 		</Behaviors>
 		<VisionInfo
@@ -305,4 +280,61 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<GameObject
+		id="TiberiumSpike"
+		inheritFrom="TiberiumSpike"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				DepositAmount="25"
+				InitialCaptureBonus="750"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
 </AssetDeclaration>

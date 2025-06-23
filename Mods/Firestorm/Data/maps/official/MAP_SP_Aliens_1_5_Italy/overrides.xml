@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
@@ -6,93 +7,167 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Alien Wormhole -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienWormHole.xml" type="instance"/>
+		<!-- For Alien Tower -->
+		<Include source="DATA:Alien\Structures\ABTower.xml" type="instance"/>
 		<!-- For Alien Phase Generator -->
 		<Include source="DATA:Alien\Structures_Singleplayer\AlienPhaseGenerator.xml" type="instance"/>
-		<!-- For Nod Saboteur -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- For Alien Assimilator -->
-		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
-		<!-- Wormhole -->
-		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienWormHole.xml" type="instance"/>
-		<!-- Alien Tower -->
-		<Include source="DATA:Alien\Structures\ABTower.xml" type="instance"/>
-		<!-- For Alien Mothership -->
-		<Include source="DATA:FireStorm\Data\Data\Alien\Units\Aircraft\AlienMothership.xml" type="instance"/>
+		<!-- For Alien Ichor Reactor -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<!-- For Alien Signal Transmitter -->
 		<Include source="DATA:FireStorm\Data\Data\Alien\Structures\Buildings\AlienSignalTransmitter.xml" type="instance"/>
 		<!-- For Alien Devastator Warship -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienDevastatorWarship.xml" type="instance"/>
 		<!-- For Alien Planetary Assault Carrier -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienPlanetaryAssaultCarrier.xml" type="instance"/>
-		<!-- For Alien Ichor Reactor -->
-		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
+		<!-- For Alien Mothership -->
+		<Include source="DATA:FireStorm\Data\Data\Alien\Units\Aircraft\AlienMothership.xml" type="instance"/>
+
 		<!-- For Mod's Global Sound Data -->
-		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
-		<Include source="DATA:FireStorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
-		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml"/>
-		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- Alien Global Overrides -->
-		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml"/>
-		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
 
-	<!-- Increased speed from 36 | Removed cap delay -->
+	<!--  Alien Tower -->
 	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
+		id="ABTower"
+		inheritFrom="ABTower"
+		KindOf="STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD SELECTABLE AIRCRAFT_PATH_AROUND RESIST_EMP">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="20000.0"/>
+		</Body>
 	</GameObject>
 
+	<!-- Increased health from 3000 | Added Phase Shield Ability -->
 	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
+		id="Alien_PhaseGenerator"
+		inheritFrom="Alien_PhaseGenerator"
+		CommandSet="AlienPhaseGeneratorCommandSet"
+		KindOf="SELECTABLE STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD AUTO_ACQUIRABLE_BY_AI RESIST_EMP NOT_SELLABLE CAN_ATTACK TIBERIUM_BASED FS_BASE_DEFENSE POWERED COVER HEALED_BY_TIBERIUM">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
 		<Behaviors>
 			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
+				id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint
 					ID="1">
 					<Weapon
 						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
+						Template="AlienPhaseGeneratorDummyWeapon"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
+			<OCLSpecialPower
+				id="ModuleTag_PhaseShieldOCL"
+				SpecialPowerTemplate="SpecialPower_AlienPhaseShield"
+				OCL="OCL_AlienPhasingShield"
+				TriggerFX="FX_AlienShieldPower"
+				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
+				<NearestSecondaryObjectFilter
+					Rule="ANY"
+					Relationship="SAME_PLAYER">
+					<IncludeThing>Alien_PhaseGenerator</IncludeThing>
+				</NearestSecondaryObjectFilter>
+			</OCLSpecialPower>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="20000.0" />
+		</Body>
+		<VisionInfo
+			VisionRange="450"
+			ShroudClearingRange="500"/>
+	</GameObject>
+
+	<!-- SP Doesn't reload | Removed cost -->
+	<SpecialPowerTemplate
+		id="SpecialPower_SummonMothership"
+		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC"
+		ReloadTime="999999s"
+		TargetType="NONE" 
+		Money="0"
+		InitiateAtLocationSound="ALI_MotherShip_SoundCreate"
+		EvaEventToPlayOnInitiateOwner="MothershipDeployed"
+		EvaEventToPlayOnInitiateEnemy="WarningMothershipDeployed">
+		<GameDependency>
+			<ForbiddenUpgrade>Upgrade_MotherShipBuilt</ForbiddenUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<!--  Mothership spawns at player Spawn point (InitialCameraPosition) -->
+	<GameObject
+		id="AlienSignalTransmitter"
+		inheritFrom="AlienSignalTransmitter">
+		<Behaviors>
+			<OCLSpecialPower
+				id="ModuleTag_SummonMothership"
+				xai:joinAction="Replace"
+				SpecialPowerTemplate="SpecialPower_SummonMothership"
+				OCL="OCL_SummonMothership"
+				CreateLocation="CREATE_CLOSEST_TO_SPAWN_POINT"/>
 		</Behaviors>
 	</GameObject>
 
+	<!--  Increased Health from 28000  -->
 	<GameObject
-		id="AlienAssimilator"
-		inheritFrom="AlienAssimilator">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
+		id="AlienMothership"
+		inheritFrom="AlienMothership">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="45000"/>
+		</Body>
+	</GameObject>
+
+	<!--  Increased LifetimeUpdate to last the whole mission -->
+	<GameObject
+		id="AlienWormhole"
+		inheritFrom="AlienWormhole">
 		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
+			<LifetimeUpdate
+				id="ModuleTag_LifeTimeUpdate"
+				xai:joinAction="Replace"
+				MinLifetime="999999.0s"
+				MaxLifetime="999999.0s"/>
 		</Behaviors>
 	</GameObject>
+
+	<!-- Can only build 5 of these units -->
+	<GameObject
+		id="AlienDevastatorWarship"
+		inheritFrom="AlienDevastatorWarship"
+		MaxSimultaneousOfType="5"/>
+
+	<!-- Can only build 8 of these units -->
+	<GameObject
+		id="AlienPlanetaryAssaultCarrier"
+		inheritFrom="AlienPlanetaryAssaultCarrier"
+		MaxSimultaneousOfType="8"/>
+
+	<!-- Increased power -->
+	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector"
+		EnergyProduction="30"/>
 
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
@@ -155,140 +230,6 @@
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
 
-	<!--  Alien Tower -->
-	<GameObject
-		id="ABTower"
-		inheritFrom="ABTower"
-		KindOf="STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD SELECTABLE AIRCRAFT_PATH_AROUND RESIST_EMP">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				MaxHealth="20000.0"/>
-		</Body>
-	</GameObject>
-
-	<!-- Increased health from 3000 | Added Phase Shield Ability -->
-	<GameObject
-		id="Alien_PhaseGenerator"
-		inheritFrom="Alien_PhaseGenerator"
-		CommandSet="AlienPhaseGeneratorCommandSet"
-		KindOf="SELECTABLE STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD AUTO_ACQUIRABLE_BY_AI RESIST_EMP NOT_SELLABLE CAN_ATTACK TIBERIUM_BASED FS_BASE_DEFENSE POWERED COVER HEALED_BY_TIBERIUM">
-		<Draws>
-			<ScriptedModelDraw
-				id="ModuleTag_Draw"
-				xai:joinAction="Append"
-				OkToChangeModelColor="true"/>
-		</Draws>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="AlienPhaseGeneratorDummyWeapon"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<OCLSpecialPower
-				id="ModuleTag_PhaseShieldOCL"
-				SpecialPowerTemplate="SpecialPower_AlienPhaseShield"
-				OCL="OCL_AlienPhasingShield"
-				TriggerFX="FX_AlienShieldPower"
-				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
-				<NearestSecondaryObjectFilter
-					Rule="ANY"
-					Relationship="SAME_PLAYER">
-					<IncludeThing>Alien_PhaseGenerator</IncludeThing>
-				</NearestSecondaryObjectFilter>
-			</OCLSpecialPower>
-		</Behaviors>
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				MaxHealth="20000.0" />
-		</Body>
-		<VisionInfo
-			VisionRange="450"
-			ShroudClearingRange="500"/>
-	</GameObject>
-
-	<!-- SP Doesn't reload | Removed cost -->
-	<SpecialPowerTemplate
-		id="SpecialPower_SummonMothership"
-		Flags="IS_PLAYER_POWER WATER_OK SHARED_SYNC"
-		ReloadTime="999999s"
-		TargetType="NONE" 
-		Money="0"
-		InitiateAtLocationSound="ALI_MotherShip_SoundCreate"
-		EvaEventToPlayOnInitiateOwner="MothershipDeployed"
-		EvaEventToPlayOnInitiateEnemy="WarningMothershipDeployed">
-		<GameDependency>
-			<ForbiddenUpgrade>Upgrade_MotherShipBuilt</ForbiddenUpgrade>
-		</GameDependency>
-	</SpecialPowerTemplate>
-
-	<!--  Mothership spawns through a script, overwrite the original SP to not spawn anything -->
-	<GameObject
-		id="AlienSignalTransmitter"
-		inheritFrom="AlienSignalTransmitter">
-		<Behaviors>
-			<OCLSpecialPower
-				id="ModuleTag_SummonMothership"
-				xai:joinAction="Overwrite"
-				SpecialPowerTemplate="SpecialPower_SummonMothership"
-				OCL="OCL_SummonMothership"
-				CreateLocation="CREATE_CLOSEST_TO_SPAWN_POINT"/>
-		</Behaviors>
-	</GameObject>
-
-	<!--  Increased Health from 28000  -->
-	<GameObject
-		id="AlienMothership"
-		inheritFrom="AlienMothership">
-		<Body>
-			<ShieldBody
-				id="ModuleTag_Body"
-				MaxHealth="45000"
-				ShieldAmount="3000"
-				ShieldArmor="ForcefieldFilterDamageArmor"
-				ShieldRechargeIdleTime="105s"
-				ShieldEnabledFX="FX_AlienShieldEnabled"
-				ShieldTakeDamageFX="FX_AlienShieldHit"
-				ShieldDepleteFX="FX_AlienShieldDeplete"
-				ShieldActiveModelCondition="USER_19"/>
-		</Body>
-	</GameObject>
-
-	<!--  Increased LifetimeUpdate to last the whole mission -->
-	<GameObject
-		id="AlienWormhole"
-		inheritFrom="AlienWormhole">
-		<Behaviors>
-			<LifetimeUpdate
-				id="ModuleTag_LifeTimeUpdate"
-				MinLifetime="999999.0s"
-				MaxLifetime="999999.0s"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Can only build 5 of these units -->
-	<GameObject
-		id="AlienDevastatorWarship"
-		inheritFrom="AlienDevastatorWarship"
-		MaxSimultaneousOfType="5"/>
-
-	<!-- Can only build 8 of these units -->
-	<GameObject
-		id="AlienPlanetaryAssaultCarrier"
-		inheritFrom="AlienPlanetaryAssaultCarrier"
-		MaxSimultaneousOfType="8"/>
-
-	<!-- Increased power -->
-	<GameObject
-		id="AlienPowerProjector"
-		inheritFrom="AlienPowerProjector"
-		EnergyProduction="30"/>
-
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
@@ -328,6 +269,31 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
 	<!-- Alien -->
 	<GameObject
 		id="AlienTiberiumTower"
@@ -365,4 +331,49 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
+
+	<GameObject
+		id="AlienAssimilator"
+		inheritFrom="AlienAssimilator">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienHarvester</Target>
+		<Decal Texture="decal_A_Level1" Texture2="decal_Alien_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="75" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
 </AssetDeclaration>

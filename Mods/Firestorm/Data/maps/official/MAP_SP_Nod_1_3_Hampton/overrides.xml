@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<!-- For GDI Carrier -->
-		<Include source="DATA:GDI\Units\GDICarrier.xml" type="instance"/>
 		<!-- Civilian Structures -->
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock01.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock03.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock04.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Props/DCPSupply02.xml" type="instance"/>
-		<!-- For Nod Commando -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODCommando.xml" type="instance"/>
-		<!-- For Nod Saboteur -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- For GDI Carrier -->
+		<Include source="DATA:GDI\Units\GDICarrier.xml" type="instance"/>
 		<!-- For GDI Command Post -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
+		<!-- For Nod Commando -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODCommando.xml" type="instance"/>
+
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
 
+	<!-- Remove UNATTACKABLE status -->
 	<AttributeModifier
 		id="AttributeModifier_JumpJets"
 		Category="NONE">
 		<Modifier Type="CRUSHABLE_LEVEL" Value="500%" />
 	</AttributeModifier>
 
-	<!-- Removing upgrades from Command Post -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="GDICommandPostCommandSet">
 		<Cmd>Command_CommandPostRadarScan</Cmd>
@@ -41,64 +44,6 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
-
-	<!-- Mission Objectives -->
-	<MissionObjectiveList
-		id="MissionObjectives">
-		<!-- Objective 1: Destroy the GDS Pathe -->
-		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_1_3_Objective_1"
-			Description="SCRIPT:NOD_1_3_Obj_1_Detail">
-			<PresentationSettings
-				ID="NOD_ToW_1_3_Objective_1"
-				Dialog="MN13_NodEVA11"
-				UseDynamicZoom="False">
-				<Duration>12s</Duration>
-				<CameraStartAngle>10d</CameraStartAngle>
-				<CameraEndAngle>20d</CameraEndAngle>
-				<CameraFieldOfView>55d</CameraFieldOfView>
-			</PresentationSettings>
-		</MissionObjectiveTag>
-		<!--Objective 2: Destroy the Port Authority Building -->
-		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_1_3_Objective_2"
-			Description="SCRIPT:NOD_1_3_Obj_2_Detail">
-			<PresentationSettings
-				ID="NOD_ToW_1_3_Objective_2"
-				Dialog="MN13_NodEVA04"
-				UseDynamicZoom="False">
-				<Duration>7s</Duration>
-				<CameraStartAngle>10d</CameraStartAngle>
-				<CameraEndAngle>20d</CameraEndAngle>
-			</PresentationSettings>
-		</MissionObjectiveTag>
-		<!-- Bonus Objective 1: Find the missing Saboteur -->
-		<MissionObjectiveTag
-			IsBonusObjective="true"
-			Script="SCRIPT:NOD_TOW_1_3_Objective_3"
-			Description="SCRIPT:NOD_1_3_Obj_3_Detail">
-			<PresentationSettings
-				ID="NOD_ToW_1_3_BonObjective_1a"
-				Dialog="MN13_NodEVA09">
-				<Duration>5s</Duration>
-				<CameraStartAngle>10d</CameraStartAngle>
-				<CameraEndAngle>20d</CameraEndAngle>
-			</PresentationSettings>
-		</MissionObjectiveTag>
-		<!-- Bonus Objective 2: Take Over the Command Post-->
-		<MissionObjectiveTag
-			IsBonusObjective="true"
-			Script="SCRIPT:NOD_TOW_1_3_Objective_4"
-			Description="SCRIPT:NOD_1_3_Obj_4_Detail">
-			 <PresentationSettings
-				ID="NOD_ToW_1_3_BonObjective_2"
-				Dialog="MN13_NodEVA06">
-				<Duration>3.5s</Duration>
-				<CameraStartAngle>10d</CameraStartAngle>
-				<CameraEndAngle>20d</CameraEndAngle>
-			</PresentationSettings>
-		</MissionObjectiveTag>
-	</MissionObjectiveList>
 
 	<!-- Overall Improved Armor -->
 	<ArmorTemplate
@@ -124,11 +69,12 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
+				xai:joinAction="Replace"
 				MaxHealth="1300.0" />
 		</Body>
 	</GameObject>
 
-	<!-- Nerfed weapon -->
+	<!-- Overall Nerfed weapon -->
 	<WeaponTemplate
 		id="GDICommandoRailCarbine"
 		Name="GDICommandoRailCarbine"
@@ -198,46 +144,6 @@
 			</DamageNugget>
 		</Nuggets>
 	</WeaponTemplate>
-
-	<!-- Increased speed from 36 | Removed cap delay -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
 
 	<!-- Overall Improved Armor -->
 	<ArmorTemplate
@@ -399,4 +305,104 @@
 		<WeatherData id="SUNNY" HasLightning="false" />
 		<WeatherData id="CLOUDY" HasLightning="false" />
 	</Weather>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Objective 1: Destroy the GDS Pathe -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_1_3_Objective_1"
+			Description="SCRIPT:NOD_1_3_Obj_1_Detail">
+			<PresentationSettings
+				ID="NOD_ToW_1_3_Objective_1"
+				Dialog="MN13_NodEVA11"
+				UseDynamicZoom="False">
+				<Duration>12s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--Objective 2: Destroy the Port Authority Building -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_1_3_Objective_2"
+			Description="SCRIPT:NOD_1_3_Obj_2_Detail">
+			<PresentationSettings
+				ID="NOD_ToW_1_3_Objective_2"
+				Dialog="MN13_NodEVA04"
+				UseDynamicZoom="False">
+				<Duration>7s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Bonus Objective 1: Find the missing Saboteur -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_3_Objective_3"
+			Description="SCRIPT:NOD_1_3_Obj_3_Detail">
+			<PresentationSettings
+				ID="NOD_ToW_1_3_BonObjective_1a"
+				Dialog="MN13_NodEVA09">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Bonus Objective 2: Take Over the Command Post-->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_1_3_Objective_4"
+			Description="SCRIPT:NOD_1_3_Obj_4_Detail">
+			 <PresentationSettings
+				ID="NOD_ToW_1_3_BonObjective_2"
+				Dialog="MN13_NodEVA06">
+				<Duration>3.5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
 </AssetDeclaration>
