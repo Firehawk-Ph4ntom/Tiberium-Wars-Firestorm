@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- Defensive Tower -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\DefensiveTower.xml" type="instance"/>
+		<!-- For GDI Construction Yard -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIConstructionYard.xml" type="instance"/>
+		<!-- For GDI Barracks -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<!-- For GDI WarFactory -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIWarfactory.xml" type="instance"/>
+		<!-- For GDI Airfield -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
+		<!-- For GDI Ion Cannon Control -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
+		<!-- For GDI Commando -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- For GDI Firehawk -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For Nod Temple of Nod -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODTempleOfNOD.xml" type="instance"/>
+		<!-- For Alien Stormrider -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienStormrider.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
+		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Changing Commando Queue Type -->
+	<GameObject
+		id="GDICommando_EA"
+		inheritFrom="GDICommando_EA"
+		ProductionQueueType="INFANTRY"/>
+
+	<!-- Replacing the Zone Commando with the vanilla Commando -->
+	<LogicCommandSet
+		id="GDIBarracksCommandSet">
+		<Cmd>Command_ConstructGDIRifleSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIMissileSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIEngineer</Cmd>
+		<Cmd>Command_ConstructGDIGrenadeSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDISniperSquad</Cmd>
+		<Cmd>Command_ConstructGDIMedicSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneTrooperSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneRaiderSquad</Cmd>
+		<Cmd>Command_ConstructGDICommando_EA</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Laser Fencing upgrade -->
+	<LogicCommandSet
+		id="NODTechAssemblyPlantCommandSet">
+		<Cmd>Command_PurchasePurifyingLaser</Cmd>
+		<Cmd>Command_PurchaseUpgradeTibCoreMissiles</Cmd>
+		<Cmd>Command_PurchaseFirestormIgnition</Cmd>
+		<Cmd>Command_CloakingField</Cmd>
+		<Cmd>Command_CallSupportPhantomArmy</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Sonic Repulsion Field upgrade -->
+	<LogicCommandSet
+		id="GDIArmoryCommandSet">
+		<Cmd>Command_PurchaseUpgradeCeramicArmor</Cmd>
+		<Cmd>Command_PurchaseUpgradeTankRailgun</Cmd>
+		<Cmd>Command_PurchaseUpgradeThermoBaricMissiles</Cmd>
+		<Cmd>Command_CallColossusStrike</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades -->
+	<LogicCommandSet
+		id="NODTiberiumLiquidationFacilityCommandSet">
+		<Cmd>Command_TiberiumFacilitySeedTiberium</Cmd>
+		<Cmd>Command_ChemicalPlantTibVeinDetonation</Cmd>
+		<Cmd>Command_LaunchCatalystMissile</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Overkill and Sonic Weaponry upgrades -->
+	<LogicCommandSet
+		id="GDISpaceCommandUplinkCommandSet">
+		<Cmd>Command_SpaceCommandGDIDropPods</Cmd>
+		<Cmd>Command_SpaceCommandGDIShockwave</Cmd>
+		<Cmd>Command_SummonGDIKodiak</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Increased health from 20000 -->
+	<GameObject
+		id="GDIConstructionYard"
+		inheritFrom="GDIConstructionYard">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="30000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 20000 -->
+	<GameObject
+		id="GDIIonCannonControl"
+		inheritFrom="GDIIonCannonControl">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="30000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 3000 -->
+	<GameObject
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="10000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 10000 -->
+	<GameObject
+		id="GDIWarFactory"
+		inheritFrom="GDIWarFactory">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="20000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 4000 -->
+	<GameObject
+		id="GDIAirTower"
+		inheritFrom="GDIAirTower">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="10000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered Vision range from 500 | Lowered shroud Clearing range from 450  -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<VisionInfo
+			VisionRange="350"
+			ShroudClearingRange="400"/>
+	</GameObject>
+
+	<!-- Nuke available from the start -->
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD">
+		<Behaviors>
+			<OCLSpecialPower
+				id="ModuleTag_NuclearMissile"
+				xai:joinAction="Append"
+				AvailableAtStart="true"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased Vision range from 400 | Increased shroud Clearing range from 350  -->
+	<GameObject
+		id="AlienStormrider"
+		inheritFrom="AlienStormrider">
+		<VisionInfo
+			VisionRange="450"
+			ShroudClearingRange="400"/>
+	</GameObject>
+
+	<!-- Increased health from 7000 -->
+	<GameObject
+		id="DefensiveTower"
+		inheritFrom="DefensiveTower">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="10000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered cooldown from 7:00 minutes -->
+	<SpecialPowerTemplate
+		id="SpecialPowerIonCannonControlIonCannon"
+		DisplayName="Name:SuperweaponTimerIonCannon"
+		Description="Desc:SuperweaponTimer"
+		TargetType="LOCATION"
+		Flags="FOGGED_SHROUDED_CELLS_OK IS_PLAYER_POWER SHARED_SYNC IGNORE_MAP_EXTENTS WATER_OK HAS_PUBLIC_TIMER"
+		ReloadTime="360s"
+		RadiusCursorRadius="600"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayOnInitiateOwner="OwnIonCannonActivated"
+		EvaEventToPlayOnInitiateAlly="AlliedIonCannonActivated"
+		EvaEventToPlayOnInitiateEnemy="EnemyIonCannonActivated"
+		RestrictionType="1"
+		TimerImage="Button_PlayerPowerIonCannon"/>
+
+	<!-- Lowered cooldown from 7:00 minutes -->
+	<SpecialPowerTemplate
+		id="SpecialPowerNuclearMissile"
+		DisplayName="Name:SuperweaponTimerNuclearMissile"
+		Description="Desc:SuperweaponTimer"
+		TargetType="LOCATION"
+		Flags="FOGGED_SHROUDED_CELLS_OK IS_PLAYER_POWER SHARED_SYNC IGNORE_MAP_EXTENTS WATER_OK HAS_PUBLIC_TIMER"
+		ReloadTime="180s"
+		RadiusCursorRadius="300"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayOnInitiateOwner="OwnNuclearMissileLaunched"
+		EvaEventToPlayOnInitiateAlly="AlliedNuclearMissileLaunched"
+		EvaEventToPlayOnInitiateEnemy="EnemyNuclearMissileLaunched"
+		RestrictionType="1"
+		TimerImage="Button_PlayerPowerNuclearMissile"/>
+
+	<!-- Increased damage (from 28000) and radius (from 250) to annihilate the Alien base | Increased EMP radius from 500 | Increased suppression radius from 750 -->
+	<WeaponTemplate
+		id="IonCannonFinalWeapon"
+		Name="IonCannonFinalWeapon"
+		AttackRange="50000"
+		RadiusDamageAffects="SELF ALLIES ENEMIES NEUTRALS">
+		<Nuggets>
+			<DamageNugget
+				Damage="60000"
+				DamageTaperOff="1000"
+				Radius="600"
+				DamageType="CANNON"
+				CylinderAOE="true">
+				<DamageScalarDetails
+					Scalar="2500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_IonCannonWeaponTreeCrusher"/>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_IonCannonEMPField"/>
+			<ParalyzeNugget
+				Radius="800"
+				DurationSeconds="10s"
+				ParalyzeType="EMP"
+				ParalyzeFX="FX_NODBuggyEmpHit"
+				ForbiddenTargetObjectStatus="IN_STASIS">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="UNATTACKABLE INFANTRY CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
+			</ParalyzeNugget>
+			<ParalyzeNugget
+				Radius="800"
+				DurationSeconds="10s"
+				ParalyzeType="EMP"
+				ParalyzeFX="FX_NODSilent1sEMPHit"
+				ForbiddenTargetObjectStatus="IN_STASIS">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODCyborgInfantrySquad</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODAscendedSquad</IncludeThing>
+					<IncludeThing>NODAscendedSquad_Veteran</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODDecimatorSquad</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</SpecialObjectFilter>
+			</ParalyzeNugget>
+			<AttributeModifierNugget
+				Radius="800"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_19"
+				AttributeModifierName="AttributeModifier_PreventCrush">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD" />
+			</AttributeModifierNugget>
+			<DamageNugget
+				Damage="1000000"
+				Radius="500"
+				CylinderAOE="true"
+				DamageType="GRENADE"
+				DeathType="EXTRA_7"
+				DamageFXType="GDI_RIFLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING USER_19">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="AIRCRAFT"/>
+			</DamageNugget>
+			<!-- For Alien Razorback -->
+			<DamageNugget
+				Damage="1000000"
+				Radius="800"
+				CylinderAOE="true"
+				DamageType="GRENADE"
+				DeathType="EXTRA_7"
+				DamageFXType="GDI_RIFLE"
+				ForbiddenTargetObjectStatus="IN_STASIS RIDER2"
+				ForbiddenTargetModelCondition="USER_19">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- Alien Flying Ground Units -->
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="1500"
+				Suppression="5000"
+				DurationSeconds="7s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="IonCannonEMPFieldWeapon"
+		Name="IonCannonEMPFieldWeapon"
+		AttackRange="50000"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<FiringDuration
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ParalyzeNugget
+				Radius="800"
+				DurationSeconds="0s"
+				ParalyzeType="EMP"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- Alien Flying Ground Units -->
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+					<!-- Alien Air -->
+					<IncludeThing>AlienStormrider</IncludeThing>
+					<IncludeThing>AlienWraith</IncludeThing>
+					<IncludeThing>AlienDevastatorWarship</IncludeThing>
+					<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+					<IncludeThing>AlienInvaderFighter</IncludeThing>
+					<IncludeThing>AlienConquerorBattleship</IncludeThing>
+					<IncludeThing>AlienBattleshipFighter</IncludeThing>
+					<IncludeThing>AlienScourgeGunship</IncludeThing>
+					<IncludeThing>AlienMothership</IncludeThing>
+				</SpecialObjectFilter>
+			</ParalyzeNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!--Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Defend GDI from the Aliens for 10 mins -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_4_4_Objective_1" 
+			Description="SCRIPT:NOD_TOW_4_4_Objective_1_Detail">
+			<PresentationSettings
+				ID="NOD_4_4_Obj_1A"
+				Dialog="MN44_NodEVA01">
+				<Duration>4s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-10d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_4_4_Obj_1B">
+				<Duration>2s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-10d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Help GDI defend their Ox Transports from the aliens as they evacuate -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_4_4_Objective_2"
+			Description="SCRIPT:NOD_TOW_4_4_Objective_2_Detail">
+			<PresentationSettings
+				ID="NOD_4_4_Obj_2A"
+				Dialog="MN44_NodEVA02">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_4_4_Obj_2B">
+				<Duration>4s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Help GDI in defending the Ion Cannon from the aliens -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_4_4_Objective_3"
+			Description="SCRIPT:NOD_TOW_4_4_Objective_3_Detail">
+			<PresentationSettings
+				ID="NOD_4_4_Obj_3"
+				Dialog="MN44_NodEVA03">
+				<Duration>11s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Kane Lives! New objective is to Destroy GDI -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_TOW_4_4_Objective_4"
+			Description="SCRIPT:NOD_TOW_4_4_Objective_4_Detail">
+			<PresentationSettings
+				ID="NOD_4_4_Obj_4"
+				Dialog="MN44_NodEVA04"
+				UseDynamicZoom="false">
+				<Duration>7s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Harvest 25000 Tiberium -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_4_4_BonusObjective_1"
+			Description="SCRIPT:NOD_TOW_4_4_BonusObjective_1_Detail">
+			<PresentationSettings
+				ID="NOD_4_4_Obj_5"
+				Dialog="MN44_NodEVA08">
+				<Duration>8s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Use the Nuke on the GDI Base -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_TOW_4_4_BonusObjective_2"
+			Description="SCRIPT:NOD_TOW_4_4_BonusObjective_2_Detail">
+			<PresentationSettings
+				ID="NOD_4_4_Obj_6"
+				Dialog="MN44_NodEVA05">
+				<Duration>8s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<GameObject
+		id="TiberiumSpike"
+		inheritFrom="TiberiumSpike"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				DepositAmount="25"
+				InitialCaptureBonus="750"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Alien -->
+	<GameObject
+		id="AlienTiberiumTower"
+		inheritFrom="AlienTiberiumTower"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="AlienFoundryCommandSet">
+		<Cmd>Command_ConstructAlienPowerProjector</Cmd>
+		<Cmd>Command_ConstructAlienTiberiumTower</Cmd>
+		<Cmd>Command_ConstructAlienPortal</Cmd>
+		<Cmd>Command_ConstructAlienGateway</Cmd>
+		<Cmd>Command_ConstructAlienControlCenter</Cmd>
+		<Cmd>Command_ConstructAlienWarpBeacon</Cmd>
+		<Cmd>Command_ConstructAlienStatisChamber</Cmd>
+		<Cmd>Command_ConstructAlienReactor</Cmd>
+		<Cmd>Command_ConstructAlienSignalTransmitter</Cmd>
+		<Cmd>Command_ConstructAlienWarpChasm</Cmd>
+		<Cmd>Command_ConstructAlienStormObelisk</Cmd>
+		<Cmd>Command_ConstructAlienBuzzerHive</Cmd>
+		<Cmd>Command_ConstructAlienPhotonCannon</Cmd>
+		<Cmd>Command_ConstructAlienPlasmaMissileBattery</Cmd>
+		<Cmd>Command_ConstructAlienSporePod</Cmd>
+		<Cmd>Command_ConstructAlienWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="AlienAssimilator"
+		inheritFrom="AlienAssimilator">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienHarvester</Target>
+		<Decal Texture="decal_A_Level1" Texture2="decal_Alien_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="75" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>

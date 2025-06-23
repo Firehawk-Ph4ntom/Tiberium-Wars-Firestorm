@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Nuke Transport -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\NukeTransport.xml" type="instance"/>
+		<!-- For Mutant Hovel -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\MutantHovel.xml" type="instance"/>
+		<!-- For GDI Lab Building -->
+		<Include source="DATA:GDI\Structures_SinglePlayerCampaign\GDILabRadarBuilding.xml" type="instance"/>
+		<!-- For GDI Falcon -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIFalcon.xml" type="instance"/>
+		<!-- For GDI Predator Tank -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIPredator.xml" type="instance"/>
+		<!-- For GDI Wolverine -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIWolverine.xml" type="instance"/>
+		<!-- For GDI Mammoth Tank -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMammoth.xml" type="instance"/>
+		<!-- For GDI Firehawk -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For NOD Stealth Tank -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODStealthTank.xml" type="instance"/>
+		<!-- For NOD Carryall -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryall.xml" type="instance"/>
+		<!-- For Alien Stormrider -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienStormrider.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+	</Includes>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<GameObject
+		id="MutantHovel"
+		inheritFrom="MutantHovel"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_BARRACKS AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<!-- Unsellable -->
+	<GameObject
+		id="GDI_LabRadarBuilding"
+		inheritFrom="GDI_LabRadarBuilding"
+		KindOf="SELECTABLE CAN_CAST_REFLECTIONS SCORE STRUCTURE IMMOBILE AUTO_ACQUIRABLE_BY_AI KEEP_CLASSIFIED_WHEN_DEAD NOT_SELLABLE"/>
+
+	<!-- Increased health from 2000 | Increased speed from 120 -->
+	<GameObject
+		id="NODStealthTank"
+		inheritFrom="NODStealthTank">
+		<LocomotorSet
+			Locomotor="NODStealthTankLocomotor"
+			Condition="NORMAL"
+			Speed="140.0"/>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="4500"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered speed from 60 -->
+	<GameObject
+		id="NukeTransport"
+		inheritFrom="NukeTransport">
+		<LocomotorSet
+			Locomotor="NODLTTLocomotor"
+			Condition="NORMAL"
+			Speed="50"/>
+	</GameObject>
+
+	<!-- Increased speed from 60 -->
+	<GameObject
+		id="GDIPredator"
+		inheritFrom="GDIPredator">
+		<LocomotorSet
+			Locomotor="GDIPredatorTankLocomotor"
+			Condition="NORMAL"
+			Speed="90.0"/>
+	</GameObject>
+
+	<!-- Increased speed from 45 -->
+	<GameObject
+		id="GDIMammoth"
+		inheritFrom="GDIMammoth">
+		<LocomotorSet
+			Locomotor="GDIMammothLocomotor"
+			Condition="NORMAL"
+			Speed="90.0"/>
+	</GameObject>
+
+	<!-- Increased speed from 55 -->
+	<GameObject
+		id="GDIWolverine"
+		inheritFrom="GDIWolverine">
+		<LocomotorSet
+			Speed="90"
+			Locomotor="GDIWolverineLocomotor"/>
+	</GameObject>
+
+	<!-- Lowered health from 2625 -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="700"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased speed from 100 -->
+	<GameObject
+		id="GDIFalcon"
+		inheritFrom="GDIFalcon">
+		<LocomotorSet
+			Locomotor="GDISandstormGroundLocomotor"
+			Condition="NORMAL"
+			Speed="115.0"/>
+		<LocomotorSet
+			Locomotor="GDISandstormWaterLocomotor"
+			Condition="NORMAL_UPGRADED"
+			Speed="105.0"/>
+	</GameObject>
+
+	<!-- Lowered health from 2600 -->
+	<GameObject
+		id="AlienStormrider"
+		inheritFrom="AlienStormrider">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="500"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered damage from 1600 -->
+	<WeaponTemplate
+		id="GDITerrainformingStationSweepWeapon"
+		Name="GDITerrainformingStationSweepWeapon"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="400"
+				Radius="22"
+				DeathType="BURNED"
+				DamageType="CANNON">
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="ALL"
+						Relationship="ALLIES"
+						Exclude="HUSK"/>
+				</DamageScalarDetails>
+				<!-- Do not multiply damage unnecessarily -->
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Include="HORDE">
+						<IncludeThing>Tier2DummyDrone</IncludeThing>
+						<IncludeThing>Tier3DummyDrone</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Damage to Scrin Structures and Vehicles -->
+				<DamageScalarDetails
+					Scalar="200%">
+					<Filter
+						Rule="ANY"
+						Include="TIBERIUM_BASED"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Accepts Nuke Transport in its filter -->
+	<GameObject
+		id="NODCarryall"
+		inheritFrom="NODCarryall">
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Replace"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="1"
+				Slots="1"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true"
+				ExtendedExitContainerChecks="true">
+				<PassengerFilter
+					Rule="NONE">
+					<IncludeThing>NukeTransport</IncludeThing>
+				</PassengerFilter>
+				<DieMuxData
+					DeathTypes="ALL"/>
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NukeTransport</IncludeThing>
+					</Filter>
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Secure the Nuke Trucks -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_1_Obj_1"
+			Description="SCRIPT:NOD_4_1_Obj_1_Detail">
+			<PresentationSettings
+				ID="NOD_4_1_Obj_1A"
+				Dialog="MN41_NodEVA10">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-10d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_4_1_Obj_1B">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Escort the Nuke Trucks to the EVAC zone -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_1_Obj_2"
+			Description="SCRIPT:NOD_4_1_Obj_2_Detail">
+			<PresentationSettings
+				ID="NOD_4_1_Obj_2">
+				<Duration>4s</Duration>
+				<CameraStartAngle>-5d</CameraStartAngle>
+				<CameraEndAngle>-15d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_4_1_Obj_2B"
+				Dialog="MN41_NodEVA08">
+				<Duration>5s</Duration>
+				<CameraStartAngle>-5d</CameraStartAngle>
+				<CameraEndAngle>-15d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Defend the Nuke Trucks from alien invasion until Carryalls arrive -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_1_Obj_3"
+			Description="SCRIPT:NOD_4_1_Obj_3_Detail">
+			<PresentationSettings
+				ID="NOD_4_1_Obj_3"
+				Dialog="MN41_NodEVA12">
+				<Duration>10s</Duration>
+				<CameraStartAngle>-15d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Tiberium Tower -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_4_1_BonusObj_1"
+			Description="SCRIPT:NOD_4_1_BonusObj_1_Detail">
+			<PresentationSettings
+				ID="NOD_4_1_BonusObj_1"
+				Dialog="MN41_NodEVA02">
+				<Duration>12s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the GDI Lab -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:NOD_4_1_BonusObj_2"
+			Description="SCRIPT:NOD_4_1_BonusObj_2_Detail">
+			<PresentationSettings
+				ID="NOD_4_1_BonusObj_2"
+				Dialog="MN41_NodEVA11">
+				<Duration>9s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Alien -->
+	<GameObject
+		id="AlienTiberiumTower"
+		inheritFrom="AlienTiberiumTower"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienHarvester</Target>
+		<Decal Texture="decal_A_Level1" Texture2="decal_Alien_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="75" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>

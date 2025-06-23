@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags />
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Mutant Hovel -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\MutantHovel.xml" type="instance"/>
+		<!-- For CDM Towers -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
+		<!-- For NOD Stronghold Structures -->
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSManufacturingFacility1.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSManufacturingFacility2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSManufacturingFacility3.xml" type="instance"/>
+		<!-- For Nod Temple of Nod -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODTempleOfNOD.xml" type="instance"/>
+		<!-- For Nod SAM Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODRocketBunker.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<GameObject
+		id="GDICDMTower"
+		inheritFrom="GDICDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="GDICDMTower2"
+		inheritFrom="GDICDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower"
+		inheritFrom="NODCDMTower"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="NODCDMTower2"
+		inheritFrom="NODCDMTower2"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<GameObject
+		id="MutantHovel"
+		inheritFrom="MutantHovel"
+		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_BARRACKS AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
+
+	<!-- Lowered damage vs. Temple Of Nod -->
+	<WeaponTemplate
+		id="NODVertigoBombWarhead"
+		Name="NODVertigoBombWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="2800"
+				Radius="45"
+				DamageType="GRENADE"
+				DeathType="BURNED"
+				DamageFXType="NOD_BOMB">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="35%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODVertigoFirestormBombWarhead"
+		Name="NODVertigoFirestormBombWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="2800"
+				Radius="45"
+				DamageType="GRENADE"
+				DeathType="BURNED"
+				DamageFXType="ALIEN_SONIC">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="35%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="167"
+				Radius="45"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DamageFXType="NOD_LASER"
+				DeathType="BURNED">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="35%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="167"
+				Radius="45"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DamageFXType="NOD_LASER"
+				DeathType="BURNED">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="35%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="167"
+				Radius="45"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DamageFXType="NOD_LASER"
+				DeathType="BURNED">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="35%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODBansheePlasmaCannonWarhead"
+		Name="NODBansheePlasmaCannonWarhead"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
+		<Nuggets>
+			<DamageNugget
+				Damage="700"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="NOD_MISSILE">
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="ANY"
+						Include="INFANTRY STRUCTURE">
+						<ExcludeThing>NODTempleOfNOD</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="65%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODBansheeBombletWarhead"
+		Name="NODBansheeBombletWarhead"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="150"
+				Radius="25"
+				DamageType="ROCKET"
+				DamageFXType="GDI_RIFLE"
+				DeathType="EXPLODED">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="ANY"
+						Include="INFANTRY STRUCTURE">
+						<ExcludeThing>NODTempleOfNOD</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="65%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NOD_CommandCenter</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODMobileArtilleryWarhead"
+		Name="NODMobileArtilleryWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="1200"
+				DamageTaperOff="45"
+				Radius="60"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="NOD_ION"
+				VictimShroudRevealer="ArtilleryShroudRevealer">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="8%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODMobileFirestormArtilleryWarhead"
+		Name="NODMobileFirestormArtilleryWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="1200"
+				DamageTaperOff="45"
+				Radius="60"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="NOD_RAILGUN"
+				VictimShroudRevealer="ArtilleryShroudRevealer">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="8%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="100"
+				DamageTaperOff="45"
+				Radius="60"
+				DelayTimeSeconds="1s"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="NOD_LASER">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="8%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="100"
+				DamageTaperOff="45"
+				Radius="60"
+				DelayTimeSeconds="2s"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="NOD_LASER">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="8%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="100"
+				DamageTaperOff="45"
+				Radius="60"
+				DelayTimeSeconds="3s"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="NOD_LASER">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="8%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>NODTempleOfNOD</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Removed all upgrades -->
+	<LogicCommandSet
+		id="NODTiberiumLiquidationFacilityCommandSet">
+		<Cmd>Command_TiberiumFacilitySeedTiberium</Cmd>
+		<Cmd>Command_ChemicalPlantTibVeinDetonation</Cmd>
+		<Cmd>Command_LaunchCatalystMissile</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Lowered cooldown from 7:00 minutes -->
+	<SpecialPowerTemplate
+		id="SpecialPowerIonCannonControlIonCannon"
+		DisplayName="Name:SuperweaponTimerIonCannon"
+		Description="Desc:SuperweaponTimer"
+		TargetType="LOCATION"
+		Flags="FOGGED_SHROUDED_CELLS_OK IS_PLAYER_POWER SHARED_SYNC IGNORE_MAP_EXTENTS WATER_OK HAS_PUBLIC_TIMER"
+		ReloadTime="300s"
+		RadiusCursorRadius="250"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayOnInitiateOwner="OwnIonCannonActivated"
+		EvaEventToPlayOnInitiateAlly="AlliedIonCannonActivated"
+		EvaEventToPlayOnInitiateEnemy="EnemyIonCannonActivated"
+		RestrictionType="1"
+		TimerImage="Button_PlayerPowerIonCannon"/>
+
+	<!-- Increased stealth detection radius from 200 -->
+	<GameObject
+		id="NODRocketBunker"
+		inheritFrom="NODRocketBunker">
+		<Behaviors>
+			<StealthDetectorUpdate
+				id="ModuleTag_StealthDetect"
+				xai:joinAction="Replace"
+				DetectionRange="400"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Command Center -->
+	<GameObject
+		id="NOD_CommandCenter"
+		inheritFrom="NOD_CommandCenter"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="20000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Manufacturing Facility 1 -->
+	<GameObject
+		id="NOD_ManufacturingFacility1"
+		inheritFrom="NOD_ManufacturingFacility1"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Manufacturing Facility 2 -->
+	<GameObject
+		id="NOD_ManufacturingFacility2"
+		inheritFrom="NOD_ManufacturingFacility2"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Manufacturing Facility 3 -->
+	<GameObject
+		id="NOD_ManufacturingFacility3"
+		inheritFrom="NOD_ManufacturingFacility3"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP AUTO_ACQUIRABLE_BY_AI NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Added ReportWeaponFiredStatNugget -->
+	<WeaponTemplate
+		id="IonCannonFinalWeapon"
+		Name="IonCannonFinalWeapon"
+		AttackRange="50000"
+		RadiusDamageAffects="SELF ALLIES ENEMIES NEUTRALS">
+		<Nuggets>
+			<DamageNugget
+				Damage="28000"
+				DamageTaperOff="1000"
+				Radius="250"
+				DamageType="CANNON"
+				CylinderAOE="true">
+				<DamageScalarDetails
+					Scalar="2500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_IonCannonWeaponTreeCrusher"/>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_IonCannonEMPField"/>
+			<ParalyzeNugget
+				Radius="500"
+				DurationSeconds="10s"
+				ParalyzeType="EMP"
+				ParalyzeFX="FX_NODBuggyEmpHit"
+				ForbiddenTargetObjectStatus="IN_STASIS">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="UNATTACKABLE INFANTRY CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
+			</ParalyzeNugget>
+			<ParalyzeNugget
+				Radius="500"
+				DurationSeconds="10s"
+				ParalyzeType="EMP"
+				ParalyzeFX="FX_NODSilent1sEMPHit"
+				ForbiddenTargetObjectStatus="IN_STASIS">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODCyborgInfantrySquad</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODAscendedSquad</IncludeThing>
+					<IncludeThing>NODAscendedSquad_Veteran</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODDecimatorSquad</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</SpecialObjectFilter>
+			</ParalyzeNugget>
+			<AttributeModifierNugget
+				Radius="500"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_19"
+				AttributeModifierName="AttributeModifier_PreventCrush">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD" />
+			</AttributeModifierNugget>
+			<DamageNugget
+				Damage="1000000"
+				Radius="500"
+				CylinderAOE="true"
+				DamageType="GRENADE"
+				DeathType="EXTRA_7"
+				DamageFXType="GDI_RIFLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING USER_19">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="AIRCRAFT"/>
+			</DamageNugget>
+			<!-- For Alien Razorback -->
+			<DamageNugget
+				Damage="1000000"
+				Radius="500"
+				CylinderAOE="true"
+				DamageType="GRENADE"
+				DeathType="EXTRA_7"
+				DamageFXType="GDI_RIFLE"
+				ForbiddenTargetObjectStatus="IN_STASIS RIDER2"
+				ForbiddenTargetModelCondition="USER_19">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- Alien Flying Ground Units -->
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="750"
+				Suppression="5000"
+				DurationSeconds="7s"/>
+			<ReportWeaponFiredStatNugget/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Increased Temple Prime's Armor significantly -->
+	<ArmorTemplate
+		id="NODTempleOfNODArmor">
+		<Armor Damage="CANNON" Percent="25%"/>
+		<Armor Damage="ROCKET" Percent="25%"/>
+		<Armor Damage="GRENADE" Percent="15%"/>
+		<Armor Damage="GUN" Percent="10%"/>
+		<Armor Damage="SNIPER" Percent="1%"/>
+	</ArmorTemplate>
+
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD">
+		<ArmorSet
+			Armor="NODTempleOfNODArmor"
+			DamageFX="FactionStructureDamageFX"/>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObectives">
+		<!-- Capture the Operations Center and Construction Yard -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_5_Obj_1"
+			Description="SCRIPT:NOD_4_5_Obj_1_Detail">
+			<PresentationSettings
+				ID="NOD_4_5_OBJ1b"
+				Dialog="MN45_NodEVA10">
+				<Duration>4s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_4_5_OBJ1">
+				<Duration>4s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture or destroy the Temple of Nod -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_5_Obj_2"
+			Description="SCRIPT:NOD_4_5_Obj_2_Detail">
+			<PresentationSettings
+				ID="NOD_4_5_OBJ2"
+				Dialog="MN45_NodEVA11">
+				<Duration>8s</Duration>
+				<CameraStartAngle>-90d</CameraStartAngle>
+				<CameraEndAngle>0d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy GDI's Ion Cannon before they use it on Killian's Headquarters -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_5_Obj_3"
+			Description="SCRIPT:NOD_4_5_Obj_3_Detail">
+			<PresentationSettings
+				ID="NOD_4_5_OBJ3"
+				Dialog="MN45_NodEVA15">
+				<Duration>8s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>75d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy both GDI bases -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_5_Obj_4"
+			Description="SCRIPT:NOD_4_5_Obj_4_Detail">
+			<PresentationSettings
+				ID="NOD_4_5_OBJ4"
+				Dialog="MN45_NodEVA14">
+				<Duration>4.5s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="NOD_4_5_OBJ4a">
+				<Duration>4.5s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Keep Killian's HQ Unharmed -->
+		<MissionObjectiveTag
+			Script="SCRIPT:NOD_4_5_BonusObj_1"
+			Description="SCRIPT:NOD_4_5_BonusObj_1_Detail"
+			IsBonusObjective="true">
+			<PresentationSettings
+				ID="NOD_4_5_Obj5">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<GameObject
+		id="TiberiumSpike"
+		inheritFrom="TiberiumSpike"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				DepositAmount="25"
+				InitialCaptureBonus="750"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="TiberiumSilo"
+		inheritFrom="TiberiumSilo"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				InitialCaptureBonus="1500"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- This mission requires beefed up Saboteurs -->
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="60"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1000.0" />
+		</Body>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>
