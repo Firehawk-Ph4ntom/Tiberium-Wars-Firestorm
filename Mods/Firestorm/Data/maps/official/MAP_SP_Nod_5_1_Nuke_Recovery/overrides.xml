@@ -1,0 +1,1880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Nod StrongHold Structures -->
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding1.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding3.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding5.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding6.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo01.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo02.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo03.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo04.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo05.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo06.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo07.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo08.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo09.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo10.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo11.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo.xml" type="instance"/>
+		<!-- For Nod Chemical Plant -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODTiberiumLiquidationFacility.xml" type="instance"/>
+		<!-- For Alien Eradicator Hexapod -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienEradicatorHexapod.xml"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
+		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Increased health -->
+	<GameObject
+		id="AlienEradicatorHexapod"
+		inheritFrom="AlienEradicatorHexapod"
+		BuildTime="25">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="24000"
+				ShieldAmount="6000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Removed all upgrades | Removed Catalyst missile SP -->
+	<LogicCommandSet
+		id="NODTiberiumLiquidationFacilityCommandSet">
+		<Cmd>Command_TiberiumFacilitySeedTiberium</Cmd>
+		<Cmd>Command_ChemicalPlantTibVeinDetonation</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODTiberiumLiquidationFacility"
+		inheritFrom="NODTiberiumLiquidationFacility">
+		<Behaviors>
+			<SpecialPower
+				id="ModuleTag_MissileLauncherSP"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+
+	<!-- Added Catalyst Missile SP -->
+	<LogicCommandSet
+		id="NOD_SiloCommandSet">
+		<Cmd>Command_LaunchCatalystMissile</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+	</LogicCommandSet>
+
+	<!-- NOD Silo -->
+	<GameObject
+		id="NOD_Silo"
+		inheritFrom="NOD_Silo"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING AUTO_ACQUIRABLE_BY_AI RESIST_EMP NOT_SELLABLE"
+		CommandSet="NOD_SiloCommandSet"
+		BuildCost="500">
+		<ArmorSet
+			Armor="CatalystLaunchFacilityArmor"
+			DamageFX="FactionStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw_Missle"
+				xai:joinAction="Append"
+				AffectedByStealth="false"/>
+		</Draws>
+		<Behaviors>
+			<xi:include
+				href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="12000.0" />
+		</Body>
+	</GameObject>
+
+	<!-- Reduced reload time | Removed cost -->
+	<SpecialPowerTemplate
+		id="SpecialPowerLaunchCatalystMissile"
+		TargetType="LOCATION"
+		Flags="IS_PLAYER_POWER SHARED_SYNC IGNORE_MAP_EXTENTS WATER_OK"
+		ReloadTime="20s"
+		RadiusCursorRadius="120"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"/>
+
+	<!-- Increased the damage of Catalyst missile significantly -->
+	<WeaponTemplate
+		id="NODCatalystMissileWeapon"
+		Name="NODCatalystMissileWeapon"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="1500"
+				Radius="100"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="NOD_SEED"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- NOD units and structures -->
+						<IncludeThing>NODCyborgInfantry</IncludeThing>
+						<IncludeThing>NODTiberiumTrooper</IncludeThing>
+						<IncludeThing>NODAscended</IncludeThing>
+						<!-- Neutral units and structures -->
+						<IncludeThing>MutantMarauder</IncludeThing>
+						<IncludeThing>MutantSalvager</IncludeThing>
+						<IncludeThing>MutantSkirmisher</IncludeThing>
+						<IncludeThing>MutantGhostStalker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="500"
+				Radius="100"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- NOD units and structures -->
+						<IncludeThing>NODCyborgInfantry</IncludeThing>
+						<IncludeThing>NODTiberiumTrooper</IncludeThing>
+						<IncludeThing>NODAscended</IncludeThing>
+						<!-- Neutral units and structures -->
+						<IncludeThing>MutantMarauder</IncludeThing>
+						<IncludeThing>MutantSalvager</IncludeThing>
+						<IncludeThing>MutantSkirmisher</IncludeThing>
+						<IncludeThing>MutantGhostStalker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="500"
+				Radius="100"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- NOD units and structures -->
+						<IncludeThing>NODCyborgInfantry</IncludeThing>
+						<IncludeThing>NODTiberiumTrooper</IncludeThing>
+						<IncludeThing>NODAscended</IncludeThing>
+						<!-- Neutral units and structures -->
+						<IncludeThing>MutantMarauder</IncludeThing>
+						<IncludeThing>MutantSalvager</IncludeThing>
+						<IncludeThing>MutantSkirmisher</IncludeThing>
+						<IncludeThing>MutantGhostStalker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="500"
+				Radius="100"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- NOD units -->
+						<IncludeThing>NODCyborgInfantry</IncludeThing>
+						<IncludeThing>NODTiberiumTrooper</IncludeThing>
+						<IncludeThing>NODAscended</IncludeThing>
+						<!-- Neutral units and structures -->
+						<IncludeThing>MutantMarauder</IncludeThing>
+						<IncludeThing>MutantSalvager</IncludeThing>
+						<IncludeThing>MutantSkirmisher</IncludeThing>
+						<IncludeThing>MutantGhostStalker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<!-- Dealing extra damage to certain objects and dealing no damage to Tiberium Crystals -->
+			<DamageNugget
+				Damage="1500"
+				Radius="100"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="NOD_SEED">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI structures -->
+						<IncludeThing>GDIRefinery</IncludeThing>
+						<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>GDITiberiumSilo</IncludeThing>
+						<IncludeThing>GDITiberiumProcessingPlant</IncludeThing>
+						<!-- GDI Units -->
+						<IncludeThing>GDIHarvester</IncludeThing>
+						<!-- NOD structures -->
+						<IncludeThing>NODRefinery</IncludeThing>
+						<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>NODTiberiumSilo</IncludeThing>
+						<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODHarvester</IncludeThing>
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODDecimator</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+						<IncludeThing>NODToxinTank</IncludeThing>
+						<!-- Alien structures -->
+						<IncludeThing>AlienTiberiumTower</IncludeThing>
+						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+						<IncludeThing>AlienInfestationSporePod</IncludeThing>
+						<IncludeThing>AlienSporePod</IncludeThing>
+						<!-- Alien units -->
+						<IncludeThing>AlienHarvester</IncludeThing>
+						<IncludeThing>AlienCorrupter</IncludeThing>
+						<IncludeThing>AlienIrradiator</IncludeThing>
+						<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+						<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+						<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+						<!-- Neutral structures -->
+						<IncludeThing>TiberiumSilo</IncludeThing>
+						<IncludeThing>TiberiumSpike</IncludeThing>
+						<!-- Neutral units -->
+						<IncludeThing>Viceroid</IncludeThing>
+						<IncludeThing>MutantFiend</IncludeThing>
+						<IncludeThing>MutantFiendTamed</IncludeThing>
+						<IncludeThing>MutantFiendBlue</IncludeThing>
+						<IncludeThing>MutantFiendRed</IncludeThing>
+						<IncludeThing>MutantViceroid</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="500"
+				Radius="100"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI structures -->
+						<IncludeThing>GDIRefinery</IncludeThing>
+						<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>GDITiberiumSilo</IncludeThing>
+						<IncludeThing>GDITiberiumProcessingPlant</IncludeThing>
+						<!-- GDI Units -->
+						<IncludeThing>GDIHarvester</IncludeThing>
+						<!-- NOD structures -->
+						<IncludeThing>NODRefinery</IncludeThing>
+						<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>NODTiberiumSilo</IncludeThing>
+						<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODHarvester</IncludeThing>
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODDecimator</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+						<IncludeThing>NODToxinTank</IncludeThing>
+						<!-- Alien structures -->
+						<IncludeThing>AlienTiberiumTower</IncludeThing>
+						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+						<IncludeThing>AlienInfestationSporePod</IncludeThing>
+						<IncludeThing>AlienSporePod</IncludeThing>
+						<!-- Alien units -->
+						<IncludeThing>AlienHarvester</IncludeThing>
+						<IncludeThing>AlienCorrupter</IncludeThing>
+						<IncludeThing>AlienIrradiator</IncludeThing>
+						<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+						<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+						<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+						<!-- Neutral structures -->
+						<IncludeThing>TiberiumSilo</IncludeThing>
+						<IncludeThing>TiberiumSpike</IncludeThing>
+						<!-- Neutral units -->
+						<IncludeThing>Viceroid</IncludeThing>
+						<IncludeThing>MutantFiend</IncludeThing>
+						<IncludeThing>MutantFiendTamed</IncludeThing>
+						<IncludeThing>MutantFiendBlue</IncludeThing>
+						<IncludeThing>MutantFiendRed</IncludeThing>
+						<IncludeThing>MutantViceroid</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="500"
+				Radius="100"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI structures -->
+						<IncludeThing>GDIRefinery</IncludeThing>
+						<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>GDITiberiumSilo</IncludeThing>
+						<IncludeThing>GDITiberiumProcessingPlant</IncludeThing>
+						<!-- GDI Units -->
+						<IncludeThing>GDIHarvester</IncludeThing>
+						<!-- NOD structures -->
+						<IncludeThing>NODRefinery</IncludeThing>
+						<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>NODTiberiumSilo</IncludeThing>
+						<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODHarvester</IncludeThing>
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODDecimator</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+						<IncludeThing>NODToxinTank</IncludeThing>
+						<!-- Alien structures -->
+						<IncludeThing>AlienTiberiumTower</IncludeThing>
+						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+						<IncludeThing>AlienInfestationSporePod</IncludeThing>
+						<IncludeThing>AlienSporePod</IncludeThing>
+						<!-- Alien units -->
+						<IncludeThing>AlienHarvester</IncludeThing>
+						<IncludeThing>AlienCorrupter</IncludeThing>
+						<IncludeThing>AlienIrradiator</IncludeThing>
+						<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+						<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+						<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+						<!-- Neutral structures -->
+						<IncludeThing>TiberiumSilo</IncludeThing>
+						<IncludeThing>TiberiumSpike</IncludeThing>
+						<!-- Neutral units -->
+						<IncludeThing>Viceroid</IncludeThing>
+						<IncludeThing>MutantFiend</IncludeThing>
+						<IncludeThing>MutantFiendTamed</IncludeThing>
+						<IncludeThing>MutantFiendBlue</IncludeThing>
+						<IncludeThing>MutantFiendRed</IncludeThing>
+						<IncludeThing>MutantViceroid</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="500"
+				Radius="100"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="1600%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI structures -->
+						<IncludeThing>GDIRefinery</IncludeThing>
+						<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>GDITiberiumSilo</IncludeThing>
+						<IncludeThing>GDITiberiumProcessingPlant</IncludeThing>
+						<!-- GDI Units -->
+						<IncludeThing>GDIHarvester</IncludeThing>
+						<!-- NOD structures -->
+						<IncludeThing>NODRefinery</IncludeThing>
+						<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+						<IncludeThing>NODTiberiumSilo</IncludeThing>
+						<IncludeThing>NODTiberiumLiquidationFacility</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODHarvester</IncludeThing>
+						<IncludeThing>NODReaper</IncludeThing>
+						<IncludeThing>NODCyborgCommando</IncludeThing>
+						<IncludeThing>NODDecimator</IncludeThing>
+						<IncludeThing>NODObliterator</IncludeThing>
+						<IncludeThing>NODHijacker</IncludeThing>
+						<IncludeThing>NODToxinTank</IncludeThing>
+						<!-- Alien structures -->
+						<IncludeThing>AlienTiberiumTower</IncludeThing>
+						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+						<IncludeThing>AlienInfestationSporePod</IncludeThing>
+						<IncludeThing>AlienSporePod</IncludeThing>
+						<!-- Alien units -->
+						<IncludeThing>AlienHarvester</IncludeThing>
+						<IncludeThing>AlienCorrupter</IncludeThing>
+						<IncludeThing>AlienIrradiator</IncludeThing>
+						<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+						<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+						<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+						<!-- Neutral structures -->
+						<IncludeThing>TiberiumSilo</IncludeThing>
+						<IncludeThing>TiberiumSpike</IncludeThing>
+						<!-- Neutral units -->
+						<IncludeThing>Viceroid</IncludeThing>
+						<IncludeThing>MutantFiend</IncludeThing>
+						<IncludeThing>MutantFiendTamed</IncludeThing>
+						<IncludeThing>MutantFiendBlue</IncludeThing>
+						<IncludeThing>MutantFiendRed</IncludeThing>
+						<IncludeThing>MutantViceroid</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<!-- Catalyst Creation Weapon -->
+			<FireOnObjectsNugget
+				Radius="250"
+				Weapon="NODCatalystCreationWeapon">
+				<Filter
+					Rule="NONE">
+					<IncludeThing>TiberiumCrystal</IncludeThing>
+				</Filter>
+			</FireOnObjectsNugget>
+			<FireOnObjectsNugget
+				Radius="250"
+				Weapon="NODCatalystCreationWeaponBlue">
+				<Filter
+					Rule="NONE">
+					<IncludeThing>TiberiumCrystalBlue</IncludeThing>
+				</Filter>
+			</FireOnObjectsNugget>
+			<FireOnObjectsNugget
+				Radius="250"
+				Weapon="NODCatalystCreationWeaponRed">
+				<Filter
+					Rule="NONE">
+					<IncludeThing>TiberiumCrystalRed</IncludeThing>
+				</Filter>
+			</FireOnObjectsNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODCatalystMissileCatalystWeapon"
+		Name="NODCatalystMissileCatalystWeapon"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="1500"
+				Radius="50"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="NOD_SEED"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="500"
+				Radius="50"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="500"
+				Radius="50"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="500"
+				Radius="50"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN"
+				SpawnProbability="0.3"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<!-- Dealing no damage to Tiberium Crystals -->
+			<DamageNugget
+				Damage="1500"
+				Radius="50"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="NOD_SEED">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="500"
+				Radius="50"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="500"
+				Radius="50"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="500"
+				Radius="50"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="ALIEN_TIOXIN">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE TIBERIUM TIBERIUM_FIELD">
+					<!-- Neutral Units -->
+					<IncludeThing>Viceroid</IncludeThing>
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="99999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>TiberiumFona01</IncludeThing>
+						<IncludeThing>TiberiumFona02</IncludeThing>
+						<IncludeThing>TiberiumFona03</IncludeThing>
+						<IncludeThing>TiberiumFona05</IncludeThing>
+						<IncludeThing>TiberiumFona06</IncludeThing>
+						<IncludeThing>TiberiumFona07</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue01</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue02</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue03B</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue04</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue05</IncludeThing>
+						<IncludeThing>TiberiumFonaBlue06</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Added AbsoluteMinHeightWorldSpace -->
+	<LocomotorTemplate
+		id="AlienPlanetaryAssaultCarrierLocomotor"
+		Name="AlienPlanetaryAssaultCarrierLocomotor"
+		Surfaces="AIR"
+		TurnTimeSeconds="10s"
+		TurnTimeDamagedSeconds="10s"
+		SlowTurnRadius="30"
+		FastTurnRadius="40"
+		AccelerationSeconds="1.5s"
+		Lift="120%"
+		LiftDamaged="80%"
+		BrakingSeconds="1.5s"
+		MinTurnSpeed="0%"
+		PreferredHeight="130"
+		BehaviorZ="SURFACE_RELATIVE_HEIGHT"
+		Appearance="HOVER"
+		RollDamping="0.3"
+		AirborneTargetingHeight="30"
+		BackingUpAngle="0.5"
+		LocomotorWorksWhenDead="true"
+		AllowMotiveForceWhileAirborne="true"
+		Apply2DFrictionWhenAirborne="true"
+		ClampOrientationToPathTangent="true"
+		AbsoluteMinHeightWorldSpace="350.0"/>
+
+	<!-- Added AbsoluteMinHeightWorldSpace -->
+	<LocomotorTemplate
+		id="AlienInvaderFighter"
+		Name="AlienInvaderFighter"
+		Surfaces="AIR"
+		TurnTimeSeconds="0.5s"
+		TurnTimeDamagedSeconds="0.5s"
+		SlowTurnRadius="30"
+		FastTurnRadius="40"
+		MinRandomTurnRadiusScale="0.6"
+		MaxRandomTurnRadiusScale="1.7"
+		AccelerationSeconds="0.25s"
+		Lift="220%"
+		LiftDamaged="120%"
+		BrakingSeconds="0.25s"
+		MinTurnSpeed="20%"
+		PreferredHeight="130"
+		BehaviorZ="SURFACE_RELATIVE_HEIGHT"
+		Appearance="WINGS"
+		PitchStiffness="0.5"
+		ForwardVelocityPitchFactor="-0.4"
+		LateralVelocityRollFactor="0.3"
+		AirborneTargetingHeight="30"
+		RudderCorrectionDegree="0.169"
+		RudderCorrectionRate="0.027"
+		ElevatorCorrectionDegree="0.103"
+		ElevatorCorrectionRate="0.016"
+		BackingUpAngle="0.5"
+		TakeOffAndLandingSpeed="12"
+		TakeOffAndLandingSlowDownTime="0.25s"
+		AttackPathTrailDistance="200"
+		AttackPathTrailDistanceMinScale="0.8"
+		AttackPathTrailDistanceMaxScale="1.2"
+		LocomotorWorksWhenDead="true"
+		AllowMotiveForceWhileAirborne="true"
+		Apply2DFrictionWhenAirborne="true"
+		ClampOrientationToPathTangent="true"
+		ReorientIfTurnTooSharp="true"
+		AbsoluteMinHeightWorldSpace="350.0"/>
+
+	<!-- Added AbsoluteMinHeightWorldSpace -->
+	<LocomotorTemplate
+		id="AlienDevastatorWarshipLocomotor"
+		Name="AlienDevastatorWarshipLocomotor"
+		Surfaces="AIR"
+		TurnTimeSeconds="7s"
+		TurnTimeDamagedSeconds="7s"
+		SlowTurnRadius="70"
+		FastTurnRadius="70"
+		AccelerationSeconds="1.5s"
+		Lift="120%"
+		LiftDamaged="80%"
+		BrakingSeconds="1.5s"
+		MinTurnSpeed="20%"
+		PreferredHeight="130"
+		BehaviorZ="SURFACE_RELATIVE_HEIGHT"
+		Appearance="HOVER"
+		RollStiffness="0.05"
+		RollDamping="0.1"
+		LateralVelocityRollFactor="-50"
+		AirborneTargetingHeight="30"
+		BackingUpAngle="0.5"
+		LocomotorWorksWhenDead="true"
+		AllowMotiveForceWhileAirborne="true"
+		Apply2DFrictionWhenAirborne="true"
+		ClampOrientationToPathTangent="true"
+		AbsoluteMinHeightWorldSpace="350.0"/>
+
+	<!-- Reduced damage from 125 -->
+	<WeaponTemplate
+		id="AlienStormRiderProtonCannonWarhead"
+		Name="AlienStormRiderProtonCannonWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY ANTI_STRUCTURE"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="15"
+				DamageType="ROCKET"
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<!-- Dealing less damage to AA vehicles -->
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI Units -->
+						<IncludeThing>GDIAPC</IncludeThing>
+						<IncludeThing>GDIAPC_Veteran</IncludeThing>
+						<IncludeThing>GDIPitbull</IncludeThing>
+						<IncludeThing>GDIPitbull_Veteran</IncludeThing>
+						<IncludeThing>GDIFalcon</IncludeThing>
+						<IncludeThing>GDIWolverine</IncludeThing>
+						<IncludeThing>GDIMRT</IncludeThing>
+						<IncludeThing>GDISandstorm</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODAttackBike</IncludeThing>
+						<IncludeThing>NODScorpionBuggy</IncludeThing>
+						<IncludeThing>NODStealthTank</IncludeThing>
+						<!-- Alien Units -->
+						<IncludeThing>AlienGunWalker</IncludeThing>
+						<IncludeThing>AlienSeekerTank</IncludeThing>
+						<IncludeThing>AlienStingray</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Reduced damage from 450 -->
+	<WeaponTemplate
+		id="AlienStormRiderLightningStormWeapon"
+		Name="AlienStormRiderLightningStormWeapon"
+		AttackRange="350"
+		AcceptableAimDelta="180d"
+		WeaponSpeed="999999"
+		FireSound="ALI_StormColumn_SmallWeaponFire"
+		FireFX="FX_LightningSpikeFire"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY ANTI_STRUCTURE"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<FiringDuration
+			MinSeconds="2.3s"
+			MaxSeconds="2.3s"/>
+		<ClipReloadTime
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				HitGroundFX="FX_AlienBlueTibLaserHit"/>
+			<DamageNugget
+				Damage="50"
+				Radius="5"
+				DamageType="ROCKET"
+				DeathType="BURNED"
+				DamageFXType="ALIEN_ION">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<!-- Dealing less damage to AA vehicles -->
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI Units -->
+						<IncludeThing>GDIAPC</IncludeThing>
+						<IncludeThing>GDIAPC_Veteran</IncludeThing>
+						<IncludeThing>GDIPitbull</IncludeThing>
+						<IncludeThing>GDIPitbull_Veteran</IncludeThing>
+						<IncludeThing>GDIFalcon</IncludeThing>
+						<IncludeThing>GDIWolverine</IncludeThing>
+						<IncludeThing>GDIMRT</IncludeThing>
+						<IncludeThing>GDISandstorm</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODAttackBike</IncludeThing>
+						<IncludeThing>NODScorpionBuggy</IncludeThing>
+						<IncludeThing>NODStealthTank</IncludeThing>
+						<!-- Alien Units -->
+						<IncludeThing>AlienGunWalker</IncludeThing>
+						<IncludeThing>AlienSeekerTank</IncludeThing>
+						<IncludeThing>AlienStingray</IncludeThing>
+						<!-- Alien Air -->
+						<IncludeThing>AlienMCV</IncludeThing>
+						<IncludeThing>AlienMCVUnpacking</IncludeThing>
+						<IncludeThing>AlienStormrider</IncludeThing>
+						<IncludeThing>AlienWraith</IncludeThing>
+						<IncludeThing>AlienDevastatorWarship</IncludeThing>
+						<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+						<IncludeThing>AlienInvaderFighter</IncludeThing>
+						<IncludeThing>AlienConquerorBattleship</IncludeThing>
+						<IncludeThing>AlienBattleshipFighter</IncludeThing>
+						<IncludeThing>AlienScourgeGunship</IncludeThing>
+						<IncludeThing>AlienMothership</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="120%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>AlienHiveStalker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="75"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="30">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- NOD StrongHold Building 1 -->
+	<GameObject
+		id="NOD_StrongholdBuilding1"
+		inheritFrom="NOD_StrongholdBuilding1"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 2 -->
+	<GameObject
+		id="NOD_StrongholdBuilding2"
+		inheritFrom="NOD_StrongholdBuilding2"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 3 -->
+	<GameObject
+		id="NOD_StrongholdBuilding3"
+		inheritFrom="NOD_StrongholdBuilding3"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 5 -->
+	<GameObject
+		id="NOD_StrongholdBuilding5"
+		inheritFrom="NOD_StrongholdBuilding5"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 6 -->
+	<GameObject
+		id="NOD_StrongholdBuilding6"
+		inheritFrom="NOD_StrongholdBuilding6"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Tower -->
+	<GameObject
+		id="NOD_Silo01"
+		inheritFrom="NOD_Silo01"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Pool -->
+	<GameObject
+		id="NOD_Silo02"
+		inheritFrom="NOD_Silo02"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Radar -->
+	<GameObject
+		id="NOD_Silo03"
+		inheritFrom="NOD_Silo03"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Control Tower -->
+	<GameObject
+		id="NOD_Silo04"
+		inheritFrom="NOD_Silo04"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Power Building -->
+	<GameObject
+		id="NOD_Silo05"
+		inheritFrom="NOD_Silo05"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Large Defense Set -->
+	<GameObject
+		id="NOD_Silo06"
+		inheritFrom="NOD_Silo06"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Large Cap -->
+	<GameObject
+		id="NOD_Silo07"
+		inheritFrom="NOD_Silo07"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Power Generator -->
+	<GameObject
+		id="NOD_Silo08"
+		inheritFrom="NOD_Silo08"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Box -->
+	<GameObject
+		id="NOD_Silo09"
+		inheritFrom="NOD_Silo09"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Pod -->
+	<GameObject
+		id="NOD_Silo11"
+		inheritFrom="NOD_Silo11"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Oil Tank -->
+	<GameObject
+		id="NOD_Silo10"
+		inheritFrom="NOD_Silo10"
+		KindOf="SELECTABLE STRUCTURE PRELOAD IMMOBILE CAN_CAST_REFLECTIONS COVER KEEP_CLASSIFIED_WHEN_DEAD COVER CIVILIAN_BUILDING NOT_AUTOACQUIRABLE RESIST_EMP NOT_SELLABLE">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Capture the Catalyst Launch Facility -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_5_1_Objective_1"
+			Description="SCRIPT:Nod_5_1_Objective_1_Detail">
+			<PresentationSettings
+				ID="Nod_ToW_5_1_Objective_1"
+				Dialog="MN51_NodEVA12"
+				CameraFieldOfViewVariance="0">
+				<Duration>7s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Repair the Catalyst Launch Facility to full health -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_5_1_Objective_2"
+			Description="SCRIPT:Nod_5_1_Objective_2_Detail">
+			<PresentationSettings
+				ID="Nod_ToW_5_1_Objective_2"
+				Dialog="MN51_NodEVA13">
+				<Duration>7s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy 3 Alien Gravity Stabilizers -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_5_1_Objective_3"
+			Description="SCRIPT:Nod_5_1_Objective_3_Detail">
+			<PresentationSettings
+				ID="Nod_ToW_5_1_Objective_3a"
+				Dialog="MN51_NodEVA02">
+				<Duration>2s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="Nod_ToW_5_1_Objective_3b">
+				<Duration>2s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the Reinforcement Bay -->
+		<MissionObjectiveTag
+			IsBonusObjective="true" 
+			Script="SCRIPT:Nod_5_1_Bonus_Objective_1"
+			Description="SCRIPT:Nod_5_1_Bonus_Objective_1_Detail">
+			<PresentationSettings
+				ID="Nod_ToW_5_1_Bonus_Objective_1"
+				Dialog="MN51_NodEVA14"
+				CameraFieldOfViewVariance="0">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Eradicator Hexapod -->
+		<MissionObjectiveTag
+			Script="SCRIPT:Nod_5_1_Objective_6"
+			Description="SCRIPT:Nod_5_1_Objective_6_Detail">
+			<PresentationSettings
+				ID="Nod_ToW_5_1_Objective_6"
+				UseDynamicZoom="false">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<GameObject
+		id="TiberiumSpike"
+		inheritFrom="TiberiumSpike"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				DepositAmount="25"
+				InitialCaptureBonus="750"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Alien -->
+	<GameObject
+		id="AlienTiberiumTower"
+		inheritFrom="AlienTiberiumTower"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="AlienFoundryCommandSet">
+		<Cmd>Command_ConstructAlienPowerProjector</Cmd>
+		<Cmd>Command_ConstructAlienTiberiumTower</Cmd>
+		<Cmd>Command_ConstructAlienPortal</Cmd>
+		<Cmd>Command_ConstructAlienGateway</Cmd>
+		<Cmd>Command_ConstructAlienControlCenter</Cmd>
+		<Cmd>Command_ConstructAlienWarpBeacon</Cmd>
+		<Cmd>Command_ConstructAlienStatisChamber</Cmd>
+		<Cmd>Command_ConstructAlienReactor</Cmd>
+		<Cmd>Command_ConstructAlienSignalTransmitter</Cmd>
+		<Cmd>Command_ConstructAlienWarpChasm</Cmd>
+		<Cmd>Command_ConstructAlienStormObelisk</Cmd>
+		<Cmd>Command_ConstructAlienBuzzerHive</Cmd>
+		<Cmd>Command_ConstructAlienPhotonCannon</Cmd>
+		<Cmd>Command_ConstructAlienPlasmaMissileBattery</Cmd>
+		<Cmd>Command_ConstructAlienSporePod</Cmd>
+		<Cmd>Command_ConstructAlienWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="AlienAssimilator"
+		inheritFrom="AlienAssimilator">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienHarvester</Target>
+		<Decal Texture="decal_A_Level1" Texture2="decal_Alien_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="75" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>

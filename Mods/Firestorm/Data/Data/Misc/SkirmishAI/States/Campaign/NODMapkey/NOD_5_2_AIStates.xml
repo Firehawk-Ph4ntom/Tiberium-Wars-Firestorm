@@ -4,7 +4,7 @@
 	<AIStrategicStateDefinition
 		id="N_5_2_AlienUnitCap_FS"
 		UnitUpgradeMultiplier="0.0"
-		UnitBuilderSimpleUnitCap="40">
+		UnitBuilderSimpleUnitCap="35">
 		<Heuristic>
 			<ConstantHeuristic Weight="1.0"/>
 		</Heuristic>
@@ -13,7 +13,7 @@
 	<AIBudgetStateDefinition
 		id="N_5_2_EasyBudget_FS">
 		<Heuristic>
-			<TimerHeuristic StartTime="420s" EndTime="-1s"/>
+			<TimerHeuristic StartTime="360s" EndTime="-1s"/>
 		</Heuristic>
 		<Budget>
 			<AccountShare Account="INVESTMENT" Percent="0%"/>
@@ -28,7 +28,7 @@
 	<AIBudgetStateDefinition
 		id="N_5_2_MediumBudget_Start_FS">
 		<Heuristic>
-			<TimerHeuristic StartTime="360s" EndTime="900s"/>
+			<TimerHeuristic StartTime="340s" EndTime="900s"/>
 		</Heuristic>
 		<Budget>
 			<AccountShare Account="INVESTMENT" Percent="0%"/>
@@ -58,7 +58,7 @@
 	<AIBudgetStateDefinition
 		id="N_5_2_HardBudget_FS">
 		<Heuristic>
-			<TimerHeuristic StartTime="300s" EndTime="-1s"/>
+			<TimerHeuristic StartTime="320s" EndTime="-1s"/>
 		</Heuristic>
 		<Budget>
 			<AccountShare Account="INVESTMENT" Percent="0%"/>
@@ -71,11 +71,28 @@
 	</AIBudgetStateDefinition>
 
 	<AIStrategicStateDefinition
+		id="N_5_2_AlienMobileWarpBeacon_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<TimerHeuristic StartTime="600s" EndTime="-1s"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="Opportunity"/>
+		<TargetHeuristic TargetHeuristic="ClosestUnitHeuristic" TargetType="Opportunity"/>
+		<Tactic Tactic="SimpleAttack" TargetType="Opportunity">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienMobileWarpBeacon"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
 		id="N_5_2_AircraftOverrides_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
 			<ConstantHeuristic Weight="999.0"/>
 			<TimerHeuristic StartTime="900s" EndTime="-1s"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<UnitOverride UnitName="AlienDevastatorWarship" Percentage="-1%"/>
 		<UnitOverride UnitName="AlienPlanetaryAssaultCarrier" Percentage="100%"/>
@@ -85,13 +102,13 @@
 		id="N_5_2_StormridersAttack_Easy_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
-			<TimerHeuristic StartTime="320s" EndTime="-1s"/>
+			<TimerHeuristic StartTime="360s" EndTime="-1s"/>
 			<IntervalHeuristic IntervalTime="400s" ActiveTime="30s"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="AssaultAirstrike"/>
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="AssaultAirstrike">
-			<TeamTemplate MinUnits="3" MaxUnits="3" IncludeKindOf="CAN_ATTACK ASSAULT_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
-				<CreateUnits UnitName="AlienStormrider"/>
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK ASSAULT_AIRCRAFT" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienStormrider"/>
 				<CreateUnits UnitName="AlienStormrider"/>
 			</TeamTemplate>
@@ -102,8 +119,9 @@
 		id="N_5_2_StormridersAttack_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
-			<TimerHeuristic StartTime="260s" EndTime="900s"/>
+			<TimerHeuristic StartTime="340s" EndTime="900s"/>
 			<IntervalHeuristic IntervalTime="400s" ActiveTime="30s"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="AssaultAirstrike"/>
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="AssaultAirstrike">
@@ -120,6 +138,7 @@
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
 			<ConstantHeuristic Weight="1.0"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="FriendlyHuskHeuristic" TargetType="Husk"/>
 		<TargetHeuristic TargetHeuristic="EnemyHuskHeuristic" TargetType="Husk"/>
@@ -136,11 +155,11 @@
 		<Heuristic>
 			<TimerHeuristic StartTime="600s" EndTime="-1s"/>
 			<ConstantHeuristic Weight="1.0"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="BombingAirstrike"/>
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="BombingAirstrike">
-			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
-				<CreateUnits UnitName="AlienPlanetaryAssaultCarrier"/>
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienPlanetaryAssaultCarrier"/>
 			</TeamTemplate>
 		</Tactic>
@@ -150,14 +169,14 @@
 		id="N_5_2_AirshipsAttack_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
-			<TimerHeuristic StartTime="660s" EndTime="900s"/>
+			<TimerHeuristic StartTime="600s" EndTime="900s"/>
 			<ConstantHeuristic Weight="1.0"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="BombingAirstrike"/>
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="BombingAirstrike">
-			<TeamTemplate MinUnits="3" MaxUnits="3" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienDevastatorWarship"/>
-				<CreateUnits UnitName="AlienPlanetaryAssaultCarrier"/>
 				<CreateUnits UnitName="AlienPlanetaryAssaultCarrier"/>
 			</TeamTemplate>
 		</Tactic>
@@ -169,10 +188,11 @@
 		<Heuristic>
 			<TimerHeuristic StartTime="900s" EndTime="-1s"/>
 			<ConstantHeuristic Weight="1.0"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="BombingAirstrike"/>
 		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="BombingAirstrike">
-			<TeamTemplate MinUnits="3" MaxUnits="6" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+			<TeamTemplate MinUnits="2" MaxUnits="4" IncludeKindOf="CAN_ATTACK AIRCRAFT" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
 		</Tactic>
 	</AIStrategicStateDefinition>
 
@@ -182,6 +202,7 @@
 		<Heuristic>
 			<TimerHeuristic StartTime="500s" EndTime="-1s"/>
 			<IntervalHeuristic IntervalTime="220s" ActiveTime="30s"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="FocusedTarget"/>
 		<Tactic Tactic="SimpleAttack" TargetType="FocusedTarget">
@@ -193,14 +214,32 @@
 		id="N_5_2_Tripods_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
-			<IntervalHeuristic IntervalTime="100s" ActiveTime="50s"/>
+			<IntervalHeuristic IntervalTime="200s" ActiveTime="50s"/>
 			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="SiegeTarget"/>
 		<Tactic Tactic="SimpleAttack" TargetType="SiegeTarget">
-			<TeamTemplate MinUnits="4" MaxUnits="4" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienAnnihilatorTripod"/>
 				<CreateUnits UnitName="AlienAnnihilatorTripod"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="N_5_2_Tripods_Hard_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<IntervalHeuristic IntervalTime="200s" ActiveTime="50s"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="SiegeTarget"/>
+		<Tactic Tactic="SimpleAttack" TargetType="SiegeTarget">
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienAnnihilatorTripod"/>
+				<CreateUnits UnitName="AlienAnnihilatorTripod"/>
+			</TeamTemplate>
+			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienAnnihilatorTripod"/>
 				<CreateUnits UnitName="AlienAnnihilatorTripod"/>
 			</TeamTemplate>
@@ -211,7 +250,7 @@
 		id="N_5_2_HarassAttack_FS"
 		UnitUpgradeMultiplier="0.0">
 		<Heuristic>
-			<IntervalHeuristic IntervalTime="60s" ActiveTime="30s"/>
+			<IntervalHeuristic IntervalTime="120s" ActiveTime="30s"/>
 			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="SpreadTarget"/>
@@ -226,10 +265,11 @@
 		<Heuristic>
 			<TimerHeuristic StartTime="600s" EndTime="-1s"/>
 			<CounterattackHeuristic Threshold="3.0"/>
+			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
 		</Heuristic>
 		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="Counterattack"/>
 		<Tactic Tactic="SimpleAttack" TargetType="Counterattack">
-			<TeamTemplate MinUnits="6" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
+			<TeamTemplate MinUnits="4" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="ASSAULT_AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
 		</Tactic>
 	</AIStrategicStateDefinition>
 
@@ -243,7 +283,7 @@
 		<TargetHeuristic TargetHeuristic="EngineerUnitHeuristic" TargetType="SpecialDefense"/>
 		<Tactic Tactic="SimpleAttack" TargetType="SpecialDefense">
 			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
-				<CreateUnits UnitName="AlienGunWalker"/>
+				<CreateUnits UnitName="AlienContaminator"/>
 			</TeamTemplate>
 		</Tactic>
 	</AIStrategicStateDefinition>
@@ -259,37 +299,7 @@
 		<Tactic Tactic="SimpleAttack" TargetType="SpecialDefense">
 			<TeamTemplate MinUnits="2" MaxUnits="2" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
 				<CreateUnits UnitName="AlienStormrider"/>
-				<CreateUnits UnitName="AlienGunWalker"/>
-			</TeamTemplate>
-		</Tactic>
-	</AIStrategicStateDefinition>
-
-	<AIStrategicStateDefinition
-		id="N_5_2_AlienMothership_FS"
-		UnitUpgradeMultiplier="0.0">
-		<Heuristic>
-			<ConstantHeuristic Weight="1.0"/>
-			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
-		</Heuristic>
-		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="BombingAirstrike"/>
-		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
-			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT HUGE_VEHICLE MOTHERSHIP" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
-				<CreateUnits UnitName="AlienMothership"/>
-			</TeamTemplate>
-		</Tactic>
-	</AIStrategicStateDefinition>
-
-	<AIStrategicStateDefinition
-		id="N_5_2_AlienEngineer_FS"
-		UnitUpgradeMultiplier="0.0">
-		<Heuristic>
-			<ConstantHeuristic Weight="1.0"/>
-			<ScriptedFlagHeuristic FlagName="AA1_AI_Begin_Attack"/>
-		</Heuristic>
-		<TargetHeuristic TargetHeuristic="EngineerHeuristic" TargetType="Engineer"/>
-		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Engineer">
-			<TeamTemplate MinUnits="2" MaxUnits="8" IncludeKindOf="" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
-				<CreateUnits UnitName="AlienAssimilator"/>
+				<CreateUnits UnitName="AlienContaminator"/>
 			</TeamTemplate>
 		</Tactic>
 	</AIStrategicStateDefinition>
@@ -349,9 +359,9 @@
 		<UnitModifierByName UnitName="AlienRazorDroneSquad" UnitPreferenceOffensiveModifier="50%" UnitPreferenceDefensiveModifier="100%"/>
 		<UnitModifierByName UnitName="AlienShockTrooperSquad" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="100%"/>
 		<UnitModifierByName UnitName="AlienRavagerSquad" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="100%"/>
-		<UnitModifierByName UnitName="AlienGunWalker" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="100%"/>
-		<UnitModifierByName UnitName="AlienCorrupter" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="75%"/>
-		<UnitModifierByName UnitName="AlienSeekerTank" UnitPreferenceOffensiveModifier="200%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="AlienContaminator" UnitPreferenceOffensiveModifier="150%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="AlienRazorback" UnitPreferenceOffensiveModifier="200%" UnitPreferenceDefensiveModifier="100%"/>
 		<UnitModifierByName UnitName="AlienDevourerTank" UnitPreferenceOffensiveModifier="300%" UnitPreferenceDefensiveModifier="200%"/>
+		<UnitModifierByName UnitName="AlienCorrupter" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="75%"/>
 	</AIStrategicStateDefinition>
 </AssetDeclaration>
