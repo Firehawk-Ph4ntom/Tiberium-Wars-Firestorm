@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For GDI Power Plant -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
+		<!-- For GDI Airfield -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
+		<!-- For GDI Missile Battery -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIMissileBattery.xml" type="instance"/>
+		<!-- For GDI Sniper Team -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDISniperSquad.xml" type="instance"/>
+		<!-- For NOD Shredder Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODShredderTurretHub.xml" type="instance"/>
+		<!-- For NOD Laser Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODLaserCannon.xml" type="instance"/>
+		<!-- For NOD Venom -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVenom.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Increased damage from 700 -->
+	<WeaponTemplate
+		id="GDIOrcaRocketWeaponWarhead"
+		Name="GDIOrcaRocketWeaponWarhead"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="800"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE"/>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered slave gather range from 300 -->
+	<GameObject
+		id="NODShredderTurretHub"
+		inheritFrom="NODShredderTurretHub">
+		<Behaviors>
+			<GatherSlavesUpdate
+				id="ModuleTag_GatherSlaves"
+				xai:joinAction="Append"
+				Radius="200.0"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Lowered slave gather range from 300 -->
+	<GameObject
+		id="NODLaserCannon"
+		inheritFrom="NODLaserCannon">
+		<Behaviors>
+			<GatherSlavesUpdate
+				id="ModuleTag_GatherSlaves"
+				xai:joinAction="Append"
+				Radius="200.0"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Removed all upgrades -->
+	<LogicCommandSet
+		id="GDIAirTowerCommandSet">
+		<Cmd>Command_ConstructGDIOrca</Cmd>
+		<Cmd>Command_ConstructGDIHammerhead</Cmd>
+		<Cmd>Command_ConstructGDIFireHawk</Cmd>
+		<Cmd>Command_GDIRecallAllAircraft</Cmd>
+		<Cmd>Command_RepairAircraft</Cmd>
+		<Cmd>Command_CommandPostCallBloodhound</Cmd>
+		<Cmd>Command_CommandPostCallAirborne</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades except Tib Field Suits -->
+	<LogicCommandSet
+		id="GDICommandPostCommandSet">
+		<Cmd>Command_UpgradeFieldSuits</Cmd>
+		<Cmd>Command_CommandPostRadarScan</Cmd>
+		<Cmd>Command_CommandPostBombingRun</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades except Tiberium Infusion -->
+	<LogicCommandSet
+		id="NODSecretShrineCommandSet">
+		<Cmd>Command_ConstructNODCyborgInfantrySquad</Cmd>
+		<Cmd>Command_ConstructNODTiberiumTrooperSquad</Cmd>
+		<Cmd>Command_ConstructNODAscendedSquad</Cmd>
+		<Cmd>Command_ConstructNODReaper</Cmd>
+		<Cmd>Command_ConstructNODCyborgCommando</Cmd>
+		<Cmd>Command_RedShadowStrikeTeam</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Lowered energy requirement -->
+	<GameObject
+		id="GDIMissileBattery"
+		inheritFrom="GDIMissileBattery"
+		EnergyProduction="-1"/>
+
+	<!-- Increased energy production -->
+	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant"
+		EnergyProduction="30"/>
+
+	<!-- Removed energy requirement -->
+	<GameObject
+		id="GDIAirTower"
+		inheritFrom="GDIAirTower"
+		EnergyProduction="0"/>
+
+	<!-- Requirement change (Lack of Tank Armory) -->
+	<GameObject
+		id="GDISniperSquad"
+		inheritFrom="GDISniperSquad">
+		<GameDependency
+			xai:joinAction="Replace">
+			<RequiredObject>GDICommandPost</RequiredObject>
+		</GameDependency>
+	</GameObject>
+
+	<!-- Removed Overkill upgrade requirement -->
+	<SpecialPowerTemplate
+		id="SpecialPower_SpotTargetBombard"
+		Flags="FOGGED_SHROUDED_CELLS_OK NEEDS_OBJECT_FILTER LIMIT_DISTANCE IGNORE_MAP_EXTENTS WATER_OK FIND_REACHABLE_TARGETS NO_FORBIDDEN_MODEL_STATES TARGET_NEEDS_OBJECT_STATUS"
+		RequiredTargetObjectStatus="CAN_SPOT_FOR_BOMBARD"
+		DisallowedTargetObjectStatus="IN_STASIS CLONED"
+		DisallowedTargetModelStates="TRANSPORT_MOVING MOVING"
+		ReloadTime="20s"
+		RadiusCursorRadius="100"
+		TargetType="LOCATION"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateSpotTargetBombard"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		MinCastRange="150"
+		MaxCastRange="999999"
+		ReachableTargetsCircleDisplayRadius="600">
+		<ObjectFilter
+			Rule="NONE"
+			Relationship="ALLIES">
+			<IncludeThing>GDISniper</IncludeThing>
+			<IncludeThing>GDIZoneTrooper</IncludeThing>
+			<IncludeThing>GDIZoneRaider</IncludeThing>
+			<IncludeThing>GDIZoneDefender</IncludeThing>
+			<IncludeThing>GDICommando</IncludeThing>
+			<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+		</ObjectFilter>
+		<GameDependency>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>GDISniper</IncludeThing>
+				<IncludeThing>GDIZoneTrooper</IncludeThing>
+				<IncludeThing>GDIZoneRaider</IncludeThing>
+				<IncludeThing>GDIZoneDefender</IncludeThing>
+				<IncludeThing>GDICommando</IncludeThing>
+				<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<!-- Added an animation to make it appear "landing" -->
+	<GameObject
+		id="NODVenom"
+		inheritFrom="NODVenom">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw">
+				<AnimationState
+					ParseCondStateType="PARSE_NORMAL"
+					ConditionsYes="USER_1">
+					<Animation
+						AnimationName="NUVenom_TKFA"
+						AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- 1 Rescue Base -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_2_Objective_1"
+			Description="SCRIPT:GDI_1_2_Obj_1_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_2_Objective_1"
+				Dialog="MG12_GDIEVA02">
+				<Duration>8s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>50d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 2 Rescue Air Fields -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_2_Objective_2"
+			Description="SCRIPT:GDI_1_2_Obj_2_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_2_Objective_2"
+				Dialog="MG12_GDIEVA17">
+				<Duration>4s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_ToW_1_2_Objective_2b">
+				<Duration>4s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 3 Kill Nod Bizzase -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_2_Objective_3"
+			Description="SCRIPT:GDI_1_2_Obj_3_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_2_Objective_3"
+				Dialog="MG12_GDIEVA04">
+				<Duration>8s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>60d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 4 Find Snipers -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_TOW_1_2_BonusObjective_2" 
+			Description="SCRIPT:GDI_TOW_1_2_BonusObjective_2_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_2_BonObjective_2"
+				Dialog="MG12_GDIEVA01">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_ToW_1_2_BonObjective_2b">
+				<Duration>2s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>	
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 5 Cap Tib Refienry -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_TOW_1_2_BonusObjective_3" 
+			Description="SCRIPT:GDI_TOW_1_2_BonusObjective_3_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_2_BonObjective_3"
+				Dialog="MG12_GDIEVA22">
+				<Duration>7s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>

@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Player Spell Book -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\System\PlayerSpellBook.xml" type="instance"/>
+		<!-- For GDI Carryall -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_CallSupportColossusWalker.xml" type="instance"/>
+		<!-- For NOD Disruption Tower -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODDisruptionTower.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Lowered the range of GDI Missile Squads from 350 to 325 -->
+	<!-- This is to prevent the player from cheesing the start with missile AOE by force firing and being able to kill the Shredder Turrets --> 
+	<WeaponTemplate
+		id="SquadMissileRangefinder"
+		Name="SquadMissileRangefinder"
+		AttackRange="275"
+		AcceptableAimDelta="45d"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		LeechRangeWeapon="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIMissileSoldierMissileLauncher"
+		Name="GDIMissileSoldierMissileLauncher"
+		AttackRange="325"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireSound="GDI_MissileSoldier_MissileFire"
+		FireFX="FX_GDIMissileManFire"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		ClipSize="1"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
+		<PreAttackDelay
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
+		<FiringDuration
+			MinSeconds="2.8s"
+			MaxSeconds="3s"/>
+		<ClipReloadTime
+			MinSeconds="0.4s"
+			MaxSeconds="0.6s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIMissileSoldierMissileWarhead"
+				ProjectileTemplate="GDIMissileSoldierMissileProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDIMissileSoldierMissileProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- To make things even, reduced the range of the Nod militant rocket squad as well by the same amount -->
+	<WeaponTemplate
+		id="NODMilitantRocketWeapon"
+		Name="NODMilitantRocketWeapon"
+		AttackRange="325"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireSound="NOD_RocketMilitant_RocketLaunch1"
+		FireFX="FX_GDIMissileManFire"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
+		<PreAttackDelay
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
+		<FiringDuration
+			MinSeconds="2.8s"
+			MaxSeconds="3s"/>
+		<ClipReloadTime
+			MinSeconds="0.4s"
+			MaxSeconds="0.6s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODMissileSoldierMissileWarhead"
+				ProjectileTemplate="NODMilitantRocketWeaponProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- As a compensation for the lost range, both Missile Squads now deal a bit more damage -->
+	<!-- Increased damage from 250 --> 
+	<WeaponTemplate
+		id="GDIMissileSoldierMissileWarhead"
+		Name="GDIMissileSoldierMissileWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="275"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT">
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODMissileSoldierMissileWarhead"
+		Name="NODMissileSoldierMissileWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="275"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT">
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Removed Purifying Flame upgrade -->
+	<LogicCommandSet
+		id="NODSecretShrineCommandSet">
+		<Cmd>Command_ConstructNODCyborgInfantrySquad</Cmd>
+		<Cmd>Command_ConstructNODTiberiumTrooperSquad</Cmd>
+		<Cmd>Command_ConstructNODAscendedSquad</Cmd>
+		<Cmd>Command_ConstructNODReaper</Cmd>
+		<Cmd>Command_ConstructNODCyborgCommando</Cmd>
+		<Cmd>Command_PurchaseUpgradeChargedParticleBeam</Cmd>
+		<Cmd>Command_PurchaseBlackHandBlackTemplarsUpgrade</Cmd>
+		<Cmd>Command_PurchaseUpgradeTiberiumInfusion</Cmd>
+		<Cmd>Command_RedShadowStrikeTeam</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed Propaganda Speakers and EMP Retrofitting upgrades -->
+	<LogicCommandSet
+		id="NODOperationsCenterCommandSet">
+		<Cmd>Command_UpgradeNODDozerBlades</Cmd>
+		<Cmd>Command_PurchaseUpgradeNODQuadTurrets</Cmd>
+		<Cmd>Command_SelectObjectsForClone</Cmd>
+		<Cmd>Command_SpawnObjectsForClone</Cmd>
+		<Cmd>Command_FireRadarJammingMissile</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades except Tib Field Suits -->
+	<LogicCommandSet
+		id="GDICommandPostCommandSet">
+		<Cmd>Command_UpgradeFieldSuits</Cmd>
+		<Cmd>Command_CommandPostRadarScan</Cmd>
+		<Cmd>Command_CommandPostBombingRun</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Used for MCV Carryall -->
+	<GameObject
+		id="GDIV35Ox_CallSupportColossusWalker"
+		inheritFrom="GDIV35Ox_CallSupportColossusWalker">
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Replace"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE"
+				ContainMax="1"
+				Slots="1"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true">
+				<PassengerFilter
+					Rule="NONE"
+					Include="VEHICLE"/>
+				<DieMuxData
+					DeathTypes="ALL"/>
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="VEHICLE"/>
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Added Airstrike SP -->
+	<GameObject
+		id="PlayerSpellBook"
+		inheritFrom="PlayerSpellBook">
+		<Behaviors>
+			<PlayerPowerManager
+				id="ModuleTag_PlayerPowerManager_SPAirstrike"
+				SpecialPowerTemplate="SpecialPowerCallAirstrikeSPWashington"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Lowered Broadcast range from 450 -->
+	<GameObject
+		id="NODDisruptionTower"
+		inheritFrom="NODDisruptionTower">
+		<Behaviors>
+			<InvisibilityUpdate
+				id="ModuleTag_Invisibility"
+				xai:joinAction="Append"
+				BroadcastRange="300"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Lowered attack range from 350 -->
+	<WeaponTemplate
+		id="NODShredderTurretSpawnWeapon"
+		Name="NODShredderTurretSpawnWeapon"
+		AttackRange="300"
+		WeaponSpeed="750"
+		MinTargetPitch="-15d"
+		MaxTargetPitch="15d"
+		FireSound="NOD_ShredderTurret_WeaponFire"
+		FireFX="FX_NOD_ShredderFire"
+		FireVeteranFX="FX_NOD_ShredderFireHeroic"
+		ClipSize="2"
+		ShotsPerBarrel="1"
+		RotatingTurret="true"
+		ReAcquireDetailType="PRE_FIRE">
+		<FiringDuration
+			MinSeconds="0.3s"
+			MaxSeconds="0.3s"/>
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODShredderTurretWarhead"
+				ProjectileTemplate="NODShredderTurretShell">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODShredderTurretShellHeroic"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+		<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!--"Destroy the Nod air defenses."-->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_1_4_Objective_1"
+			Description="SCRIPT:GDI_1_4_Obj_1_Detail">
+				<PresentationSettings
+					ID="GDI_1_4_Obj_1_1"
+					Dialog="MG14_GDIEVA03"
+					CameraFieldOfViewVariance="0">
+					<Duration>5s</Duration>
+					<CameraStartAngle>25d</CameraStartAngle>
+					<CameraEndAngle>-25d</CameraEndAngle>
+					<CameraFieldOfView>35d</CameraFieldOfView>
+				</PresentationSettings>
+				<PresentationSettings
+					ID="GDI_1_4_Obj_1_2"
+					CameraFieldOfViewVariance="0">
+					<Duration>5s</Duration>
+					<CameraStartAngle>25d</CameraStartAngle>
+					<CameraEndAngle>-25d</CameraEndAngle>
+					<CameraFieldOfView>35d</CameraFieldOfView>
+				</PresentationSettings>
+		</MissionObjectiveTag>
+    	<!--"Call in an Air Strike to take out the Nod Artillery."-->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_1_4_Objective_2"
+			Description="SCRIPT:GDI_1_4_Obj_2_Detail">
+			<PresentationSettings
+				ID="GDI_1_4_Obj_2"
+				Dialog="MG14_GDIEVA14"
+				CameraFieldOfViewVariance="0">
+				<Duration>7s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--"Destroy the Nod base surrounding the White House."-->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_1_4_Objective_3"
+			Description="SCRIPT:GDI_1_4_Obj_3_Detail">
+			<PresentationSettings
+				ID="GDI_1_4_Obj_3_1"
+				Dialog="MG14_GDIEVA11"
+				CameraFieldOfViewVariance="0">
+				<Duration>2s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_4_Obj_3_2"
+				CameraFieldOfViewVariance="0">
+				<Duration>2s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--"Destroy the Disruption Towers."-->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_1_4_Objective_4"
+			Description="SCRIPT:GDI_1_4_Obj_4_Detail">
+			<PresentationSettings
+				ID="GDI_1_4_Obj_4_1"
+				Dialog="MG14_GDIEVA12"
+				CameraFieldOfViewVariance="0">
+				<Duration>3s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_4_Obj_4_2"
+				CameraFieldOfViewVariance="0">
+				<Duration>3s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>	
+		</MissionObjectiveTag>
+		<!--"Suppress the Nod infantry advances by putting Snipers into the designated buildings."--> 
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_1_4_BonusObjective_1"
+			Description="SCRIPT:GDI_1_4_Bonus_Objective_1_Details">
+			<PresentationSettings
+				ID="GDI_1_4_BonObj_1_1"
+				Dialog="MG14_GDIEVA06"
+				CameraFieldOfViewVariance="0">
+				<Duration>4s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>	
+			<PresentationSettings
+				ID="GDI_1_4_BonObj_1_2"
+				CameraFieldOfViewVariance="0">
+				<Duration>4s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--"Destroy the Nod Secret Shrine."--> 
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_1_4_BonusObjective_2"
+			Description="SCRIPT:GDI_1_4_Bonus_Objective_2_Details">
+			<PresentationSettings
+				ID="GDI_1_4_BonObj_2"
+				Dialog="MG14_GDIEVA07"
+				CameraFieldOfViewVariance="0">
+				<Duration>9s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!--"Destroy Nod's Power Plants."-->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_1_4_BonusObjective_3"
+			Description="SCRIPT:GDI_1_4_Bonus_Objective_3_Details">
+			<PresentationSettings
+				ID="GDI_1_4_BonObj_3_1"
+				Dialog="MG14_GDIEVA08"
+				CameraFieldOfViewVariance="0">
+				<Duration>2s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>	
+			<PresentationSettings
+				ID="GDI_1_4_BonObj_3_2"
+				CameraFieldOfViewVariance="0">
+				<Duration>2s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<GameObject
+		id="TiberiumSilo"
+		inheritFrom="TiberiumSilo"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				InitialCaptureBonus="1500"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>

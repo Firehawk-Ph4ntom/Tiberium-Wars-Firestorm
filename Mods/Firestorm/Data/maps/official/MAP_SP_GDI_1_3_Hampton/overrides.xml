@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For GDI Commando -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- For GDI V35 -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_Summoned.xml" type="instance"/>
+		<!-- For NOD Vertigo -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVertigo.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+	</Includes>
+
+	<!-- Cyborg StronK, lowered damage from 16 -->
+	<WeaponTemplate
+		id="NODCyborgMinigun"
+		Name="NODCyborgMinigun"
+		AttackRange="275"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="999999"
+		FireSoundPerClip="NOD_CyborgMinigun_GunFire"
+		FireFX="FX_CyborgMinigunFire"
+		FireVeteranFX="FX_CyborgMinigunFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="3"
+		ReAcquireDetailType="PRE_FIRE">
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="0.3s"
+			MaxSeconds="0.4s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="10"
+				DamageType="GUN"
+				DamageFXType="NOD_MACHINEGUN"/>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Max Contain 6 -->
+	<GameObject
+		id="GDIV35Ox_Summoned"
+		inheritFrom="GDIV35Ox_Summoned">
+		<Behaviors>
+			<HordeTransportContain
+				id="ModuleTag_Contain"
+				ContainMax="6"
+				Slots="6"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Removed Overkill upgrade requirement -->
+	<SpecialPowerTemplate
+		id="SpecialPower_SpotTargetBombard"
+		Flags="FOGGED_SHROUDED_CELLS_OK NEEDS_OBJECT_FILTER LIMIT_DISTANCE IGNORE_MAP_EXTENTS WATER_OK FIND_REACHABLE_TARGETS NO_FORBIDDEN_MODEL_STATES TARGET_NEEDS_OBJECT_STATUS"
+		RequiredTargetObjectStatus="CAN_SPOT_FOR_BOMBARD"
+		DisallowedTargetObjectStatus="IN_STASIS CLONED"
+		DisallowedTargetModelStates="TRANSPORT_MOVING MOVING"
+		ReloadTime="20s"
+		RadiusCursorRadius="100"
+		TargetType="LOCATION"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateSpotTargetBombard"
+		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		MinCastRange="150"
+		MaxCastRange="999999"
+		ReachableTargetsCircleDisplayRadius="600">
+		<ObjectFilter
+			Rule="NONE"
+			Relationship="ALLIES">
+			<IncludeThing>GDISniper</IncludeThing>
+			<IncludeThing>GDIZoneTrooper</IncludeThing>
+			<IncludeThing>GDIZoneRaider</IncludeThing>
+			<IncludeThing>GDIZoneDefender</IncludeThing>
+			<IncludeThing>GDICommando</IncludeThing>
+			<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+		</ObjectFilter>
+		<GameDependency>
+			<ObjectFilter
+				Rule="NONE"
+				Relationship="ALLIES">
+				<IncludeThing>GDISniper</IncludeThing>
+				<IncludeThing>GDIZoneTrooper</IncludeThing>
+				<IncludeThing>GDIZoneRaider</IncludeThing>
+				<IncludeThing>GDIZoneDefender</IncludeThing>
+				<IncludeThing>GDICommando</IncludeThing>
+				<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+			</ObjectFilter>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<!-- No invisibility -->
+	<GameObject
+		id="NODVertigo"
+		inheritFrom="NODVertigo">
+		<Behaviors>
+			<InvisibilityUpdate
+				id="ModuleTag_Invisibility_Intrinsic"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased armor significantly -->
+	<ArmorTemplate
+		id="GDICommandoArmor">
+		<Armor Damage="CANNON" Percent="5%"/>
+		<Armor Damage="ROCKET" Percent="10%"/>
+		<Armor Damage="GRENADE" Percent="20%"/>
+		<Armor Damage="GUN" Percent="25%"/>
+		<Armor Damage="SNIPER" Percent="45%"/>
+		<Armor Damage="TIBERIUM"/>
+	</ArmorTemplate>
+
+	<!-- Removed suppression | Increased health from 500 -->
+	<GameObject
+		id="GDICommando_EA"
+		inheritFrom="GDICommando_EA">
+		<Behaviors>
+			<SuppressionUpdate
+				id="ModuleTag_SuppressionUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="1000" />
+		</Body>
+	</GameObject>
+
+	<!-- Increased Damage | Doesn't Hurt GDI Commando -->
+	<WeaponTemplate
+		id="ExplodingBarrelWeapon"
+		Name="ExplodingBarrelWeapon"
+		FireFX="FX_NODBombHit">
+		<Nuggets>
+			<DamageNugget
+				Damage="4000"
+				Radius="100"
+				DamageType="CANNON"
+				DeathType="BURNED">
+				<DamageScalarDetails
+					Scalar="1%">
+					<Filter
+						Rule="NONE"
+						Include="UNIQUE_UNIT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<MissionObjectiveTag
+			Script=	"SCRIPT:GDI_1_3_Objective_1"
+			Description="SCRIPT:GDI_1_3_Obj_1_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_3_Objective_1"
+				Dialog="MG13_GDIEVA01"
+				UseDynamicZoom="false">
+				<Duration>6s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_1_3_Objective_2"
+			Description="SCRIPT:GDI_1_3_Obj_2_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_3_Objective_2"
+				Dialog="MG13_GDIEVA03">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_ToW_1_3_Objective_2b">
+				<Duration>2.5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_1_3_Objective_3"
+			Description="SCRIPT:GDI_1_3_Obj_3_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_3_Objective_3"
+				Dialog="MG13_GDIEVA05">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_ToW_1_3_Objective_3b">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_1_3_BonusObjective_1"
+			Description="SCRIPT:GDI_1_3_BonusObjective_1_Detail">
+			<PresentationSettings
+				ID="GDI_ToW_1_3_Objective_4"
+				Dialog="MG13_GDIEVA07">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+				<CameraFieldOfView>20d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Rainy Weather -->
+	<Weather
+		id="Weather">
+		<Rain
+			RainTexture="FXRainDrop"
+			IsRaining="true"
+			NumRaindropsPerBox="2500"
+			RainBoxWidth="1000.0"
+			RainBoxLength="1000.0"
+			RainBoxHeight="300.0"
+			MinWidth="1"
+			MaxWidth="4"
+			MinHeight="25.0"
+			MaxHeight="100.0"
+			MinSpeed="250.0"
+			MaxSpeed="270.0"
+			MinAlpha=".3"
+			MaxAlpha=".5"
+			WindStrength="10.0"/>
+		<Lightning
+			LightningEnabled="true"
+			LightningDuration="1"
+			LightningChance="50">
+			<LightningFactor
+				Type="UNIFORM"
+				Low="3.0"
+				High="3.0"/>
+		</Lightning>
+		<Spell
+			SpellEnabled="true"
+			SpellDuration="200"/>
+		<Cloud>
+			<CloudTextureSize x="660.0" y="660.0"/>
+			<CloudOffsetPerSecond x="-.03" y="-.02"/>
+		</Cloud>
+		<WeatherData id="RAINY" HasLightning="true" />
+		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
+		<WeatherData id="SUNNY" HasLightning="false" />
+		<WeatherData id="CLOUDY" HasLightning="false" />
+	</Weather>
+</AssetDeclaration>

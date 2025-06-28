@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Pentagon -->
+		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBPenta01.xml" type="instance"/>
+		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBPentaEn.xml" type="instance"/>
+		<!-- For GDI Watchtower -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWatchTower.xml" type="instance"/>
+		<!-- For GDI Firehawk -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For NOD Carryall -->
+		<Include source="DATA:NOD\Units_SinglePlayerCampaign\NODCarryall_SP_Militants.xml" type="instance"/>
+		<Include source="DATA:NOD\Units_SinglePlayerCampaign\NODCarryall_SP_Rockets.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallInfantry.xml" type="instance"/>
+		<!-- For NOD Venom -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVenom.xml" type="instance"/>
+		<!-- For NOD Vertigo -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVertigo.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+	</Includes>
+
+	<!-- Cyborg StronK, lowered damage from 16 -->
+	<WeaponTemplate
+		id="NODCyborgMinigun"
+		Name="NODCyborgMinigun"
+		AttackRange="275"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="999999"
+		FireSoundPerClip="NOD_CyborgMinigun_GunFire"
+		FireFX="FX_CyborgMinigunFire"
+		FireVeteranFX="FX_CyborgMinigunFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="3"
+		ReAcquireDetailType="PRE_FIRE">
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="0.3s"
+			MaxSeconds="0.4s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="10"
+				DamageType="GUN"
+				DamageFXType="NOD_MACHINEGUN"/>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered attack range from 350 -->
+	<WeaponTemplate
+		id="SquadMissileRangefinder"
+		Name="SquadMissileRangefinder"
+		AttackRange="250"
+		AcceptableAimDelta="45d"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		LeechRangeWeapon="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODMilitantRocketWeapon"
+		Name="NODMilitantRocketWeapon"
+		AttackRange="300"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireSound="NOD_RocketMilitant_RocketLaunch1"
+		FireFX="FX_GDIMissileManFire"
+		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
+		<PreAttackDelay
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
+		<FiringDuration
+			MinSeconds="2.8s"
+			MaxSeconds="3s"/>
+		<ClipReloadTime
+			MinSeconds="0.4s"
+			MaxSeconds="0.6s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODMissileSoldierMissileWarhead"
+				ProjectileTemplate="NODMilitantRocketWeaponProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- Adjusted Carryall locomotor to unload quick -->
+	<LocomotorTemplate
+		id="NODCarryallLocomotor"
+		Name="NODCarryallLocomotor"
+		Surfaces="AIR"
+		TurnTimeSeconds="2s"
+		FastTurnRadius="50"
+		Lift="120%"
+		LiftDamaged="80%"
+		MinTurnSpeed="0%"
+		PreferredHeight="140"
+		BehaviorZ="SURFACE_RELATIVE_HEIGHT"
+		Appearance="HOVER"
+		PitchStiffness="0.5"
+		ForwardVelocityPitchFactor="-0.2"
+		LateralVelocityRollFactor="0.1"
+		AirborneTargetingHeight="30"
+		RudderCorrectionDegree="0.169"
+		RudderCorrectionRate="0.027"
+		ElevatorCorrectionDegree="0.103"
+		ElevatorCorrectionRate="0.016"
+		BackingUpAngle="0.5"
+		TakeOffAndLandingSpeed="10"
+		TakeOffAndLandingSlowDownDelta="35"
+		TakeOffAndLandingSlowDownTime="0.5s"
+		LocomotorWorksWhenDead="true"
+		AllowMotiveForceWhileAirborne="true"
+		Apply2DFrictionWhenAirborne="true" />
+
+	<!-- Increased HP -->
+	<GameObject
+		id="GDIWatchTower"
+		inheritFrom="GDIWatchTower">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="7000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Removed all upgrades -->
+	<LogicCommandSet
+		id="NODSecretShrineCommandSet">
+		<Cmd>Command_ConstructNODCyborgInfantrySquad</Cmd>
+		<Cmd>Command_ConstructNODTiberiumTrooperSquad</Cmd>
+		<Cmd>Command_ConstructNODAscendedSquad</Cmd>
+		<Cmd>Command_ConstructNODReaper</Cmd>
+		<Cmd>Command_ConstructNODCyborgCommando</Cmd>
+		<Cmd>Command_RedShadowStrikeTeam</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Added huge scalar vs GDI Power Plant -->
+	<WeaponTemplate
+		id="NODVertigoBombWarhead"
+		Name="NODVertigoBombWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="2800"
+				Radius="45"
+				DamageType="GRENADE"
+				DeathType="BURNED"
+				DamageFXType="NOD_BOMB">
+				<DamageScalarDetails
+					Scalar="10000%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIPowerPlant</IncludeThing>
+						<IncludeThing>DCBPentaEn</IncludeThing>
+						<IncludeThing>DCBPenta01</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Magical Garrison Schtuff -->
+	<GameObject
+		id="DCBPentaEn"
+		inheritFrom="DCBPentaEn">
+		<Behaviors>
+			<!-- if alow allies is true it will break the engineers-->
+			<HordeGarrisonContain
+				id="ModuleTag_HordeGarrison"
+				ObjectStatusOfContained="UNSELECTABLE CAN_ATTACK"
+				ContainMax="10"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="true"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				KillPassengersOnDeath="false">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY"/>
+				<DieMuxData
+					DeathTypes="ALL" />
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY" />
+				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniperSquad"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD" />
+				<ExitOffset
+					x="150" />
+			</HordeGarrisonContain>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="50000.0"
+				InitialHealth="50000.0" />
+		</Body>
+	</GameObject>
+
+	<GameObject
+		id="DCBPenta01"
+		inheritFrom="DCBPenta01"
+		RadarPriority="NOT_ON_RADAR">
+		<Behaviors>
+			<HordeGarrisonContain
+				id="ModuleTag_HordeGarrison"
+				ObjectStatusOfContained="UNSELECTABLE CAN_ATTACK"
+				ContainMax="6"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="true"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				KillPassengersOnDeath="false">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY"/>
+				<DieMuxData
+					DeathTypes="ALL" />
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY" />
+				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniperSquad"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD" />
+				<ExitOffset
+					y="-200"
+					x="-200" />
+			</HordeGarrisonContain>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="50000.0"
+				InitialHealth="50000.0" />
+		</Body>
+	</GameObject>
+
+	<!-- Increased range to 300 -->
+	<WeaponTemplate
+		id="GDIRifleSoldierRifle"
+		Name="GDIRifleSoldierRifle"
+		AttackRange="300"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="999999"
+		FireSoundPerClip="GDI_RifleSoldier_RifleFire"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		FireFX="FX_GDIRifleManFire"
+		FireVeteranFX="FX_GDIRifleManFireHeroic"
+		ClipSize="3"
+		ReAcquireDetailType="PRE_FIRE">
+		<ClipReloadTime
+			MinSeconds="0.3s"
+			MaxSeconds="0.4s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="3"
+				DamageType="GUN"
+				DamageFXType="GDI_RIFLE"/>
+			<SuppressionNugget
+				Radius="5"
+				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIRifleSquadGunRangefinder"
+		Name="GDIRifleSquadGunRangefinder"
+		AttackRange="250"
+		LeechRangeWeapon="true"
+		AcceptableAimDelta="45d"
+		AntiMask="ANTI_GROUND"
+		CanFireWhileMoving="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+	</WeaponTemplate>
+
+	<!-- Significantly increased speed | No invisibility -->
+	<GameObject
+		id="NODVertigo"
+		inheritFrom="NODVertigo">
+		<LocomotorSet
+			Locomotor="GenericJetAircraftLocomotor"
+			Condition="NORMAL"
+			Speed="375" />
+		<Behaviors>
+			<InvisibilityUpdate
+				id="ModuleTag_Invisibility_Intrinsic"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Significantly increased speed | Made unkillable | Contain Max 6 -->
+	<GameObject
+		id="NODCarryallInfantry"
+		inheritFrom="NODCarryallInfantry">
+		<LocomotorSet
+			Locomotor="NODCarryallLocomotor"
+			Condition="NORMAL"
+			Speed="275.0"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="275"/>
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Overwrite"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="6"
+				Slots="6"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY" />
+				<DieMuxData
+					DeathTypes="ALL" />
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY" />
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="10000" />
+		</Body>
+	</GameObject>	
+
+	<GameObject
+		id="NODCarryallInfantry_SP_Militants"
+		inheritFrom="NODCarryallInfantry_SP_Militants">
+		<LocomotorSet
+			Locomotor="NODCarryallLocomotor"
+			Condition="NORMAL"
+			Speed="275.0"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="275"/>
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Overwrite"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="4"
+				Slots="4"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY" />
+				<DieMuxData
+					DeathTypes="ALL" />
+				<InitialPayload
+					Name="NODMilitantSquad"
+					Count="2" />
+				<InitialPayload
+					Name="NODCyborgInfantrySquad"
+					Count="2" />
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY" />
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="10000" />
+		</Body>
+	</GameObject>
+
+	<GameObject
+		id="NODCarryallInfantry_SP_Rockets"
+		inheritFrom="NODCarryallInfantry_SP_Rockets">
+		<LocomotorSet
+			Locomotor="NODCarryallLocomotor"
+			Condition="NORMAL"
+			Speed="275.0"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="275"/>
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Overwrite"
+				id="ModuleTag_Contain"
+				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
+				ContainMax="3"
+				Slots="3"
+				AllowEnemiesInside="false"
+				AllowAlliesInside="false"
+				AllowNeutralInside="false"
+				AllowOwnPlayerInsideOverride="true"
+				ShowPips="true"
+				EnterSound="VehicleEnter"
+				ExitSound="VehicleExit"
+				KillPassengersOnDeath="true"
+				FlyOffMapOnEmpty="true">
+				<PassengerFilter
+					Rule="ANY"
+					Include="INFANTRY" />
+				<DieMuxData
+					DeathTypes="ALL" />
+				<InitialPayload
+					Name="NODMilitantRocketSquad"
+					Count="3" />
+				<PassengerData
+					BonePrefix="BONEGARRISON">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY" />
+				</PassengerData>
+			</HordeTransportContain>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				MaxHealth="10000" />
+		</Body>
+	</GameObject>
+
+	<!-- Significantly increased speed -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<LocomotorSet
+			Locomotor="GenericJetAircraftLocomotor"
+			Condition="NORMAL"
+			Speed="350" />
+	</GameObject>
+
+	<!-- Significantly increased speed -->
+	<GameObject
+		id="NODVenom"
+		inheritFrom="NODVenom">
+		<LocomotorSet
+			Locomotor="NODVenomLocomotor"
+			Condition="NORMAL"
+			Speed="350" />	
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!--  1 Power Plants-->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_1_Objective_1"
+			Description="SCRIPT:GDI_TOW_1_1_Obj_1_Detail">
+			 <PresentationSettings
+				ID="GDI_1_1OBJ1"
+				Dialog="MG11_GDIEVA04">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_1OBJ1b">
+				<Duration>2s</Duration>
+				<CameraStartAngle>5d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_1OBJ1c">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 2 Repair Pentagon -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_1_Objective_2"
+			Description="SCRIPT:GDI_TOW_1_1_Obj_2_Detail">
+			<PresentationSettings
+				ID="GDI_1_1OBJ2"
+				Dialog="MG11_GDIEVA05">
+				<Duration>5s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 3 Garrison Towers -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_1_Objective_2a"
+			Description="SCRIPT:GDI_TOW_1_1_Obj_2a_Detail">
+			 <PresentationSettings
+				ID="GDI_1_1OBJ2a"
+				Dialog="MG11_GDIEVA25">
+				<Duration>4s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>3d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_1OBJ2b">
+				<Duration>3s</Duration>
+				<CameraStartAngle>3d</CameraStartAngle>
+				<CameraEndAngle>6d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_1OBJ2c">
+				<Duration>3s</Duration>
+				<CameraStartAngle>6d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 4 take out the base -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_TOW_1_1_Objective_3"
+			Description="SCRIPT:GDI_TOW_1_1_Obj_3_Detail">
+			 <PresentationSettings
+				ID="GDI_1_1OBJ3"
+				Dialog="MG11_GDIEVA27"
+				UseDynamicZoom="false">
+				<Duration>11s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>5d</CameraEndAngle>
+				<CameraFieldOfView>50d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 5 take out the mini base -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_TOW_1_1_BonObjective_1"
+			Description="SCRIPT:GDI_TOW_1_1_BonObj_1_Detail">
+			 <PresentationSettings
+				ID="GDI_1_1BonOBJ1"
+				Dialog="MG11_GDIEVA06">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_1_1BonOBJ1b">
+				<Duration>2s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>15d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- 6 take out the garrisons in town -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_TOW_1_1_BonObjective_2"
+			Description="SCRIPT:GDI_TOW_1_1_BonObj_2_Detail">
+			<PresentationSettings
+				ID="GDI_1_1BonOBJ2"
+				Dialog="MG11_GDIEVA07">
+				<Duration>5s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

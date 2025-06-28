@@ -1,0 +1,92 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NODParkedMCV" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS VEHICLE" SelectPortrait="Portrait_NODMCV" ButtonImage="Portrait_NODMCV" EditorName="NODParkedMCV" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedVehicle" ThreatLevel="1">
+		<DisplayName>Name:NODFlameTank</DisplayName>
+		<ArmorSet Armor="GenericMCVArmor" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBMCV_SKN_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NBMCV_SKN_FS"/>
+					<Texture Original="NBConYard2" New="NBConYardD2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBMCV_SKN_FS"/>
+					<Texture Original="NBConYard2" New="NBConYardD2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBMCV_SKN_FS"/>
+					<Texture Original="NBConYard2" New="NBConYardD2"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NBMCV_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NBMCV_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="NBMCV_IDLA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableShowSubObjectPermanently("LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHTS") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("LIGHTS") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="12s">
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="22" MinorRadius="18" Height="20.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-18" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="19.5" MinorRadius="8" Height="20.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-11" y="-25" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="19.5" MinorRadius="8" Height="20.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-11" y="25" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="10" Height="6.0" ContactPointGeneration="VEHICLE">
+				<Offset x="6" y="0" z="0"/>
+			</Shape>
+		</Geometry>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
+		<CrusherInfo CrushableLevel="3"/>
+	</GameObject>
+</AssetDeclaration>
