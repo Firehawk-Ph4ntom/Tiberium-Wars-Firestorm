@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For NOD Lab -->
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSWeaponsLabFacility.xml" type="instance"/>
+		<!-- For NOD Carryall -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallVehicle.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- Neutral Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+	</Includes>
+
+	<!-- Added a new Death effect -->
+	<GameObject
+		id="NOD_WeaponsLabFacility"
+		inheritFrom="NOD_WeaponsLabFacility">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior
+				id="ModuleTag_FXList"
+				xai:joinAction="Replace">
+				<DieMuxData
+					DeathTypes="ALL"/>
+				<Event
+					Index="onTransitionToDamaged"
+					FX="FX_BuildDamaged_Large"/>
+				<Event
+					Index="onTransitionToReallyDamaged"
+					FX="FX_BuildDamaged_Large"/>
+				<Event
+					Index="onTransitionToRubble"
+					FX="FX_TibFacilityXplosion"/>
+				<Event
+					Index="onDeath"
+					ForceUseDoFXObj="true"
+					FX="FX_ScorchLarge"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Removed EMP Grenades upgrade -->
+	<LogicCommandSet
+		id="GDICommandPostCommandSet">
+		<Cmd>Command_UpgradeFieldSuits</Cmd>
+		<Cmd>Command_UpgradeZoneTrooperScannerPack</Cmd>
+		<Cmd>Command_UpgradeZoneTrooperAutoInjectors</Cmd>
+		<Cmd>Command_CommandPostRadarScan</Cmd>
+		<Cmd>Command_CommandPostBombingRun</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades except HE Ammo -->
+	<LogicCommandSet
+		id="GDIMedicalBayCommandSet">
+		<Cmd>Command_RepairVehicle</Cmd>
+		<Cmd>Command_PurchaseUpgradeGDIHEAmmo</Cmd>
+		<Cmd>Command_CommandPostCallHunterKiller</Cmd>
+		<Cmd>Command_CallSupportMedicSupportTeam</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades -->
+	<LogicCommandSet
+		id="GDIArmoryCommandSet">
+		<Cmd>Command_CallColossusStrike</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Increased movement speed -->
+	<GameObject
+		id="NODCarryallVehicle"
+		inheritFrom="NODCarryallVehicle">
+		<LocomotorSet
+			Locomotor="GDIDropshipLocomotor"
+			Condition="NORMAL"
+			Speed="175"/>
+		<LocomotorSet
+			Locomotor="BasicHelicopterTaxiLocomotor"
+			Condition="TAXIING"
+			Speed="175"/>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Investigate the Barracks for the lost Zone Trooper -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_2_1_Objective_1"
+			Description="SCRIPT:GDI_2_1_Objective_1_Details">
+			<PresentationSettings
+				ID="GDI_2_1_Objective_1_Presentation"
+				Dialog="MG21_GDIEVA03"
+				CameraFieldOfViewVariance="0">
+				<Duration>6s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy Weapons Lab -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_2_1_Objective_2"
+			Description="SCRIPT:GDI_2_1_Objective_2_Details">
+			<PresentationSettings
+				ID="GDI_2_1_Objective_2_Presentation_1"
+				Dialog="MG21_GDIEVA04"
+				CameraFieldOfViewVariance="20">
+				<Duration>6s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy War Factories -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_2_1_Objective_3"
+			Description="SCRIPT:GDI_2_1_Objective_3_Details">
+			<PresentationSettings
+				ID="GDI_2_1_Objective_3_Presentation_1"
+				Dialog="MG21_GDIEVA05">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_2_1_Objective_3_Presentation_2">
+				<Duration>3s</Duration>
+				<CameraStartAngle>5d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Kill the Hand of Nod -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_2_1_Bonus_Objective_1"
+			Description="SCRIPT:GDI_2_1_Bonus_Objective_1_Details">
+			<PresentationSettings
+				ID="GDI_2_1_BonObjective_1_Presentation_1"
+				Dialog="MG21_GDIEVA06">
+				<Duration>6s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture tiberium Spikes -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_2_1_Bonus_Objective_2"
+			Description="SCRIPT:GDI_2_1_Bonus_Objective_2_Details">
+			<PresentationSettings
+				ID="GDI_2_1_BonObjective_2_Presentation"
+				Dialog="MG21_GDIEVA10">
+				<Duration>3s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_2_1_BonObjective_2_PresentationB">
+				<Duration>3s</Duration>
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>25d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- Neutral -->
+	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<GameObject
+		id="TiberiumSpike"
+		inheritFrom="TiberiumSpike"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<AutoDepositUpdate
+				id="ModuleTag_AutoDepositUpdate"
+				xai:joinAction="Append"
+				DepositAmount="25"
+				InitialCaptureBonus="750"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>
