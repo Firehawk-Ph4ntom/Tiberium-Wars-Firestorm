@@ -1,62 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="TiberiumFona03" KindOf="IMMOBILE NOT_AUTOACQUIRABLE STRUCTURE CRUSHABLE_OBSTACLE RESIST_EMP IGNORE_FOR_VICTORY TIBERIUM_BASED" Side="Neutral" EditorName="TiberiumFona03" EditorSorting="MISC_NATURAL" CommandSet="EmptyCommandSet">
-		<DisplayName>Name:NeutralTiberiumFona</DisplayName>
-		<ArmorSet Armor="TiberiumCrystalArmor" DamageFX="AlienVehicleDamageFX"/>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="TiberiumFona01.xml"/>
+	</Includes>
+	<GameObject id="TiberiumFona03" inheritFrom="TiberiumFona01" EditorName="TiberiumFona03">
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw">
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="TIBERIUMFONA03_SKN"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCellAura" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
-		<Behaviors>
-			<AttributeModifierPoolUpdate id="ModuleTag_AttributeModifier"/>
-			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="UNUSED_06"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_TibCellDeathGreen"/>
-			</FXListBehavior>
-			<ToppleUpdate id="ModuleTag_ToppleUpdate" ToppleFX="FX_TibCellDeathGreen" KillWhenToppled="true"/>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="25.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">
-					<ExcludeThing>AlienHarvester</ExcludeThing>
-					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" EffectRadius="25.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Harvester_Green">
-				<AllowFilter Rule="NONE">
-					<IncludeThing>AlienHarvester</IncludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" EffectRadius="25.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Tripod_Green">
-				<AllowFilter Rule="NONE">
-					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" EffectRadius="25.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Green">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE HUGE_VEHICLE"/>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorStructure" EffectRadius="25.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM STRUCTURE"/>
-			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" EffectRadius="25.0" SurveyDelayFrames="15" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Infantry_Green">
-				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM INFANTRY">
-					<ExcludeThing>AlienHiveStalker</ExcludeThing>
-				</AllowFilter>
-			</PassiveAreaEffectBehavior>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="TiberiumCrystalWeapon" FireDelay="3s"/>
-			</FireWeaponUpdate>
-		</Behaviors>
-		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2500"/>
-		</Body>
-		<ShadowInfo Type="VOLUME"/>
-		<CrusherInfo CrusherLevel="0" CrushableLevel="0"/>
 	</GameObject>
 </AssetDeclaration>
