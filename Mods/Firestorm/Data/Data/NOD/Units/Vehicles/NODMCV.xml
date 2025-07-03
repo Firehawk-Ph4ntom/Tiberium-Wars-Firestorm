@@ -6,7 +6,7 @@
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
 	<GameObject id="NODMCV" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODMCV" ButtonImage="Portrait_NODMCV" Side="NOD" BuildCost="3500" BuildTime="35" BuildFadeInOnCreateTimeSeconds="0.25s" CommandSet="NODMCVCommandSet" ThreatLevel="10" KindOf="SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE EXPANSION_UNIT CAN_BE_FAVORITE_UNIT IGNORES_SELECT_ALL MCV VALID_TARGET_FOR_C4" PlacementViewAngle="315d" VoicePriority="36" EditorName="NODMCV" Description="Desc:NODMCV" TypeDescription="Type:NODMCV">
-		<DisplayName xai:joinAction="Replace">Name:NODMCV</DisplayName>
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODMCV</DisplayName>
 		<ArmorSet Armor="GenericMCVArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="NODMCVLocomotor" Condition="NORMAL" Speed="40.0"/>
 		<Draws>
@@ -104,11 +104,11 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="NBMCV_WLKA" AnimationMode="LOOP" Distance="65"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
 					<FXEvent Frame="36" FireWhenSkipped="true" Effect="FX_NODMCVFootprint" Bone="B_FRONTLEFT"/>
 					<FXEvent Frame="70" FireWhenSkipped="true" Effect="FX_NODMCVFootprint" Bone="B_BACKLEFT"/>
 					<FXEvent Frame="36" FireWhenSkipped="true" Effect="FX_NODMCVFootprint" Bone="B_BACKRIGHT"/>
 					<FXEvent Frame="70" FireWhenSkipped="true" Effect="FX_NODMCVFootprint" Bone="B_FRONTRIGHT"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
 					<Animation AnimationName="NBMCV_BLDA" AnimationMode="ONCE" AnimationBlendTime="0"/>

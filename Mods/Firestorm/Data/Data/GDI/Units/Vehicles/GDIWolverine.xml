@@ -28,7 +28,7 @@
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
 	<GameObject id="GDIWolverine" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE ATTACK_NEEDS_LINE_OF_SIGHT VEHICLE VALID_TARGET_FOR_C4 CAN_BE_FAVORITE_UNIT" Description="Desc:GDIWolverine" TypeDescription="Type:GDIWolverine" Side="GDI" EditorName="GDIWolverine" BuildTime="8" CommandSet="GDIWolverineCommandSet" SelectPortrait="Portrait_GDIWolverine" ButtonImage="Portrait_GDIWolverine" VoicePriority="164" ThreatLevel="10" WeaponCategory="GUN" BuildCost="800">
-		<DisplayName>Name:GDIWolverine</DisplayName>
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIWolverine</DisplayName>
 		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
 		<ArmorSet Armor="GenericLightVehicleArmor" DamageFX="VehicleDamageFX"/>
@@ -118,6 +118,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE PACKING" StateName="State_JumpJetJumping" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GUWOLVERINE_JMP1" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
 					<ParticleSysBone BoneName="FXTHRUSTERS01" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTHRUSTERS01" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTHRUSTERS01" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
@@ -128,7 +129,6 @@
 					<ParticleSysBone BoneName="FXTHRUSTERS01" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTHRUSTERS02" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTHRUSTERS02" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="THROWN_PROJECTILE" Flags="START_FRAME_LAST">
 					<Animation AnimationName="GUWOLVERINE_JMP4" AnimationMode="MANUAL" AnimationBlendTime="5" AnimationSpeedFactorMin="0.5" AnimationSpeedFactorMax="0.5"/>
@@ -253,8 +253,8 @@
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="8s">
-				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="GDI_Commando_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>

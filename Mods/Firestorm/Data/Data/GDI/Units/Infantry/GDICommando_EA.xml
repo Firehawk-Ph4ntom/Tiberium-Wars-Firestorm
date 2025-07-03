@@ -5,7 +5,7 @@
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
 	<GameObject id="GDICommando_EA" inheritFrom="BaseInfantry" SelectPortrait="Portrait_GDICommando" ButtonImage="Portrait_GDICommando" Side="GDI" BuildCost="2000" BuildTime="20" CommandSet="GDICommandoCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_PLACE_CHARGE CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="120" EditorName="GDICommando_EA" Description="Desc:GDICommando" TypeDescription="Type:GDICommando" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1" ProductionQueueType="VEHICLE">
-		<DisplayName xai:joinAction="Replace" xmlns:xai="uri:ea.com:eala:asset:instance">Name:GDICommando</DisplayName>
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDICommando</DisplayName>
 		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
 		<GameDependency>
@@ -251,37 +251,37 @@
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<FX Type="INITIAL">
+					<FX>FX_GDI_Commando_VoiceDie</FX>
+				</FX>
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibs</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="EXPLODED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
 				<FX Type="INITIAL">
 					<FX>FX_GDI_Commando_VoiceDie</FX>
 				</FX>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsRad</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="POISONED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
 				<FX Type="INITIAL">
 					<FX>FX_GDI_Commando_VoiceDie</FX>
 				</FX>
-			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsChar</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="BURNED"/>
-				<FX Type="INITIAL">
-					<FX>FX_GDI_Commando_VoiceDie</FX>
-				</FX>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
 				<FX Type="INITIAL">
 					<FX>FX_GDI_Commando_VoiceDie</FX>
 				</FX>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXListBlood">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
@@ -384,14 +384,15 @@
 			<AudioEntry Sound="GDI_Commando_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="GDI_Commando_VoiceSelectMS" AudioType="voiceSelect"/>
 			<AudioEntry Sound="GDI_Commando_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
+			<ObjectSpecificEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
+			<!-- Named entries for C4 and Jump Jets -->
 			<NamedEntry Sound="GDI_Commando_VoiceMoveJumpJet" Name="InitiateJumpJets"/>
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiatePlaceSatchelCharge"/>
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiatePlaceSatchelChargeSticky"/>
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiateJumpJetPlaceSatchelCharge"/>
 			<NamedEntry Sound="GDI_Commando_VoiceAttackC4" Name="InitiateJumpJetPlaceSatchelChargeSticky"/>
-			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
-			<ObjectSpecificEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
-			<ObjectSpecificEntry Sound="GDI_Commando_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
 		</AudioArrayVoice>
 		<EvaEvents EvaEventDetectedEnemy="EnemyCommandoDetected" EvaEnemyObjectSightedEvent="EnemyCommandoDetected"/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>

@@ -13,11 +13,11 @@
 	</Includes>
 	<GameObject id="GDIAirTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDIAirfield" ButtonImage="Portrait_GDIAirfield" Side="GDI" BuildCost="1000" BuildTime="10" EnergyProduction="-8" ThreatLevel="3" CommandSet="GDIAirTowerCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AIRFIELD FS_FACTORY FS_AIR_FIELD AUTO_RALLYPOINT NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER POWERED_POWERS_ONLY" PlacementViewAngle="225d" EditorName="GDIAirField" Description="Desc:GDIAirfield" TypeDescription="Type:GDIAirfield">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIAirfield</DisplayName>
-		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDICommandPost</RequiredObject>
 		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="BACK"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="Runway0Park0Han Runway0Park1Han Runway1Park0Han Runway1Park1Han HeliPark01">
@@ -357,8 +357,8 @@
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="AIRCRAFT" MaxQueueEntries="999"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
-				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="HumanFaction_LargeBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -401,16 +401,16 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000"/>
 		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceBloodhoundReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPowerCallSupportBloodhound" JustMonitorPercentReady="true"/>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceAirborneReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPowerCallSupportGDIAirborne" JustMonitorPercentReady="true"/>
+		</ClientUpdates>
 		<ClientBehaviors>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
 				<Sound Sound="GDI_AirField_doorOpen" Animation="GBAirDoor_OPN" Frame="1"/>
 				<Sound Sound="GDI_AirField_doorClose" Animation="GBAirDoor_CLS" Frame="1"/>
 			</AnimationSoundClientBehavior>
 		</ClientBehaviors>
-		<ClientUpdates>
-			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceBloodhoundReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPowerCallSupportBloodhound" JustMonitorPercentReady="true"/>
-			<EvaAnnounceSpecialPowerReadyClientUpdate id="AnnounceAirborneReady" AnnouncementEventOwner="ReinforcementsReady" SpecialPowerTemplate="SpecialPowerCallSupportGDIAirborne" JustMonitorPercentReady="true"/>
-		</ClientUpdates>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="50.0" MinorRadius="75.0" Height="30.0" ContactPointGeneration="STRUCTURE"/>
 			<Shape Type="CYLINDER" MajorRadius="12.0" Height="75.0" ContactPointGeneration="STRUCTURE">

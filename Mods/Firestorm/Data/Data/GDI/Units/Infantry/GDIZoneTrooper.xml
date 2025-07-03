@@ -112,6 +112,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE PACKING" StateName="State_JumpJetJumping">
 					<Animation AnimationName="GUZNTRPR_JET2_FS" AnimationMode="ONCE"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
 					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTFireDust" FollowBone="true"/>
 					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTFireDist" FollowBone="true"/>
 					<ParticleSysBone BoneName="Main_Thrstr_R" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
@@ -120,7 +121,6 @@
 					<ParticleSysBone BoneName="Main_Thrstr_L" FXParticleSystemTemplate="GDIZTFireFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="ZT_SPINE2" FXParticleSystemTemplate="GDIZTJumpTrailSmoke" FollowBone="true"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "State_AboutToLand" then CurDrawableSetTransitionAnimState( "TRANS_AboutToHitGround_To_Idle" ) end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="THROWN_PROJECTILE">
 					<Animation AnimationName="GUZNTRPR_JET3_FS" AnimationMode="ONCE" AnimationBlendTime="10"/>
@@ -244,26 +244,26 @@
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibs</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="EXPLODED"/>
 				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+				<DieMuxData DeathTypes="EXPLODED"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsRad</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="POISONED"/>
 				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsChar</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="BURNED"/>
 				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
 				<Sound Type="INITIAL" List="GDI_ZoneTrooper_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXListBlood">
 				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED"/>
@@ -345,10 +345,11 @@
 			<AudioEntry Sound="GDI_ZoneTrooper_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="GDI_ZoneTrooper_VoiceSelectMS2" AudioType="voiceSelect"/>
 			<AudioEntry Sound="GDI_ZoneTrooper_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
-			<NamedEntry Sound="GDI_ZoneTrooper_VoiceMoveJumpJet" Name="InitiateJumpJets"/>
 			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
 			<ObjectSpecificEntry Sound="GDI_ZoneTrooper_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
 			<ObjectSpecificEntry Sound="GDI_ZoneTrooper_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
+			<!-- Initiate Jump Jets -->
+			<NamedEntry Sound="GDI_ZoneTrooper_VoiceMoveJumpJet" Name="InitiateJumpJets"/>
 		</AudioArrayVoice>
 		<VisionInfo VisionRange="350" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>

@@ -43,6 +43,7 @@
 					<Turret TurretNameKey="B_TurretA" TurretPitch="B_PitchA1" TurretID="1"/>
 					<Turret TurretNameKey="B_TurretB" TurretPitch="B_PitchB1" TurretID="2"/>
 					<Turret TurretNameKey="B_TurretC" TurretPitch="B_PitchC1" TurretID="3"/>
+					<Turret TurretID="4"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AURPRTRIPOD_FP"/>
@@ -113,19 +114,19 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING USER_3" StateName="STATE_Selected">
 					<Animation AnimationName="AUAnlTrpd_AIDA" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueCorrputerTibSuck" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueCorrupterTibSuck02" FollowBone="true"/>
 					<FXEvent Frame="55" FireWhenSkipped="true" Effect="FX_AlienTripodFP" Bone="B_FRONTRIGHT"/>
 					<FXEvent Frame="17" FireWhenSkipped="true" Effect="FX_AlienTripodFP" Bone="B_FRONTLEFT"/>
 					<FXEvent Frame="82" FireWhenSkipped="true" Effect="FX_AlienTripodFP" Bone="B_FRONTLEFT"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueCorrputerTibSuck" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueCorrupterTibSuck02" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" StateName="STATE_Selected">
 					<Animation AnimationName="AUAnlTrpd_AIDA" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrputerTibSuck" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrupterTibSuck02" FollowBone="true"/>
 					<FXEvent Frame="55" FireWhenSkipped="true" Effect="FX_AlienTripodFP" Bone="B_FRONTRIGHT"/>
 					<FXEvent Frame="17" FireWhenSkipped="true" Effect="FX_AlienTripodFP" Bone="B_FRONTLEFT"/>
 					<FXEvent Frame="82" FireWhenSkipped="true" Effect="FX_AlienTripodFP" Bone="B_FRONTLEFT"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrputerTibSuck" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="CorrupterTibSuck02" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES" StateName="STATE_Run">
 					<Animation AnimationName="AUAnlTrpd_WLKA" AnimationMode="LOOP" Distance="45"/>
@@ -701,9 +702,12 @@
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
-				<WeaponSlotHardpoint ID="4">
+				<WeaponSlotTurret ID="4" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorEMPCannon"/>
-				</WeaponSlotHardpoint>
+					<TurretSettings TurretTurnRate="200" RecenterWhenOutOfTurnRange="false">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<SweepingLaserState id="ModuleTag_LaserState" LaserId="1" Radius="15" SweepFXList="FX_AlienLaserSweepHitGreen" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienTripodPulseSweepWeapon"/>
 			<SweepingLaserState id="ModuleTag_LaserState2" LaserId="2" Radius="15" SweepFXList="FX_AlienLaserSweepHitGreen" VeteranSweepFXList="FX_AlienLaserSweepHitHeroic" SweepWeapon="AlienTripodPulseSweepWeapon"/>

@@ -26,16 +26,16 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="AUSEEDER_SKN"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_A"/>
-					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_A"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_A"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_C"/>
 					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_B"/>
+					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_A"/>
+					<WeaponRecoilBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_A"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_C"/>
 					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_B"/>
-					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_C"/>
-					<WeaponLaunchBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_C"/>
-					<Turret TurretNameKey="Turret_A" TurretPitch="Pitch_A" TurretID="1"/>
+					<WeaponLaunchBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_A"/>
+					<Turret TurretID="1"/>
 					<Turret TurretNameKey="Turret_B" TurretPitch="Pitch_B" TurretID="2"/>
-					<Turret TurretID="3"/>
+					<Turret TurretNameKey="Turret_A" TurretPitch="Pitch_A" TurretID="3"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="AUSEEDER_FP"/>
@@ -296,26 +296,26 @@
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHierarchicalTurret ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorMegaLaser"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorMegaLaser_BlueIchor" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<TurretSettings TurretTurnRate="90" TurretPitchRate="45" MinimumPitch="-30d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="45" AllowsPitch="true">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorForceFireDummyWeapon"/>
+					<TurretSettings TurretTurnRate="90">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
-				</WeaponSlotHierarchicalTurret>
-				<WeaponSlotHierarchicalTurret ID="2" ParentID="1">
+				</WeaponSlotTurret>
+				<WeaponSlotHierarchicalTurret ID="2" ParentID="3">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorShardLauncher"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorBlueShardLauncher" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<TurretSettings TurretTurnRate="90" TurretPitchRate="45" MinimumPitch="-30d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="45" AllowsPitch="true">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
-				<WeaponSlotTurret ID="3">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorForceFireDummyWeapon"/>
-					<TurretSettings TurretTurnRate="90">
+				<WeaponSlotHierarchicalTurret ID="3">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorMegaLaser"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienAnnihilatorMegaLaser_BlueIchor" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<TurretSettings TurretTurnRate="90" TurretPitchRate="45" MinimumPitch="-30d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="45" AllowsPitch="true">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
-				</WeaponSlotTurret>
+				</WeaponSlotHierarchicalTurret>
 			</WeaponSetUpdate>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true" PassExperienceToSpawned="true">
 				<Die DeathTypes="ALL"/>
@@ -340,7 +340,7 @@
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
 			<!-- Leech Ability -->
 			<SpecialPower id="ModuleTag_SpecialPowerLeech" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_LeechBeamAbilityUpdate" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" SpecialWeapon="AlienAnnihilatorLeechBeam" StartAbilityRange="350" UnpackTime="2.2s" PackTime="2s" BusyForDuration="2.4s" WhichSpecialWeapon="1" WeaponSlotID="3" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_LeechBeamAbilityUpdate" SpecialPowerTemplate="SpecialPower_AlienLeechBeam" SpecialWeapon="AlienAnnihilatorLeechBeam" StartAbilityRange="350" UnpackTime="2.2s" PackTime="2s" BusyForDuration="2.4s" WhichSpecialWeapon="1" WeaponSlotID="1" FleeRangeAfterCompletion="0" StartRechargeOnExit="true"/>
 			<AISpecialPowerUpdate id="ModuleTag_FireLeechBeamAI" CommandButtonName="Command_FireLeechBeam" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK" SpecialPowerRadius="350" UnitKindOf="HARVESTER TIBERIUM_BASED" AllyUnitExclude="HARVESTER TIBERIUM_BASED HUSK" EnemyUnitInclude="HARVESTER TIBERIUM_BASED" EnemyUnitExclude="STRUCTURE HUSK" UpdateTime="1.5s"/>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">

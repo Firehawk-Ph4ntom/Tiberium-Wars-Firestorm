@@ -10,12 +10,12 @@
 	</Includes>
 	<GameObject id="AlienRiftGenerator" inheritFrom="BaseStructure" SelectPortrait="Portrait_ALIENRiftGenerator" ThreatLevel="10" ButtonImage="Portrait_ALIENRiftGenerator" Side="ALIEN" BuildCost="7000" PlacementViewAngle="337.5d" BuildTime="70" CommandSet="AlienRiftGeneratorCommandSet" KindOf="STRUCTURE SELECTABLE TIBERIUM_BASED IMMOBILE CAN_CAST_REFLECTIONS UNIQUE_UNIT AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER REVEAL_TO_ALL POWERED SUPER_WEAPON HEALED_BY_TIBERIUM" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" EditorName="AlienRiftGenerator" Description="Desc:ALIENRiftGenerator" TypeDescription="Type:AlienRiftGenerator" EnergyProduction="-20" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENRiftGenerator</DisplayName>
-		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>AlienReactor</RequiredObject>
 		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="HOMEBASE"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
@@ -121,8 +121,8 @@
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="5.0s" SinkRate="4.0" DestructionDelay="11.0s">
-				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -153,15 +153,15 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
 		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="OverlordsWrathReady" AnnouncementEventOwner="RiftGeneratorReady" SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon" JustMonitorPercentReady="true"/>
+			<EvaAnnounceClientCreate id="RiftGeneratorDetected" AnnouncementEventEnemy="EnemyRiftGeneratorDetected" AnnouncementEventAlly="AlliedRiftGeneratorDetected" UseObjectsPosition="true" />
+		</ClientUpdates>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="ALI_RiftGenerator_Ready" RequiredFlags="SPECIALPOWER1_READY"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
-		<ClientUpdates>
-			<EvaAnnounceSpecialPowerReadyClientUpdate id="OverlordsWrathReady" AnnouncementEventOwner="RiftGeneratorReady" SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon" JustMonitorPercentReady="true"/>
-			<EvaAnnounceClientCreate id="RiftGeneratorDetected" AnnouncementEventEnemy="EnemyRiftGeneratorDetected" AnnouncementEventAlly="AlliedRiftGeneratorDetected" UseObjectsPosition="true" />
-		</ClientUpdates>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="27.5" MinorRadius="9.5" Height="85.9531" ContactPointGeneration="STRUCTURE">
 				<Offset x="0.0" y="0.0" z="0.0"/>

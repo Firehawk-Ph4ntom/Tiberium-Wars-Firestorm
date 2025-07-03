@@ -7,11 +7,11 @@
 	</Includes>
 	<GameObject id="GDIIonCannonControl" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE POWERED REVEAL_TO_ALL NOT_AUTOACQUIRABLE UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI SUPER_WEAPON" Description="Desc:GDIIonCannon" TypeDescription="Type:GDIIonCannon" PlacementViewAngle="225d" Side="GDI" EditorName="GDIIonCannonControl" BuildTime="70" EnergyProduction="-20" CommandSet="GDIIonCannonControlCommandSet" ThreatLevel="10" SelectPortrait="Portrait_GDIIonCannon" ButtonImage="Portrait_GDIIonCannon" ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE" BuildCost="7000" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIIonCannon</DisplayName>
-		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDIArmory</RequiredObject>
 		</GameDependency>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="HOMEBASE"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
@@ -155,8 +155,8 @@
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="6.0" DestructionDelay="9.0s">
-				<DieMuxData DeathTypes="ALL"/>
 				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -182,15 +182,15 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
 		</Body>
+		<ClientUpdates>
+			<EvaAnnounceSpecialPowerReadyClientUpdate id="IonCannonReady" AnnouncementEventOwner="IonCannonReady" SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon" JustMonitorPercentReady="true"/>
+			<EvaAnnounceClientCreate id="IonCannonDetected" AnnouncementEventEnemy="EnemyIonCannonDetected" AnnouncementEventAlly="AlliedIonCannonDetected" UseObjectsPosition="true"/>
+		</ClientUpdates>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="GDI_IonCannon_StartUp" RequiredFlags="SPECIALPOWER1_READY"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
-		<ClientUpdates>
-			<EvaAnnounceSpecialPowerReadyClientUpdate id="IonCannonReady" AnnouncementEventOwner="IonCannonReady" SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon" JustMonitorPercentReady="true"/>
-			<EvaAnnounceClientCreate id="IonCannonDetected" AnnouncementEventEnemy="EnemyIonCannonDetected" AnnouncementEventAlly="AlliedIonCannonDetected" UseObjectsPosition="true"/>
-		</ClientUpdates>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="42.0" MinorRadius="32.5" Height="17.5" ContactPointGeneration="STRUCTURE"/>
 			<Shape Type="BOX" MajorRadius="22.0" MinorRadius="39.0" Height="17.5" ContactPointGeneration="STRUCTURE"/>
