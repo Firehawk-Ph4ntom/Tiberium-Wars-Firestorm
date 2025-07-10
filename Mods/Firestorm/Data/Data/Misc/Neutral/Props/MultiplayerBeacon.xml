@@ -1,5 +1,5 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<GameObject id="MultiplayerBeacon" Side="Neutral" KindOf="BEACON UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE IGNORED_IN_FINDPOSITIONAROUND" EditorName="MultiplayerBeacon" EditorSorting="MISC_MAN_MADE">
+	<GameObject id="MultiplayerBeacon" Side="Neutral" KindOf="BEACON UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE IGNORED_IN_FINDPOSITIONAROUND AIRCRAFT RESIST_EMP" EditorName="MultiplayerBeacon" EditorSorting="MISC_MAN_MADE">
 		<DisplayName>CONTROLBAR:Beacon</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -9,11 +9,15 @@
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="MultiplayerBeaconFlare2" FollowBone="false"/>
 					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="MultiplayerBeaconFlareGlow" FollowBone="false"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER"/>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="90s" MaxLifetime="90s"/>
+			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
+				<InvisibilityNugget/>
+			</InvisibilityUpdate>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>

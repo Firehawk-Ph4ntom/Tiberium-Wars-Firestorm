@@ -17,7 +17,7 @@
 			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
 				<InvisibilityNugget/>
 			</InvisibilityUpdate>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="450"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="450" ExtraForbiddenKindOf="BEACON"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event FX="FX_Nod_DisruptionPodExplosion"/>
@@ -44,6 +44,8 @@
 			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Remove"/>
 			<AttachUpdate id="ModuleTag_AttachUpdate" Range="10.0" Teleport="true" UseGeometry="true" DetachWhenParentHealed="true">
 				<ObjectFilter Rule="ANY" Relationship="ENEMIES NEUTRAL" Include="VEHICLE STRUCTURE AIRCRAFT">
+					<!-- Beacon has AIRCRAFT Kindof as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienWormHole</ExcludeThing>
 				</ObjectFilter>
@@ -53,8 +55,10 @@
 	<!-- Vehicle Sticky Pod (Allies) -->
 	<GameObject id="GDIOrcaSensorStickyPod_Allies" inheritFrom="GDIOrcaSensorStickyPod" KindOf="NO_COLLIDE RESIST_EMP" EditorName="GDIOrcaSensorStickyPod_Allies">
 		<Behaviors>
-			<AttachUpdate id="ModuleTag_AttachUpdate" xai:joinAction="Append" DetachWhenParentHealed="false">
+			<AttachUpdate id="ModuleTag_AttachUpdate" xai:joinAction="Replace" Range="10.0" Teleport="true" UseGeometry="true" DetachWhenParentHealed="true">
 				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="VEHICLE STRUCTURE AIRCRAFT">
+					<!-- Beacon has AIRCRAFT Kindof as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
 					<ExcludeThing>AlienCrystalShield</ExcludeThing>
 					<ExcludeThing>AlienWormHole</ExcludeThing>
 				</ObjectFilter>
