@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For GDI Surveyor -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDISurveyor.xml" type="instance"/>
+		<!-- For GDI Firehawk -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For GDI V35 -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_Summoned.xml" type="instance"/>
+		<!-- For Nod Stronghold Structures -->
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSAirfieldControlTower.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSDockHQ2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo01.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo04.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo05.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo08.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo10.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo11.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter3.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter4.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSManufacturingFacility1.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSManufacturingFacility3.xml" type="instance"/>
+		<!-- For NOD Shredder Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODShredderTurretHub.xml" type="instance"/>
+		<!-- For NOD Laser Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODLaserCannon.xml" type="instance"/>
+		<!-- For NOD Venom -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVenom.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
+		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Lowered attack range from 350 -->
+	<WeaponTemplate
+		id="NODStealthTankRocket"
+		Name="NODStealthTankRocket"
+		AttackRange="275"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireFX="FX_Sandstorm_MissileFire"
+		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
+		FireSound="NOD_StealthTank_RocketLaunch"
+		ClipSize="4"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="5s"
+			MaxSeconds="5s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODStealthTankRocketWarhead"
+				ProjectileTemplate="NODStealthTankRocketProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODStealthTankRocketProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODStealthTankRocketTibCore"
+		Name="NODStealthTankRocketTibCore"
+		AttackRange="275"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireFX="FX_StealthTank_TibCoreMissileFire"
+		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
+		FireSound="NOD_StealthTank_RocketLaunch"
+		ClipSize="4"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="5s"
+			MaxSeconds="5s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODStealthTankRocketTibCoreWarhead"
+				ProjectileTemplate="NODStealthTankTibCoreRocketProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODStealthTankTibCoreRocketProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- Increased Slot Count -->
+	<GameObject
+		id="GDIV35Ox_Summoned"
+		inheritFrom="GDIV35Ox_Summoned">
+		<Behaviors>
+			<HordeTransportContain
+				xai:joinAction="Append"
+				id="ModuleTag_Contain"
+				ContainMax="6"
+				Slots="6"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Increased speed from 60 -->
+	<GameObject
+		id="GDISurveyor"
+		inheritFrom="GDISurveyor">
+		<LocomotorSet
+			Locomotor="GDISurveyorLocomotor"
+			Condition="NORMAL"
+			Speed="100.0" />
+	</GameObject>
+
+	<!-- Removed Game Dependancy -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<GameDependency
+			xai:joinAction="Remove"/>
+	</GameObject>
+
+	<!-- Increased Build Time from 8s -->
+	<GameObject
+		id="NODVenom"
+		inheritFrom="NODVenom"
+		BuildTime="30"/>
+
+	<!-- Increased Slaved range -->
+	<GameObject
+		id="NODShredderTurretHub"
+		inheritFrom="NODShredderTurretHub">
+		<Behaviors>
+			<GatherSlavesUpdate
+				id="ModuleTag_GatherSlaves"
+				xai:joinAction="Replace"
+				SlaveTemplate="NODShredderTurret"
+				Radius="470.0"
+				Amount="3" />
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="NODLaserCannon"
+		inheritFrom="NODLaserCannon">
+		<Behaviors>
+			<GatherSlavesUpdate
+				id="ModuleTag_GatherSlaves"
+				xai:joinAction="Replace"
+				SlaveTemplate="NODLaserCannonSpawn"
+				Radius="340.0"
+				Amount="3" />
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD Airfield Control Tower -->
+	<GameObject
+		id="NOD_AirfieldControlTower"
+		inheritFrom="NOD_AirfieldControlTower">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Dock HQ 2 -->
+	<GameObject
+		id="NOD_DockHQ2"
+		inheritFrom="NOD_DockHQ2">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Tower -->
+	<GameObject
+		id="NOD_Silo01"
+		inheritFrom="NOD_Silo01">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Control Tower -->
+	<GameObject
+		id="NOD_Silo04"
+		inheritFrom="NOD_Silo04">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Power Building -->
+	<GameObject
+		id="NOD_Silo05"
+		inheritFrom="NOD_Silo05">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Power Generator -->
+	<GameObject
+		id="NOD_Silo08"
+		inheritFrom="NOD_Silo08">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Oil Tank -->
+	<GameObject
+		id="NOD_Silo10"
+		inheritFrom="NOD_Silo10">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Silo Pod -->
+	<GameObject
+		id="NOD_Silo11"
+		inheritFrom="NOD_Silo11">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Command Center 2 -->
+	<GameObject
+		id="NOD_CommandCenter2"
+		inheritFrom="NOD_CommandCenter2">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Command Center 3 -->
+	<GameObject
+		id="NOD_CommandCenter3"
+		inheritFrom="NOD_CommandCenter3">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Command Center 4 -->
+	<GameObject
+		id="NOD_CommandCenter4"
+		inheritFrom="NOD_CommandCenter4">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Manufacturing Facility 1 -->
+	<GameObject
+		id="NOD_ManufacturingFacility1"
+		inheritFrom="NOD_ManufacturingFacility1">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD Manufacturing Facility 3 -->
+	<GameObject
+		id="NOD_ManufacturingFacility3"
+		inheritFrom="NOD_ManufacturingFacility3">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Destroy the outer perimeter outpost -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_3_Objective_1"
+			Description="SCRIPT:GDI_3_3_Objective_1_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Objective_1"
+				Dialog="MG33_GDIEVA16"
+				UseDynamicZoom="false">
+				<CameraStartAngle>25d</CameraStartAngle>
+				<CameraEndAngle>35d</CameraEndAngle>
+				<CameraFieldOfView>65d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Move across the bridge and invade the supply depot -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_3_Objective_2"
+			Description="SCRIPT:GDI_3_3_Objective_2_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Objective_2"
+				Dialog="MG33_GDIEVA17"
+				UseDynamicZoom="false">
+				<CameraStartAngle>65d</CameraStartAngle>
+				<CameraEndAngle>75d</CameraEndAngle>
+				<CameraFieldOfView>45d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the SAM Sites to allow reinforcements -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_3_Objective_3"
+			Description="SCRIPT:GDI_3_3_Objective_3_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Objective_3_A"
+				Dialog="MG33_GDIEVA18">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_3_B">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_3_C">
+				<Duration>3s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the Reinforcement Bay on the east Ridge -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_3_Objective_4"
+			Description="SCRIPT:GDI_3_3_Objective_4_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Objective_4"
+				Dialog="MG33_GDIEVA19"
+				UseDynamicZoom="false">
+				<Duration>10s</Duration>
+				<CameraStartAngle>280d</CameraStartAngle>
+				<CameraEndAngle>290d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the NOD Depot Base and Parked Vehicles -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_3_3_Objective_5"
+			Description="SCRIPT:GDI_3_3_Objective_5_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Objective_5_A"
+				Dialog="MG33_GDIEVA20"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_5_B"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_5_C"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_5_D"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_5_E"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Objective_5_F"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Starting attack team must remain alive -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_3_3_Bonus_Objective_1"
+			Description="SCRIPT:GDI_3_3_Bonus_Objective_1_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_1_A"
+				Dialog="MG33_GDIEVA10"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_1_B"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_1_C"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_1_D"
+				UseDynamicZoom="false">
+				<Duration>2s</Duration>
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the different Reinforement Bays to secure extra reinforcements -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_3_3_Bonus_Objective_2"
+			Description="SCRIPT:GDI_3_3_Bonus_Objective_2_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_2"
+				Dialog="MG33_GDIEVA22">
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_3_3_Bonus_Objective_3"
+			Description="SCRIPT:GDI_3_3_Bonus_Objective_3_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_3"
+				Dialog="MG33_GDIEVA23">
+				<CameraStartAngle>0d</CameraStartAngle>
+				<CameraEndAngle>10d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Use a Firehawk to kill a Venom -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_3_3_Bonus_Objective_5"
+			Description="SCRIPT:GDI_3_3_Bonus_Objective_5_Detail">
+			<PresentationSettings
+				ID="GDI_3_3_Bonus_Objective_5"
+				Dialog="MG33_GDIEVA44">
+				<CameraStartAngle>230d</CameraStartAngle>
+				<CameraEndAngle>240d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- NOD -->
+	<GameObject
+		id="NODRefinery"
+		inheritFrom="NODRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="NODCraneCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
+		<Cmd>Command_NOD_BuildRefinery</Cmd>
+		<Cmd>Command_NOD_BuildBarracks</Cmd>
+		<Cmd>Command_NOD_BuildDropZone</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="NODSaboteur"
+		inheritFrom="NODSaboteur">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>
