@@ -1,119 +1,236 @@
 @ECHO off
-setlocal EnableDelayedExpansion
-SET SDK_DIR=%~dp0
+SETLOCAL EnableExtensions DisableDelayedExpansion
+
+SET "FULL_PATH=%~f0"
+FOR %%i IN ("%FULL_PATH%") DO SET "SDK_DIR=%%~dpi"
 
 :: Set parameters
 SET "modname=%~1"
 SET "modversion=%~2"
 
-:modname
-IF NOT DEFINED modname SET /P modname="Mod Name: "
-IF NOT DEFINED modname GOTO :modname
+:get_modname
+IF NOT DEFINED modname (
+	SET /P "modname=Enter Mod Name: "
+)
+
+IF NOT DEFINED modname (
+	@ECHO Error: Mod name cannot be empty. Please try again.
+	GOTO :get_modname
+)
 
 IF NOT EXIST "%SDK_DIR%Mods\%modname%" (
-	@ECHO Error: The mod "%modname%" doesn't exist. Try again.
+	@ECHO Error: The mod folder "%SDK_DIR%Mods\%modname%" doesn't exist. Please re-input.
 	SET "modname="
 	SET "modversion="
-	GOTO :modname )
+	GOTO :get_modname
+)
 
-:modversion
-IF NOT DEFINED modversion SET /P modversion="Mod Version: "
-FOR /F "delims=0123456789." %%A IN ("%modversion%") DO SET modversion=
+SETLOCAL EnableDelayedExpansion
+
+:get_modversion
 IF NOT DEFINED modversion (
-	@ECHO Error: Mod version was either not defined or is not a number, please re-input.
-	GOTO modversion )
+	SET /P "modversion=Enter Mod Version: "
+)
 
-@ECHO Building %modname% Mod Data...
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\Mod.xml" (
-	tools\binaryAssetBuilder.exe "%SDK_DIR%Mods\%modname%\Data\Mod.xml" /od:"%SDK_DIR%BuiltMods" /iod:"%SDK_DIR%BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true )
+IF "!modversion!"=="" (
+	@ECHO Error: Mod version cannot be empty. Please re-input.
+	GOTO :get_modversion
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\AdditionalMaps\MapMetaData_Global.xml" (
-	tools\binaryAssetBuilder.exe "%SDK_DIR%Mods\%modname%\Data\AdditionalMaps\MapMetaData_Global.xml" /od:"%SDK_DIR%BuiltMods" /iod:"%SDK_DIR%BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true )
+IF "!modversion:~0,1!"=="." (
+	@ECHO Error: Mod version cannot start with a dot. Please re-input.
+	SET "modversion="
+	GOTO :get_modversion
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\APTUI" (
-	for %%f in ("%SDK_DIR%Mods\%modname%\Data\APTUI\*.xml") do (
-		tools\binaryAssetBuilder.exe "%%f" /od:"%SDK_DIR%BuiltMods" /iod:"%SDK_DIR%BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
+IF "!modversion:~-1!"=="." (
+	@ECHO Error: Mod version cannot end with a dot. Please re-input.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
+ECHO !modversion! | FIND ".." >NUL
+IF NOT ERRORLEVEL 1 (
+	@ECHO Error: Mod version cannot contain multiple consecutive dots. Please re-input.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
+FOR /F "delims=0123456789." %%A IN ("!modversion!") DO (
+	@ECHO Error: Mod version contains invalid characters. Please use only digits and dots.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
+SET /A "modname_len=0"
+FOR /L %%i IN (0,1,255) DO IF NOT "!modname:~%%i,1!"=="" SET /A "modname_len+=1"
+
+SET /A "modversion_len=0"
+FOR /L %%i IN (0,1,255) DO IF NOT "!modversion:~%%i,1!"=="" SET /A "modversion_len+=1"
+
+:: +1 for the underscore
+SET /A "total_len=!modname_len! + !modversion_len! + 1"
+
+IF !total_len! GTR 15 (
+	@ECHO Error: The combined length of mod name and version exceeds 15 characters. Please re-input.
+	ENDLOCAL
+	SET "modname="
+	SET "modversion="
+	GOTO :get_modname
+)
+
+:: Set file paths
+SET "MOD_PATH=!SDK_DIR!Mods\!modname!"
+SET "BUILTMOD_PATH=!SDK_DIR!BuiltMods\Mods\!modname!"
+SET "SKUDEF_FILE=!BUILTMOD_PATH!_!modversion!.skudef"
+SET "DOC_PATH=%USERPROFILE%\Documents\Command & Conquer 3 Tiberium Wars\Mods\!modname!"
+
+@ECHO.
+@ECHO --- Building Mod Data for !modname!_!modversion! ---
+
+:: Build Mod.xml
+IF EXIST "!MOD_PATH!\Data\Mod.xml" (
+	@ECHO.
+	@ECHO --- Compiling Mod.xml...
+	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\Mod.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
+)
+
+:: Build MapMetaData_Global.xml
+IF EXIST "!MOD_PATH!\Data\AdditionalMaps\MapMetaData_Global.xml" (
+	@ECHO.
+	@ECHO --- Compiling MapMetaData_Global.xml...
+	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\AdditionalMaps\MapMetaData_Global.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
+)
+
+:: Build APTUI XMLs
+IF EXIST "!MOD_PATH!\Data\APTUI" (
+	@ECHO.
+	@ECHO --- Compiling APTUI XML files...
+	FOR %%f IN ("!MOD_PATH!\Data\APTUI\*.xml") DO (
+		@ECHO.
+		@ECHO --- Compiling %%~nxf...
+		tools\binaryAssetBuilder.exe "%%f" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
 	)
 )
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\Worldbuilder.xml" (
-	tools\binaryAssetBuilder.exe "%SDK_DIR%Mods\%modname%\Data\Worldbuilder.xml" /od:"%SDK_DIR%BuiltMods" /iod:"%SDK_DIR%BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true )
+:: Build for Low LOD
+IF EXIST "!MOD_PATH!\Data\Mod.xml" (
+	@ECHO.
+	@ECHO --- Building Low LOD Assets...
+	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\Mod.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true /bcn:LowLOD /bps:"!BUILTMOD_PATH!\data\Mod.manifest"
+)
 
-@ECHO Building Low LOD...
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\Mod.xml" (
-	tools\binaryAssetBuilder.exe "%SDK_DIR%Mods\%modname%\Data\Mod.xml" /od:"%SDK_DIR%BuiltMods" /iod:"%SDK_DIR%BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true /bcn:LowLOD /bps:"%SDK_DIR%BuiltMods\mods\%modname%\data\Mod.manifest" )
+:: Build Worldbuilder.xml
+IF EXIST "!MOD_PATH!\Data\Worldbuilder.xml" (
+	@ECHO.
+	@ECHO --- Compiling Worldbuilder.xml...
+	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\Worldbuilder.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
+)
 
-IF EXIST "%SDK_DIR%Art\%modname%\Terrain" (
+@ECHO.
+@ECHO --- Copying Additional Mod Files ---
+
+:: Copy Terrain files
+IF EXIST "!SDK_DIR!Art\!modname!\Terrain" (
+	@ECHO.
 	@ECHO Copying Terrain files...
-	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\Art\Terrain" (
-		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Art\Terrain" )
-	XCOPY "%SDK_DIR%Art\%modname%\Terrain" "%SDK_DIR%BuiltMods\Mods\%modname%\Art\Terrain" /e /y )
+	CALL :CopyDir "!SDK_DIR!Art\!modname!\Terrain" "!BUILTMOD_PATH!\Art\Terrain"
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\MOD.str" (
+:: Copy MOD.str file
+IF EXIST "!MOD_PATH!\MOD.str" (
+	@ECHO.
 	@ECHO Copying STR file...
-	COPY "%SDK_DIR%Mods\%modname%\MOD.str" "%SDK_DIR%BuiltMods\Mods\%modname%\Data" )
+	CALL :CopyDir "!MOD_PATH!\MOD.str" "!BUILTMOD_PATH!\Data"
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Shaders" (
+:: Copy Shaders
+IF EXIST "!MOD_PATH!\Shaders" (
+	@ECHO.
 	@ECHO Copying Shaders...
-	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\Shaders" (
-		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Shaders" )
-	XCOPY "%SDK_DIR%Mods\%modname%\Shaders" "%SDK_DIR%BuiltMods\Mods\%modname%\Shaders" /e /y )
+	CALL :CopyDir "!MOD_PATH!\Shaders" "!BUILTMOD_PATH!\Shaders"
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Scripts" (
+:: Copy LUA Scripts
+IF EXIST "!MOD_PATH!\Scripts" (
+	@ECHO.
 	@ECHO Copying LUA Scripts...
-	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\Scripts" (
-		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Data\Scripts" )
-	XCOPY "%SDK_DIR%Mods\%modname%\Scripts" "%SDK_DIR%BuiltMods\Mods\%modname%\Data\Scripts" /e /y )
+	CALL :CopyDir "!MOD_PATH!\Scripts" "!BUILTMOD_PATH!\Data\Scripts"
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\INI" (
-	@ECHO Copying INI...
-	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\INI" (
-		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Data\INI" )
-	XCOPY "%SDK_DIR%Mods\%modname%\INI" "%SDK_DIR%BuiltMods\Mods\%modname%\Data\INI" /e /y )
+:: Copy INI files
+IF EXIST "!MOD_PATH!\INI" (
+	@ECHO.
+	@ECHO Copying INI files...
+	CALL :CopyDir "!MOD_PATH!\INI" "!BUILTMOD_PATH!\Data\INI"
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\maps" (
-	@ECHO Copying Maps
-	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\Data\maps" (
-		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Data\maps" )
-	XCOPY "%SDK_DIR%Mods\%modname%\Data\maps" "%SDK_DIR%BuiltMods\Mods\%modname%\Data\maps" /e /y )
+:: Copy Maps
+IF EXIST "!MOD_PATH!\Data\maps" (
+	@ECHO.
+	@ECHO Copying Maps...
+	CALL :CopyDir "!MOD_PATH!\Data\maps" "!BUILTMOD_PATH!\Data\maps"
+)
 
-IF EXIST "%SDK_DIR%Mods\%modname%\Data\movies" (
-	@ECHO Copying movies
-	IF NOT EXIST "%SDK_DIR%BuiltMods\Mods\%modname%\Data\movies" (
-		MD "%SDK_DIR%BuiltMods\Mods\%modname%\Data\movies" )
-	XCOPY "%SDK_DIR%Mods\%modname%\Data\movies" "%SDK_DIR%BuiltMods\Mods\%modname%\Data\movies" /e /y )
+:: Copy Movies
+IF EXIST "!MOD_PATH!\Data\movies" (
+	@ECHO.
+	@ECHO Copying Movies...
+	CALL :CopyDir "!MOD_PATH!\Data\movies" "!BUILTMOD_PATH!\Data\movies"
+)
 
-@ECHO Creating Mod Big and Skudef file...
-tools\MakeBig.exe -f "%SDK_DIR%BuiltMods\Mods\%modname%" -x:*.asset -o:"%SDK_DIR%BuiltMods\Mods\%modname%_%modversion%.big"
+@ECHO.
+ECHO Creating '!modname!_!modversion!.big' file...
+tools\MakeBig.exe -f "!BUILTMOD_PATH!" -x:*.asset -o:"!BUILTMOD_PATH!_!modversion!.big"
 
-SET skudef_file=%SDK_DIR%BuiltMods\Mods\%modname%_%modversion%.skudef
-ECHO mod-game 1.9> "%skudef_file%"
-ECHO add-big %modname%_%modversion%.big>> "%skudef_file%"
+@ECHO Creating '!modname!_!modversion!.skudef' file...
+ECHO mod-game 1.9> "!SKUDEF_FILE!"
+ECHO add-big !modname!_!modversion!.big>> "!SKUDEF_FILE!"
 
-SET modpath="C:\Users\%username%\Documents\Command & Conquer 3 Tiberium Wars\Mods\%modname%"
+@ECHO.
+@ECHO Copying '!modname!_!modversion!.big' and '!modname!_!modversion!.Skudef' files to Documents folder...
 
-@ECHO Copying %modname% Big and Skudef files to documents folder...
-IF NOT EXIST %modpath% (
-	MD %modpath% )
-COPY "%SDK_DIR%BuiltMods\Mods\%modname%_%modversion%.big" %modpath% /y
-COPY "%skudef_file%" %modpath% /y
+IF NOT EXIST "!DOC_PATH!" (
+	MD "!DOC_PATH!"
+)
 
-@ECHO Compilation Complete!
+COPY "!BUILTMOD_PATH!_!modversion!.big" "!DOC_PATH!" /Y
+COPY "!SKUDEF_FILE!" "!DOC_PATH!" /Y
+
+ENDLOCAL
+
+@ECHO.
+@ECHO =================================
+@ECHO       Compilation Complete!
+@ECHO =================================
 @ECHO.
 
 :choice
-SET /P c=Do you want to compile again [Y/N]? 
-IF /I "%c%" EQU "Y" (
+SET "ANS="
+SET /P ANS=Do you want to compile again? [Y/N]: 
+
+IF /I "%ANS%" EQU "Y" (
 	SET "modname="
 	SET "modversion="
-	GOTO :modname )
+	GOTO :get_modname
+)
 
-IF /I "%c%" EQU "N" GOTO :eof
+IF /I "%ANS%" EQU "N" GOTO :EOF
 
-@ECHO Invalid or blank choice. Please enter Y or N.
+IF "%ANS%"=="" (
+	@ECHO Answer is blank. Please enter Y or N.
+) ELSE (
+	@ECHO Answer is invalid. Please enter Y or N.
+)
 GOTO :choice
 
-PAUSE
-:eof
+:: Global function to copy the additional Mod files
+:CopyDir
+IF EXIST "%~1" (
+	IF NOT EXIST "%~2" MD "%~2"
+	XCOPY "%~1" "%~2\" /E /Y
+)
+EXIT /B
 
-endlocal
+PAUSE
+ENDLOCAL
