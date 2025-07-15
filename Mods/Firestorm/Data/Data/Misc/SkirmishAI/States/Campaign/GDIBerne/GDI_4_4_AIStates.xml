@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<AIBudgetStateDefinition
+		id="G_4_4_EasyProductionBudget_FS">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<Budget>
+			<AccountShare Account="INVESTMENT" Percent="0%"/>
+			<AccountShare Account="SPECIAL_OPERATIONS" Percent="0%"/>
+			<AccountShare Account="PRODUCTION" Percent="100%"/>
+			<AccountShare Account="DEFENSE" Percent="0%"/>
+			<AccountShare Account="TECHNOLOGY" Percent="0%"/>
+			<AccountShare Account="SLUSH_FUND" Percent="0%"/>
+		</Budget>
+	</AIBudgetStateDefinition>
+
+	<AIBudgetStateDefinition
+		id="G_4_4_MediumProductionBudget_Start_FS">
+		<Heuristic>
+			<TimerHeuristic StartTime="0s" EndTime="300s"/>
+		</Heuristic>
+		<Budget>
+			<AccountShare Account="INVESTMENT" Percent="0%"/>
+			<AccountShare Account="SPECIAL_OPERATIONS" Percent="0%"/>
+			<AccountShare Account="PRODUCTION" Percent="100%"/>
+			<AccountShare Account="DEFENSE" Percent="0%"/>
+			<AccountShare Account="TECHNOLOGY" Percent="0%"/>
+			<AccountShare Account="SLUSH_FUND" Percent="0%"/>
+		</Budget>
+	</AIBudgetStateDefinition>
+
+	<AIBudgetStateDefinition
+		id="G_4_4_MediumProductionBudget_Rampup_FS">
+		<Heuristic>
+			<TimerHeuristic StartTime="300s" EndTime="-1s"/>
+		</Heuristic>
+		<Budget>
+			<AccountShare Account="INVESTMENT" Percent="0%"/>
+			<AccountShare Account="SPECIAL_OPERATIONS" Percent="15%"/>
+			<AccountShare Account="PRODUCTION" Percent="85%"/>
+			<AccountShare Account="DEFENSE" Percent="0%"/>
+			<AccountShare Account="TECHNOLOGY" Percent="0%"/>
+			<AccountShare Account="SLUSH_FUND" Percent="0%"/>
+		</Budget>
+	</AIBudgetStateDefinition>
+
+	<AIBudgetStateDefinition
+		id="G_4_4_HardProductionBudget_FS">
+		<Heuristic>
+			<ConstantHeuristic Weight="1.0"/>
+		</Heuristic>
+		<Budget>
+			<AccountShare Account="INVESTMENT" Percent="0%"/>
+			<AccountShare Account="SPECIAL_OPERATIONS" Percent="15%"/>
+			<AccountShare Account="PRODUCTION" Percent="85%"/>
+			<AccountShare Account="DEFENSE" Percent="0%"/>
+			<AccountShare Account="TECHNOLOGY" Percent="0%"/>
+			<AccountShare Account="SLUSH_FUND" Percent="0%"/>
+		</Budget>
+	</AIBudgetStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="G_4_4_AlienMobileWarpBeacon_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<IntervalHeuristic IntervalTime="360s" ActiveTime="120s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="Opportunity"/>
+		<TargetHeuristic TargetHeuristic="ClosestUnitHeuristic" TargetType="Opportunity"/>
+		<Tactic Tactic="SimpleAttack" TargetType="Opportunity">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienMobileWarpBeacon"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="G_4_4_AlienMastermind_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<IntervalHeuristic IntervalTime="360s" ActiveTime="120s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="SafestToGroundStructureHeuristic" TargetType="Commando"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="Commando">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienMastermind"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<AIStrategicStateDefinition
+		id="G_4_4_AlienConquerorBattleship_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<LateGameHeuristic/>
+			<IntervalHeuristic IntervalTime="360s" ActiveTime="120s"/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ClosestStructureHeuristic" TargetType="BombingAirstrike"/>
+		<Tactic Tactic="SimpleAttack" TargetType="BombingAirstrike">
+			<TeamTemplate MinUnits="1" MaxUnits="1" IncludeKindOf="CAN_ATTACK AIRCRAFT HUGE_VEHICLE" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false">
+				<CreateUnits UnitName="AlienConquerorBattleship"/>
+			</TeamTemplate>
+		</Tactic>
+	</AIStrategicStateDefinition>
+</AssetDeclaration>

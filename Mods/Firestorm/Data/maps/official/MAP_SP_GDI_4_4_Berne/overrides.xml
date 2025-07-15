@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For GDI V35 -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_Summoned.xml" type="instance"/>
+		<!-- For Alien Drone Platform -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienDronePlatform.xml" type="instance"/>
+		<!-- For Alien Eradicator Hexapod -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienEradicatorHexapod.xml"/>
+		<!-- For Alien Stormrider -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienStormrider.xml" type="instance"/>
+		<!-- For Alien Mothership -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienMothership.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
+		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
+	</Includes>
+
+	<!-- Removed Railgun Accelerators upgrade -->
+	<LogicCommandSet
+		id="GDIAdvLabCommandSet">
+		<Cmd>Command_PurchaseGDIEnhancedResonanceTech</Cmd>
+		<Cmd>Command_PurchaseUpgradeAdaptiveArmor</Cmd>
+		<Cmd>Command_SpecialPowerSupersonicAirAttack</Cmd>
+		<Cmd>Command_SpecialPowerMjolnirStrike</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Increased health from 12000 and shield from 3000 -->
+	<GameObject
+		id="AlienEradicatorHexapod"
+		inheritFrom="AlienEradicatorHexapod"
+		BuildTime="25">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="24000"
+				ShieldAmount="6000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered health from 2600 -->
+	<GameObject
+		id="AlienStormrider"
+		inheritFrom="AlienStormrider">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="1400"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 28000 -->
+	<GameObject
+		id="AlienMothership"
+		inheritFrom="AlienMothership">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="100000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 20000 -->
+	<GameObject
+		id="AlienDronePlatform"
+		inheritFrom="AlienDronePlatform">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="37000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Max Contain 4 -->
+	<GameObject
+		id="GDIV35Ox_Summoned"
+		inheritFrom="GDIV35Ox_Summoned">
+		<Behaviors>
+			<HordeTransportContain
+				id="ModuleTag_Contain"
+				xai:joinAction="Append"
+				ContainMax="4"
+				Slots="4"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Destroy the Alien's Central Base -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_4_4_Obj_1"
+			Description="SCRIPT:GDI_4_4_Obj_1_Detail">
+			<PresentationSettings
+				ID="GDI_4_4_Obj_1"
+				Dialog="MG44_GDIEVA01"
+				CameraFieldOfViewVariance="10">
+				<Duration>8s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+				<CameraFieldOfView>55d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Alien airbase -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_4_4_BonusObj_1"
+			Description="SCRIPT:GDI_4_4_BonusObj_1_Detail">
+			<PresentationSettings
+				ID="GDI_4_4_BonusObj_1"
+				Dialog="MG44_GDIEVA02"
+				CameraFieldOfViewVariance="10">
+				<Duration>7s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Alien armor base -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_4_4_BonusObj_2"
+			Description="SCRIPT:GDI_4_4_BonusObj_2_Detail">
+			<PresentationSettings
+				ID="GDI_4_4_BonusObj_2"
+				Dialog="MG44_GDIEVA03"
+				CameraFieldOfViewVariance="10">
+				<Duration>6s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+				<CameraFieldOfView>35d</CameraFieldOfView>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Signal Transmitter -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_4_4_BonusObj_3"
+			Description="SCRIPT:GDI_4_4_BonusObj_3_Detail">
+			<PresentationSettings
+				ID="GDI_4_4_BonusObj_3"
+				Dialog="MG44_GDIEVA05"
+				CameraFieldOfViewVariance="10">
+				<Duration>9s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Alien Mothership -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_4_4_BonusObj_4"
+			Description="SCRIPT:GDI_4_4_BonusObj_4_Detail">
+			<PresentationSettings
+				ID="GDI_4_4_BonusObj_4"
+				Dialog="MG44_GDIEVA07"
+				CameraFieldOfViewVariance="10">
+				<Duration>9s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			 </PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Destroy the Eradicator Hexapod -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_4_4_Obj_2"
+			Description="SCRIPT:GDI_4_4_Obj_2_Detail">
+			<PresentationSettings
+				ID="GDI_4_4_Obj_2"
+				UseDynamicZoom="false">
+				<Duration>5s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>20d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIRefinery"
+		inheritFrom="GDIRefinery"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="GDICraneCommandSet">
+		<Cmd>Command_ConstructGDIPowerPlant</Cmd>
+		<Cmd>Command_ConstructGDIRefinery</Cmd>
+		<Cmd>Command_ConstructGDIBarracks</Cmd>
+		<Cmd>Command_ConstructGDIWarfactory</Cmd>
+		<Cmd>Command_ConstructGDICommandPost</Cmd>
+		<Cmd>Command_ConstructGDIAirTower</Cmd>
+		<Cmd>Command_ConstructGDIMedicalCenter</Cmd>
+		<Cmd>Command_ConstructGDIArmory</Cmd>
+		<Cmd>Command_ConstructGDISpaceCommandUplink</Cmd>
+		<Cmd>Command_ConstructGDIReclamatorHub</Cmd>
+		<Cmd>Command_ConstructGDIAdvancedLab</Cmd>
+		<Cmd>Command_ConstructGDIWatchTower</Cmd>
+		<Cmd>Command_ConstructGDIGolumCannon</Cmd>
+		<Cmd>Command_ConstructGDIMissileBattery</Cmd>
+		<Cmd>Command_ConstructGDITiberiumSilo</Cmd>
+		<Cmd>Command_ConstructGDIWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Alien -->
+	<GameObject
+		id="AlienTiberiumTower"
+		inheritFrom="AlienTiberiumTower"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<LogicCommandSet
+		id="AlienFoundryCommandSet">
+		<Cmd>Command_ConstructAlienPowerProjector</Cmd>
+		<Cmd>Command_ConstructAlienTiberiumTower</Cmd>
+		<Cmd>Command_ConstructAlienPortal</Cmd>
+		<Cmd>Command_ConstructAlienGateway</Cmd>
+		<Cmd>Command_ConstructAlienControlCenter</Cmd>
+		<Cmd>Command_ConstructAlienWarpBeacon</Cmd>
+		<Cmd>Command_ConstructAlienStatisChamber</Cmd>
+		<Cmd>Command_ConstructAlienReactor</Cmd>
+		<Cmd>Command_ConstructAlienSignalTransmitter</Cmd>
+		<Cmd>Command_ConstructAlienWarpChasm</Cmd>
+		<Cmd>Command_ConstructAlienStormObelisk</Cmd>
+		<Cmd>Command_ConstructAlienBuzzerHive</Cmd>
+		<Cmd>Command_ConstructAlienPhotonCannon</Cmd>
+		<Cmd>Command_ConstructAlienPlasmaMissileBattery</Cmd>
+		<Cmd>Command_ConstructAlienSporePod</Cmd>
+		<Cmd>Command_ConstructAlienWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<GameObject
+		id="AlienAssimilator"
+		inheritFrom="AlienAssimilator">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<ExperienceLevelTemplate
+		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIRefinery</Target>
+		<Target>GDIRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienHarvester</Target>
+		<Decal Texture="decal_A_Level1" Texture2="decal_Alien_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="75" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+</AssetDeclaration>

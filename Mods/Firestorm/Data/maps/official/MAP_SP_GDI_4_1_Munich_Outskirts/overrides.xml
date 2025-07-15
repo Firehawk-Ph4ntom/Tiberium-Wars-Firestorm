@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<!-- For Civilian Transport -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\CivilianTransport.xml" type="instance"/>
+		<!-- For GDI MRT -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMRT.xml" type="instance"/>
+		<!-- For GDI Mammoth Tank -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMammoth.xml" type="instance"/>
+		<!-- For GDI Firehawk -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For GDI V35 Ox -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox.xml" type="instance"/>
+		<!-- For Alien Annihilator tripod -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienAnnihilatorTripod.xml" type="instance"/>
+		<!-- For Alien Stormrider -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienStormrider.xml" type="instance"/>
+		<!-- For Alien Devastator Warship -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienDevastatorWarship.xml" type="instance"/>
+		<!-- For Alien Wraith -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienWraith.xml" type="instance"/>
+
+		<!-- For Mod's Global Sound Data -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
+
+		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+	</Includes>
+
+	<!-- Increased firing interval from 0.4s -->
+	<GameObject id="AlienWraithCorrosiveField" Side="ALIEN" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienWraithCorrosiveField">
+		<ArmorSet Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienWraithCorrosiveZoneDecal" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienWraithCorrosiveZoneDecalAdd" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienWraithCorrosiveZoneMistSpark" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate	id="ModuleTag_LifetimeUpdate" MinLifetime="3s" MaxLifetime="3s" />
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="25">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="AlienIrradiatorCorroiveZone" FireInterval="0.6s"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0" />
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="ALI_Corrupter_BeamWeaponLoopMS3" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+
+	<!-- Lowered health from 2600 -->
+	<GameObject
+		id="GDIV35Ox"
+		inheritFrom="GDIV35Ox">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="2000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased speed from 65 | Max Contain 4 -->
+	<GameObject
+		id="GDIMRT"
+		inheritFrom="GDIMRT">
+		<LocomotorSet
+			Locomotor="GDIAPCLocomotor"
+			Condition="NORMAL"
+			Speed="100.0"/>
+		<Behaviors>
+			<HordeTransportContain
+				id="ModuleTag_Contain"
+				xai:joinAction="Append"
+				ContainMax="4"
+				Slots="4"/>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Lowered health from 2625 -->
+	<GameObject
+		id="GDIFireHawk"
+		inheritFrom="GDIFireHawk">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="500"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered health from 11500 -->
+	<GameObject
+		id="GDIMammoth"
+		inheritFrom="GDIMammoth">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="2000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 10000 | Lowered speed from 60 -->
+	<GameObject
+		id="CivilianTransport"
+		inheritFrom="CivilianTransport">
+		<LocomotorSet
+			Locomotor="NODLTTLocomotor"
+			Condition="NORMAL"
+			Speed="20"/>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="17000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered health from 2600 -->
+	<GameObject
+		id="AlienStormrider"
+		inheritFrom="AlienStormrider">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="1400"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered health from 2600 -->
+	<GameObject
+		id="AlienWraith"
+		inheritFrom="AlienWraith">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="1400"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered health from 7500 -->
+	<GameObject
+		id="AlienAnnihilatorTripod"
+		inheritFrom="AlienAnnihilatorTripod">
+		<Body>
+			<ShieldBody
+				id="ModuleTag_Body"
+				xai:joinAction="Append"
+				MaxHealth="4500"/>
+		</Body>
+	</GameObject>
+
+	<!-- Lowered speed from 60 -->
+	<GameObject
+		id="AlienDevastatorWarship"
+		inheritFrom="AlienDevastatorWarship">
+		<LocomotorSet
+			Locomotor="AlienDevastatorWarshipLocomotor"
+			Condition="NORMAL"
+			Speed="40.0"/>
+	</GameObject>
+
+	<!-- Lowered damage from 125 -->
+	<WeaponTemplate
+		id="AlienStormRiderProtonCannonWarhead"
+		Name="AlienStormRiderProtonCannonWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY ANTI_STRUCTURE"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="80"
+				DamageType="ROCKET"
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<!-- Dealing less damage to AA vehicles -->
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="NONE">
+						<!-- GDI Units -->
+						<IncludeThing>GDIAPC</IncludeThing>
+						<IncludeThing>GDIAPC_Veteran</IncludeThing>
+						<IncludeThing>GDIPitbull</IncludeThing>
+						<IncludeThing>GDIPitbull_Veteran</IncludeThing>
+						<IncludeThing>GDIFalcon</IncludeThing>
+						<IncludeThing>GDIWolverine</IncludeThing>
+						<IncludeThing>GDIMRT</IncludeThing>
+						<IncludeThing>GDISandstorm</IncludeThing>
+						<!-- NOD Units -->
+						<IncludeThing>NODAttackBike</IncludeThing>
+						<IncludeThing>NODScorpionBuggy</IncludeThing>
+						<IncludeThing>NODStealthTank</IncludeThing>
+						<!-- Alien Units -->
+						<IncludeThing>AlienGunWalker</IncludeThing>
+						<IncludeThing>AlienSeekerTank</IncludeThing>
+						<IncludeThing>AlienStingray</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered reload time from 3s -->
+	<WeaponTemplate
+		id="GDIFalconRocketWeapon"
+		Name="GDIFalconRocketWeapon"
+		AttackRange="275"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="300"
+		FireFX="FX_GDIPitbullMissleFire"
+		FireVeteranFX="FX_GDIPitbullMissleFireHeroic"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="1s"
+			MaxSeconds="1.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIAPCMissileWarhead"
+				ProjectileTemplate="GDIMissileSoldierMissileProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDIMissileSoldierMissileProjectile_Veteran"/>
+			</ProjectileNugget>
+			<ProjectileNugget
+				WarheadTemplate="GDIAPCMissileWarhead"
+				ProjectileTemplate="GDIMissileSoldierMissileProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDIMissileSoldierMissileProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="40">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<!-- Lowered cooldown from 10s | Increased firing duration from 0.3s -->
+	<WeaponTemplate
+		id="GDIFirehawkMissileMainLoad"
+		Name="GDIFirehawkMissileMainLoad"
+		AttackRange="450"
+		AcceptableAimDelta="45d"
+		WeaponSpeed="500"
+		FireFX="FX_GDIFirehawkMissleFire"
+		FireVeteranFX="FX_GDIFirehawkMissleFireHeroic"
+		ClipSize="8"
+		RequiredFiringObjectStatus="WEAPON_UPGRADED_01"
+		AutoReloadsClip="RETURN_TO_BASE"
+		SingleAmmoReloadedNotFullSound="GDI_FireHawk_AmmoLoadOne"
+		ClipReloadedSound="GDI_FireHawk_AmmoReloaded"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true">
+		<FiringDuration
+			MinSeconds="2.5s"
+			MaxSeconds="2.5s"/>
+		<ClipReloadTime
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIFirehawkMissileWarhead"
+				ProjectileTemplate="GDIFirehawkMissileProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDIFirehawkMissileProjectile_Veteran"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Rainy Weather -->
+	<Weather
+		id="Weather">
+		<Rain
+			RainTexture="FXRainDrop"
+			IsRaining="true"
+			NumRaindropsPerBox="2500"
+			RainBoxWidth="1000.0"
+			RainBoxLength="1000.0"
+			RainBoxHeight="300.0"
+			MinWidth="1"
+			MaxWidth="4"
+			MinHeight="25.0"
+			MaxHeight="100.0"
+			MinSpeed="250.0"
+			MaxSpeed="270.0"
+			MinAlpha=".3"
+			MaxAlpha=".5"
+			WindStrength="10.0"/>
+		<Lightning
+			LightningEnabled="true"
+			LightningDuration="1"
+			LightningChance="50">
+			<LightningFactor
+				Type="UNIFORM"
+				Low="3.0"
+				High="3.0"/>
+		</Lightning>
+		<Spell
+			SpellEnabled="true"
+			SpellDuration="200"/>
+		<Cloud>
+			<CloudTextureSize x="660.0" y="660.0"/>
+			<CloudOffsetPerSecond x="-.03" y="-.02"/>
+		</Cloud>
+		<WeatherData id="RAINY" HasLightning="true" />
+		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
+		<WeatherData id="SUNNY" HasLightning="false" />
+		<WeatherData id="CLOUDY" HasLightning="false" />
+	</Weather>
+
+	<!-- Mission Objectives -->
+	<MissionObjectiveList
+		id="MissionObjectives">
+		<!-- Defend the Civilian Convoys -->
+		<MissionObjectiveTag
+			Script="SCRIPT:GDI_4_1_Obj_1"
+			Description="SCRIPT:GDI_4_1_Obj_1_Detail">
+			<PresentationSettings
+				ID="GDI_4_1_Obj_1A"
+				Dialog="MG41_GDIEVA04">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_4_1_Obj_1B">
+				<Duration>3s</Duration>
+				<CameraStartAngle>-10d</CameraStartAngle>
+				<CameraEndAngle>-25d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_4_1_Obj_1C">
+				<Duration>3s</Duration>
+				<CameraStartAngle>-30d</CameraStartAngle>
+				<CameraEndAngle>-45d</CameraEndAngle>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_4_1_Obj_1D">
+				<Duration>3s</Duration>
+				<CameraStartAngle>-25d</CameraStartAngle>
+				<CameraEndAngle>-40d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the Power Plant -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_4_1_BonusObj_1"
+			Description="SCRIPT:GDI_4_1_BonusObj_1_Detail">
+			<PresentationSettings
+				ID="GDI_4_1_BonusObj_1A"
+				Dialog="MG41_GDIEVA02">
+				<Duration>6s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+				<CameraFieldOfView>25d</CameraFieldOfView>
+			</PresentationSettings>
+			<PresentationSettings
+				ID="GDI_4_1_BonusObj_1B">
+				<Duration>3s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+		<!-- Capture the Lab -->
+		<MissionObjectiveTag
+			IsBonusObjective="true"
+			Script="SCRIPT:GDI_4_1_BonusObj_2"
+			Description="SCRIPT:GDI_4_1_BonusObj_2_Detail">
+			<PresentationSettings
+				ID="GDI_4_2_BonusObj_2"
+				Dialog="MG41_GDIEVA05">
+				<Duration>8s</Duration>
+				<CameraStartAngle>10d</CameraStartAngle>
+				<CameraEndAngle>-5d</CameraEndAngle>
+			</PresentationSettings>
+		</MissionObjectiveTag>
+	</MissionObjectiveList>
+
+	<!-- Global Overrides -->
+	<!-- GDI -->
+	<GameObject
+		id="GDIEngineer"
+		inheritFrom="GDIEngineer">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="60"/>
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistol"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICombatEngineerPistolHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1000.0"/>
+		</Body>
+	</GameObject>
+</AssetDeclaration>
