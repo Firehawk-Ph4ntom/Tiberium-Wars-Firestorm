@@ -50,14 +50,18 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Large" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
-					<Animation AnimationName="NBEngFacD3_SKN" AnimationMode="MANUAL"/>
+					<Animation AnimationName="NBENGFACD3" AnimationMode="MANUAL"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged">
-					<Animation AnimationName="NBEngFacD2_SKN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NBENGFACD2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="NBENGFACD2" AnimationMode="ONCE" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
-					<Animation AnimationName="NBEngFacD3_SKN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<Animation AnimationName="NBENGFACD3" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
