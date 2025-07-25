@@ -11,9 +11,9 @@ bar3 = {} -- for tracking the third bar of the harvester.
 bar4 = {} -- for tracking the last bar of the harvester.
 
 -- get the hash of the unit
-UnitType = {["3006676643"] = "GDIFireHawk", ["3045524383"] = "GDIOrca", ["1789238550"] = "NODVertigo", ["3755615724"] = "NODBanshee"}
+UnitType = {["3006676643"] = "GDIFireHawk", ["1789238550"] = "NODVertigo", ["3755615724"] = "NODBanshee"}
 -- get the total ammo count of the unit
-UnitAmmoSize = {["GDIFireHawk"] = 4, ["GDIOrca"] = 8, ["NODVertigo"] = 1, ["NODBanshee"] = 4}
+UnitAmmoSize = {["GDIFireHawk"] = 4, ["NODVertigo"] = 1, ["NODBanshee"] = 4}
 -- second array to store the ammo in when unit fires, until it reaches 0, the conditions fire to disable AI control
 UnitAmmoCount = {}
 

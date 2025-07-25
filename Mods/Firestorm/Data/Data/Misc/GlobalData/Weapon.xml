@@ -857,7 +857,12 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NeutralViceroidSpittleWeaponWarhead"
-				ProjectileTemplate="NeutralViceroidSpittleWeaponProjectile"/>
+				ProjectileTemplate="NeutralViceroidSpittleWeaponProjectile">
+				<SpecialObjectFilter
+					Rule="ALL">
+					<ExcludeThing>Viceroid</ExcludeThing>
+				</SpecialObjectFilter>
+			</ProjectileNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -1212,7 +1217,7 @@
 		Name="CyborgMinigunRangefinder"
 		AttackRange="225"
 		AcceptableAimDelta="45d"
-		AntiMask="ANTI_GROUND"
+		AntiMask="ANTI_AIRBORNE_INFANTRY ANTI_GROUND ANTI_AIRBORNE_VEHICLE"
 		CanFireWhileMoving="true"
 		LeechRangeWeapon="true"
 		FinishAttackOnceStarted="false">
@@ -7659,23 +7664,24 @@
 	<WeaponTemplate
 		id="GDIOrcaRocketWeapon"
 		Name="GDIOrcaRocketWeapon"
-		AttackRange="250"
+		AttackRange="350"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
 		FireFX="FX_GDIOrcaMissleFire"
 		FireVeteranFX="FX_GDIOrcaMissleFireHeroic"
-		ClipSize="6"
-		AutoReloadsClip="RETURN_TO_BASE"
-		SingleAmmoReloadedNotFullSound="GDI_Orca_AmmoLoadOne"
-		ClipReloadedSound="GDI_Orca_AmmoReloaded"
+		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE"
-		CanFireWhileMoving="true">
+		CanFireWhileMoving="true"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
+		<PreAttackDelay
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<FiringDuration
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s" />
+			MinSeconds="2.8s"
+			MaxSeconds="3s"/>
 		<ClipReloadTime
-			MinSeconds="7.5s"
-			MaxSeconds="7.5s"/>
+			MinSeconds="0.4s"
+			MaxSeconds="0.6s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIOrcaRocketWeaponWarhead"
@@ -7696,15 +7702,41 @@
 	<WeaponTemplate
 		id="GDIOrcaRocketWeaponWarhead"
 		Name="GDIOrcaRocketWeaponWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="700"
+				Damage="325"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
-				DamageFXType="GDI_MISSILE"/>
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT">
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="VEHICLE"
+						Exclude="HARVESTER"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -7715,23 +7747,24 @@
 	<WeaponTemplate
 		id="GDIOrcaThermoBaricRocketWeapon"
 		Name="GDIOrcaThermoBaricRocketWeapon"
-		AttackRange="250"
+		AttackRange="350"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
 		FireFX="FX_GDIOrcaMissleFire"
 		FireVeteranFX="FX_GDIOrcaMissleFireHeroic"
-		ClipSize="6"
-		AutoReloadsClip="RETURN_TO_BASE"
-		SingleAmmoReloadedNotFullSound="GDI_Orca_AmmoLoadOne"
-		ClipReloadedSound="GDI_Orca_AmmoReloaded"
+		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE"
-		CanFireWhileMoving="true">
+		CanFireWhileMoving="true"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY">
+		<PreAttackDelay
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<FiringDuration
-			MinSeconds="1.5s"
-			MaxSeconds="1.5s" />
+			MinSeconds="2.8s"
+			MaxSeconds="3s"/>
 		<ClipReloadTime
-			MinSeconds="7.5s"
-			MaxSeconds="7.5s"/>
+			MinSeconds="0.4s"
+			MaxSeconds="0.6s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIOrcaThermoBaricRocketWeaponWarhead"
@@ -7752,15 +7785,41 @@
 	<WeaponTemplate
 		id="GDIOrcaThermoBaricRocketWeaponWarhead"
 		Name="GDIOrcaThermoBaricRocketWeaponWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="800"
+				Damage="425"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
-				DamageFXType="GDI_MISSILE"/>
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT">
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="VEHICLE"
+						Exclude="HARVESTER"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -8858,6 +8917,7 @@
 		FireVeteranFX="FX_GDIBatteryFireHeroic"
 		ClipSize="8"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
+		ReAcquireDetailType="PRE_FIRE"
 		RotatingTurret="true">
 		<ClipReloadTime
 			MinSeconds="0.01s"
@@ -8881,6 +8941,7 @@
 		FireVeteranFX="FX_GDIBatteryFireHeroic"
 		ClipSize="8"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
+		ReAcquireDetailType="PRE_FIRE"
 		RotatingTurret="true">
 		<ClipReloadTime
 			MinSeconds="0.01s"
@@ -17495,6 +17556,7 @@
 		FireVeteranFX="FX_CyborgMinigunFireHeroic"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		ClipSize="3"
+		AntiMask="ANTI_AIRBORNE_INFANTRY ANTI_GROUND ANTI_AIRBORNE_VEHICLE"
 		ReAcquireDetailType="PRE_FIRE">
 		<FiringDuration
 			MinSeconds="0.1s"
@@ -17525,6 +17587,7 @@
 		FireVeteranFX="FX_SChargedParticleBeamFireHeroic"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		ClipSize="1"
+		AntiMask="ANTI_AIRBORNE_INFANTRY ANTI_GROUND ANTI_AIRBORNE_VEHICLE"
 		ReAcquireDetailType="PRE_FIRE">
 		<FiringDuration
 			MinSeconds="0.1s"
