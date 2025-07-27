@@ -35,12 +35,14 @@
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_SKNADAR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_SKNR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_SKNRADAR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_SONIC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_SONIC_SKNADAR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_TRNL.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDITitan\GUTITAN_TRNR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDITitan" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDITitan" ButtonImage="Portrait_GDITitan" Side="GDI" BuildCost="1300" BuildTime="13" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_SHOOT_OVER_WALLS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="184" EditorName="GDITitan" Description="Desc:GDITitan" TypeDescription="Type:GDITitan">
+	<GameObject id="GDITitan" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDITitan" ButtonImage="Portrait_GDITitan" Side="GDI" BuildCost="1300" BuildTime="13" CommandSet="GDITitanCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_SHOOT_OVER_WALLS CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="184" EditorName="GDITitan" Description="Desc:GDITitan" TypeDescription="Type:GDITitan">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDITitan</DisplayName>
 		<DisplayUpgrade>Upgrade_GDIArmoryRailgunTech</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
@@ -74,11 +76,26 @@
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<!-- REALLYDAMAGED Rail Gun Accelerator Adaptive Armor model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_11 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+					<Texture Original="GUMarv2" New="GUMarv2D"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<!-- REALLYDAMAGED Rail Gun Accelerator Adaptive Armor model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_11">
 					<Model Name="GUTITAN_RAILACCEL_SKNADAR"/>
 					<Texture Original="GUTitan" New="GUTitan_D"/>
-					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Rail Gun Adaptive Armor model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+					<Texture Original="GUMarv2" New="GUMarv2D"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -87,7 +104,14 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_10">
 					<Model Name="GUTITAN_RAIL_SKNADAR"/>
 					<Texture Original="GUTitan" New="GUTitan_D"/>
-					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- REALLYDAMAGED Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+					<Texture Original="GUMarv2" New="GUMarv2D"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -96,7 +120,14 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_8">
 					<Model Name="GUTITAN_SKNADAR"/>
 					<Texture Original="GUTitan" New="GUTitan_D"/>
-					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator REALLYDAMAGED model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_11 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+					<Texture Original="GUMarv2" New="GUMarv2D"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -105,7 +136,14 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_11">
 					<Model Name="GUTITAN_RAILACCEL_SKN"/>
 					<Texture Original="GUTitan" New="GUTitan_D"/>
-					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun REALLYDAMAGED model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+					<Texture Original="GUMarv2" New="GUMarv2D"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -114,7 +152,14 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_10">
 					<Model Name="GUTITAN_RAIL_SKN"/>
 					<Texture Original="GUTitan" New="GUTitan_D"/>
-					<Texture Original="GUMamm" New="GUMammD"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Normal REALLYDAMAGED model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+					<Texture Original="GUMarv2" New="GUMarv2D"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -123,30 +168,83 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
 					<Model Name="GUTITAN_SKN"/>
 					<Texture Original="GUTitan" New="GUTitan_D"/>
-					<Texture Original="GUMamm" New="GUMammD"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="L_LEG03" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator Adaptive Armor model (but with sonic shell loadout) and HEROIC status -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_8 USER_10 USER_11 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator Adaptive Armor model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
 				</ModelConditionState>
 				<!-- Rail Gun Accelerator Adaptive Armor model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_11">
 					<Model Name="GUTITAN_RAILACCEL_SKNADAR"/>
 				</ModelConditionState>
+				<!-- Rail Gun Adaptive Armor model (but with sonic shell loadout) and HEROIC status -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_8 USER_10 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun Adaptive Armor model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+				</ModelConditionState>
 				<!-- Rail Gun Adaptive Armor model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_10">
 					<Model Name="GUTITAN_RAIL_SKNADAR"/>
+				</ModelConditionState>
+				<!-- Adaptive Armor model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_8 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- Adaptive Armor model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8 USER_12">
+					<Model Name="GUTITAN_SONIC_SKNADAR"/>
 				</ModelConditionState>
 				<!-- Adaptive Armor model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_8">
 					<Model Name="GUTITAN_SKNADAR"/>
 				</ModelConditionState>
+				<!-- Rail Gun Accelerator model (but with sonic shell loadout) and HEROIC status -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_10 USER_11 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun Accelerator model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+				</ModelConditionState>
 				<!-- Rail Gun Accelerator model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_11">
 					<Model Name="GUTITAN_RAILACCEL_SKN"/>
 				</ModelConditionState>
+				<!-- Rail Gun model (but with sonic shell loadout) and HEROIC status -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_10 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- Rail Gun model (but with sonic shell loadout) -> Using Sonic Shell model -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+				</ModelConditionState>
 				<!-- Rail Gun model -->
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_10">
 					<Model Name="GUTITAN_RAIL_SKN"/>
+				</ModelConditionState>
+				<!-- Normal model (but with sonic shell loadout) and HEROIC status -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
+					<Texture Original="GUMarv2" New="GUMarv2Heroic"/>
+				</ModelConditionState>
+				<!-- Normal model (but with sonic shell loadout) -->
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_12">
+					<Model Name="GUTITAN_SONIC_SKN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
 					<Animation AnimationName="GUTITAN_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2" AnimationPriority="90"/>
@@ -302,12 +400,30 @@
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDITitanCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDITitanRailCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDITitanRailCannonAccelerated" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDITitanSonicCannon" ObjectStatus="RIDER1"/>
 					<TurretSettings TurretTurnRate="200" TurretPitchRate="40" AllowsPitch="true" MinimumPitch="-10d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_SonicCannon</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_02">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+				<UpgradeToRemove>Upgrade_SelectLoad_RailCannon</UpgradeToRemove>
+			</RemoveUpgradeUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER1" StatusToClear="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_Veterancy_Upgrade" AddConditionFlags="USER_3">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</ModelConditionUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Laser RangeFinder -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDILaserRangeFinderUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
@@ -319,6 +435,16 @@
 			</SubObjectsUpgrade>
 			<!-- Rail Gun -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<!-- Loadouts -->
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_SonicCannonModelCondition" AddConditionFlags="USER_12">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSonicShell_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</AudioLoopUpgrade>
 			<!-- Accelerator -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailgunAcceleratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
