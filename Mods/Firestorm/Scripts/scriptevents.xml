@@ -184,11 +184,15 @@
 			<Conditions>+HARVEST_PREPARATION</Conditions>
 		</ModelConditionEvent>
 
-		<ObjectStatusEvent Name="OnRIDER1End">
+		<ObjectStatusEvent Name="OnWeaponUpgraded1End">
+			<Conditions>-WEAPON_UPGRADED_01</Conditions>
+		</ObjectStatusEvent>
+
+		<ObjectStatusEvent Name="OnRider1End">
 			<Conditions>-RIDER1</Conditions>
 		</ObjectStatusEvent>
 
-		<ObjectStatusEvent Name="OnRIDER2End">
+		<ObjectStatusEvent Name="OnRider2End">
 			<Conditions>-RIDER2</Conditions>
 		</ObjectStatusEvent>
 
@@ -224,9 +228,15 @@
 		<EventHandler EventName="OnUser7End" ScriptFunctionName="OnTibChargeNoAttackEnd" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="GenericWeaponSwapNoAttackFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnRIDER1End" ScriptFunctionName="OnWeaponSwapNoAttack" DebugSingleStep="false"/>
-		<EventHandler EventName="OnRIDER2End" ScriptFunctionName="OnWeaponSwapNoAttack" DebugSingleStep="false"/>
+	<EventList Name="GenericMissileWeaponSwapNoAttackFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnRider1End" ScriptFunctionName="OnWeaponSwapNoAttack" DebugSingleStep="false"/>
+		<EventHandler EventName="OnRider2End" ScriptFunctionName="OnWeaponSwapNoAttack" DebugSingleStep="false"/>
+		<EventHandler EventName="OnUser7End" ScriptFunctionName="OnWeaponSwapNoAttackEnd" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericRailWeaponSwapNoAttackFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnRider1End" ScriptFunctionName="OnWeaponSwapNoAttack" DebugSingleStep="false"/>
+		<EventHandler EventName="OnWeaponUpgraded1End" ScriptFunctionName="OnWeaponSwapNoAttack" DebugSingleStep="false"/>
 		<EventHandler EventName="OnUser7End" ScriptFunctionName="OnWeaponSwapNoAttackEnd" DebugSingleStep="false"/>
 	</EventList>
 
@@ -234,6 +244,10 @@
 		<EventHandler EventName="OnAppearingAtFactory" ScriptFunctionName="OnSquadAppearingAtBarracks" DebugSingleStep="false"/>
 		<EventHandler EventName="OnLeavingFactory" ScriptFunctionName="OnSquadExitingBarracks" DebugSingleStep="false"/>
 		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OnSquadDestroyed" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPropagandaBuffFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODPropagandaUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericHarvesterFunctions" Inherit="BaseScriptFunctions">
@@ -306,6 +320,10 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIGrenadeSoldierCreated" DebugSingleStep="false"/>
 	</EventList>
 
+	<EventList Name="GDISniperFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGenericSpotterCreated" DebugSingleStep="false"/>
+	</EventList>
+
 	<EventList Name="GDIZoneTrooperFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIZoneTrooperCreated" DebugSingleStep="false"/>
 	</EventList>
@@ -322,15 +340,15 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIWolverineCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="GDIPaladinTankFunctions" Inherit="BaseScriptFunctions">
+	<EventList Name="GDIPaladinTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIPaladinTankCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="GDIPredatorTankFunctions" Inherit="BaseScriptFunctions">
+	<EventList Name="GDIPredatorTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIPredatorTankCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="GDIMammothTankFunctions" Inherit="BaseScriptFunctions">
+	<EventList Name="GDIMammothTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIMammothTankCreated" DebugSingleStep="false"/>
 	</EventList>
 
@@ -345,11 +363,6 @@
 	</EventList>
 
 	<EventList Name="GDIAirSupremacyAircraftFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIAircraftCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnUpgraded" ScriptFunctionName="OnGDIAirSupremacyPurchased" DebugSingleStep="false"/>
-	</EventList>
-
-	<EventList Name="GDIOrcaFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIAircraftCreated" DebugSingleStep="false"/>
 		<EventHandler EventName="OnUpgraded" ScriptFunctionName="OnGDIAirSupremacyPurchased" DebugSingleStep="false"/>
 	</EventList>
@@ -428,26 +441,20 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODRaiderTankCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODReckonerFunctions" Inherit="BaseScriptFunctions">
+	<EventList Name="NODReckonerFunctions" Inherit="GenericPropagandaBuffFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODReckonerCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODPropagandaUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODReckonerHuskFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODReckonerHuskCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODAvatarFunctions" Inherit="BaseScriptFunctions">
+	<EventList Name="NODAvatarFunctions" Inherit="GenericPropagandaBuffFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODAvatarCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODPropagandaUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODRedeemerWarmechFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODRedeemerWarmechCreated" DebugSingleStep="false"/>
-	</EventList>
-
-	<EventList Name="NODPropagandaBuffFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODPropagandaUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODTiberiumInfusionFunctions" Inherit="BaseScriptFunctions">

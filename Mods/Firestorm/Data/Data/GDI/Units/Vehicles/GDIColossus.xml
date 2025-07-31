@@ -535,15 +535,18 @@
 				<WeaponSlotHierarchicalTurret ID="2">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusRailgun" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusRailgun_Dummy" ObjectStatus="WEAPON_UPGRADED_01 SWITCHED_WEAPONS"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusRailgunAccelerated" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusSonicCannon" ObjectStatus="RIDER4"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusRailgunAccelerated_Dummy" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02 SWITCHED_WEAPONS"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusSonicCannon" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusSonicCannon_Dummy" ObjectStatus="RIDER1 SWITCHED_WEAPONS"/>
 					<TurretSettings TurretTurnRate="170" TurretPitchRate="35" MinimumPitch="-15d" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotHierarchicalTurret>
 				<WeaponSlotTurret ID="3">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusRocketPod"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusThermoBaricRocketPod" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIColossusThermoBaricRocketPod" ObjectStatus="RIDER4"/>
 					<TurretSettings TurretTurnRate="170" TurretPitchRate="80" MinimumPitch="-10d" PitchHeight="90%" MinIdleScanTime="1s" MaxIdleScanTime="5s" MaxIdleScanAngle="90" AllowsPitch="true">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
@@ -558,27 +561,15 @@
 				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
 				<UpgradeToRemove>Upgrade_SelectLoad_RailCannon</UpgradeToRemove>
 			</RemoveUpgradeUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="RIDER4">
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="RIDER1">
 				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER4" StatusToClear="WEAPON_UPGRADED_01">
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER1" StatusToClear="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
 			</StatusBitsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_Veterancy_Upgrade" AddConditionFlags="USER_3">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</ModelConditionUpgrade>
-			<!-- Rail Gun -->
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<!-- Loadouts -->
-			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
-			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_SonicCannonModelCondition" AddConditionFlags="USER_12">
-				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSonicShell_Audio" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
-			</AudioLoopUpgrade>
 			<!-- HE Ammo -->
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER3">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
@@ -595,20 +586,35 @@
 			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Laser RangeFinder -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDILaserRangeFinderUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<AttributeModifierUpgrade id="ModuleTag_LaserRangeFinderAttribute" xai:joinAction="Replace" AttributeModifier="AttributeModifier_LaserRangeFinderMech">
 				<TriggeredBy>Upgrade_GDILaserRangeFinderUpgrade</TriggeredBy>
 			</AttributeModifierUpgrade>
+			<!-- Rail Gun -->
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailCannonUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<!-- Thermobaric Missiles -->
-			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="RIDER1">
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="RIDER4">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
+			<!-- Loadouts -->
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_RailCannon</TriggeredBy>
+			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_SonicCannonModelCondition" AddConditionFlags="USER_12">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSonicShell_Audio" SoundToPlay="GDI_RailGun_Upgrade">
+				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
+			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_ColossusWalkerNoAttack">
+				<TriggeredBy>Upgrade_WeaponSwapNoAttack</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<!-- Accelerator -->
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailgunAcceleratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>

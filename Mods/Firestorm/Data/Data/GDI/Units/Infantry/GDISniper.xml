@@ -182,22 +182,22 @@
 			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="100" MaxLength="100" Width="5" MinSpeed="60" MaxSpeed="60" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDISniper" TracerHitFx="FX_GDISniperBulletHit" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02 RIDER1 WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1 RIDER2 WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDrawVeterancy" MinLength="100" MaxLength="100" Width="5" MinSpeed="60" MaxSpeed="60" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDISniperHeroic" TracerHitFx="FX_GDISniperBulletHitHeroic" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02 RIDER1" RequiredStatus="WEAPON_UPGRADED_03"/>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1 RIDER2" RequiredStatus="WEAPON_UPGRADED_03"/>
 			</TracerModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="100" MaxLength="100" Width="5" MinSpeed="60" MaxSpeed="60" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02 WEAPON_UPGRADED_03" RequiredStatus="RIDER1"/>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1 WEAPON_UPGRADED_03" RequiredStatus="RIDER2"/>
 			</TracerModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmoVeterancy" MinLength="100" MaxLength="100" Width="5" MinSpeed="60" MaxSpeed="60" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDIAPAmmoHeroic" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="0.0" b="0.0" a="1.0" />
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02 RIDER2" RequiredStatus="RIDER1"/>
+				<ObjectStatusValidation ForbiddenStatus="RIDER1 RIDER3" RequiredStatus="RIDER2"/>
 			</TracerModelDraw>
 			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="1" LaserStateID="1" UseDistortionShader="true">
 				<FXShader ShaderName="Laser.fx">
@@ -210,7 +210,7 @@
 						</Texture>
 					</Constants>
 				</FXShader>
-				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_02"/>
+				<ObjectStatusValidation RequiredStatus="RIDER1"/>
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
@@ -256,10 +256,13 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperRifle" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperRifleHEAmmo" ObjectStatus="WEAPON_UPGRADED_01 RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperRifle_Dummy" ObjectStatus="WEAPON_UPGRADED_01 SWITCHED_WEAPONS"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperRifleHEAmmo" ObjectStatus="WEAPON_UPGRADED_01 RIDER2"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperRifleHEAmmo_Dummy" ObjectStatus="WEAPON_UPGRADED_01 RIDER2 SWITCHED_WEAPONS"/>
 				</WeaponSlotHardpoint>
 				<WeaponSlotHardpoint ID="2">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperAntiTankRifle" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperAntiTankRifle" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDISniperAntiTankRifle_Dummy" ObjectStatus="RIDER1 SWITCHED_WEAPONS"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
@@ -272,11 +275,11 @@
 				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
 				<UpgradeToRemove>Upgrade_SelectLoad_SniperRailgun</UpgradeToRemove>
 			</RemoveUpgradeUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="WEAPON_UPGRADED_02" StatusToClear="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
-			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="WEAPON_UPGRADED_02">
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor01" StatusToSet="WEAPON_UPGRADED_01" StatusToClear="RIDER1">
 				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_StatusBitUpgradeFor02" StatusToSet="RIDER1" StatusToClear="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
 			</StatusBitsUpgrade>
 			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
 				<InvisibilityNugget HintDetectableStates="IS_ATTACKING" ForbiddenStatus="IS_FIRING_WEAPON IS_AIMING_WEAPON ENCLOSED"/>
@@ -286,18 +289,20 @@
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>GDI_Sniper</Key>
 			</LargeGroupAudioUpdate>
-			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER1">
+			<!-- HE Ammo -->
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="RIDER2">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER2">
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER3">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER2">
+			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="RIDER3">
 				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
 			</StatusBitsUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_HEAmmoAudioLoop" SoundToPlay="GDI_CommandPost_HEammoUpgrade">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</AudioLoopUpgrade>
+			<!-- Loadouts -->
 			<ModelConditionUpgrade id="ModuleTag_SniperModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_SelectLoad_SniperRifle</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -310,10 +315,13 @@
 			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutRailGun_Audio" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_SelectLoad_SniperRailgun</TriggeredBy>
 			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_SniperNoAttack">
+				<TriggeredBy>Upgrade_WeaponSwapNoAttack</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GenericSpotterFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GDISniperFunctions">
 				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

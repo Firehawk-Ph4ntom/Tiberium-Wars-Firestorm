@@ -245,8 +245,11 @@
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannonRailgun" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannonRailgun_Dummy" ObjectStatus="WEAPON_UPGRADED_01 SWITCHED_WEAPONS"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannonRailgunAccelerated" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannonRailgunAccelerated_Dummy" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02 SWITCHED_WEAPONS"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannonSonicShells" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIGolemCannonSonicShells_Dummy" ObjectStatus="RIDER1 SWITCHED_WEAPONS"/>
 					<TurretSettings TurretTurnRate="290" TurretPitchRate="100" AllowsPitch="true" MinimumPitch="-10d" PitchHeight="90%" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
 						<TurretAITargetChooserData StartupDelay="0.5s" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
@@ -288,6 +291,9 @@
 			<AudioLoopUpgrade id="ModuleTag_SelectLoadoutSonicShell_Audio" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_SelectLoad_SonicCannon</TriggeredBy>
 			</AudioLoopUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_GolemCannonNoAttack">
+				<TriggeredBy>Upgrade_WeaponSwapNoAttack</TriggeredBy>
+			</AttributeModifierUpgrade>
 			<!-- Accelerator -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIRailgunAcceleratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
@@ -295,7 +301,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="GenericRailWeaponSwapNoAttackFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
