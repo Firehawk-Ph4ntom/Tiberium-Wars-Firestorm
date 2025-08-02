@@ -3,6 +3,8 @@
 		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERY_ASN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERY_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERY_LF_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERYCAP_AAN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERYCAP_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERYD2_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFINERYD3_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODRefinery\NBREFTUBES_SKN.w3x"/>
@@ -76,6 +78,37 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBRefineryD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Large" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawCap" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBREFINERYCAP_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="NBREFINERYCAP_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NBREFINERYCAP_SKN"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBREFINERYCAP_SKN"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBREFINERYCAP_SKN"/>
+					<Texture Original="NBChemicalPt" New="NBChemicalPtD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING" StateName="STATE_Buildup">
+					<Animation AnimationName="NBREFINERYCAP_AAN" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble">
+					<Animation AnimationName="NBREFINERYCAP_AAN" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="NBREFINERYCAP_AAN" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Draw_Tubes" OkToChangeModelColor="true">
