@@ -28,6 +28,8 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures_SinglePlayerCampaign\GDIRefinerySPNoHarvester.xml" type="instance"/>
+
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
@@ -48,24 +50,49 @@
 		</AI>
 	</GameObject>
 
-	<!-- x1.5 damage vs structures -->
+	<!-- x3 damage vs structures -->
 	<WeaponTemplate
 		id="GDIOrcaRocketWeaponWarhead"
 		Name="GDIOrcaRocketWeaponWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="700"
+				Damage="325"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
 				DamageFXType="GDI_MISSILE">
 				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT">
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
 						Rule="NONE"
+						Include="VEHICLE"
+						Exclude="HARVESTER"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="300%">
+					<Filter
+						Rule="NONE"
 						Include="STRUCTURE"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -543,6 +570,14 @@
 	</GameObject>
 
 	<!-- GDI -->
+	<GameObject
+		id="GDIRefinerySPNoHarvester"
+		inheritFrom="GDIRefinerySPNoHarvester"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
 	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"

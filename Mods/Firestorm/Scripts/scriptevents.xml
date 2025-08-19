@@ -164,24 +164,30 @@
 			<Conditions>+MONEY_STORED_AMOUNT_4</Conditions>
 		</ModelConditionEvent>
 
-		<ModelConditionEvent Name="OffMoney0">
+		<ModelConditionEvent Name="OffMoney1">
 			<Conditions>-MONEY_STORED_AMOUNT_1</Conditions>
 		</ModelConditionEvent>
 
-		<ModelConditionEvent Name="OffMoney1">
+		<ModelConditionEvent Name="OffMoney2">
 			<Conditions>-MONEY_STORED_AMOUNT_2</Conditions>
 		</ModelConditionEvent>
 
-		<ModelConditionEvent Name="OffMoney2">
+		<ModelConditionEvent Name="OffMoney3">
 			<Conditions>-MONEY_STORED_AMOUNT_3</Conditions>
 		</ModelConditionEvent>
 
-		<ModelConditionEvent Name="OffMoney3">
+		<ModelConditionEvent Name="OffMoney4">
 			<Conditions>-MONEY_STORED_AMOUNT_4</Conditions>
 		</ModelConditionEvent>
 
+		<ScriptedEvent Name="TiberiumCrystalEvent"/>
+
 		<ModelConditionEvent Name="OnHarvesting">
-			<Conditions>+HARVEST_PREPARATION</Conditions>
+			<Conditions>+HARVEST_ACTION</Conditions>
+		</ModelConditionEvent>
+
+		<ModelConditionEvent Name="OnHarvestingEnd">
+			<Conditions>-HARVEST_ACTION</Conditions>
 		</ModelConditionEvent>
 
 		<ObjectStatusEvent Name="OnWeaponUpgraded1End">
@@ -255,17 +261,23 @@
 		<EventHandler EventName="OnMoney2" ScriptFunctionName="OnMoney2" DebugSingleStep="false"/>
 		<EventHandler EventName="OnMoney3" ScriptFunctionName="OnMoney3" DebugSingleStep="false"/>
 		<EventHandler EventName="OnMoney4" ScriptFunctionName="OnMoney4" DebugSingleStep="false"/>
-		<EventHandler EventName="OffMoney0" ScriptFunctionName="OffMoney0" DebugSingleStep="false"/>
 		<EventHandler EventName="OffMoney1" ScriptFunctionName="OffMoney1" DebugSingleStep="false"/>
 		<EventHandler EventName="OffMoney2" ScriptFunctionName="OffMoney2" DebugSingleStep="false"/>
 		<EventHandler EventName="OffMoney3" ScriptFunctionName="OffMoney3" DebugSingleStep="false"/>
-		<EventHandler EventName="OnHarvesting" ScriptFunctionName="OnHarvesterHarvesting" DebugSingleStep="false"/>
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGenericHarvesterCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OnGenericHarvesterDeath" DebugSingleStep="false"/>
+		<EventHandler EventName="OffMoney4" ScriptFunctionName="OffMoney4" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnHarvesterCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OnHarvesterDeath" DebugSingleStep="false"/>
+		<EventHandler EventName="OnHarvesting" ScriptFunctionName="OnHarvestingTiberiumCrystal" DebugSingleStep="false"/>
+		<EventHandler EventName="OnHarvestingEnd" ScriptFunctionName="OnHarvestedCrystalTypeCleared" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericJetAircraftDisableAIFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnGenericEvent" ScriptFunctionName="CheckJetAircraftAmmoDepleted" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericTiberiumCrystalFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="TiberiumCrystalEvent" ScriptFunctionName="OnTiberiumCrystalHarvested" DebugSingleStep="false"/>
+		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OffTiberiumGrowing" DebugSingleStep="false"/>
 	</EventList>
 
 	<!-- Generic keep Lua Event Lists -->
@@ -469,10 +481,6 @@
 
 	<EventList Name="AlienRazorbackFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnAlienRazorbackCreated" DebugSingleStep="false"/>
-	</EventList>
-
-	<EventList Name="AlienHarvesterFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnHarvesting" ScriptFunctionName="OnHarvesterHarvesting" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="AlienEradicatorHexapodFunctions" Inherit="BaseScriptFunctions">

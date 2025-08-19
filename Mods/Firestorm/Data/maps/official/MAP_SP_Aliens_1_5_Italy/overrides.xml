@@ -10,9 +10,9 @@
 		<!-- For Alien Wormhole -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienWormHole.xml" type="instance"/>
 		<!-- For Alien Tower -->
-		<Include source="DATA:Alien\Structures\ABTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures_Singleplayer\ABTower.xml" type="instance"/>
 		<!-- For Alien Phase Generator -->
-		<Include source="DATA:Alien\Structures_Singleplayer\AlienPhaseGenerator.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures_Singleplayer\AlienPhaseGenerator.xml" type="instance"/>
 		<!-- For Alien Ichor Reactor -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<!-- For Alien Signal Transmitter -->
@@ -38,64 +38,15 @@
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
 
-	<!--  Alien Tower -->
+	<!-- Alien Tower -->
 	<GameObject
 		id="ABTower"
-		inheritFrom="ABTower"
-		KindOf="STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD SELECTABLE AIRCRAFT_PATH_AROUND RESIST_EMP">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="20000.0"/>
-		</Body>
-	</GameObject>
+		inheritFrom="ABTower"/>
 
-	<!-- Increased health from 3000 | Added Phase Shield Ability -->
+	<!-- Alien Phase Generator -->
 	<GameObject
 		id="Alien_PhaseGenerator"
-		inheritFrom="Alien_PhaseGenerator"
-		CommandSet="AlienPhaseGeneratorCommandSet"
-		KindOf="SELECTABLE STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS KEEP_CLASSIFIED_WHEN_DEAD AUTO_ACQUIRABLE_BY_AI RESIST_EMP NOT_SELLABLE CAN_ATTACK TIBERIUM_BASED FS_BASE_DEFENSE POWERED COVER HEALED_BY_TIBERIUM">
-		<Draws>
-			<ScriptedModelDraw
-				id="ModuleTag_Draw"
-				xai:joinAction="Append"
-				OkToChangeModelColor="true"/>
-		</Draws>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="AlienPhaseGeneratorDummyWeapon"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-			<OCLSpecialPower
-				id="ModuleTag_PhaseShieldOCL"
-				SpecialPowerTemplate="SpecialPower_AlienPhaseShield"
-				OCL="OCL_AlienPhasingShield"
-				TriggerFX="FX_AlienShieldPower"
-				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
-				<NearestSecondaryObjectFilter
-					Rule="ANY"
-					Relationship="SAME_PLAYER">
-					<IncludeThing>Alien_PhaseGenerator</IncludeThing>
-				</NearestSecondaryObjectFilter>
-			</OCLSpecialPower>
-		</Behaviors>
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="20000.0" />
-		</Body>
-		<VisionInfo
-			VisionRange="450"
-			ShroudClearingRange="500"/>
-	</GameObject>
+		inheritFrom="Alien_PhaseGenerator"/>
 
 	<!-- SP Doesn't reload | Removed cost -->
 	<SpecialPowerTemplate

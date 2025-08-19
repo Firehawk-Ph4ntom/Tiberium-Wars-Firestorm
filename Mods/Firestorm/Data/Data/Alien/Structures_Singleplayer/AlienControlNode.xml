@@ -1,0 +1,111 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="AlienControlNode" inheritFrom="BaseStructure" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE NOT_AUTOACQUIRABLE TIBERIUM_BASED UNIQUE_UNIT COVER AUTO_ACQUIRABLE_BY_AI HEALED_BY_TIBERIUM RESIST_EMP" ThreatLevel="10" EditorName="AlienControlNode" BuildTime="25" CommandSet="EmptyCommandSet" SelectPortrait="Portrait_AlienControlNode" ButtonImage="Portrait_AlienControlNode" BuildCost="2500" Browser="REGION Alien_Structures STRUCTURE">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienControlNode</DisplayName>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="false" AffectedByStealth="false">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ASCNTRLND"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="ASCNTRLND_D3"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="ASCNTRLND_D2"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFireGlow01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageLrgFireGlow02" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="ASCNTRLND"/>
+					<Texture Original="ASCntrlNd" New="ASCntrlNd_D1"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageFire01" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXBone02" FXParticleSystemTemplate="AlienDamageInfantryIchor" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BUILD_PLACEMENT_CURSOR">
+					<Script> CurDrawableHideSubObject("FX_LIGHTS") CurDrawableHideSubObject("FX_LIGHTS01") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ASCNTRLND_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="ASCNTRLND_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="ASCNTRLND_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="ASCNTRLND_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2.4" DestructionDelay="8s">
+				<Sound Type="INITIAL" List="ALI_Building_Die"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_AlienBuildingDamagedL"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_AlienBuildingDamagedL"/>
+				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
+				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_ScorchLarge" />
+			</FXListBehavior>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="60000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="98.2698" MinorRadius="14.0385" Height="12.6347" ContactPointGeneration="STRUCTURE">
+				<Offset x="0.0" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="37.3425" MinorRadius="14.0385" Height="71.5123" ContactPointGeneration="STRUCTURE">
+				<Offset x="-24.5925" y="0.0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="27.6335" MinorRadius="41.8348" Height="9.58332" ContactPointGeneration="STRUCTURE">
+				<Offset x="-30.1533" y="39.2817" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="21.0014" MinorRadius="25.1009" Height="20.0234" ContactPointGeneration="STRUCTURE">
+				<Offset x="-14.6644" y="98.0253" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="29.822" MinorRadius="11.0444" Height="7.9861" ContactPointGeneration="STRUCTURE">
+				<Offset x="21.85" y="128.752" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="21.0014" MinorRadius="25.1009" Height="20.0234" ContactPointGeneration="STRUCTURE">
+				<Offset x="-14.6644" y="-91.7039" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="29.822" MinorRadius="11.0444" Height="7.9861" ContactPointGeneration="STRUCTURE">
+				<Offset x="21.85" y="-125.394" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="27.6335" MinorRadius="41.8348" Height="9.58332" ContactPointGeneration="STRUCTURE">
+				<Offset x="-30.1533" y="-36.6858" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="ALI_ControlNode_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound xai:joinAction="Replace">
+			<AudioEntry Sound="ALI_Building_LightDamage" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="ALI_Building_HeavyDamage" AudioType="soundOnReallyDamaged"/>
+			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>

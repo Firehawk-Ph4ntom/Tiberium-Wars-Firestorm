@@ -1,0 +1,43 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="GDINukeSeed" Side="GDI" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="GDINukeSeed">
+		<DisplayName>GDINukeSeed</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NSNMSiloMis_AN"/>
+					<ParticleSysBone BoneName="NBNMSiloMisw" FXParticleSystemTemplate="NodNukeMissleSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NBNMSiloMisw" FXParticleSystemTemplate="NodNukeMissleSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NBNMSiloMisw" FXParticleSystemTemplate="NodNukeMissleFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NBNMSiloMisw" FXParticleSystemTemplate="NodNukeMissleFire" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="NSNMSiloMis_AN" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="2.0s" MaxLifetime="2.0s"/>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="GDINuclearMissileDeathWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="500">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDI_Nuke"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_NuclearMissile_Incoming" AudioType="soundAmbient"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="100" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

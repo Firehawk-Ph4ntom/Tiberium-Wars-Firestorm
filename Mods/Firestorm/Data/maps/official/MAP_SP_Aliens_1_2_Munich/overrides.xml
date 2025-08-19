@@ -11,8 +11,6 @@
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDITiberiumProcessingPlant.xml" type="instance"/>
 		<!-- For GDI Barracks -->
 		<Include source="DATA:FireStorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
-		<!-- For GDI Engineer -->
-		<Include source="DATA:FireStorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<!-- For Alien Mastermind -->
 		<Include source="DATA:FireStorm\Data\Data\Alien\Units\Infantry\AlienMastermind.xml" type="instance"/>
 
@@ -22,9 +20,14 @@
 
 		<!-- GDI Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units_SinglePlayerCampaign\GDIEngineer_ShadowAbility.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 	</Includes>
+
+	<!-- GDI Engineer -->
+	<GameObject
+		id="GDIEngineer_ShadowAbility"
+		inheritFrom="GDIEngineer_ShadowAbility"/>
 
 	<LogicCommand
 		Type="UNIT_BUILD"
@@ -319,34 +322,6 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
-
-	<!-- Special Engineer, can't be attacked by the enemy -->
-	<GameObject
-		id="GDIEngineer_ShadowAbility"
-		inheritFrom="GDIEngineer"
-		KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY SCORE ATTACK_NEEDS_LINE_OF_SIGHT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT NOT_AUTOACQUIRABLE"
-		CommandSet="EmptyCommandSet">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
 
 	<!-- Override Exp Templates for Refineries and Harvesters -->
 	<ExperienceLevelTemplate

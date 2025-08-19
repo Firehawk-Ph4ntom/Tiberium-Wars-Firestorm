@@ -1,0 +1,29 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml"/>
+	</Includes>
+	<GameObject id="GDIFireHawkSPBombingRun" EditorName="GDIFireHawkSPBombingRun" inheritFrom="GDIFireHawk">
+		<EquivalentTo>GDIFireHawk</EquivalentTo>
+		<LocomotorSet Locomotor="GenericJetAircraftLocomotor" Condition="NORMAL" Speed="220.0" />
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Template="GDIFirehawkMissileMainLoad" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Template="GDIFirehawkThermoBaricMissileMainLoad" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_03"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="2">
+					<Weapon Template="GDIFirehawkClusterBomb" ObjectStatus="WEAPON_UPGRADED_02"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="YES" KeepsParkingSpaceWhenAirborne="true" OutOfAmmoDamagePerSecond="1.5" CirclesForAttack="true" ReturnToBaseWhenVictimDead="true" AILuaEventsList="GDIFirehawkFunctions">
+				<UnitAITargetChooserData IdleScanDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<VisionInfo VisionRange="75" ShroudClearingRange="450" />
+	</GameObject>
+</AssetDeclaration>

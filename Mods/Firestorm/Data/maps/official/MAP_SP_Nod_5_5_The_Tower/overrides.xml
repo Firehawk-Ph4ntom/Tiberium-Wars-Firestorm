@@ -7,12 +7,13 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For GDI Juggernaut -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIJuggernaught.xml" type="instance"/>
 		<!-- For Alien Phase Generator -->
-		<Include source="DATA:Alien\Structures_Singleplayer\AlienPhaseGenerator.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures_Singleplayer\AlienPhaseGenerator.xml" type="instance"/>
 		<!-- For Alien Tower -->
-		<Include source="DATA:Alien\Structures\ABTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures_Singleplayer\ABTower.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
@@ -34,16 +35,10 @@
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
 
+	<!-- Alien Tower -->
 	<GameObject
 		id="ABTower"
-		inheritFrom="ABTower">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="25000.0"/>
-		</Body>
-	</GameObject>
+		inheritFrom="ABTower"/>
 
 	<!-- Increased reload time from 3.8s | Increased attack range significantly -->
 	<WeaponTemplate
@@ -110,36 +105,10 @@
 			ShroudClearingRange="2100" />
 	</GameObject>
 
-	<!-- Increased health from 5000 | Added Phase Shield Ability | Ability available at start -->
+	<!-- Alien Phase Generator -->
 	<GameObject
 		id="Alien_PhaseGenerator"
-		inheritFrom="Alien_PhaseGenerator"
-		CommandSet="AlienPhaseGeneratorCommandSet">
-		<Draws>
-			<ScriptedModelDraw
-				id="ModuleTag_Draw"
-				xai:joinAction="Append"
-				OkToChangeModelColor="true"/>
-		</Draws>
-		<Behaviors>
-			<OCLSpecialPower
-				id="ModuleTag_PhaseShieldOCL"
-				SpecialPowerTemplate="SpecialPower_AlienPhaseShield"
-				OCL="OCL_AlienPhasingShield"
-				TriggerFX="FX_AlienShieldPower"
-				CreateLocation="USE_SECONDARY_OBJECT_LOCATION">
-				<NearestSecondaryObjectFilter
-					Rule="ANY"
-					Relationship="SAME_PLAYER">
-					<IncludeThing>Alien_PhaseGenerator</IncludeThing>
-				</NearestSecondaryObjectFilter>
-			</OCLSpecialPower>
-			<AISpecialPowerUpdate
-				id="ModuleTag_PhaseShieldAI"
-				CommandButtonName="Command_SpecialPowerAlienPhaseShield"
-				SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"
-				SpecialPowerRadius="450"/>
-		</Behaviors>
+		inheritFrom="Alien_PhaseGenerator">
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"

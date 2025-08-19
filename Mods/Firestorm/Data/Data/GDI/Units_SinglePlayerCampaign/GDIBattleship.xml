@@ -1,0 +1,338 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIBattleship\GUBTTLSHP_D3_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIBattleship" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIBattleship" ButtonImage="Portrait_GDIBattleship" Side="GDI" BuildCost="2500" BuildTime="25" CommandSet="GDIBattleshipCommandSet" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4 IGNORES_SELECT_ALL" EditorName="GDIBattleship" Description="Desc:GDIBattleship" TypeDescription="Type:GDIBattleship">
+		<DisplayName xai:joinAction="Replace" xmlns:xai="uri:ea.com:eala:asset:instance">Name:GDIBattleship</DisplayName>
+		<ArmorSet Armor="GDIBattleshipArmor" DamageFX="VehicleDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUBttlshp"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET1_FX"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET2_FX01"/>
+					<WeaponFireFXBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET3_FX"/>
+					<WeaponFireFXBone WeaponSlotID="4" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET4_FX"/>
+					<WeaponFireFXBone WeaponSlotID="5" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_missile"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET1_FX"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET2_FX01"/>
+					<WeaponLaunchBone WeaponSlotID="3" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET3_FX"/>
+					<WeaponLaunchBone WeaponSlotID="4" WeaponSlotType="PRIMARY_WEAPON" BoneName="TURRET4_FX"/>
+					<WeaponLaunchBone WeaponSlotID="5" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_missile"/>
+					<Turret TurretNameKey="TURRET1" TurretID="1"/>
+					<Turret TurretNameKey="TURRET2" TurretID="2"/>
+					<Turret TurretNameKey="TURRET3" TurretID="3"/>
+					<Turret TurretNameKey="TURRET4" TurretID="4"/>
+					<Turret TurretNameKey="TURRET5" TurretID="5"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GUBttlshp_D3_FS"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GUBttlshp_D2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GUBttlshp"/>
+					<Texture Original="GUDestroy" New="GUDestroyD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUBttlshp_D3" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" StateName="STATE_ReallyDamaged" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUBttlshp_D2" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_ReallyDamaged" and Prev ~= "TRANS_IntoReallyDamaged" then CurDrawableSetTransitionAnimState("TRANS_IntoReallyDamaged") end </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoReallyDamaged">
+					<Animation AnimationName="GUBttlshp_D2" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="Bone_D001" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_D001" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_D001" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_D006" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_D006" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone_D006" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<FXEvent Frame="52" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D001"/>
+					<FXEvent Frame="64" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D002"/>
+					<FXEvent Frame="44" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D003"/>
+					<FXEvent Frame="50" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D004"/>
+					<FXEvent Frame="69" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D005"/>
+					<FXEvent Frame="45" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D006"/>
+					<FXEvent Frame="33" FireWhenSkipped="true" Effect="FX_NodCraneWater" Bone="Bone_D007"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D001"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D002"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D003"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D004"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D005"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D006"/>
+					<FXEvent Frame="1" FireWhenSkipped="true" Effect="FX_GDIBattleshipExplode" Bone="Bone_D007"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GUBttlshp_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="RootTransform" FXParticleSystemTemplate="GDIBS_Water" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="9s" SinkRate="2.4" DestructionDelay="12s">
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Large"/>
+				<Event Index="onTransitionToRubble" FX="FX_BattleshipExp"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIBattleshipCannon"/>
+					<TurretSettings TurretTurnRate="180" MinIdleScanTime="1.0s" MaxIdleScanTime="2.0s" MinIdleScanAngle="45.0" MaxIdleScanAngle="135.0" MaxDeflectionClockwise="90d" MaxDeflectionAntiClockwise="90d" NaturalTurretAngle="90d">
+						<TurretAITargetChooserData CanPickDynamicTargets="false"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIBattleshipCannon"/>
+					<TurretSettings TurretTurnRate="180" MinIdleScanTime="1.0s" MaxIdleScanTime="2.0s" MinIdleScanAngle="45.0" MaxIdleScanAngle="135.0" MaxDeflectionClockwise="90d" MaxDeflectionAntiClockwise="90d" NaturalTurretAngle="90d">
+						<TurretAITargetChooserData CanPickDynamicTargets="false"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="3">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIBattleshipCannon"/>
+					<TurretSettings TurretTurnRate="180" MinIdleScanTime="1.0s" MaxIdleScanTime="2.0s" MinIdleScanAngle="-135.0" MaxIdleScanAngle="-45.0" MaxDeflectionClockwise="90d" MaxDeflectionAntiClockwise="90d" NaturalTurretAngle="-90d">
+						<TurretAITargetChooserData CanPickDynamicTargets="false"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="4">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIBattleshipCannon"/>
+					<TurretSettings TurretTurnRate="180" MinIdleScanTime="1.0s" MaxIdleScanTime="2.0s" MinIdleScanAngle="-135.0" MaxIdleScanAngle="-45.0" MaxDeflectionClockwise="90d" MaxDeflectionAntiClockwise="90d" NaturalTurretAngle="-90d">
+						<TurretAITargetChooserData CanPickDynamicTargets="false"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="5">
+					<Weapon Ordering="PRIMARY_WEAPON" Template=""/>
+					<TurretSettings TurretTurnRate="2000" MinIdleScanTime="1.0s" MaxIdleScanTime="2.0s" MinIdleScanAngle="-180.0" MaxIdleScanAngle="180.0" MaxDeflectionClockwise="180d" MaxDeflectionAntiClockwise="180d">
+						<TurretAITargetChooserData CanPickDynamicTargets="false"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<SpecialPower id="ModuleTag_SpotTargetSP" SpecialPowerTemplate="SpecialPower_BattleshipSpotTargetBombard" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIBattleshipArtilleryBombard" id="ModuleTag_SpotTargetSPUpdate" SpecialPowerTemplate="SpecialPower_BattleshipSpotTargetBombard" UnpackTime="2.0s" PackTime="2.0s" TriggerSound="GDI_Battleship_MissileLaunchMS" StartAbilityRange="100000.0" BusyForDuration="0s" FaceTarget="false" WeaponSlotID="5" WhichSpecialWeapon="1"/>
+			<SpecialPower id="ModuleTag_IntroBombard" SpecialPowerTemplate="SpecialPower_BattleshipIntroBombard" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIBattleshipArtilleryBombardFORINTRO" id="ModuleTag_INTRO_SpotTargetSPUpdate" SpecialPowerTemplate="SpecialPower_BattleshipIntroBombard" UnpackTime=".5s" PackTime="2.0s" TriggerSound="GDI_Battleship_MissileLaunchMS" StartAbilityRange="100000.0" BusyForDuration="0s" FaceTarget="false" WeaponSlotID="5" WhichSpecialWeapon="1"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
+				<UnitAITargetChooserData RotateToTargetWhenAiming="false" CanPickDynamicTargets="false" SympathyRange="100.0"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="64.745" MinorRadius="56.1482" Height="68.2375" ContactPointGeneration="VEHICLE">
+				<Offset x="-25.214" y="-0.222603" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="56.4168" MinorRadius="31.7009" Height="38.1485" ContactPointGeneration="VEHICLE">
+				<Offset x="-136.704" y="-1.56586" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="24.4473" MinorRadius="51.0438" Height="60.7152" ContactPointGeneration="VEHICLE">
+				<Offset x="-106.347" y="-0.491257" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="21.2235" MinorRadius="51.3124" Height="68.2375" ContactPointGeneration="VEHICLE">
+				<Offset x="54.8441" y="-1.29714" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="28.7457" MinorRadius="34.656" Height="40.2977" ContactPointGeneration="VEHICLE">
+				<Offset x="99.9776" y="0.31477" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="11.2834" MinorRadius="23.91" Height="37.0739" ContactPointGeneration="VEHICLE">
+				<Offset x="137.32" y="-0.222534" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="12.0893" MinorRadius="17.731" Height="35.9993" ContactPointGeneration="VEHICLE">
+				<Offset x="156.932" y="-0.491184" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="17.731" MinorRadius="13.1639" Height="34.9247" ContactPointGeneration="VEHICLE">
+				<Offset x="183.528" y="-0.222533" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="11.149" MinorRadius="5.91033" Height="33.8501" ContactPointGeneration="VEHICLE">
+				<Offset x="210.931" y="0.0463109" z="0.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="22.4324" MinorRadius="5.10438" Height="30.3576" ContactPointGeneration="VEHICLE">
+				<Offset x="242.9" y="-1.29695" z="0.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_Battleship_SoundSelect" AudioType="voiceAttack"/>
+			<AudioEntry Sound="GDI_Battleship_SoundSelect" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_LargeBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<ShadowInfo Type="VOLUME"/>
+		<VisionInfo VisionRange="550" ShroudClearingRange="500"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="4" CrushEqualLevelProps="true"/>
+	</GameObject>
+
+	<LogicCommandSet
+		id="GDIBattleshipCommandSet">
+		<Cmd>Command_StanceDrillDown</Cmd>
+		<Cmd>Command_AttackMove</Cmd>
+		<Cmd>Command_BattleshipBombardFORINTRO</Cmd>
+		<Cmd>Command_Stop</Cmd>
+	</LogicCommandSet>
+
+	<WeaponTemplate
+		id="GDIBattleshipCannon"
+		Name="GDIBattleshipCannon"
+		AttackRange="900"
+		ScatterLength="50"
+		ScatterRadius="50"
+		MinimumAttackRange="150"
+		WeaponSpeed="500"
+		MinTargetPitch="-30d"
+		MaxTargetPitch="30d"
+		FireFX="FX_GDIBattleshipCannon"
+		ClipSize="1"
+		ShotsPerBarrel="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="3.8s"
+			MaxSeconds="3.8s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="BattleshipArtilleryWarhead"
+				ProjectileTemplate="GDIJuggernautArtilleryShell"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="BattleshipArtilleryWarhead"
+		Name="BattleshipArtilleryWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="1000"
+				Radius="100"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="GDI_RIFLE"
+				VictimShroudRevealer="ArtilleryShroudRevealer"/>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIBattleshipArtilleryBombard"
+		Name="GDIBattleshipArtilleryBombard"
+		AttackRange="99999"
+		MinimumAttackRange="300"
+		ScatterLength="50"
+		ScatterRadius="50"
+		WeaponSpeed="300"
+		ClipSize="1"
+		ShotsPerBarrel="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<FiringDuration
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIBattleshipArtilleryBombardWeapon"
+				ProjectileTemplate="GDIBattleshipBombardMissile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIBattleshipArtilleryBombardWeapon"
+		Name="GDIBattleshipArtilleryBombardWeapon"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="8000"
+				DamageTaperOff="20"
+				Radius="60"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="BURNED"
+				VictimShroudRevealer="ArtilleryShroudRevealer">
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIBattleshipArtilleryBombardFORINTRO"
+		Name="GDIBattleshipArtilleryBombardFORINTRO"
+		AttackRange="99999"
+		MinimumAttackRange="300"
+		ScatterLength="50"
+		ScatterRadius="50"
+		WeaponSpeed="300"
+		ClipSize="1"
+		ShotsPerBarrel="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<FiringDuration
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDIBattleshipArtilleryBombardWeaponFORINTRO"
+				ProjectileTemplate="GDIBattleshipBombardMissile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIBattleshipArtilleryBombardWeaponFORINTRO"
+		Name="GDIBattleshipArtilleryBombardWeaponFORINTRO"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="50000"
+				DamageTaperOff="20"
+				Radius="100"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="BURNED"
+				VictimShroudRevealer="ArtilleryShroudRevealer">
+				<DamageScalarDetails
+					Scalar="0%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+</AssetDeclaration>

@@ -6,6 +6,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Dummy Prop -->
 		<Include source="DATA:GDI\Props\GDIAirstrikeSPBombingRunTarget.xml"	type="instance"/>
 		<!-- For Liquid T Transport -->
@@ -17,7 +18,7 @@
 		<!-- For GDI Commandoes -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
-		<!-- For Nod Stronghold Structures -->
+		<!-- For NOD Stronghold Structures -->
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSiloCR.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo06.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo08.xml" type="instance"/>
@@ -28,8 +29,10 @@
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding3.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding5.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding6.xml" type="instance"/>
-		<!-- For Nod Power Plant -->
+		<!-- For NOD Power Plant -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
+		<!-- For NOD Vertigo -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODVertigo_SPBombingRun.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
@@ -44,6 +47,54 @@
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
+
+	<!-- NOD Vertigo -->
+	<GameObject
+		id="NODVertigo_SPBombingRun"
+		inheritFrom="NODVertigo_SPBombingRun"/>
+
+	<WeaponTemplate
+		id="NODVertigoBomb_SPBombingRun"
+		Name="NODVertigoBomb_SPBombingRun"
+		AttackRange="25"
+		AcceptableAimDelta="20d"
+		WeaponSpeed="200"
+		FireSound="NOD_VertigoDropBomb"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		CanFireWhileMoving="true">
+		<FiringDuration
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<ClipReloadTime
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODVertigoBombWarhead_SPBombingRun"
+				ProjectileTemplate="NODVertigoBombProjectile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODVertigoBombWarhead_SPBombingRun"
+		Name="NODVertigoBombWarhead_SPBombingRun"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="1000"
+				Radius="160"
+				DamageType="CANNON"
+				DeathType="BURNED"
+				DamageFXType="GDI_RIFLE"/>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
 
 	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
 	<GameObject

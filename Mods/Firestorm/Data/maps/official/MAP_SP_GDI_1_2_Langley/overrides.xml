@@ -14,6 +14,10 @@
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIMissileBattery.xml" type="instance"/>
 		<!-- For GDI Sniper Team -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDISniperSquad.xml" type="instance"/>
+		<!-- For GDI Battleship -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units_SinglePlayerCampaign\GDIBattleship.xml" type="instance"/>
+		<!-- For GDI Hovercraft -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units_SinglePlayerCampaign\GDIHovercraft.xml" type="instance"/>
 		<!-- For NOD Shredder Turret -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODShredderTurretHub.xml" type="instance"/>
 		<!-- For NOD Laser Turret -->
@@ -28,6 +32,8 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures_SinglePlayerCampaign\GDIRefinerySPNoHarvester.xml" type="instance"/>
+		
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
@@ -37,19 +43,55 @@
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
 
-	<!-- Increased damage from 700 -->
+	<!-- GDI Battleship -->
+	<GameObject
+		id="GDIBattleship"
+		inheritFrom="GDIBattleship"/>
+
+	<!-- GDI Hovercraft -->
+	<GameObject
+		id="GDIHovercraft"
+		inheritFrom="GDIHovercraft"/>
+
+	<!-- Increased damage from 325 -->
 	<WeaponTemplate
 		id="GDIOrcaRocketWeaponWarhead"
 		Name="GDIOrcaRocketWeaponWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
 		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="800"
+				Damage="425"
 				Radius="8"
 				DamageType="ROCKET"
 				DeathType="EXPLODED"
-				DamageFXType="GDI_MISSILE"/>
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT">
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="VEHICLE"
+						Exclude="HARVESTER"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -292,6 +334,14 @@
 
 	<!-- Global Overrides -->
 	<!-- GDI -->
+	<GameObject
+		id="GDIRefinerySPNoHarvester"
+		inheritFrom="GDIRefinerySPNoHarvester"
+		BuildCost="2000"
+		BuildTime="20"
+		RefundValue="300"
+		EnergyProduction="-8"/>
+
 	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"

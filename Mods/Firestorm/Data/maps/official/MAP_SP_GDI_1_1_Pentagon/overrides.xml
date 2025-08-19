@@ -14,9 +14,8 @@
 		<!-- For GDI Firehawk -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
 		<!-- For NOD Carryall -->
-		<Include source="DATA:NOD\Units_SinglePlayerCampaign\NODCarryall_SP_Militants.xml" type="instance"/>
-		<Include source="DATA:NOD\Units_SinglePlayerCampaign\NODCarryall_SP_Rockets.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallInfantry.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODCarryallInfantry_SP_Militants.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODCarryallInfantry_SP_Rockets.xml" type="instance"/>
 		<!-- For NOD Venom -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVenom.xml" type="instance"/>
 		<!-- For NOD Vertigo -->
@@ -42,6 +41,7 @@
 		FireVeteranFX="FX_CyborgMinigunFireHeroic"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		ClipSize="3"
+		AntiMask="ANTI_AIRBORNE_INFANTRY ANTI_GROUND ANTI_AIRBORNE_VEHICLE"
 		ReAcquireDetailType="PRE_FIRE">
 		<FiringDuration
 			MinSeconds="0.1s"
@@ -228,7 +228,22 @@
 				</PassengerData>
 				<MemberTemplateStatusInfo
 					ThingTemplate="GDISniper"
-					ObjectStatus="CAN_SPOT_FOR_BOMBARD" />
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando_EA"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<ExitOffset
 					x="150" />
 			</HordeGarrisonContain>
@@ -268,8 +283,23 @@
 						Include="INFANTRY" />
 				</PassengerData>
 				<MemberTemplateStatusInfo
-					ThingTemplate="GDISniperSquad"
-					ObjectStatus="CAN_SPOT_FOR_BOMBARD" />
+					ThingTemplate="GDISniper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando_EA"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 				<ExitOffset
 					y="-200"
 					x="-200" />
@@ -340,52 +370,7 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Significantly increased speed | Made unkillable | Contain Max 6 -->
-	<GameObject
-		id="NODCarryallInfantry"
-		inheritFrom="NODCarryallInfantry">
-		<LocomotorSet
-			Locomotor="NODCarryallLocomotor"
-			Condition="NORMAL"
-			Speed="275.0"/>
-		<LocomotorSet
-			Locomotor="BasicHelicopterTaxiLocomotor"
-			Condition="TAXIING"
-			Speed="275"/>
-		<Behaviors>
-			<HordeTransportContain
-				xai:joinAction="Overwrite"
-				id="ModuleTag_Contain"
-				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
-				ContainMax="6"
-				Slots="6"
-				AllowEnemiesInside="false"
-				AllowAlliesInside="false"
-				AllowNeutralInside="false"
-				AllowOwnPlayerInsideOverride="true"
-				ShowPips="true"
-				KillPassengersOnDeath="true"
-				FlyOffMapOnEmpty="true">
-				<PassengerFilter
-					Rule="ANY"
-					Include="INFANTRY" />
-				<DieMuxData
-					DeathTypes="ALL" />
-				<PassengerData
-					BonePrefix="BONEGARRISON">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY" />
-				</PassengerData>
-			</HordeTransportContain>
-		</Behaviors>
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				MaxHealth="10000" />
-		</Body>
-	</GameObject>	
-
+	<!-- Significantly increased speed | Made unkillable -->
 	<GameObject
 		id="NODCarryallInfantry_SP_Militants"
 		inheritFrom="NODCarryallInfantry_SP_Militants">
@@ -399,14 +384,14 @@
 			Speed="275"/>
 		<Behaviors>
 			<HordeTransportContain
-				xai:joinAction="Overwrite"
 				id="ModuleTag_Contain"
+				xai:joinAction="Replace"
 				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
 				ContainMax="4"
 				Slots="4"
 				AllowEnemiesInside="false"
-				AllowAlliesInside="false"
-				AllowNeutralInside="false"
+				AllowAlliesInside="true"
+				AllowNeutralInside="true"
 				AllowOwnPlayerInsideOverride="true"
 				ShowPips="true"
 				EnterSound="VehicleEnter"
@@ -415,7 +400,7 @@
 				FlyOffMapOnEmpty="true">
 				<PassengerFilter
 					Rule="ANY"
-					Include="INFANTRY" />
+					Include="INFANTRY VEHICLE" />
 				<DieMuxData
 					DeathTypes="ALL" />
 				<InitialPayload
@@ -426,16 +411,34 @@
 					Count="2" />
 				<PassengerData
 					BonePrefix="BONEGARRISON">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY" />
+					<Filter Rule="ANY"
+						Include="INFANTRY VEHICLE" />
 				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando_EA"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 			</HordeTransportContain>
 		</Behaviors>
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
-				MaxHealth="10000" />
+				xai:joinAction="Replace"
+				MaxHealth="99999"/>
 		</Body>
 	</GameObject>
 
@@ -452,14 +455,14 @@
 			Speed="275"/>
 		<Behaviors>
 			<HordeTransportContain
-				xai:joinAction="Overwrite"
 				id="ModuleTag_Contain"
+				xai:joinAction="Replace"
 				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
 				ContainMax="3"
 				Slots="3"
 				AllowEnemiesInside="false"
-				AllowAlliesInside="false"
-				AllowNeutralInside="false"
+				AllowAlliesInside="true"
+				AllowNeutralInside="true"
 				AllowOwnPlayerInsideOverride="true"
 				ShowPips="true"
 				EnterSound="VehicleEnter"
@@ -468,7 +471,7 @@
 				FlyOffMapOnEmpty="true">
 				<PassengerFilter
 					Rule="ANY"
-					Include="INFANTRY" />
+					Include="INFANTRY VEHICLE" />
 				<DieMuxData
 					DeathTypes="ALL" />
 				<InitialPayload
@@ -476,16 +479,34 @@
 					Count="3" />
 				<PassengerData
 					BonePrefix="BONEGARRISON">
-					<Filter
-						Rule="NONE"
-						Include="INFANTRY" />
+					<Filter Rule="ANY"
+						Include="INFANTRY VEHICLE" />
 				</PassengerData>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDISniper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneTrooper"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneRaider"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDIZoneDefender"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo
+					ThingTemplate="GDICommando_EA"
+					ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 			</HordeTransportContain>
 		</Behaviors>
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
-				MaxHealth="10000" />
+				xai:joinAction="Replace"
+				MaxHealth="99999"/>
 		</Body>
 	</GameObject>
 

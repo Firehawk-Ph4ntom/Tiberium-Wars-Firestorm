@@ -191,7 +191,8 @@
 					<Animation AnimationName="NU_TWILIGHT_BIDA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="20"/>
 					<Animation AnimationName="NU_TWILIGHT_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="5"/>
 					<Animation AnimationName="NU_TWILIGHT_BIFB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end;
+					if Prev == "STATE_RIDERLESS" then CurDrawableSetTransitionAnimState("TRANS_Riderless_End") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMING_OUT_OF_FACTORY" StateName="STATE_Built">
@@ -227,7 +228,7 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES" StateName="STATE_Run">
 					<Animation AnimationName="NU_TWILIGHT_RUNA" AnimationMode="LOOP" Distance="80" AnimationBlendTime="15"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Built" then CurDrawableSetTransitionAnimState("TRANS_built") end; if Prev == "STATE_RIDERLESS" then CurDrawableSetTransitionAnimState("TRANS_Riderless_End") end; </Script>
 					<FXEvent Frame="40" Effect="FX_NODAvatarFootprint_L" Bone="AC_LFTOE" FireWhenSkipped="true"/>
 					<FXEvent Frame="20" Effect="FX_NODAvatarFootprint_R" Bone="AC_RFTOE" FireWhenSkipped="true"/>
 				</AnimationState>
@@ -242,7 +243,11 @@
 					<Animation AnimationName="NU_TWILIGHT_AIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="5"/>
 					<Animation AnimationName="NU_TWILIGHT_AIFB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="5"/>
 					<Animation AnimationName="NU_TWILIGHT_AIFC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationPriority="5"/>
-					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; if Prev == "STATE_RIDERLESS" then CurDrawableSetTransitionAnimState("TRANS_Riderless_End") end; </Script>
+				</AnimationState>
+				<!-- For Campaign -->
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RIDERLESS" StateName="STATE_Built">
+					<Animation AnimationName="NU_TWILIGHT_BLDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
 					<Animation AnimationName="NU_TWILIGHT_BATA" AnimationMode="ONCE" AnimationPriority="10"/>
@@ -252,6 +257,9 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
 					<Animation AnimationName="NU_TWILIGHT_BLDA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_Riderless_End">
+					<Animation AnimationName="NU_TWILIGHT_BLDA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.1" AnimationSpeedFactorMax="0.1"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="AC_TORSO">

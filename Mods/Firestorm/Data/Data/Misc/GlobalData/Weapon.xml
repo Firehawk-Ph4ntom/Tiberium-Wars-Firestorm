@@ -3,6 +3,183 @@
 
 	<!-- Misc -->
 
+	<!-- Used for the GDI Campaign Finale -->
+	<WeaponTemplate
+		id="NODDarkTwilightArtilleryNuclearCannon"
+		Name="NODDarkTwilightArtilleryNuclearCannon"
+		AttackRange="525"
+		ScatterLength="30"
+		ScatterRadius="30"
+		MinimumAttackRange="150"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="450"
+		FireSound="NUTwilight_CannonFire"
+		FireFX="FX_NODBansheePlasmaFire"
+		FireVeteranFX="FX_NODBansheePlasmaFireHeroic"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<ClipReloadTime
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDarkTwilightArtilleryNuclearWarhead"
+				ProjectileTemplate="NODDarkTwilightNuclearTiberiumBombProjectile">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODDarkTwilightNuclearTiberiumBombProjectileHeroic"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDarkTwilightArtilleryNuclearWarhead"
+		Name="NODDarkTwilightArtilleryNuclearWarhead"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="1000"
+				Radius="100"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="EXPLODED"
+				VictimShroudRevealer="BigArtilleryShroudRevealer">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDarkTwilightArtilleryNuclearCannonUpgraded"
+		Name="NODDarkTwilightArtilleryNuclearCannonUpgraded"
+		AttackRange="525"
+		ScatterLength="30"
+		ScatterRadius="30"
+		MinimumAttackRange="150"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="450"
+		FireSound="NUTwilight_CannonFire"
+		FireFX="FX_NODBansheePlasmaFireBlue"
+		FireVeteranFX="FX_NODBansheePlasmaFireBlueHeroic"
+		ClipSize="1"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<FiringDuration
+			MinSeconds="1s"
+			MaxSeconds="1s"/>
+		<ClipReloadTime
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="NODDarkTwilightArtilleryNuclearWarheadUpgraded"
+				ProjectileTemplate="NODDarkTwilightNuclearTiberiumBombProjectileBlue">
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="NODDarkTwilightNuclearTiberiumBombProjectileBlueHeroic"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="NODDarkTwilightArtilleryNuclearWarheadUpgraded"
+		Name="NODDarkTwilightArtilleryNuclearWarheadUpgraded"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="1200"
+				Radius="100"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="EXPLODED"
+				VictimShroudRevealer="BigArtilleryShroudRevealer">
+				<DamageScalarDetails
+					Scalar="500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDINuclearMissileSeedWeapon"
+		Name="GDINuclearMissileSeedWeapon"
+		AttackRange="50000"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_GDINukeSeed"/>
+			<ReportWeaponFiredStatNugget/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDINuclearMissileDeathWeapon"
+		Name="GDINuclearMissileDeathWeapon"
+		AttackRange="50000"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<DamageNugget
+				Damage="500000"
+				DamageTaperOff="5000"
+				Radius="1500"
+				DamageType="CANNON"
+				DeathType="DETONATED">
+				<DamageScalarDetails
+					Scalar="2500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				DelayTimeSeconds="0.5s"
+				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING"
+				Damage="50000"
+				Radius="2500"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="DETONATED"
+				CylinderAOE="true">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="AIRCRAFT">
+					<!-- Beacon has AIRCRAFT Kindof as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="1800"
+				Suppression="5000"
+				DurationSeconds="7s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
 	<WeaponTemplate
 		id="MutantSkirmisherRangeFinder"
 		Name="MutantSkirmisherRangeFinder"
@@ -2478,136 +2655,11 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="TiberiumCrystalWeapon2"
-		Name="TiberiumCrystalWeapon2"
+		id="TiberiumCrystalSlowDownWeapon"
+		Name="TiberiumCrystalSlowDownWeapon"
 		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR"
 		ShouldPlayUnderAttackEvaEvent="false">
 		<Nuggets>
-			<AttributeModifierNugget
-				PartitionFilterTestType="SPHERE"
-				AttributeModifierName="AttributeModifier_GreenTiberium"
-				Radius="30.0">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Include="HARVESTER"
-					Exclude="HUSK"/>
-			</AttributeModifierNugget>
-			<AttributeModifierNugget
-				Radius="30"
-				PartitionFilterTestType="CIRCLE"
-				ForbiddenTargetObjectStatus="IN_STASIS"
-				ForbiddenTargetModelCondition="USER_20"
-				AttributeModifierName="Modifier_TibCrystalGoo">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Include="VEHICLE"
-					Exclude="HARVESTER">
-					<!-- GDI Vehicles -->
-					<ExcludeThing>GDIFalcon</ExcludeThing>
-					<ExcludeThing>GDISandstorm</ExcludeThing>
-					<ExcludeThing>GDISonicTank</ExcludeThing>
-					<ExcludeThing>GDIDisruptor</ExcludeThing>
-					<ExcludeThing>GDIMARV</ExcludeThing>
-					<!-- NOD Vehicles -->
-					<ExcludeThing>NODAvengerTank</ExcludeThing>
-					<ExcludeThing>NODBeamCannon</ExcludeThing>
-					<ExcludeThing>NODToxinTank</ExcludeThing>
-					<!-- Alien Vehicles -->
-					<ExcludeThing>AlienGunWalker</ExcludeThing>
-					<ExcludeThing>AlienContaminator</ExcludeThing>
-					<ExcludeThing>AlienRazorback</ExcludeThing>
-					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
-					<ExcludeThing>AlienSeekerTank</ExcludeThing>
-					<ExcludeThing>AlienDevourerTank</ExcludeThing>
-					<ExcludeThing>AlienCorrupter</ExcludeThing>
-					<ExcludeThing>AlienStingray</ExcludeThing>
-					<ExcludeThing>AlienMechapede</ExcludeThing>
-					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
-					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
-					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
-					<ExcludeThing>AlienExplorer</ExcludeThing>
-					<ExcludeThing>AlienGuardianTank</ExcludeThing>
-					<ExcludeThing>AlienIrradiator</ExcludeThing>
-					<ExcludeThing>AlienReaver</ExcludeThing>
-				</SpecialObjectFilter>
-			</AttributeModifierNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="BlueTiberiumCrystalWeapon2"
-		Name="BlueTiberiumCrystalWeapon2"
-		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR"
-		ShouldPlayUnderAttackEvaEvent="false">
-		<Nuggets>
-			<AttributeModifierNugget
-				PartitionFilterTestType="SPHERE"
-				AttributeModifierName="AttributeModifier_BlueTiberium"
-				Radius="30.0">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Include="HARVESTER"
-					Exclude="HUSK"/>
-			</AttributeModifierNugget>
-			<AttributeModifierNugget
-				Radius="30"
-				PartitionFilterTestType="CIRCLE"
-				ForbiddenTargetObjectStatus="IN_STASIS"
-				ForbiddenTargetModelCondition="USER_20"
-				AttributeModifierName="Modifier_TibCrystalGoo">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Include="VEHICLE"
-					Exclude="HARVESTER">
-					<!-- GDI Vehicles -->
-					<ExcludeThing>GDIFalcon</ExcludeThing>
-					<ExcludeThing>GDISandstorm</ExcludeThing>
-					<ExcludeThing>GDISonicTank</ExcludeThing>
-					<ExcludeThing>GDIDisruptor</ExcludeThing>
-					<ExcludeThing>GDIMARV</ExcludeThing>
-					<!-- NOD Vehicles -->
-					<ExcludeThing>NODAvengerTank</ExcludeThing>
-					<ExcludeThing>NODBeamCannon</ExcludeThing>
-					<ExcludeThing>NODToxinTank</ExcludeThing>
-					<!-- Alien Vehicles -->
-					<ExcludeThing>AlienGunWalker</ExcludeThing>
-					<ExcludeThing>AlienContaminator</ExcludeThing>
-					<ExcludeThing>AlienRazorback</ExcludeThing>
-					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
-					<ExcludeThing>AlienSeekerTank</ExcludeThing>
-					<ExcludeThing>AlienDevourerTank</ExcludeThing>
-					<ExcludeThing>AlienCorrupter</ExcludeThing>
-					<ExcludeThing>AlienStingray</ExcludeThing>
-					<ExcludeThing>AlienMechapede</ExcludeThing>
-					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
-					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
-					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
-					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
-					<ExcludeThing>AlienExplorer</ExcludeThing>
-					<ExcludeThing>AlienGuardianTank</ExcludeThing>
-					<ExcludeThing>AlienIrradiator</ExcludeThing>
-					<ExcludeThing>AlienReaver</ExcludeThing>
-				</SpecialObjectFilter>
-			</AttributeModifierNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="RedTiberiumCrystalWeapon2"
-		Name="RedTiberiumCrystalWeapon2"
-		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR"
-		ShouldPlayUnderAttackEvaEvent="false">
-		<Nuggets>
-			<AttributeModifierNugget
-				PartitionFilterTestType="SPHERE"
-				AttributeModifierName="AttributeModifier_RedTiberium"
-				Radius="30.0">
-				<SpecialObjectFilter
-					Rule="NONE"
-					Include="HARVESTER"
-					Exclude="HUSK"/>
-			</AttributeModifierNugget>
 			<AttributeModifierNugget
 				Radius="30"
 				PartitionFilterTestType="CIRCLE"
@@ -2834,6 +2886,55 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="BlueTiberiumCrystalSlowDownWeapon"
+		Name="BlueTiberiumCrystalSlowDownWeapon"
+		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR"
+		ShouldPlayUnderAttackEvaEvent="false">
+		<Nuggets>
+			<AttributeModifierNugget
+				Radius="30"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="Modifier_TibCrystalGoo">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="VEHICLE"
+					Exclude="HARVESTER">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDIDisruptor</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAvengerTank</ExcludeThing>
+					<ExcludeThing>NODBeamCannon</ExcludeThing>
+					<ExcludeThing>NODToxinTank</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienGunWalker</ExcludeThing>
+					<ExcludeThing>AlienContaminator</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienIrradiator</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="RedTiberiumCrystalWeapon"
 		Name="RedTiberiumCrystalWeapon"
 		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR">
@@ -3012,6 +3113,55 @@
 				</SpecialObjectFilter>
 				<SpawnTemplate>Viceroid</SpawnTemplate>
 			</DamageAndSpawnNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="RedTiberiumCrystalSlowDownWeapon"
+		Name="RedTiberiumCrystalSlowDownWeapon"
+		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR"
+		ShouldPlayUnderAttackEvaEvent="false">
+		<Nuggets>
+			<AttributeModifierNugget
+				Radius="30"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="Modifier_TibCrystalGoo">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="VEHICLE"
+					Exclude="HARVESTER">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDIDisruptor</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAvengerTank</ExcludeThing>
+					<ExcludeThing>NODBeamCannon</ExcludeThing>
+					<ExcludeThing>NODToxinTank</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienGunWalker</ExcludeThing>
+					<ExcludeThing>AlienContaminator</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienIrradiator</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -7850,7 +8000,8 @@
 		FireFX="FX_GDIWatchTowerFire"
 		FireVeteranFX="FX_GDIWatchTowerFireHeroic"
 		ClipSize="8"
-		RotatingTurret="true">
+		RotatingTurret="true"
+		CanFireWhileMoving="true">
 		<ClipReloadTime
 			MinSeconds="0.01s"
 			MaxSeconds="0.01s"/>
@@ -7876,7 +8027,8 @@
 		FireFX="FX_GDIWatchTowerFire"
 		FireVeteranFX="FX_GDIWatchTowerFireHeroic"
 		ClipSize="8"
-		RotatingTurret="true">
+		RotatingTurret="true"
+		CanFireWhileMoving="true">
 		<ClipReloadTime
 			MinSeconds="0.01s"
 			MaxSeconds="0.01s"/>
@@ -26218,25 +26370,6 @@
 				Radius="100"
 				Suppression="100"
 				DurationSeconds="5s"/>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="NODVertigoBombWarhead_SPBombingRun"
-		Name="NODVertigoBombWarhead_SPBombingRun"
-		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
-		FireFX="FX_FuelAirBomb">
-		<Nuggets>
-			<DamageNugget
-				Damage="10000000"
-				Radius="180"
-				DamageType="GRENADE"
-				DeathType="BURNED"
-				DamageFXType="GDI_RIFLE"/>
-			<SuppressionNugget
-				Radius="250"
-				Suppression="250"
-				DurationSeconds="7.5s"/>
 		</Nuggets>
 	</WeaponTemplate>
 

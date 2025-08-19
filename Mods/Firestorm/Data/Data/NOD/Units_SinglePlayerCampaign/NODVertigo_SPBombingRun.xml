@@ -1,0 +1,28 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Tags/>
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVertigo.xml"/>
+	</Includes>
+	<GameObject id="NODVertigo_SPBombingRun" inheritFrom="NODVertigo" EditorName="NODVertigo_SPBombingRun">
+		<LocomotorSet Locomotor="GenericJetAircraftLocomotor" Condition="NORMAL" Speed="150"/>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODVertigoBomb_SPBombingRun" />
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" xai:joinAction="Remove" />
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" KeepsParkingSpaceWhenAirborne="true" AutoAcquireEnemiesWhenIdle="YES" CirclesForAttack="true">
+				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" xai:joinAction="Replace" MaxHealth="50000"/>
+		</Body>
+		<VisionInfo VisionRange="350" ShroudClearingRange="500"/>
+	</GameObject>
+</AssetDeclaration>

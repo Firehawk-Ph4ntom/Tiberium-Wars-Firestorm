@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Tags></Tags>
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="GDIHovercraft" inheritFrom="BaseVehicle" KindOf="SELECTABLE CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" Description="Desc:GDIHovercraft" TypeDescription="Type:GDIHovercraft" Side="GDI" EditorName="GDIHovercraft" BuildTime="15" CommandSet="GenericUnitNoAttackCommandSet" SelectPortrait="Portrait_GDIHovercraft" ButtonImage="Portrait_GDIHovercraft" BuildCost="1500">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIHovercraft</DisplayName>
+		<ArmorSet Armor="GenericHoverVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="HovercraftLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUHover" />
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="OVER_WATER">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShattererHoverWash" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShattererHoverDust" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShattererDustRocksDesert" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="9.5s">
+				<Sound Type="INITIAL" List="GDI_ZoneShatterer_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="45.0" MinorRadius="25.0" Height="20.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArraySound>
+			<AudioEntry Sound="GDI_Shatterer_IdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="GDI_Shatterer_MoveByLoop" AudioType="soundMoveLoop"/>
+			<AudioEntry Sound="GDI_Shatterer_MoveStart" AudioType="soundMoveStart"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="100" ShroudClearingRange="200"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>
