@@ -27,6 +27,17 @@ IF NOT EXIST "%SDK_DIR%Mods\%modname%" (
 
 SETLOCAL EnableDelayedExpansion
 
+SET /A "modname_len=0"
+FOR /L %%i IN (0,1,255) DO IF NOT "!modname:~%%i,1!"=="" SET /A "modname_len+=1"
+
+IF !modname_len! GTR 15 (
+	@ECHO Error: Mod name length exceeds 15 characters. Please re-input.
+	ENDLOCAL
+	SET "modname="
+	SET "modversion="
+	GOTO :get_modname
+)
+
 :get_modversion
 IF NOT DEFINED modversion (
 	SET /P "modversion=Enter Mod Version: "
@@ -37,46 +48,13 @@ IF "!modversion!"=="" (
 	GOTO :get_modversion
 )
 
-IF "!modversion:~0,1!"=="." (
-	@ECHO Error: Mod version cannot start with a dot. Please re-input.
-	SET "modversion="
-	GOTO :get_modversion
-)
-
-IF "!modversion:~-1!"=="." (
-	@ECHO Error: Mod version cannot end with a dot. Please re-input.
-	SET "modversion="
-	GOTO :get_modversion
-)
-
-ECHO !modversion! | FIND ".." >NUL
-IF NOT ERRORLEVEL 1 (
-	@ECHO Error: Mod version cannot contain multiple consecutive dots. Please re-input.
-	SET "modversion="
-	GOTO :get_modversion
-)
-
-FOR /F "delims=0123456789." %%A IN ("!modversion!") DO (
-	@ECHO Error: Mod version contains invalid characters. Please use only digits and dots.
-	SET "modversion="
-	GOTO :get_modversion
-)
-
-SET /A "modname_len=0"
-FOR /L %%i IN (0,1,255) DO IF NOT "!modname:~%%i,1!"=="" SET /A "modname_len+=1"
-
 SET /A "modversion_len=0"
 FOR /L %%i IN (0,1,255) DO IF NOT "!modversion:~%%i,1!"=="" SET /A "modversion_len+=1"
 
-:: +1 for the underscore
-SET /A "total_len=!modname_len! + !modversion_len! + 1"
-
-IF !total_len! GTR 15 (
-	@ECHO Error: The combined length of mod name and version exceeds 15 characters. Please re-input.
-	ENDLOCAL
-	SET "modname="
+IF !modversion_len! GTR 5 (
+	@ECHO Error: Mod version length exceeds 5 characters. Please re-input.
 	SET "modversion="
-	GOTO :get_modname
+	GOTO :get_modversion
 )
 
 :: Set file paths
