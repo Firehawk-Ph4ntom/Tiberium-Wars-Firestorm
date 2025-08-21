@@ -372,6 +372,10 @@ function OnNODVenomCreated(self)
 	ObjectHideSubObjectPermanently( self, "SIGGEN", true )
 end
 
+function OnNODMilitantIsConfessor(self)
+	ObjectGrantUpgrade( self, "Upgrade_MilitantIsConfessor" )
+end
+
 function OnNODAttackBikeCreated(self)
 	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILEL", true )
 	ObjectHideSubObjectPermanently( self, "TIBCOREMISSILER", true )
@@ -589,7 +593,7 @@ function SquadLookupTable(x)  -- x = object template
 	-- NOD Infantry
 	-- Militant Squad
 	elseif strfind(tostring(x), "BC36257A") ~= nil then
-		squadDelay = 9*delay1
+		squadDelay = 7*delay1
 	-- Militant Rocket Squad
 	elseif strfind(tostring(x), "89C45844") ~= nil then
 		squadDelay = 2*delay1
