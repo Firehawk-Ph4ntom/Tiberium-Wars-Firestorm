@@ -1,17 +1,16 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
-		<Include type="all" source="ART:Firestorm\Units\NODCommando\NUPLToxinTrooperHeroic.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCommando\NUToxinTrooper.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCommando\NUToxinTrooper_HC.xml"/>
-		<Include type="all" source="ART:Firestorm\Units\NODCommando\NUToxinTrooperHeroic.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODCommando\NUToxinTrooperBlue.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCommando\GUGAR_NUCOMM.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODCommando\NUTOXINTROOPER.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="NODCommando" inheritFrom="BaseInfantry" SelectPortrait="Portrait_NODCommando" ButtonImage="Portrait_NODCommando" Side="NOD" BuildCost="2000" BuildTime="20" CommandSet="NODCommandoCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SKIRMISH_AI_DONT_GARRISON CAN_PLACE_CHARGE STEALTH_GARRISON CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="GUN" VoicePriority="124" EditorName="NODCommando" Description="Desc:NODCommando" TypeDescription="Type:NODCommando" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
+	<GameObject id="NODCommando" inheritFrom="BaseInfantry" SelectPortrait="Portrait_NODCommando" ButtonImage="Portrait_NODCommando" Side="NOD" BuildCost="2000" BuildTime="20" CommandSet="NODCommandoCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS INFANTRY SCORE UNIQUE_UNIT PATH_THROUGH_INFANTRY SNIPER SKIRMISH_AI_DONT_GARRISON STEALTH_GARRISON CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="BLAST" VoicePriority="124" EditorName="NODCommando" Description="Desc:NODCommando" TypeDescription="Type:NODCommando" UnitTypeIcon="CommandoIcon" MaxSimultaneousOfType="1">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCommando</DisplayName>
-		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODSecretShrine</RequiredObject>
@@ -32,21 +31,23 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="FXCommando_FP"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USER_2">
+					<Model Name="GUGAR_NUCOMM"/>
+					<Texture Original="NUToxinTrooper" New="NUToxinTrooperBlue"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Model Name="GUGAR_NUCOMM"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="TERTIARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
 					<Model Name="FXWEBBEDGUY"/>
 				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3 USER_4">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
 					<Model Name="NUTOXINTROOPER_SKN"/>
-					<Texture Original="NUToxinTrooper" New="NUPLToxinTrooperHeroic"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3">
-					<Model Name="NUTOXINTROOPER_SKN"/>
-					<Texture Original="NUToxinTrooper" New="NUToxinTrooperHeroic"/>
+					<Texture Original="NUToxinTrooper" New="NUToxinTrooperBlue"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
@@ -131,7 +132,7 @@
 					<Animation AnimationName="GU_Cmmndo_RUNA" AnimationMode="LOOP" Distance="90"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A">
-					<Animation AnimationName="GU_Cmmndo_ATKA" AnimationMode="LOOP"/>
+					<Animation AnimationName="GU_Cmmndo_ATKA" AnimationMode="ONCE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED" StateName="STATE_Selected">
 					<Animation AnimationName="GU_Cmmndo_ATKA" AnimationMode="MANUAL"/>
@@ -207,135 +208,17 @@
 					<Model Name="FXRAGEDSUPPRESSED.FXRAGED"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="1">
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" WeaponSlotID="1" LaserStateID="1" UseDistortionShader="true">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
 						<Texture Name="Texture1">
-							<Value>FXObeliskLaser</Value>
+							<Value>FXRailgunCoreDistortion</Value>
 						</Texture>
 						<Texture Name="Texture2">
-							<Value>FXLaserOverlay</Value>
+							<Value>FXRailGunCoreMask</Value>
 						</Texture>
 					</Constants>
 				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="1">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXObeliskLaserHeroic</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXLaserOverlay</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="1">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXPurifyingLaser</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXPurifyingLaser</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="1">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXPurifyingLaserHeroic</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXPurifyingLaserHeroic</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDraw2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="2">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXObeliskLaser</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXLaserOverlay</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawVeterancy2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="2">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXObeliskLaserHeroic</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXLaserOverlay</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawUpgrade2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="2">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXPurifyingLaser</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXPurifyingLaser</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy2" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="2">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXPurifyingLaserHeroic</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXPurifyingLaserHeroic</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" LaserStateID="1" UseDistortionShader="true">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXAlienOverlay</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXAlienOverlay</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_03"/>
-			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDistort2" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="50" LaserStateID="2" UseDistortionShader="true">
-				<FXShader ShaderName="Laser.fx">
-					<Constants>
-						<Texture Name="Texture1">
-							<Value>FXAlienOverlay</Value>
-						</Texture>
-						<Texture Name="Texture2">
-							<Value>FXAlienOverlay</Value>
-						</Texture>
-					</Constants>
-				</FXShader>
-				<ObjectStatusValidation RequiredStatus="WEAPON_UPGRADED_03"/>
 			</LaserDraw>
 		</Draws>
 		<Behaviors>
@@ -386,17 +269,13 @@
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE BEACON"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_LEAST_MOVEMENT">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCommandoLaserCarbine"/>
-					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCommandoPurifyingLaserCarbine" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="SECONDARY_WEAPON" Template="NODCommandoSatchelChargeDispatchWeapon"/>
-					<Weapon Ordering="TERTIARY_WEAPON" Template="NODCommandoLaserCarbineContained"/>
-					<Weapon Ordering="TERTIARY_WEAPON" Template="NODCommandoPurifyingLaserCarbineContained" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCommandoAntiMaterielRifle"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODCommandoAntiMaterielRifleBlueTibCore" ObjectStatus="WEAPON_UPGRADED_01"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
-			<LaserState id="ModuleTag_LaserState2" LaserId="2"/>
 			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
-				<InvisibilityNugget EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" ForbiddenConditions="MOVING ATTACKING PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A RELOADING_A USING_WEAPON_A PREATTACK_B FIRING_B FIRING_OR_PREATTACK_B RELOADING_B USING_WEAPON_B" ForbiddenConditionExceptions="MOVING MOVING_OUT_OF_THE_WAY"/>
+				<InvisibilityNugget HintDetectableStates="IS_ATTACKING" ForbiddenStatus="IS_FIRING_WEAPON IS_AIMING_WEAPON ENCLOSED"/>
 			</InvisibilityUpdate>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="0.5s" Suppressability="1000" SuppressionDuration="1.5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
 			<FindCoverBehavior id="ModuleTag_FCB" CoverScanRange="10.0" AttributeModifierInCover="Modifier_Cover"/>
@@ -404,33 +283,18 @@
 				<Key>GDI_MissileSoldier_FS</Key>
 			</LargeGroupAudioUpdate>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
-			<!-- Satchel Charge -->
-			<SpecialPower id="ModuleTag_SatchelCharge" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_SatchelChargeUpdate" SpecialPowerTemplate="SpecialPower_PlaceSatchelCharge" SpecialWeapon="NODCommandoSatchelChargeWeapon" UnpackTime="0.1s" PackTime="0s" StartAbilityRange="15.0" BusyForDuration="0.1s" WhichSpecialWeapon="1" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK IGNORE_FACING_CHECK"/>
 			<!-- Deploy Beacon -->
 			<SpecialPower id="ModuleTag_DeployBeacon" SpecialPowerTemplate="SpecialPowerDeployBeacon" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_SpecialPowerBeaconFire" SpecialPowerTemplate="SpecialPowerDeployBeacon" StartAbilityRange="0.1" FaceTarget="true" SpecialWeapon="NODShadowSquadBeaconWeapon" WhichSpecialWeapon="2" WeaponSlotType="SECONDARY_WEAPON"/>
-			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			<StatusBitsUpgrade id="ModuleTag_BlueTibCoreUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_Veterancy_Upgrade" StatusToSet="WEAPON_UPGRADED_03" StatusToClear="WEAPON_UPGRADED_02">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_Veterancy_ModelCondition" AddConditionFlags="USER_3">
-				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
-			</ModelConditionUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
-				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PurifyingLaserModelCondition" AddConditionFlags="USER_4">
-				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
-			</ModelConditionUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
-				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
-			</AudioLoopUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" Permanent="true" AddConditionFlags="USER_2">
+			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueTibCoreAudioLoop" SoundToPlay="NOD_TiberiumCoreMissile_Upgrade">
+				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODTiberiumInfusionUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODCyberneticAugmentationUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
@@ -460,12 +324,10 @@
 			<AudioEntry Sound="NOD_CobraCommando_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="NOD_CobraCommando_VoiceSelectMS" AudioType="voiceSelect"/>
 			<AudioEntry Sound="NOD_CobraCommando_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
-			<NamedEntry Sound="NOD_CobraCommando_VoiceAttack" Name="InitiatePlaceSatchelCharge"/>
-			<NamedEntry Sound="NOD_CobraCommando_VoiceAttack" Name="InitiatePlaceSatchelChargeSticky"/>
 			<NamedEntry Sound="NOD_CobraCommando_VoiceMove" Name="InitiatePlaceArtilleryBeacon"/>
 		</AudioArrayVoice>
 		<EvaEvents EvaEventDetectedEnemy="EnemyCommandoDetected" EvaEnemyObjectSightedEvent="EnemyCommandoDetected"/>
-		<VisionInfo VisionRange="350" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<VisionInfo VisionRange="550" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="3" UseCrushAttack="false"/>
 	</GameObject>
 </AssetDeclaration>

@@ -1,0 +1,34 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="NODCommandoAntiMaterielRifleShell" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="NOD" EditorName="NODCommandoAntiMaterielRifleShell" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXSHELL02"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODCommandoAntiMaterielShellRings" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="33%" SecondPercentIndent="66%" FlightPathAdjustDistPerSecond="300" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true" FlightPathAdjustStraightOnly="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Upgraded Projectile -->
+	<GameObject id="NODCommandoAntiMaterielRifleShellBlueTibCore" inheritFrom="NODCommandoAntiMaterielRifleShell" EditorName="NODCommandoAntiMaterielRifleShellBlueTibCore">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXWHITESHELL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODCommandoAntiMaterielShellRingsBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+</AssetDeclaration>
