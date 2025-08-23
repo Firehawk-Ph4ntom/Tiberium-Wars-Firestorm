@@ -127,6 +127,13 @@
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Fanatic_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED EXPLODED LASERED DETONATED"/>
+			</SlowDeath>
 			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_InfGibsRad</OCL>
@@ -134,31 +141,46 @@
 				<Sound Type="INITIAL" List="NOD_Fanatic_VoiceDie"/>
 				<DieMuxData DeathTypes="POISONED"/>
 			</SlowDeath>
-			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+			<SlowDeath id="ModuleTag_OCLRadBlue" SinkRate="10">
 				<OCL Type="INITIAL">
-					<OCL>OCL_InfGibsChar</OCL>
+					<OCL>OCL_InfGibsRadBlue</OCL>
 				</OCL>
 				<Sound Type="INITIAL" List="NOD_Fanatic_VoiceDie"/>
-				<DieMuxData DeathTypes="BURNED DETONATED EXPLODED LASERED"/>
+				<DieMuxData DeathTypes="POISONED_BETA"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRadRed" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRadRed</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Fanatic_VoiceDie"/>
+				<DieMuxData DeathTypes="EXTRA_5"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DeathFlags="DEATH_1" DestructionDelay="8.5s">
 				<Sound Type="INITIAL" List="NOD_Fanatic_VoiceDie"/>
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED POISONED"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED LASERED EXPLODED POISONED POISONED_BETA EXTRA_5 DETONATED"/>
 			</SlowDeath>
 			<SlowDeath id="ModuleTag_Vaporise" SinkDelay="0s" SinkRate="0.0" DeathFlags="DEATH_2" Fade="true" FadeDelay="0.5s" FadeTime="0.45s" DestructionDelay="2.25s">
 				<DieMuxData DeathTypes="DETONATED"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXListBlood">
-				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED BURNED LASERED EXPLODED POISONED"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED LASERED EXPLODED POISONED POISONED_BETA EXTRA_5 DETONATED"/>
 				<Event Index="onDeath" FX="FX_InfBlood"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXListScorch">
-				<DieMuxData DeathTypes="DETONATED BURNED LASERED EXPLODED"/>
+				<DieMuxData DeathTypes="BURNED LASERED EXPLODED POISONED_BETA EXTRA_5 DETONATED"/>
 				<Event Index="onDeath" FX="FX_InfScorch"/>
 			</FXListBehavior>
 			<FXListBehavior id="ModuleTag_FXListRad">
 				<DieMuxData DeathTypes="POISONED"/>
 				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRadBlue">
+				<DieMuxData DeathTypes="POISONED_BETA"/>
+				<Event Index="onDeath" FX="FX_InfRadGooBlue"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRadRed">
+				<DieMuxData DeathTypes="EXTRA_5"/>
+				<Event Index="onDeath" FX="FX_InfRadGooRed"/>
 			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
