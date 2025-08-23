@@ -1,4 +1,5 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Neutral Multiplayer Beacon -->
 	<GameObject id="MultiplayerBeacon" Side="Neutral" KindOf="BEACON UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE IGNORED_IN_FINDPOSITIONAROUND AIRCRAFT RESIST_EMP" EditorName="MultiplayerBeacon" EditorSorting="MISC_MAN_MADE">
 		<DisplayName>CONTROLBAR:Beacon</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
@@ -6,8 +7,8 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GPFlareGeo"/>
-					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="MultiplayerBeaconFlare2" FollowBone="false"/>
-					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="MultiplayerBeaconFlareGlow" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIMultiplayerBeaconFlare" FollowBone="false"/>
+					<ParticleSysBone BoneName="FXBone01" FXParticleSystemTemplate="GDIMultiplayerBeaconFlareGlow" FollowBone="false"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER"/>
@@ -25,5 +26,17 @@
 		<Body>
 			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
 		</Body>
+	</GameObject>
+	<!-- Alien Multiplayer Beacon -->
+	<GameObject id="AlienMultiplayerBeacon" inheritFrom="MultiplayerBeacon" EditorName="AlienMultiplayerBeacon">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="ABFLAREGEO_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER"/>
+			</ScriptedModelDraw>
+		</Draws>
 	</GameObject>
 </AssetDeclaration>
