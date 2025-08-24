@@ -1,4 +1,5 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Explosion -->
 	<GameObject id="GDICommandoIonStrikeExplosion" Side="GDI" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE PASS_EXPERIENCE_TO_PRODUCER" EditorName="GDICommandoIonStrikeExplosion">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -41,7 +42,7 @@
 		</Draws>
 		<Behaviors>
 			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.8s" MaxLifetime="1.8s"/>
-			<FireWeaponWhenDead id="ModuleTag_FinalWeapon" InitiallyActive="true" DeathWeapon="GDICommandoIonFinalExplosion">
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="GDICommandoIonFinalExplosion">
 				<DieMuxData DeathTypes="ALL"/>
 			</FireWeaponWhenDead>
 			<DestroyObjectsUpdate id="ModuleTag_DestroyUpdate" Radius="160">
@@ -61,6 +62,7 @@
 			<AudioEntry Sound="GZoneComm_IonWeaponFire" AudioType="soundAmbient"/>
 		</AudioArraySound>
 	</GameObject>
+	<!-- Heroic Explosion -->
 	<GameObject id="GDICommandoIonStrikeExplosionHeroic" inheritFrom="GDICommandoIonStrikeExplosion" EditorName="GDICommandoIonStrikeExplosionHeroic">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
@@ -102,9 +104,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<FireWeaponWhenDead xai:joinAction="Replace" id="ModuleTag_FinalWeapon" InitiallyActive="true" DeathWeapon="GDICommandoIonFinalExplosionHeroic">
-				<DieMuxData DeathTypes="ALL"/>
-			</FireWeaponWhenDead>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" xai:joinAction="Append" DeathWeapon="GDICommandoIonFinalExplosionHeroic"/>
 			<FireWeaponUpdate xai:joinAction="Replace" id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="GDICommandoIonPreExplosionHeroic" FireDelay="0s" OneShot="true"/>
 			</FireWeaponUpdate>
