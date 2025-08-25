@@ -16,8 +16,10 @@
 		<Include source="DATA:GDI\Units\GDICarrier.xml" type="instance"/>
 		<!-- For GDI Command Post -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
-		<!-- For Nod Commando -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODCommando.xml" type="instance"/>
+		<!-- For GDI Commando -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
+		<!-- For Nod Shadow -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODShadow.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
@@ -28,6 +30,32 @@
 		<!-- NOD Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
+
+	<!-- No Bombing Structures -->
+	<GameObject
+		id="GDICommando_EA"
+		inheritFrom="GDICommando_EA">
+		<Behaviors>
+			<WeaponSetUpdate
+				id="ModuleTag_WeaponSetUpdate"
+				xai:joinAction="Replace">
+				<WeaponSlotHardpoint
+					ID="1"
+					AllowInterleavedFiring="false"
+					InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE"
+					WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICommandoRailCarbine"/>
+					<Weapon
+						Ordering="PRIMARY_WEAPON"
+						Template="GDICommandoRailCarbineHEAmmo"
+						ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+		</Behaviors>
+	</GameObject>
+
 
 	<!-- Remove UNATTACKABLE status -->
 	<AttributeModifier
@@ -48,32 +76,60 @@
 
 	<!-- Overall Improved Armor -->
 	<ArmorTemplate
-		id="NODCommandoArmor">
-		<Armor Damage="CANNON" Percent="50%" />
-		<Armor Damage="ROCKET" Percent="25%" />
-		<Armor Damage="GRENADE" Percent="50%" />
-		<Armor Damage="GUN" Percent="50%" />
-		<Armor Damage="SNIPER" Percent="20%" />
+		id="NODShadowArmor">
+		<Armor Damage="CANNON" Percent="10%"/>
+		<Armor Damage="ROCKET" Percent="15%"/>
+		<Armor Damage="GRENADE" Percent="65%"/>
+		<Armor Damage="GUN" Percent="90%"/>
+		<Armor Damage="SNIPER" Percent="90%"/>
 	</ArmorTemplate>
 
-	<!-- Increased health from 500 | Increased speed from 60 | Increased armor -->
+	<!-- Increased health from 150 | Increased armor -->
 	<GameObject
-		id="NODCommando"
-		inheritFrom="NODCommando">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="85" />
+		id="NODShadow"
+		inheritFrom="NODShadow">
 		<ArmorSet
-			Armor="NODCommandoArmor"
+			Armor="NODShadowArmor"
 			DamageFX="InfantryDamageFX"/>
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
 				xai:joinAction="Replace"
-				MaxHealth="1300.0" />
+				MaxHealth="350.0" />
 		</Body>
 	</GameObject>
+
+	<!-- Instantly Kill structures -->
+	<WeaponTemplate
+		id="NODExplosiveChargeWeapon"
+		Name="NODExplosiveChargeWeapon"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL"
+		FireFX="FX_NODBombHit">
+		<Nuggets>
+			<DamageNugget
+				Damage="99999"
+				Radius="45"
+				DamageType="GRENADE"
+				DeathType="TOPPLED"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered cooldown from 30s -->
+	<SpecialPowerTemplate
+		id="SpecialPower_PlaceSatchelCharge_NOD"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiatePlaceSatchelCharge_NOD"
+		Flags="NEEDS_OBJECT_FILTER CHECK_SPECIALPOWERSTORE_CANUSE"
+		ReloadTime="15s"
+		WaypointModeTerminal="false"
+		PreventConditions="AIRBORNE_TARGET IGNORE_AI_COMMAND">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ENEMIES NEUTRAL"
+			Include="STRUCTURE VALID_TARGET_FOR_C4"
+			Exclude="BRIDGE_ENDCAP BRIDGE_SEGMENT"/>
+	</SpecialPowerTemplate>
 
 	<!-- Overall Nerfed weapon -->
 	<WeaponTemplate
@@ -140,7 +196,9 @@
 					Scalar="1%">
 					<Filter
 						Rule="NONE"
-						Include="UNIQUE_UNIT"/>
+						Include="UNIQUE_UNIT">
+						<IncludeThing>NODShadow</IncludeThing>
+					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
 		</Nuggets>
@@ -390,6 +448,12 @@
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="750"/>
+		</Body>
 	</GameObject>
 
 	<!-- NOD -->
