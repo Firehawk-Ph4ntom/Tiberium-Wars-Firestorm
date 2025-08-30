@@ -205,7 +205,7 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="BattleshipArtilleryWarhead"
-				ProjectileTemplate="GDIJuggernautArtilleryShell"/>
+				ProjectileTemplate="GDIBattleshipCannonShell"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -335,4 +335,94 @@
 				DurationSeconds="5s"/>
 		</Nuggets>
 	</WeaponTemplate>
+
+	<!-- Normal Projectile -->
+	<GameObject id="GDIBattleshipCannonShell" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIBattleshipCannonShell" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXARTSHELL"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShellTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_FuelAirBomb"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstPercentIndent="33%" SecondPercentIndent="66%" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="GDIBattleshipCannonShell_Veteran" inheritFrom="GDIBattleshipCannonShell" EditorName="GDIBattleshipCannonShell_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXARTSHELLVET"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIShellTrailVet" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+	</GameObject>
+
+	<FXList
+		id="FX_FuelAirBomb">
+		<NuggetList>
+			<ParticleSystem
+				Particle="AirBomb_Exp"/>
+			<ParticleSystem
+				Particle="AirBomb_Exp2"/>
+			<ParticleSystem
+				Particle="AirBomb_Exp3"/>
+			<ParticleSystem
+				Particle="AirBomb_Glow"/>
+			<ParticleSystem
+				Particle="AirBomb_Glow2"/>
+			<ParticleSystem
+				Particle="AirBomb_Shockwave"/>
+			<ViewShake
+				Type="STRONG"/>
+			<Sound
+				Value="Barrel_ExplodeMS"/>
+		</NuggetList>
+	</FXList>
+
+	<!-- Normal Projectile -->
+	<GameObject id="GDIBattleshipBombardMissile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="GDIBattleshipBombardMissile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GUMis"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_BSMissile"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="200" FirstHeightMax="250" SecondHeightMin="200" SecondHeightMax="250" FirstPercentIndent="1" SecondPercentIndent="99" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="GDI_BattleshipMissile_IncomingLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
 </AssetDeclaration>
