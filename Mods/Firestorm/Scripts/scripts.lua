@@ -24,7 +24,7 @@ UnitAmmoSize = {["GDIFireHawk"] = 4, ["NODVertigo"] = 1, ["NODBanshee"] = 4}
 -- second array to store the ammo in when unit fires, until it reaches 0, the conditions fire to disable AI control
 UnitAmmoCount = {}
 
---- define lua functions 
+--- define lua functions
 function NoOp(self, source)
 end
 
@@ -452,6 +452,7 @@ function OnGDIPaladinTankCreated(self)
 end
 
 function OnAlienMotherShipCreated(self)
+	ObjectSetObjectStatus( self, "CAN_SPOT_FOR_BOMBARD" )
 	ObjectSetObjectStatus( self, "AIRBORNE_TARGET" )
 end
 
@@ -554,7 +555,7 @@ function GenericCrateSpawnerCheck()
 	local NeutralTeam = "/team"
 	local TempRef = "object_" .. tostring(floor(9999999 * GetRandomNumber()))
 	ExecuteAction("TEAM_SET_PLAYERS_NEAREST_UNIT_OF_TYPE_TO_REFERENCE", "GenericCrateSpawner", NeutralTeam, TempRef)
-	if not EvaluateCondition("NAMED_NOT_DESTROYED", TempRef) then 
+	if not EvaluateCondition("NAMED_NOT_DESTROYED", TempRef) then
 		ExecuteAction("CREATE_OBJECT", "GenericCrateSpawner", NeutralTeam, "x=0,y=0,z=0", 0)
 	end
 end
@@ -691,7 +692,7 @@ function OnTiberiumCrystalHarvested(self, other)
 	local ObjectStringRef = "object_" .. harvRef
     ExecuteAction("SET_UNIT_REFERENCE", ObjectStringRef , self)
 
-	-- if IS_BEING_HARVESTED is true and the harvester is not already harvesting nor crystal is the crystal also being harvested 
+	-- if IS_BEING_HARVESTED is true and the harvester is not already harvesting nor crystal is the crystal also being harvested
 	if EvaluateCondition("UNIT_HAS_OBJECT_STATUS", ObjectStringRef , 116) and not harvData.isAlreadyHarvesting and crystalData.beingHarvestedBy == nil then
 
 		-- Remove all Tib FX for a clean state
@@ -707,7 +708,7 @@ function OnTiberiumCrystalHarvested(self, other)
 			ObjectRemoveUpgrade(other, "Upgrade_UpgradeGreenTib")
 		end
 
-		-- assign the crystal this harvester is currently harvesting to the table 
+		-- assign the crystal this harvester is currently harvesting to the table
 		harvData.crystalCurrentlyHarvesting = self
 
 		-- Red tiberium check
@@ -922,7 +923,7 @@ function GetHarvesterData(self)
 	local harvId = getObjectId(self)
 	harvesterDataTable[harvId] = harvesterDataTable[harvId] or {
 		tiberiumTypeHarvested = nil, -- the tib type being harvested
-		isAlreadyHarvesting = false, -- the harvester is already harvesting 
+		isAlreadyHarvesting = false, -- the harvester is already harvesting
 		crystalCurrentlyHarvesting = nil -- object reference to the last crystal harvested
 	}
 	return harvId, harvesterDataTable[harvId]
@@ -931,7 +932,7 @@ end
 function GetcrystalData(self)
 	local crystalId = getObjectId(self)
 	crystalDataTable[crystalId] = crystalDataTable[crystalId] or {
-		firstHarvestedFrame = 0, -- the frame where the crystal begins to be harvested 
+		firstHarvestedFrame = 0, -- the frame where the crystal begins to be harvested
 		lastHarvestedFrame = nil, -- the frame where the crystal finishes being harvested
 		framesBeingHarvested = 0, -- the amount of frames the crystal has been harvested
 		crystalHasBeenReset = false, -- the crystal has undergone a reset

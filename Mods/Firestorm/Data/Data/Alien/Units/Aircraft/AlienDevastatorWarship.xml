@@ -16,7 +16,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="AlienDevastatorWarship" inheritFrom="BaseAircraft" SelectPortrait="Portrait_AlienDevastatorWarship" ButtonImage="Portrait_AlienDevastatorWarship" Side="ALIEN" BuildCost="2500" BuildTime="25" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_CAST_REFLECTIONS SCORE AIRCRAFT HAS_HEALTH_BAR PRODUCED_AT_HELIPAD SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT BOMBER_AIRCRAFT TIBERIUM_BASED" WeaponCategory="BLAST" ThreatLevel="10" VoicePriority="228" EditorName="AlienDevastatorWarship" Description="Desc:AlienDevastatorWarship" TypeDescription="Type:AlienDevastatorWarship">
+	<GameObject id="AlienDevastatorWarship" inheritFrom="BaseAircraft" SelectPortrait="Portrait_AlienDevastatorWarship" ButtonImage="Portrait_AlienDevastatorWarship" Side="ALIEN" BuildCost="2500" BuildTime="25" CommandSet="AlienDevastatorWarshipCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS CAN_CAST_REFLECTIONS SCORE AIRCRAFT HAS_HEALTH_BAR PRODUCED_AT_HELIPAD SIEGE_WEAPON NO_COLLIDE CAN_BE_FAVORITE_UNIT BOMBER_AIRCRAFT TIBERIUM_BASED" WeaponCategory="BLAST" ThreatLevel="10" VoicePriority="228" EditorName="AlienDevastatorWarship" Description="Desc:AlienDevastatorWarship" TypeDescription="Type:AlienDevastatorWarship">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENDevastatorWarship</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienReactorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_TravelerEngines</DisplayUpgrade>
@@ -230,6 +230,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
 			<!-- Normal Dying -->
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
 				<OCL Type="INITIAL">
@@ -262,8 +264,23 @@
 					</TurretSettings>
 				</WeaponSlotTurret>
 			</WeaponSetUpdate>
-			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<!-- Spot Beacon Bombard -->
+			<SpecialPower id="ModuleTag_BombardementDummy" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardDummy" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementDummyUpdate" SpecialWeapon="AlienZeusBombardDummyWeapon" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardDummy" ChainedButton="Command_SpotMothershipBombardDispatch" StartAbilityRange="100000.0" BusyForDuration="0s" WhichSpecialWeapon="1" WeaponSlotID="1"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_BombardementDispatch" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_SpotMothershipBombard"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_SpotMothershipBombardPlanetaryDevastation"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_SpotMothershipBombardPlanetaryDevastation_BlueIchor"/>
+			</SpecialPowerDispatchSpecialPower>
+			<!-- Normal Bombard -->
+			<SpecialPower id="ModuleTag_Bombardement" SpecialPowerTemplate="SpecialPower_SpotMothershipBombard" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementUpdate" SpecialWeapon="AlienZeusPlasmaDiskBombardBattery" SpecialPowerTemplate="SpecialPower_SpotMothershipBombard" UnpackTime="0.8s" PackTime="0.8s" PersistentPrepTime="1s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
+			<!-- Upgraded Bombard -->
+			<SpecialPower id="ModuleTag_BombardementUpdateUpgraded" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardPlanetaryDevastation" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementUpdateUpgradedUpdate" SpecialWeapon="AlienZeusGreenShardBombardBattery" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardPlanetaryDevastation" UnpackTime="0.8s" PackTime="0.8s" PersistentPrepTime="1s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
+			<!-- Upgraded Bombard Blue -->
+			<SpecialPower id="ModuleTag_BombardementUpgraded_BlueIchor" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardPlanetaryDevastation_BlueIchor" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementUpgraded_BlueIchorUpdate" SpecialWeapon="AlienZeusBlueShardBombardBattery" SpecialPowerTemplate="SpecialPower_SpotMothershipBombardPlanetaryDevastation_BlueIchor" UnpackTime="0.8s" PackTime="0.8s" PersistentPrepTime="1s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
 			<StatusBitsUpgrade id="ModuleTag_HasTibUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE">
 				<TriggeredBy>Upgrade_PlanetaryDevastation</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -322,6 +339,7 @@
 			<AudioEntry Sound="ALI_DevastatorWarship_SoundMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="ALI_DevastatorWarship_SoundSpecial" AudioType="voiceAttackAfterMoving"/>
 			<AudioEntry Sound="ALI_DevastatorWarship_SoundSelect" AudioType="voiceSelect"/>
+			<NamedEntry Sound="ALI_DevastatorWarship_SoundAttack" Name="InitiateSpotTargetBombard"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
 			<AudioEntry Sound="ALI_DevastatorWarship_MoveStart" AudioType="soundMoveStart"/>
