@@ -2,6 +2,34 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
 
 	<SpecialPowerTemplate
+		id="SpecialPower_UseTunnelDown"
+		TargetType="LOCATION"
+		Flags="NEEDS_OBJECT_FILTER NO_FORBIDDEN_OBJECTS PATHABLE_ONLY NOT_CLIFF_CELL IGNORE_MAP_EXTENTS"
+		DisallowedTargetObjectStatus="IN_STASIS"
+		ReloadTime="15s"
+		RadiusCursorRadius="30"
+		ForbiddenObjectRange="15"
+		MaxCastRange="1000000"
+		MinCastRange="1500"
+		WaypointModeTerminal="false"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateTeleportAbility">
+		<ObjectFilter
+			Rule="NONE">
+			<IncludeThing>TiberiumCrystal</IncludeThing>
+			<IncludeThing>TiberiumCrystalBlue</IncludeThing>
+			<IncludeThing>TiberiumCrystalRed</IncludeThing>
+		</ObjectFilter>
+		<ForbiddenObjectFilter
+			Rule="ANY"
+			Relationship="ENEMIES"
+			Include="STRUCTURE VEHICLE"/>
+		<GameDependency
+			RequiredObjectStatusAny="RIDER2">
+			<NeededUpgrade>Upgrade_ChannelingNetwork</NeededUpgrade>
+		</GameDependency>
+	</SpecialPowerTemplate>
+
+	<SpecialPowerTemplate
 		id="SpecialPower_SpotMothershipBombardDummy"
 		Flags="FOGGED_SHROUDED_CELLS_OK NEEDS_OBJECT_FILTER LIMIT_DISTANCE IGNORE_MAP_EXTENTS WATER_OK FIND_REACHABLE_TARGETS NO_FORBIDDEN_MODEL_STATES TARGET_NEEDS_OBJECT_STATUS"
 		RequiredTargetObjectStatus="CAN_SPOT_FOR_BOMBARD"
@@ -469,7 +497,7 @@
 		RadiusCursorRadius="150"
 		Flags="NO_FORBIDDEN_OBJECTS IS_PLAYER_POWER SHARED_SYNC"
 		InitiateAtLocationSound="NOD_BurrowMine_TargetCursorMS"
-		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayWhenSelectingTarget="SelectLocation"
 		Money="-1500"
 		ForbiddenObjectRange="150">
 		<ForbiddenObjectFilter
@@ -1285,7 +1313,7 @@
 		Flags="IS_PLAYER_POWER SHARED_SYNC IGNORE_MAP_EXTENTS WATER_OK"
 		ReloadTime="360s"
 		TargetType="LOCATION"
-		EvaEventToPlayWhenSelectingTarget="SelectSpecialPowerTarget"
+		EvaEventToPlayWhenSelectingTarget="SelectLocation"
 		RadiusCursorRadius="150"
 		Money="-2000"/>
 

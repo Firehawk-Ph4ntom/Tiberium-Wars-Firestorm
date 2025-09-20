@@ -3,12 +3,16 @@
 		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\AUCorrupt_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\AUCorruptBlue.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\AUCorruptBlue_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\AUCORRUPT_DIGA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\AUCORRUPT_DIGB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\AUCORRUPT_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\FXSHLDCORRUPT.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\FXSHLDCORRUPT_DIGA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienCorrupter\FXSHLDCORRUPT_DIGB.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienCorrupter" inheritFrom="BaseVehicle" SelectPortrait="Portrait_ALIENCorrupter" ButtonImage="Portrait_ALIENCorrupter" Side="ALIEN" BuildCost="1000" BuildTime="10" CommandSet="GenericAlienVehicleCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE ANTI_GARRISON CAN_REVERSE_MOVE TIBERIUM_BASED CAN_BE_FAVORITE_UNIT CAN_HEAL_ALLIES HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4 SLAVE_OWNER" WeaponCategory="BLAST" VoicePriority="192" EditorName="AlienCorrupter" Description="Desc:AlienCorrupter" TypeDescription="Type:AlienCorrupter">
+	<GameObject id="AlienCorrupter" inheritFrom="BaseVehicle" SelectPortrait="Portrait_ALIENCorrupter" ButtonImage="Portrait_ALIENCorrupter" Side="ALIEN" BuildCost="1000" BuildTime="10" CommandSet="AlienCorrupterCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE ANTI_GARRISON CAN_REVERSE_MOVE TIBERIUM_BASED CAN_BE_FAVORITE_UNIT CAN_HEAL_ALLIES HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4 SLAVE_OWNER" WeaponCategory="BLAST" VoicePriority="192" EditorName="AlienCorrupter" Description="Desc:AlienCorrupter" TypeDescription="Type:AlienCorrupter">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENCorrupter</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienReactorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
@@ -133,8 +137,22 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Animation AnimationName="AUCorrupt_IBFA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 PACKING">
+					<Animation AnimationName="AUCORRUPT_DIGB" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<FXEvent Frame="5" Effect="FX_AlienCorrupterTunnelStart" Bone="NONE" FireWhenSkipped="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 UNPACKING">
+					<Animation AnimationName="AUCORRUPT_DIGA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<FXEvent Frame="1" Effect="FX_AlienCorrupterTunnelStart" Bone="NONE" FireWhenSkipped="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED REALLYDAMAGED" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AUCORRUPT_WLKA" AnimationMode="LOOP" Distance="32"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUCorrupt_RUNA" AnimationMode="LOOP" Distance="65"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED REALLYDAMAGED" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AUCORRUPT_WLKA" AnimationMode="LOOP" Distance="32"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUCorrupt_RUNA" AnimationMode="LOOP" Distance="65"/>
@@ -145,11 +163,20 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT" StateName="STATE_Run">
 					<Animation AnimationName="AUCorrupt_TRNR" AnimationMode="LOOP" Distance="65"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP REALLYDAMAGED" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AUCORRUPT_WLKA" AnimationMode="LOOP_BACKWARDS" Distance="32"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING BACKING_UP" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUCorrupt_RUNA" AnimationMode="LOOP_BACKWARDS" Distance="65"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING WEAPONSLOTID_01 REALLYDAMAGED" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AUCORRUPT_WLKA" AnimationMode="LOOP" Distance="32"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING WEAPONSLOTID_01" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUCorrupt_RUNA" AnimationMode="LOOP" Distance="65"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING REALLYDAMAGED" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="AUCORRUPT_WLKA" AnimationMode="LOOP" Distance="32"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
 					<Animation AnimationName="AUCorrupt_RUNA" AnimationMode="LOOP" Distance="65"/>
@@ -162,6 +189,7 @@
 					<Animation AnimationName="AUCorrupt_AIFA" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="AUCorrupt_AIFB" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Animation AnimationName="AUCorrupt_AIFC" AnimationMode="ONCE" AnimationPriority="5"/>
+					<Animation AnimationName="AUCorrupt_AIFD" AnimationMode="ONCE" AnimationPriority="5"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
@@ -195,6 +223,15 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
 					<Model Name="FXSHLDCORRUPT"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="FXSHLDCORRUPT"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 PACKING">
+					<Animation AnimationName="FXSHLDCORRUPT_DIGB" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 UNPACKING">
+					<Animation AnimationName="FXSHLDCORRUPT_DIGA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles2" OkToChangeModelColor="true" AttachToBoneInAnotherModule="RAGE_BONE">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
@@ -275,6 +312,9 @@
 			<StreamState id="ModuleTag_StreamState" StreamId="1"/>
 			<StreamState id="ModuleTag_StreamState2" StreamId="2"/>
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
+			<!-- Channeling Network -->
+			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseTunnelDown" UpdateModuleStartsAttack="true"/>
+			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseTunnelDown" FleeRangeAfterCompletion="50" UnpackTime="1s" PackTime="1s" BusyDuration="2s" StartAbilityRange="1500" UnpackingVariation="1" Options="IGNORE_FACING_CHECK CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE"/>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="60.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">
 					<ExcludeThing>AlienHarvester</ExcludeThing>
@@ -336,6 +376,7 @@
 			<AudioEntry Sound="ALI_Corrupter_SoundMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="ALI_Corrupter_SoundSpecial" AudioType="voiceRetreatToCastle"/>
 			<AudioEntry Sound="ALI_Corrupter_SoundSelect" AudioType="voiceSelect"/>
+			<NamedEntry Sound="ALI_Corrupter_SoundMove" Name="InitiateTeleportAbility"/>
 			<NamedEntry Sound="ALI_Buzzers_SoundSplit" Name="UncombineWithUnit"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
