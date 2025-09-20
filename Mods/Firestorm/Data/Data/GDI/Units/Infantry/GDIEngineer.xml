@@ -223,6 +223,14 @@
 					<Model Name="FXRAGEDSUPPRESSED.FXRAGED"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="283" SizeY="283" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true" IsRotatingWithObject="false"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="30" MaxLength="30" Width="3" MinSpeed="35" MaxSpeed="35" SweepSpeed="0" MinTracersPerFrame="0.01" MaxTracersPerFrame="0.01" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitGDI" UseAdditiveBlending="true">
 				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0"/>
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0"/>
@@ -327,6 +335,11 @@
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>GDI_Medic_FS</Key>
 			</LargeGroupAudioUpdate>
+			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
+				<Die DeathTypes="ALL"/>
+				<SpawnTemplate>GDIMRTRepairDrone</SpawnTemplate>
+			</SpawnBehavior>
+			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicleAndStructure"/>
 			<!-- Capture Building -->
 			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_EngineerCapture" ChainedButton="Command_CaptureBuildingTrigger" SpecialWeapon="GenericEngineerCaptureTrigger"/>
