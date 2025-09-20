@@ -11,10 +11,14 @@
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_BIFA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_DECL.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_DIGA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_DIGB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\AUIRRADIATOR_WLKA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\FXSHLDIRRADIATOR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\FXSHLDIRRADIATOR_DIGA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\AlienIrradiator\FXSHLDIRRADIATOR_DIGB.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
@@ -219,18 +223,26 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
 					<Animation AnimationName="AUIRRADIATOR_BIDA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_2 PACKING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="AUIRRADIATOR_ATKA" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_2 UNPACKING">
 					<Animation AnimationName="AUIRRADIATOR_ATKA" AnimationMode="ONCE" AnimationBlendTime="15"/>
 					<FXEvent Frame="25" Effect="FX_AlienTripodFP" Bone="Foot_RL" FireWhenSkipped="true"/>
 					<FXEvent Frame="25" Effect="FX_AlienTripodFP" Bone="Foot_FR" FireWhenSkipped="true"/>
 					<FXEvent Frame="20" Effect="FX_AlienTripodFP" Bone="Foot_FL" FireWhenSkipped="true"/>
 					<FXEvent Frame="20" Effect="FX_AlienTripodFP" Bone="Foot_RR" FireWhenSkipped="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING" Flags="START_FRAME_LAST">
-					<Animation AnimationName="AUIRRADIATOR_ATKA" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="15"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE" Flags="START_FRAME_LAST">
 					<Animation AnimationName="AUIRRADIATOR_ATKA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 PACKING">
+					<Animation AnimationName="AUIRRADIATOR_DIGB" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<FXEvent Frame="5" Effect="FX_AlienGroundShakerSweepEffect" Bone="NONE" FireWhenSkipped="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 UNPACKING">
+					<Animation AnimationName="AUIRRADIATOR_DIGA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<FXEvent Frame="1" Effect="FX_AlienGroundShakerSweepEffect" Bone="NONE" FireWhenSkipped="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES">
 					<Animation AnimationName="AUIRRADIATOR_WLKA" AnimationMode="LOOP" Distance="45"/>
@@ -298,14 +310,14 @@
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2">
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="B_TURRET">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 USER_3">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusionBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienIrradiatorTibInfusionBlue" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienIrradiatorTibInfusion" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawCombined">
@@ -322,6 +334,15 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_19">
 					<Model Name="FXSHLDIRRADIATOR"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="FXSHLDIRRADIATOR"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 PACKING">
+					<Animation AnimationName="FXSHLDIRRADIATOR_DIGB" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PACKING_TYPE_1 UNPACKING">
+					<Animation AnimationName="FXSHLDIRRADIATOR_DIGA" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles3" OkToChangeModelColor="true" AttachToBoneInAnotherModule="RAGE_BONE">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
@@ -361,35 +382,38 @@
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</CommandSetUpgrade>
 			<UncombineSpecialPower id="ModuleTag_SpecialPowerUncombine" SpecialPowerTemplate="SpecialPowerUncombineWithUnit"/>
+			<!-- Channeling Network -->
+			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseTunnelDown" UpdateModuleStartsAttack="true"/>
+			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseTunnelDown" FleeRangeAfterCompletion="50" UnpackTime="1s" PackTime="1s" BusyDuration="2s" StartAbilityRange="1500" UnpackingVariation="1" Options="IGNORE_FACING_CHECK CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE"/>
 			<!-- Corrosion Field Green -->
 			<SpecialPower id="ModuleTag_CorrosionFieldGreen" SpecialPowerTemplate="SpecialPower_CorrosiveFieldGreen" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CorrosionFieldGreenUpdate" SpecialPowerTemplate="SpecialPower_CorrosiveFieldGreen" SpecialWeapon="AlienIrradiatorCorrosiveFieldWeapon" UnpackTime="1s" PackTime="1s" PersistentPrepTime="0.1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE LOSE_STEALTH_ON_TRIGGER" WhichSpecialWeapon="1" WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CorrosionFieldGreenUpdate" SpecialPowerTemplate="SpecialPower_CorrosiveFieldGreen" SpecialWeapon="AlienIrradiatorCorrosiveFieldWeapon" UnpackTime="1s" PackTime="1s" PersistentPrepTime="0.1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE LOSE_STEALTH_ON_TRIGGER" WhichSpecialWeapon="1" UnpackingVariation="2" WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON"/>
 			<!-- Corrosion Field Blue -->
 			<SpecialPower id="ModuleTag_CorrosionFieldBlue" SpecialPowerTemplate="SpecialPower_CorrosiveFieldBlue" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CorrosionFieldBlueUpdate" SpecialPowerTemplate="SpecialPower_CorrosiveFieldBlue" SpecialWeapon="AlienIrradiatorCorrosiveFieldWeaponBlue" UnpackTime="1s" PackTime="1s" PersistentPrepTime="0.1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE LOSE_STEALTH_ON_TRIGGER" WhichSpecialWeapon="1" WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON"/>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="70.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CorrosionFieldBlueUpdate" SpecialPowerTemplate="SpecialPower_CorrosiveFieldBlue" SpecialWeapon="AlienIrradiatorCorrosiveFieldWeaponBlue" UnpackTime="1s" PackTime="1s" PersistentPrepTime="0.1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE LOSE_STEALTH_ON_TRIGGER" WhichSpecialWeapon="1" UnpackingVariation="2" WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="75.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">
 					<ExcludeThing>AlienHarvester</ExcludeThing>
 					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
 				</AllowFilter>
 			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" EffectRadius="70.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Harvester_Green">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" EffectRadius="75.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Harvester_Green">
 				<AllowFilter Rule="NONE">
 					<IncludeThing>AlienHarvester</IncludeThing>
 				</AllowFilter>
 			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" EffectRadius="70.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Tripod_Green">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" EffectRadius="75.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Tripod_Green">
 				<AllowFilter Rule="NONE">
 					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
 				</AllowFilter>
 			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" EffectRadius="70.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Green">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" EffectRadius="75.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Green">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE HUGE_VEHICLE"/>
 			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorStructure" EffectRadius="70.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorStructure" EffectRadius="75.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM STRUCTURE"/>
 			</PassiveAreaEffectBehavior>
-			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" EffectRadius="70.0" SurveyDelayFrames="15" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Infantry_Green">
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" EffectRadius="75.0" SurveyDelayFrames="15" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Infantry_Green">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM INFANTRY">
 					<ExcludeThing>AlienHiveStalker</ExcludeThing>
 				</AllowFilter>

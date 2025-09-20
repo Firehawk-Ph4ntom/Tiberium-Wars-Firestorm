@@ -2,21 +2,30 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<!-- Base Object -->
-		<Include type="instance" source="TiberiumFieldRedZone.xml"/>
+		<Include type="instance" source="TiberiumFieldBlueRedZone.xml"/>
 	</Includes>
-	<GameObject id="TiberiumFieldRedRedZone" inheritFrom="TiberiumFieldRedZone" EditorName="TiberiumFieldRedRedZone">
-		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Blue_Tiberium_Field_Red_Zone</DisplayName>
+	<GameObject id="TiberiumFieldRedRedZone" inheritFrom="TiberiumFieldBlueRedZone" EditorName="TiberiumFieldRedRedZone">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Red_Tiberium_Field_Red_Zone</DisplayName>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="REDTIBFIELDRDZ01"/>
-					<ParticleSysBone id="TibTreeAura" BoneName="NONE" FXParticleSystemTemplate="TibTreeAuraRed" FollowBone="true"/>
-					<ParticleSysBone id="TibTreeAuraLightning" BoneName="NONE" FXParticleSystemTemplate="TibTreeAuraLightningRed" FollowBone="true"/>
+					<ParticleSysBone id="TibTreeAura" BoneName="NONE" FXParticleSystemTemplate="TibTreeAuraRedRedZone" FollowBone="true"/>
+					<ParticleSysBone id="TibTreeAuraLightning" BoneName="NONE" FXParticleSystemTemplate="TibTreeAuraLightningRedRedZone" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<TiberiumField id="tib_field" xai:joinAction="Append" StartingFieldMoney="10000" ThingToSpawn="TiberiumCrystalRed" CrystalGrowthRate="20"/>
+			<TiberiumField id="tib_field" xai:joinAction="Append" ThingToSpawn="TiberiumCrystalRed" CrystalGrowthRate="30"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" xai:joinAction="Append" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Vehicle_Red"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorHarvester" xai:joinAction="Append" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Harvester_Red"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorTripod" xai:joinAction="Append" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Tripod_Red"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorEpic" xai:joinAction="Append" HealingPercentPerSecond="4%" HealFX="FX_Tiberium_Heal_Epic_Vehicle_Red"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorStructure" xai:joinAction="Append" HealingPercentPerSecond="4%"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorInfantry" xai:joinAction="Append" HealingPercentPerSecond="6%" HealFX="FX_Tiberium_Heal_Infantry_Red"/>
+			<FireWeaponUpdate id="ModuleTag_CrystalWeapon" xai:joinAction="Replace">
+				<FireWeaponNugget WeaponName="RedTiberiumFieldRedZoneWeapon" FireDelay="2.5s"/>
+			</FireWeaponUpdate>
 		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
