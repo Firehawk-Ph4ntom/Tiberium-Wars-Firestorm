@@ -3,24 +3,26 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="VeinholeMonster" inheritFrom="BaseStructure" Side="Neutral" KindOf="SELECTABLE STRUCTURE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE TIBERIUM_BASED IGNORE_FOR_VICTORY" EditorName="VeinholeMonster" SelectPortrait="Portrait_NeutralVeinholeMonster" ButtonImage="Portrait_NeutralVeinholeMonster" EditorSorting="MISC_NATURAL">
+	<GameObject id="VeinholeMonster" inheritFrom="BaseStructure" Side="Neutral" KindOf="SELECTABLE STRUCTURE IMMOBILE NOT_AUTOACQUIRABLE CAN_CAST_REFLECTIONS TIBERIUM_FIELD" EditorName="VeinholeMonster" SelectPortrait="Portrait_NeutralVeinholeMonster" ButtonImage="Portrait_NeutralVeinholeMonster" EditorSorting="MISC_NATURAL">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:VeinholeMonster</DisplayName>
 		<ArmorSet Armor="VeinholeMonsterArmor" DamageFX="AlienVehicleDamageFX"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="TIBWEINMOSTER_SKN"/>
+					<Model Name="TIBVEINMONSTER_SKN"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="TIBWEINMOSTER_R"/>
+					<Model Name="TIBVEINMONSTER_R"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="TIBWEINMOSTER_SKN"/>
-					<Texture Original="TibWeinsDirt" New="TibWeinsDirt_D"/>
-					<Texture Original="TiberiumWeins" New="TiberiumWeins_D"/>
-					<Texture Original="TibWeinMoster" New="TibWeinMoster_D"/>
+					<Model Name="TIBVEINMONSTER_SKN"/>
+					<Texture Original="TiberiumVeinsDirt" New="TiberiumVeinsDirt_D"/>
+					<Texture Original="TiberiumVeins" New="TiberiumVeins_D"/>
+					<Texture Original="TibVeinMonster" New="TibVeinMonster_D"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
@@ -33,7 +35,7 @@
 					<ParticleSysBone BoneName="FX_Damage01" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt6" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="TIBWEINMOSTER_SKN"/>
+					<Model Name="TIBVEINMONSTER_SKN"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienRefineryTibA" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienTibDistortionA" FollowBone="true"/>
 					<ParticleSysBone BoneName="FX_Maw" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
@@ -43,8 +45,8 @@
 					<ParticleSysBone BoneName="FX_Damage03" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE">
-					<Animation AnimationName="TIBWEINMOSTER_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="15"/>
-					<Animation AnimationName="TIBWEINMOSTER_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="5"/>
+					<Animation AnimationName="TIBVEINMONSTER_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="15"/>
+					<Animation AnimationName="TIBVEINMONSTER_BIFA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.8" AnimationPriority="5"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -56,12 +58,46 @@
 				<Sound Type="INITIAL" List="ALI_Eradicator_SoundDieMS"/>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
+			<TiberiumField id="tib_field" Radius="200" FieldResolution="40" MaxFieldMoney="35000" StartingFieldMoney="30000" ThingToSpawn="VeinsCluster" SpawnOffset="15.0" ClusterScaleFactor="1.0" ClusterPowerFactor="1.0" CrystalGrowthRate="16">
+				<DamageFilter Rule="ANY" Include="VEHICLE" Exclude="HARVESTER HUSK">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIPitbull</ExcludeThing>
+					<ExcludeThing>GDIPitbull_Veteran</ExcludeThing>
+					<ExcludeThing>GDIAPC</ExcludeThing>
+					<ExcludeThing>GDIAPC_Veteran</ExcludeThing>
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDIWolverine</ExcludeThing>
+					<ExcludeThing>GDIMRT</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISurveyor</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAttackBike</ExcludeThing>
+					<ExcludeThing>NODScorpionBuggy</ExcludeThing>
+					<ExcludeThing>NODEmissary</ExcludeThing>
+					<ExcludeThing>NODSpiderDrone</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+					<!-- Neutral/Misc -->
+					<ExcludeThing>VeinholeMonster</ExcludeThing>
+					<ExcludeThing>VeinsCluster</ExcludeThing>
+				</DamageFilter>
+			</TiberiumField>
 			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" DeathWeapon="VeinholeMonsterDeathWeapon" InitiallyActive="true">
 				<DieMuxData DeathTypes="ALL"/>
 			</FireWeaponWhenDead>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000"/>
 		</Body>
 		<Geometry>
 			<Shape Type="CYLINDER" MajorRadius="60" Height="15" ContactPointGeneration="STRUCTURE"/>

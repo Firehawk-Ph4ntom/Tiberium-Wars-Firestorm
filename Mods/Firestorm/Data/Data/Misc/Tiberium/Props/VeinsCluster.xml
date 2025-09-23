@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<GameObject id="VeinsCluster" Side="Neutral" KindOf="NOT_AUTOACQUIRABLE NO_COLLIDE CAN_CAST_REFLECTIONS TIBERIUM_BASED" EditorName="VeinsCluster" EditorSorting="MISC_NATURAL">
+	<GameObject id="VeinsCluster" Side="Neutral" EditorSorting="MISC_NATURAL" KindOf="IMMOBILE SELECTABLE TIBERIUM NOT_AUTOACQUIRABLE NO_COLLIDE SHADOW_ULTRA_HIGH_ONLY DO_NOT_CLASSIFY" RadarPriority="STRUCTURE" EditorName="VeinsCluster" SelectPortrait="Portrait_VeinsCluster" ButtonImage="Portrait_VeinsCluster">
 		<DisplayName>Name:VeinsCluster</DisplayName>
-		<ArmorSet Armor="NoArmor"/>
+		<ArmorSet Armor="TiberiumCrystalArmor" DamageFX="VehicleDamageFX"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="TIBWEINCLUSTER01"/>
+					<Model Name="TIBVEINCLUSTER01"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibVeinAura" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
-					<Model Name="TIBWEINCLUSTER01_R"/>
+					<Model Name="TIBVEINCLUSTER01_R"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibVeinAura" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_CRYSTAL_TYPE1">
+					<Model Name="TIBVEINCLUSTER01"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibVeinAura" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_CRYSTAL_TYPE2">
+					<Model Name="TIBVEINCLUSTER02"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibVeinAura" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_CRYSTAL_TYPE3">
+					<Model Name="TIBVEINCLUSTER02"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibVeinAura" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" />
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_GROWING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="TibCell01" AnimationMode="MANUAL" AnimationBlendTime="0" />
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_CRYSTAL_TYPE1">
+					<Animation AnimationName="TibCell01" AnimationMode="MANUAL" AnimationBlendTime="0" />
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_CRYSTAL_TYPE2">
+					<Animation AnimationName="TibCell01" AnimationMode="MANUAL" AnimationBlendTime="0" />
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TIBERIUM_CRYSTAL_TYPE3">
+					<Animation AnimationName="TibCell01" AnimationMode="MANUAL" AnimationBlendTime="0" />
+				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics"/>
-			<SlowDeath id="ModuleTag_Death" SinkRate="1" SinkDelay="15s" DestructionDelay="3s">
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
+			<AttributeModifierPoolUpdate id="DefaultAttributeModifierPoolUpdate"/>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="TIBERIUM_CRYSTAL_TYPE1 TIBERIUM_CRYSTAL_TYPE2 TIBERIUM_CRYSTAL_TYPE3"/>
 			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_AlienInfantryDeathFX"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="EXTRA_8"/>
+				<Event Index="onDeath" FX="FX_TibVeinsGore"/>
 			</FXListBehavior>
+			<TiberiumCrystal id="ModuleTag_TibCrystalBehavior" NumBoxes="50" ValuePerBox="7" GrowthStages="3" GrowthTimePerStage="3s" TimeBetweenGrowthStages="25s">
+				<RadarColor R="254" G="210" B="4"/>
+			</TiberiumCrystal>
+			<DestroyDie id="Crystal_Death">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<FireWeaponUpdate id="ModuleTag_CrystalWeapon">
 				<FireWeaponNugget WeaponName="VeinsClusterWeapon" FireDelay="3s"/>
 			</FireWeaponUpdate>
 		</Behaviors>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="1000000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="7500.0"/>
 		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="22.0" Height="10.0">
+				<Offset x="3.0" y="0" z="0"/>
+			</Shape>
+		</Geometry>
 		<AudioArraySound>
 			<AudioEntry Sound="TiberiumCrystal_AmbientDelayedLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
