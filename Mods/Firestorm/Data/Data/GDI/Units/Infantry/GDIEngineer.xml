@@ -54,7 +54,7 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ENGAGED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
 					<Animation AnimationName="GUGAR_RIFL" AnimationMode="LOOP"/>
 				</AnimationState>
@@ -102,7 +102,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED FIRING_A">
 					<Animation AnimationName="GUCEngineer_SATB" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED ENGAGED" StateName="STATE_SuppressedFiring">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SUPPRESSED USING_WEAPON_A" StateName="STATE_SuppressedFiring">
 					<Animation AnimationName="GUCEngineer_SATB" AnimationMode="MANUAL"/>
 					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_SuppressedFiring" then CurDrawableSetTransitionAnimState("TRANS_GunHolsteredSuppressed") end; if Prev == "STATE_Suppressed" then CurDrawableSetTransitionAnimState("TRANS_fromSuppressedGunHolstered") end; </Script>
 				</AnimationState>
@@ -115,7 +115,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER FIRING_A">
 					<Animation AnimationName="GUCEngineer_KAKA2" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER ENGAGED" StateName="STATE_CoverFiring">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COVER USING_WEAPON_A" StateName="STATE_CoverFiring">
 					<Animation AnimationName="GUCEngineer_KAKA2" AnimationMode="MANUAL"/>
 					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_CoverFiring" then CurDrawableSetTransitionAnimState("TRANS_GunHolsteredCover") end; if Prev == "STATE_Cover" then CurDrawableSetTransitionAnimState("TRANS_fromCoverGunHolstered") end; </Script>
 				</AnimationState>
@@ -139,7 +139,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A" FrameForPristineBonePositions="5">
 					<Animation AnimationName="GUCEngineer_ATKA2" AnimationMode="ONCE" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ENGAGED" StateName="STATE_firing">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A" StateName="STATE_firing">
 					<Animation AnimationName="GUCEngineer_ATKA2" AnimationMode="MANUAL"/>
 					<Script> CurDrawableHideSubObject("GUN_BUTT") Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" or Prev == "STATE_Selected" then CurDrawableSetTransitionAnimState("TRANS_fromStandingGunHolstered") end; if Prev == "STATE_firing" then CurDrawableSetTransitionAnimState("TRANS_GunHolsteredStanding") end; </Script>
 				</AnimationState>
@@ -327,7 +327,7 @@
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistol"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange" ObjectStatus="RIDER1"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
@@ -353,6 +353,15 @@
 			<!-- Repair CIV Building -->
 			<SpecialPower id="ModuleTag_RepairCivBuilding" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" WhichSpecialWeapon="1" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_PVEMovementSpeed">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModePlayerCapDelayHack</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -368,7 +377,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeCapDelayFunctions">
 				<UnitAITargetChooserData SympathyRange="100" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

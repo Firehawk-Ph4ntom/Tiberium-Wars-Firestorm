@@ -10,7 +10,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienTiberiumTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTiberiumTower" ButtonImage="Portrait_AlienTiberiumTower" Side="ALIEN" BuildCost="2500" BuildTime="25" RefundValue="500" PlacementViewAngle="225d" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienExtractor" Description="Desc:ALIENTiberiumTower" TypeDescription="Type:AlienTiberiumTower" EnergyProduction="-15">
+	<GameObject id="AlienTiberiumTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTiberiumTower" ButtonImage="Portrait_AlienTiberiumTower" Side="ALIEN" BuildCost="2500" BuildTime="25" RefundValue="500" PlacementViewAngle="225d" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_POWER FS_MONEY_STORAGE TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienExtractor" Description="Desc:ALIENTiberiumTower" TypeDescription="Type:AlienTiberiumTower" EnergyProduction="-15" EnergyBonus="7">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENTiberiumTower</DisplayName>
 		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
@@ -270,6 +270,12 @@
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.75s"/>
+			<PowerUpgrade id="ModuleTag_PowerUpgrade">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</PowerUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" ShareUpgrades="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>AlienExplorerOutpostDummyDrone</SpawnTemplate>
@@ -313,6 +319,9 @@
 			<xi:include href="DATA:Includes/GenericAlienBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
+		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
 		</Body>

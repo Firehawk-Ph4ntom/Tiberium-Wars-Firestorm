@@ -122,7 +122,14 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
+				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
+					<ModifierFilter Rule="NONE">
+						<IncludeThing>AlienTiberiumTower</IncludeThing>
+						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					</ModifierFilter>
+				</ProductionModifier>
+			</ProductionUpdate>
 			<ProductionUpdate id="ModuleTag_ProductionOther" Type="OTHER_STRUCTURE" MaxQueueEntries="1"/>
 			<ProductionUpdateInfo id="ModuleTag_ProductionInfo"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
@@ -153,15 +160,21 @@
 				<ReplacementTemplate>AlienMCV</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="1" HealingDelay="4s" StartHealingDelay="2s" Radius="150" HealFXList="FX_AlienBlinkUnPack" SpawnFXList="FX_AlienBlinkUnPack" RespawnMinimumDelay="4s" InitiallyActive="true" HealOnlyIfNotUnderAttack="true" HealOnlyIfNotInCombat="true" NonStackable="true" RespawnNearbyHordeMembers="true"/>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<PowerUpdate id="ModuleTag_PowerGenerator" Type="BACKUP_GENERATOR" Duration="10s" ReloadTime="30s"/>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
+			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="AlienDronePlatformCommandSet">
+				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
+			</CommandSetUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericAlienBuildingDestruction.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/ConYardAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerCmdSetHackFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000"/>

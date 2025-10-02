@@ -202,7 +202,13 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="2.0s" DoorWaitOpenTime="4.0s" DoorCloseTime="2.0s" MaxQueueEntries="999"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="2.0s" DoorWaitOpenTime="4.0s" DoorCloseTime="2.0s" MaxQueueEntries="999">
+				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.93333333" CostMultiplier="0.93333333">
+					<ModifierFilter Rule="NONE">
+						<IncludeThing>GDIHarvester</IncludeThing>
+					</ModifierFilter>
+				</ProductionModifier>
+			</ProductionUpdate>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
 				<UnitCreatePoint x="0.0" y="0.0" z="0.0"/>
 				<NaturalRallyPoint x="90.0" y="0.0" z="0.0"/>
@@ -223,6 +229,9 @@
 				<SpawnTemplate>GDIBattleBaseRepairDrone</SpawnTemplate>
 			</SpawnBehavior>
 			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -231,7 +240,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="15000"/>

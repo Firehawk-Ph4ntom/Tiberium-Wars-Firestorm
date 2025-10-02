@@ -11,7 +11,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="NODRefinery" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODRefinery" ButtonImage="Portrait_NODRefinery" Side="NOD" BuildCost="2500" BuildTime="25" CommandSet="GenericStructureCommandSet" RefundValue="500" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EnergyProduction="-15" EditorName="NODRefinery" Description="Desc:NODRefinery" TypeDescription="Type:NODRefinery">
+	<GameObject id="NODRefinery" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODRefinery" ButtonImage="Portrait_NODRefinery" Side="NOD" BuildCost="2500" BuildTime="25" CommandSet="GenericStructureCommandSet" RefundValue="500" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE NOT_AUTOACQUIRABLE FS_POWER AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EnergyProduction="-15" EnergyBonus="7" EditorName="NODRefinery" Description="Desc:NODRefinery" TypeDescription="Type:NODRefinery">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODRefinery</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
 		<GameDependency>
@@ -234,6 +234,12 @@
 				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_NOD_CatalystMissile_TiberiumExplosion_Med"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<PowerUpgrade id="ModuleTag_PowerUpgrade">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</PowerUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" SpawnReplaceDelayData="9999s" IsOneShotData="true" FadeInTime="1.0s" InitialDelay="2.0s" CanReclaimOrphans="false">
 				<SpawnTemplate>NODHarvester</SpawnTemplate>
 			</SpawnBehavior>
@@ -247,7 +253,7 @@
 			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>

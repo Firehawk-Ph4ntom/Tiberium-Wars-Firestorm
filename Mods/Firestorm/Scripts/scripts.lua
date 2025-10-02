@@ -1,30 +1,30 @@
-squadtable = {} -- tracks all squad objects on the map
+SquadTable = {} -- Tracks all squad objects on the map
 
--- Global tables for tracking harvester and tiberium state
-harvredtib = {}			-- for counting red tiberium in harvester
-harvbluetib = {}		-- for counting blue tiberium in harvester
-harvgreentib = {}		-- for counting green tiberium harvester
+-- Global tables for tracking Harvester and Tiberium state
+HarvRedTib = {}			-- For counting the Red Tiberium in the Harvester
+HarvBlueTib = {}		-- For counting the Blue Tiberium in the Harvester
+HarvGreenTib = {}		-- For counting the Green Tiberium in the Harvester
 
-bar1 = {}				-- for tracking the bar one of the harvester.
-bar2 = {}				-- for tracking the bar two of the harvester.
-bar3 = {}				-- for tracking the bar three of the harvester.
-bar4 = {}				-- for tracking the bar four of the harvester.
+Bar1 = {}				-- For tracking the first bar of the Harvester
+Bar2 = {}				-- For tracking the second bar of the Harvester
+Bar3 = {}				-- For tracking the third bar of the Harvester
+Bar4 = {}				-- For tracking the fourth bar of the Harvester
 
-harvesterDataTable = {}
-crystalDataTable = {}
+HarvesterDataTable = {}
+CrystalDataTable = {}
 
-MAX_FRAMES_WHEN_NOT_HARVESTED = 900		-- 60s
-MAX_FRAMES_BEING_HARVESTED = 33			-- 15 frames is 1s (harvest action is 2.2s -> 33 frames)
-PER_HARVEST_OFFSET = 4					-- subtract frames for each time the harvester is ordered to stop and harvest the same crystal again.
+MaxFramesWhenNotHarvested = 900			-- 60s
+MaxFramesBeingHarvested = 33			-- 15 frames is 1s (Harvest action time is 2.2s -> 33 frames)
+PerHarvestOffset = 4					-- Subtract frames for each time the Harvester is ordered to stop and harvest the same crystal again
 
--- get the hash of the unit
+-- Get the hash of the aircraft unit
 UnitType = {["3006676643"] = "GDIFireHawk", ["1789238550"] = "NODVertigo", ["3755615724"] = "NODBanshee"}
--- get the total ammo count of the unit
+-- Get the total ammo count of the aircraft unit
 UnitAmmoSize = {["GDIFireHawk"] = 4, ["NODVertigo"] = 1, ["NODBanshee"] = 4}
--- second array to store the ammo in when unit fires, until it reaches 0, the conditions fire to disable AI control
+-- Second array to store the ammo in when unit fires, until it reaches 0, then the conditions fire to disable AI control
 UnitAmmoCount = {}
 
---- define lua functions
+--- EA lua functions
 function NoOp(self, source)
 end
 
@@ -92,7 +92,6 @@ function RadiateTerrorEx(self, other, terrorRange)
 	ObjectBroadcastEventToEnemies(self, "BeTerrified", terrorRange)
 end
 
-
 function BecomeTerrified(self, other)
 	ObjectEnterRunAwayPanicState(self, other)
 end
@@ -104,7 +103,6 @@ function BecomeAfraidOfGateDamaged(self, other)
 
 	ObjectEnterCowerState(self,other)
 end
-
 
 function ChantForUnit(self) -- Used by units to broadcast the chant event to their own side.
 	ObjectBroadcastEventToAllies(self, "BeginChanting", 9999)
@@ -127,7 +125,7 @@ function OnRubbleDropshipCreated(self)
 	ObjectHideSubObjectPermanently( self, "Loadref", true )
 end
 
--- XPACK LUA FUNCTION DEFINITIONS
+-- FIRESTORM LUA FUNCTIONS
 function OnMutantViceroidCreated(self)
 	ObjectHideSubObjectPermanently( self, "UGSCANNER", true )
 end
@@ -500,7 +498,16 @@ function OnNODDisruptionModulesUpgradePurchased(self)
 	end
 end
 
-function OnUnitCreatedSetRider4(self)
+function OnUnitCreatedSetRider1(self)
+	ObjectSetObjectStatus ( self, "RIDER1" )
+end
+
+function OnUnitCreatedSetRider2(self)
+	ObjectSetObjectStatus ( self, "RIDER2" )
+end
+
+function OnNODPowerPlantCreated(self)
+	ObjectSetObjectStatus ( self, "RIDER1" )
 	ObjectSetObjectStatus ( self, "RIDER4" )
 end
 
@@ -530,8 +537,58 @@ function OnAlienIchorPlatingUpgradePurchased(self)
 	end
 end
 
-function OnAlienRazorbackCreated(self)
-	ObjectSetObjectStatus ( self, "RIDER2" )
+function OnPVEGameModeObjectUpgrade(self)
+	if ObjectTestModelCondition(self, "USER_45") then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+	end
+end
+
+function OnPVEGameModePlayerUpgrade(self)
+	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+	end
+end
+
+function OnPVEGameModeCmdSetHackObjectUpgrade(self)
+	if ObjectTestModelCondition(self, "USER_45") then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCmdSetHack" )
+	end
+end
+
+function OnPVEGameModeCmdSetHackPlayerUpgrade(self)
+	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCmdSetHack" )
+	end
+end
+
+function OnPVEGameModeCapDelayHackObjectUpgrade(self)
+	if ObjectTestModelCondition(self, "USER_45") then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCapDelayHack" )
+	end
+end
+
+function OnPVEGameModeCapDelayHackPlayerUpgrade(self)
+	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCapDelayHack" )
+	end
+end
+
+function OnPVEGameModeAutoDepositObjectUpgrade(self)
+	if ObjectTestModelCondition(self, "USER_45") then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerAutoDeposit" )
+	end
+end
+
+function OnPVEGameModeAutoDepositPlayerUpgrade(self)
+	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerAutoDeposit" )
+	end
 end
 
 function CheckJetAircraftAmmoDepleted(self)
@@ -664,25 +721,25 @@ end
 function OnSquadAppearingAtBarracks(self)
 	local curFrame = GetFrame()
 	local squadType = ObjectDescription(self)
-	squadtable[squadType] = curFrame
+	SquadTable[squadType] = curFrame
 end
 
 -- When squad finishes leaving Barracks
 function OnSquadExitingBarracks(self)
 	local curFrame = GetFrame()
 	local squadType = ObjectDescription(self)
-	if squadtable[squadType] ~= nil then
-		local diff = curFrame - squadtable[squadType]
+	if SquadTable[squadType] ~= nil then
+		local diff = curFrame - SquadTable[squadType]
 		if diff < SquadLookupTable(ObjectTemplateName(self)) then
 			ExecuteAction("NAMED_DELETE", self);
 		end
-		squadtable[squadType] = nil
+		SquadTable[squadType] = nil
 	end
 end
 
 function OnSquadDestroyed(self)
 	local squadType = ObjectDescription(self)
-	squadtable[squadType] = nil
+	SquadTable[squadType] = nil
 end
 
 -- self is the crystal, other is the harvester
@@ -740,7 +797,7 @@ function OnHarvestTimeUpdated(self)
 		crystalData.firstHarvestedFrame = GetFrame()
 
 		if crystalData.lastHarvestedFrame ~= nil then
-			if (GetFrame() - crystalData.lastHarvestedFrame) > MAX_FRAMES_WHEN_NOT_HARVESTED then
+			if (GetFrame() - crystalData.lastHarvestedFrame) > MaxFramesWhenNotHarvested then
 				-- reset harvested frames
 				crystalData.framesBeingHarvested = 0
 				crystalData.lastHarvestedFrame = nil
@@ -757,159 +814,159 @@ function OnHarvestedCrystalTypeCleared(self)
 end
 
 function OnMoney1(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") == false then
-		if harvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
+		if HarvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedOne")
-			harvredtib[harvId] = harvredtib[harvId] + 1
-			bar1[harvId] = 2
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
+			HarvRedTib[harvId] = HarvRedTib[harvId] + 1
+			Bar1[harvId] = 2
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueOne")
-			harvbluetib[harvId] = harvbluetib[harvId] + 1
-			bar1[harvId] = 1
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
+			HarvBlueTib[harvId] = HarvBlueTib[harvId] + 1
+			Bar1[harvId] = 1
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenOne")
-			harvgreentib[harvId] = harvgreentib[harvId] + 1
-			bar1[harvId] = 0
+			HarvGreenTib[harvId] = HarvGreenTib[harvId] + 1
+			Bar1[harvId] = 0
 		end
 	end
 end
 
 function OnMoney2(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") == false then
-		if harvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
+		if HarvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedTwo")
-			harvredtib[harvId] = harvredtib[harvId] + 1
-			bar2[harvId] = 2
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
+			HarvRedTib[harvId] = HarvRedTib[harvId] + 1
+			Bar2[harvId] = 2
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueTwo")
-			harvbluetib[harvId] = harvbluetib[harvId] + 1
-			bar2[harvId] = 1
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
+			HarvBlueTib[harvId] = HarvBlueTib[harvId] + 1
+			Bar2[harvId] = 1
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenTwo")
-			harvgreentib[harvId] = harvgreentib[harvId] + 1
-			bar2[harvId] = 0
+			HarvGreenTib[harvId] = HarvGreenTib[harvId] + 1
+			Bar2[harvId] = 0
 		end
 	end
 end
 
 function OnMoney3(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") == false then
-		if harvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
+		if HarvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedThree")
-			harvredtib[harvId] = harvredtib[harvId] + 1
-			bar3[harvId] = 2
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
+			HarvRedTib[harvId] = HarvRedTib[harvId] + 1
+			Bar3[harvId] = 2
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueThree")
-			harvbluetib[harvId] = harvbluetib[harvId] + 1
-			bar3[harvId] = 1
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
+			HarvBlueTib[harvId] = HarvBlueTib[harvId] + 1
+			Bar3[harvId] = 1
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenThree")
-			harvgreentib[harvId] = harvgreentib[harvId] + 1
-			bar3[harvId] = 0
+			HarvGreenTib[harvId] = HarvGreenTib[harvId] + 1
+			Bar3[harvId] = 0
 		end
 	end
 end
 
 function OnMoney4(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") == false then
-		if harvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
+		if HarvesterDataTable[harvId].tiberiumTypeHarvested == "Red" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeRedFour")
-			harvredtib[harvId] = harvredtib[harvId] + 1
-			bar4[harvId] = 2
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
+			HarvRedTib[harvId] = HarvRedTib[harvId] + 1
+			Bar4[harvId] = 2
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Blue" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeBlueFour")
-			harvbluetib[harvId] = harvbluetib[harvId] + 1
-			bar4[harvId] = 1
-		elseif harvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
+			HarvBlueTib[harvId] = HarvBlueTib[harvId] + 1
+			Bar4[harvId] = 1
+		elseif HarvesterDataTable[harvId].tiberiumTypeHarvested == "Green" then
 			ObjectGrantUpgrade(self, "Upgrade_UpgradeGreenFour")
-			harvgreentib[harvId] = harvgreentib[harvId] + 1
-			bar4[harvId] = 0
+			HarvGreenTib[harvId] = HarvGreenTib[harvId] + 1
+			Bar4[harvId] = 0
 		end
 	end
 end
 
 function OffMoney1(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") then
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeRedOne") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedOne") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeBlueOne") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueOne") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeGreenOne") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenOne") end
-		if bar1[harvId] == 2 then harvredtib[harvId] = harvredtib[harvId] - 1
-		elseif bar1[harvId] == 1 then harvbluetib[harvId] = harvbluetib[harvId] - 1
-		elseif bar1[harvId] == 0 then harvgreentib[harvId] = harvgreentib[harvId] - 1
+		if Bar1[harvId] == 2 then HarvRedTib[harvId] = HarvRedTib[harvId] - 1
+		elseif Bar1[harvId] == 1 then HarvBlueTib[harvId] = HarvBlueTib[harvId] - 1
+		elseif Bar1[harvId] == 0 then HarvGreenTib[harvId] = HarvGreenTib[harvId] - 1
 		end
 	end
 end
 
 function OffMoney2(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") then
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeRedTwo") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedTwo") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeBlueTwo") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueTwo") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeGreenTwo") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenTwo") end
-		if bar2[harvId] == 2 then harvredtib[harvId] = harvredtib[harvId] - 1
-		elseif bar2[harvId] == 1 then harvbluetib[harvId] = harvbluetib[harvId] - 1
-		elseif bar2[harvId] == 0 then harvgreentib[harvId] = harvgreentib[harvId] - 1
+		if Bar2[harvId] == 2 then HarvRedTib[harvId] = HarvRedTib[harvId] - 1
+		elseif Bar2[harvId] == 1 then HarvBlueTib[harvId] = HarvBlueTib[harvId] - 1
+		elseif Bar2[harvId] == 0 then HarvGreenTib[harvId] = HarvGreenTib[harvId] - 1
 		end
 	end
 end
 
 function OffMoney3(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") then
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeRedThree") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedThree") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeBlueThree") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueThree") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeGreenThree") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenThree") end
-		if bar3[harvId] == 2 then harvredtib[harvId] = harvredtib[harvId] - 1
-		elseif bar3[harvId] == 1 then harvbluetib[harvId] = harvbluetib[harvId] - 1
-		elseif bar3[harvId] == 0 then harvgreentib[harvId] = harvgreentib[harvId] - 1
+		if Bar3[harvId] == 2 then HarvRedTib[harvId] = HarvRedTib[harvId] - 1
+		elseif Bar3[harvId] == 1 then HarvBlueTib[harvId] = HarvBlueTib[harvId] - 1
+		elseif Bar3[harvId] == 0 then HarvGreenTib[harvId] = HarvGreenTib[harvId] - 1
 		end
 	end
 end
 
 function OffMoney4(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 	if ObjectTestModelCondition(self, "DOCKING") then
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeRedFour") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeRedFour") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeBlueFour") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeBlueFour") end
 		if ObjectHasUpgrade(self, "Upgrade_UpgradeGreenFour") then ObjectRemoveUpgrade(self, "Upgrade_UpgradeGreenFour") end
-		if bar4[harvId] == 2 then harvredtib[harvId] = harvredtib[harvId] - 1
-		elseif bar4[harvId] == 1 then harvbluetib[harvId] = harvbluetib[harvId] - 1
-		elseif bar4[harvId] == 0 then harvgreentib[harvId] = harvgreentib[harvId] - 1
+		if Bar4[harvId] == 2 then HarvRedTib[harvId] = HarvRedTib[harvId] - 1
+		elseif Bar4[harvId] == 1 then HarvBlueTib[harvId] = HarvBlueTib[harvId] - 1
+		elseif Bar4[harvId] == 0 then HarvGreenTib[harvId] = HarvGreenTib[harvId] - 1
 		end
 	end
 end
 
 function OnHarvesterCreated(self)
 	local harvRef, harvData = GetHarvesterData(self)
-	harvredtib[harvRef] = 0
-	harvbluetib[harvRef] = 0
-	harvgreentib[harvRef] = 0
+	HarvRedTib[harvRef] = 0
+	HarvBlueTib[harvRef] = 0
+	HarvGreenTib[harvRef] = 0
 end
 
 function OnHarvesterDeath(self)
-	local harvId = getObjectId(self)
+	local harvId = GetObjectId(self)
 
-	if harvredtib[harvId] >= 2 then
+	if HarvRedTib[harvId] >= 2 then
 		ObjectCreateAndFireTempWeapon(self, "DeployRedTiberium")
-	elseif harvbluetib[harvId] >= 2 then
+	elseif HarvBlueTib[harvId] >= 2 then
 		ObjectCreateAndFireTempWeapon(self, "DeployBlueTiberium")
-	elseif harvgreentib[harvId] > 0 or harvbluetib[harvId] == 1 or harvredtib[harvId] == 1 then
+	elseif HarvGreenTib[harvId] > 0 or HarvBlueTib[harvId] == 1 or HarvRedTib[harvId] == 1 then
 		ObjectCreateAndFireTempWeapon(self, "DeployGreenTiberium")
 	end
 
-	harvredtib[harvId] = nil
-	harvbluetib[harvId] = nil
-	harvgreentib[harvId] = nil
-	bar1[harvId] = nil
-	bar2[harvId] = nil
-	bar3[harvId] = nil
-	bar4[harvId] = nil
-	harvesterDataTable[harvId] = nil
+	HarvRedTib[harvId] = nil
+	HarvBlueTib[harvId] = nil
+	HarvGreenTib[harvId] = nil
+	Bar1[harvId] = nil
+	Bar2[harvId] = nil
+	Bar3[harvId] = nil
+	Bar4[harvId] = nil
+	HarvesterDataTable[harvId] = nil
 end
 
 -- ####################### TIBERIUM EXPLOIT FIX ############################
@@ -920,18 +977,18 @@ function OnHarvestingTiberiumCrystal(self)
 end
 
 function GetHarvesterData(self)
-	local harvId = getObjectId(self)
-	harvesterDataTable[harvId] = harvesterDataTable[harvId] or {
+	local harvId = GetObjectId(self)
+	HarvesterDataTable[harvId] = HarvesterDataTable[harvId] or {
 		tiberiumTypeHarvested = nil, -- the tib type being harvested
 		isAlreadyHarvesting = false, -- the harvester is already harvesting
 		crystalCurrentlyHarvesting = nil -- object reference to the last crystal harvested
 	}
-	return harvId, harvesterDataTable[harvId]
+	return harvId, HarvesterDataTable[harvId]
 end
 
 function GetcrystalData(self)
-	local crystalId = getObjectId(self)
-	crystalDataTable[crystalId] = crystalDataTable[crystalId] or {
+	local crystalId = GetObjectId(self)
+	CrystalDataTable[crystalId] = CrystalDataTable[crystalId] or {
 		firstHarvestedFrame = 0, -- the frame where the crystal begins to be harvested
 		lastHarvestedFrame = nil, -- the frame where the crystal finishes being harvested
 		framesBeingHarvested = 0, -- the amount of frames the crystal has been harvested
@@ -939,7 +996,7 @@ function GetcrystalData(self)
 		dontKillCrystal = false, -- flag to prevent the crystal from being killed with NAMED_KILL
 		beingHarvestedBy = nil -- harvester thats currently harvesting this crystal
 	}
-	return crystalDataTable[crystalId]
+	return CrystalDataTable[crystalId]
 end
 
 -- checks if the crystal has been harvested longer than the maximum frames and if it doesn't have a flag assigned, it kills it.
@@ -949,7 +1006,7 @@ function OffTiberiumHarvested(self)
 
 	-- if dontKillCrystal is false increment the framesBeingHarvested
 	if not crystalData.dontKillCrystal then
-		local diff = curFrame - crystalData.firstHarvestedFrame - PER_HARVEST_OFFSET
+		local diff = curFrame - crystalData.firstHarvestedFrame - PerHarvestOffset
 
 		-- the lower diff is, the more the crystal has been repeatedly harvested
 		if diff <= -3 then
@@ -972,11 +1029,11 @@ function OffTiberiumHarvested(self)
 	crystalData.lastHarvestedFrame = curFrame
 	crystalData.beingHarvestedBy = nil
 
-	if crystalData.framesBeingHarvested >= MAX_FRAMES_BEING_HARVESTED and not crystalData.crystalHasBeenReset and not crystalData.dontKillCrystal then
+	if crystalData.framesBeingHarvested >= MaxFramesBeingHarvested and not crystalData.crystalHasBeenReset and not crystalData.dontKillCrystal then
 		-- prevent death FX in FXListBehaviour
 		ObjectSetObjectStatus(self, "RIDER1")
 		-- cleanup
-		crystalDataTable[getObjectId(self)] = nil
+		CrystalDataTable[GetObjectId(self)] = nil
 		ExecuteAction("NAMED_KILL", self)
 		return
 	end
@@ -984,8 +1041,8 @@ function OffTiberiumHarvested(self)
 	-- reset dontKillCrystal if its set to true
 	crystalData.dontKillCrystal = false
 
-	-- reset flag if time since last harvest is more than MAX_FRAMES_WHEN_NOT_HARVESTED
-	if (GetFrame() - crystalData.lastHarvestedFrame) <= MAX_FRAMES_WHEN_NOT_HARVESTED then
+	-- reset flag if time since last harvest is more than MaxFramesWhenNotHarvested
+	if (GetFrame() - crystalData.lastHarvestedFrame) <= MaxFramesWhenNotHarvested then
 		crystalData.crystalHasBeenReset = false
 	else
 		crystalData.crystalHasBeenReset = true
@@ -995,9 +1052,9 @@ end
 -- when the crystal is completely harvested and not killed, clear the crystalData element
 function OffTiberiumGrowing(self)
 	-- clear it
-	crystalDataTable[getObjectId(self)] = nil
+	CrystalDataTable[GetObjectId(self)] = nil
 end
 
-function getObjectId(x)
+function GetObjectId(x)
 	return strsub(ObjectDescription(x),strfind(ObjectDescription(x),'t')+2,strfind(ObjectDescription(x),'%[')-2) -- Object id
 end

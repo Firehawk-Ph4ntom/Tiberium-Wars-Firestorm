@@ -43,7 +43,7 @@
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_TiberiumSpike_Destroyed">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
-			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" InitialCaptureBonus="500" DepositInterval="1s" DepositAmount="10" GiveNoXP="true" Flags="ACTIVE_WHEN_REPAIRING"/>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" InitialCaptureBonus="500" DepositInterval="1s" DepositAmount="10" UpgradeBonusScalar="2.5" Flags="ACTIVE_WHEN_REPAIRING" GiveNoXP="true" Upgrade="Upgrade_PVEGameModePlayerAutoDeposit"/>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Medium"/>
@@ -53,6 +53,9 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -60,7 +63,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerAutoDepositFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>

@@ -91,7 +91,14 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
+				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
+					<ModifierFilter Rule="NONE">
+						<IncludeThing>AlienTiberiumTower</IncludeThing>
+						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					</ModifierFilter>
+				</ProductionModifier>
+			</ProductionUpdate>
 			<ProductionUpdate id="ModuleTag_ProductionOther" Type="OTHER_STRUCTURE" MaxQueueEntries="1"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<Sound Type="INITIAL" List="ALI_Building_Die"/>
@@ -109,12 +116,21 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>IonStorm</SpawnTemplate>
 			</SpawnBehavior>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
+			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="AlienFoundryPVEGamemodeCommandSet">
+				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
+			</CommandSetUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericAlienBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeCmdSetHackFunctions"/>
+		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
 		</Body>

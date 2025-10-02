@@ -10,12 +10,6 @@
 	<GameObject id="GDIPowerPlant" inheritFrom="BaseStructure" ButtonImage="Portrait_GDIPowerPlant" SelectPortrait="Portrait_GDIPowerPlant" Side="GDI" BuildCost="700" BuildTime="7" EnergyProduction="20" EnergyBonus="15" CommandSet="GDIPowerPlantCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_POWER NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER" PlacementViewAngle="315d" EditorName="GDIPowerPlant" Description="Desc:GDIPowerPlant" TypeDescription="Type:GDIPowerPlant">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIPowerPlant</DisplayName>
 		<DisplayUpgrade>Upgrade_SonicRepulsionField</DisplayUpgrade>
-		<GameDependency>
-			<ObjectFilter Rule="ANY">
-				<IncludeThing>GDIConstructionYard</IncludeThing>
-				<IncludeThing>GDICrane</IncludeThing>
-			</ObjectFilter>
-		</GameDependency>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
 		<Draws>
@@ -214,6 +208,15 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
+			<PowerUpgrade id="ModuleTag_PVEPowerUpgrade">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</PowerUpgrade>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_PowerPlantTurbine</TriggeredBy>
 			</PowerUpgrade>
@@ -227,7 +230,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDIPowerPlantFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000.0"/>
@@ -252,5 +255,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER1"/>
 	</GameObject>
 </AssetDeclaration>

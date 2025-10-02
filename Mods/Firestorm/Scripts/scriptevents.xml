@@ -112,6 +112,16 @@
 			<Conditions>+USER_4</Conditions>
 		</ModelConditionEvent>
 
+		<ModelConditionEvent Name="OnFiringWeapon">
+			<Conditions>+FIRING_A</Conditions>
+		</ModelConditionEvent>
+
+		<ModelConditionEvent Name="OnTakingOffEvent">
+			<Conditions>+TAKING_OFF</Conditions>
+		</ModelConditionEvent>
+
+		<!-- Firestorm Mod Events -->
+
 		<ModelConditionEvent Name="OnUser1">
 			<Conditions>+USER_1</Conditions>
 		</ModelConditionEvent>
@@ -122,14 +132,6 @@
 
 		<ModelConditionEvent Name="OnUpgraded">
 			<Conditions>+USER_2 +USER_5</Conditions>
-		</ModelConditionEvent>
-
-		<ModelConditionEvent Name="OnFiringWeapon">
-			<Conditions>+FIRING_A</Conditions>
-		</ModelConditionEvent>
-
-		<ModelConditionEvent Name="OnTakingOffEvent">
-			<Conditions>+TAKING_OFF</Conditions>
 		</ModelConditionEvent>
 
 		<ObjectStatusEvent Name="OnUserHasTibAmmoEnd">
@@ -206,10 +208,34 @@
 			<Conditions>-RIDER2</Conditions>
 		</ObjectStatusEvent>
 
+		<ModelConditionEvent Name="OnPVEGameModeActivatedObject">
+			<Conditions>+USER_45</Conditions>
+		</ModelConditionEvent>
+
+		<ModelConditionEvent Name="OnPVEGameModeActivatedPlayer">
+			<Conditions>+USER_46</Conditions>
+		</ModelConditionEvent>
+
 	</Events>
 
 	<EventList Name="BaseScriptFunctions">
-		<!-- If there are any events that need to apply to all units, put them here. jba -->
+		<!-- If there are any events that need to apply to every unit/structure, put them here. -->
+	</EventList>
+
+	<EventList Name="BuildingPowerFunctions" Inherit="BaseScriptFunctions">
+		<!-- If there are any events that need to apply to every unit/structure with the Power Outage/Restore script, put them here. -->
+		<EventHandler EventName="OnPowerOutage" ScriptFunctionName="onBuildingPowerOutage" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPowerRestore" ScriptFunctionName="onBuildingPowerRestored" DebugSingleStep="false"/>
+	</EventList>
+
+	<!-- Generic keep Lua Event Lists -->
+
+	<EventList Name="GarrisonableFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGarrisonableCreated" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="RubbleDropshipFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnRubbleDropshipCreated" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NeutralGarrisonableBuildingFunctions" Inherit="BaseScriptFunctions">
@@ -220,13 +246,46 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="onCreatedControlPointFunctions" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="BuildingPowerFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnPowerOutage" ScriptFunctionName="onBuildingPowerOutage" DebugSingleStep="false"/>
-		<EventHandler EventName="OnPowerRestore" ScriptFunctionName="onBuildingPowerRestored" DebugSingleStep="false"/>
-	</EventList>
+	<!-- FIRESTORM LUA FUNCTION EVENT LISTS -->
 
 	<EventList Name="UnitForbidCommandsEventsList" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="onCreatedForbidCommands" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModePlayerUpgrade" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeBuildingPowerFunctions" Inherit="BuildingPowerFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModePlayerUpgrade" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeCmdSetHackFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeCmdSetHackObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeCmdSetHackPlayerUpgrade" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeBuildingPowerCmdSetHackFunctions" Inherit="BuildingPowerFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeCmdSetHackObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeCmdSetHackPlayerUpgrade" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeAutoDepositFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeAutoDepositObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeAutoDepositPlayerUpgrade" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeBuildingPowerAutoDepositFunctions" Inherit="BuildingPowerFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeAutoDepositObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeAutoDepositPlayerUpgrade" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeCapDelayFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider1" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeCapDelayHackObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeCapDelayHackPlayerUpgrade" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericSpotterFunctions" Inherit="BaseScriptFunctions">
@@ -236,6 +295,15 @@
 	<EventList Name="GenericTibChargeNoAttackFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnUserHasTibAmmoEnd" ScriptFunctionName="OnTibChargeNoAttack" DebugSingleStep="false"/>
 		<EventHandler EventName="OnUser7End" ScriptFunctionName="OnTibChargeNoAttackEnd" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericAlienProductionBuildingFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnUser1" ScriptFunctionName="OnAlienAdvProductionPurchased" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GenericPVEGamemodeAlienProductionFunctions" Inherit="GenericAlienProductionBuildingFunctions">
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModePlayerUpgrade" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericMissileWeaponSwapNoAttackFunctions" Inherit="BaseScriptFunctions">
@@ -279,30 +347,39 @@
 		<EventHandler EventName="OnGenericEvent" ScriptFunctionName="CheckJetAircraftAmmoDepleted" DebugSingleStep="false"/>
 	</EventList>
 
+	<EventList Name="GenericGDIAirSupremacyAircraftFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIAircraftCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnUpgraded" ScriptFunctionName="OnGDIAirSupremacyPurchased" DebugSingleStep="false"/>
+	</EventList>
+
 	<EventList Name="GenericTiberiumCrystalFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="TiberiumCrystalEvent" ScriptFunctionName="OnTiberiumCrystalHarvested" DebugSingleStep="false"/>
 		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OffTiberiumGrowing" DebugSingleStep="false"/>
 	</EventList>
 
-	<!-- Generic keep Lua Event Lists -->
-
-	<EventList Name="GarrisonableFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGarrisonableCreated" DebugSingleStep="false"/>
+	<EventList Name="GenericNODTiberiumInfusionFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODTiberiumInfusionUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="RubbleDropshipFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnRubbleDropshipCreated" DebugSingleStep="false"/>
+	<EventList Name="GenericAlienIchorPlatingFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnUser1" ScriptFunctionName="OnAlienIchorPlatingUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
-
-	<!-- XPACK LUA FUNCTION LISTS -->
 
 	<!-- Neutral -->
 
-	<EventList Name="NeutralViceroidFunctions" Inherit="BaseScriptFunctions">
+	<EventList Name="NeutralMutantViceroidFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnMutantViceroidCreated" DebugSingleStep="false"/>
 	</EventList>
 
 	<!-- GDI -->
+
+	<EventList Name="GDIPowerPlantFunctions" Inherit="GenericPVEGamemodeFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider1" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GDIBarracksFunctions" Inherit="GenericPVEGamemodeFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider1" DebugSingleStep="false"/>
+	</EventList>
 
 	<EventList Name="GDICommandPostFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDICommandPostCreated" DebugSingleStep="false"/>
@@ -356,16 +433,21 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIWolverineCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="GDIPaladinTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIPaladinTankCreated" DebugSingleStep="false"/>
-	</EventList>
-
 	<EventList Name="GDIPredatorTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIPredatorTankCreated" DebugSingleStep="false"/>
 	</EventList>
 
+	<EventList Name="GDIPaladinTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIPaladinTankCreated" DebugSingleStep="false"/>
+	</EventList>
+
 	<EventList Name="GDIMammothTankFunctions" Inherit="GenericRailWeaponSwapNoAttackFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIMammothTankCreated" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="GDIFirehawkFunctions" Inherit="GenericJetAircraftDisableAIFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIAircraftCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnUpgraded" ScriptFunctionName="OnGDIAirSupremacyPurchased" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GDIV35Ox_SummonedFunctions" Inherit="BaseScriptFunctions">
@@ -378,20 +460,10 @@
 		<EventHandler EventName="OnCarrying" ScriptFunctionName="OnGDIV35Ox_Carrying" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="GDIAirSupremacyAircraftFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIAircraftCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnUpgraded" ScriptFunctionName="OnGDIAirSupremacyPurchased" DebugSingleStep="false"/>
-	</EventList>
-
-	<EventList Name="GDIFirehawkFunctions" Inherit="GenericJetAircraftDisableAIFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnGDIAircraftCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnUpgraded" ScriptFunctionName="OnGDIAirSupremacyPurchased" DebugSingleStep="false"/>
-	</EventList>
-
 	<!-- Nod -->
 
-	<EventList Name="NODPowerPlantFunctions" Inherit="BuildingPowerFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider4" DebugSingleStep="false"/>
+	<EventList Name="NODPowerPlantFunctions" Inherit="GenericPVEGamemodeBuildingPowerFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODPowerPlantCreated" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODOperationsCenterFunctions" Inherit="BuildingPowerFunctions">
@@ -424,25 +496,22 @@
 		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODDisruptionModulesUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODHarvesterFunctions" Inherit="GenericHarvesterFunctions">
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODDisruptionModulesUpgradePurchased" DebugSingleStep="false"/>
+	<EventList Name="NODMilitantEventsList" Inherit="GenericNODTiberiumInfusionFunctions">
+		<EventHandler EventName="OnUser2" ScriptFunctionName="OnNODMilitantIsConfessor" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODVenomFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODVenomCreated" DebugSingleStep="false"/>
-	</EventList>
-
-	<EventList Name="NODCarryall_SummonedForVehicleFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODCarryall_SummonedForVehicleCreated" DebugSingleStep="false"/>
-		<EventHandler EventName="OnCarrying" ScriptFunctionName="OnGDIV35Ox_Carrying" DebugSingleStep="false"/>
-	</EventList>
-
-	<EventList Name="NODReaperFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODReaperCreated" DebugSingleStep="false"/>
+	<EventList Name="NODSaboteurEventsList" Inherit="GenericNODTiberiumInfusionFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider1" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeCapDelayHackObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeCapDelayHackPlayerUpgrade" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODCyborgInfantryFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODCyborgInfantryCreated" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="NODReaperFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODReaperCreated" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODAttackBikeFunctions" Inherit="BaseScriptFunctions">
@@ -455,6 +524,10 @@
 
 	<EventList Name="NODRaiderTankFunctions" Inherit="BaseScriptFunctions">
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODRaiderTankCreated" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="NODHarvesterFunctions" Inherit="GenericHarvesterFunctions">
+		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODDisruptionModulesUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODReckonerFunctions" Inherit="GenericPropagandaBuffFunctions">
@@ -473,22 +546,33 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODRedeemerWarmechCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODTiberiumInfusionFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODTiberiumInfusionUpgradePurchased" DebugSingleStep="false"/>
+	<EventList Name="NODVenomFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODVenomCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODMilitantEventsList" Inherit="NODTiberiumInfusionFunctions">
-		<EventHandler EventName="OnUser2" ScriptFunctionName="OnNODMilitantIsConfessor" DebugSingleStep="false"/>
+	<EventList Name="NODCarryall_SummonedForVehicleFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODCarryall_SummonedForVehicleCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCarrying" ScriptFunctionName="OnGDIV35Ox_Carrying" DebugSingleStep="false"/>
 	</EventList>
 
 	<!-- Alien -->
 
-	<EventList Name="AlienProductionBuildingFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnAlienAdvProductionPurchased" DebugSingleStep="false"/>
+	<EventList Name="AlienPowerProjectorFunctions" Inherit="GenericPVEGamemodeBuildingPowerFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider2" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="AlienPortalFunctions" Inherit="GenericPVEGamemodeAlienProductionFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider2" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="AlienAssimilatorFunctions" Inherit="GenericAlienIchorPlatingFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider1" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedObject" ScriptFunctionName="OnPVEGameModeCapDelayHackObjectUpgrade" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPVEGameModeActivatedPlayer" ScriptFunctionName="OnPVEGameModeCapDelayHackPlayerUpgrade" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="AlienRazorbackFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnAlienRazorbackCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnUnitCreatedSetRider2" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="AlienEradicatorHexapodFunctions" Inherit="BaseScriptFunctions">
@@ -507,7 +591,4 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnAlienMotherShipCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="AlienIchorPlatingFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnUser1" ScriptFunctionName="OnAlienIchorPlatingUpgradePurchased" DebugSingleStep="false"/>
-	</EventList>
 </SageLuaScriptSection>

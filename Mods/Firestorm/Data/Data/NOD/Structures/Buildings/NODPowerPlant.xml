@@ -12,12 +12,6 @@
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPowerPlant</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
-		<GameDependency>
-			<ObjectFilter Rule="ANY">
-				<IncludeThing>NODConstructionYard</IncludeThing>
-				<IncludeThing>NODCrane</IncludeThing>
-			</ObjectFilter>
-		</GameDependency>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="SPREAD"/>
 		<Draws>
@@ -166,6 +160,15 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>NODPowerPlantDrone</SpawnTemplate>
 			</SpawnBehavior>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
+			<PowerUpgrade id="ModuleTag_PVEPowerUpgrade">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</PowerUpgrade>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
 			</PowerUpgrade>
@@ -231,5 +234,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER1"/>
 	</GameObject>
 </AssetDeclaration>

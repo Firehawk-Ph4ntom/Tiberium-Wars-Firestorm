@@ -14,9 +14,6 @@
 	<GameObject id="NODCrane" inheritFrom="BaseStructure" SelectPortrait="Portrait_NODCrane" ButtonImage="Portrait_NODCrane" Side="NOD" BuildCost="1500" BuildTime="15" CommandSet="NODCraneCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS CONSTRUCTION_YARD NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI FS_FACTORY COVER CRANE PROJECT_BUILDABILITY_FOR_ALLIES" PlacementViewAngle="225d" EnergyProduction="-10" EditorName="NODCrane" Description="Desc:NODCrane" TypeDescription="Type:NODCrane">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCrane</DisplayName>
 		<DisplayUpgrade>Upgrade_LaserFencing</DisplayUpgrade>
-		<GameDependency>
-			<RequiredObject>NODConstructionYard</RequiredObject>
-		</GameDependency>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="CENTER"/>
 		<Draws>
@@ -116,7 +113,14 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
+				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
+					<ModifierFilter Rule="NONE">
+						<IncludeThing>NODRefinery</IncludeThing>
+						<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+					</ModifierFilter>
+				</ProductionModifier>
+			</ProductionUpdate>
 			<ProductionUpdate id="ModuleTag_ProductionOther" Type="OTHER_STRUCTURE" MaxQueueEntries="1"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<Sound Type="INITIAL" List="HumanFaction_MediumBuilding_DieMS"/>
@@ -129,6 +133,12 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Medium"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
+			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="NODCranePVEGamemodeCommandSet">
+				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
+			</CommandSetUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -136,7 +146,7 @@
 			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeCmdSetHackFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>

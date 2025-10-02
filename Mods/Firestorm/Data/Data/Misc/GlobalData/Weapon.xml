@@ -3,6 +3,81 @@
 
 	<!-- Misc -->
 
+	<!-- Activated by the dummy object spawned when ticking the crates option - only gives out USER_45 Condition -->
+	<!-- USER_46 is given out through a WB Script by a Library map -->
+	<WeaponTemplate
+		id="PVEGameModeTriggerWeapon"
+		Name="PVEGameModeTriggerWeapon"
+		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS">
+		<Nuggets>
+			<AttributeModifierNugget
+				Radius="99999"
+				PartitionFilterTestType="CIRCLE"
+				AttributeModifierName="AttributeModifier_PVEGameModeActivated">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- GDI -->
+					<IncludeThing>GDIConstructionYard</IncludeThing>
+					<IncludeThing>GDIPowerPlant</IncludeThing>
+					<IncludeThing>GDIRefinery</IncludeThing>
+					<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
+					<IncludeThing>GDIBarracks</IncludeThing>
+					<IncludeThing>GDIWarfactory</IncludeThing>
+					<IncludeThing>GDICrane</IncludeThing>
+					<IncludeThing>GDIReclamatorHub</IncludeThing>
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<!-- NOD -->
+					<IncludeThing>NODConstructionYard</IncludeThing>
+					<IncludeThing>NODPowerPlant</IncludeThing>
+					<IncludeThing>NODRefinery</IncludeThing>
+					<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+					<IncludeThing>NODHandOfNOD</IncludeThing>
+					<IncludeThing>NODDropZone</IncludeThing>
+					<IncludeThing>NODCrane</IncludeThing>
+					<IncludeThing>NODWarmechFacility</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<!-- Alien -->
+					<IncludeThing>AlienDronePlatform</IncludeThing>
+					<IncludeThing>AlienPowerProjector</IncludeThing>
+					<IncludeThing>AlienTiberiumTower</IncludeThing>
+					<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					<IncludeThing>AlienPortal</IncludeThing>
+					<IncludeThing>AlienGateway</IncludeThing>
+					<IncludeThing>AlienFoundry</IncludeThing>
+					<IncludeThing>AlienWarpChasm</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<!-- Neutral -->
+					<IncludeThing>MutantSalvager</IncludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GenericEngineerDummyWeapon"
+		Name="GenericEngineerDummyWeapon"
+		AttackRange="150"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="99999"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		ClipSize="1"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<ClipReloadTime
+			MinSeconds="999s"
+			MaxSeconds="999s"/>
+		<Nuggets>
+			<DamageNugget
+				Damage="1"
+				DamageType="GUN"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE INFANTRY VEHICLE AIRCRAFT HUSK"/>
+			</DamageNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
 	<!-- Used for the GDI Campaign Finale -->
 	<WeaponTemplate
 		id="NODDarkTwilightArtilleryNuclearCannon"
@@ -4757,6 +4832,7 @@
 		WeaponSpeed="200"
 		ProjectileSelf="true"
 		ClipSize="0"
+		NoVictimNeeded="true"
 		HitPercentage="0%">
 		<PreAttackDelay
 			MinSeconds="0.1s"
@@ -4784,6 +4860,7 @@
 		WeaponSpeed="200"
 		ProjectileSelf="true"
 		ClipSize="0"
+		NoVictimNeeded="true"
 		HitPercentage="0%">
 		<PreAttackDelay
 			MinSeconds="0.1s"
@@ -6084,7 +6161,7 @@
 				<DamageScalarDetails
 					Scalar="75%">
 					<Filter
-						Rule="NONE"
+						Rule="ANY"
 						Include="INFANTRY TIBERIUM_BASED"/>
 				</DamageScalarDetails>
 			</DamageNugget>
@@ -7936,6 +8013,7 @@
 		WeaponSpeed="325"
 		ProjectileSelf="true"
 		ClipSize="0"
+		NoVictimNeeded="true"
 		HitPercentage="0%">
 		<PreAttackDelay
 			MinSeconds="0.1s"
@@ -8142,7 +8220,7 @@
 				<DamageScalarDetails
 					Scalar="75%">
 					<Filter
-						Rule="NONE"
+						Rule="ANY"
 						Include="INFANTRY TIBERIUM_BASED"/>
 				</DamageScalarDetails>
 			</DamageNugget>
@@ -8207,7 +8285,7 @@
 						Include="VEHICLE STRUCTURE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="220%">
+					Scalar="200%">
 					<Filter
 						Rule="NONE"
 						Include="AIRCRAFT">
@@ -8281,7 +8359,7 @@
 						Include="VEHICLE STRUCTURE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="220%">
+					Scalar="200%">
 					<Filter
 						Rule="NONE"
 						Include="AIRCRAFT">
@@ -8856,6 +8934,7 @@
 		RequiredFiringObjectStatus="DEPLOYED"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
 		CheckStatusFlagsInRangeChecks="false"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		RotatingTurret="true">
 		<FiringDuration
@@ -10612,6 +10691,7 @@
 		WeaponRecoil="20d"
 		FireSound="GDI_Firehawk_FireSoundMS"
 		ClipSize="6"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		Flags="LENGTH_SCATTER"
 		RequiredFiringObjectStatus="WEAPON_UPGRADED_02"
@@ -39567,6 +39647,7 @@
 		AttackRange="5"
 		WeaponSpeed="999999"
 		AcceptableAimDelta="180d"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ClipSize="1"
 		FireSoundPerClip="ALI_MotherShip_WeaponFire"
@@ -39600,6 +39681,7 @@
 		AttackRange="5"
 		WeaponSpeed="999999"
 		AcceptableAimDelta="180d"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ClipSize="1"
 		FireSoundPerClip="ALI_MotherShip_WeaponFire"
@@ -39633,6 +39715,7 @@
 		AttackRange="5"
 		WeaponSpeed="999999"
 		AcceptableAimDelta="180d"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ClipSize="1"
 		FireSoundPerClip="ALI_MotherShip_WeaponFire"
@@ -39666,6 +39749,7 @@
 		AttackRange="5"
 		WeaponSpeed="999999"
 		AcceptableAimDelta="180d"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ClipSize="1"
 		FireSoundPerClip="ALI_MotherShip_WeaponFire"
@@ -43484,6 +43568,7 @@
 		FireSound="ALI_ShockTrooper_ProtonCannonFireMS"
 		FireFX="FX_AlienSporeFire"
 		ClipSize="10"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ReAcquireDetailType="PRE_FIRE"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
@@ -43995,6 +44080,7 @@
 		FireSound="ALI_ShockTrooper_ProtonCannonFireMS"
 		FireFX="FX_AlienSporeFireBlue"
 		ClipSize="10"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ReAcquireDetailType="PRE_FIRE"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"

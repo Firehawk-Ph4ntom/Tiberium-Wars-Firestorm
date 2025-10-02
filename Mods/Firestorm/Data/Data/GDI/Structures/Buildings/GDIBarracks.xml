@@ -189,14 +189,12 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="4" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="3s" ResetInitialTeamOnCapture="true">
-				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
-				<DieMuxData DeathTypes="ALL"/>
-				<PassengerData BonePrefix="ROOTTRANSFORM">
-					<Filter Rule="NONE" Include="INFANTRY"/>
-				</PassengerData>
-				<ExitOffset x="60" y="20" z="0"/>
-			</HealContain>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_TibFieldSuitsModelCondition" Permanent="true" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -208,7 +206,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDIBarracksFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
@@ -259,5 +257,6 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER1"/>
 	</GameObject>
 </AssetDeclaration>

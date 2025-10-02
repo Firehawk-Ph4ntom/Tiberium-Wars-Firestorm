@@ -13,7 +13,7 @@
 		<DisplayUpgrade>Upgrade_ZoneTrooperScannerPack</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_CyberneticAugmentation</DisplayUpgrade>
 		<ArmorSet Armor="GenericInfantryArmor_TiberiumInfused" DamageFX="InfantryDamageFX"/>
-		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="47"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="50"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -233,10 +233,8 @@
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE BEACON"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
-				</WeaponSlotHardpoint>
-				<WeaponSlotHardpoint ID="2">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODHijackerCaptureGetInRange"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange" ObjectStatus="RIDER1"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
@@ -248,17 +246,17 @@
 				<InvisibilityNugget ForbiddenConditions="ATTACKING PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A RELOADING_A USING_WEAPON_A" ForbiddenStatus="IS_FIRING_WEAPON USING_ABILITY IS_AIMING_WEAPON SPECIAL_ABILITY_PACKING_UNPACKING_OR_USING"/>
 				<BroadcastObjectFilter Rule="ANY" Include="TIBERIUM TIBERIUM_FIELD"/>
 			</InvisibilityUpdate>
+			<!-- Capture Vehicle -->
+			<SpecialPower id="ModuleTag_CaptureVehicleGetInRange" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_HijackerCapture" ChainedButton="Command_CaptureVehicleTrigger" SpecialWeapon="GenericHijackerCaptureTrigger"/>
+			<SpecialPower id="ModuleTag_CaptureVehicleSP" SpecialPowerTemplate="SpecialPowerCaptureVehicle" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicle" StartAbilityRange="20" PreparationTime="0.25s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureVehicle" SpecialWeapon="GenericEngineerSuicideWeapon"/>
 			<!-- Capture Building -->
 			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_EngineerCapture" ChainedButton="Command_CaptureBuildingTrigger" SpecialWeapon="GenericEngineerCaptureTrigger"/>
 			<SpecialPower id="ModuleTag_CaptureBuildingSP" SpecialPowerTemplate="SpecialPowerCaptureBuilding" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureBuilding" StartAbilityRange="20" PreparationTime="3s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureBuilding" SpecialWeapon="GenericEngineerSuicideWeapon"/>
 			<AISpecialPowerUpdate id="ModuleTag_CaptureBuildingAI" CommandButtonName="Command_CaptureBuilding" SpecialPowerAIType="SPECIAL_POWER_CAPTURE_BUILDING"/>
-			<!-- Capture Vehicle -->
-			<SpecialPower id="ModuleTag_CaptureVehicleGetInRange" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_HijackerCapture" ChainedButton="Command_CaptureVehicleTrigger" SpecialWeapon="GenericHijackerCaptureTrigger"/>
-			<SpecialPower id="ModuleTag_CaptureVehicleSP" SpecialPowerTemplate="SpecialPowerCaptureVehicle" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicle" StartAbilityRange="20" PreparationTime="0.25s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" ChainedButton="Command_CaptureVehicle" SpecialWeapon="GenericEngineerSuicideWeapon"/>
 			<!-- Booby Trap -->
 			<SpecialPowerDispatchSpecialPower id="ModuleTag_BoobyTrapDispatch" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapDispatch">
 				<SpecialPower SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtTechBuilding"/>
@@ -283,6 +281,15 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" WhichSpecialWeapon="1" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
+			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_PVEMovementSpeed">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModePlayerCapDelayHack</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
 			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
 				<CustomAnimAndDuration AnimState="USER_1"/>
 				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
@@ -311,7 +318,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"  AILuaEventsList="GenericPVEGamemodeCapDelayFunctions">
 				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>

@@ -123,7 +123,14 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
+				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
+					<ModifierFilter Rule="NONE">
+						<IncludeThing>NODRefinery</IncludeThing>
+						<IncludeThing>NODRefinerySPNoHarvester</IncludeThing>
+					</ModifierFilter>
+				</ProductionModifier>
+			</ProductionUpdate>
 			<ProductionUpdate id="ModuleTag_ProductionOther" MaxQueueEntries="1" NumDoorAnimations="1" DoorOpeningTime="0.1s" DoorWaitOpenTime="3s" DoorCloseTime="0.1s" Type="OTHER_STRUCTURE"/>
 			<ProductionUpdateInfo id="ModuleTag_ProductionInfo"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
@@ -148,15 +155,21 @@
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>NODMCV</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<PowerUpdate id="ModuleTag_PowerGenerator" Type="BACKUP_GENERATOR" Duration="10s" ReloadTime="30s"/>
+			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</ModelConditionUpgrade>
+			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="NODConstructionYardCommandSet">
+				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
+			</CommandSetUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
 			<xi:include href="DATA:Includes/GenericNODBuildingDestruction.xml"/>
 			<xi:include href="DATA:Includes/ConYardNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerCmdSetHackFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
