@@ -1,0 +1,91 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMedicCSH.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMedicCSH_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMedicCSH_HC.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMedicCSH_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMedicCSH_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMEDICCSH_A.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMEDICCSH_D2SN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMEDICCSH_D3SN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\GDIMedicHospital\GBMEDICCSH_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
+	</Includes>
+	<GameObject id="GDIMedicHospital" inheritFrom="BaseStructure" SelectPortrait="Portrait_GDIMedicHospital" ButtonImage="Portrait_GDIMedicHospital" Side="GDI" BuildCost="100" BuildTime="10" CommandSet="GDIMedicHospitalCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS AUTO_ACQUIRABLE_BY_AI COVER NOT_AUTOACQUIRABLE AUTO_RALLYPOINT IGNORE_FOR_VICTORY" EditorName="GDIMedicHospital" TypeDescription="Type:GDIMedicHospital" Description="Desc:GDIMedicHospital" CampnessValue="200" CampnessValueRadius="30">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIMedicHospital</DisplayName>
+		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="True">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="GBMEDICCSH_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Model Name="GBMEDICCSH_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="GBMEDICCSH_D3SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="GBMEDICCSH_D2SN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="GBMEDICCSH_SKN"/>
+					<Texture Original="GBMedicCSH" New="GBMedicCSH_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="GBMEDICCSH_A" AnimationMode="ONCE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE" StateName="STATE_Rubble" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GBMEDICCSH_A" AnimationMode="MANUAL"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_Rubble" and Prev ~= "TRANS_IntoRubble" then CurDrawableSetTransitionAnimState("TRANS_IntoRubble") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
+					<Animation AnimationName="GBMEDICCSH_A" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="0"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
+				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
+			</FXListBehavior>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
+			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="4" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="3s" ResetInitialTeamOnCapture="true">
+				<PassengerFilter Rule="ANY" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="ROOTTRANSFORM">
+					<Filter Include="INFANTRY"/>
+				</PassengerData>
+				<ExitOffset x="50" y="0" z="0"/>
+			</HealContain>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="GDIMedicHospitalDieOCL">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2000.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="25.0" Height="20.0" ContactPointGeneration="STRUCTURE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="GDI_FoxHole_Select" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
+			<AudioEntry Sound="HumanFaction_SmallBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="350" ShroudClearingRange="400"/>
+	</GameObject>
+</AssetDeclaration>
