@@ -6,7 +6,30 @@
 	<GameObject id="GDIBattleBaseRepairDrone" inheritFrom="GDIRepairDrone" EditorName="GDIBattleBaseRepairDrone">
 		<Behaviors>
 			<SlavedUpdate id="ModuleTag_SlavedUpdate" xai:joinAction="Append" LeashRange="200" GuardMaxRange="200"/>
-			<AttachUpdate id="ModuleTag_AttachUpdate" xai:joinAction="Append" Range="200"/>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" xai:joinAction="Replace" HealingPointsPerSecond="150" HealFX="FX_Repair" AffectAttached="true" AffectUnderAttack="true">
+				<AllowFilter Rule="ANY" Relationship="ALLIES" Include="VEHICLE AIRCRAFT">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
+			<AttachUpdate id="ModuleTag_AttachUpdate" xai:joinAction="Replace" ParentStatus="UNDERGOING_REPAIR" Range="200" CloseEnoughRange="20" InitialAttachDelay="0.5s" Flags="FIND_BEST_PARENT UNCONTAINED_ONLY ONE_ATTACH_PER_PARENT" Teleport="false" DetachWhenParentHealed="true" DetachWhenParentOutOfSlavedRange="true" RequireFullyHealedToDetach="true" ScanForNewParentWhenDetached="true" CanAttachToHordeMembers="true">
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="VEHICLE AIRCRAFT">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</ObjectFilter>
+			</AttachUpdate>
 		</Behaviors>
 		<VisionInfo VisionRange="200" ShroudClearingRange="25"/>
 	</GameObject>

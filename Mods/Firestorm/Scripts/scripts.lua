@@ -577,20 +577,6 @@ function OnPVEGameModeCapDelayHackPlayerUpgrade(self)
 	end
 end
 
-function OnPVEGameModeAutoDepositObjectUpgrade(self)
-	if ObjectTestModelCondition(self, "USER_45") then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerAutoDeposit" )
-	end
-end
-
-function OnPVEGameModeAutoDepositPlayerUpgrade(self)
-	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerAutoDeposit" )
-	end
-end
-
 function CheckJetAircraftAmmoDepleted(self)
 	if IsUnitAI(self) then
 		if UnitAmmoCount.self == nil then
