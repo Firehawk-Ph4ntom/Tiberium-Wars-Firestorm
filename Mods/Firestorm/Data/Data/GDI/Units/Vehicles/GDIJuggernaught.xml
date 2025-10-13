@@ -45,7 +45,7 @@
 	</Includes>
 	<GameObject id="GDIJuggernaught" inheritFrom="BaseVehicle" SelectPortrait="Portrait_GDIJuggernaut" ButtonImage="Portrait_GDIJuggernaut" Side="GDI" BuildCost="2500" BuildTime="25" BuildFadeInOnCreateTimeSeconds="0.25s" CommandSet="GDIJuggernaughtCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE VEHICLE VALID_TARGET_FOR_C4 SIEGE_WEAPON CAN_BE_FAVORITE_UNIT" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="212" EditorName="GDIBehemoth" Description="Desc:GDIJuggernaught" TypeDescription="Type:GDIJuggernaught">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:GDIJuggernaught</DisplayName>
-		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIOverkill</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AdaptiveArmor</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>GDIArmory</RequiredObject>
@@ -306,6 +306,7 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotTurret ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_RANDOM">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIJuggernaughtArtilleryCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIJuggernaughtUpgradedArtilleryCannon" ObjectStatus="RIDER3"/>
 					<TurretSettings TurretTurnRate="50">
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
@@ -395,9 +396,19 @@
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
 			<!-- Spot Target Bombard -->
+			<SpecialPower id="ModuleTag_BombardementDummy" SpecialPowerTemplate="SpecialPower_SpotTargetBombardDummy" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementDummyUpdate" SpecialWeapon="GDIJuggernaughtArtilleryBombardDummy" SpecialPowerTemplate="SpecialPower_SpotTargetBombardDummy" ChainedButton="Command_SpotTargetBombardDispatch" StartAbilityRange="100000.0" BusyForDuration="0s" WhichSpecialWeapon="1" WeaponSlotID="1"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_BombardementDispatch" SpecialPowerTemplate="SpecialPower_SpotTargetBombardDispatch">
+				<SpecialPower SpecialPowerTemplate="SpecialPower_SpotTargetBombard"/>
+				<SpecialPower SpecialPowerTemplate="SpecialPower_SpotTargetBombardUpgraded"/>
+			</SpecialPowerDispatchSpecialPower>
+			<!-- Normal Bombard -->
 			<SpecialPower id="ModuleTag_Bombardement" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UpdateModuleStartsAttack="true"/>
-			<WeaponFireSpecialAbilityUpdate SpecialWeapon="GDIJuggernaughtArtilleryBombard" id="ModuleTag_BombardementUpdate" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UnpackTime="2.0s" PackTime="2.0s" PersistentPrepTime="5.0s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
-			<AISpecialPowerUpdate id="ModuleTag_UseBombardementAI" CommandButtonName="Command_SpotTargetBombard" SpecialPowerAIType="SPECIAL_POWER_SPECIFIC_UNIT" SpecialPowerRadius="375" SpecificUnit="GDISniperSquad" EnemyUnitExclude="AIRCRAFT"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementUpdate" SpecialWeapon="GDIJuggernaughtArtilleryBombard" SpecialPowerTemplate="SpecialPower_SpotTargetBombard" UnpackTime="2s" PackTime="2s" PersistentPrepTime="5.0s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
+			<!-- Upgraded Bombard -->
+			<SpecialPower id="ModuleTag_BombardementUpgraded" SpecialPowerTemplate="SpecialPower_SpotTargetBombardUpgraded" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BombardementUpgradedUpdate" SpecialWeapon="GDIJuggernaughtArtilleryBombardUpgraded" SpecialPowerTemplate="SpecialPower_SpotTargetBombardUpgraded" UnpackTime="2s" PackTime="2s" PersistentPrepTime="5.0s" StartAbilityRange="100000.0" BusyForDuration="0s" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" WhichSpecialWeapon="1" WeaponSlotID="1"/>
+			<AISpecialPowerUpdate id="ModuleTag_UseBombardementAI" CommandButtonName="Command_SpotTargetBombard" SpecialPowerAIType="SPECIAL_POWER_SPECIFIC_UNIT" SpecialPowerRadius="200" SpecificUnit="GDISniperSquad" EnemyUnitExclude="AIRCRAFT"/>
 			<StatusBitsUpgrade id="ModuleTag_RocketLauncherLoadout" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_BehemothRocketPod</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -413,9 +424,12 @@
 			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+			<StatusBitsUpgrade id="ModuleTag_OverkillUpgrade" StatusToSet="RIDER3">
 				<TriggeredBy>Upgrade_GDIOverkill</TriggeredBy>
-			</ModelConditionUpgrade>
+			</StatusBitsUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_OverkillAudioLoop" SoundToPlay="GDI_Overkill_Upgrade">
+				<TriggeredBy>Upgrade_GDIOverkill</TriggeredBy>
+			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
