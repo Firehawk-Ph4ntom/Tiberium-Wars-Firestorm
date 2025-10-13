@@ -669,7 +669,7 @@ function SquadLookupTable(x)  -- x = object template
 	-- Alien Infantry
 	-- Disintigrators
 	elseif strfind(tostring(x), "2B9428D0") ~= nil then
-		squadDelay = 5*delay5
+		squadDelay = 6*delay5
 	-- Shock Troopers
 	elseif strfind(tostring(x), "6495F509") ~= nil then
 		squadDelay = 3*delay5
