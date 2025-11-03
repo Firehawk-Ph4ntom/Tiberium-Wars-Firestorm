@@ -47,6 +47,14 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small_Light" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Heal_CO" SizeX="340" SizeY="340" OpacityPeak="0.35" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true" IsRotatingWithObject="false"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
@@ -68,6 +76,22 @@
 				</PassengerData>
 				<ExitOffset x="50" y="0" z="0"/>
 			</HealContain>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" EffectRadius="150" HealingPercentPerSecond="4%" SurveyDelayFrames="15" HealFX="FX_GDI_Heal" AffectUnderAttack="true">
+				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE">
+					<!-- GDI Flying Infantry -->
+					<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+					<!-- NOD Cyborgs -->
+					<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+					<ExcludeThing>NODAscended</ExcludeThing>
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Flying Infantry -->
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="GDIMedicHospitalDieOCL">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
