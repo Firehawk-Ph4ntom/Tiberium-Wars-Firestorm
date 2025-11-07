@@ -64,7 +64,7 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
 					<Animation AnimationName="AUSurvyrR_DIEA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST" StateName="STATE_StartPak">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING PACKING_TYPE_1" Flags="START_FRAME_LAST" StateName="STATE_StartPak">
 					<Animation AnimationName="AUSurvyr_UPAK" AnimationMode="ONCE_BACKWARDS"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev ~= "STATE_StartPak" and Prev ~= "TRANS_IntoPak" then CurDrawableSetTransitionAnimState("TRANS_IntoPak") end; </Script>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
@@ -112,6 +112,9 @@
 				<ReplacementTemplate>AlienMiniMCVOutpost</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_MCVBuildConyardAI" CommandButtonName="Command_UnpackExplorer" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
+			<!-- Blink Packs -->
+			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
+			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseBlinkPack" DestinationWeapon="AlienExplorerBlinkPackWeapon2" SourceWeapon="AlienExplorerBlinkPackWeapon" FadeInTime="2s" UnpackTime="0.75s" PackTime="0.5s" BusyDuration="0.75s" StartAbilityRange="750" UnpackingVariation="2" Options="IGNORE_FACING_CHECK"/>
 			<!-- Toggle Amphi Mode -->
 			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_ToggleWaterLocoUpgrade" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" PreparationTime="0.1s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_ToggleAmphiMode" />
 			<SpecialPower id="ModuleTag_ToggleWaterLocoSP" SpecialPowerTemplate="SpecialPower_ToggleHoverUnitWaterLocomotor" UpdateModuleStartsAttack="true"/>
