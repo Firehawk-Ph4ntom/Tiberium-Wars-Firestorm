@@ -202,7 +202,7 @@
 				<DieMuxData DeathTypes="EXTRA_5"/>
 				<Event Index="onDeath" FX="FX_InfRadGooRed"/>
 			</FXListBehavior>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300" ExtraForbiddenKindOf="BEACON"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="BEACON"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIJetpackTrooperRifle"/>
@@ -226,15 +226,18 @@
 			</AudioLoopUpgrade>
 			<!-- Tib Field Suits -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
-			<!-- Auto Injectors -->
-			<AutoHealBehavior id="ModuleTag_AutoInjectorsAutoHeal" InitiallyActive="false" HealOnlyIfNotInCombat="true" HealOnlyIfNotUnderAttack="true" StartHealingDelay="5s" HealingAmount="10" HealingDelay="3s">
-				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			<!-- Composite Packs -->
+			<AutoHealBehavior id="ModuleTag_CompositePacksAutoHeal" InitiallyActive="false" HealOnlyIfNotInCombat="true" HealOnlyIfNotUnderAttack="true" StartHealingDelay="5s" HealingAmount="10" HealingDelay="3s">
+				<TriggeredBy>Upgrade_GDICompositePacks</TriggeredBy>
 			</AutoHealBehavior>
-			<AttributeModifierUpgrade id="ModuleTag_AutoInjectorsAttribute" AttributeModifier="ZoneTrooper_AutoInjectors">
-				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect2" DetectionRange="400" InitiallyDisabled="true" ExtraForbiddenKindOf="BEACON">
+				<TriggeredBy>Upgrade_GDICompositePacks</TriggeredBy>
+			</StealthDetectorUpdate>
+			<AttributeModifierUpgrade id="ModuleTag_CompositePacksAttribute" AttributeModifier="AttributeModifier_CompositePacks">
+				<TriggeredBy>Upgrade_GDICompositePacks</TriggeredBy>
 			</AttributeModifierUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_AutoInjectorsAudioLoop" SoundToPlay="GDI_PowerPacks_Upgrade">
-				<TriggeredBy>Upgrade_ZoneTrooperAutoInjectors</TriggeredBy>
+			<AudioLoopUpgrade id="ModuleTag_CompositePacksAudioLoop" SoundToPlay="GDI_CompositePacks_Upgrade">
+				<TriggeredBy>Upgrade_GDICompositePacks</TriggeredBy>
 			</AudioLoopUpgrade>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>

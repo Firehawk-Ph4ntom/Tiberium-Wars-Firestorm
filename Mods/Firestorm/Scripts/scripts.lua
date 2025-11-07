@@ -185,13 +185,13 @@ function OnGDICommandPostCreated(self)
 end
 
 function OnGDICommandPostPowerOutage(self)
-	if ObjectHasUpgrade( self, "Upgrade_ZoneTrooperScannerPack" ) == 1 then
+	if ObjectHasUpgrade( self, "Upgrade_GDICompositePacks" ) == 1 then
 		ObjectHideSubObjectPermanently( self, "UG_StealthDetector01", true )
 	end
 end
 
 function OnGDICommandPostPowerRestored(self)
-	if ObjectHasUpgrade( self, "Upgrade_ZoneTrooperScannerPack" ) == 1 then
+	if ObjectHasUpgrade( self, "Upgrade_GDICompositePacks" ) == 1 then
 		ObjectHideSubObjectPermanently( self, "UG_StealthDetector01", false )
 	end
 end
