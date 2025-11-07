@@ -1,97 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<!-- GENERAL CONDITIONS -->
+	<!-- ACTION TRACK -->
+	<!-- Check Player Conditions Dead or Alive -->
+
+	<!-- If Player is in Observer Slot -->
 	<MusicScriptConditionNugget_LocalPlayerIsObserver
 		id="MusicScriptCondition_LocalPlayerIsObserver"
 		CountDeadPlayersAsObservers="true"/>
 
-	<MusicScriptConditionNugget_Not
-		id="MusicScriptCondition_LocalPlayerIsReal">
-		<Condition>MusicScriptCondition_LocalPlayerIsObserver</Condition>
-	</MusicScriptConditionNugget_Not>
-
-	<!-- CONDITIONS FOR LEVEL 0 TRACKS -->
-	<!-- EXPLORE MUSIC -->
-	<MusicScriptConditionNugget_TrackPlayedCount
-		id="MusicScriptCondition_ExploreCheckActionTrack"
-		Track="MusicTrack_Action2"
-		Count="3"/>
-
-	<MusicScriptConditionNugget_TimeFromStartOfLevel
-		id="MusicScriptCondition_ExploreCheckTime"
-		Timeout="600s"/>
-
-	<!-- For when the local player is actually playing -->
-	<MusicScriptConditionNugget_UnitsFarFromBase
-		id="MusicScriptCondition_ExploreCheckUnit"
-		MinUnitsToPass="5"
-		MinDistanceFromBase="1000"
-		Relationship="SAME_PLAYER"/>
-
-	<!-- For when the local player is just observing - then anyone's units moving out gives Explore music -->
-	<MusicScriptConditionNugget_UnitsFarFromBase
-		id="MusicScriptCondition_ExploreCheckUnit_Observer"
-		MinUnitsToPass="10"
-		MinDistanceFromBase="1000"
-		Relationship="SAME_PLAYER ALLIES ENEMIES NEUTRAL"/>
-
-	<!-- Explore conditions when the local player is a real player (not observer) -->
-	<MusicScriptConditionNugget_Or
-		id="MusicScriptCondition_ExploreCheck_RealBase">
-		<Condition>MusicScriptCondition_ExploreCheckActionTrack</Condition>
-		<Condition>MusicScriptCondition_ExploreCheckTime</Condition>
-		<Condition>MusicScriptCondition_ExploreCheckUnit</Condition>
-	</MusicScriptConditionNugget_Or>
-
+	<!-- Action check for observer players. Note that observers don't have EVA events (reliably) so only use ENGAGED unit counts -->
 	<MusicScriptConditionNugget_And
-		id="MusicScriptCondition_ExploreCheck_Real">
-		<Condition>MusicScriptCondition_LocalPlayerIsReal</Condition>
-		<Condition>MusicScriptCondition_ExploreCheck_RealBase</Condition>
-	</MusicScriptConditionNugget_And>
-
-	<!-- Explore conditions when the local player is an observer -->
-	<MusicScriptConditionNugget_Or
-		id="MusicScriptCondition_ExploreCheck_ObserverBase">
-		<Condition>MusicScriptCondition_ExploreCheckActionTrack</Condition>
-		<Condition>MusicScriptCondition_ExploreCheckTime</Condition>
-		<Condition>MusicScriptCondition_ExploreCheckUnit_Observer</Condition>
-	</MusicScriptConditionNugget_Or>
-
-	<MusicScriptConditionNugget_And
-		id="MusicScriptCondition_ExploreCheck_Observer">
+		id="MusicScriptCondition_ActionCheck_Observer">
 		<Condition>MusicScriptCondition_LocalPlayerIsObserver</Condition>
-		<Condition>MusicScriptCondition_ExploreCheck_ObserverBase</Condition>
+		<Condition>MusicScriptCondition_ActionCheckEngagedUnits_Observer</Condition>
 	</MusicScriptConditionNugget_And>
-
-	<!-- Final Explore condition -->
-	<MusicScriptConditionNugget_Or
-		id="MusicScriptCondition_ExploreCheck">
-		<Condition>MusicScriptCondition_ExploreCheck_Observer</Condition>
-		<Condition>MusicScriptCondition_ExploreCheck_Real</Condition>
-	</MusicScriptConditionNugget_Or>
-
-	<!-- EXPLORE2 MUSIC -->
-	<!-- Explore2 starts when someone builds an end-of-game superweapon -->
-	<MusicScriptConditionNugget_ObjectsOfTypeExist
-		id="MusicScriptCondition_Explore2Check">
-		<Filter
-			Rule="ANY"
-			Include="SUPER_WEAPON"/>
-	</MusicScriptConditionNugget_ObjectsOfTypeExist>
-
-	<!-- CONDITIONS FOR LEVEL 1 TRACKS -->
-	<!-- Normal case -->
-	<MusicScriptConditionNugget_ObjectsOfTypeExist
-		id="MusicScriptCondition_ActionCheckEngagedUnits"
-		TimeBetweenConditionChecks="2s"
-		RequiredModelConditions="ENGAGED"
-		Count="8">
-		<Filter
-			Rule="ANY"
-			Include="INFANTRY VEHICLE AIRCRAFT"
-			Exclude="HORDE STRUCTURE INERT"
-			Relationship="SAME_PLAYER"/>
-	</MusicScriptConditionNugget_ObjectsOfTypeExist>
 
 	<MusicScriptConditionNugget_ObjectsOfTypeExist
 		id="MusicScriptCondition_ActionCheckEngagedUnits_Observer"
@@ -101,8 +23,36 @@
 		<Filter
 			Rule="ANY"
 			Include="INFANTRY VEHICLE AIRCRAFT"
-			Exclude="HORDE STRUCTURE INERT"/>
+			Exclude="HORDE STRUCTURE"/>
 	</MusicScriptConditionNugget_ObjectsOfTypeExist>
+
+	<!-- If Player is Alive and occupying a proper playable slot -->
+	<MusicScriptConditionNugget_And
+		id="MusicScriptCondition_ActionCheck_Real">
+		<Condition>MusicScriptCondition_LocalPlayerIsReal</Condition>
+		<Condition>MusicScriptCondition_ActionCheck_RealBase</Condition>
+	</MusicScriptConditionNugget_And>
+
+	<MusicScriptConditionNugget_Not
+		id="MusicScriptCondition_LocalPlayerIsReal">
+		<Condition>MusicScriptCondition_LocalPlayerIsObserver</Condition>
+	</MusicScriptConditionNugget_Not>
+
+	<!-- Action check for real (non-observer) players -->
+	<MusicScriptConditionNugget_Or
+		id="MusicScriptCondition_ActionCheck_RealBase">
+		<Condition>MusicScriptCondition_ActionCheckUnderAttack</Condition>
+		<Condition>MusicScriptCondition_ActionCheckEngagedUnits</Condition>
+	</MusicScriptConditionNugget_Or>
+
+	<!-- Everything we need to get the under attack action play -->
+	<MusicScriptConditionNugget_And
+		id="MusicScriptCondition_ActionCheckUnderAttack">
+		<Condition>MusicScriptCondition_ActionCheckUnderAttack_EvaEvent</Condition>
+		<Condition>MusicScriptCondition_ActionCheckUnderAttack_NothingMuchPlaying</Condition>
+		<Condition>MusicScriptCondition_ActionCheckUnderAttack_OwnUnitCount</Condition>
+		<Condition>MusicScriptCondition_ActionCheckUnderAttack_EnemyUnitCount</Condition>
+	</MusicScriptConditionNugget_And>
 
 	<!-- Also, if an "Under attack" Eva event is triggered,
 	and there are enough units near the attack to make a decent fight, and we are not playing anything or only playing a base building track, then play action -->
@@ -111,24 +61,24 @@
 		EvaEvent="UnitUnderAttack"
 		Timeout="100ms"/>
 
-	<MusicScriptConditionNugget_AnyTrackPlaying
-		id="MusicScriptCondition_ActionCheckUnderAttack_NotSilence"/>
-
-	<MusicScriptConditionNugget_Not
-		id="MusicScriptCondition_ActionCheckUnderAttack_Silence">
-		<Condition>MusicScriptCondition_ActionCheckUnderAttack_NotSilence</Condition>
-	</MusicScriptConditionNugget_Not>
-
-	<MusicScriptConditionNugget_SpecificTrackTypePlaying
-		id="MusicScriptCondition_ActionCheckUnderAttack_BaseBuilding"
-		TrackType="BaseBuildingTrackMP3"/>
-
 	<!-- We want silence or base building to play the UnderAttack action music -->
 	<MusicScriptConditionNugget_Or
 		id="MusicScriptCondition_ActionCheckUnderAttack_NothingMuchPlaying">
 		<Condition>MusicScriptCondition_ActionCheckUnderAttack_Silence</Condition>
 		<Condition>MusicScriptCondition_ActionCheckUnderAttack_BaseBuilding</Condition>
 	</MusicScriptConditionNugget_Or>
+
+	<MusicScriptConditionNugget_Not
+		id="MusicScriptCondition_ActionCheckUnderAttack_Silence">
+		<Condition>MusicScriptCondition_ActionCheckUnderAttack_NotSilence</Condition>
+	</MusicScriptConditionNugget_Not>
+
+	<MusicScriptConditionNugget_AnyTrackPlaying
+		id="MusicScriptCondition_ActionCheckUnderAttack_NotSilence"/>
+
+	<MusicScriptConditionNugget_SpecificTrackTypePlaying
+		id="MusicScriptCondition_ActionCheckUnderAttack_BaseBuilding"
+		TrackType="BaseBuildingTrackMP3"/>
 
 	<!-- Want this to be a 'big' battle -->
 	<MusicScriptConditionNugget_ObjectsNearEvaEvent
@@ -153,34 +103,17 @@
 			Relationship="ENEMIES"/>
 	</MusicScriptConditionNugget_ObjectsNearEvaEvent>
 
-	<!-- Everything we need to get the under attack action play -->
-	<MusicScriptConditionNugget_And
-		id="MusicScriptCondition_ActionCheckUnderAttack">
-		<Condition>MusicScriptCondition_ActionCheckUnderAttack_EvaEvent</Condition>
-		<Condition>MusicScriptCondition_ActionCheckUnderAttack_NothingMuchPlaying</Condition>
-		<Condition>MusicScriptCondition_ActionCheckUnderAttack_OwnUnitCount</Condition>
-		<Condition>MusicScriptCondition_ActionCheckUnderAttack_EnemyUnitCount</Condition>
-	</MusicScriptConditionNugget_And>
-
-	<!-- Action check for real (non-observer) players -->
-	<MusicScriptConditionNugget_Or
-		id="MusicScriptCondition_ActionCheck_RealBase">
-		<Condition>MusicScriptCondition_ActionCheckUnderAttack</Condition>
-		<Condition>MusicScriptCondition_ActionCheckEngagedUnits</Condition>
-	</MusicScriptConditionNugget_Or>
-
-	<MusicScriptConditionNugget_And
-		id="MusicScriptCondition_ActionCheck_Real">
-		<Condition>MusicScriptCondition_LocalPlayerIsReal</Condition>
-		<Condition>MusicScriptCondition_ActionCheck_RealBase</Condition>
-	</MusicScriptConditionNugget_And>
-
-	<!-- Action check for observer players. Note that observers don't have EVA events (reliably) so only use ENGAGED unit counts -->
-	<MusicScriptConditionNugget_And
-		id="MusicScriptCondition_ActionCheck_Observer">
-		<Condition>MusicScriptCondition_LocalPlayerIsObserver</Condition>
-		<Condition>MusicScriptCondition_ActionCheckEngagedUnits_Observer</Condition>
-	</MusicScriptConditionNugget_And>
+	<MusicScriptConditionNugget_ObjectsOfTypeExist
+		id="MusicScriptCondition_ActionCheckEngagedUnits"
+		TimeBetweenConditionChecks="2s"
+		RequiredModelConditions="ENGAGED"
+		Count="8">
+		<Filter
+			Rule="ANY"
+			Include="INFANTRY VEHICLE AIRCRAFT"
+			Exclude="HORDE STRUCTURE"
+			Relationship="SAME_PLAYER"/>
+	</MusicScriptConditionNugget_ObjectsOfTypeExist>
 
 	<!-- Final action check -->
 	<MusicScriptConditionNugget_Or
@@ -198,6 +131,7 @@
 		Condition="MusicScriptCondition_ActionCheck"
 		ConditionsAreLatch="false"
 		Track="Music_Action2"
+		FadeInTrack="true"
 		FadeOutLowerLevelTrack="true">
 		<Timeout
 			Duration="30s"/>
