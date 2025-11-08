@@ -1,5 +1,6 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODMilitant\NUCyberMissileMan.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODMilitant\NUMissileMan.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODMilitant\HC_NUMisslemanA.xml"/>
 		<!-- Base Object -->
@@ -16,8 +17,6 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUMISSLEMAN_SKN"/>
-					<Texture Original="CUmisslemanA" New="NUMissileMan"/>
-					<Texture Original="HC_CUMisslemanA" New="HC_NUMisslemanA"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="B_WEAPONA_FX"/>
 				</ModelConditionState>
@@ -29,6 +28,16 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
 					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_5">
+					<Model Name="GUMISSLEMAN_SKN"/>
+					<Texture Original="CUmisslemanA" New="NUCyberMissileMan"/>
+					<Texture Original="HC_CUMisslemanA" New="HC_NUMisslemanA"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="GUMISSLEMAN_SKN"/>
+					<Texture Original="CUmisslemanA" New="NUMissileMan"/>
+					<Texture Original="HC_CUMisslemanA" New="HC_NUMisslemanA"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
@@ -210,7 +219,8 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_10 USER_11 USER_12"/>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition2" Conditions="USER_10 USER_11 USER_12"/>
 			<Physics id="ModuleTag_Physics"/>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
 				<OCL Type="INITIAL">
