@@ -7,12 +7,11 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Player Spell Book -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\System\PlayerSpellBook.xml" type="instance"/>
-		<!-- For NOD War Factory -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODDropZone.xml" type="instance"/>
 		<!-- For NOD Disruption Tower -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODDisruptionTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODDisruptionTower.xml" type="instance"/>
 		<!-- For NOD Dark Twilight -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODDarkTwilight.xml" type="instance"/>
 		<!-- For Alien Control Node -->
@@ -29,15 +28,24 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODTempleOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPortal.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Defenses\AlienRiftGenerator.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
@@ -106,24 +114,12 @@
 	<GameObject
 		id="AlienPlanetaryAssaultCarrier"
 		inheritFrom="AlienPlanetaryAssaultCarrier"
-		BuildTime="120"/>
+		BuildTime="100"/>
 
 	<GameObject
 		id="AlienDevastatorWarship"
 		inheritFrom="AlienDevastatorWarship"
-		BuildTime="100"/>
-
-	<!-- Increased health from 10000 -->
-	<GameObject
-		id="NODDropZone"
-		inheritFrom="NODDropZone">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="20000.0"/>
-		</Body>
-	</GameObject>
+		BuildTime="80"/>
 
 	<!-- Lowered shroud Clearing range from 800 | Lowered speed from 20 | Increased health from 28000 -->
 	<GameObject
@@ -194,7 +190,7 @@
 					<IncludeThing>IonRetributionIonStorm</IncludeThing>
 					<IncludeThing>PlanetaryAssaultCarrierIonStorm</IncludeThing>
 					<IncludeThing>TiberiumFieldIonStorm</IncludeThing>
-					<!-- Beacon has AIRCRAFT Kindof as a workaround -->
+					<!-- Beacon has AIRCRAFT KindOf as a workaround -->
 					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
 					<ExcludeThing>AlienMultiplayerBeacon</ExcludeThing>
 					<!-- Excluding some other objects -->
@@ -218,7 +214,7 @@
 					<IncludeThing>IonRetributionIonStorm</IncludeThing>
 					<IncludeThing>PlanetaryAssaultCarrierIonStorm</IncludeThing>
 					<IncludeThing>TiberiumFieldIonStorm</IncludeThing>
-					<!-- Beacon has AIRCRAFT Kindof as a workaround -->
+					<!-- Beacon has AIRCRAFT KindOf as a workaround -->
 					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
 					<ExcludeThing>AlienMultiplayerBeacon</ExcludeThing>
 					<!-- Excluding some other objects -->
@@ -229,7 +225,7 @@
 				</SpecialObjectFilter>
 			</AttributeModifierNugget>
 			<TintObjectsNugget
-				Radius="115"
+				Radius="150"
 				PreColorTime="0s"
 				PostColorTime="0s"
 				SustainedColorTime="0.25s"
@@ -243,6 +239,7 @@
 		</Nuggets>
 	</WeaponTemplate>
 
+	<!-- Don't deal damage to the Control Node -->
 	<WeaponTemplate
 		id="BlueTiberiumDeathWeapon"
 		Name="BlueTiberiumDeathWeapon"
@@ -278,6 +275,7 @@
 		</Nuggets>
 	</WeaponTemplate>
 
+	<!-- Don't deal damage to the Control Node -->
 	<WeaponTemplate
 		id="RedTiberiumDeathWeapon"
 		Name="RedTiberiumDeathWeapon"
@@ -313,21 +311,22 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!--Catalyst weapon for continual infection in a radius, this version is for buildings; infantry have another weapon-->
-	<WeaponTemplate 
+	<!-- Lowered damage from 40000 | Lowered radius from 300 -->
+	<WeaponTemplate
 		id="CatalystBuildingDeathWeapon"
-		Name="CatalystBuildingDeathWeapon" 
+		Name="CatalystBuildingDeathWeapon"
 		AttackRange="5.0"
 		WeaponSpeed="999999.0"
 		PreAttackFX="FX_AlienCatalystBuildingPreAttack"
 		FireFX="FX_AlienCatalystBuildingExplode"
+		NoVictimNeeded="true"
 		HitPercentage="0%"
 		ClipSize="1"
 		RadiusDamageAffects="ENEMIES NEUTRALS"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
 		<PreAttackDelay
-		  MinSeconds="0.5s"
-		  MaxSeconds="0.5s" />
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s" />
 		<FiringDuration
 			MinSeconds="3s"
 			MaxSeconds="3s" />
@@ -335,18 +334,9 @@
 			MinSeconds="5s"
 			MaxSeconds="5s" />
 		<Nuggets>
-			<TintObjectsNugget
-				Radius="75"
-				PreColorTime="4s"
-				SustainedColorTime="0s"
-				PostColorTime="1s"
-				Frequency="0"
-				Amplitude="0">
-				<Color R="1.3" G="1.3" B="1.5"/>
-			</TintObjectsNugget>
 			<DamageNugget
-				Damage="9999"
-				Radius="300"
+				Damage="10000"
+				Radius="200"
 				DelayTimeSeconds="1.5s"
 				DamageType="CANNON"
 				DeathType="CATALYST">
@@ -356,52 +346,18 @@
 					<ExcludeThing>AlienMothership</ExcludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<!--Catalyst weapon for continual infection in a radius, this version is for infantry; buildings have another weapon-->
-	<WeaponTemplate 
-		id="CatalystInfantryDeathWeapon"
-		Name="CatalystInfantryDeathWeapon"
-		AttackRange="5.0"
-		WeaponSpeed="999999.0"
-		PreAttackFX="FX_AlienCatalystInfantryPreAttack"
-		FireFX="FX_AlienCatalystInfantryExplode"
-		HitPercentage="0%"
-		ClipSize="1"
-		RadiusDamageAffects="ENEMIES NEUTRALS"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<PreAttackDelay
-		  MinSeconds="0.5s"
-		  MaxSeconds="0.5s" />
-		<FiringDuration
-			MinSeconds="3s"
-			MaxSeconds="3s" />
-		<ClipReloadTime
-			MinSeconds="5s"
-			MaxSeconds="5s" />
-		<Nuggets>
 			<TintObjectsNugget
-				Radius="75"
+				Radius="200"
 				PreColorTime="4s"
 				SustainedColorTime="0s"
 				PostColorTime="1s"
 				Frequency="0"
 				Amplitude="0">
-				<Color R="1.3" G="1.3" B="1.5"/>
+				<Color
+					R="1.3"
+					G="1.3"
+					B="1.5"/>
 			</TintObjectsNugget>
-			<DamageNugget
-				Damage="9999"
-				Radius="100"
-				DelayTimeSeconds="2.5s"
-				DamageType="CANNON"
-				DeathType="CATALYST">
-				<SpecialObjectFilter
-					Rule="ALL"
-					Relationship="ENEMIES NEUTRAL">
-					<ExcludeThing>AlienMothership</ExcludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -411,7 +367,7 @@
 		<!-- Destroy Alien Control Node -->
 		<MissionObjectiveTag
 			Script="SCRIPT:GDI_5_2_Obj_1"
-			Description="SCRIPT:GDI_5_2_Obj_1_Detail"> 
+			Description="SCRIPT:GDI_5_2_Obj_1_Detail">
 			<PresentationSettings
 				ID="GDI_5_2_Obj_1"
 				Dialog="MG52_GDIEVA01">
@@ -486,6 +442,21 @@
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
 		BuildCost="2000"
@@ -494,10 +465,25 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="GDIIonCannonControl"
+		inheritFrom="GDIIonCannonControl"
+		BuildTime="50"
+		BuildCost="5000"/>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -547,7 +533,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -557,10 +564,25 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD"
+		BuildCost="5000"
+		BuildTime="50"/>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -601,7 +623,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- Alien -->
+	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="AlienTiberiumTower"
 		inheritFrom="AlienTiberiumTower"
@@ -611,10 +654,25 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="AlienHarvester"
-		inheritFrom="AlienHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="AlienPortal"
+		inheritFrom="AlienPortal">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="AlienRiftGenerator"
+		inheritFrom="AlienRiftGenerator"
+		BuildCost="5000"
+		BuildTime="50"/>
 
 	<LogicCommandSet
 		id="AlienFoundryCommandSet">
@@ -653,7 +711,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -663,19 +728,10 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
-		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		id="GDIIonCannonControlExperienceLevel_1" ExperienceAward="5000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>NODRefinery</Target>
-		<Target>NODRefinerySPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>AlienTiberiumTower</Target>
-		<Target>AlienTiberiumTowerSPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+		<Target>GDIIonCannonControl</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="110" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
@@ -685,11 +741,43 @@
 		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
+	<!-- NOD -->
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODTempleOfNOD_1" ExperienceAward="5000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODTempleOfNOD</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
 	<ExperienceLevelTemplate
 		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODHarvester</Target>
 		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- Alien -->
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="AlienRiftGenerator_1" ExperienceAward="5000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienRiftGenerator</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="100" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

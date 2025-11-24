@@ -7,6 +7,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For GDI Commando -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
@@ -110,7 +111,20 @@
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
-				<!-- Dealing less damage to AA vehicles -->
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="VEHICLE AIRCRAFT CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="115%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Dealing less damage to light vehicles -->
 				<DamageScalarDetails
 					Scalar="75%">
 					<Filter
@@ -128,9 +142,12 @@
 						<IncludeThing>NODAttackBike</IncludeThing>
 						<IncludeThing>NODScorpionBuggy</IncludeThing>
 						<IncludeThing>NODStealthTank</IncludeThing>
+						<IncludeThing>NODNODSpiderDrone</IncludeThing>
 						<!-- Alien Units -->
 						<IncludeThing>AlienGunWalker</IncludeThing>
 						<IncludeThing>AlienSeekerTank</IncludeThing>
+						<IncludeThing>AlienRazorback</IncludeThing>
+						<IncludeThing>AlienRazorback_Flying</IncludeThing>
 						<IncludeThing>AlienStingray</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
@@ -338,6 +355,7 @@
 			<AutoDepositUpdate
 				id="ModuleTag_AutoDepositUpdate"
 				xai:joinAction="Append"
+				DepositAmount="50"
 				InitialCaptureBonus="1500"/>
 		</Behaviors>
 	</GameObject>

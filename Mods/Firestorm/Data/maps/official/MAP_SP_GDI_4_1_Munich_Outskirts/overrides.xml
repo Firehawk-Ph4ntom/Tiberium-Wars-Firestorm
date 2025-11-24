@@ -7,6 +7,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Civilian Transport -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\CivilianTransport.xml" type="instance"/>
 		<!-- For GDI Battlebase Repair Drone -->
@@ -19,6 +20,8 @@
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
 		<!-- For GDI V35 Ox -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox.xml" type="instance"/>
+		<!-- For Alien Corrosive Zone -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienIrradiatorCorrosiveField.xml" type="instance"/>
 		<!-- For Alien Annihilator tripod -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienAnnihilatorTripod.xml" type="instance"/>
 		<!-- For Alien Stormrider -->
@@ -49,36 +52,18 @@
 	</GameObject>
 
 	<!-- Increased firing interval from 0.4s -->
-	<GameObject id="AlienWraithCorrosiveField" Side="ALIEN" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienWraithCorrosiveField">
-		<ArmorSet Armor="NoArmor" />
-		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="" />
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienWraithCorrosiveZoneDecal" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienWraithCorrosiveZoneDecalAdd" FollowBone="true"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="AlienWraithCorrosiveZoneMistSpark" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-		</Draws>
+	<GameObject
+		id="AlienWraithCorrosiveField"
+		inheritFrom="AlienWraithCorrosiveField">
 		<Behaviors>
-			<LifetimeUpdate	id="ModuleTag_LifetimeUpdate" MinLifetime="3s" MaxLifetime="3s" />
-			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="25">
-				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
-			</DestroyObjectsUpdate>
-			<DestroyDie id="ModuleTag_Die">
-				<DieMuxData DeathTypes="ALL" />
-			</DestroyDie>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="AlienIrradiatorCorroiveZone" FireInterval="0.6s"/>
+			<FireWeaponUpdate
+				id="ModuleTag_FireWeaponUpdate"
+				xai:joinAction="Replace">
+				<FireWeaponNugget
+					WeaponName="AlienWraithCorroiveZone"
+					FireInterval="0.6s"/>
 			</FireWeaponUpdate>
 		</Behaviors>
-		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0" />
-		</Body>
-		<AudioArraySound>
-			<AudioEntry Sound="ALI_Corrupter_BeamWeaponLoopMS3" AudioType="soundAmbient"/>
-		</AudioArraySound>
 	</GameObject>
 
 	<!-- Lowered health from 2600 -->
@@ -213,7 +198,20 @@
 						Rule="NONE"
 						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
-				<!-- Dealing less damage to AA vehicles -->
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="VEHICLE AIRCRAFT CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="115%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<!-- Dealing less damage to light vehicles -->
 				<DamageScalarDetails
 					Scalar="75%">
 					<Filter
@@ -231,9 +229,12 @@
 						<IncludeThing>NODAttackBike</IncludeThing>
 						<IncludeThing>NODScorpionBuggy</IncludeThing>
 						<IncludeThing>NODStealthTank</IncludeThing>
+						<IncludeThing>NODNODSpiderDrone</IncludeThing>
 						<!-- Alien Units -->
 						<IncludeThing>AlienGunWalker</IncludeThing>
 						<IncludeThing>AlienSeekerTank</IncludeThing>
+						<IncludeThing>AlienRazorback</IncludeThing>
+						<IncludeThing>AlienRazorback_Flying</IncludeThing>
 						<IncludeThing>AlienStingray</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>

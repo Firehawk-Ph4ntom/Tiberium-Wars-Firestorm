@@ -7,7 +7,8 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<!-- For Civilian Buildings | Added Slowdeath to each one except DCBBuck and DCBParl | Added NOT_AUTOACQUIRABLE -->
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<!-- For Civilian Buildings | Added Slowdeath to each one except DCBBuck and DCBParl | Added NOT_AUTOACQUIRABLE KindOf -->
 		<Include source="DATA:civilian\eeurope_ee\buildings\eebgov01.xml" type="instance"/>
 		<Include source="DATA:civilian\germany_gr\buildings\grbchc02.xml" type="instance"/>
 		<Include source="DATA:civilian\germany_gr\buildings\grbchc03.xml" type="instance"/>
@@ -29,8 +30,6 @@
 		<Include source="DATA:civilian\washington_dc_dc\buildings\dcbwse04.xml" type="instance"/>
 		<!-- For CDM Towers -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
-		<!-- For GDI Power Plant -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<!-- For Alien Buzzer Hive -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Defenses\AlienBuzzerHive.xml" type="instance"/>
 		<!-- For Alien Photon Cannon -->
@@ -49,16 +48,20 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPortal.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
 
-	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="GDICDMTower"
 		inheritFrom="GDICDMTower"
@@ -78,22 +81,6 @@
 		id="AlienCDMTower2"
 		inheritFrom="AlienCDMTower2"
 		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_WAR_FACTORY AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
-
-	<!-- Removed Traveler Engines upgrade -->
-	<LogicCommandSet
-		id="AlienWarpBeaconCommandSet">
-		<Cmd>Command_ConstructAlienMCV</Cmd>
-		<Cmd>Command_ConstructAlienStormRider</Cmd>
-		<Cmd>Command_ConstructAlienDevastatorWarship</Cmd>
-		<Cmd>Command_ConstructAlienPlanetaryAssaultCarrier</Cmd>
-		<Cmd>Command_ConstructAlienConquerorBattleship</Cmd>
-		<Cmd>Command_AlienRecallAllAircraft</Cmd>
-		<Cmd>Command_TogglePower</Cmd>
-		<Cmd>Command_SelfRepair</Cmd>
-		<Cmd>Command_Sell</Cmd>
-		<Cmd>Command_SetDefaultBuilding</Cmd>
-		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
-	</LogicCommandSet>
 
 	<GameObject
 		id="Eastern_Europe_Government_Building_01"
@@ -425,24 +412,33 @@
 		</Draws>
 	</GameObject>
 
-	<!-- Increased energy production from 20 -->
-	<GameObject
-		id="GDIPowerPlant"
-		inheritFrom="GDIPowerPlant"
-		EnergyProduction="40"/>
-
-
-	<!-- Removed ANTI_GARRISON flag -->
+	<!-- Removed ANTI_GARRISON KindOf -->
 	<GameObject
 		id="AlienBuzzers"
 		inheritFrom="AlienBuzzers"
 		KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE PATH_THROUGH_INFANTRY SURPRISE_ATTACKER INFANTRY HEALED_BY_TIBERIUM SKIRMISH_AI_DONT_GARRISON SKIP_DEFECT_IF_UNCOMBINED TIBERIUM_BASED CAN_BE_FAVORITE_UNIT"/>
 
+	<!-- Removed ANTI_GARRISON KindOf -->
 	<GameObject
 		id="AlienCorrupter"
 		inheritFrom="AlienCorrupter"
 		KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE TIBERIUM_BASED CAN_BE_FAVORITE_UNIT CAN_HEAL_ALLIES HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4 SLAVE_OWNER"/>
 
+	<!-- Removed Traveler Engines upgrade -->
+	<LogicCommandSet
+		id="AlienWarpBeaconCommandSet">
+		<Cmd>Command_ConstructAlienMCV</Cmd>
+		<Cmd>Command_ConstructAlienStormRider</Cmd>
+		<Cmd>Command_ConstructAlienDevastatorWarship</Cmd>
+		<Cmd>Command_ConstructAlienPlanetaryAssaultCarrier</Cmd>
+		<Cmd>Command_ConstructAlienConquerorBattleship</Cmd>
+		<Cmd>Command_AlienRecallAllAircraft</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
+	</LogicCommandSet>
 
 	<!-- Removed Stratofighter upgrade -->
 	<LogicCommandSet
@@ -683,6 +679,23 @@
 
 	<!-- Global Overrides -->
 	<!-- GDI -->
+	<!-- Increased energy production from 20 -->
+	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant"
+		EnergyProduction="40">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
@@ -692,10 +705,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -745,7 +767,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- Alien -->
+	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="AlienTiberiumTower"
 		inheritFrom="AlienTiberiumTower"
@@ -755,10 +798,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="AlienHarvester"
-		inheritFrom="AlienHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="AlienPortal"
+		inheritFrom="AlienPortal">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="AlienFoundryCommandSet">
@@ -797,7 +849,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -807,18 +866,19 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- Alien -->
+	<ExperienceLevelTemplate
 		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>AlienTiberiumTower</Target>
 		<Target>AlienTiberiumTowerSPNoHarvester</Target>
 		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

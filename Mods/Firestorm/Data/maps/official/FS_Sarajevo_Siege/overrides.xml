@@ -23,6 +23,7 @@
 		<!-- For NOD StrongHold Buildings -->
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding1.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding2a.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding3.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding5.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding6.xml" type="instance"/>
@@ -37,11 +38,12 @@
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter2.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter3.xml" type="instance"/>
 		<!-- For NOD Disruption Tower -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODDisruptionTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODDisruptionTower.xml" type="instance"/>
 		<!-- For NOD Phantom -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODPhantom.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODPhantomDeployed.xml" type="instance"/>
 		<!-- For NOD Temple of Nod -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODTempleOfNOD.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODTempleOfNOD.xml" type="instance"/>
 		<!-- For Alien Rift Generator -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Defenses\AlienRiftGenerator.xml" type="instance"/>
 
@@ -54,7 +56,7 @@
 	<GameObject
 		id="GDIAirstrikeSPBombingRunTarget"
 		inheritFrom="GDIAirstrikeSPBombingRunTarget"
-		KindOf="IMMOBILE NO_COLLIDE NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED">
+		KindOf="IMMOBILE NO_COLLIDE NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED PROJECT_BUILDABILITY_FOR_ALLIES">
 		<VisionInfo
 			VisionRange="100"
 			ShroudClearingRange="2240" />
@@ -63,7 +65,7 @@
 			BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" />
 	</GameObject>
 
-	<!-- Added NOT_AUTOACQUIRABLE -->
+	<!-- Added NOT_AUTOACQUIRABLE KindOf -->
 	<GameObject
 		id="NODIonCannonShield"
 		inheritFrom="NODIonCannonShield"
@@ -150,17 +152,19 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Superweapon buildings don't cost any power -->
+	<!-- Removed power requirement -->
 	<GameObject
 		id="GDIIonCannonControl"
 		inheritFrom="GDIIonCannonControl"
 		EnergyProduction="0"/>
 
+	<!-- Removed power requirement -->
 	<GameObject
 		id="NODTempleOfNOD"
 		inheritFrom="NODTempleOfNOD"
 		EnergyProduction="0"/>
 
+	<!-- Removed power requirement -->
 	<GameObject
 		id="AlienRiftGenerator"
 		inheritFrom="AlienRiftGenerator"
@@ -202,6 +206,7 @@
 					<ExcludeThing>NOD_SiloCR</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding1</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding2</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding2a</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding3</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding5</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding6</ExcludeThing>
@@ -219,6 +224,7 @@
 		</Behaviors>
 	</GameObject>
 
+	<!-- Shouldn't affect Compound Structures -->
 	<GameObject
 		id="NODPhantomDeployed"
 		inheritFrom="NODPhantomDeployed">
@@ -246,6 +252,7 @@
 					<ExcludeThing>NOD_SiloCR</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding1</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding2</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding2a</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding3</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding5</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding6</ExcludeThing>
@@ -404,6 +411,19 @@
 		</Draws>
 	</GameObject>
 
+	<!-- NOD StrongHold Building 2a -->
+	<GameObject
+		id="NOD_StrongholdBuilding2a"
+		inheritFrom="NOD_StrongholdBuilding2a"
+		KindOf="IMMOBILE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE RESIST_EMP">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
 	<!-- NOD StrongHold Building 3 -->
 	<GameObject
 		id="NOD_StrongholdBuilding3"
@@ -551,6 +571,7 @@
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
 		id="MissionObjectives">
+		<!-- Destroy the Ion Disruption Field Generators -->
 		<MissionObjectiveTag
 			Script="SCRIPT:GDI_3_4_Objective_1"
 			Description="SCRIPT:GDI_3_4_Objective_1_Detail">
@@ -585,6 +606,7 @@
 				<CameraEndAngle>10d</CameraEndAngle>
 			</PresentationSettings>
 		</MissionObjectiveTag>
+		<!-- Use the Ion Cannon on Temple Prime -->
 		<MissionObjectiveTag
 			Script="SCRIPT:GDI_3_4_Objective_5"
 			Description="SCRIPT:GDI_3_4_Objective_5_Detail">

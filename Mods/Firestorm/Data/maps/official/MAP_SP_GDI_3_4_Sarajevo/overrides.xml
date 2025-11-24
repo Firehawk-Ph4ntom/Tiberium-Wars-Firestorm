@@ -6,14 +6,13 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For the Crate Perimeter Ramps -->
 		<Include source="DATA:Civilian\EEurope_EE\Props\EEBRamp01.xml" type="instance"/>
 		<!-- For CDM Towers -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
 		<!-- For Dummy Prop -->
 		<Include source="DATA:GDI\Props\GDIAirstrikeSPBombingRunTarget.xml"	type="instance"/>
-		<!-- For GDI Ion Cannon Control -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<!-- For GDI Commandoes -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
@@ -24,6 +23,7 @@
 		<!-- For NOD StrongHold Buildings -->
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding1.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding2.xml" type="instance"/>
+		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding2a.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding3.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding5.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSStrongholdBuilding6.xml" type="instance"/>
@@ -37,13 +37,18 @@
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSDockHQ3.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter2.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSCommandCenter3.xml" type="instance"/>
-		<!-- For NOD Power Plant -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<!-- For NOD Tiberium Chemical Plant -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODTiberiumLiquidationFacility.xml" type="instance"/>
+		<!-- For NOD SAM Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODRocketBunker.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODRocketBunkerSpawn.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODCompoundRocketBunkerSpawn.xml" type="instance"/>
 		<!-- For NOD Disruption Tower -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODDisruptionTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODDisruptionTower.xml" type="instance"/>
+		<!-- For NOD Obelisk -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODObelisk.xml" type="instance"/>
 		<!-- For NOD Phantom -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODPhantom.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODPhantomDeployed.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
@@ -51,14 +56,68 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODTempleOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODRocketBunker"
+		inheritFrom="NODRocketBunker">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="11250"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODCompoundRocketBunkerSpawn"
+		inheritFrom="NODCompoundRocketBunkerSpawn">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODRocketBunkerSpawn"
+		inheritFrom="NODRocketBunkerSpawn">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODObelisk"
+		inheritFrom="NODObelisk">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="15000.0"/>
+		</Body>
+	</GameObject>
 
 	<!-- Changing Commando Queue Types -->
 	<GameObject
@@ -130,13 +189,23 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
-	<!-- Removed Sonic Weaponry upgrade -->
+	<!-- Removed all upgrades -->
 	<LogicCommandSet
 		id="GDISpaceCommandUplinkCommandSet">
-		<Cmd>Command_PurchaseUpgradeGDIOverkill</Cmd>
 		<Cmd>Command_SpaceCommandGDIDropPods</Cmd>
 		<Cmd>Command_SpaceCommandGDIShockwave</Cmd>
 		<Cmd>Command_SummonGDIKodiak</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Removed all upgrades except for Overkill -->
+	<LogicCommandSet
+		id="GDIAdvLabCommandSet">
+		<Cmd>Command_PurchaseUpgradeGDIOverkill</Cmd>
+		<Cmd>Command_SpecialPowerSupersonicAirAttack</Cmd>
+		<Cmd>Command_SpecialPowerMjolnirStrike</Cmd>
 		<Cmd>Command_TogglePower</Cmd>
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
@@ -172,13 +241,13 @@
 			BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" />
 	</GameObject>
 
-	<!-- Added NOT_AUTOACQUIRABLE -->
+	<!-- Added NOT_AUTOACQUIRABLE KindOf -->
 	<GameObject
 		id="NODIonCannonShield"
 		inheritFrom="NODIonCannonShield"
 		KindOf="IMMOBILE NO_COLLIDE IGNORE_FOR_VICTORY CANNOT_BE_DETECTED NOT_AUTOACQUIRABLE"/>
 
-	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="GDICDMTower"
 		inheritFrom="GDICDMTower"
@@ -203,9 +272,15 @@
 	<GameObject
 		id="NODDisruptionTower"
 		inheritFrom="NODDisruptionTower">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Stealth"
+				xai:joinAction="Remove"/>
+		</Draws>
 		<Behaviors>
 			<InvisibilityUpdate
 				id="ModuleTag_Invisibility"
+				xai:joinAction="Replace"
 				Options="BROADCAST STARTS_ACTIVE"
 				BroadcastRange="450"
 				UpdatePeriod="0.1s">
@@ -226,6 +301,7 @@
 					<ExcludeThing>NOD_SiloCR</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding1</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding2</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding2a</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding3</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding5</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding6</ExcludeThing>
@@ -240,16 +316,25 @@
 					<ExcludeThing>NOD_CommandCenter3</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
+			<InvisibilityUpdate
+				id="ModuleTag_AdvInvisibility"
+				xai:joinAction="Remove"/>
 		</Behaviors>
 	</GameObject>
 
+	<!-- Shouldn't affect Compound Structures -->
 	<GameObject
 		id="NODPhantomDeployed"
 		inheritFrom="NODPhantomDeployed">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Stealth"
+				xai:joinAction="Remove"/>
+		</Draws>
 		<Behaviors>
 			<InvisibilityUpdate
+				id="ModuleTag_Invisibility_Intrinsic"
 				xai:joinAction="Replace"
-				id="ModuleTag_Invisibility"
 				Options="BROADCAST STARTS_ACTIVE"
 				BroadcastRange="300"
 				UpdatePeriod="0.1s">
@@ -270,6 +355,7 @@
 					<ExcludeThing>NOD_SiloCR</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding1</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding2</ExcludeThing>
+					<ExcludeThing>NOD_StrongholdBuilding2a</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding3</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding5</ExcludeThing>
 					<ExcludeThing>NOD_StrongholdBuilding6</ExcludeThing>
@@ -284,29 +370,13 @@
 					<ExcludeThing>NOD_CommandCenter3</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
+			<InvisibilityUpdate
+				id="ModuleTag_AdvInvisibility"
+				xai:joinAction="Remove"/>
 		</Behaviors>
 	</GameObject>
-	
-	<!-- Increased Energy Production -->
-	<GameObject
-		id="NODPowerPlant"
-		inheritFrom="NODPowerPlant"
-		EnergyProduction="20"
-		EnergyBonus="40"/>
 
-	<!-- Ion Cannon available at start -->
-	<GameObject
-		id="GDIIonCannonControl"
-		inheritFrom="GDIIonCannonControl">
-		<Behaviors>
-			<OCLSpecialPower
-				id="ModuleTag_IonCannon"
-				xai:joinAction="Append"
-				AvailableAtStart="true"/>
-		</Behaviors>	
-	</GameObject>
-
-	<!-- Increased AOE, Rate of Fire, and damage -->
+	<!-- Increased AOE and attack damage -->
 	<WeaponTemplate
 		id="NODShredderTurretSpawnWeapon"
 		Name="NODShredderTurretSpawnWeapon"
@@ -314,19 +384,18 @@
 		WeaponSpeed="750"
 		MinTargetPitch="-15d"
 		MaxTargetPitch="15d"
-		FireSound="NOD_ShredderTurret_WeaponFire"
 		FireFX="FX_NOD_ShredderFire"
 		FireVeteranFX="FX_NOD_ShredderFireHeroic"
-		ClipSize="2"
+		ClipSize="4"
 		ShotsPerBarrel="1"
 		RotatingTurret="true"
 		ReAcquireDetailType="PRE_FIRE">
 		<FiringDuration
-			MinSeconds="0.3s"
-			MaxSeconds="0.3s"/>
+			MinSeconds="0.2s"
+			MaxSeconds="0.2s"/>
 		<ClipReloadTime
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="NODShredderTurretWarhead"
@@ -349,7 +418,14 @@
 				Radius="12"
 				DamageType="GUN"
 				DeathType="EXPLODED"
-				DamageFXType="GDI_RIFLE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="20%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="50"
@@ -357,7 +433,7 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!-- Increased Rate of Fire and damage -->
+	<!-- Increased Rate of Fire and attack damage -->
 	<WeaponTemplate
 		id="NODShredderTurretSpawnChargedParticleBeamWeapon"
 		Name="NODShredderTurretSpawnChargedParticleBeamWeapon"
@@ -371,26 +447,26 @@
 		RotatingTurret="true"
 		ReAcquireDetailType="PRE_FIRE">
 		<FiringDuration
-			MinSeconds="0.075s"
-			MaxSeconds="0.075s"/>
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
 		<ClipReloadTime
-			MinSeconds="0.2s"
-			MaxSeconds="0.2s"/>
+			MinSeconds="0.3s"
+			MaxSeconds="0.4s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.5s"
 				LaserId="1"
-				HitGroundFX="FX_ChargedParticleBeamHit"/>
+				HitGroundFX="FX_RailGunHit"/>
 			<DamageNugget
 				Damage="40"
 				DamageType="GUN"
 				DeathType="LASERED"
-				DamageFXType="NOD_SONIC">
+				DamageFXType="GDI_RAILGUN">
 				<DamageScalarDetails
-					Scalar="80%">
+					Scalar="20%">
 					<Filter
-						Rule="ANY"
-						Include="VEHICLE STRUCTURE"/>
+						Rule="ALL"
+						Exclude="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -400,7 +476,7 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!-- Increased Rate of Fire and damage -->
+	<!-- Increased attack damage from 150 -->
 	<WeaponTemplate
 		id="NODLaserCannonWeapon"
 		Name="NODLaserCannonWeapon"
@@ -409,30 +485,30 @@
 		FireSound="NOD_LaserCannon_WeaponFire"
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODSpitfireFireHeroic"
-		ClipSize="2"
-		ShotsPerBarrel="1"
+		ClipSize="4"
+		ShotsPerBarrel="2"
 		ReAcquireDetailType="PRE_FIRE"
 		RotatingTurret="true">
 		<FiringDuration
-			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
-		<ClipReloadTime
 			MinSeconds="1s"
 			MaxSeconds="1s"/>
+		<ClipReloadTime
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.75s"
 				HitGroundFX="FX_NODSpitfireHit"/>
 			<DamageNugget
-				Damage="280"
+				Damage="220"
 				DamageType="CANNON"
 				DeathType="LASERED"
 				DamageFXType="NOD_LASER">
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
+						Rule="ANY"
+						Include="INFANTRY STRUCTURE"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
@@ -455,35 +531,35 @@
 		WeaponSpeed="999999"
 		FireSound="NOD_LaserCannon_WeaponFire"
 		FireFX="FX_NODSpitfireFire"
-		FireVeteranFX="FX_NODPurifyingLaserFireHeroic"
-		ClipSize="2"
-		ShotsPerBarrel="1"
+		FireVeteranFX="FX_NODSpitfireFireHeroic"
+		ClipSize="4"
+		ShotsPerBarrel="2"
 		ReAcquireDetailType="PRE_FIRE"
 		RotatingTurret="true">
 		<FiringDuration
-			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
-		<ClipReloadTime
 			MinSeconds="1s"
 			MaxSeconds="1s"/>
+		<ClipReloadTime
+			MinSeconds="1.5s"
+			MaxSeconds="1.5s"/>
 		<Nuggets>
 			<ActivateLaserNugget
 				Lifetime="0.75s"
 				HitGroundFX="FX_NODSpitfireHit"/>
 			<DamageNugget
-				Damage="280"
+				Damage="220"
 				DamageType="CANNON"
 				DeathType="LASERED"
 				DamageFXType="NOD_LASER">
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
-						Rule="NONE"
-						Include="INFANTRY"/>
+						Rule="ANY"
+						Include="INFANTRY STRUCTURE"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<DamageNugget
-				Damage="46"
+				Damage="37"
 				DelayTimeSeconds="1s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -496,7 +572,7 @@
 				</DamageScalarDetails>
 			</DamageNugget>
 			<DamageNugget
-				Damage="46"
+				Damage="37"
 				DelayTimeSeconds="2s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -509,7 +585,7 @@
 				</DamageScalarDetails>
 			</DamageNugget>
 			<DamageNugget
-				Damage="46"
+				Damage="37"
 				DelayTimeSeconds="3s"
 				DamageType="CANNON"
 				DeathType="LASERED"
@@ -534,7 +610,7 @@
 		</ScatterRadiusVsType>
 	</WeaponTemplate>
 
-	<!-- Increased Rate of Fire and damage -->
+	<!-- Increased Rate of Fire -->
 	<WeaponTemplate
 		id="NODRocketBunkerSpawnWeapon"
 		Name="NODRocketBunkerSpawnWeapon"
@@ -564,37 +640,6 @@
 					VeterancyLevel="HEROIC"
 					ProjectileTemplate="NODMilitantRocketWeaponProjectile_Veteran"/>
 			</ProjectileNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="NODRocketBunkerSpawnWeaponWarhead"
-		Name="NODRocketBunkerSpawnWeaponWarhead"
-		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
-		ProjectileCollidesWith="ENEMIES NEUTRAL">
-		<Nuggets>
-			<DamageNugget
-				Damage="250"
-				Radius="8"
-				DamageType="ROCKET"
-				DeathType="EXPLODED"
-				DamageFXType="GDI_MISSILE">
-				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="NONE">
-						<IncludeThing>GDIJetpackTrooper</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
-				<DamageScalarDetails
-					Scalar="200%">
-					<Filter
-						Rule="NONE">
-						<IncludeThing>AlienHiveStalker</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
-			</DamageNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -630,37 +675,6 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<WeaponTemplate
-		id="NODRocketBunkerSpawnTibCoreWeaponWarhead"
-		Name="NODRocketBunkerSpawnTibCoreWeaponWarhead"
-		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
-		ProjectileCollidesWith="ENEMIES NEUTRAL">
-		<Nuggets>
-			<DamageNugget
-				Damage="350"
-				Radius="8"
-				DamageType="ROCKET"
-				DeathType="EXPLODED"
-				DamageFXType="NOD_MISSILE">
-				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="NONE">
-						<IncludeThing>GDIJetpackTrooper</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
-				<DamageScalarDetails
-					Scalar="200%">
-					<Filter
-						Rule="NONE">
-						<IncludeThing>AlienHiveStalker</IncludeThing>
-					</Filter>
-				</DamageScalarDetails>
-			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
 	<!-- Increased attack range from 600 | Increased reload time from 3.8s -->
 	<WeaponTemplate
 		id="GDIJuggernaughtArtilleryCannon"
@@ -682,8 +696,8 @@
 		CheckStatusFlagsInRangeChecks="false"
 		RotatingTurret="true">
 		<ClipReloadTime
-			MinSeconds="4.5s"
-			MaxSeconds="4.5s"/>
+			MinSeconds="4s"
+			MaxSeconds="4s"/>
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="GDIJuggernaughtArtilleryWarhead"
@@ -703,23 +717,16 @@
 		RadiusDamageAffects="SELF ALLIES ENEMIES NEUTRALS">
 		<Nuggets>
 			<DamageNugget
-				Damage="10000000"
-				DamageTaperOff="5000"
+				Damage="28000"
+				DamageTaperOff="1000"
 				Radius="200"
-				DamageType="MINE"
+				DamageType="CANNON"
 				CylinderAOE="true">
 				<DamageScalarDetails
 					Scalar="2500%">
 					<Filter
 						Rule="NONE"
 						Include="TIBERIUM"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
-					Scalar="0%">
-					<Filter
-						Rule="ANY">
-						<ExcludeThing>NOD_TemplePrime</ExcludeThing>
-					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<WeaponOCLNugget
@@ -734,9 +741,7 @@
 				ForbiddenTargetObjectStatus="IN_STASIS">
 				<SpecialObjectFilter
 					Rule="ALL"
-					Exclude="UNATTACKABLE INFANTRY CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD">
-					<ExcludeThing>NOD_TemplePrime</ExcludeThing>
-				</SpecialObjectFilter>
+					Exclude="UNATTACKABLE INFANTRY CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
 			</ParalyzeNugget>
 			<ParalyzeNugget
 				Radius="400"
@@ -768,10 +773,10 @@
 				AttributeModifierName="AttributeModifier_PreventCrush">
 				<SpecialObjectFilter
 					Rule="ALL"
-					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD" />
+					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
 			</AttributeModifierNugget>
 			<DamageNugget
-				Damage="10000000"
+				Damage="1000000"
 				Radius="400"
 				CylinderAOE="true"
 				DamageType="GRENADE"
@@ -781,11 +786,15 @@
 				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING USER_19">
 				<SpecialObjectFilter
 					Rule="NONE"
-					Include="AIRCRAFT"/>
+					Include="AIRCRAFT">
+					<!-- Beacon has AIRCRAFT KindOf as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
+					<ExcludeThing>AlienMultiplayerBeacon</ExcludeThing>
+				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- For Alien Razorback -->
 			<DamageNugget
-				Damage="10000000"
+				Damage="1000000"
 				Radius="400"
 				CylinderAOE="true"
 				DamageType="GRENADE"
@@ -801,7 +810,7 @@
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<SuppressionNugget
-				Radius="750"
+				Radius="600"
 				Suppression="5000"
 				DurationSeconds="7s"/>
 		</Nuggets>
@@ -889,6 +898,19 @@
 	<GameObject
 		id="NOD_StrongholdBuilding2"
 		inheritFrom="NOD_StrongholdBuilding2">
+		<Draws>
+			<ScriptedModelDraw
+				id="ModuleTag_Draw"
+				xai:joinAction="Append"
+				OkToChangeModelColor="true"/>
+		</Draws>
+	</GameObject>
+
+	<!-- NOD StrongHold Building 2a -->
+	<GameObject
+		id="NOD_StrongholdBuilding2a"
+		inheritFrom="NOD_StrongholdBuilding2a"
+		KindOf="IMMOBILE CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE RESIST_EMP">
 		<Draws>
 			<ScriptedModelDraw
 				id="ModuleTag_Draw"
@@ -1154,6 +1176,21 @@
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
 		BuildCost="2000"
@@ -1162,10 +1199,33 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Ion Cannon available at start -->
+	<GameObject
+		id="GDIIonCannonControl"
+		inheritFrom="GDIIonCannonControl"
+		BuildTime="50"
+		BuildCost="5000">
+		<Behaviors>
+			<OCLSpecialPower
+				id="ModuleTag_IonCannon"
+				xai:joinAction="Append"
+				AvailableAtStart="true"/>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -1215,7 +1275,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -1225,10 +1306,25 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD"
+		BuildCost="5000"
+		BuildTime="50"/>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -1269,7 +1365,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -1279,6 +1382,21 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIIonCannonControlExperienceLevel_1" ExperienceAward="5000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIIonCannonControl</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="110" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- NOD -->
+	<ExperienceLevelTemplate
 		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODRefinery</Target>
@@ -1287,10 +1405,10 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		id="NODTempleOfNOD_1" ExperienceAward="5000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+		<Target>NODTempleOfNOD</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

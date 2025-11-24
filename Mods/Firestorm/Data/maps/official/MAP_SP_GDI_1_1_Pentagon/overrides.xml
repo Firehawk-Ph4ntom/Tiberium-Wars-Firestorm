@@ -6,6 +6,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Pentagon -->
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBPenta01.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBPentaEn.xml" type="instance"/>
@@ -13,9 +14,12 @@
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWatchTower.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
-		<!-- For NOD Carryall -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODCarryallInfantry_SP_Militants.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODCarryallInfantry_SP_Rockets.xml" type="instance"/>
+		<!-- For NOD Shredder Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODShredderTurretHub.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODShredderTurret.xml" type="instance"/>
+		<!-- For NOD Laser Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODLaserCannon.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODLaserCannonSpawn.xml" type="instance"/>
 		<!-- For NOD Militant -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODMilitant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODConfessor.xml" type="instance"/>
@@ -23,6 +27,9 @@
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVenom.xml" type="instance"/>
 		<!-- For NOD Vertigo -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODVertigo.xml" type="instance"/>
+		<!-- For NOD Carryall -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODCarryallInfantry_SP_Militants.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units_SinglePlayerCampaign\NODCarryallInfantry_SP_Rockets.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
@@ -31,6 +38,54 @@
 		<!-- GDI Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 	</Includes>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODShredderTurretHub"
+		inheritFrom="NODShredderTurretHub">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="6450.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODShredderTurret"
+		inheritFrom="NODShredderTurret">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODLaserCannon"
+		inheritFrom="NODLaserCannon">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="8100"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODLaserCannonSpawn"
+		inheritFrom="NODLaserCannonSpawn">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
 
 	<!-- Militant StronK, lowered hp from 70 -->
 	<GameObject
@@ -44,7 +99,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- Lowered GUN damage resistance -->
+	<!-- Lowered GUN damage resistance on Cyborg Gunners -->
 	<ArmorTemplate
 		id="NODCyborgInfantryArmor">
 		<Armor Damage="CANNON" Percent="60%"/>
@@ -79,7 +134,14 @@
 			<DamageNugget
 				Damage="10"
 				DamageType="GUN"
-				DamageFXType="NOD_MACHINEGUN"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="10"
 				Suppression="10"
@@ -108,9 +170,8 @@
 		AttackRange="300"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
-		FireSound="NOD_RocketMilitant_RocketLaunch1"
-		FireFX="FX_GDIMissileManFire"
-		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		FireFX="FX_NODMissileManFire"
+		FireVeteranFX="FX_NODMissileManFireHeroic"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE"
@@ -177,6 +238,7 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
+				xai:joinAction="Replace"
 				MaxHealth="7000"/>
 		</Body>
 	</GameObject>
@@ -193,6 +255,8 @@
 		<Cmd>Command_TogglePower</Cmd>
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
 	</LogicCommandSet>
 
 	<!-- Added huge scalar vs GDI Power Plant -->
@@ -200,7 +264,8 @@
 		id="NODVertigoBombWarhead"
 		Name="NODVertigoBombWarhead"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
-		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
 				Damage="2800"
@@ -208,6 +273,16 @@
 				DamageType="GRENADE"
 				DeathType="BURNED"
 				DamageFXType="NOD_BOMB">
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY STRUCTURE">
+						<ExcludeThing>GDIPowerPlant</ExcludeThing>
+						<ExcludeThing>DCBPentaEn</ExcludeThing>
+						<ExcludeThing>DCBPenta01</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="10000%">
 					<Filter
@@ -359,7 +434,14 @@
 			<DamageNugget
 				Damage="3"
 				DamageType="GUN"
-				DamageFXType="GDI_RIFLE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="5"
 				Suppression="10"
@@ -553,7 +635,7 @@
 		<LocomotorSet
 			Locomotor="NODVenomLocomotor"
 			Condition="NORMAL"
-			Speed="350" />	
+			Speed="350" />
 	</GameObject>
 
 	<!-- Mission Objectives -->

@@ -6,14 +6,9 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<!-- For GDI Power Plant -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
-		<!-- For GDI Barracks -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For GDI Airfield -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
-		<!-- For GDI Ion Cannon Control -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<!-- For GDI MCV -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMCV.xml" type="instance"/>
 		<!-- For GDI V35 -->
@@ -28,13 +23,17 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures_SinglePlayerCampaign\GDIRefinerySPNoHarvester.xml" type="instance"/>
-
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
@@ -50,7 +49,7 @@
 		</AI>
 	</GameObject>
 
-	<!-- x3 damage vs structures -->
+	<!-- Increased damage vs. Structures by x3 -->
 	<WeaponTemplate
 		id="GDIOrcaRocketWeaponWarhead"
 		Name="GDIOrcaRocketWeaponWarhead"
@@ -69,6 +68,7 @@
 					<Filter
 						Rule="NONE"
 						Include="AIRCRAFT">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
 						<ExcludeThing>AlienHiveStalker</ExcludeThing>
 					</Filter>
 				</DamageScalarDetails>
@@ -92,6 +92,14 @@
 						Include="INFANTRY">
 						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
 						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="135%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+						<IncludeThing>AlienHiveStalker</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
@@ -178,24 +186,13 @@
 		<Behaviors>
 			<HordeTransportContain
 				id="ModuleTag_Contain"
-				xai:joinAction="Replace"
+				xai:joinAction="Append"
 				ContainMax="4"
 				Slots="4" />
 		</Behaviors>
 	</GameObject>
 
-	<!-- Increased buildtime from 7s -->
-	<GameObject
-		id="GDIPowerPlant"
-		inheritFrom="GDIPowerPlant"
-		BuildTime="20"/>
-
-	<!-- Increased buildtime from 6s -->
-	<GameObject
-		id="GDIBarracks"
-		inheritFrom="GDIBarracks"
-		BuildTime="10"/>
-
+	<!-- Increased speed from 35 -->
 	<GameObject
 		id="GDIMCV"
 		inheritFrom="GDIMCV">
@@ -205,28 +202,7 @@
 			Speed="70.0" />
 	</GameObject>
 
-	<!-- Ability available from start | Not capturable | No power requirement -->
-	<GameObject
-		id="GDIIonCannonControl"
-		inheritFrom="GDIIonCannonControl"
-		EnergyProduction="0"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED UNIQUE_UNIT NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER SUPER_WEAPON">
-		<Behaviors>
-			<EngineerContain
-				id="ModuleTag_EngineerContain"
-				xai:joinAction="Remove"/>
-			<OCLSpecialPower
-				id="ModuleTag_IonCannon"
-				xai:joinAction="Replace"
-				SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon"
-				UpdateModuleStartsAttack="true"
-				AvailableAtStart="true"
-				OCL="OCL_IonCannonShroudRevealer"
-				CreateLocation="CREATE_AT_LOCATION"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Cooldown at 30s and increased radius cursor -->
+	<!-- Lowered SP cooldown to 30s | Increased radius cursor radius -->
 	<SpecialPowerTemplate
 		id="SpecialPowerIonCannonControlIonCannon"
 		DisplayName="Name:SuperweaponTimerIonCannon"
@@ -319,7 +295,11 @@
 				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING USER_19">
 				<SpecialObjectFilter
 					Rule="NONE"
-					Include="AIRCRAFT"/>
+					Include="AIRCRAFT">
+					<!-- Beacon has AIRCRAFT KindOf as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
+					<ExcludeThing>AlienMultiplayerBeacon</ExcludeThing>
+				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- For Alien Razorback -->
 			<DamageNugget
@@ -555,7 +535,7 @@
 
 	<!-- Global Overrides -->
 	<!-- Neutral -->
-	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="TiberiumSpike"
 		inheritFrom="TiberiumSpike"
@@ -570,6 +550,23 @@
 	</GameObject>
 
 	<!-- GDI -->
+	<!-- Increased buildtime from 7s -->
+	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant"
+		BuildTime="20">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="GDIRefinerySPNoHarvester"
 		inheritFrom="GDIRefinerySPNoHarvester"
@@ -586,11 +583,45 @@
 		RefundValue="300"
 		EnergyProduction="-8"/>
 
+	<!-- Increased buildtime from 6s -->
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks"
+		BuildTime="10">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Ability available from start | Not capturable | No power requirement | Added NOT_SELLABLE KindOf -->
+	<GameObject
+		id="GDIIonCannonControl"
+		inheritFrom="GDIIonCannonControl"
+		BuildTime="50"
+		BuildCost="5000"
+		EnergyProduction="0"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS POWERED UNIQUE_UNIT NOT_AUTOACQUIRABLE NOT_SELLABLE AUTO_ACQUIRABLE_BY_AI COVER SUPER_WEAPON">
+		<Behaviors>
+			<EngineerContain
+				id="ModuleTag_EngineerContain"
+				xai:joinAction="Remove"/>
+			<OCLSpecialPower
+				id="ModuleTag_IonCannon"
+				xai:joinAction="Replace"
+				SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon"
+				UpdateModuleStartsAttack="true"
+				AvailableAtStart="true"
+				OCL="OCL_IonCannonShroudRevealer"
+				CreateLocation="CREATE_AT_LOCATION"/>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -640,7 +671,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -650,10 +702,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -694,7 +755,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -704,11 +772,10 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
-		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		id="GDIIonCannonControlExperienceLevel_1" ExperienceAward="5000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>NODRefinery</Target>
-		<Target>NODRefinerySPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+		<Target>GDIIonCannonControl</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="110" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
@@ -716,6 +783,15 @@
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>GDIHarvester</Target>
 		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- NOD -->
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

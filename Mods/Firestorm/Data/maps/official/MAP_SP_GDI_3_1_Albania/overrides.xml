@@ -6,10 +6,9 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Dummy Prop -->
 		<Include source="DATA:GDI\Props\GDIAirstrikeSPBombingRunTarget.xml" type="instance"/>
-		<!-- For GDI Power Plants -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<!-- For Dummy Prop -->
 		<Include source="DATA:NOD\Props\NODVertigo_SPBombingRunTarget.xml"	type="instance"/>
 		<!-- For GDI MCV -->
@@ -19,20 +18,124 @@
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo08.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo10.xml" type="instance"/>
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSSilo11.xml" type="instance"/>
+		<!-- For NOD Shredder Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODShredderTurretHub.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODShredderTurret.xml" type="instance"/>
+		<!-- For NOD Laser Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODLaserCannon.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODLaserCannonSpawn.xml" type="instance"/>
+		<!-- For NOD SAM Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODRocketBunker.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODRocketBunkerSpawn.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
+
+	<!-- Replacing the Zone Commando with the vanilla Commando -->
+	<LogicCommandSet
+		id="GDIBarracksCommandSet">
+		<Cmd>Command_ConstructGDIRifleSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIMissileSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDIEngineer</Cmd>
+		<Cmd>Command_ConstructGDIGrenadeSoldierSquad</Cmd>
+		<Cmd>Command_ConstructGDISniperSquad</Cmd>
+		<Cmd>Command_ConstructGDIMedicSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneTrooperSquad</Cmd>
+		<Cmd>Command_ConstructGDIZoneRaiderSquad</Cmd>
+		<Cmd>Command_ConstructGDICommando_EA</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+		<Cmd>Command_SetDefaultBuilding</Cmd>
+		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+	</LogicCommandSet>
+
+	<!-- Increased health points by x1.5 -->
+	<GameObject
+		id="NODShredderTurretHub"
+		inheritFrom="NODShredderTurretHub">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="6450.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health points by x1.5 -->
+	<GameObject
+		id="NODShredderTurret"
+		inheritFrom="NODShredderTurret">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health points by x1.5 -->
+	<GameObject
+		id="NODLaserCannon"
+		inheritFrom="NODLaserCannon">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="8100"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health points by x1.5 -->
+	<GameObject
+		id="NODLaserCannonSpawn"
+		inheritFrom="NODLaserCannonSpawn">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health points by x1.5 -->
+	<GameObject
+		id="NODRocketBunker"
+		inheritFrom="NODRocketBunker">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="11250"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health points by x1.5 -->
+	<GameObject
+		id="NODRocketBunkerSpawn"
+		inheritFrom="NODRocketBunkerSpawn">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
 
 	<!-- Increased attack range from 275 | Increased attack damage from 20 -->
 	<WeaponTemplate
@@ -56,7 +159,14 @@
 			<DamageNugget
 				Damage="22"
 				DamageType="GUN"
-				DamageFXType="GDI_RIFLE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="15"
 				Suppression="10"
@@ -87,7 +197,14 @@
 				Radius="2"
 				DamageType="GUN"
 				DeathType="BURNED"
-				DamageFXType="GDI_RIFLE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="20"
 				Suppression="10"
@@ -99,12 +216,6 @@
 	<GameObject
 		id="GDIMCVRemovableCommandSet"
 		inheritFrom="GDIMCVRemovableCommandSet"/>
-
-	<!-- Increased Power Bonus -->
-	<GameObject
-		id="GDIPowerPlant"
-		inheritFrom="GDIPowerPlant"
-		EnergyBonus="20"/>
 
 	<!-- Added NOT_AUTOACQUIRABLE -->
 	<GameObject
@@ -336,6 +447,23 @@
 
 	<!-- Global Overrides -->
 	<!-- GDI -->
+	<!-- Increased Power Bonus -->
+	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant"
+		EnergyBonus="20">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
@@ -345,10 +473,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -398,7 +535,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -408,10 +566,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -452,7 +619,14 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -462,18 +636,19 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- NOD -->
+	<ExperienceLevelTemplate
 		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODRefinery</Target>
 		<Target>NODRefinerySPNoHarvester</Target>
 		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

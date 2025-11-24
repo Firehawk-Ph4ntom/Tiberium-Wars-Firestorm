@@ -6,6 +6,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For GDI Commando -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
 		<!-- For GDI Battleship -->
@@ -49,10 +50,47 @@
 			<DamageNugget
 				Damage="10"
 				DamageType="GUN"
-				DamageFXType="NOD_MACHINEGUN"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="10"
 				Suppression="10"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Deals full damage to GDI Battleships -->
+	<WeaponTemplate
+		id="NODVertigoBombWarhead"
+		Name="NODVertigoBombWarhead"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="2800"
+				Radius="45"
+				DamageType="GRENADE"
+				DeathType="BURNED"
+				DamageFXType="NOD_BOMB">
+				<DamageScalarDetails
+					Scalar="75%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY STRUCTURE">
+						<ExcludeThing>GDIBattleship</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="100"
+				Suppression="100"
 				DurationSeconds="5s"/>
 		</Nuggets>
 	</WeaponTemplate>
@@ -64,12 +102,13 @@
 		<Behaviors>
 			<HordeTransportContain
 				id="ModuleTag_Contain"
+				xai:joinAction="Append"
 				ContainMax="6"
 				Slots="6"/>
 		</Behaviors>
 	</GameObject>
 
-	<!-- Removed Overkill upgrade requirement -->
+	<!-- Increased Reachable Targets Distance from 500 -->
 	<SpecialPowerTemplate
 		id="SpecialPower_SpotTargetBombard"
 		Flags="FOGGED_SHROUDED_CELLS_OK NEEDS_OBJECT_FILTER LIMIT_DISTANCE IGNORE_MAP_EXTENTS WATER_OK FIND_REACHABLE_TARGETS NO_FORBIDDEN_MODEL_STATES TARGET_NEEDS_OBJECT_STATUS"
@@ -85,15 +124,8 @@
 		MaxCastRange="999999"
 		ReachableTargetsCircleDisplayRadius="600">
 		<ObjectFilter
-			Rule="NONE"
-			Relationship="ALLIES">
-			<IncludeThing>GDISniper</IncludeThing>
-			<IncludeThing>GDIZoneTrooper</IncludeThing>
-			<IncludeThing>GDIZoneRaider</IncludeThing>
-			<IncludeThing>GDIZoneDefender</IncludeThing>
-			<IncludeThing>GDICommando</IncludeThing>
-			<IncludeThing>NODShadowSquadBeacon</IncludeThing>
-		</ObjectFilter>
+			Rule="ALL"
+			Relationship="ALLIES"/>
 		<GameDependency>
 			<ObjectFilter
 				Rule="NONE"
@@ -103,6 +135,7 @@
 				<IncludeThing>GDIZoneRaider</IncludeThing>
 				<IncludeThing>GDIZoneDefender</IncludeThing>
 				<IncludeThing>GDICommando</IncludeThing>
+				<IncludeThing>GDICommando_EA</IncludeThing>
 				<IncludeThing>NODShadowSquadBeacon</IncludeThing>
 			</ObjectFilter>
 		</GameDependency>
@@ -142,6 +175,7 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
+				xai:joinAction="Replace"
 				MaxHealth="1000" />
 		</Body>
 	</GameObject>

@@ -6,14 +6,20 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Player Spell Book -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\System\PlayerSpellBook.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units_SinglePlayerCampaign\GDIFireHawkSPBombingRun.xml" type="instance"/>
 		<!-- For GDI Carryall -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_CallSupportColossusWalker.xml" type="instance"/>
+		<!-- For NOD Shredder Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODShredderTurretHub.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODShredderTurret.xml" type="instance"/>
+		<!-- For NOD Laser Turret -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODLaserCannon.xml" type="instance"/>
 		<!-- For NOD Disruption Tower -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODDisruptionTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODDisruptionTower.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
@@ -22,14 +28,60 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
+
+	<!-- Lowered slave gather range from 300 | Increased health by x1.5 -->
+	<GameObject
+		id="NODShredderTurretHub"
+		inheritFrom="NODShredderTurretHub">
+		<Behaviors>
+			<GatherSlavesUpdate
+				id="ModuleTag_GatherSlaves"
+				xai:joinAction="Append"
+				Radius="225.0"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="6450.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODShredderTurret"
+		inheritFrom="NODShredderTurret">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1800.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health by x1.5 -->
+	<GameObject
+		id="NODLaserCannon"
+		inheritFrom="NODLaserCannon">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="8100"/>
+		</Body>
+	</GameObject>
 
 	<!-- GDI FireHawk -->
 	<GameObject
@@ -37,7 +89,7 @@
 		inheritFrom="GDIFireHawkSPBombingRun"/>
 
 	<!-- Lowered the range of GDI Missile Squads from 350 to 325 -->
-	<!-- This is to prevent the player from cheesing the start with missile AOE by force firing and being able to kill the Shredder Turrets --> 
+	<!-- This is to prevent the player from cheesing the start with missile AOE by force firing and being able to kill the Shredder Turrets -->
 	<WeaponTemplate
 		id="SquadMissileRangefinder"
 		Name="SquadMissileRangefinder"
@@ -58,7 +110,6 @@
 		AttackRange="325"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
-		FireSound="GDI_MissileSoldier_MissileFire"
 		FireFX="FX_GDIMissileManFire"
 		FireVeteranFX="FX_GDIMissileManFireHeroic"
 		ClipSize="1"
@@ -98,9 +149,8 @@
 		AttackRange="325"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
-		FireSound="NOD_RocketMilitant_RocketLaunch1"
-		FireFX="FX_GDIMissileManFire"
-		FireVeteranFX="FX_GDIMissileManFireHeroic"
+		FireFX="FX_NODMissileManFire"
+		FireVeteranFX="FX_NODMissileManFireHeroic"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
 		ClipSize="1"
 		ReAcquireDetailType="PRE_FIRE"
@@ -132,7 +182,7 @@
 	</WeaponTemplate>
 
 	<!-- As a compensation for the lost range, both Missile Squads now deal a bit more damage -->
-	<!-- Increased damage from 250 --> 
+	<!-- Increased damage from 250 -->
 	<WeaponTemplate
 		id="GDIMissileSoldierMissileWarhead"
 		Name="GDIMissileSoldierMissileWarhead"
@@ -147,20 +197,23 @@
 				DeathType="EXPLODED"
 				DamageFXType="GDI_MISSILE">
 				<DamageScalarDetails
-					Scalar="75%">
+					Scalar="25%">
 					<Filter
 						Rule="NONE"
-						Include="AIRCRAFT">
-						<ExcludeThing>AlienHiveStalker</ExcludeThing>
-					</Filter>
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
-						Rule="NONE"
-						Include="INFANTRY">
-						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
-						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+						Rule="ALL"
+						Exclude="INFANTRY VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+						<IncludeThing>AlienHiveStalker</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
@@ -185,20 +238,23 @@
 				DeathType="EXPLODED"
 				DamageFXType="GDI_MISSILE">
 				<DamageScalarDetails
-					Scalar="75%">
+					Scalar="25%">
 					<Filter
 						Rule="NONE"
-						Include="AIRCRAFT">
-						<ExcludeThing>AlienHiveStalker</ExcludeThing>
-					</Filter>
+						Include="INFANTRY"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
-						Rule="NONE"
-						Include="INFANTRY">
-						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
-						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+						Rule="ALL"
+						Exclude="INFANTRY VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+						<IncludeThing>AlienHiveStalker</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
 			</DamageNugget>
@@ -310,38 +366,6 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Lowered attack range from 350 -->
-	<WeaponTemplate
-		id="NODShredderTurretSpawnWeapon"
-		Name="NODShredderTurretSpawnWeapon"
-		AttackRange="300"
-		WeaponSpeed="750"
-		MinTargetPitch="-15d"
-		MaxTargetPitch="15d"
-		FireSound="NOD_ShredderTurret_WeaponFire"
-		FireFX="FX_NOD_ShredderFire"
-		FireVeteranFX="FX_NOD_ShredderFireHeroic"
-		ClipSize="2"
-		ShotsPerBarrel="1"
-		RotatingTurret="true"
-		ReAcquireDetailType="PRE_FIRE">
-		<FiringDuration
-			MinSeconds="0.3s"
-			MaxSeconds="0.3s"/>
-		<ClipReloadTime
-			MinSeconds="2s"
-			MaxSeconds="2s"/>
-		<Nuggets>
-			<ProjectileNugget
-				WarheadTemplate="NODShredderTurretWarhead"
-				ProjectileTemplate="NODShredderTurretShell">
-				<VeterancyProjectiles
-					VeterancyLevel="HEROIC"
-					ProjectileTemplate="NODShredderTurretShellHeroic"/>
-			</ProjectileNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
 		id="MissionObjectives">
@@ -423,9 +447,9 @@
 				<CameraStartAngle>25d</CameraStartAngle>
 				<CameraEndAngle>-25d</CameraEndAngle>
 				<CameraFieldOfView>35d</CameraFieldOfView>
-			</PresentationSettings>	
+			</PresentationSettings>
 		</MissionObjectiveTag>
-		<!-- Suppress the Nod infantry advances by putting Snipers into the designated buildings --> 
+		<!-- Suppress the Nod infantry advances by putting Snipers into the designated buildings -->
 		<MissionObjectiveTag
 			IsBonusObjective="true"
 			Script="SCRIPT:GDI_1_4_BonusObjective_1"
@@ -438,7 +462,7 @@
 				<CameraStartAngle>25d</CameraStartAngle>
 				<CameraEndAngle>-25d</CameraEndAngle>
 				<CameraFieldOfView>35d</CameraFieldOfView>
-			</PresentationSettings>	
+			</PresentationSettings>
 			<PresentationSettings
 				ID="GDI_1_4_BonObj_1_2"
 				CameraFieldOfViewVariance="0">
@@ -448,7 +472,7 @@
 				<CameraFieldOfView>35d</CameraFieldOfView>
 			</PresentationSettings>
 		</MissionObjectiveTag>
-		<!-- Destroy the Nod Secret Shrine --> 
+		<!-- Destroy the Nod Secret Shrine -->
 		<MissionObjectiveTag
 			IsBonusObjective="true"
 			Script="SCRIPT:GDI_1_4_BonusObjective_2"
@@ -476,7 +500,7 @@
 				<CameraStartAngle>25d</CameraStartAngle>
 				<CameraEndAngle>-25d</CameraEndAngle>
 				<CameraFieldOfView>35d</CameraFieldOfView>
-			</PresentationSettings>	
+			</PresentationSettings>
 			<PresentationSettings
 				ID="GDI_1_4_BonObj_3_2"
 				CameraFieldOfViewVariance="0">
@@ -490,7 +514,7 @@
 
 	<!-- Global Overrides -->
 	<!-- Neutral -->
-	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="TiberiumSilo"
 		inheritFrom="TiberiumSilo"
@@ -499,11 +523,27 @@
 			<AutoDepositUpdate
 				id="ModuleTag_AutoDepositUpdate"
 				xai:joinAction="Append"
+				DepositAmount="50"
 				InitialCaptureBonus="1500"/>
 		</Behaviors>
 	</GameObject>
 
 	<!-- GDI -->
+	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
@@ -513,10 +553,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -566,7 +615,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -576,10 +646,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -620,7 +699,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -630,18 +716,19 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- NOD -->
+	<ExperienceLevelTemplate
 		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODRefinery</Target>
 		<Target>NODRefinerySPNoHarvester</Target>
 		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
