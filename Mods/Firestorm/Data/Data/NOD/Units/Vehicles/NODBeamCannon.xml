@@ -23,14 +23,14 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODBeamCannon" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODBeamCannon" ButtonImage="Portrait_NODBeamCannon" Side="NOD" BuildCost="900" BuildTime="9" CommandSet="NODBeamCannonCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE SIEGE_WEAPON CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="BLAST" VoicePriority="208" EditorName="NODBeamCannon" Description="Desc:NODBeamCannon" TypeDescription="Type:NODBeamCannon">
+	<GameObject id="NODBeamCannon" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODBeamCannon" ButtonImage="Portrait_NODBeamCannon" Side="NOD" BuildCost="1200" BuildTime="12" CommandSet="NODBeamCannonCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE SIEGE_WEAPON CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" ThreatLevel="10" WeaponCategory="CANNON" VoicePriority="208" EditorName="NODBeamCannon" Description="Desc:NODBeamCannon" TypeDescription="Type:NODBeamCannon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODBeamCannon</DisplayName>
 		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODOperationsCenter</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="GenericVehicleArmor_DozerBlade" DamageFX="VehicleDamageFX"/>
-		<LocomotorSet Locomotor="NODRaiderTankLocomotor" Condition="NORMAL" Speed="90.0"/>
+		<LocomotorSet Locomotor="NODRaiderTankLocomotor" Condition="NORMAL" Speed="85.0"/>
 		<LocomotorSet Condition="NORMAL_UPGRADED" Locomotor="GDIPredatorTankDeployedLocomotor"/>
 		<Draws>
 			<TankDraw id="ModuleTag_Draw" TrackMarks="FXTankTrack" ExtraPublicBone="FXTracksL FXTracksR" TrackMarksLeftBone="FXTracksL" TrackMarksRightBone="FXTracksR" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
@@ -221,6 +221,30 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_3"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREATTACK_A USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="PurifyingBeamPreFireFlashHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREATTACK_A USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamPreFireFlashHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREATTACK_A">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamPreFireFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="PurifyingBeamConstantFireHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFireHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_A">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING USER_1 USER_2">
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="PurifyingBeamPreFireFlashHeroic" FollowBone="true"/>
 					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
@@ -283,7 +307,7 @@
 					<Model Name="FXRAGEDSUPPRESSED.FXRAGED"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15" LaserStateID="1">
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
 						<Texture Name="Texture1">
@@ -296,7 +320,7 @@
 				</FXShader>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01"/>
 			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15" LaserStateID="1">
+			<LaserDraw id="ModuleTag_LaserDrawVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
 						<Texture Name="Texture1">
@@ -335,7 +359,7 @@
 				</FXShader>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_01" RequiredStatus="WEAPON_UPGRADED_03"/>
 			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15" LaserStateID="1">
+			<LaserDraw id="ModuleTag_LaserDrawUpgrade" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
 						<Texture Name="Texture1">
@@ -348,7 +372,7 @@
 				</FXShader>
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_03" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</LaserDraw>
-			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="15" LaserStateID="1">
+			<LaserDraw id="ModuleTag_LaserDrawUpgradeVeterancy" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="20" LaserStateID="1">
 				<FXShader ShaderName="Laser.fx">
 					<Constants>
 						<Texture Name="Texture1">
@@ -437,9 +461,6 @@
 			</WeaponSetUpdate>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<LaserState id="ModuleTag_LaserState2" LaserId="2"/>
-			<!-- Regular beam attack -->
-			<SpecialPower id="ModuleTag_BeamLaserSpecialPower" SpecialPowerTemplate="NODBeamCannonLaserSpecialPower" UpdateModuleStartsAttack="true"/>
-			<BeamSpecialAbilityUpdate id="ModuleTag_BeamLaserSpecialPowerUpdate" SpecialPowerTemplate="NODBeamCannonLaserSpecialPower" JoinWithOtherBeams="true" UnpackTime="1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" PreparationTime="99999s" PackTime="0.1s" StartAbilityRange="450.0" AbilityAbortRange="450.0" DamagePerSecond="135.0" SetObjectStatusOnTrigger="IS_ENGAGED" ClearObjectStatusOnExit="IS_ENGAGED" Options="UPDATE_REQUIRES_LINE_OF_SIGHT LOSE_STEALTH_ON_TRIGGER" PrepSoundLoop="NOD_BeamCannon_BeamWeaponLoopMS" FaceTarget="false"/>
 			<!-- Dig Ability -->
 			<!-- Dig In -->
 			<GiveOrRestoreUpgradeSpecialPower id="ModuleTag_DigInUpgrade" SpecialPowerTemplate="SpecialPower_GuardianTankDigIn" PreparationTime="1.2s" Options="MUST_FINISH_ABILITY IGNORE_FACING_CHECK" UpgradeToGive="Upgrade_UnPack" />
@@ -493,7 +514,7 @@
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODReaperFunctions">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
 		<Body>
@@ -503,6 +524,8 @@
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="NOD_UnitBurrow" RequiredFlags="USER_3" ExcludedFlags="DYING"/>
 				<ModelConditionSound Sound="NOD_UnitBurrow" RequiredFlags="USER_4" ExcludedFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_BeamCannon_BeamWeaponLoopMS" RequiredFlags="FIRING_A" ExcludedFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_BeamCannon_BeamWeaponPowerUpSwell" RequiredFlags="PREATTACK_A" ExcludedFlags="DYING"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
@@ -519,10 +542,6 @@
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="NOD_BeamCannon_VoiceAttack" AudioType="voiceAttack"/>
-			<!-- Beam Cannons cannot force-attack ground, so don't give a unit response for this case. Since voiceBombard
-				 defaults to voiceAttack if not specified, we need to have a real (but empty) sound in the voiceBombard entry
-				 to avoid using that default.  -->
-			<AudioEntry Sound="EmptyVoiceResponse" AudioType="voiceBombard"/>
 			<AudioEntry Sound="NOD_BeamCannon_VoiceCreate" AudioType="voiceCreated"/>
 			<AudioEntry Sound="NOD_BeamCannon_VoiceMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="NOD_BeamCannon_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
@@ -535,6 +554,6 @@
 			<AudioEntry Sound="NOD_BeamCannon_MoveStart" AudioType="soundMoveStart"/>
 			<AudioEntry Sound="NOD_BeamCannon_IdleLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="500" ShroudClearingRange="400"/>
+		<VisionInfo VisionRange="550" ShroudClearingRange="400"/>
 	</GameObject>
 </AssetDeclaration>
