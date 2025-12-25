@@ -10,8 +10,6 @@
 		<!-- Civilian Structures -->
 		<Include source="Data:Civilian\Washington_DC_DC\Buildings\DCBWse04.xml" type="instance"/>
 		<Include source="DATA:Civilian\Washington_DC_DC\Buildings\DCBRad01.xml" type="instance"/>
-		<!-- For GDI Power Plant -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<!-- For GDI MRT -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMRT.xml" type="instance"/>
 		<!-- For Nod Dropzone -->
@@ -28,6 +26,7 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
@@ -78,18 +77,6 @@
 		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
 	</LogicCommandSet>
 
-	<!-- Lowered health from 4000 -->
-	<GameObject
-		id="GDIPowerPlant"
-		inheritFrom="GDIPowerPlant">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="3000.0"/>
-		</Body>
-	</GameObject>
-
 	<!-- Requirement change (Lack of Refinery) -->
 	<GameObject
 		id="NODDropZone"
@@ -133,7 +120,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- Increased capacity to 10 slots | Lowered Vision Range from 350 | Lowered Shroud Clearing range from 350 -->
+	<!-- Increased capacity to 4 slots | Lowered Vision Range from 350 | Lowered Shroud Clearing range from 350 -->
 	<GameObject
 		id="NODCarryallInfantry"
 		inheritFrom="NODCarryallInfantry">
@@ -142,8 +129,8 @@
 				id="ModuleTag_Contain"
 				xai:joinAction="Replace"
 				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
-				ContainMax="3"
-				Slots="3"
+				ContainMax="4"
+				Slots="4"
 				AllowEnemiesInside="false"
 				AllowAlliesInside="false"
 				AllowNeutralInside="false"
@@ -190,7 +177,7 @@
 			ShroudClearingRange="200"/>
 	</GameObject>
 
-	<!-- Increased capacity to 4 slots -->
+	<!-- Increased capacity to 2 slots -->
 	<GameObject
 		id="GDIMRT"
 		inheritFrom="GDIMRT">
@@ -198,9 +185,9 @@
 			<HordeTransportContain
 				id="ModuleTag_Contain"
 				xai:joinAction="Append"
-				ContainMax="4"
-				Slots="4"/>
-		</Behaviors> 
+				ContainMax="2"
+				Slots="2"/>
+		</Behaviors>
 	</GameObject>
 
 	<!-- Mission Objectives -->
@@ -208,7 +195,7 @@
 		id="MissionObjectives">
 		<!-- Destroy the small GDI outpost to the west -->
 		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_1_2_OUTPOST" 
+			Script="SCRIPT:NOD_TOW_1_2_OUTPOST"
 			Description="SCRIPT:NOD_TOW_1_2_OUTPOST_DETAIL">
 			<PresentationSettings
 				ID="NOD_1_2_OBJ1"
@@ -226,7 +213,7 @@
 		</MissionObjectiveTag>
 		<!-- Destroy the GDI defenses guarding the base -->
 		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_1_2_DEFENSES" 
+			Script="SCRIPT:NOD_TOW_1_2_DEFENSES"
 			Description="SCRIPT:NOD_TOW_1_2_DEFENSES_DETAIL">
 			<PresentationSettings
 				ID="NOD_1_2_OBJ2"
@@ -239,7 +226,7 @@
 		<!-- Capture 2 Tiberium spikes to fund this mission -->
 		<MissionObjectiveTag
 			IsBonusObjective="true"
-			Script="SCRIPT:NOD_TOW_1_2_SILOS" 
+			Script="SCRIPT:NOD_TOW_1_2_SILOS"
 			Description="SCRIPT:NOD_TOW_1_2_SILOS_DETAIL">
 			<PresentationSettings
 				ID="NOD_1_2_OBJ3"
@@ -257,7 +244,7 @@
 		</MissionObjectiveTag>
 		<!-- Destroy the 2 main airfields to the north -->
 		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_1_2_AIRFIELDS" 
+			Script="SCRIPT:NOD_TOW_1_2_AIRFIELDS"
 			Description="SCRIPT:NOD_TOW_1_2_AIRFIELDS_DETAIL">
 			<PresentationSettings
 				ID="NOD_1_2_OBJ4"
@@ -275,7 +262,7 @@
 		</MissionObjectiveTag>
 		<!-- Destroy the Air control tower to stop air attacks -->
 		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_1_2_CONTROL_TOWER" 
+			Script="SCRIPT:NOD_TOW_1_2_CONTROL_TOWER"
 			Description="SCRIPT:NOD_TOW_1_2_CONTROL_TOWER_DETAIL">
 			<PresentationSettings
 				ID="NOD_1_2_OBJ5"
@@ -287,7 +274,7 @@
 
 	<!-- Global Overrides -->
 	<!-- Neutral -->
-	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="TiberiumSpike"
 		inheritFrom="TiberiumSpike"
@@ -302,6 +289,28 @@
 	</GameObject>
 
 	<!-- GDI -->
+	<!-- Lowered health from 4000 -->
+	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="3000.0"/>
+		</Body>
+	</GameObject>
+
 	<GameObject
 		id="GDIEngineer"
 		inheritFrom="GDIEngineer">

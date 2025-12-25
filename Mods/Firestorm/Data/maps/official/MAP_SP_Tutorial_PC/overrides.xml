@@ -14,17 +14,19 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 	</Includes>
-	
-	<!-- Added NOT_AUTOACQUIRABLE flag -->
+
+	<!-- Added NOT_AUTOACQUIRABLE KindOf -->
 	<GameObject
 		id="Germany_Apartment_03"
 		inheritFrom="Germany_Apartment_03"
 		KindOf="SELECTABLE STRUCTURE IMMOBILE CAN_CAST_REFLECTIONS GARRISON NOT_AUTOACQUIRABLE AUTO_RALLYPOINT COVER KEEP_CLASSIFIED_WHEN_DEAD IGNORE_FOR_VICTORY CIVILIAN_BUILDING NOT_SELLABLE"/>
 
-	<!-- Removed all upgrades except for Tiberium Field Suits -->
+	<!-- Removed all upgrades except for Tib Field Suits -->
 	<LogicCommandSet
 		id="GDICommandPostCommandSet">
 		<Cmd>Command_UpgradeFieldSuits</Cmd>
@@ -130,12 +132,42 @@
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
 		BuildCost="2000"
 		BuildTime="20"
 		RefundValue="300"
 		EnergyProduction="-8"/>
+
+	<GameObject
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<GameObject
 		id="GDIHarvester"

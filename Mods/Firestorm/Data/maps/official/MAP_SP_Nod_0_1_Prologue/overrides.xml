@@ -9,7 +9,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For GDI Command Post -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
-		<!-- For GDI Watch Tower -->
+		<!-- For GDI Watchtower -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWatchTower.xml" type="instance"/>
 		<!-- For GDI ASAT Defense System -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDI_ASATDefense.xml" type="instance"/>
@@ -42,13 +42,22 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Unsellable and can't toggle power | Removed upgrade buttons | Costs 0 power -->
+	<!-- Unsellable and can't toggle power | Costs 0 power -->
 	<GameObject
 		id="GDICommandPost"
 		inheritFrom="GDICommandPost"
 		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR NOT_SELLABLE"
-		EnergyProduction="0"
-		CommandSet="EmptyCommandSet"/>
+		EnergyProduction="0"/>
+
+	<!-- Removed all upgrades -->
+	<LogicCommandSet
+		id="GDICommandPostCommandSet">
+		<Cmd>Command_CommandPostRadarScan</Cmd>
+		<Cmd>Command_CommandPostBombingRun</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
 
 	<!-- Costs 0 power | Removed Engineer contain -->
 	<GameObject
@@ -130,7 +139,7 @@
 		AllowMotiveForceWhileAirborne="true"
 		Apply2DFrictionWhenAirborne="true"/>
 
-	<!-- Increased attack damage from 20 to 60 | Increased clipsize from 8 to 16 -->
+	<!-- Increased attack damage from 22 to 60 | Increased clipsize from 10 to 16 -->
 	<WeaponTemplate
 		id="GDIWatchTowerGun"
 		Name="GDIWatchTowerGun"
@@ -149,7 +158,14 @@
 			<DamageNugget
 				Damage="60"
 				DamageType="GUN"
-				DamageFXType="GDI_RIFLE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="20%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="15"
 				Suppression="10"

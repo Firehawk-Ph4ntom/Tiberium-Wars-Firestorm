@@ -40,16 +40,18 @@
 		<!-- NOD Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPortal.xml" type="instance"/>
 	</Includes>
 
-	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="MutantHovel"
 		inheritFrom="MutantHovel"
 		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_BARRACKS AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
 
-	<!-- Unsellable -->
+	<!-- Added NOT_SELLABLE KindOf -->
 	<GameObject
 		id="GDI_LabRadarBuilding"
 		inheritFrom="GDI_LabRadarBuilding"
@@ -117,6 +119,7 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
+				xai:joinAction="Replace"
 				MaxHealth="700"/>
 		</Body>
 	</GameObject>
@@ -178,7 +181,7 @@
 				</DamageScalarDetails>
 				<!-- Damage to Scrin Structures and Vehicles -->
 				<DamageScalarDetails
-					Scalar="200%">
+					Scalar="150%">
 					<Filter
 						Rule="ANY"
 						Include="TIBERIUM_BASED"
@@ -194,8 +197,8 @@
 		inheritFrom="NODCarryall">
 		<Behaviors>
 			<HordeTransportContain
-				xai:joinAction="Replace"
 				id="ModuleTag_Contain"
+				xai:joinAction="Replace"
 				ObjectStatusOfContained="UNSELECTABLE ENCLOSED"
 				ContainMax="1"
 				Slots="1"
@@ -324,7 +327,7 @@
 		<LocomotorSet
 			Locomotor="HumanLocomotor"
 			Condition="NORMAL"
-			Speed="45"/>
+			Speed="60"/>
 		<Behaviors>
 			<WeaponSetUpdate
 				id="ModuleTag_WeaponSetUpdate"
@@ -334,6 +337,21 @@
 
 	<!-- Alien -->
 	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="AlienTiberiumTower"
 		inheritFrom="AlienTiberiumTower"
 		BuildCost="2000"
@@ -341,7 +359,23 @@
 		RefundValue="300"
 		EnergyProduction="-8"/>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="AlienPortal"
+		inheritFrom="AlienPortal">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -351,18 +385,19 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- Alien -->
+	<ExperienceLevelTemplate
 		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>AlienTiberiumTower</Target>
 		<Target>AlienTiberiumTowerSPNoHarvester</Target>
 		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

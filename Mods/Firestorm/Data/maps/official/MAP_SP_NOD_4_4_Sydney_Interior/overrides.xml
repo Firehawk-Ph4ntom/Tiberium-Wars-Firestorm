@@ -12,20 +12,15 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\DefensiveTower.xml" type="instance"/>
 		<!-- For GDI Construction Yard -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIConstructionYard.xml" type="instance"/>
-		<!-- For GDI Barracks -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMCV.xml" type="instance"/>
 		<!-- For GDI WarFactory -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIWarfactory.xml" type="instance"/>
 		<!-- For GDI Airfield -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
-		<!-- For GDI Ion Cannon Control -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<!-- For GDI Commando -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
-		<!-- For Nod Temple of Nod -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defences\NODTempleOfNOD.xml" type="instance"/>
 		<!-- For Alien Stormrider -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Aircraft\AlienStormrider.xml" type="instance"/>
 
@@ -36,15 +31,23 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIIonCannonControl.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODTempleOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPortal.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
@@ -133,30 +136,6 @@
 		</Body>
 	</GameObject>
 
-	<!-- Increased health from 20000 -->
-	<GameObject
-		id="GDIIonCannonControl"
-		inheritFrom="GDIIonCannonControl">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="30000.0"/>
-		</Body>
-	</GameObject>
-
-	<!-- Increased health from 3000 -->
-	<GameObject
-		id="GDIBarracks"
-		inheritFrom="GDIBarracks">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="10000"/>
-		</Body>
-	</GameObject>
-
 	<!-- Increased health from 10000 -->
 	<GameObject
 		id="GDIWarFactory"
@@ -190,18 +169,6 @@
 			ShroudClearingRange="400"/>
 	</GameObject>
 
-	<!-- Nuke available from the start -->
-	<GameObject
-		id="NODTempleOfNOD"
-		inheritFrom="NODTempleOfNOD">
-		<Behaviors>
-			<OCLSpecialPower
-				id="ModuleTag_NuclearMissile"
-				xai:joinAction="Append"
-				AvailableAtStart="true"/>
-		</Behaviors>
-	</GameObject>
-
 	<!-- Increased Vision range from 400 | Increased shroud Clearing range from 350  -->
 	<GameObject
 		id="AlienStormrider"
@@ -218,11 +185,12 @@
 		<Body>
 			<ActiveBody
 				id="ModuleTag_Body"
+				xai:joinAction="Replace"
 				MaxHealth="10000.0"/>
 		</Body>
 	</GameObject>
 
-	<!-- Lowered cooldown from 420s minutes -->
+	<!-- Lowered cooldown from 480s minutes -->
 	<SpecialPowerTemplate
 		id="SpecialPowerIonCannonControlIonCannon"
 		DisplayName="Name:SuperweaponTimerIonCannon"
@@ -238,7 +206,7 @@
 		RestrictionType="1"
 		TimerImage="Button_PlayerPowerIonCannon"/>
 
-	<!-- Lowered cooldown from 420s minutes -->
+	<!-- Lowered cooldown from 480s minutes -->
 	<SpecialPowerTemplate
 		id="SpecialPowerNuclearMissile"
 		DisplayName="Name:SuperweaponTimerNuclearMissile"
@@ -262,9 +230,9 @@
 		RadiusDamageAffects="SELF ALLIES ENEMIES NEUTRALS">
 		<Nuggets>
 			<DamageNugget
-				Damage="60000"
+				Damage="999999"
 				DamageTaperOff="1000"
-				Radius="600"
+				Radius="750"
 				DamageType="CANNON"
 				CylinderAOE="true">
 				<DamageScalarDetails
@@ -279,7 +247,7 @@
 			<WeaponOCLNugget
 				WeaponOCL="OCL_IonCannonEMPField"/>
 			<ParalyzeNugget
-				Radius="800"
+				Radius="1000"
 				DurationSeconds="10s"
 				ParalyzeType="EMP"
 				ParalyzeFX="FX_NODBuggyEmpHit"
@@ -289,7 +257,7 @@
 					Exclude="UNATTACKABLE INFANTRY CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
 			</ParalyzeNugget>
 			<ParalyzeNugget
-				Radius="800"
+				Radius="1000"
 				DurationSeconds="10s"
 				ParalyzeType="EMP"
 				ParalyzeFX="FX_NODSilent1sEMPHit"
@@ -311,18 +279,18 @@
 				</SpecialObjectFilter>
 			</ParalyzeNugget>
 			<AttributeModifierNugget
-				Radius="800"
+				Radius="1000"
 				PartitionFilterTestType="CIRCLE"
 				ForbiddenTargetObjectStatus="IN_STASIS"
 				ForbiddenTargetModelCondition="USER_19"
 				AttributeModifierName="AttributeModifier_PreventCrush">
 				<SpecialObjectFilter
 					Rule="ALL"
-					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD" />
+					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
 			</AttributeModifierNugget>
 			<DamageNugget
 				Damage="1000000"
-				Radius="500"
+				Radius="1000"
 				CylinderAOE="true"
 				DamageType="GRENADE"
 				DeathType="EXTRA_7"
@@ -331,12 +299,16 @@
 				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING USER_19">
 				<SpecialObjectFilter
 					Rule="NONE"
-					Include="AIRCRAFT"/>
+					Include="AIRCRAFT">
+					<!-- Beacon has AIRCRAFT KindOf as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
+					<ExcludeThing>AlienMultiplayerBeacon</ExcludeThing>
+				</SpecialObjectFilter>
 			</DamageNugget>
 			<!-- For Alien Razorback -->
 			<DamageNugget
 				Damage="1000000"
-				Radius="800"
+				Radius="1000"
 				CylinderAOE="true"
 				DamageType="GRENADE"
 				DeathType="EXTRA_7"
@@ -351,7 +323,7 @@
 				</SpecialObjectFilter>
 			</DamageNugget>
 			<SuppressionNugget
-				Radius="1500"
+				Radius="750"
 				Suppression="5000"
 				DurationSeconds="7s"/>
 		</Nuggets>
@@ -367,7 +339,7 @@
 			MaxSeconds="3s"/>
 		<Nuggets>
 			<ParalyzeNugget
-				Radius="800"
+				Radius="1000"
 				DurationSeconds="0s"
 				ParalyzeType="EMP"
 				ForbiddenTargetObjectStatus="IN_STASIS"
@@ -397,7 +369,7 @@
 		id="MissionObjectives">
 		<!-- Defend GDI from the Aliens for 10 mins -->
 		<MissionObjectiveTag
-			Script="SCRIPT:NOD_TOW_4_4_Objective_1" 
+			Script="SCRIPT:NOD_TOW_4_4_Objective_1"
 			Description="SCRIPT:NOD_TOW_4_4_Objective_1_Detail">
 			<PresentationSettings
 				ID="NOD_4_4_Obj_1A"
@@ -493,7 +465,7 @@
 
 	<!-- Global Overrides -->
 	<!-- Neutral -->
-	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="TiberiumSpike"
 		inheritFrom="TiberiumSpike"
@@ -509,6 +481,21 @@
 
 	<!-- GDI -->
 	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
 		BuildCost="2000"
@@ -516,11 +503,41 @@
 		RefundValue="300"
 		EnergyProduction="-8"/>
 
+	<!-- Increased health from 3000 -->
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="10000"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased health from 20000 -->
+	<GameObject
+		id="GDIIonCannonControl"
+		inheritFrom="GDIIonCannonControl"
+		BuildTime="50"
+		BuildCost="5000">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="30000.0"/>
+		</Body>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -570,7 +587,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -580,10 +618,33 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<!-- Nuke available from the start -->
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD"
+		BuildCost="5000"
+		BuildTime="50">
+		<Behaviors>
+			<OCLSpecialPower
+				id="ModuleTag_NuclearMissile"
+				xai:joinAction="Append"
+				AvailableAtStart="true"/>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -624,7 +685,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- Alien -->
+	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="AlienTiberiumTower"
 		inheritFrom="AlienTiberiumTower"
@@ -634,10 +716,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="AlienHarvester"
-		inheritFrom="AlienHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="AlienPortal"
+		inheritFrom="AlienPortal">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="AlienFoundryCommandSet">
@@ -676,7 +767,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -686,19 +784,10 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
-		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		id="GDIIonCannonControlExperienceLevel_1" ExperienceAward="5000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>NODRefinery</Target>
-		<Target>NODRefinerySPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>AlienTiberiumTower</Target>
-		<Target>AlienTiberiumTowerSPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+		<Target>GDIIonCannonControl</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="110" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
@@ -708,11 +797,36 @@
 		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
+	<!-- NOD -->
+	<ExperienceLevelTemplate
+		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODRefinery</Target>
+		<Target>NODRefinerySPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODTempleOfNOD_1" ExperienceAward="5000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODTempleOfNOD</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
 	<ExperienceLevelTemplate
 		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODHarvester</Target>
 		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- Alien -->
+	<ExperienceLevelTemplate
+		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>AlienTiberiumTower</Target>
+		<Target>AlienTiberiumTowerSPNoHarvester</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

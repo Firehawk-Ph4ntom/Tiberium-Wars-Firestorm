@@ -16,8 +16,6 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Tiberium\TiberiumFieldFromHarvesterDeath.xml" type="instance"/>
 		<!-- For GDI Tib Silo -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDITiberiumSilo.xml" type="instance"/>
-		<!-- For GDI Commandoes -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
 		<!-- For GDI V35 -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIV35Ox_Summoned.xml" type="instance"/>
 
@@ -26,16 +24,20 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
 
-	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="SubwayHub"
 		inheritFrom="SubwayHub"
@@ -88,24 +90,6 @@
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
 
-	<!-- Increased damage from 350 -->
-	<WeaponTemplate
-		id="GDIGolemCannonWarhead"
-		Name="GDIGolemCannonWarhead"
-		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
-		<Nuggets>
-			<DamageNugget
-				Damage="500"
-				DamageType="CANNON"
-				DeathType="EXPLODED"
-				DamageFXType="GDI_CANNON"/>
-			<SuppressionNugget
-				Radius="10"
-				Suppression="50"
-				DurationSeconds="5s"/>
-		</Nuggets>
-	</WeaponTemplate>
-
 	<!-- Lowered speed from 160 -->
 	<GameObject
 		id="GDIV35Ox_Summoned"
@@ -136,7 +120,7 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Spawn a medium sized Tiberium field, and don't kill when finished spawning --> 
+	<!-- Spawn a medium sized Tiberium field, and don't kill when finished spawning -->
 	<GameObject
 		id="TiberiumFieldFromTiberiumSilo"
 		inheritFrom="TiberiumFieldFromHarvesterDeath">
@@ -184,7 +168,7 @@
 				<Duration>3s</Duration>
 				<CameraStartAngle>0d</CameraStartAngle>
 				<CameraEndAngle>10d</CameraEndAngle>
-			</PresentationSettings>	
+			</PresentationSettings>
 			<PresentationSettings
 				ID="Nod_1_4_Objective_2_Presentationb">
 				<Duration>2.5s</Duration>
@@ -221,6 +205,21 @@
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="GDIRefinery"
 		inheritFrom="GDIRefinery"
 		BuildCost="2000"
@@ -229,10 +228,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -282,7 +290,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -292,10 +321,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -336,7 +374,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -346,18 +391,19 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- NOD -->
+	<ExperienceLevelTemplate
 		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODRefinery</Target>
 		<Target>NODRefinerySPNoHarvester</Target>
 		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

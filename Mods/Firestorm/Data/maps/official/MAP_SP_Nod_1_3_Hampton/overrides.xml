@@ -7,11 +7,10 @@
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
-		<!-- Civilian Structures -->
+		<!-- Civilian Structures, Added DO_NOT_CLASSIFY KindOf to each one -->
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock01.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock03.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock04.xml" type="instance"/>
-		<Include source="DATA:Civilian/Washington_DC_DC/Props/DCPSupply02.xml" type="instance"/>
 		<!-- For GDI Carrier -->
 		<Include source="DATA:GDI\Units\GDICarrier.xml" type="instance"/>
 		<!-- For GDI Command Post -->
@@ -56,7 +55,6 @@
 		</Behaviors>
 	</GameObject>
 
-
 	<!-- Remove UNATTACKABLE status -->
 	<AttributeModifier
 		id="AttributeModifier_JumpJets"
@@ -84,7 +82,7 @@
 		<Armor Damage="SNIPER" Percent="90%"/>
 	</ArmorTemplate>
 
-	<!-- Increased health from 150 | Increased armor -->
+	<!-- Increased health from 150 -->
 	<GameObject
 		id="NODShadow"
 		inheritFrom="NODShadow">
@@ -99,7 +97,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- Instantly Kill structures -->
+	<!-- Increased damage significantly -->
 	<WeaponTemplate
 		id="NODExplosiveChargeWeapon"
 		Name="NODExplosiveChargeWeapon"
@@ -181,7 +179,7 @@
 		<Armor Damage="SNIPER" Percent="20%" />
 	</ArmorTemplate>
 
-	<!-- Increased Damage | Doesn't Hurt Nod Commando -->
+	<!-- Increased Damage | Doesn't Hurt Shadow Team -->
 	<WeaponTemplate
 		id="ExplodingBarrelWeapon"
 		Name="ExplodingBarrelWeapon"
@@ -195,8 +193,7 @@
 				<DamageScalarDetails
 					Scalar="1%">
 					<Filter
-						Rule="NONE"
-						Include="UNIQUE_UNIT">
+						Rule="NONE">
 						<IncludeThing>NODShadow</IncludeThing>
 					</Filter>
 				</DamageScalarDetails>
@@ -214,7 +211,7 @@
 		<Armor Damage="SNIPER" Percent="1" />
 	</ArmorTemplate>
 
-	<!-- Reduce Range from 450 -->
+	<!-- Lowered attack range from 450 -->
 	<WeaponTemplate
 		id="GDIMissileBatteryMissileLauncher"
 		Name="GDIMissileBatteryMissileLauncher"
@@ -224,7 +221,6 @@
 		MaxTargetPitch="15d"
 		FireFX="FX_GDIMissileManFire"
 		FireVeteranFX="FX_GDIMissileManFireHeroic"
-		FireSound="GDI_MissileSoldier_MissileFire"
 		ClipSize="4"
 		PreAttackType="PER_CLIP"
 		ReAcquireDetailType="PER_CLIP"
@@ -247,7 +243,7 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!-- Reduced Damage from 300 -->
+	<!-- Lowered damage from 400 -->
 	<WeaponTemplate
 		id="GDIMissileBatteryMissileWarhead"
 		Name="GDIMissileBatteryMissileWarhead"
@@ -262,7 +258,7 @@
 				DeathType="EXPLODED"
 				DamageFXType="GDI_MISSILE">
 				<DamageScalarDetails
-					Scalar="65%">
+					Scalar="75%">
 					<Filter
 						Rule="NONE">
 						<IncludeThing>GDIJetpackTrooper</IncludeThing>
@@ -272,17 +268,17 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!-- Reduce Range from was 350 | Reduced damage from 20 -->
+	<!-- Lowered attack range from 350 | Lowered damage from 22 -->
 	<WeaponTemplate
 		id="GDIWatchTowerGun"
-		Name="GDIWatchTowerGun" 
+		Name="GDIWatchTowerGun"
 		AttackRange="225"
 		WeaponSpeed="999999"
 		FireSoundPerClip="GDI_WatchTower_GunFire_v2"
 		ReAcquireDetailType="PRE_FIRE"
 		FireFX="FX_GDIWatchTowerFire"
 		FireVeteranFX="FX_GDIWatchTowerFireHeroic"
-		ClipSize="8"
+		ClipSize="10"
 		RotatingTurret="true">
 		<ClipReloadTime
 			MinSeconds="0.01s"
@@ -291,12 +287,110 @@
 			<DamageNugget
 				Damage="15"
 				DamageType="GUN"
-				DamageFXType="GDI_RIFLE"/>
+				DamageFXType="GDI_RIFLE">
+				<DamageScalarDetails
+					Scalar="20%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
 			<SuppressionNugget
 				Radius="15"
 				Suppression="10"
 				DurationSeconds="5s"/>
 		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered damage from 250 -->
+	<WeaponTemplate
+		id="GDIAPCMissileWarhead"
+		Name="GDIAPCMissileWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="150"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="AIRCRAFT"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="25%">
+					<Filter
+						Rule="ALL"
+						Exclude="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="125%">
+					<Filter
+						Rule="NONE"
+						Include="HARVESTER"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<!-- Lowered the scatter radius vs. Infantry from 15 -->
+	<WeaponTemplate
+		id="NODShadowLaserPistol"
+		Name="NODShadowLaserPistol"
+		AttackRange="225"
+		AcceptableAimDelta="10d"
+		WeaponSpeed="999999"
+		FireSound="NOD_RaiderBuggy_CapacitorFire"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		FireFX="FX_NODSpitfireFire"
+		FireVeteranFX="FX_NODSpitfireFireHeroic"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true">
+		<FiringDuration
+			MinSeconds="0.3s"
+			MaxSeconds="0.3s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="0.1s"
+				LaserId="1"
+				HitGroundFX="FX_NODSpitfireHit">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE VEHICLE AIRCRAFT TIBERIUM"/>
+			</ActivateLaserNugget>
+			<DamageNugget
+				Damage="60"
+				DamageType="SNIPER"
+				DeathType="LASERED"
+				DamageFXType="NOD_LASER">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE VEHICLE AIRCRAFT TIBERIUM"/>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="5"
+				Suppression="10"
+				DurationSeconds="5s">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE VEHICLE AIRCRAFT TIBERIUM"/>
+			</SuppressionNugget>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="10">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
 	</WeaponTemplate>
 
 	<!-- Unsellable and can't toggle power | Costs 0 power -->
@@ -306,19 +400,16 @@
 		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI COVER FS_RADAR NOT_SELLABLE"
 		EnergyProduction="0"/>
 
-	<!-- Added DO_NOT_CLASSIFY Kindof -->
 	<GameObject
 		id="DCBDock01"
 		inheritFrom="DCBDock01"
 		KindOf="STRUCTURE UNATTACKABLE IMMOBILE CAN_CAST_REFLECTIONS NO_COLLIDE DO_NOT_CLASSIFY"/>
 
-	<!-- Added DO_NOT_CLASSIFY Kindof -->
 	<GameObject
 		id="DCBDock03"
 		inheritFrom="DCBDock03"
 		KindOf="STRUCTURE UNATTACKABLE IMMOBILE CAN_CAST_REFLECTIONS NO_COLLIDE DO_NOT_CLASSIFY"/>
 
-	<!-- Added DO_NOT_CLASSIFY Kindof -->
 	<GameObject
 		id="DCBDock04"
 		inheritFrom="DCBDock04"

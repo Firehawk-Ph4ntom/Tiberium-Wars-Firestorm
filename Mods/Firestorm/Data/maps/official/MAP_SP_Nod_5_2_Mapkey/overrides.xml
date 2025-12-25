@@ -16,11 +16,17 @@
 		<!-- Neutral Global Overrides -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Defenses\NODTempleOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 		<!-- Alien Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPortal.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Defenses\AlienRiftGenerator.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Infantry\AlienAssimilator.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Alien\Units\Vehicles\AlienHarvester.xml" type="instance"/>
 	</Includes>
@@ -138,7 +144,7 @@
 
 	<!-- Global Overrides -->
 	<!-- Neutral -->
-	<!-- Also added AUTO_ACQUIRABLE_BY_AI Kindof -->	
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="TiberiumSpike"
 		inheritFrom="TiberiumSpike"
@@ -154,6 +160,21 @@
 
 	<!-- NOD -->
 	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
 		BuildCost="2000"
@@ -162,10 +183,25 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="NODTempleOfNOD"
+		inheritFrom="NODTempleOfNOD"
+		BuildCost="5000"
+		BuildTime="50"/>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -206,7 +242,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- Alien -->
+	<GameObject
+		id="AlienPowerProjector"
+		inheritFrom="AlienPowerProjector">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="AlienTiberiumTower"
 		inheritFrom="AlienTiberiumTower"
@@ -216,10 +273,25 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="AlienHarvester"
-		inheritFrom="AlienHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="AlienPortal"
+		inheritFrom="AlienPortal">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER2">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
+		id="AlienRiftGenerator"
+		inheritFrom="AlienRiftGenerator"
+		BuildCost="5000"
+		BuildTime="50"/>
 
 	<LogicCommandSet
 		id="AlienFoundryCommandSet">
@@ -258,7 +330,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="AlienHarvester"
+		inheritFrom="AlienHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- NOD -->
 	<ExperienceLevelTemplate
 		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -268,6 +347,21 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="NODTempleOfNOD_1" ExperienceAward="5000" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODTempleOfNOD</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<ExperienceLevelTemplate
+		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>NODHarvester</Target>
+		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- Alien -->
+	<ExperienceLevelTemplate
 		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>AlienTiberiumTower</Target>
@@ -276,10 +370,10 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
-		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		id="AlienRiftGenerator_1" ExperienceAward="5000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>NODHarvester</Target>
-		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
+		<Target>AlienRiftGenerator</Target>
+		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="100" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate

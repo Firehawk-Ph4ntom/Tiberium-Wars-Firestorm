@@ -33,13 +33,16 @@
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
 
 		<!-- GDI Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures_SinglePlayerCampaign\GDIRefinerySPNoHarvester.xml" type="instance"/>
-
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIBarracks.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
 		<!-- NOD Global Overrides -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODPowerPlant.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODHandOfNOD.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
@@ -60,7 +63,7 @@
 		inheritFrom="GDICommando"
 		ProductionQueueType="VEHICLE"/>
 
-	<!-- Removed Explosive Mixture upgrade -->
+	<!-- Removed Explosive Tiberium Mixture upgrade -->
 	<LogicCommandSet
 		id="NODHangarCommandSet">
 		<Cmd>Command_ConstructNODVenom</Cmd>
@@ -155,7 +158,7 @@
 			MinSeconds="10s"
 			MaxSeconds="15s" />
 		<Nuggets>
-			<ProjectileNugget 
+			<ProjectileNugget
 				WarheadTemplate="GDIJuggernaughtArtilleryWarhead"
 				ProjectileTemplate="GDISPArtilleryEmplacementShell"/>
 		</Nuggets>
@@ -204,7 +207,7 @@
 				FirstPercentIndent="33"
 				SecondPercentIndent="66"
 				CurveFlattenMinDist="300"
-				DetonateCallsKill="true" 
+				DetonateCallsKill="true"
 				FlightPathAdjustDistPerSecond="300"
 				FlightPathAdjustStraightOnly="false"
 				OrientToFlightPath="true"/>
@@ -228,9 +231,8 @@
 		AttackRange="350"
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
-		FireFX="FX_Sandstorm_MissileFire"
-		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
-		FireSound="NOD_StealthTank_RocketLaunch"
+		FireFX="FX_StealthTank_MissileFire"
+		FireVeteranFX="FX_StealthTank_MissileFireHeroic"
 		ClipSize="6"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		CanFireWhileMoving="true"
@@ -270,8 +272,7 @@
 		AcceptableAimDelta="20d"
 		WeaponSpeed="300"
 		FireFX="FX_StealthTank_TibCoreMissileFire"
-		FireVeteranFX="FX_Sandstorm_MissileFireHeroic"
-		FireSound="NOD_StealthTank_RocketLaunch"
+		FireVeteranFX="FX_StealthTank_MissileFireHeroic"
 		ClipSize="6"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
 		CanFireWhileMoving="true"
@@ -315,7 +316,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- Added AUTO_ACQUIRABLE_BY_AI Kindof -->
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
 		id="GDICDMTower"
 		inheritFrom="GDICDMTower"
@@ -381,7 +382,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- KeepsParkingSpaceWhenAirborne="false" | OutOfAmmoDamagePerSecond="2.5"  -->
+	<!-- Do not take parking space when airborne | Take more damage when out of ammo and can't dock -->
 	<GameObject
 		id="GDIFireHawk"
 		inheritFrom="GDIFireHawk">
@@ -486,6 +487,21 @@
 	<!-- Global Overrides -->
 	<!-- GDI -->
 	<GameObject
+		id="GDIPowerPlant"
+		inheritFrom="GDIPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject
 		id="GDIRefinerySPNoHarvester"
 		inheritFrom="GDIRefinerySPNoHarvester"
 		BuildCost="2000"
@@ -502,10 +518,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="GDIBarracks"
+		inheritFrom="GDIBarracks">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="GDICraneCommandSet">
@@ -555,7 +580,28 @@
 		</Behaviors>
 	</GameObject>
 
+	<GameObject
+		id="GDIHarvester"
+		inheritFrom="GDIHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
 	<!-- NOD -->
+	<GameObject
+		id="NODPowerPlant"
+		inheritFrom="NODPowerPlant">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
+
 	<GameObject
 		id="NODRefinery"
 		inheritFrom="NODRefinery"
@@ -565,10 +611,19 @@
 		EnergyProduction="-8"/>
 
 	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
+		id="NODHandOfNOD"
+		inheritFrom="NODHandOfNOD">
+		<Behaviors>
+			<GrantUpgradeCreate
+				id="ModuleTag_GrantUpgrade"
+				UpgradeToGrant="Upgrade_ObjectDefault"/>
+			<StatusBitsUpgrade
+				id="ModuleTag_PVEGameModeStatus"
+				StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
+			</StatusBitsUpgrade>
+		</Behaviors>
+	</GameObject>
 
 	<LogicCommandSet
 		id="NODCraneCommandSet">
@@ -609,7 +664,14 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Override Exp Templates for Refineries and Harvesters -->
+	<GameObject
+		id="NODHarvester"
+		inheritFrom="NODHarvester"
+		BuildCost="1400"
+		BuildTime="14"/>
+
+	<!-- Override Exp Templates -->
+	<!-- GDI -->
 	<ExperienceLevelTemplate
 		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
@@ -619,18 +681,19 @@
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
+		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
+		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
+		<Target>GDIHarvester</Target>
+		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
+	</ExperienceLevelTemplate>
+
+	<!-- NOD -->
+	<ExperienceLevelTemplate
 		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
 		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
 		<Target>NODRefinery</Target>
 		<Target>NODRefinerySPNoHarvester</Target>
 		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
 	</ExperienceLevelTemplate>
 
 	<ExperienceLevelTemplate
