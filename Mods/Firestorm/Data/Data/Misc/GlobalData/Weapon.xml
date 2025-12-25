@@ -3,6 +3,18 @@
 
 	<!-- Misc -->
 
+	<WeaponTemplate
+		id="NukeTruckNuclearDeathWeapon"
+		Name="NukeTruckNuclearDeathWeapon"
+		AttackRange="50000"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS">
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_NukeTruckNuclearSeed"/>
+			<ReportWeaponFiredStatNugget/>
+		</Nuggets>
+	</WeaponTemplate>
+
 	<!-- Activated by the dummy object spawned when ticking the crates option - only gives out USER_45 Condition -->
 	<!-- USER_46 is given out through a WB Script by a Library map -->
 	<WeaponTemplate
@@ -9845,15 +9857,14 @@
 		Name="GDIMARVCrushTiberium"
 		CanFireWhileMoving="true">
 		<Nuggets>
-			<DamageNugget
-				Damage="100000000"
-				DamageType="GRENADE"
-				DeathType="EXTRA_8">
-				<SpecialObjectFilter
+			<FireOnObjectsNugget
+				Radius="40"
+				Weapon="GDIMARVCrushTiberiumVein">
+				<Filter
 					Rule="NONE">
 					<IncludeThing>VeinsCluster</IncludeThing>
-				</SpecialObjectFilter>
-			</DamageNugget>
+				</Filter>
+			</FireOnObjectsNugget>
 			<FireOnObjectsNugget
 				Radius="40"
 				Weapon="GDIMARVCrushTiberiumGreen">
@@ -9881,6 +9892,22 @@
 					<IncludeThing>TiberiumCrystalRedNoStageGrowth</IncludeThing>
 				</Filter>
 			</FireOnObjectsNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDIMARVCrushTiberiumVein"
+		Name="GDIMARVCrushTiberiumVein"
+		CanFireWhileMoving="true">
+		<Nuggets>
+			<DamageNugget
+				Damage="100000000"
+				DamageType="GRENADE">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<IncludeThing>VeinsCluster</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -22174,7 +22201,7 @@
 		<Nuggets>
 			<ParalyzeNugget
 				Radius="50"
-				DurationSeconds="5s"
+				DurationSeconds="7s"
 				ParalyzeType="EMP"
 				ParalyzeFX="FX_NODBuggyEmpHit"
 				ForbiddenTargetObjectStatus="IN_STASIS"
@@ -22185,7 +22212,7 @@
 			</ParalyzeNugget>
 			<ParalyzeNugget
 				Radius="50"
-				DurationSeconds="5s"
+				DurationSeconds="7s"
 				ParalyzeType="EMP"
 				ParalyzeFX="FX_NODSilent1sEMPHit"
 				ForbiddenTargetObjectStatus="IN_STASIS">

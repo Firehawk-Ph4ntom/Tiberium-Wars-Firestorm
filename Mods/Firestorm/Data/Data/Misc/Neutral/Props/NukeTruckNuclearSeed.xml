@@ -1,0 +1,35 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+	<GameObject id="NukeTruckNuclearSeed" Side="Neutral" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="NukeTruckNuclearSeed">
+		<DisplayName>NukeTruckNuclearSeed</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate id="ModuleTag_LifetimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NODNukeRadiation">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="NODNuclearMissileDeathWeapon">
+				<DieMuxData DeathTypes="ALL"/>
+			</FireWeaponWhenDead>
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="500">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_NOD_Nuke"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0"/>
+		</Body>
+	</GameObject>
+</AssetDeclaration>

@@ -22,11 +22,22 @@
 					<Texture Original="NUNukeTruck" New="NUNukeTruck_D"/>
 				</ModelConditionState>
 			</TruckDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="MODULE_GDI">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<SlowDeath id="ModuleTag_Death" DeathObjectStatusBits="DONT_CLEAR_FOR_BUILD" SinkDelay="3s" SinkRate="2" DestructionDelay="8s">
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="2" DestructionDelay="8s">
 				<OCL Type="INITIAL">
 					<OCL>OCL_NeurtralTransportDebris</OCL>
 				</OCL>
@@ -35,9 +46,9 @@
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
 			</FXListBehavior>
-			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="NuclearMissile">
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" InitiallyActive="true" DeathWeapon="NukeTruckNuclearDeathWeapon">
 				<DieMuxData DeathTypes="ALL"/>
 			</FireWeaponWhenDead>
 		</Behaviors>
