@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
@@ -63,14 +63,8 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_WeaponFireSpecialAbilityUpdateEMP" UnpackTime="2s" PreparationTime="0.1s" PackTime="2s" SpecialPowerTemplate="SpecialPowerEMPControlCenter" SpecialWeapon="EMPControlCenterWeapon" WhichSpecialWeapon="1" DisabledTypesToProcess="USER_PARALYZED EMP HELD PARALYZED UNDERPOWERED TEMPORARILY_BUSY"/>
 			<AISpecialPowerUpdate id="ModuleTag_EMPControlCenterAI" CommandButtonName="Command_EMPControlCenterEMP" SpecialPowerRadius="999999.0" UnitKindOf="FS_POWER" SpecialPowerAIType="SPECIAL_POWER_ENEMY_TYPE_KILLER_STRUCTURES"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
-			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForFriendlyEnter="VoiceEngineerRepair" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForRepair="BuildingRepaired" EvaEventForCapture="EnemyBuildingCapturedPowersAvailable" FXForRepair="FX_Building_Repaired" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ImmediatelyEnabled="true">
-				<CanEnterFilter Rule="NONE">
-					<IncludeThing>GDIEngineer</IncludeThing>
-					<IncludeThing>NODSaboteur</IncludeThing>
-					<IncludeThing>AlienAssimilator</IncludeThing>
-					<IncludeThing>MutantSalvager</IncludeThing>
-				</CanEnterFilter>
-			</EngineerContain>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerTechContain.xml"/>
+			<EngineerContain id="ModuleTag_EngineerContain" xai:joinAction="Append" EvaEventForCapture="EnemyTechBuildingCapturedPowersAvailable"/>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
@@ -105,9 +99,10 @@
 				<Offset x="-15" y="-15" z="0"/>
 			</Shape>
 		</Geometry>
-		<AudioArrayVoice>
+		<AudioArrayVoice xai:joinAction="Replace">
+			<AudioEntry EvaEvent="TechBuildingStolen" AudioType="voiceDefectingAway"/>
+			<AudioEntry EvaEvent="EnemyTechBuildingCapturedPowersAvailable" AudioType="voiceDefectingTowards"/>
 			<AudioEntry Sound="EMPControlCenter_Select" AudioType="voiceSelect"/>
-			<AudioEntry EvaEvent="EnemyBuildingCapturedPowersAvailable" AudioType="voiceDefectingTowards"/>
 		</AudioArrayVoice>
 		<AudioArraySound>
 			<AudioEntry Sound="HumanFaction_MediumBuilding_LightDamageMS" AudioType="soundOnDamaged"/>
