@@ -1,4 +1,4 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIEngineer\GUCEngineer.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIEngineer\HC_GUCEngineer.xml"/>
@@ -327,7 +327,7 @@
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistol"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
-					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
@@ -353,15 +353,10 @@
 			<!-- Repair CIV Building -->
 			<SpecialPower id="ModuleTag_RepairCivBuilding" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" WhichSpecialWeapon="1" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
-			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_PVEMovementSpeed">
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
 				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</AttributeModifierUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
-				<TriggeredBy>Upgrade_PVEGameModePlayerCapDelayHack</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
+				<ReplacementTemplate>GDIEngineerPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -377,7 +372,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeCapDelayFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions">
 				<UnitAITargetChooserData SympathyRange="100" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -414,5 +409,25 @@
 		</AudioArrayVoice>
 		<EvaEvents EvaEventDetectedEnemy="EnemyEngineerDetected" EvaEnemyObjectSightedEvent="EnemyEngineerDetected"/>
 		<VisionInfo VisionRange="200" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIEngineerPVEGameMode" inheritFrom="GDIEngineer" EditorName="GDIEngineerPVEGameMode" CommandSet="GDIEngineerPVEGameModeCommandSet">
+		<EquivalentTo>GDIEngineer</EquivalentTo>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="45"/>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistol"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDICombatEngineerPistolHEAmmo" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+			<!-- Capture Building -->
+			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" xai:joinAction="Remove"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingGetInRangeUpdate" xai:joinAction="Remove"/>
+			<SpecialPower id="ModuleTag_CaptureBuildingSP" xai:joinAction="Remove"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingSPUpdate" xai:joinAction="Remove"/>
+			<AISpecialPowerUpdate id="ModuleTag_CaptureBuildingAI" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

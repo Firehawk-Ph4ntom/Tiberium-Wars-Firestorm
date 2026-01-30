@@ -10,9 +10,13 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<AttributeModifierPoolUpdate id="DefaultAttributeModifierPoolUpdate"/>
 			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="2s" MaxLifetime="2s"/>
 			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonAlienDeploymentMeteor">
-				<DieMuxData DeathTypes="ALL"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER1"/>
+			</CreateObjectDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDieUpgraded" CreationList="OCL_SummonAlienDeploymentMeteorPVEGameMode">
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER1"/>
 			</CreateObjectDie>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
@@ -22,7 +26,13 @@
 				<FireWeaponNugget WeaponName="AlienDeploymentMeteorSmallRockSpawner" FireDelay="0.7s" OneShot="true"/>
 				<FireWeaponNugget WeaponName="AlienDeploymentMeteorSmallRockSpawner" FireDelay="1.4s" OneShot="true"/>
 			</FireWeaponUpdate>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeUpgrade" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</StatusBitsUpgrade>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
+		</AI>
 		<Body>
 			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
 		</Body>

@@ -141,6 +141,10 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_OverlordsWrathUpdate" SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon" SpecialWeapon="OverlordsWrathWeaponTrigger" UnpackTime="0s" PackTime="9s"/>
 			<AISpecialPowerUpdate id="ModuleTag_OverlordsWrathAI" CommandButtonName="Command_OverlordsWrathSuperweapon" SpecialPowerRadius="999999.0" SpecialPowerAIType="SPECIAL_POWER_SUPERWEAPON" UnitKindOf="STRUCTURE"/>
 			<MonitorSpecialPowerTimerUpdate id="ModuleTag_OverlordsWrathReadyToFireUpdate" SpecialPowerTemplate="SpecialPower_OverlordsWrathWeapon" ReadyCondition="SPECIALPOWER1_READY"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienRiftGeneratorPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -148,7 +152,7 @@
 			<xi:include href="DATA:Includes/AdvancedAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
@@ -180,5 +184,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="100"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienRiftGeneratorPVEGameMode" inheritFrom="AlienRiftGenerator" EditorName="AlienRiftGeneratorPVEGameMode" BuildTime="50" BuildCost="5000">
+		<EquivalentTo>AlienRiftGenerator</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

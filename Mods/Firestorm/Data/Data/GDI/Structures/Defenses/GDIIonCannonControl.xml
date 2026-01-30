@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIIonCannon\GBIonCannon_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIIonCannon\GBIONCANSRF_SKN.w3x"/>
@@ -170,6 +170,10 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_IonCannonUpdate" SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon" SpecialWeapon="IonCannonWeapon" UnpackTime="0s" PackTime="8s" WhichSpecialWeapon="1"/>
 			<AISpecialPowerUpdate id="ModuleTag_IonCannonSpecialPower" CommandButtonName="Command_IonCannonSuperweapon" SpecialPowerRadius="999999.0" SpecialPowerAIType="SPECIAL_POWER_SUPERWEAPON" UnitKindOf="STRUCTURE"/>
 			<MonitorSpecialPowerTimerUpdate id="ModuleTag_IonCannonReadyToFireUpdate" SpecialPowerTemplate="SpecialPowerIonCannonControlIonCannon" ReadyCondition="SPECIALPOWER1_READY"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDIIonCannonControlPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -177,7 +181,7 @@
 			<xi:include href="DATA:Includes/ArmoryGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000.0"/>
@@ -204,5 +208,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="100"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIIonCannonControlPVEGameMode" inheritFrom="GDIIonCannonControl" EditorName="GDIIonCannonControlPVEGameMode" BuildTime="50" BuildCost="5000">
+		<EquivalentTo>GDIIonCannonControl</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

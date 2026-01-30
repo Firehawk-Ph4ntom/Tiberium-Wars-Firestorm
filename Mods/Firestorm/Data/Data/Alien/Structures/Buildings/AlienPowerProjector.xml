@@ -248,18 +248,13 @@
 					<ExcludeThing>AlienHiveStalker</ExcludeThing>
 				</AllowFilter>
 			</PassiveAreaEffectBehavior>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienPowerProjectorPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER2">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
-			<PowerUpgrade id="ModuleTag_PVEPowerUpgrade">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</PowerUpgrade>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_FusionCore</TriggeredBy>
 			</PowerUpgrade>
@@ -273,7 +268,7 @@
 			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="AlienPowerProjectorFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000.0"/>
@@ -295,6 +290,13 @@
 			<AudioEntry Sound="ALI_Building_Placed" AudioType="soundUnderConstruction"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
-		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER2"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienPowerProjectorPVEGameMode" inheritFrom="AlienPowerProjector" EditorName="AlienPowerProjectorPVEGameMode" EnergyProduction="30" Description="Desc:ALIENPowerProjectorPVEGameMode">
+		<EquivalentTo>AlienPowerProjector</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

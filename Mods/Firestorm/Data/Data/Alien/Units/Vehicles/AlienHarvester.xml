@@ -226,6 +226,10 @@
 				<DieMuxData DeathTypes="ALL" />
 				<UpgradeRequired>Upgrade_IonRetribution</UpgradeRequired>
 			</CreateObjectDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienHarvesterPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_IonRetributionAudioLoop" SoundToPlay="ALI_AdvancedArticulators_Upgrade">
 				<TriggeredBy>Upgrade_IonRetribution</TriggeredBy>
 			</AudioLoopUpgrade>
@@ -238,7 +242,7 @@
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="false" AILuaEventsList="GenericHarvesterFunctions"/>
+			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="false" AILuaEventsList="GenericPVEGamemodeHarvesterFunctions"/>
 		</AI>
 		<Body>
 			<ShieldBody id="ModuleTag_Body" MaxHealth="5000" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="1000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="90s" ShieldActiveModelCondition="USER_19"/>
@@ -272,5 +276,12 @@
 		<EvaEvents EvaEventDieOwner="HarvesterLost" EvaEventDamagedOwner="HarvesterUnderAttack" EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="3" CrushEqualLevelProps="true"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienHarvesterPVEGameMode" inheritFrom="AlienHarvester" EditorName="AlienHarvesterPVEGameMode" BuildCost="1400" BuildTime="14">
+		<EquivalentTo>AlienHarvester</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

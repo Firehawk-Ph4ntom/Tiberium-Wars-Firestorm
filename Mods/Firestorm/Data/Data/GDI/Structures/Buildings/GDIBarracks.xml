@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBarrack_UGCA.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBarracks\GBBarrackD_UGCA.xml"/>
@@ -189,12 +189,18 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
+			<HealContain id="ModuleTag_HordeGarrison" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="4" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="false" KillPassengersOnDeath="false" TimeForFullHeal="3s" ResetInitialTeamOnCapture="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="ROOTTRANSFORM">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+				<ExitOffset x="60" y="20" z="0"/>
+			</HealContain>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
 				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
+				<ReplacementTemplate>GDIBarracksPVEGameModeDummySpawner</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_TibFieldSuitsModelCondition" Permanent="true" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_GDIFieldSuits</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -206,7 +212,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDIBarracksFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
@@ -257,6 +263,13 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
-		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER1"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIBarracksPVEGameMode" inheritFrom="GDIBarracks" EditorName="GDIBarracksPVEGameMode" CommandSet="GDIBarracksPVEGameModeCommandSet">
+		<EquivalentTo>GDIBarracks</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

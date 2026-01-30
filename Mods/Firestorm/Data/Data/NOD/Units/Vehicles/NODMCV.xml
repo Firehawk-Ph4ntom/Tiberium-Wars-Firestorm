@@ -176,13 +176,17 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>NODConstructionYard</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>NODMCVPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_MCVBuildConyardAI" CommandButtonName="Command_UnPackNODMCV" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 			<!-- No stances because there's no weapon -->
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="7500.0"/>
@@ -237,5 +241,16 @@
 		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
 		<CrusherInfo CrusherLevel="1" CrushableLevel="3"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="NODMCVPVEGameMode" inheritFrom="NODMCV" EditorName="NODMCVPVEGameMode" BuildCost="3500" BuildTime="35">
+		<EquivalentTo>NODMCV</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3.8s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>NODConstructionYardPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

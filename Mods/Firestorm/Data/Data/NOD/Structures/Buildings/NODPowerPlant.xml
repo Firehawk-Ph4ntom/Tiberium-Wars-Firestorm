@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\NODPowerPlant\NBPower_LF.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODPowerPlant\NBPowerTibC_LF.w3x"/>
@@ -160,18 +160,13 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>NODPowerPlantDrone</SpawnTemplate>
 			</SpawnBehavior>
-			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
-			<PowerUpgrade id="ModuleTag_PVEPowerUpgrade">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</PowerUpgrade>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
 			</PowerUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>NODPowerPlantPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_LiquidTibCoreUpgrade" StatusToSet="HAS_TIBERIUM_UPGRADE" StatusToClear="RIDER4">
 				<TriggeredBy>Upgrade_NODLiquidTiberiumCore</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -234,6 +229,13 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
-		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER1"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="NODPowerPlantPVEGameMode" inheritFrom="NODPowerPlant" EditorName="NODPowerPlantPVEGameMode" EnergyProduction="30" Description="Desc:NODPowerPlantPVEGameMode">
+		<EquivalentTo>NODPowerPlant</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

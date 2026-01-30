@@ -185,6 +185,10 @@
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>ALI_ShockTrooper</Key>
 			</LargeGroupAudioUpdate>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienMastermindPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<!-- Blink Packs -->
 			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
 			<TeleportSpecialAbilityUpdate id="ModuleTag_TeleportSpecialAbility" SpecialPowerTemplate="SpecialPower_UseMastermindBlinkPack" DestinationWeapon="AlienReaverBlinkPackWeapon2" SourceWeapon="AlienReaverBlinkPackWeapon" FadeInTime="2s" UnpackTime="0.75s" PackTime="0.5s" BusyDuration="0.75s" StartAbilityRange="750" UnpackingVariation="1"/>
@@ -216,7 +220,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAdvArticulators.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericAlienIchorPlatingFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeAlienIchorPlatingFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -237,5 +241,24 @@
 		<EvaEvents EvaEventDetectedEnemy="EnemyCommandoDetected" EvaEnemyObjectSightedEvent="EnemyCommandoDetected" EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="250" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="3" UseCrushAttack="false"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienMastermindPVEGameMode" inheritFrom="AlienMastermind" EditorName="AlienMastermindPVEGameMode" CommandSet="AlienMastermindCommandSetPVEGameMode">
+		<EquivalentTo>AlienMastermind</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+			<!-- Manipulator Device -->
+			<SpecialPower id="ModuleTag_ManipulatorDevice" SpecialPowerTemplate="SpecialPower_ManipulateObjectPVEGameMode" UpdateModuleStartsAttack="true"/>
+			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdate" SpecialPowerTemplate="SpecialPower_ManipulateObjectPVEGameMode" StartAbilityRange="200" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" FaceTarget="true">
+				<SpecialPowerModules ModuleId="ModuleTag_ManipulatorDeviceWorker" TriggerType="TARGET_OBJECT" />
+			</ActivateModuleSpecialPower>
+			<AISpecialPowerUpdate id="ModuleTag_ManipulatorDeviceAI" xai:joinAction="Append" CommandButtonName="Command_AlienMastermindManipulatorDevice"/>
+			<!-- Used by the Original Object -->
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" xai:joinAction="Remove"/>
+			<SpecialPower id="ModuleTag_ManipulatorDeviceStructure" xai:joinAction="Remove"/>
+			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdateStructure" xai:joinAction="Remove"/>
+			<SpecialPower id="ModuleTag_ManipulatorDeviceOthers" xai:joinAction="Remove"/>
+			<ActivateModuleSpecialPower id="ModuleTag_ManipulatorDeviceUpdateOthers" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

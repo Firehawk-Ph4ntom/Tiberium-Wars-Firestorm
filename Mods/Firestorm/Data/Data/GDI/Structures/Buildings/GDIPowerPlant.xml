@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIPowerPlant\GBPOWERSRF_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIPowerPlant\GBPWRPLNTD2_SN_CTR.w3x"/>
@@ -207,16 +207,11 @@
 				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Medium"/>
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Medium"/>
 			</FXListBehavior>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDIPowerPlantPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
-			<PowerUpgrade id="ModuleTag_PVEPowerUpgrade">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</PowerUpgrade>
 			<PowerUpgrade id="ModuleTag_PowerUpgrade">
 				<TriggeredBy>Upgrade_PowerPlantTurbine</TriggeredBy>
 			</PowerUpgrade>
@@ -230,7 +225,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GDIPowerPlantFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000.0"/>
@@ -255,6 +250,13 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
-		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" StatusToReject="RIDER1"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIPowerPlantPVEGameMode" inheritFrom="GDIPowerPlant" EditorName="GDIPowerPlantPVEGameMode" EnergyProduction="30" Description="Desc:GDIPowerPlantPVEGameMode">
+		<EquivalentTo>GDIPowerPlant</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
+		<ProjectedBuildabilityInfo Radius="125" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 </AssetDeclaration>

@@ -1,4 +1,4 @@
-﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
@@ -53,6 +53,10 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>TiberiumSpikePVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -60,7 +64,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerTechContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000.0"/>
@@ -79,5 +83,16 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="TiberiumSpikePVEGameMode" inheritFrom="TiberiumSpike" EditorName="TiberiumSpikePVEGameMode">
+		<EquivalentTo>TiberiumSpike</EquivalentTo>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_TiberiumSpikePVEGameMode_Destroyed">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<AutoDepositUpdate id="ModuleTag_AutoDepositUpdate" xai:joinAction="Append" InitialCaptureBonus="750" DepositAmount="25"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

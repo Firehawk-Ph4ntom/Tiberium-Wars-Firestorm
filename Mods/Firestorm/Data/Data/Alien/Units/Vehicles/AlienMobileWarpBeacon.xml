@@ -341,6 +341,10 @@
 			<ParkingPlaceBehavior id="ModuleTag_ParkingPlaceBehavior" HealAmount="0" NumRows="0" NumCols="0" ApproachHeight="0" ParkInHangars="false" DoorOpenTime="0s" DoorCloseTime="0s" LowersOntoParkingPlaceOnProduction="false">
 				<CanParkHereFilter Rule="ALL" Relationship="SAME_PLAYER" Exclude="SUMMONED TRANSPORT"/>
 			</ParkingPlaceBehavior>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienMobileWarpBeaconPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_AdvProductionModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -353,7 +357,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="6" SpawnOffsetRadius="160.0" AILuaEventsList="GenericAlienProductionBuildingFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" MaxCombineChildren="6" SpawnOffsetRadius="160.0" AILuaEventsList="GenericPVEGamemodeAlienProductionBuildingFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -400,5 +404,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="400" ShroudClearingRange="350"/>
 		<CrusherInfo CrusherLevel="3" CrushableLevel="3" CrushDecelerationPercent="40%"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienMobileWarpBeaconPVEGameMode" inheritFrom="AlienMobileWarpBeacon" EditorName="AlienMobileWarpBeaconPVEGameMode" CommandSet="AlienMobileWarpBeaconPVEGameModeCommandSet">
+		<EquivalentTo>AlienMobileWarpBeacon</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

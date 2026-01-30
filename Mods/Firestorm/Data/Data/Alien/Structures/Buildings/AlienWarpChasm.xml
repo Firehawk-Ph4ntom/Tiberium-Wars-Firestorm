@@ -239,11 +239,6 @@
 		</Draws>
 		<Behaviors>
 			<ProductionUpdate id="ModuleTag_Production" NumDoorAnimations="1" DoorOpeningTime="1s" DoorWaitOpenTime="3s" DoorCloseTime="1s" Type="VEHICLE" GiveNoXP="true" MaxQueueEntries="999">
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.93333333" CostMultiplier="0.93333333">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>AlienHarvester</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
 				<ProductionModifier RequiredUpgrade="Upgrade_ProductionDummy" TimeMultiplier="0.9" CostMultiplier="0.9">
 					<ModifierFilter Rule="NONE" Include="VEHICLE"/>
 				</ProductionModifier>
@@ -268,9 +263,10 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>IonStorm</SpawnTemplate>
 			</SpawnBehavior>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienWarpChasmPVEGameModeDummySpawner</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_AdvProductionModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -285,7 +281,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeAlienProductionFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeAlienProductionBuildingFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="15000.0"/>
@@ -329,5 +325,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienWarpChasmPVEGameMode" inheritFrom="AlienWarpChasm" EditorName="AlienWarpChasmPVEGameMode" CommandSet="AlienWarpChasmPVEGameModeCommandSet">
+		<EquivalentTo>AlienWarpChasm</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

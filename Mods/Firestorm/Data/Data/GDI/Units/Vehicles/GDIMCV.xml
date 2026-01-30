@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIMCV\GUMCV_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMCV\GUMCV_SKN.w3x"/>
@@ -168,13 +167,17 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>GDIConstructionYard</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDIMCVPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_MCVBuildConyardAI" CommandButtonName="Command_UnPackGDIMCV" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="7500"/>
@@ -214,5 +217,16 @@
  		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
 		<CrusherInfo CrusherLevel="1" CrushableLevel="3"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIMCVPVEGameMode" inheritFrom="GDIMCV" EditorName="GDIMCVPVEGameMode" BuildCost="3500" BuildTime="35">
+		<EquivalentTo>GDIMCV</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3.1s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIConstructionYardPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

@@ -10,16 +10,10 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseStructure.xml"/>
 	</Includes>
-	<GameObject id="AlienTiberiumTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTiberiumTower" ButtonImage="Portrait_AlienTiberiumTower" Side="ALIEN" BuildCost="2500" BuildTime="25" RefundValue="500" PlacementViewAngle="225d" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_POWER FS_MONEY_STORAGE TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienExtractor" Description="Desc:ALIENTiberiumTower" TypeDescription="Type:AlienTiberiumTower" EnergyProduction="-15" EnergyBonus="7">
+	<GameObject id="AlienTiberiumTower" inheritFrom="BaseStructure" SelectPortrait="Portrait_AlienTiberiumTower" ButtonImage="Portrait_AlienTiberiumTower" Side="ALIEN" BuildCost="2500" BuildTime="25" RefundValue="500" PlacementViewAngle="225d" CommandSet="GenericStructureCommandSet" KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS SUPPLY_GATHERING_CENTER FS_MONEY_STORAGE TIBERIUM_BASED AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE COVER HEALED_BY_TIBERIUM" EditorName="AlienExtractor" Description="Desc:ALIENTiberiumTower" TypeDescription="Type:AlienTiberiumTower" EnergyProduction="-15">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ALIENTiberiumTower</DisplayName>
 		<DisplayUpgrade>Upgrade_IonShields</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_AlienIonAtmosphere</DisplayUpgrade>
-		<GameDependency>
-			<ObjectFilter Rule="ANY">
-				<IncludeThing>AlienDronePlatform</IncludeThing>
-				<IncludeThing>AlienFoundry</IncludeThing>
-			</ObjectFilter>
-		</GameDependency>
 		<ArmorSet Armor="GenericBuildingArmor" DamageFX="FactionStructureDamageFX"/>
 		<SkirmishAIInformation BaseBuildingLocation="TIBERIUM"/>
 		<Draws>
@@ -270,12 +264,6 @@
 				<Event Index="onTransitionToRubble" FX="FX_AlienBuildingRubbleL"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.75s"/>
-			<PowerUpgrade id="ModuleTag_PowerUpgrade">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</PowerUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" ShareUpgrades="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>AlienExplorerOutpostDummyDrone</SpawnTemplate>
@@ -310,6 +298,10 @@
 					<ExcludeThing>AlienHiveStalker</ExcludeThing>
 				</AllowFilter>
 			</PassiveAreaEffectBehavior>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienTiberiumTowerPVEGameModeDummySpawner</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
@@ -349,5 +341,15 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienTiberiumTowerPVEGameMode" inheritFrom="AlienTiberiumTower" EditorName="AlienTiberiumTowerPVEGameMode" BuildCost="2000" BuildTime="20" RefundValue="300" EnergyProduction="-8">
+		<EquivalentTo>AlienTiberiumTower</EquivalentTo>
+		<Behaviors>
+			<SpawnBehavior id="ModuleTag_Spawn2" xai:joinAction="Replace" SpawnNumberData="1" SpawnReplaceDelayData="9999s" IsOneShotData="true" FadeInTime="1.0s" InitialDelay="2.0s" CanReclaimOrphans="false">
+				<SpawnTemplate>AlienHarvesterPVEGameMode</SpawnTemplate>
+			</SpawnBehavior>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

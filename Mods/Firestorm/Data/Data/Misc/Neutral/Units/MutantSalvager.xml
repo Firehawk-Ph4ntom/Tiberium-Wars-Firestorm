@@ -239,7 +239,7 @@
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericHijackerCaptureGetInRange"/>
-					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange" ObjectStatus="RIDER1"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<SuppressionUpdate id="ModuleTag_SuppressionUpdate" UpdateDelay="1s" Suppressability="500" SuppressionDuration="5s" AttributeModifierSuppressed="Modifier_Test_Suppression" AttributeModifierForceMove="Modifier_Test_Suppression_ForceMove"/>
@@ -286,15 +286,10 @@
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" WhichSpecialWeapon="1" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransport.xml"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
-			<AttributeModifierUpgrade id="ModuleTag_AttributeModifierUpgrade" AttributeModifier="AttributeModifier_PVEMovementSpeed">
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
 				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-			</AttributeModifierUpgrade>
-			<StatusBitsUpgrade id="ModuleTag_PVEGameModeStatus" StatusToClear="RIDER1">
-				<TriggeredBy>Upgrade_PVEGameModePlayerCapDelayHack</TriggeredBy>
-			</StatusBitsUpgrade>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
+				<ReplacementTemplate>MutantSalvagerPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AttributeModifierUpgrade id="ModuleTag_TibInfusionAttribute" AttributeModifier="AttributeModifier_MutantTiberiumInfusion">
 				<CustomAnimAndDuration AnimState="USER_1"/>
 				<TriggeredBy>Upgrade_IchorPlating</TriggeredBy>
@@ -323,7 +318,7 @@
 			</AudioLoopUpgrade>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"  AILuaEventsList="GenericPVEGamemodeCapDelayFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions">
 				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -349,5 +344,24 @@
 		</AudioArrayVoice>
 		<EvaEvents EvaEventPromotedOwner="" EvaEventDetectedEnemy="EnemyEngineerDetected" EvaEnemyObjectSightedEvent="EnemyEngineerDetected"/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="MutantSalvagerPVEGameMode" inheritFrom="MutantSalvager" EditorName="MutantSalvagerPVEGameMode" CommandSet="MutantSalvagerPVEGameModeCommandSet">
+		<EquivalentTo>MutantSalvager</EquivalentTo>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="62"/>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericHijackerCaptureGetInRange"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+			<!-- Capture Building -->
+			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" xai:joinAction="Remove"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingGetInRangeUpdate" xai:joinAction="Remove"/>
+			<SpecialPower id="ModuleTag_CaptureBuildingSP" xai:joinAction="Remove"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingSPUpdate" xai:joinAction="Remove"/>
+			<AISpecialPowerUpdate id="ModuleTag_CaptureBuildingAI" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

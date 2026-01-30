@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDICrane\GBCrane_ASN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDICrane\GBCrane_D2_SN.w3x"/>
@@ -96,14 +96,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>GDIRefinery</IncludeThing>
-						<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
-			</ProductionUpdate>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
 			<ProductionUpdate id="ModuleTag_ProductionOther" Type="OTHER_STRUCTURE" MaxQueueEntries="1"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3.0s" SinkRate="4.0" DestructionDelay="8.0s">
 				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
@@ -116,12 +109,10 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Small"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
-			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="GDICranePVEGamemodeCommandSet">
-				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
-			</CommandSetUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDICranePVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -129,7 +120,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerCmdSetHackFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
@@ -153,5 +144,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDICranePVEGameMode" inheritFrom="GDICrane" EditorName="GDICranePVEGameMode" CommandSet="GDICranePVEGameModeCommandSet">
+		<EquivalentTo>GDICrane</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

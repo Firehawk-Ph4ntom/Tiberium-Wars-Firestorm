@@ -427,6 +427,10 @@
 				<CanParkHereFilter Rule="ALL" Relationship="SAME_PLAYER" Exclude="SUMMONED TRANSPORT"/>
 			</ParkingPlaceBehavior>
 			<RecallUnitsSpecialPower id="ModuleTag_RecallSpecialPower" PlayReturnVoiceFromRecalledUnit="false" SpecialPowerTemplate="SpecialPower_RecallAllAircraft"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienWarpBeaconPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_AdvProductionModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
 			</ModelConditionUpgrade>
@@ -441,7 +445,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericAlienProductionBuildingFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeAlienProductionBuildingFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="4000"/>
@@ -490,5 +494,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienWarpBeaconPVEGameMode" inheritFrom="AlienWarpBeacon" EditorName="AlienWarpBeaconPVEGameMode" CommandSet="AlienWarpBeaconPVEGameModeCommandSet">
+		<EquivalentTo>AlienWarpBeacon</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

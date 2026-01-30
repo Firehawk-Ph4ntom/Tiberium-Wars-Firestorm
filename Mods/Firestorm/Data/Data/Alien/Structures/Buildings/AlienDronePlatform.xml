@@ -122,19 +122,7 @@
 		</Draws>
 		<Behaviors>
 			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>AlienTiberiumTower</IncludeThing>
-						<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.71428571" CostMultiplier="0.71428571">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>AlienRiftGenerator</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
-			</ProductionUpdate>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
 			<ProductionUpdate id="ModuleTag_ProductionOther" Type="OTHER_STRUCTURE" MaxQueueEntries="1"/>
 			<ProductionUpdateInfo id="ModuleTag_ProductionInfo"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
@@ -158,24 +146,18 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>IonStorm</SpawnTemplate>
 			</SpawnBehavior>
-			<SpawnBehavior id="ModuleTag_Spawn2" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-				<SpawnTemplate>AlienAutoDepositUpgraderDummyDrone</SpawnTemplate>
-			</SpawnBehavior>
 			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="2.7s">
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>AlienMCV</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienDronePlatformPVEGameModeDummySpawner</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="1" HealingDelay="4s" StartHealingDelay="2s" Radius="150" HealFXList="FX_AlienBlinkUnPack" SpawnFXList="FX_AlienBlinkUnPack" RespawnMinimumDelay="4s" InitiallyActive="true" HealOnlyIfNotUnderAttack="true" HealOnlyIfNotInCombat="true" NonStackable="true" RespawnNearbyHordeMembers="true"/>
 			<PowerUpdate id="ModuleTag_PowerGenerator" Type="BACKUP_GENERATOR" Duration="10s" ReloadTime="30s"/>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
-			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="AlienDronePlatformCommandSet">
-				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
-			</CommandSetUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonShields.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -183,7 +165,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/ConYardAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerCmdSetHackFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000"/>
@@ -202,5 +184,16 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="425"/>
 		<ProjectedBuildabilityInfo Radius="400" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienDronePlatformPVEGameMode" inheritFrom="AlienDronePlatform" EditorName="AlienDronePlatformPVEGameMode" CommandSet="AlienDronePlatformPVEGameModeCommandSet">
+		<EquivalentTo>AlienDronePlatform</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="2.7s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>AlienMCVPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

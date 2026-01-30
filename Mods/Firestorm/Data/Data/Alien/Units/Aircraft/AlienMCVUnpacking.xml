@@ -119,6 +119,10 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="FADED"/>
 			</DestroyDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienMCVPVEGameModeUnpacking</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<!-- Ground based locomotor, will fall as soon as its created -->
 			<StatusBitsUpgrade id="ModuleTag_IonShieldsDeathUpgrade" StatusToSet="RIDER4">
 				<TriggeredBy>Upgrade_IonShields</TriggeredBy>
@@ -150,5 +154,13 @@
 		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
 		<CrusherInfo CrusherLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="AlienMCVPVEGameModeUnpacking" inheritFrom="AlienMCVUnpacking" EditorName="AlienMCVPVEGameModeUnpacking" BuildCost="3500" BuildTime="35">
+		<EquivalentTo>AlienMCVUnpacking</EquivalentTo>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Append" CreationList="OCL_AlienMCVUnpackingToConyardPVEGameMode"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

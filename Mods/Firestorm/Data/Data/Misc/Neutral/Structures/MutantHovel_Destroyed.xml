@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\NeutralMutantHovel\TBMUTNTHOVL_D3.w3x"/>
 		<!-- Base Object -->
@@ -21,6 +21,13 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>MutantHovel_DestroyedPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" EvaEventForCapture="EnemyTechBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_MutantHovel_Rebuilt" ImmediatelyEnabled="true">
 				<CanEnterFilter Rule="NONE">
 					<IncludeThing>GDIEngineer</IncludeThing>
@@ -30,6 +37,9 @@
 				</CanEnterFilter>
 			</EngineerContain>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
+		</AI>
 		<Body>
 			<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
 		</Body>
@@ -60,5 +70,13 @@
 		</Geometry>
 		<EvaEvents EvaEventDamagedOwner="" EvaEventSoldOwner="" EvaEventRepairingOwner=""/>
 		<VisionInfo VisionRange="0" ShroudClearingRange="0"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="MutantHovel_DestroyedPVEGameMode" inheritFrom="MutantHovel_Destroyed" EditorName="MutantHovel_DestroyedPVEGameMode">
+		<EquivalentTo>MutantHovel_Destroyed</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+			<EngineerContain id="ModuleTag_EngineerContain" xai:joinAction="Append" ReplaceWith="OCL_MutantHovelPVEGameMode_Rebuilt"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

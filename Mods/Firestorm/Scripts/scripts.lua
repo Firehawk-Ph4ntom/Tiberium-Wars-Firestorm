@@ -13,15 +13,15 @@ Bar4 = {}				-- For tracking the fourth bar of the Harvester
 HarvesterDataTable = {}
 CrystalDataTable = {}
 
-MaxFramesWhenNotHarvested = 900			-- 60s
-MaxFramesBeingHarvested = 33			-- 15 frames is 1s (Harvest action time is 2.2s -> 33 frames)
-PerHarvestOffset = 4					-- Subtract frames for each time the Harvester is ordered to stop and harvest the same crystal again
+MAX_FRAMES_BEING_HARVESTED = 900		-- 60s
+MAX_FRAMES_WHEN_NOT_HARVESTED = 33		-- 15 frames is 1s (Harvest action time is 2.2s -> 33 frames)
+PER_HARVEST_OFFSET = 4					-- Subtract frames for each time the Harvester is ordered to stop and harvest the same crystal again
 
 -- Get the hash of the aircraft unit
 UnitType = {["3006676643"] = "GDIFireHawk", ["1789238550"] = "NODVertigo", ["3755615724"] = "NODBanshee"}
 -- Get the total ammo count of the aircraft unit
 UnitAmmoSize = {["GDIFireHawk"] = 4, ["NODVertigo"] = 1, ["NODBanshee"] = 4}
--- Second array to store the ammo in when unit fires, until it reaches 0, then the conditions fire to disable AI control
+-- Third array to store the ammo in when unit fires, until it reaches 0, then the conditions fire to disable AI control
 UnitAmmoCount = {}
 
 --- EA lua functions
@@ -498,16 +498,11 @@ function OnNODDisruptionModulesUpgradePurchased(self)
 	end
 end
 
-function OnUnitCreatedSetRider1(self)
-	ObjectSetObjectStatus ( self, "RIDER1" )
-end
-
 function OnUnitCreatedSetRider2(self)
 	ObjectSetObjectStatus ( self, "RIDER2" )
 end
 
-function OnNODPowerPlantCreated(self)
-	ObjectSetObjectStatus ( self, "RIDER1" )
+function OnUnitCreatedSetRider4(self)
 	ObjectSetObjectStatus ( self, "RIDER4" )
 end
 
@@ -537,47 +532,14 @@ function OnAlienIchorPlatingUpgradePurchased(self)
 	end
 end
 
-function OnPVEGameModeObjectUpgrade(self)
+function OnPVEGameModeActivated(self)
 	if ObjectTestModelCondition(self, "USER_45") then
 		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
+		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayer" )
 	end
 end
 
-function OnPVEGameModePlayerUpgrade(self)
-	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-	end
-end
-
-function OnPVEGameModeCmdSetHackObjectUpgrade(self)
-	if ObjectTestModelCondition(self, "USER_45") then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCmdSetHack" )
-	end
-end
-
-function OnPVEGameModeCmdSetHackPlayerUpgrade(self)
-	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCmdSetHack" )
-	end
-end
-
-function OnPVEGameModeCapDelayHackObjectUpgrade(self)
-	if ObjectTestModelCondition(self, "USER_45") then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCapDelayHack" )
-	end
-end
-
-function OnPVEGameModeCapDelayHackPlayerUpgrade(self)
-	if ObjectHasUpgrade ( self, "Upgrade_PVEGameModePlayer" ) == 1 then
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModeObject" )
-		ObjectGrantUpgrade ( self, "Upgrade_PVEGameModePlayerCapDelayHack" )
-	end
-end
-
-function CheckJetAircraftAmmoDepleted(self)
+function CheckAircraftAmmoDepleted(self)
 	if IsUnitAI(self) then
 		if UnitAmmoCount.self == nil then
 			UnitAmmoCount.self = UnitAmmoSize[UnitType[GetObj.Hash(self)]] - 1
@@ -731,9 +693,9 @@ end
 -- self is the crystal, other is the harvester
 function OnTiberiumCrystalHarvested(self, other)
 	local harvRef, harvData = GetHarvesterData(other)
-	local crystalData = GetcrystalData(self)
+	local crystalData = GetCrystalData(self)
 	local ObjectStringRef = "object_" .. harvRef
-    ExecuteAction("SET_UNIT_REFERENCE", ObjectStringRef , self)
+	ExecuteAction("SET_UNIT_REFERENCE", ObjectStringRef , self)
 
 	-- if IS_BEING_HARVESTED is true and the harvester is not already harvesting nor crystal is the crystal also being harvested
 	if EvaluateCondition("UNIT_HAS_OBJECT_STATUS", ObjectStringRef , 116) and not harvData.isAlreadyHarvesting and crystalData.beingHarvestedBy == nil then
@@ -779,11 +741,11 @@ function OnHarvestTimeUpdated(self)
 	local crystal = harvData.crystalCurrentlyHarvesting
 
 	if crystal then
-		local crystalData = GetcrystalData(crystal)
+		local crystalData = GetCrystalData(crystal)
 		crystalData.firstHarvestedFrame = GetFrame()
 
 		if crystalData.lastHarvestedFrame ~= nil then
-			if (GetFrame() - crystalData.lastHarvestedFrame) > MaxFramesWhenNotHarvested then
+			if (GetFrame() - crystalData.lastHarvestedFrame) > MAX_FRAMES_WHEN_NOT_HARVESTED then
 				-- reset harvested frames
 				crystalData.framesBeingHarvested = 0
 				crystalData.lastHarvestedFrame = nil
@@ -972,7 +934,7 @@ function GetHarvesterData(self)
 	return harvId, HarvesterDataTable[harvId]
 end
 
-function GetcrystalData(self)
+function GetCrystalData(self)
 	local crystalId = GetObjectId(self)
 	CrystalDataTable[crystalId] = CrystalDataTable[crystalId] or {
 		firstHarvestedFrame = 0, -- the frame where the crystal begins to be harvested
@@ -987,12 +949,12 @@ end
 
 -- checks if the crystal has been harvested longer than the maximum frames and if it doesn't have a flag assigned, it kills it.
 function OffTiberiumHarvested(self)
-	local crystalData = GetcrystalData(self)
+	local crystalData = GetCrystalData(self)
 	local curFrame = GetFrame()
 
 	-- if dontKillCrystal is false increment the framesBeingHarvested
 	if not crystalData.dontKillCrystal then
-		local diff = curFrame - crystalData.firstHarvestedFrame - PerHarvestOffset
+		local diff = curFrame - crystalData.firstHarvestedFrame - PER_HARVEST_OFFSET
 
 		-- the lower diff is, the more the crystal has been repeatedly harvested
 		if diff <= -3 then
@@ -1015,7 +977,7 @@ function OffTiberiumHarvested(self)
 	crystalData.lastHarvestedFrame = curFrame
 	crystalData.beingHarvestedBy = nil
 
-	if crystalData.framesBeingHarvested >= MaxFramesBeingHarvested and not crystalData.crystalHasBeenReset and not crystalData.dontKillCrystal then
+	if crystalData.framesBeingHarvested >= MAX_FRAMES_BEING_HARVESTED and not crystalData.crystalHasBeenReset and not crystalData.dontKillCrystal then
 		-- prevent death FX in FXListBehaviour
 		ObjectSetObjectStatus(self, "RIDER1")
 		-- cleanup
@@ -1027,8 +989,8 @@ function OffTiberiumHarvested(self)
 	-- reset dontKillCrystal if its set to true
 	crystalData.dontKillCrystal = false
 
-	-- reset flag if time since last harvest is more than MaxFramesWhenNotHarvested
-	if (GetFrame() - crystalData.lastHarvestedFrame) <= MaxFramesWhenNotHarvested then
+	-- reset flag if time since last harvest is more than MAX_FRAMES_WHEN_NOT_HARVESTED
+	if (GetFrame() - crystalData.lastHarvestedFrame) <= MAX_FRAMES_WHEN_NOT_HARVESTED then
 		crystalData.crystalHasBeenReset = false
 	else
 		crystalData.crystalHasBeenReset = true

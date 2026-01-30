@@ -419,6 +419,10 @@
 			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
 			<xi:include href="DATA:Includes/GDICallForTransportForVehicle.xml"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDIHarvesterPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIGenericAdapativeArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
@@ -426,7 +430,7 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
-			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="false" AILuaEventsList="GenericHarvesterFunctions">
+			<SupplyTruckAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" MaxBoxes="200" SupplyWarehouseScanDistance="5000" SupplyCenterActionDelay="100ms" DepletedAnnounceDistance="600" HarvestTiberium="true" HarvestActivationRange="35" HarvestPreparationTime="0.5s" HarvestActionTime="2.2s" CanPathThroughUnitsWhileDocking="true" CanPathThroughUnitsWhileHarvesting="false" AILuaEventsList="GenericPVEGamemodeHarvesterFunctions">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</SupplyTruckAIUpdate>
 		</AI>
@@ -461,5 +465,12 @@
 		</AudioArraySound>
 		<EvaEvents EvaEventDieOwner="HarvesterLost" EvaEventDamagedOwner="HarvesterUnderAttack" EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIHarvesterPVEGameMode" inheritFrom="GDIHarvester" EditorName="GDIHarvesterPVEGameMode" BuildCost="1400" BuildTime="14">
+		<EquivalentTo>GDIHarvester</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

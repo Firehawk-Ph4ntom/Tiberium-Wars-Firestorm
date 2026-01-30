@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\NODWarmechFacility\NBEngFaD.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODWarmechFacility\NBWEFacility.xml"/>
@@ -170,13 +170,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="2s" DoorWaitOpenTime="1.5s" DoorCloseTime="2.0s" MaxQueueEntries="999">
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.93333333" CostMultiplier="0.93333333">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>NODHarvester</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
-			</ProductionUpdate>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="VEHICLE" NumDoorAnimations="1" DoorOpeningTime="2s" DoorWaitOpenTime="1.5s" DoorCloseTime="2.0s" MaxQueueEntries="999"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
 				<UnitCreatePoint x="0.0" y="0.0"/>
 				<NaturalRallyPoint x="90.0" y="0.0"/>
@@ -197,9 +191,10 @@
 				<SpawnTemplate>NODFacilityRepairDrone</SpawnTemplate>
 			</SpawnBehavior>
 			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicle"/>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>NODWarmechFacilityPVEGameModeDummySpawner</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODBuildingLaserFencing.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -294,5 +289,12 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="200" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="NODWarmechFacilityPVEGameMode" inheritFrom="NODWarmechFacility" EditorName="NODWarmechFacilityPVEGameMode" CommandSet="NODWarmechFacilityPVEGameModeCommandSet">
+		<EquivalentTo>NODWarmechFacility</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

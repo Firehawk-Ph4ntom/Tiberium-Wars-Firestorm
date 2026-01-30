@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIConstructionYard\HC_GB_Conyard02.xml"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIConstructionYard\GBCONYARDSRF_SKN.w3x"/>
@@ -173,19 +173,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1">
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.8" CostMultiplier="0.8">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>GDIRefinery</IncludeThing>
-						<IncludeThing>GDIRefinerySPNoHarvester</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
-				<ProductionModifier RequiredUpgrade="Upgrade_PVEGameModeObject" TimeMultiplier="0.71428571" CostMultiplier="0.71428571">
-					<ModifierFilter Rule="NONE">
-						<IncludeThing>GDIIonCannonControl</IncludeThing>
-					</ModifierFilter>
-				</ProductionModifier>
-			</ProductionUpdate>
+			<ProductionUpdate id="ModuleTag_Production" Type="MAIN_STRUCTURE" MaxQueueEntries="1"/>
 			<ProductionUpdate id="ModuleTag_ProductionOther" MaxQueueEntries="1" NumDoorAnimations="1" DoorOpeningTime="0.1s" DoorWaitOpenTime="3s" DoorCloseTime="0.1s" Type="OTHER_STRUCTURE"/>
 			<ProductionUpdateInfo id="ModuleTag_ProductionInfo"/>
 			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
@@ -204,23 +192,17 @@
 				<Event Index="onTransitionToRubble" FX="FX_BuildRubble_Large"/>
 			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="0.1s"/>
-			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" SpawnReplaceDelayData="0.1s">
-				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
-				<SpawnTemplate>GDIAutoDepositUpgraderDummyDrone</SpawnTemplate>
-			</SpawnBehavior>
 			<xi:include href="DATA:Includes/GenericPackPower.xml"/>
 			<xi:include href="DATA:Includes/GenericPackUpdate.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="3.4s">
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>GDIMCV</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDIConstructionYardPVEGameModeDummySpawner</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<PowerUpdate id="ModuleTag_PowerGenerator" Type="BACKUP_GENERATOR" Duration="10s" ReloadTime="30s"/>
-			<ModelConditionUpgrade id="ModuleTag_PVEGameModeModelCondition" AddConditionFlags="USER_46">
-				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
-			</ModelConditionUpgrade>
-			<CommandSetUpgrade id="ModuleTag_CommandSetUpgrade" CommandSet="GDIConstructionYardCommandSet">
-				<TriggeredBy>Upgrade_PVEGameModePlayerCmdSetHack</TriggeredBy>
-			</CommandSetUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDIBuildingSonicRepulsionField.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericBuildingRepair.xml"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericEngineerContain.xml"/>
@@ -228,7 +210,7 @@
 			<xi:include href="DATA:Includes/ConYardGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeCmdSetHackFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="20000"/>
@@ -261,5 +243,16 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="425"/>
 		<ProjectedBuildabilityInfo Radius="400" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
+	</GameObject>
+	<!-- PVE GameMode Variant -->
+	<GameObject id="GDIConstructionYardPVEGameMode" inheritFrom="GDIConstructionYard" EditorName="GDIConstructionYardPVEGameMode" CommandSet="GDIConstructionYardPVEGameModeCommandSet">
+		<EquivalentTo>GDIConstructionYard</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3.4s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>GDIMCVPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

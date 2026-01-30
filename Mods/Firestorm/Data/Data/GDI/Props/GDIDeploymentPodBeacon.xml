@@ -13,9 +13,13 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
+			<AttributeModifierPoolUpdate id="DefaultAttributeModifierPoolUpdate"/>
 			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="1.5s" MaxLifetime="1.5s"/>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonGDIDeploymentPod">
-				<DieMuxData DeathTypes="ALL"/>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_SummonGDIDeploymentDropPod">
+				<DieMuxData DeathTypes="ALL" ExemptStatus="RIDER1"/>
+			</CreateObjectDie>
+			<CreateObjectDie id="ModuleTag_CreateObjectDieUpgraded" CreationList="OCL_SummonGDIDeploymentDropPodPVEGameMode">
+				<DieMuxData DeathTypes="ALL" RequiredStatus="RIDER1"/>
 			</CreateObjectDie>
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="ALL"/>
@@ -23,7 +27,13 @@
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
 				<FireWeaponNugget WeaponName="GenericEstBattleEVAUnitSpawner" FireDelay="0.1s" OneShot="true"/>
 			</FireWeaponUpdate>
+			<StatusBitsUpgrade id="ModuleTag_PVEGameModeUpgrade" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_PVEGameModePlayer</TriggeredBy>
+			</StatusBitsUpgrade>
 		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
+		</AI>
 		<Body>
 			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
 		</Body>
