@@ -328,6 +328,19 @@
 				<ReplacementTemplate>GDIBattleBase</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_RigUnpackAI" CommandButtonName="Command_UnpackRig" SpecialPowerRadius="250" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<!-- Replace Self when Ranking up -->
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran">
+				<TriggeredBy>Upgrade_Veterancy_VETERAN</TriggeredBy>
+				<ReplacementTemplate>GDIRig_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite">
+				<TriggeredBy>Upgrade_Veterancy_ELITE</TriggeredBy>
+				<ReplacementTemplate>GDIRig_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+				<ReplacementTemplate>GDIRig_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsHEAmmo" ShowSubObjects="UG_TURRETL UG_TURRETR">
 				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
 			</SubObjectsUpgrade>
@@ -376,7 +389,54 @@
 			<AudioEntry Sound="RigMoveStart" AudioType="soundMoveStart"/>
 			<AudioEntry Sound="PitbullIdleLoop" AudioType="soundAmbient"/>
 		</AudioArraySound>
-		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
+	</GameObject>
+	<!-- Veteran Rank Variant -->
+	<GameObject id="GDIRig_Veteran" inheritFrom="GDIRig" EditorName="GDIRig_Veteran">
+		<EquivalentTo>GDIRig</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIBattleBase_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="1">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Elite Rank Variant -->
+	<GameObject id="GDIRig_Elite" inheritFrom="GDIRig" EditorName="GDIRig_Elite">
+		<EquivalentTo>GDIRig</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIBattleBase_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="2">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Rank Variant -->
+	<GameObject id="GDIRig_Heroic" inheritFrom="GDIRig" EditorName="GDIRig_Heroic">
+		<EquivalentTo>GDIRig</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIBattleBase_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="3">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

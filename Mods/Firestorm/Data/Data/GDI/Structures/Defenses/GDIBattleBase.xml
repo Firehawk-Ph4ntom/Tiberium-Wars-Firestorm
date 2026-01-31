@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBattlebase\GBBTLEBASE.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\GDIBattlebase\GBBTLEBASE_D3AN_FS.w3x"/>
@@ -696,6 +696,19 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>GDIBattleBaseRepairDrone</SpawnTemplate>
 			</SpawnBehavior>
+			<!-- Replace Self when Ranking up -->
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran">
+				<TriggeredBy>Upgrade_Veterancy_VETERAN</TriggeredBy>
+				<ReplacementTemplate>GDIBattleBase_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite">
+				<TriggeredBy>Upgrade_Veterancy_ELITE</TriggeredBy>
+				<ReplacementTemplate>GDIBattleBase_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+				<ReplacementTemplate>GDIBattleBase_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<LaserState id="ModuleTag_LaserState2" LaserId="2"/>
 			<RemoveUpgradeUpgrade id="ModuleTag_CommandSet_RemoveFor_01">
@@ -804,5 +817,53 @@
 			<AudioEntry Sound="HumanFaction_MediumBuilding_HeavyDamageMS" AudioType="soundOnReallyDamaged"/>
 		</AudioArraySound>
 		<VisionInfo VisionRange="375" ShroudClearingRange="500"/>
+	</GameObject>
+	<!-- Veteran Rank Variant -->
+	<GameObject id="GDIBattleBase_Veteran" inheritFrom="GDIBattleBase" EditorName="GDIBattleBase_Veteran">
+		<EquivalentTo>GDIBattleBase</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>GDIRig_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="1">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Elite Rank Variant -->
+	<GameObject id="GDIBattleBase_Elite" inheritFrom="GDIBattleBase" EditorName="GDIBattleBase_Elite">
+		<EquivalentTo>GDIBattleBase</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>GDIRig_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="2">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Rank Variant -->
+	<GameObject id="GDIBattleBase_Heroic" inheritFrom="GDIBattleBase" EditorName="GDIBattleBase_Heroic">
+		<EquivalentTo>GDIBattleBase</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="3s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>GDIRig_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="3">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

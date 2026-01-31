@@ -163,6 +163,19 @@
 			<DestroyDie id="ModuleTag_Die">
 				<DieMuxData DeathTypes="FADED"/>
 			</DestroyDie>
+			<!-- Replace Self when Ranking up -->
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran">
+				<TriggeredBy>Upgrade_Veterancy_VETERAN</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite">
+				<TriggeredBy>Upgrade_Veterancy_ELITE</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<!-- Ground based locomotor, will fall as soon as its created -->
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDICeramicArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<AudioLoopUpgrade id="ModuleTag_CeramicArmorAudioLoop" xai:joinAction="Remove"/>
@@ -202,5 +215,50 @@
 		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+	<!-- Veteran Rank Variant -->
+	<GameObject id="GDIOrcaBattleFortressUnpacking_Veteran" inheritFrom="GDIOrcaBattleFortressUnpacking" EditorName="GDIOrcaBattleFortressUnpacking_Veteran">
+		<EquivalentTo>GDIOrcaBattleFortressUnpacking</EquivalentTo>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_GDIOrcaRigUnpackingToBattleFortress_Veteran">
+				<DieMuxData DeathTypes="FADED"/>
+			</CreateObjectDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="1">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Elite Rank Variant -->
+	<GameObject id="GDIOrcaBattleFortressUnpacking_Elite" inheritFrom="GDIOrcaBattleFortressUnpacking" EditorName="GDIOrcaBattleFortressUnpacking_Elite">
+		<EquivalentTo>GDIOrcaBattleFortressUnpacking</EquivalentTo>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_GDIOrcaRigUnpackingToBattleFortress_Elite">
+				<DieMuxData DeathTypes="FADED"/>
+			</CreateObjectDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="2">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Rank Variant -->
+	<GameObject id="GDIOrcaBattleFortressUnpacking_Heroic" inheritFrom="GDIOrcaBattleFortressUnpacking" EditorName="GDIOrcaBattleFortressUnpacking_Heroic">
+		<EquivalentTo>GDIOrcaBattleFortressUnpacking</EquivalentTo>
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_GDIOrcaRigUnpackingToBattleFortress_Heroic">
+				<DieMuxData DeathTypes="FADED"/>
+			</CreateObjectDie>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="3">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

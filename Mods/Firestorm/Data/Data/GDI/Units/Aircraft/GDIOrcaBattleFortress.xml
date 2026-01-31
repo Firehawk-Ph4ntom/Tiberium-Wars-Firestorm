@@ -270,6 +270,19 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<!-- Replace Self when Ranking up -->
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran">
+				<TriggeredBy>Upgrade_Veterancy_VETERAN</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortress_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite">
+				<TriggeredBy>Upgrade_Veterancy_ELITE</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortress_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortress_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_RigUnpackAI" CommandButtonName="Command_UnPackBattleFortress" SpecialPowerRadius="250" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDICeramicArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
@@ -315,7 +328,54 @@
 			<AudioEntry Sound="NOD_CarryAll_IdleLoop" AudioType="soundAmbient"/>
 			<AudioEntry Sound="NOD_CarryAll_MoveLoop" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
-		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
+	</GameObject>
+	<!-- Veteran Rank Variant -->
+	<GameObject id="GDIOrcaBattleFortress_Veteran" inheritFrom="GDIOrcaBattleFortress" EditorName="GDIOrcaBattleFortress_Veteran">
+		<EquivalentTo>GDIOrcaBattleFortress</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking_Veteran</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="1">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Elite Rank Variant -->
+	<GameObject id="GDIOrcaBattleFortress_Elite" inheritFrom="GDIOrcaBattleFortress" EditorName="GDIOrcaBattleFortress_Elite">
+		<EquivalentTo>GDIOrcaBattleFortress</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking_Elite</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="2">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Heroic Rank Variant -->
+	<GameObject id="GDIOrcaBattleFortress_Heroic" inheritFrom="GDIOrcaBattleFortress" EditorName="GDIOrcaBattleFortress_Heroic">
+		<EquivalentTo>GDIOrcaBattleFortress</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>GDIOrcaBattleFortressUnpacking_Heroic</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfVetaran" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfElite" xai:joinAction="Remove"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelfHeroic" xai:joinAction="Remove"/>
+			<LevelUpUpgrade id="ModuleTag_LevelUpUpgrade" LevelCap="4" DoFlash="false" LevelsToGain="3">
+				<TriggeredBy>Upgrade_CallSupportUpgrade</TriggeredBy>
+			</LevelUpUpgrade>
+			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" UpgradeToGrant="Upgrade_CallSupportUpgrade"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
