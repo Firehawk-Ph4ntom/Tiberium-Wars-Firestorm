@@ -43152,7 +43152,7 @@
 			MaxSeconds="2s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="AlienIchorPodSporeWeaponWarhead"
+				WarheadTemplate="AlienIchorPodCorrosiveSporeWeaponWarhead"
 				ProjectileTemplate="AlienIchorPodCorrosiveSporeProjectile"/>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -43695,7 +43695,7 @@
 			MaxSeconds="2s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="AlienIchorPodSporeWeaponWarheadBlue"
+				WarheadTemplate="AlienIchorPodCorrosiveSporeWeaponWarheadBlue"
 				ProjectileTemplate="AlienIchorPodSporeProjectileBlue"/>
 		</Nuggets>
 		<ScatterRadiusVsType
@@ -44700,37 +44700,6 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="AlienIchorIrradiatorCorrosiveSporeWeapon"
-		Name="AlienIchorIrradiatorCorrosiveSporeWeapon"
-		AttackRange="400"
-		AcceptableAimDelta="15d"
-		MinimumAttackRange="150"
-		WeaponSpeed="500"
-		MinTargetPitch="-30d"
-		MaxTargetPitch="30d"
-		FireFX="FX_AlienSporeFire"
-		ClipSize="5"
-		ShotsPerBarrel="1"
-		PreAttackType="PER_CLIP"
-		ReAcquireDetailType="PER_CLIP"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<PreAttackDelay
-			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
-		<ClipReloadTime
-			MinSeconds="3s"
-			MaxSeconds="3s"/>
-		<Nuggets>
-			<ProjectileNugget
-				WarheadTemplate="AlienIrradiatorSporeWeaponWarhead"
-				ProjectileTemplate="AlienIrradiatorCorrosiveSporeProjectile"/>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
 		id="AlienIrradiatorSporeWeaponWarhead"
 		Name="AlienIrradiatorSporeWeaponWarhead"
 		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
@@ -45243,6 +45212,553 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
+		id="AlienIchorIrradiatorCorrosiveSporeWeapon"
+		Name="AlienIchorIrradiatorCorrosiveSporeWeapon"
+		AttackRange="400"
+		AcceptableAimDelta="15d"
+		MinimumAttackRange="150"
+		WeaponSpeed="500"
+		MinTargetPitch="-30d"
+		MaxTargetPitch="30d"
+		FireFX="FX_AlienSporeFire"
+		ClipSize="5"
+		ShotsPerBarrel="1"
+		PreAttackType="PER_CLIP"
+		ReAcquireDetailType="PER_CLIP"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="AlienIrradiatorCorrosiveSporeWeaponWarhead"
+				ProjectileTemplate="AlienIrradiatorCorrosiveSporeProjectile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienIrradiatorCorrosiveSporeWeaponWarhead"
+		Name="AlienIrradiatorCorrosiveSporeWeaponWarhead"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="30"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<DamageNugget
+				Damage="30"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<!-- Nugget to kill any viceroids whether ally or enemy -->
+			<DamageNugget
+				Damage="60"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<IncludeThing>Viceroid</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Heal to allied Mutant units, Scrin Structures and units, and Nod Cyborgs -->
+			<DamageNugget
+				Damage="60"
+				Radius="25"
+				DamageType="HEALING">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ALLIES">
+					<!-- Mutant Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantGhostStalker</IncludeThing>
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Structures -->
+					<IncludeThing>AlienDronePlatform</IncludeThing>
+					<IncludeThing>AlienPowerProjector</IncludeThing>
+					<IncludeThing>AlienTiberiumTower</IncludeThing>
+					<IncludeThing>AlienPortal</IncludeThing>
+					<IncludeThing>AlienGateway</IncludeThing>
+					<IncludeThing>AlienControlCenter</IncludeThing>
+					<IncludeThing>AlienWarpBeacon</IncludeThing>
+					<IncludeThing>AlienStatisChamber</IncludeThing>
+					<IncludeThing>AlienReactor</IncludeThing>
+					<IncludeThing>AlienSignalTransmitter</IncludeThing>
+					<IncludeThing>AlienFoundry</IncludeThing>
+					<IncludeThing>AlienWarpChasm</IncludeThing>
+					<IncludeThing>AlienStormObelisk</IncludeThing>
+					<!-- Alien Defenses -->
+					<IncludeThing>AlienBuzzerHive</IncludeThing>
+					<IncludeThing>AlienPhotonCannon</IncludeThing>
+					<IncludeThing>AlienPlasmaMissileBattery</IncludeThing>
+					<IncludeThing>AlienSporePod</IncludeThing>
+					<IncludeThing>AlienStormColumn</IncludeThing>
+					<IncludeThing>AlienRiftGenerator</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienWallHub</IncludeThing>
+					<IncludeThing>AlienWallSegment</IncludeThing>
+					<IncludeThing>Alien_ControlNode</IncludeThing>
+					<IncludeThing>AlienMiniMCVOutpost</IncludeThing>
+					<IncludeThing>AlienLightningSpike</IncludeThing>
+					<IncludeThing>AlienControlNode</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+					<!-- Alien Vehicles -->
+					<IncludeThing>AlienGunWalker</IncludeThing>
+					<IncludeThing>AlienContaminator</IncludeThing>
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+					<IncludeThing>AlienSeekerTank</IncludeThing>
+					<IncludeThing>AlienHarvester</IncludeThing>
+					<IncludeThing>AlienDevourerTank</IncludeThing>
+					<IncludeThing>AlienCorrupter</IncludeThing>
+					<IncludeThing>AlienStingray</IncludeThing>
+					<IncludeThing>AlienMechapede</IncludeThing>
+					<IncludeThing>AlienMobileWarpBeacon</IncludeThing>
+					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+					<IncludeThing>AlienExplorer</IncludeThing>
+					<IncludeThing>AlienGuardianTank</IncludeThing>
+					<IncludeThing>AlienIrradiator</IncludeThing>
+					<IncludeThing>AlienReaver</IncludeThing>
+					<!-- Alien Air -->
+					<IncludeThing>AlienMCV</IncludeThing>
+					<IncludeThing>AlienMCVUnpacking</IncludeThing>
+					<IncludeThing>AlienStormrider</IncludeThing>
+					<IncludeThing>AlienWraith</IncludeThing>
+					<IncludeThing>AlienDevastatorWarship</IncludeThing>
+					<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+					<IncludeThing>AlienInvaderFighter</IncludeThing>
+					<IncludeThing>AlienConquerorBattleship</IncludeThing>
+					<IncludeThing>AlienBattleshipFighter</IncludeThing>
+					<IncludeThing>AlienScourgeGunship</IncludeThing>
+					<IncludeThing>AlienMothership</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Corrosive Field -->
+			<ProjectileNugget
+				WarheadTemplate="AlienContaminatorCorrosiveFieldSpawnerWeapon"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
+			<!-- Slow Vehicles -->
+			<AttributeModifierNugget
+				Radius="2"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="AttributeModifier_TibGoo">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ENEMIES NEUTRAL"
+					Include="VEHICLE"
+					Exclude="HARVESTER">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDIDisruptor</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAvengerTank</ExcludeThing>
+					<ExcludeThing>NODBeamCannon</ExcludeThing>
+					<ExcludeThing>NODToxinTank</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienGunWalker</ExcludeThing>
+					<ExcludeThing>AlienContaminator</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienIrradiator</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
+			<SuppressionNugget
+				Radius="25"
+				Suppression="150"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
 		id="AlienIchorIrradiatorSporeWeaponBlue"
 		Name="AlienIchorIrradiatorSporeWeaponBlue"
 		AttackRange="400"
@@ -45270,37 +45786,6 @@
 			<ProjectileNugget
 				WarheadTemplate="AlienIrradiatorSporeWeaponWarheadBlue"
 				ProjectileTemplate="AlienIrradiatorSporeProjectileBlue"/>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="AlienIchorIrradiatorCorrosiveSporeWeaponBlue"
-		Name="AlienIchorIrradiatorCorrosiveSporeWeaponBlue"
-		AttackRange="400"
-		AcceptableAimDelta="15d"
-		MinimumAttackRange="150"
-		WeaponSpeed="500"
-		MinTargetPitch="-30d"
-		MaxTargetPitch="30d"
-		FireFX="FX_AlienSporeFireBlue"
-		ClipSize="5"
-		ShotsPerBarrel="1"
-		PreAttackType="PER_CLIP"
-		ReAcquireDetailType="PER_CLIP"
-		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
-		<PreAttackDelay
-			MinSeconds="0.5s"
-			MaxSeconds="0.5s"/>
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
-		<ClipReloadTime
-			MinSeconds="3s"
-			MaxSeconds="3s"/>
-		<Nuggets>
-			<ProjectileNugget
-				WarheadTemplate="AlienIrradiatorSporeWeaponWarheadBlue"
-				ProjectileTemplate="AlienIrradiatorCorrosiveSporeProjectileBlue"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -45767,6 +46252,553 @@
 					<IncludeThing>AlienMothership</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
+			<!-- Slow Vehicles -->
+			<AttributeModifierNugget
+				Radius="2"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="AttributeModifier_TibGoo">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ENEMIES NEUTRAL"
+					Include="VEHICLE"
+					Exclude="HARVESTER">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDIDisruptor</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAvengerTank</ExcludeThing>
+					<ExcludeThing>NODBeamCannon</ExcludeThing>
+					<ExcludeThing>NODToxinTank</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienGunWalker</ExcludeThing>
+					<ExcludeThing>AlienContaminator</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienIrradiator</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
+			<SuppressionNugget
+				Radius="25"
+				Suppression="150"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienIchorIrradiatorCorrosiveSporeWeaponBlue"
+		Name="AlienIchorIrradiatorCorrosiveSporeWeaponBlue"
+		AttackRange="400"
+		AcceptableAimDelta="15d"
+		MinimumAttackRange="150"
+		WeaponSpeed="500"
+		MinTargetPitch="-30d"
+		MaxTargetPitch="30d"
+		FireFX="FX_AlienSporeFireBlue"
+		ClipSize="5"
+		ShotsPerBarrel="1"
+		PreAttackType="PER_CLIP"
+		ReAcquireDetailType="PER_CLIP"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<ClipReloadTime
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="AlienIrradiatorCorrosiveSporeWeaponWarheadBlue"
+				ProjectileTemplate="AlienIrradiatorCorrosiveSporeProjectileBlue"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienIrradiatorCorrosiveSporeWeaponWarheadBlue"
+		Name="AlienIrradiatorCorrosiveSporeWeaponWarheadBlue"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="45"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<DamageNugget
+				Damage="45"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<!-- Nugget to kill any viceroids whether ally or enemy -->
+			<DamageNugget
+				Damage="75"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<IncludeThing>Viceroid</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Heal to allied Mutant units, Scrin Structures and units, and Nod Cyborgs -->
+			<DamageNugget
+				Damage="75"
+				Radius="25"
+				DamageType="HEALING">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ALLIES">
+					<!-- Mutant Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantGhostStalker</IncludeThing>
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Structures -->
+					<IncludeThing>AlienDronePlatform</IncludeThing>
+					<IncludeThing>AlienPowerProjector</IncludeThing>
+					<IncludeThing>AlienTiberiumTower</IncludeThing>
+					<IncludeThing>AlienPortal</IncludeThing>
+					<IncludeThing>AlienGateway</IncludeThing>
+					<IncludeThing>AlienControlCenter</IncludeThing>
+					<IncludeThing>AlienWarpBeacon</IncludeThing>
+					<IncludeThing>AlienStatisChamber</IncludeThing>
+					<IncludeThing>AlienReactor</IncludeThing>
+					<IncludeThing>AlienSignalTransmitter</IncludeThing>
+					<IncludeThing>AlienFoundry</IncludeThing>
+					<IncludeThing>AlienWarpChasm</IncludeThing>
+					<IncludeThing>AlienStormObelisk</IncludeThing>
+					<!-- Alien Defenses -->
+					<IncludeThing>AlienBuzzerHive</IncludeThing>
+					<IncludeThing>AlienPhotonCannon</IncludeThing>
+					<IncludeThing>AlienPlasmaMissileBattery</IncludeThing>
+					<IncludeThing>AlienSporePod</IncludeThing>
+					<IncludeThing>AlienStormColumn</IncludeThing>
+					<IncludeThing>AlienRiftGenerator</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienWallHub</IncludeThing>
+					<IncludeThing>AlienWallSegment</IncludeThing>
+					<IncludeThing>Alien_ControlNode</IncludeThing>
+					<IncludeThing>AlienMiniMCVOutpost</IncludeThing>
+					<IncludeThing>AlienLightningSpike</IncludeThing>
+					<IncludeThing>AlienControlNode</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+					<!-- Alien Vehicles -->
+					<IncludeThing>AlienGunWalker</IncludeThing>
+					<IncludeThing>AlienContaminator</IncludeThing>
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+					<IncludeThing>AlienSeekerTank</IncludeThing>
+					<IncludeThing>AlienHarvester</IncludeThing>
+					<IncludeThing>AlienDevourerTank</IncludeThing>
+					<IncludeThing>AlienCorrupter</IncludeThing>
+					<IncludeThing>AlienStingray</IncludeThing>
+					<IncludeThing>AlienMechapede</IncludeThing>
+					<IncludeThing>AlienMobileWarpBeacon</IncludeThing>
+					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+					<IncludeThing>AlienExplorer</IncludeThing>
+					<IncludeThing>AlienGuardianTank</IncludeThing>
+					<IncludeThing>AlienIrradiator</IncludeThing>
+					<IncludeThing>AlienReaver</IncludeThing>
+					<!-- Alien Air -->
+					<IncludeThing>AlienMCV</IncludeThing>
+					<IncludeThing>AlienMCVUnpacking</IncludeThing>
+					<IncludeThing>AlienStormrider</IncludeThing>
+					<IncludeThing>AlienWraith</IncludeThing>
+					<IncludeThing>AlienDevastatorWarship</IncludeThing>
+					<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+					<IncludeThing>AlienInvaderFighter</IncludeThing>
+					<IncludeThing>AlienConquerorBattleship</IncludeThing>
+					<IncludeThing>AlienBattleshipFighter</IncludeThing>
+					<IncludeThing>AlienScourgeGunship</IncludeThing>
+					<IncludeThing>AlienMothership</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Corrosive Field -->
+			<ProjectileNugget
+				WarheadTemplate="AlienContaminatorCorrosiveFieldSpawnerWeaponBlue"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
 			<!-- Slow Vehicles -->
 			<AttributeModifierNugget
 				Radius="2"
@@ -46956,8 +47988,524 @@
 			MaxSeconds="2s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="AlienIchorPodSporeWeaponWarhead"
+				WarheadTemplate="AlienIchorPodCorrosiveSporeWeaponWarhead"
 				ProjectileTemplate="AlienIchorPodCorrosiveSporeProjectile"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienIchorPodCorrosiveSporeWeaponWarhead"
+		Name="AlienIchorPodCorrosiveSporeWeaponWarhead"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="15"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<DamageNugget
+				Damage="15"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<!-- Nugget to kill any viceroids whether ally or enemy -->
+			<DamageNugget
+				Damage="18"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<IncludeThing>Viceroid</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Heal to allied Mutant units, Scrin Structures and units, and Nod Cyborgs -->
+			<DamageNugget
+				Damage="18"
+				Radius="25"
+				DamageType="HEALING">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ALLIES">
+					<!-- Mutant Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantGhostStalker</IncludeThing>
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Structures -->
+					<IncludeThing>AlienDronePlatform</IncludeThing>
+					<IncludeThing>AlienPowerProjector</IncludeThing>
+					<IncludeThing>AlienTiberiumTower</IncludeThing>
+					<IncludeThing>AlienPortal</IncludeThing>
+					<IncludeThing>AlienGateway</IncludeThing>
+					<IncludeThing>AlienControlCenter</IncludeThing>
+					<IncludeThing>AlienWarpBeacon</IncludeThing>
+					<IncludeThing>AlienStatisChamber</IncludeThing>
+					<IncludeThing>AlienReactor</IncludeThing>
+					<IncludeThing>AlienSignalTransmitter</IncludeThing>
+					<IncludeThing>AlienFoundry</IncludeThing>
+					<IncludeThing>AlienWarpChasm</IncludeThing>
+					<IncludeThing>AlienStormObelisk</IncludeThing>
+					<!-- Alien Defenses -->
+					<IncludeThing>AlienBuzzerHive</IncludeThing>
+					<IncludeThing>AlienPhotonCannon</IncludeThing>
+					<IncludeThing>AlienPlasmaMissileBattery</IncludeThing>
+					<IncludeThing>AlienSporePod</IncludeThing>
+					<IncludeThing>AlienStormColumn</IncludeThing>
+					<IncludeThing>AlienRiftGenerator</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienWallHub</IncludeThing>
+					<IncludeThing>AlienWallSegment</IncludeThing>
+					<IncludeThing>Alien_ControlNode</IncludeThing>
+					<IncludeThing>AlienMiniMCVOutpost</IncludeThing>
+					<IncludeThing>AlienLightningSpike</IncludeThing>
+					<IncludeThing>AlienControlNode</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+					<!-- Alien Vehicles -->
+					<IncludeThing>AlienGunWalker</IncludeThing>
+					<IncludeThing>AlienContaminator</IncludeThing>
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+					<IncludeThing>AlienSeekerTank</IncludeThing>
+					<IncludeThing>AlienHarvester</IncludeThing>
+					<IncludeThing>AlienDevourerTank</IncludeThing>
+					<IncludeThing>AlienCorrupter</IncludeThing>
+					<IncludeThing>AlienStingray</IncludeThing>
+					<IncludeThing>AlienMechapede</IncludeThing>
+					<IncludeThing>AlienMobileWarpBeacon</IncludeThing>
+					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+					<IncludeThing>AlienExplorer</IncludeThing>
+					<IncludeThing>AlienGuardianTank</IncludeThing>
+					<IncludeThing>AlienIrradiator</IncludeThing>
+					<IncludeThing>AlienReaver</IncludeThing>
+					<!-- Alien Air -->
+					<IncludeThing>AlienMCV</IncludeThing>
+					<IncludeThing>AlienMCVUnpacking</IncludeThing>
+					<IncludeThing>AlienStormrider</IncludeThing>
+					<IncludeThing>AlienWraith</IncludeThing>
+					<IncludeThing>AlienDevastatorWarship</IncludeThing>
+					<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+					<IncludeThing>AlienInvaderFighter</IncludeThing>
+					<IncludeThing>AlienConquerorBattleship</IncludeThing>
+					<IncludeThing>AlienBattleshipFighter</IncludeThing>
+					<IncludeThing>AlienScourgeGunship</IncludeThing>
+					<IncludeThing>AlienMothership</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Corrosive Field -->
+			<ProjectileNugget
+				WarheadTemplate="AlienContaminatorCorrosiveFieldSpawnerWeapon"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
+			<!-- Slow Vehicles -->
+			<AttributeModifierNugget
+				Radius="2"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="AttributeModifier_TibGoo">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ENEMIES NEUTRAL"
+					Include="VEHICLE"
+					Exclude="HARVESTER">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDIDisruptor</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAvengerTank</ExcludeThing>
+					<ExcludeThing>NODBeamCannon</ExcludeThing>
+					<ExcludeThing>NODToxinTank</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienGunWalker</ExcludeThing>
+					<ExcludeThing>AlienContaminator</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienIrradiator</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
+			<SuppressionNugget
+				Radius="25"
+				Suppression="150"
+				DurationSeconds="5s"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -47254,8 +48802,524 @@
 			MaxSeconds="2s"/>
 		<Nuggets>
 			<ProjectileNugget
-				WarheadTemplate="AlienIchorPodSporeWeaponWarheadBlue"
+				WarheadTemplate="AlienIchorPodCorrosiveSporeWeaponWarheadBlue"
 				ProjectileTemplate="AlienIchorPodCorrosiveSporeProjectileBlue"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienIchorPodCorrosiveSporeWeaponWarheadBlue"
+		Name="AlienIchorPodCorrosiveSporeWeaponWarheadBlue"
+		ProjectileCollidesWith="ALLIES ENEMIES NEUTRAL STRUCTURES WALLS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<!-- Damage to Certain infantry types - Spawning Viceroids -->
+			<DamageAndSpawnNugget
+				Damage="25"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<DamageAndSpawnNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE"
+				SpawnProbability="0.3"
+				ForbiddenTargetModelCondition="DYING"
+				SpawnedModelConditionFlags="EMOTION_DISSIDENT">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"
+					Exclude="HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<ExcludeThing>Viceroid</ExcludeThing>
+					<ExcludeThing>MutantFiend</ExcludeThing>
+					<ExcludeThing>MutantFiendTamed</ExcludeThing>
+					<ExcludeThing>MutantFiendBlue</ExcludeThing>
+					<ExcludeThing>MutantFiendRed</ExcludeThing>
+					<ExcludeThing>MutantViceroid</ExcludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+					<!-- Alien Infantry -->
+					<ExcludeThing>AlienBuzzers</ExcludeThing>
+					<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
+					<ExcludeThing>AlienRazorDrones</ExcludeThing>
+					<ExcludeThing>AlienAssimilator</ExcludeThing>
+					<ExcludeThing>AlienShockTrooper</ExcludeThing>
+					<ExcludeThing>AlienRavager</ExcludeThing>
+					<ExcludeThing>AlienMastermind</ExcludeThing>
+					<ExcludeThing>AlienHunter</ExcludeThing>
+					<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					<ExcludeThing>AlienCultist</ExcludeThing>
+					<ExcludeThing>AlienGroundShaker</ExcludeThing>
+				</SpecialObjectFilter>
+				<SpawnTemplate>Viceroid</SpawnTemplate>
+			</DamageAndSpawnNugget>
+			<!-- Damage to everything else - including certain infantry types that don't spawn viceroids on death -->
+			<DamageNugget
+				Damage="25"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="1s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="2s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<DamageNugget
+				Damage="10"
+				Radius="25"
+				DelayTimeSeconds="3s"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="INFANTRY HORDE"
+					Relationship="ENEMIES NEUTRAL">
+					<!-- Neutral Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<!-- Nod Advanced Cyborgs -->
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+				</SpecialObjectFilter>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE STRUCTURE AIRCRAFT"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<!-- Nugget to kill any viceroids whether ally or enemy -->
+			<DamageNugget
+				Damage="22"
+				Radius="25"
+				DamageType="GRENADE"
+				DeathType="POISONED_BETA"
+				DamageFXType="GDI_RIFLE">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<IncludeThing>Viceroid</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Heal to allied Mutant units, Scrin Structures and units, and Nod Cyborgs -->
+			<DamageNugget
+				Damage="22"
+				Radius="25"
+				DamageType="HEALING">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ALLIES">
+					<!-- Mutant Units -->
+					<IncludeThing>MutantFiend</IncludeThing>
+					<IncludeThing>MutantFiendBlue</IncludeThing>
+					<IncludeThing>MutantFiendRed</IncludeThing>
+					<IncludeThing>MutantMarauder</IncludeThing>
+					<IncludeThing>MutantFiendTamed</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+					<IncludeThing>MutantViceroid</IncludeThing>
+					<IncludeThing>MutantSkirmisher</IncludeThing>
+					<IncludeThing>MutantGhostStalker</IncludeThing>
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODAscended</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+					<!-- Alien Structures -->
+					<IncludeThing>AlienDronePlatform</IncludeThing>
+					<IncludeThing>AlienPowerProjector</IncludeThing>
+					<IncludeThing>AlienTiberiumTower</IncludeThing>
+					<IncludeThing>AlienPortal</IncludeThing>
+					<IncludeThing>AlienGateway</IncludeThing>
+					<IncludeThing>AlienControlCenter</IncludeThing>
+					<IncludeThing>AlienWarpBeacon</IncludeThing>
+					<IncludeThing>AlienStatisChamber</IncludeThing>
+					<IncludeThing>AlienReactor</IncludeThing>
+					<IncludeThing>AlienSignalTransmitter</IncludeThing>
+					<IncludeThing>AlienFoundry</IncludeThing>
+					<IncludeThing>AlienWarpChasm</IncludeThing>
+					<IncludeThing>AlienStormObelisk</IncludeThing>
+					<!-- Alien Defenses -->
+					<IncludeThing>AlienBuzzerHive</IncludeThing>
+					<IncludeThing>AlienPhotonCannon</IncludeThing>
+					<IncludeThing>AlienPlasmaMissileBattery</IncludeThing>
+					<IncludeThing>AlienSporePod</IncludeThing>
+					<IncludeThing>AlienStormColumn</IncludeThing>
+					<IncludeThing>AlienRiftGenerator</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienWallHub</IncludeThing>
+					<IncludeThing>AlienWallSegment</IncludeThing>
+					<IncludeThing>Alien_ControlNode</IncludeThing>
+					<IncludeThing>AlienMiniMCVOutpost</IncludeThing>
+					<IncludeThing>AlienLightningSpike</IncludeThing>
+					<IncludeThing>AlienControlNode</IncludeThing>
+					<IncludeThing>AlienPhaseGenerator</IncludeThing>
+					<IncludeThing>AlienTiberiumTowerSPNoHarvester</IncludeThing>
+					<!-- Alien Infantry -->
+					<IncludeThing>AlienBuzzers</IncludeThing>
+					<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					<IncludeThing>AlienRazorDrones</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>AlienShockTrooper</IncludeThing>
+					<IncludeThing>AlienRavager</IncludeThing>
+					<IncludeThing>AlienMastermind</IncludeThing>
+					<IncludeThing>AlienHunter</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+					<IncludeThing>AlienCultist</IncludeThing>
+					<IncludeThing>AlienGroundShaker</IncludeThing>
+					<!-- Alien Vehicles -->
+					<IncludeThing>AlienGunWalker</IncludeThing>
+					<IncludeThing>AlienContaminator</IncludeThing>
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+					<IncludeThing>AlienSeekerTank</IncludeThing>
+					<IncludeThing>AlienHarvester</IncludeThing>
+					<IncludeThing>AlienDevourerTank</IncludeThing>
+					<IncludeThing>AlienCorrupter</IncludeThing>
+					<IncludeThing>AlienStingray</IncludeThing>
+					<IncludeThing>AlienMechapede</IncludeThing>
+					<IncludeThing>AlienMobileWarpBeacon</IncludeThing>
+					<IncludeThing>AlienAnnihilatorTripod</IncludeThing>
+					<IncludeThing>AlienEradicatorHexapod</IncludeThing>
+					<IncludeThing>AlienPlanetaryAnnihilator</IncludeThing>
+					<IncludeThing>AlienExplorer</IncludeThing>
+					<IncludeThing>AlienGuardianTank</IncludeThing>
+					<IncludeThing>AlienIrradiator</IncludeThing>
+					<IncludeThing>AlienReaver</IncludeThing>
+					<!-- Alien Air -->
+					<IncludeThing>AlienMCV</IncludeThing>
+					<IncludeThing>AlienMCVUnpacking</IncludeThing>
+					<IncludeThing>AlienStormrider</IncludeThing>
+					<IncludeThing>AlienWraith</IncludeThing>
+					<IncludeThing>AlienDevastatorWarship</IncludeThing>
+					<IncludeThing>AlienPlanetaryAssaultCarrier</IncludeThing>
+					<IncludeThing>AlienInvaderFighter</IncludeThing>
+					<IncludeThing>AlienConquerorBattleship</IncludeThing>
+					<IncludeThing>AlienBattleshipFighter</IncludeThing>
+					<IncludeThing>AlienScourgeGunship</IncludeThing>
+					<IncludeThing>AlienMothership</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- Corrosive Field -->
+			<ProjectileNugget
+				WarheadTemplate="AlienContaminatorCorrosiveFieldSpawnerWeaponBlue"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
+			<!-- Slow Vehicles -->
+			<AttributeModifierNugget
+				Radius="2"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="AttributeModifier_TibGoo">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Relationship="ENEMIES NEUTRAL"
+					Include="VEHICLE"
+					Exclude="HARVESTER">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDIDisruptor</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAvengerTank</ExcludeThing>
+					<ExcludeThing>NODBeamCannon</ExcludeThing>
+					<ExcludeThing>NODToxinTank</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienGunWalker</ExcludeThing>
+					<ExcludeThing>AlienContaminator</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienMobileWarpBeacon</ExcludeThing>
+					<ExcludeThing>AlienAnnihilatorTripod</ExcludeThing>
+					<ExcludeThing>AlienEradicatorHexapod</ExcludeThing>
+					<ExcludeThing>AlienPlanetaryAnnihilator</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienIrradiator</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
+			<SuppressionNugget
+				Radius="25"
+				Suppression="150"
+				DurationSeconds="5s"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -48054,24 +50118,6 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<WeaponTemplate
-		id="AlienWraithCorrosiveFieldSpawnerWeapon"
-		Name="AlienWraithCorrosiveFieldSpawnerWeapon">
-		<Nuggets>
-			<WeaponOCLNugget
-				WeaponOCL="OCL_AlienWraithCorrosiveField"/>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="AlienWraithCorrosiveFieldSpawnerWeaponBlue"
-		Name="AlienWraithCorrosiveFieldSpawnerWeaponBlue">
-		<Nuggets>
-			<WeaponOCLNugget
-				WeaponOCL="OCL_AlienWraithCorrosiveFieldBlue"/>
-		</Nuggets>
-	</WeaponTemplate>
-
 	<!-- Damage to Viceroids is total damage/2.5 -->
 	<WeaponTemplate
 		id="AlienWraithTioxinBlastCannon"
@@ -48097,7 +50143,7 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="AlienWraithTioxinBlastCannonWarhead"
-				ProjectileTemplate="AlienWraithTioxinBlastProjectile"/>
+				ProjectileTemplate="AlienIchorPodCorrosiveSporeProjectile"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -48588,6 +50634,10 @@
 					<IncludeThing>AlienMothership</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
+			<!-- Corrosive Field -->
+			<ProjectileNugget
+				WarheadTemplate="AlienWraithCorrosiveFieldSpawnerWeapon"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
 			<!-- Slow Vehicles -->
 			<AttributeModifierNugget
 				Radius="2"
@@ -48637,6 +50687,15 @@
 		</Nuggets>
 	</WeaponTemplate>
 
+	<WeaponTemplate
+		id="AlienWraithCorrosiveFieldSpawnerWeapon"
+		Name="AlienWraithCorrosiveFieldSpawnerWeapon">
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_AlienWraithCorrosiveField"/>
+		</Nuggets>
+	</WeaponTemplate>
+
 	<!-- Damage to Viceroids is total damage/2.5 -->
 	<WeaponTemplate
 		id="AlienWraithTioxinBlastCannonBlue"
@@ -48662,7 +50721,7 @@
 		<Nuggets>
 			<ProjectileNugget
 				WarheadTemplate="AlienWraithTioxinBlastCannonWarheadBlue"
-				ProjectileTemplate="AlienWraithTioxinBlastProjectileBlue"/>
+				ProjectileTemplate="AlienIchorPodCorrosiveSporeProjectileBlue"/>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -49153,6 +51212,10 @@
 					<IncludeThing>AlienMothership</IncludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
+			<!-- Corrosive Field -->
+			<ProjectileNugget
+				WarheadTemplate="AlienWraithCorrosiveFieldSpawnerWeaponBlue"
+				ProjectileTemplate="AlienAnnihilatorLeechBeamProjectile"/>
 			<!-- Slow Vehicles -->
 			<AttributeModifierNugget
 				Radius="2"
@@ -49199,6 +51262,15 @@
 				Radius="25"
 				Suppression="150"
 				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienWraithCorrosiveFieldSpawnerWeaponBlue"
+		Name="AlienWraithCorrosiveFieldSpawnerWeaponBlue">
+		<Nuggets>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_AlienWraithCorrosiveFieldBlue"/>
 		</Nuggets>
 	</WeaponTemplate>
 </AssetDeclaration>
