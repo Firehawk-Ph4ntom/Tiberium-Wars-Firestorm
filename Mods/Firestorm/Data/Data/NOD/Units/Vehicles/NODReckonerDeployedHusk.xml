@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODReckonerDeployedHusk" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODReckoner" ButtonImage="Portrait_NODReckoner" Side="NOD" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE" EditorName="NODReckonerDeployedHusk">
+	<GameObject id="NODReckonerDeployedHusk" inheritFrom="BaseVehicle" Side="NOD" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS NOT_AUTOACQUIRABLE IMMOBILE" EditorName="NODReckonerDeployedHusk">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODReckoner</DisplayName>
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
@@ -22,6 +22,19 @@
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NURECKONER_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawSpeakers" AttachToBoneInAnotherModule="BONE_ROOF">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NURECKONERSPEAKERS_DUMMYSKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
@@ -43,9 +56,9 @@
 			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsDozerBlades" ShowSubObjects="DOZERBLADE">
 				<TriggeredBy>Upgrade_NODDozerBlades</TriggeredBy>
 			</SubObjectsUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="UG_SPEAKERS">
+			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
-			</SubObjectsUpgrade>
+			</ModelConditionUpgrade>
 		</Behaviors>
 		<AI>
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NODReckonerHuskFunctions"/>

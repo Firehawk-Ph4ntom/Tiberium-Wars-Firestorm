@@ -6,8 +6,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NUReckoner_SPM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_FX_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_IDLA.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_IDLB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_R_NOISE.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_R01_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_R02_CTR.w3x"/>
@@ -16,6 +14,9 @@
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_UPAK.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONER_UPKSKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONERSPEAKERS_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONERSPEAKERS_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODReckoner\NURECKONERSPEAKERS_DUMMYSKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml" />
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
@@ -42,7 +43,6 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="NURECKONER_R_NOISE"/>
-					<Texture Original="NUSuv" New="NUSuv_D"/>
 					<Texture Original="NUReckoner" New="NUReckoner_D"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
@@ -54,7 +54,6 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="NURECKONER_SKN"/>
-					<Texture Original="NUSuv" New="NUSuv_D"/>
 					<Texture Original="NUReckoner" New="NUReckoner_D"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
@@ -64,10 +63,6 @@
 					<ParticleSysBone BoneName="BONE_EXTB" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_RIGHTTREAD" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Animation AnimationName="NURECKONER_IDLA" AnimationMode="LOOP"/>
-				</AnimationState>
 			</TruckDraw>
 			<TankDraw id="ModuleTag_Draw2" TrackMarks="FXTankTrack" ExtraPublicBone="BONE_TREDSL BONE_TREDSR" TrackMarksLeftBone="BONE_TREDSL" TrackMarksRightBone="BONE_TREDSR" OkToChangeModelColor="true" TreadAnimationRate="0.15" TreadPivotSpeedFraction="0.9" TreadDriveSpeedFraction="0.25">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -106,24 +101,34 @@
 				<LeftTread>"TreadsL"</LeftTread>
 				<RightTread>"TreadsR"</RightTread>
 			</TankDraw>
-			<ScriptedModelDraw id="ModuleTag_Lights">
+			<ScriptedModelDraw id="ModuleTag_DrawSpeakers" AttachToBoneInAnotherModule="BONE_ROOF">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
+					<Model Name="NURECKONERSPEAKERS_DUMMYSKN"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
-				</AnimationState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED USER_1"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Script> CurDrawableShowSubObjectPermanently("TV") </Script>
+					<Animation AnimationName="NURECKONERSPEAKERS_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
@@ -242,11 +247,8 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>NODReckonerDeployed</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
-			<xi:include href="DATA:Includes/NodCallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportForVehicle.xml"/>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="UG_SPEAKERS">
-				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
-			</SubObjectsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</ModelConditionUpgrade>

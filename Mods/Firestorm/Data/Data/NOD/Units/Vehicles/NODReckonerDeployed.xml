@@ -23,7 +23,6 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED">
 					<Model Name="NURECKONER_UPKSKN"/>
-					<Texture Original="NUSuv" New="NUSuv_D"/>
 					<Texture Original="NUReckoner" New="NUReckoner_D"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
@@ -38,7 +37,6 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="NURECKONER_R_NOISE"/>
-					<Texture Original="NUSuv" New="NUSuv_D"/>
 					<Texture Original="NUReckoner" New="NUReckoner_D"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_EXTB01" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
@@ -63,21 +61,6 @@
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
 					<Animation AnimationName="NURECKONER_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING USER_1">
-					<Animation AnimationName="NURECKONER_UPAK" AnimationMode="ONCE" AnimationBlendTime="0"/>
-					<ParticleSysBone BoneName="BONE_LEFTTREAD" FXParticleSystemTemplate="NODReckonerDust" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_RIGHTTREAD" FXParticleSystemTemplate="NODReckonerDust" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_TIRELF" FXParticleSystemTemplate="NODReckonerDust_half" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_TIRELR" FXParticleSystemTemplate="NODReckonerDust_half" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_TIRERF" FXParticleSystemTemplate="NODReckonerDust_half" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_TIRERR" FXParticleSystemTemplate="NODReckonerDust_half" FollowBone="true"/>
-					<FXEvent Frame="76" Effect="FX_NODReckonerUnpackingSteam" Bone="FX_SteamJet_Front"/>
-					<FXEvent Frame="76" Effect="FX_NODReckonerUnpackingSteam" Bone="FX_SteamJet_Rear"/>
-					<FXEvent Frame="40" Effect="FX_NODReckonerUnpackingSteam" Bone="BONE_RIGHTTREAD"/>
-					<FXEvent Frame="40" Effect="FX_NODReckonerUnpackingSteam" Bone="BONE_LEFTTREAD"/>
-					<FXEvent Frame="67" Effect="FX_NODReckonerUnpackingExplosion" Bone="BONE_TDETACH01"/>
-					<FXEvent Frame="62" Effect="FX_NODReckonerUnpackingExplosion" Bone="BoneGarrison01"/>
-				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
 					<Animation AnimationName="NURECKONER_UPAK" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="BONE_LEFTTREAD" FXParticleSystemTemplate="NODReckonerDust" FollowBone="true"/>
@@ -93,28 +76,35 @@
 					<FXEvent Frame="67" Effect="FX_NODReckonerUnpackingExplosion" Bone="BONE_TDETACH01"/>
 					<FXEvent Frame="62" Effect="FX_NODReckonerUnpackingExplosion" Bone="BoneGarrison01"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Animation AnimationName="NURECKONER_IDLB" AnimationMode="LOOP" AnimationBlendTime="0"/>
-				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Lights">
+			<ScriptedModelDraw id="ModuleTag_DrawSpeakers" AttachToBoneInAnotherModule="BONE_ROOF">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name=""/>
+					<Model Name="NURECKONERSPEAKERS_DUMMYSKN"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
-				</AnimationState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+					<Script> CurDrawableHideSubObject("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
+					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
-				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
-					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Script> CurDrawableShowSubObjectPermanently("TV") </Script>
+					<Animation AnimationName="NURECKONERSPEAKERS_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FX_ROOF_TV">
@@ -191,9 +181,6 @@
 			<AttributeModifierUpgrade id="ModuleTag_AnyFaction" AttributeModifier="AttributeModifier_ReckonerDeployed">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</AttributeModifierUpgrade>
-			<SubObjectsUpgrade id="ModuleTag_ShowSubobjectsSpeakers" ShowSubObjects="UG_SPEAKERS">
-				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
-			</SubObjectsUpgrade>
 			<ModelConditionUpgrade id="ModuleTag_PropgandaModelCondition" AddConditionFlags="USER_1">
 				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
 			</ModelConditionUpgrade>

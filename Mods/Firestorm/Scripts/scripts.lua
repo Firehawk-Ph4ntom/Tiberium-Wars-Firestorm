@@ -397,17 +397,6 @@ function OnNODAvatarCreated(self)
 	ObjectHideSubObjectPermanently( self, "S_GENERATOR", true )
 end
 
-function OnNODReckonerCreated(self)
-	ObjectHideSubObjectPermanently( self, "DOZERBLADE", true )
-	ObjectHideSubObjectPermanently( self, "UG_SPEAKERS", true )
-end
-
-function OnNODReckonerHuskCreated(self)
-	ObjectHideSubObjectPermanently( self, "DOZERBLADE", true )
-	ObjectHideSubObjectPermanently( self, "UG_SPEAKERS", true )
-	ObjectHideSubObjectPermanently( self, "TV", true )
-end
-
 function OnNODRaiderTankCreated(self)
 	ObjectHideSubObjectPermanently( self, "DOZERBLADE", true )
 end
