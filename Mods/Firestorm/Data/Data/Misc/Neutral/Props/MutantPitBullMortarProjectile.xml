@@ -1,0 +1,46 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="MutantPitBullMortarProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="Neutral" EditorName="MutantPitBullMortarProjectile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRDefMis"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrail" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_MutantSkirmisherProjectileHit"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="170" FirstHeightMax="200" SecondHeightMin="170" SecondHeightMax="200" FirstPercentIndent="20" SecondPercentIndent="90" GroundHitFX="FX_GDIShellMiss" OrientToFlightPath="true" DetonateCallsKill="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Normal Blue Tib Core Projectile -->
+	<GameObject id="MutantPitBullMortarProjectileBlueTibCore" inheritFrom="MutantPitBullMortarProjectile" EditorName="MutantPitBullMortarProjectileBlueTibCore">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBRDefMis"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantSkirmisherProjectileTrailBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_MutantSkirmisherProjectileHitBlue"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

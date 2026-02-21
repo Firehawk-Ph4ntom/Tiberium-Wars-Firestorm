@@ -189,6 +189,7 @@
 					<IncludeThing>GDIEngineer</IncludeThing>
 					<IncludeThing>NODSaboteur</IncludeThing>
 					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
 				</CanEnterFilter>
 			</EngineerContain>
 			<EngineerContain id="ModuleTag_EngineerContainGDI" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForCapture="EnemyTechBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_CDMTowerReplaceGDIFacDummy" ImmediatelyEnabled="true">
@@ -204,6 +205,11 @@
 			<EngineerContain id="ModuleTag_EngineerContainAlien" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForCapture="EnemyTechBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_CDMTowerReplaceAlienFacDummy" ImmediatelyEnabled="true">
 				<CanEnterFilter Rule="NONE" Relationship="ENEMIES NEUTRAL">
 					<IncludeThing>AlienAssimilator</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+			<EngineerContain id="ModuleTag_EngineerContainForgotten" NameOfVoiceToUseForHostileEnter="VoiceCaptureBuilding" EvaEventForCapture="EnemyTechBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_CDMTowerReplaceForgottenFacDummy" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE" Relationship="ENEMIES NEUTRAL">
+					<IncludeThing>MutantSalvager</IncludeThing>
 				</CanEnterFilter>
 			</EngineerContain>
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
@@ -259,7 +265,7 @@
 		<ProjectedBuildabilityInfo Radius="0.0" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE"/>
 	</GameObject>
 
-	<GameObject id="GDICDMTowerDummy" Side="Neutral" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE" EditorName="GDICDMTowerDummy" EditorSorting="MISC_MAN_MADE">
+	<GameObject id="GDICDMTowerDummy" Side="GDI" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE" EditorName="GDICDMTowerDummy" EditorSorting="MISC_MAN_MADE">
 		<ArmorSet Armor="NoArmor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
@@ -311,108 +317,28 @@
 		</Geometry>
 	</GameObject>
 
-	<GameObject id="NODCDMTowerDummy" Side="Neutral" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE" EditorName="NODCDMTowerDummy" EditorSorting="MISC_MAN_MADE">
-		<ArmorSet Armor="NoArmor"/>
-		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GBDROPSHIPBAY_SKN"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-		</Draws>
+	<GameObject id="NODCDMTowerDummy" inheritFrom="GDICDMTowerDummy" Side="NOD" EditorName="NODCDMTowerDummy">
 		<Behaviors>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_CDMTowerReplaceNODFac2">
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_CDMTowerReplaceNODFac2">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
-			<DestroyDie id="ModuleTag_Die">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
 		</Behaviors>
-		<Body>
-			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
-		</Body>
-		<Geometry>
-			<Shape Type="BOX" MajorRadius="38.0" MinorRadius="53.0" Height="3.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-2" y="0" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="11.0" MinorRadius="39.0" Height="3.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="45" y="0" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="49.0" Height="3.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-52" y="7" z="0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="17.0" Height="12.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-40" y="-48" z="18"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="13.5" Height="18.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-40" y="-48" z="0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="11.0" Height="22.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="0" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="9.0" Height="19.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="-30" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="17.0" MinorRadius="11.0" Height="22.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="30" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="8.0" Height="11.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="46" z="0"/>
-			</Shape>
-		</Geometry>
 	</GameObject>
 
-	<GameObject id="AlienCDMTowerDummy" Side="Neutral" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE" EditorName="AlienCDMTowerDummy" EditorSorting="MISC_MAN_MADE">
-		<ArmorSet Armor="NoArmor"/>
-		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GBDROPSHIPBAY_SKN"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-		</Draws>
+	<GameObject id="AlienCDMTowerDummy" inheritFrom="GDICDMTowerDummy" Side="ALIEN" EditorName="AlienCDMTowerDummy">
 		<Behaviors>
-			<LifetimeUpdate id="ModuleTag_LifeTimeUpdate" MinLifetime="0.1s" MaxLifetime="0.1s"/>
-			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_CDMTowerReplaceAlienFac2">
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_CDMTowerReplaceAlienFac2">
 				<DieMuxData DeathTypes="ALL"/>
 			</CreateObjectDie>
-			<DestroyDie id="ModuleTag_Die">
-				<DieMuxData DeathTypes="ALL"/>
-			</DestroyDie>
 		</Behaviors>
-		<Body>
-			<HighlanderBody id="ModuleTag_Body" MaxHealth="1.0"/>
-		</Body>
-		<Geometry>
-			<Shape Type="BOX" MajorRadius="38.0" MinorRadius="53.0" Height="3.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-2" y="0" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="11.0" MinorRadius="39.0" Height="3.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="45" y="0" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="49.0" Height="3.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-52" y="7" z="0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="17.0" Height="12.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-40" y="-48" z="18"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="13.5" Height="18.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-40" y="-48" z="0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="11.0" Height="22.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="0" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="9.0" Height="19.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="-30" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="17.0" MinorRadius="11.0" Height="22.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="30" z="0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="13.5" MinorRadius="8.0" Height="11.0" ContactPointGeneration="STRUCTURE">
-				<Offset x="-50" y="46" z="0"/>
-			</Shape>
-		</Geometry>
+	</GameObject>
+
+	<GameObject id="ForgottenCDMTowerDummy" inheritFrom="GDICDMTowerDummy" Side="Neutral" EditorName="ForgottenCDMTowerDummy">
+		<Behaviors>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" xai:joinAction="Replace" CreationList="OCL_CDMTowerReplaceForgottenFac2">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+		</Behaviors>
 	</GameObject>
 
 	<GameObject id="GDICDMTower" inheritFrom="CDMTower" EditorName="GDICDMTower" CommandSet="GDIDropshipBayCommandSet" EditorSorting="MISC_MAN_MADE" EnergyProduction="-8"/>
@@ -420,6 +346,8 @@
 	<GameObject id="NODCDMTower" inheritFrom="CDMTower" EditorName="NODCDMTower" CommandSet="NODDropshipBayCommandSet" EditorSorting="MISC_MAN_MADE" EnergyProduction="-8"/>
 
 	<GameObject id="AlienCDMTower" inheritFrom="CDMTower" EditorName="AlienCDMTower" CommandSet="AlienDropshipBayCommandSet" EditorSorting="MISC_MAN_MADE" EnergyProduction="-8"/>
+
+	<GameObject id="ForgottenCDMTower" inheritFrom="CDMTower" EditorName="ForgottenCDMTower" CommandSet="ForgottenDropshipBayCommandSet" EditorSorting="MISC_MAN_MADE" EnergyProduction="-8"/>
 
 	<GameObject id="GDICDMTower2" inheritFrom="GDICDMTower" EditorName="GDICDMTower2">
 		<Behaviors>
@@ -434,6 +362,12 @@
 	</GameObject>
 
 	<GameObject id="AlienCDMTower2" inheritFrom="AlienCDMTower" EditorName="AlienCDMTower2">
+		<Behaviors>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" xai:joinAction="Remove"/>
+		</Behaviors>
+	</GameObject>
+
+	<GameObject id="ForgottenCDMTower2" inheritFrom="ForgottenCDMTower" EditorName="ForgottenCDMTower2">
 		<Behaviors>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" xai:joinAction="Remove"/>
 		</Behaviors>
