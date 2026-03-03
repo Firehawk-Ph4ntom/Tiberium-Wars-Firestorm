@@ -5,6 +5,39 @@
 	</Includes>
 	<GameObject id="NODSaboteurRepairDrone" inheritFrom="NODRepairDrone" EditorName="NODSaboteurRepairDrone">
 		<LocomotorSet Speed="150" Locomotor="NODRepairDroneLocomotor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NURPRDRN_SKN"/>
+					<Texture Original="NURprDrone" New="NURprDroneNew_VS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
+					<Animation AnimationName="NURPRDRN_IDLA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="RANDOMSTART">
+					<Animation AnimationName="NURPRDRN_RPRA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACHED" Flags="RANDOMSTART">
+					<Animation AnimationName="NURPRDRN_RPRA" AnimationMode="LOOP"/>
+					<ParticleSysBone BoneName="Bone03" FXParticleSystemTemplate="GDIRepairDroneFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone03" FXParticleSystemTemplate="GDIRepairDroneSparks" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone07" FXParticleSystemTemplate="GDIRepairDroneFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="Bone07" FXParticleSystemTemplate="GDIRepairDroneSparks" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="NURPRDRN_IDLA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ACCELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="NURPRDRN_ACCL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DECELERATE MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="NURPRDRN_DECL" AnimationMode="ONCE" Distance="30"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+					<Animation AnimationName="NURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
 		<Behaviors>
 			<InvisibilityUpdate id="ModuleTag_Invisibility" Options="STARTS_ACTIVE" UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
