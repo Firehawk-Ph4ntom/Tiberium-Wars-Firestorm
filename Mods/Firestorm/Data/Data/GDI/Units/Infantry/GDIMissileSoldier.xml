@@ -1,5 +1,6 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\GDIMissileSoldier\CUThermobaricMis.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMissileSoldier\GUGAR_MISS_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMissileSoldier\GUMISSLEMAN_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIMissileSoldier\GUMISSLMN_DIGA.w3x"/>
@@ -29,9 +30,18 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
 					<Model Name="FXWEBBEDGUY"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR USER_4">
+					<Model Name="GUMissleman_SKN_FS"/>
+					<Texture Original="CUMisslemanA" New="CUMisslemanB"/>
+					<Texture Original="CUMisslemanMis" New="CUThermobaricMis"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UPGRADED_ARMOR">
 					<Model Name="GUMissleman_SKN_FS"/>
 					<Texture Original="CUMisslemanA" New="CUMisslemanB"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<Model Name="GUMissleman_SKN_FS"/>
+					<Texture Original="CUMisslemanMis" New="CUThermobaricMis"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USING_WEAPON_A"/>
@@ -323,10 +333,13 @@
 			<LargeGroupAudioUpdate id="LGAU">
 				<Key>GDI_MissileSoldier_FS</Key>
 			</LargeGroupAudioUpdate>
-			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_01">
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+			<ModelConditionUpgrade id="ModuleTag_ThermoBaricMissilesModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissilesAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GDITiberiumFieldSuitsUpgradeInfantry.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>

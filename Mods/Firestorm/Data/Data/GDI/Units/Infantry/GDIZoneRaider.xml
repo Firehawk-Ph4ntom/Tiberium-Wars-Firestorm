@@ -1,7 +1,9 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZnRaider.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZnRaiderTBMis.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZnRaiderUpgr.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZnRaiderUpgrTBMis.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\HC_GUZnRaider.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUGAR_ZONER.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIZoneRaider\GUZNRAIDER_BRDQ.w3x"/>
@@ -37,9 +39,17 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
 					<Model Name="FXWEBBEDGUY"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_4">
+					<Model Name="GUZNRAIDER_SKN"/>
+					<Texture Original="GUZnRaider" New="GUZnRaiderUpgrTBMis"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
 					<Model Name="GUZNRAIDER_SKN"/>
 					<Texture Original="GUZnRaider" New="GUZnRaiderUpgr"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<Model Name="GUZNRAIDER_SKN"/>
+					<Texture Original="GUZnRaider" New="GUZnRaiderTBMis"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ATTACKING"/>
@@ -151,6 +161,12 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Script> CurDrawableHideSubObject("UGJump") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_4">
+					<Script> CurDrawableHideSubObject("UGJump") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
 					<Script> CurDrawableHideSubObject("UGJump") </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
@@ -289,10 +305,13 @@
 				<TriggeredBy>Upgrade_GDICompositePacks</TriggeredBy>
 			</AudioLoopUpgrade>
 			<!-- Thermobaric Missiles -->
-			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissiles" StatusToSet="WEAPON_UPGRADED_02">
+			<StatusBitsUpgrade id="ModuleTag_ThermoBaricMissilesUpgrade" StatusToSet="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissiles_Audio" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
+			<ModelConditionUpgrade id="ModuleTag_ThermoBaricMissilesModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_ThermoBaricMissilesAudioLoop" SoundToPlay="GDI_Sandstorm_ThermoBaricMissilesUpgrade">
 				<TriggeredBy>Upgrade_ThermoBaricMissiles</TriggeredBy>
 			</AudioLoopUpgrade>
 			<!-- Enhanced Resonance Tech -->
