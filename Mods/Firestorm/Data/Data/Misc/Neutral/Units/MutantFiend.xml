@@ -15,8 +15,13 @@
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03CY.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03Blue.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTibFiend03Red.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_ABTA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_AIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_AIFB.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_ATKA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_ATKB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_BATA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_DIEA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_IDLA.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NeutralTiberiumFiends\CUTIBFIEND_IDLB.w3x"/>
@@ -55,25 +60,38 @@
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="45"/>
 					<Animation AnimationName="CUTIBFIEND_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="35"/>
 					<Animation AnimationName="CUTIBFIEND_IDLC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="20"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="CUTIBFIEND_DIEA" AnimationMode="ONCE"/>
 					<Animation AnimationName="CUTIBFIEND_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART" StateName="STATE_Run">
 					<Animation AnimationName="CUTIBFIEND_RUNA" AnimationMode="LOOP" Distance="50"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_B">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_B" StateName="STATE_Selected">
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_B">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_B" StateName="STATE_Selected">
 					<Animation AnimationName="CUTIBFIEND_ATKA" AnimationMode="ONCE" WeaponTimingOrdering="SECONDARY_WEAPON" UseWeaponTiming="true"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_A" StateName="STATE_Selected">
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" StateName="STATE_Selected">
 					<Animation AnimationName="CUTIBFIEND_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="CUTIBFIEND_AIDA" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="CUTIBFIEND_AIFA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="CUTIBFIEND_AIFB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="CUTIBFIEND_BATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="CUTIBFIEND_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles">
@@ -239,19 +257,32 @@
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="45"/>
 					<Animation AnimationName="CUTIBFIEND_IDLB" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="35"/>
 					<Animation AnimationName="CUTIBFIEND_IDLC" AnimationMode="ONCE" AnimationBlendTime="15" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1" AnimationPriority="20"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Animation AnimationName="CUTIBFIEND_DIEA" AnimationMode="ONCE"/>
 					<Animation AnimationName="CUTIBFIEND_LNDA" AnimationMode="ONCE"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART" StateName="STATE_Run">
 					<Animation AnimationName="CUTIBFIEND_RUNA" AnimationMode="LOOP" Distance="50"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RELOADING_A" StateName="STATE_Selected">
 					<Animation AnimationName="CUTIBFIEND_IDLA" AnimationMode="LOOP"/>
 				</AnimationState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A" StateName="STATE_Selected">
 					<Animation AnimationName="CUTIBFIEND_ATKB" AnimationMode="ONCE" UseWeaponTiming="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="CUTIBFIEND_AIDA" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="CUTIBFIEND_AIFA" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Animation AnimationName="CUTIBFIEND_AIFB" AnimationMode="ONCE" AnimationPriority="10"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="CUTIBFIEND_BATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="CUTIBFIEND_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles5" xai:joinAction="Remove"/>
