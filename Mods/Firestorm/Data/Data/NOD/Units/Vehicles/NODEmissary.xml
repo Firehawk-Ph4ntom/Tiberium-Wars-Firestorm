@@ -3,7 +3,6 @@
 		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUV_FP.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUV_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUVR_SN_CTR.w3x"/>
-		<Include type="all" source="ART:Firestorm\Units\NODEmissary\NUSUVUPAK_SN_CTR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
@@ -38,7 +37,9 @@
 					<Texture Original="NUSuv" New="NUSuv_D"/>
 					<ParticleSysBone BoneName="FXFIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("TV") </Script>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST" StateName="STATE_StartPak">
 					<Animation AnimationName="NUSuvUPAK_A" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
@@ -70,6 +71,7 @@
 					<FXEvent Frame="1" Effect="FX_PropagandaPulse" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
