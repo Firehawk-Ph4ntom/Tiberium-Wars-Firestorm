@@ -7,10 +7,12 @@
 		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKA_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKD2_SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKD3_SN_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKDOOR_ASN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Structures\NODObelisk\NBOBELISKDOOR_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseDefenceStructure.xml"/>
 	</Includes>
-	<GameObject id="NODObelisk" inheritFrom="BaseDefenceStructure" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS STRUCTURE FS_BASE_DEFENSE POWERED COVER AUTO_ACQUIRABLE_BY_AI CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS" Description="Desc:NODObelisk" TypeDescription="Type:NODObelisk" PlacementViewAngle="315d" Side="NOD" EditorName="NODObelisk" BuildTime="27" EnergyProduction="-15" CommandSet="NODObeliskCommandSet" SelectPortrait="Portrait_NODObeliskofLight" ButtonImage="Portrait_NODObeliskofLight" WeaponCategory="CANNON" BuildCost="2700">
+	<GameObject id="NODObelisk" inheritFrom="BaseDefenceStructure" KindOf="SELECTABLE IMMOBILE CAN_ATTACK CAN_CAST_REFLECTIONS STRUCTURE FS_BASE_DEFENSE POWERED COVER AUTO_ACQUIRABLE_BY_AI CAN_SEE_THROUGH_STRUCTURE ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS" Description="Desc:NODObelisk" TypeDescription="Type:NODObelisk" PlacementViewAngle="315d" Side="NOD" EditorName="NODObelisk" BuildTime="27" EnergyProduction="-15" CommandSet="NODObeliskCommandSet" SelectPortrait="Portrait_NODObelisk" ButtonImage="Portrait_NODObelisk" WeaponCategory="CANNON" BuildCost="2700">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODObelisk</DisplayName>
 		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
 		<GameDependency>
@@ -90,6 +92,27 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoRubble">
 					<Animation AnimationName="NBObeliskD3_AN" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Des_Small" FollowBone="false"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDoor" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NBOBELISKDOOR_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RUBBLE">
+					<Model Name="NBOBELISKDOOR_SKN"/>
+					<Texture Original="NBObolisk" New="NBDarkOboliskD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NBOBELISKDOOR_SKN"/>
+					<Texture Original="NBObolisk" New="NBDarkOboliskD"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NBOBELISKDOOR_SKN"/>
+					<Texture Original="NBObolisk" New="NBDarkOboliskD"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STRUCTURE_UNPACKING">
+					<Animation AnimationName="NBOBELISKDOOR_ASN" AnimationMode="ONCE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Draw_Crystal" OkToChangeModelColor="true">
