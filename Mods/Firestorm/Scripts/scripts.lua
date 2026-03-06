@@ -309,6 +309,10 @@ function OnGDIAPCCreated(self)
 	ObjectHideSubObjectPermanently( self, "APC_UGTURRET", true )
 end
 
+function OnGDIArmadilloCreated(self)
+	ObjectHideSubObjectPermanently( self, "APC_UGAB", true )
+end
+
 function OnGDIWolverineCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_AMMO", true )
 end
@@ -414,6 +418,12 @@ function OnAlienAdvProductionPurchased(self)
 	if ObjectHasUpgrade( self, "Upgrade_AdvancedProduction" ) == 1 then
 		ObjectGrantUpgrade( self, "Upgrade_ProductionDummy" )
 	end
+end
+
+function OnGDIHammerheadCreated(self)
+	ObjectHideSubObjectPermanently( self, "L_UGAP", true )
+	ObjectHideSubObjectPermanently( self, "R_UGAP", true )
+	ObjectGrantUpgrade( self, "Upgrade_AirSupremacyDummyUpgrade" )
 end
 
 function OnGDIAircraftCreated(self)
