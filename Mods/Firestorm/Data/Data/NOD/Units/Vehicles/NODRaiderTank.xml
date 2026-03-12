@@ -1,6 +1,9 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURadrFirestormIG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURadrFirestormIGD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURADR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURADRFIRESTORMIG_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODScorpionTank\NURADRR_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
@@ -34,6 +37,15 @@
 					<Model Name="NURADRR_SKN_FS"/>
 					<Texture Original="NUFlameTankTreads" New="GUMammTrd2"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_4" RetainSubObjects="true">
+					<Model Name="NURADRFIRESTORMIG_SKN"/>
+					<Texture Original="NURadr" New="NURadrD"/>
+					<Texture Original="NURadrFirestormIG" New="NURadrFirestormIGD"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="NURADR_SKN_FS"/>
 					<Texture Original="NURadr" New="NURadrD"/>
@@ -42,10 +54,18 @@
 					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_4" RetainSubObjects="true">
+					<Model Name="NURADRFIRESTORMIG_SKN"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
 					<Model Name="NURADR_SKN_FS"/>
 					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksB" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4" RetainSubObjects="true">
+					<Model Name="NURADRFIRESTORMIG_SKN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Animation AnimationName="NURADR_IDLA" AnimationMode="LOOP" AnimationBlendTime="15"/>
@@ -253,7 +273,10 @@
 			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="RIDER1">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermobaricMissilesUpgrade">
+			<ModelConditionUpgrade id="ModuleTag_FirestormIgnitionModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_ThermobaricMissiles_Upgrade">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODDozerBladeUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>

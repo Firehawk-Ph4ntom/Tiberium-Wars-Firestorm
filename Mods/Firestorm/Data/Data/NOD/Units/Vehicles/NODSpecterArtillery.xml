@@ -4,6 +4,8 @@
 		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMornstar_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMornstar_NRM.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMornstar_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMornstarFirestormIG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMornstarFirestormIG_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NU_ARTLLRYR_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMORNSTAR_ATKA1.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODSpecter\NUMORNSTAR_ATKA2.w3x"/>
@@ -49,6 +51,14 @@
 					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_4" RetainSubObjects="true">
+					<Model Name="NUMORNSTAR_SKN"/>
+					<Texture Original="NUMornstar" New="NUMornstarFirestormIG_D"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
 					<Model Name="NUMORNSTAR_SKN"/>
 					<Texture Original="NUMornstar" New="NUMornstar_D"/>
@@ -57,11 +67,21 @@
 					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_4" RetainSubObjects="true">
+					<Model Name="NUMORNSTAR_SKN"/>
+					<Texture Original="NUMornstar" New="NUMornstarFirestormIG_D"/>
+					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
 					<Model Name="NUMORNSTAR_SKN"/>
 					<Texture Original="NUMornstar" New="NUMornstar_D"/>
 					<ParticleSysBone BoneName="FXTracksR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_TURRET" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4" RetainSubObjects="true">
+					<Model Name="NUMORNSTAR_SKN"/>
+					<Texture Original="NUMornstar" New="NUMornstarFirestormIG"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT">
 					<Script> CurDrawableShowSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSMOVE") CurDrawableHideSubObject("TREADSBACK") </Script>
@@ -223,7 +243,10 @@
 			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermobaricMissilesUpgrade">
+			<ModelConditionUpgrade id="ModuleTag_FirestormIgnitionModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_ThermobaricMissiles_Upgrade">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>

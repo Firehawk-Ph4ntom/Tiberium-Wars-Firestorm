@@ -1,6 +1,11 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVertFirestormIG.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVertFirestormIG_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVERT_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVERTFIRESTORM_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVERTFIRESTORMR_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVERTFIRESTORMSTLTH.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVERTR_SKN.w3x"/>
 		<Include type="all" source="ART:Firestorm\Units\NODVertigo\NUVERTSTLTH.w3x"/>
 		<!-- Base Object -->
@@ -27,17 +32,33 @@
 					<Model Name="NUVert_FP"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="NUVERT_SKN_FS"/>
-					<Texture Original="NUVert" New="NUVertD"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_4">
+					<Model Name="NUVERTFIRESTORM_SKN_FS"/>
+					<Texture Original="NUVert" New="NUVertFirestormIG_D"/>
 					<Texture Original="UG_RD" New="UG_RD_D"/>
 					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoDist" FollowBone="true"/>
 					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUVERT_SKN_FS"/>
+					<Texture Original="NUVert" New="NUVertD"/>
+					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoDist" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED USER_4">
+					<Model Name="NUVERTFIRESTORM_SKN_FS"/>
+					<Texture Original="NUVert" New="NUVertFirestormIG"/>
+					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
 					<Model Name="NUVERT_SKN_FS"/>
 					<ParticleSysBone BoneName="BONE_NUVERT01" FXParticleSystemTemplate="NODVertigoSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<Model Name="NUVERTFIRESTORM_SKN_FS"/>
+					<Texture Original="NUVert" New="NUVertFirestormIG"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="JUST_BUILT">
 					<Animation AnimationName="NUVert_BLD" AnimationMode="ONCE"/>
@@ -79,6 +100,9 @@
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<Model Name="NUVERTFIRESTORMSTLTH_FS"/>
+				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="JUST_BUILT">
 					<Animation AnimationName="NUVert_BLD" AnimationMode="ONCE"/>
 				</AnimationState>
@@ -135,9 +159,18 @@
 					<FX>FX_NOD_VertigoBomber_VoiceDie</FX>
 				</FX>
 				<OCL Type="INITIAL">
-					<OCL>OCL_NODDisruptionVertigoBomberDebris</OCL>
+					<OCL>OCL_NODVertigoBomberDebris</OCL>
 				</OCL>
-				<DieMuxData DeathTypes="ALL"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="WEAPON_UPGRADED_01"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<FX Type="INITIAL">
+					<FX>FX_NOD_VertigoBomber_VoiceDie</FX>
+				</FX>
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODFirestormVertigoBomberDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</SlowDeath>
 			<FXListBehavior id="ModuleTag_FXList">
 				<DieMuxData DeathTypes="ALL"/>
@@ -170,7 +203,10 @@
 			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</StatusBitsUpgrade>
-			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_Sandstorm_ThermobaricMissilesUpgrade">
+			<ModelConditionUpgrade id="ModuleTag_FirestormIgnitionModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_ThermobaricMissiles_Upgrade">
 				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
 			</AudioLoopUpgrade>
 		</Behaviors>
