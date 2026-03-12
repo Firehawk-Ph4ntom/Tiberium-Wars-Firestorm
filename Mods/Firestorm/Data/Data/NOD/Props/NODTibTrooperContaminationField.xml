@@ -1,0 +1,48 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Green Contamination Zone -->
+	<GameObject id="NODTibTrooperContaminationField" Side="NOD" EditorSorting="SYSTEM" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE PASS_EXPERIENCE_TO_PRODUCER" EditorName="NODTibTrooperContaminationField">
+		<ArmorSet Armor="NoArmor" />
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibTrooperContaminationZoneDecal" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<LifetimeUpdate	id="ModuleTag_LifeTime" MinLifetime="1s" MaxLifetime="1s" />
+			<DestroyObjectsUpdate id="ModuleTag_DestroyObjectsUpdate" Radius="25">
+				<ObjectFilter Rule="NONE" Include="CIVILIAN_UNIT"/>
+			</DestroyObjectsUpdate>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL" />
+			</DestroyDie>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
+				<FireWeaponNugget WeaponName="AlienContaminatorCorroiveZone" FireInterval="0.4s"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100.0" />
+		</Body>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_TiberiumTrooper_GoopWeaponLoop" AudioType="soundAmbient"/>
+		</AudioArraySound>
+	</GameObject>
+	<!-- Blue Contamination Zone -->
+	<GameObject id="NODTibTrooperContaminationFieldBlue" inheritFrom="NODTibTrooperContaminationField" EditorName="NODTibTrooperContaminationFieldBlue">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="" />
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibTrooperContaminationZoneDecalBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
+				<FireWeaponNugget WeaponName="AlienContaminatorCorroiveZoneBlue" FireInterval="0.4s"/>
+			</FireWeaponUpdate>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

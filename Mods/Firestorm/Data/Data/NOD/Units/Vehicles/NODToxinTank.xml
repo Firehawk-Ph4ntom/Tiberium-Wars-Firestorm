@@ -19,6 +19,7 @@
 	<GameObject id="NODToxinTank" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODToxinTank" ButtonImage="Portrait_NODToxinTank" Side="NOD" BuildCost="1400" BuildTime="14" CommandSet="NODToxinTankCommandSet" ThreatLevel="10" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE ANTI_GARRISON CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" WeaponCategory="BLAST" VoicePriority="200" EditorName="NODToxinTank" Description="Desc:NODToxinTank" TypeDescription="Type:NODToxinTank">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODToxinTank</DisplayName>
 		<DisplayUpgrade>Upgrade_NODChemicalPlantBlueTibCore</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_ContaminationField</DisplayUpgrade>
 		<GameDependency>
 			<RequiredObject>NODOperationsCenter</RequiredObject>
 		</GameDependency>
@@ -309,10 +310,14 @@
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannon"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannonBlue" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannon" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannonBlue" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 				</WeaponSlotHardpoint>
 				<WeaponSlotHardpoint ID="2" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannon2"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannonBlue2" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannon2" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannonBlue2" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<StreamState id="ModuleTag_StreamState" StreamId="1"/>
@@ -338,6 +343,7 @@
 			<ModelConditionUpgrade id="ModuleTag_BlueTibCoreModelCondition" AddConditionFlags="USER_2">
 				<TriggeredBy>Upgrade_NODChemicalPlantBlueTibCore</TriggeredBy>
 			</ModelConditionUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODContaminationFieldUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
 		</Behaviors>
 		<AI>
@@ -366,7 +372,7 @@
 			<AudioEntry Sound="NOD_FlameTank_IdleLoop" AudioType="soundAmbient"/>
 			<AudioEntry Sound="NOD_FlameTank_MoveLoop" AudioType="soundMoveLoop"/>
 		</AudioArraySound>
-		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
+		<VisionInfo VisionRange="375" ShroudClearingRange="350"/>
 		<CrusherInfo CrusherLevel="2" CrushableLevel="2"/>
 	</GameObject>
 </AssetDeclaration>
