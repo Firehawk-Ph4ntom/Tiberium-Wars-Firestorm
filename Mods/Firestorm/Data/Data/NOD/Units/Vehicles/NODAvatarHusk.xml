@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODAvatarHusk" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NodAvatarHusk" ButtonImage="Portrait_NodAvatarHusk" Side="NOD" CommandSet="EmptyCommandSet" KindOf="SELECTABLE CAN_CAST_REFLECTIONS IMMOBILE NOT_AUTOACQUIRABLE HUSK VALID_TARGET_FOR_C4 HARVESTER" EditorName="NODPurifierHusk" Description="Desc:AvatarWarmechHusk">
+	<GameObject id="NODAvatarHusk" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NodAvatarHusk" ButtonImage="Portrait_NodAvatarHusk" Side="NOD" CommandSet="EmptyCommandSet" KindOf="SELECTABLE CAN_CAST_REFLECTIONS IMMOBILE NOT_AUTOACQUIRABLE HUSK VALID_TARGET_FOR_C4 HARVESTER" EditorName="NODPurifierHusk" Description="Desc:AvatarWarmechHusk" EditorSorting="MISC_MAN_MADE">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AvatarWarmechHusk</DisplayName>
 		<ArmorSet Armor="NoArmor" DamageFX="VehicleDamageFX"/>
 		<Draws>
@@ -84,5 +84,53 @@
 		<EvaEvents EvaEventPromotedOwner="" EvaEnemyObjectSightedEvent="" EvaEventDetectedEnemy="" EvaEventDieOwner=""/>
 		<VisionInfo VisionRange="25" ShroudClearingRange="25"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="0" CrushEqualLevelProps="true"/>
+	</GameObject>
+	<!-- Upgraded Variant -->
+	<GameObject id="NODPurifierHusk" inheritFrom="NODAvatarHusk" EditorName="NODPurifierHuskUpgraded">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUMECHH_SKN_FS"/>
+					<Texture Original="NUFlameTankD" New="NUFlameTank_UGD"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NUMECHH_SKN_FS"/>
+					<Texture Original="NUFlameTankD" New="NUFlameTank_UGD"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_UArmL" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FArmR" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallFire_Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FlameTank" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="NUMECH_DIEB_FS" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="NUMECH_DIEB_FS" AnimationMode="ONCE" AnimationBlendTime="0"/>
+					<FXEvent Frame="6" FireWhenSkipped="true" Effect="FX_NODAvatarFootprint" Bone="B_FOOTL"/>
+					<FXEvent Frame="63" FireWhenSkipped="true" Effect="FX_NODAvatarFootprint" Bone="B_FOOTL"/>
+					<FXEvent Frame="44" FireWhenSkipped="true" Effect="FX_NODAvatarFootprint" Bone="B_FOOTR"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplodeNoScorch_BlueFlame"/>
+			</FXListBehavior>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
