@@ -1,19 +1,31 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\GDIRepairDrone\GURprDroneNew.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRepairDrone\GURprDroneNew_A.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRepairDrone\GURprDroneNew_VA.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\GDIRepairDrone\GURprDroneNew_VS.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIRepairDrone\GURPRDRN_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\GDIRepairDrone\GURPRDRNUGAMMO_SKN.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseRepairDrone.xml"/>
 	</Includes>
-	<GameObject id="GDIRepairDrone" inheritFrom="BaseRepairDrone" Side="GDI" EditorName="GDIRepairDrone">
+	<GameObject id="GDIRepairDrone" inheritFrom="BaseRepairDrone" Side="GDI" EditorName="GDIRepairDrone" KindOf="CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT LINE_OF_SIGHT_IGNORES_BUILDINGS SKIP_IDLE_WHEN_CAPTURED AIRCRAFT NO_COLLIDE NOT_AUTOACQUIRABLE UNATTACKABLE" WeaponCategory="GUN">
+		<DisplayUpgrade>Upgrade_GDIBattleDrone</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_GDIHEAmmo</DisplayUpgrade>
 		<LocomotorSet Speed="75" Locomotor="GDIRepairDroneLocomotor"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" OkToChangeModelColor="true" ExtraPublicBone="FXWEAPON01 FXWEAPON02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GURPRDRN_SKN"/>
+					<Model Name="GURPRDRN_SKN_FS"/>
 					<Texture Original="GURprDrone" New="GURprDroneNew"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<Turret TurretNameKey="UG_TURRET" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name="GURPRDRNUGAMMO_SKN_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
 					<Animation AnimationName="GURPRDRN_IDLA" AnimationMode="ONCE"/>
@@ -38,7 +50,56 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
 					<Animation AnimationName="GURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_IDLA" AnimationMode="LOOP" AnimationPriority="30"/>
+				</AnimationState>
 			</ScriptedModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDraw" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitLargeGDI" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="RIDER1" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
 		</Draws>
+		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRepairDroneGunFakeWeapon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRepairDroneGun"  ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIRepairDroneGunHEAmmo" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="200" TurretPitchRate="200" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<StatusBitsUpgrade id="ModuleTag_BattleDroneUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_GDIBattleDrone</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BattleDroneModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_GDIBattleDrone</TriggeredBy>
+			</ModelConditionUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsBattleDrone" ShowSubObjects="UG_TURRET">
+				<TriggeredBy>Upgrade_GDIBattleDrone</TriggeredBy>
+			</SubObjectsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="RIDER1">
+				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
+			</StatusBitsUpgrade>
+			<StatusBitsUpgrade id="ModuleTag_HEAmmoUpgrade" StatusToSet="WEAPON_UPGRADED_02" StatusToClear="RIDER1">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_HEAmmoModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_GDIHEAmmo</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<JetAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="YES" MinHeight="5" AILuaEventsList="GDIRepairDroneFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" SympathyRange="100.0" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+				<LockonInfo/>
+			</JetAIUpdate>
+		</AI>
 	</GameObject>
 </AssetDeclaration>

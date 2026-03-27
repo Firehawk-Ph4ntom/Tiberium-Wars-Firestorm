@@ -1,0 +1,105 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseSquad.xml"/>
+	</Includes>
+	<GameObject id="NODPummelerSquad" inheritFrom="BaseSquad" KindOf="SELECTABLE CAN_ATTACK INFANTRY SCORE ATTACK_NEEDS_LINE_OF_SIGHT HORDE PATH_THROUGH_INFANTRY ARMY_SUMMARY LARGE_RECTANGLE_PATHFIND SKIRMISH_AI_DONT_GARRISON CAN_BE_FAVORITE_UNIT TIBERIUM_BASED" Description="Desc:NODPummeler" ThreatLevel="10" TypeDescription="Type:NODPummeler" Side="NOD" EditorName="NODPummelerSquad" BuildTime="12" CommandSet="NODPummelerCommandSet" SelectPortrait="Portrait_NODPummeler" ButtonImage="Portrait_NODPummeler" WeaponCategory="CANNON" UnitTypeIcon="CyborgPummelerPip" BuildCost="1200">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPummeler</DisplayName>
+		<DisplayUpgrade>Upgrade_NODEmpBurst</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>NODTechAssemblyPlant</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="NoArmor"/>
+		<LocomotorSet Locomotor="NormalRangedSquadLocomotor" Condition="NORMAL" Speed="45"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" DependencySharedModelFlags="EMOTION_TAUNTING EMOTION_ALERT EMOTION_MORALE_HIGH EMOTION_MORALE_LOW EMOTION_AFRAID EMOTION_COWER SELECTED EMOTION_TERROR EMOTION_LOOK_TO_SKY">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUPUMMELER_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WORLD_BUILDER">
+					<Model Name="NUPUMMELSQUADMARKER"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEDSUPPRESSED.FXRAGED"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE BEACON"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODPummelerSquadRangeFinder"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<HordeContain id="ModuleTag_HordeContain" FrontAngle="4.7123" FlankedDelaySeconds="2.0" ShowPips="false" Formation="MAIN" Slots="3" ObjectStatusOfContained="" ConditionForEntry="INVALID" BannerCarrierByUpgradeOnly="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData/>
+				<InitialPayload Name="NODPummeler" Count="3"/>
+				<MeleeBehavior Type="AMOEBA"/>
+				<RandomOffset x="4" y="4"/>
+				<RankInfo RankID="1" UnitType="NODPummeler">
+					<Position X="10" Y="-20"/>
+					<Position X="20"/>
+					<Position X="10" Y="20"/>
+				</RankInfo>
+				<RankToReleaseWhenAttacking>1</RankToReleaseWhenAttacking>
+			</HordeContain>
+			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
+				<InvisibilityNugget/>
+				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
+				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
+			</StealthUpgrade>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
+			<!-- EMP Blast -->
+			<SpecialPower id="ModuleTag_EMPBlastGetInRange" SpecialPowerTemplate="EMPBlastGetInRange" UpdateModuleStartsAttack="true"/>
+			<SpecialAbilityUpdate id="ModuleTag_EMPBlastGetInRangeUpdate" SpecialPowerTemplate="EMPBlastGetInRange" UnpackTime="0s" PackTime="0s" StartAbilityRange="225.0" ChainedButton="Command_NODEMPBlast"/>
+			<SpecialPowerDispatchSpecialPower id="ModuleTag_Dispatch" SpecialPowerTemplate="EMPBlastDispatch">
+				<SpecialPower SpecialPowerTemplate="EMPBlast"/>
+				<SpecialPower SpecialPowerTemplate="EMPBlastTrigger"/>
+			</SpecialPowerDispatchSpecialPower>
+			<HordeDispatchSpecialPower id="ModuleTag_EMPBlast" SpecialPowerTemplate="EMPBlast"/>
+			<SpecialPower id="ModuleTag_EMPBlastTrigger" SpecialPowerTemplate="EMPBlastTrigger" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPBlastTriggerUpdate" SpecialPowerTemplate="EMPBlastTrigger" SpecialWeapon="HordeSpecialRangeAttack" UnpackTime="0s" PackTime="0.0s" BusyForDuration="0.8s" WhichSpecialWeapon="1"/>
+			<AISpecialPowerUpdate id="ModuleTag_EMPBlastAI" CommandButtonName="Command_NODEMPBlastGetInRange" SpecialPowerRadius="225" UnitKindOf="VEHICLE" EnemyUnitInclude="VEHICLE" EnemyUnitExclude="INFANTRY AIRCRAFT CIVILIAN_BUILDING HUSK" UpdateTime="10s" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</ModelConditionUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DummyUpgradeForWB2" AddConditionFlags="USER_30">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</ModelConditionUpgrade>
+		</Behaviors>
+		<AI>
+			<HordeAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES ATTACK_BUILDINGS" MaxCowerTime="5.0s" MinCowerTime="3.0s" CanAttackWhileContained="true" AILuaEventsList="GenericSquadFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</HordeAIUpdate>
+		</AI>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1.0"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="20.0" MinorRadius="25.0" Height="18.0"/>
+		</Geometry>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
+	</GameObject>
+	<!-- Veteran Rank Variant -->
+	<GameObject id="NODPummelerSquad_Veteran" inheritFrom="NODPummelerSquad" EditorName="NODPummelerSquad_Veteran">
+		<EquivalentTo>NODPummelerSquad</EquivalentTo>
+		<Behaviors>
+			<xi:include href="DATA:Includes/GDICallSupportVeterancy.xml"/>
+			<xi:include href="DATA:Includes/GDICallSupportVeterancyUpgrade.xml"/>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

@@ -212,6 +212,10 @@ function OnGDIWatchTowerCreated(self)
 	ObjectHideSubObjectPermanently( self, "UG_BASE", true )
 end
 
+function OnGDIRepairDroneCreated(self)
+	ObjectHideSubObjectPermanently( self, "UG_TURRET", true )
+end
+
 function onBuildingPowerOutage(self)
 	ObjectHideSubObjectPermanently( self, "TV", true )
 	ObjectHideSubObjectPermanently( self, "LINKS", true )
@@ -392,7 +396,7 @@ function OnNODReaperCreated(self)
 	ObjectHideSubObjectPermanently( self, "FX_LAZERGLOWHEROIC", true )
 end
 
-function OnNODCyborgInfantryCreated(self)
+function OnNODPummelerCreated(self)
 	ObjectHideSubObjectPermanently( self, "WEAPON_EMP", true )
 end
 
@@ -620,10 +624,10 @@ function SquadLookupTable(x)  -- x = object template
 	-- Tiberium Troopers
 	elseif strfind(tostring(x), "157B3FF8") ~= nil then
 		squadDelay = 5*delay1
-	-- Ascended Squad
+	-- Cyborg Pummelers
 	elseif strfind(tostring(x), "CEE03DE9") ~= nil then
 		squadDelay = 3*delay1
-	-- Decimator Cyborgs
+	-- Cyborg Decimators
 	elseif strfind(tostring(x), "BF15A95E") ~= nil then
 		squadDelay = 2*delay5
 

@@ -1,0 +1,275 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODPummeler\HC_NUPummeler.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPummeler\NUPummeler.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPummeler\GUGAR_NUPUMMELER.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPummeler\NUPUMMELER_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODPummeler\NUPUMMELER_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
+	</Includes>
+	<GameObject id="NODPummeler" inheritFrom="BaseInfantry" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS INFANTRY ATTACK_NEEDS_LINE_OF_SIGHT PATH_THROUGH_INFANTRY TIBERIUM_BASED HEALED_BY_TIBERIUM" Description="Desc:NODPummeler" TypeDescription="Type:NODPummeler" Side="NOD" EditorName="NODPummeler" ThreatLevel="10" BuildTime="3" SelectPortrait="Portrait_NODPummeler" ButtonImage="Portrait_NODPummeler" VoicePriority="138" WeaponCategory="CANNON" UnitTypeIcon="CyborgPummelerPip" BuildCost="300">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPummeler</DisplayName>
+		<DisplayUpgrade>Upgrade_FirestormIgnition</DisplayUpgrade>
+		<ArmorSet Armor="NODCyborgInfantryArmor" DamageFX="InfantryDamageFX"/>
+		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="50"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUPUMMELER_SKN"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="B_FX_EMP"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH_01"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="SECONDARY_WEAPON" BoneName="B_FX_EMP"/>
+				</ModelConditionState>
+				<xi:include href="DATA:Includes/GDIUnitFormationPreviewStates.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:FormationPreviewStates/child::*)"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON USER_4">
+					<Model Name="GUGAR_NUPUMMELER"/>
+					<Texture Original="NUMornstar" New="NUMornstarFirestormIG"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH_01"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Model Name="GUGAR_NUPUMMELER"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="MUZZLEFLASH_01"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPON"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Model Name="FXWEBBEDGUY"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_4">
+					<Model Name="NUPUMMELER_SKN"/>
+					<Texture Original="NUMornstar" New="NUMornstarFirestormIG"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON FIRING_A"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON ENGAGED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON">
+					<Animation AnimationName="GUGAR_ZONE" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
+					<Animation AnimationName="NUCYBORG_BIDA" AnimationMode="ONCE" AnimationBlendTime="7" AnimationPriority="30" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Animation AnimationName="NUCYBORG_BIFB" AnimationMode="ONCE" AnimationBlendTime="7" AnimationPriority="5" AnimationSpeedFactorMin="0.8" AnimationSpeedFactorMax="1.2"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="STUNNED_FLAILING">
+					<Animation AnimationName="NUCYBORG_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING SPLATTED">
+					<Animation AnimationName="NUCYBORG_LNDA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FRONTCRUSHED">
+					<Animation AnimationName="NUCYBORG_CDTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="BACKCRUSHED">
+					<Animation AnimationName="NUCYBORG_CDTA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUCYBORG_DIEA" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUCYBORG_DIEB" AnimationMode="ONCE"/>
+					<Animation AnimationName="NUCYBORG_DIEC" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_9">
+					<Animation AnimationName="FXWEBBEDGUY" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="NUCYBORG_AIDA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SPECIAL_WEAPON_ONE">
+					<Animation AnimationName="NUCYBORG_EMPA" AnimationMode="ONCE" AnimationSpeedFactorMin="1.5" AnimationSpeedFactorMax="1.5"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING USING_WEAPON_A" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUCYBORG_ATRA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUCYBORG_RUNA" AnimationMode="LOOP"/>
+					<Animation AnimationName="NUCYBORG_RUNB" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FIRING_OR_PREATTACK_A">
+					<Animation AnimationName="NUCYBORG_ATKB" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USING_WEAPON_A" StateName="STATE_Selected">
+					<Animation AnimationName="NUCYBORG_ATKB" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
+					<Animation AnimationName="NUCYBORG_AIDA" AnimationMode="ONCE" AnimationBlendTime="7" AnimationPriority="30"/>
+					<Animation AnimationName="NUCYBORG_AIDB" AnimationMode="ONCE" AnimationBlendTime="7" AnimationPriority="30"/>
+					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="NUCYBORG_BATB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="NUCYBORG_ABTA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+					<Animation AnimationName="NUCYBORG_ABTB" AnimationMode="ONCE" AnimationSpeedFactorMin="0.9" AnimationSpeedFactorMax="1.1"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 DYING">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2 AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Script> CurDrawableShowSubObjectPermanently("FX_GLOW") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_13" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_NOD_LeadershipBuff" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibs</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Pummeler_VoiceDie"/>
+				<DieMuxData DeathTypes="EXPLODED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLChar" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsChar</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Pummeler_VoiceDie"/>
+				<DieMuxData DeathTypes="BURNED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRad" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRad</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Pummeler_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRadBlue" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRadBlue</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Pummeler_VoiceDie"/>
+				<DieMuxData DeathTypes="POISONED_BETA"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_OCLRadRed" SinkRate="10">
+				<OCL Type="INITIAL">
+					<OCL>OCL_InfGibsRadRed</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_Pummeler_VoiceDie"/>
+				<DieMuxData DeathTypes="EXTRA_5"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death" SinkRate="2.4" SinkDelay="7s" DestructionDelay="8.5s">
+				<Sound Type="INITIAL" List="NOD_Pummeler_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED EXPLODED POISONED POISONED_BETA EXTRA_5"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXListBlood">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="BURNED POISONED POISONED_BETA EXTRA_5"/>
+				<Event Index="onDeath" FX="FX_InfBlood"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListScorch">
+				<DieMuxData DeathTypes="BURNED"/>
+				<Event Index="onDeath" FX="FX_InfScorch"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRad">
+				<DieMuxData DeathTypes="POISONED"/>
+				<Event Index="onDeath" FX="FX_InfRadGoo"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRadBlue">
+				<DieMuxData DeathTypes="POISONED_BETA"/>
+				<Event Index="onDeath" FX="FX_InfRadGooBlue"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXListRadRed">
+				<DieMuxData DeathTypes="EXTRA_5"/>
+				<Event Index="onDeath" FX="FX_InfRadGooRed"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODPummelerArmCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODPummelerFirestormArmCannon" ObjectStatus="WEAPON_UPGRADED_01"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<InvisibilityUpdate	id="ModuleTag_Invisibility"	UpdatePeriod="0.1s">
+				<InvisibilityNugget/>
+				<RequiresUpgrade>Upgrade_CloakingFieldInvisibility</RequiresUpgrade>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_InvisibilityTrigger">
+				<TriggeredBy>Upgrade_CloakingFieldInvisibility</TriggeredBy>
+			</StealthUpgrade>
+			<LargeGroupAudioUpdate id="LGAU">
+				<Key>GDI_ZoneTrooper</Key>
+			</LargeGroupAudioUpdate>
+			<!-- EMP Blast -->
+			<SpecialPower id="ModuleTag_EMPBlast" SpecialPowerTemplate="EMPBlast" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_EMPBlastUpdate" SpecialPowerTemplate="EMPBlast" SpecialWeapon="NODPummelerEMPCannon" TriggerSound="NOD_Pummeler_EMPGunFire" UnpackTime="0.6s" PackTime="0.5s" BusyForDuration="0.8s" WhichSpecialWeapon="1" WeaponSlotType="SECONDARY_WEAPON" WeaponSlotID="2"/>
+			<StatusBitsUpgrade id="ModuleTag_FirestormIgnitionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_FirestormIgnitionModelCondition" AddConditionFlags="USER_4">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_FirestormIgnitionAudioLoop" SoundToPlay="GDI_ThermobaricMissiles_Upgrade">
+				<TriggeredBy>Upgrade_FirestormIgnition</TriggeredBy>
+			</AudioLoopUpgrade>
+			<SubObjectsUpgrade id="ModuleTag_ShowSubObjectsEMPCoils" ShowSubObjects="WEAPON_EMP">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</SubObjectsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_EMPCoilsModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_EMPCoilsAudioLoop" SoundToPlay="NOD_EMPRetrofitting_Upgrade">
+				<TriggeredBy>Upgrade_NODEmpBurst</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODPummelerFunctions">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1500"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="7.0" Height="13.0" ContactPointGeneration="SQUAD_MEMBER"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_Pummeler_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceCreate" AudioType="voiceFullyCreated"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceGarrison" AudioType="voiceGarrison"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<AudioEntry Sound="NOD_Pummeler_VoiceSelectMS" AudioType="voiceSelect"/>
+			<NamedEntry Sound="NOD_Pummeler_VoiceAttack" Name="VoiceAttackEMP"/>
+			<!-- Triggered when told to garrison Deployed Armadillos and Reckoners -->
+			<ObjectSpecificEntry Sound="NOD_Pummeler_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="NODReckonerDeployed"/>
+			<ObjectSpecificEntry Sound="NOD_Pummeler_VoiceGarrison" AudioType="voiceEnterUnit" TargetObject="GDIArmadilloDeployed"/>
+		</AudioArrayVoice>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="1" UseCrushAttack="false"/>
+	</GameObject>
+</AssetDeclaration>

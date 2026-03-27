@@ -5,10 +5,18 @@
 	</Includes>
 	<GameObject id="GDIRepairAircraftDrone" inheritFrom="GDIRepairDrone" EditorName="GDIRepairAircraftDrone">
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" xai:joinAction="Replace">
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace" InitialRecoilSpeed="0.1" MaxRecoilDistance="0.1" RecoilDamping="2.0" RecoilSettleSpeed="3.0" OkToChangeModelColor="true" ExtraPublicBone="FXWEAPON01 FXWEAPON02">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GURPRDRN_SKN"/>
+					<Model Name="GURPRDRN_SKN_FS"/>
 					<Texture Original="GURprDrone" New="GURprDroneNew_A"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon"/>
+					<Turret TurretNameKey="UG_TURRET" TurretID="1"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<Model Name="GURPRDRNUGAMMO_SKN_FS"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true">
 					<Animation AnimationName="GURPRDRN_IDLA" AnimationMode="ONCE"/>
@@ -33,7 +41,21 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="RANDOMSTART">
 					<Animation AnimationName="GURPRDRN_MOVA" AnimationMode="LOOP" Distance="30" AnimationPriority="30"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" Flags="RANDOMSTART">
+					<Animation AnimationName="GURPRDRN_IDLA" AnimationMode="LOOP" AnimationPriority="30"/>
+				</AnimationState>
 			</ScriptedModelDraw>
+			<!-- Used xai Replace here so that Repair Drone can show it's model properly in WB -->
+			<TracerModelDraw id="ModuleTag_TracerDraw" xai:joinAction="Replace" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDI" TracerHitFx="FX_BulletHitLargeGDI" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
+			<TracerModelDraw id="ModuleTag_TracerDrawHEAmmo" xai:joinAction="Replace" MinLength="50" MaxLength="50" Width="3" MinSpeed="30" MaxSpeed="30" SpreadAngle="2" MinTracersPerFrame="0.2" MaxTracersPerFrame="0.3" FrameLifeTime="35" Texture="FXTracerGDIAPAmmo" TracerHitFx="FX_GDIHEAmmoExplosion" UseAdditiveBlending="true">
+				<HeadColor r="1.0" g="1.0" b="1.0" a="1.0" />
+				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
+				<ObjectStatusValidation ForbiddenStatus="RIDER1" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</TracerModelDraw>
 		</Draws>
 		<Behaviors>
 			<SlavedUpdate id="ModuleTag_SlavedUpdate" xai:joinAction="Append" LeashRange="200" GuardMaxRange="200"/>
@@ -54,6 +76,5 @@
 				</ObjectFilter>
 			</AttachUpdate>
 		</Behaviors>
-		<VisionInfo VisionRange="200" ShroudClearingRange="25"/>
 	</GameObject>
 </AssetDeclaration>
