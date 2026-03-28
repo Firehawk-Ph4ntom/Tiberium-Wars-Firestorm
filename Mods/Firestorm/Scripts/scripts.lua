@@ -625,7 +625,7 @@ function SquadLookupTable(x)  -- x = object template
 	elseif strfind(tostring(x), "157B3FF8") ~= nil then
 		squadDelay = 5*delay1
 	-- Cyborg Pummelers
-	elseif strfind(tostring(x), "CEE03DE9") ~= nil then
+	elseif strfind(tostring(x), "4E7D033E") ~= nil then
 		squadDelay = 3*delay1
 	-- Cyborg Decimators
 	elseif strfind(tostring(x), "BF15A95E") ~= nil then
