@@ -11,7 +11,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="AlienRazorback" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienRazorback" ButtonImage="Portrait_AlienRazorback" Side="ALIEN" BuildCost="900" BuildTime="9" CommandSet="AlienRazorbackCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4" WeaponCategory="MISSILE" VoicePriority="180" EditorName="AlienRazorback" Description="Desc:AlienRazorback" TypeDescription="Type:AlienRazorback">
+	<GameObject id="AlienRazorback" inheritFrom="BaseVehicle" SelectPortrait="Portrait_AlienRazorback" ButtonImage="Portrait_AlienRazorback" Side="ALIEN" BuildCost="900" BuildTime="9" CommandSet="AlienRazorbackCommandSet" KindOf="SELECTABLE CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT HEALED_BY_TIBERIUM VALID_TARGET_FOR_C4 PRODUCED_AT_HELIPAD" WeaponCategory="MISSILE" VoicePriority="180" EditorName="AlienRazorback" Description="Desc:AlienRazorback" TypeDescription="Type:AlienRazorback">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienRazorback</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_PlanetaryDevastation</DisplayUpgrade>
@@ -453,16 +453,18 @@
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
 	</GameObject>
 	<!-- Flying Variant -->
-	<GameObject id="AlienRazorback_Flying" inheritFrom="AlienRazorback" EditorName="AlienRazorback_Flying">
+	<GameObject id="AlienRazorback_Flying" inheritFrom="AlienRazorback" EditorName="AlienRazorback_Flying" ProductionQueueType="AIRCRAFT" UnitCategory="AIRCRAFT">
 		<EquivalentTo>AlienRazorback</EquivalentTo>
+		<SkirmishAIInformation xai:joinAction="Replace" UnitBuilderStandardCombatUnit="true" ConquerMetricsOverrideAntiMask="ANTI_AIRBORNE_INFANTRY ANTI_AIRBORNE_VEHICLE"/>
 		<Behaviors>
 			<!-- Transform ability -->
 			<GrantUpgradeCreate id="ModuleTag_GrantUpgradeCreate" xai:joinAction="Replace" UpgradeToGrant="Upgrade_RazorbackLiftOff"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="YES">
+			<JetAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="YES">
 				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
-			</AIUpdate>
+				<LockonInfo/>
+			</JetAIUpdate>
 		</AI>
 	</GameObject>
 </AssetDeclaration>
