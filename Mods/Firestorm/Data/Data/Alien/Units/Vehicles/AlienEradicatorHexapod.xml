@@ -46,7 +46,7 @@
 			<RequiredObject>AlienReactor</RequiredObject>
 		</GameDependency>
 		<ArmorSet Armor="AlienEpicVehicleUnitArmor" DamageFX="AlienVehicleDamageFX"/>
-		<LocomotorSet Locomotor="AlienAnnihilatorTripodLocomotor" Condition="NORMAL" Speed="40.0"/>
+		<LocomotorSet Locomotor="AlienEradicatorHexapodLocomotor" Condition="NORMAL" Speed="40.0"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" TrackMarks="EXEradicatorTracks" ExtraPublicBone="B_TentacleTipLF B_TentacleTipRR" TrackMarksLeftBone="B_TentacleTipLF" TrackMarksRightBone="B_TentacleTipRR" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -156,17 +156,17 @@
 					<Texture Original="AUEradHex2" New="AUEradHex2_Blue"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="RESTART_ANIM_WHEN_COMPLETE" AllowRepeatInRandomPick="true" StateName="STATE_Idle">
-					<Animation AnimationName="AUEradHex_BIDZ" AnimationMode="ONCE" AnimationPriority="5"/>
-					<Animation AnimationName="AUEradHex_BIDB" AnimationMode="ONCE" AnimationPriority="3"/>
-					<Animation AnimationName="AUEradHex_BIDC" AnimationMode="ONCE" AnimationPriority="2"/>
+					<Animation AnimationName="AUEradHex_BIDZ" AnimationMode="ONCE" AnimationPriority="5" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
+					<Animation AnimationName="AUEradHex_BIDB" AnimationMode="ONCE" AnimationPriority="3" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
+					<Animation AnimationName="AUEradHex_BIDC" AnimationMode="ONCE" AnimationPriority="2" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="COMING_OUT_OF_FACTORY" StateName="STATE_built">
-					<Animation AnimationName="AUEradHex_BLDA" AnimationBlendTime="0" AnimationMode="MANUAL"/>
+					<Animation AnimationName="AUEradHex_BLDA" AnimationBlendTime="0" AnimationMode="MANUAL" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Animation AnimationName="AUEradHex_DIEA" AnimationMode="ONCE" AnimationPriority="50"/>
+					<Animation AnimationName="AUEradHex_DIEA" AnimationMode="ONCE" AnimationPriority="50" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
 					<FXEvent Frame="6" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTFRONT"/>
@@ -175,10 +175,10 @@
 					<FXEvent Frame="55" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTFRONT"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
-					<Animation AnimationName="AUEradHex_BIDZ" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+					<Animation AnimationName="AUEradHex_BIDZ" AnimationMode="MANUAL" AnimationBlendTime="15" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES" StateName="STATE_Run">
-					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="60"/>
+					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="60" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTMID"/>
@@ -189,7 +189,7 @@
 					<FXEvent Frame="50" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED" Flags="MAINTAIN_FRAME_ACROSS_STATES" StateName="STATE_Run">
-					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="60"/>
+					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="60" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTMID"/>
@@ -200,7 +200,7 @@
 					<FXEvent Frame="50" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT" StateName="STATE_Run">
-					<Animation AnimationName="AUEradHex_TRNL" AnimationMode="LOOP" Distance="60"/>
+					<Animation AnimationName="AUEradHex_TRNL" AnimationMode="LOOP" Distance="60" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTFRONT"/>
@@ -216,7 +216,7 @@
 					<FXEvent Frame="45" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT" StateName="STATE_Run">
-					<Animation AnimationName="AUEradHex_TRNR" AnimationMode="LOOP" Distance="60"/>
+					<Animation AnimationName="AUEradHex_TRNR" AnimationMode="LOOP" Distance="60" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
 					<FXEvent Frame="11" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTFRONT"/>
@@ -232,7 +232,7 @@
 					<FXEvent Frame="45" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTREAR"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING ATTACKING" Flags="MAINTAIN_FRAME_ACROSS_STATES" StateName="STATE_Run">
-					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="70"/>
+					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="70" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
@@ -244,7 +244,7 @@
 					<FXEvent Frame="50" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" Flags="MAINTAIN_FRAME_ACROSS_STATES" StateName="STATE_Run">
-					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="70"/>
+					<Animation AnimationName="AUEradHex_WLKA" AnimationMode="LOOP" Distance="70" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_built" then CurDrawableSetTransitionAnimState("TRANS_built") end; </Script>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
@@ -256,7 +256,7 @@
 					<FXEvent Frame="50" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="WEAPONSLOTID_01">
-					<Animation AnimationName="AUEradHex_ATKA" AnimationMode="ONCE"/>
+					<Animation AnimationName="AUEradHex_ATKA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<FXEvent Frame="11" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTFRONT"/>
 					<FXEvent Frame="14" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTFRONT"/>
 					<FXEvent Frame="19" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTMID"/>
@@ -271,12 +271,12 @@
 					<FXEvent Frame="129" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTREAR"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING" StateName="STATE_Selected">
-					<Animation AnimationName="AUEradHex_ATKA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+					<Animation AnimationName="AUEradHex_ATKA" AnimationMode="MANUAL" AnimationBlendTime="15" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDust_Light" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt_Light" FollowBone="true"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" StateName="STATE_Selected">
-					<Animation AnimationName="AUEradHex_AIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+					<Animation AnimationName="AUEradHex_AIDA" AnimationMode="LOOP" AnimationBlendTime="15" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Idle" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
 					<FXEvent Frame="27" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTREAR"/>
 					<FXEvent Frame="28" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTFRONT"/>
@@ -288,7 +288,7 @@
 					<FXEvent Frame="103" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTFRONT"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
-					<Animation AnimationName="AUEradHex_BATA" AnimationMode="ONCE"/>
+					<Animation AnimationName="AUEradHex_BATA" AnimationMode="ONCE" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTMID"/>
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 					<FXEvent Frame="20" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTFRONT"/>
@@ -297,7 +297,7 @@
 					<FXEvent Frame="20" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTREAR"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle" Flags="START_FRAME_LAST">
-					<Animation AnimationName="AUEradHex_BATA" AnimationMode="ONCE_BACKWARDS"/>
+					<Animation AnimationName="AUEradHex_BATA" AnimationMode="ONCE_BACKWARDS" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 					<FXEvent Frame="0" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTMID"/>
 					<FXEvent Frame="0" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTMID"/>
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_RIGHTFRONT"/>
@@ -306,7 +306,7 @@
 					<FXEvent Frame="10" FireWhenSkipped="true" Effect="FX_AlienEradicatorFP" Bone="FX_FOOTPRINT_LEFTREAR"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_built">
-					<Animation AnimationName="AUEradHex_BLDA" AnimationBlendTime="0" AnimationMode="ONCE"/>
+					<Animation AnimationName="AUEradHex_BLDA" AnimationBlendTime="0" AnimationMode="ONCE" AnimationSpeedFactorMin="0.85" AnimationSpeedFactorMax="0.85"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="B_BODY">
@@ -446,7 +446,7 @@
 			</AIUpdate>
 		</AI>
 		<Body>
-			<ShieldBody id="ModuleTag_Body" MaxHealth="12000" ShieldAmount="3000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="105s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
+			<ShieldBody id="ModuleTag_Body" MaxHealth="15000" ShieldAmount="3000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="105s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
 		</Body>
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
