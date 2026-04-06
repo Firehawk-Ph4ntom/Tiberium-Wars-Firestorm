@@ -1,0 +1,387 @@
+﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\HC_MUQuad.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\HC_MUWarbus.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQuad.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQuad_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQuad_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQuad_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUWarbus.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUWarbus_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUWarbus_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUWarbus_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQUAD_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQUAD_R_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantDevilsTongue\MUQUAD_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="MutantDevilsTongue" inheritFrom="BaseVehicle" SelectPortrait="Portrait_MutantDevilsTongue" ButtonImage="Portrait_MutantDevilsTongue" Side="GDI" BuildCost="1400" BuildTime="14" CommandSet="MutantMammothCommandSet" ThreatLevel="10" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE ANTI_GARRISON TRANSPORT CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" WeaponCategory="BLAST" VoicePriority="200" EditorName="MutantDevilsTongue" Description="Desc:MutantDevilsTongue" TypeDescription="Type:MutantDevilsTongue">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantDevilsTongue</DisplayName>
+		<DisplayUpgrade>Upgrade_ContaminationField</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_BlueIchorInfusion</DisplayUpgrade>
+		<GameDependency>
+			<RequiredObject>Tier2DummyDrone</RequiredObject>
+		</GameDependency>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="MutantDevilsTongueLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="FXTankTrack" TrackMarksLeftBone="BONE_TIREMARKLR" TrackMarksRightBone="BONE_TIREMARKRR" LeftFrontTireBone="BONE_TIRELF" RightFrontTireBone="BONE_TIRERF" LeftRearTireBone="BONE_TIRELR" RightRearTireBone="BONE_TIRERR" TireRotationMultiplier="0.1" PowerslideRotationAddition="0.75" ExtraPublicBone="BONEGARRISON01 BONEGARRISON02 BONEGARRISON03 BONEGARRISON04 BONEGARRISON05 BONEGARRISON06 BONEGARRISON07 BONEGARRISON08 BONEGARRISON09 BONEGARRISON10">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
+					<Model Name="MUQUAD_SKN"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPONL"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_WEAPONR"/>
+					<Turret TurretNameKey="TURRET_L" TurretID="1"/>
+					<Turret TurretNameKey="TURRET_R" TurretID="2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="MUQUAD_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2">
+					<Model Name="MUQUAD_R"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurtBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="MUQUAD_R"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_2" RetainSubObjects="true">
+					<Model Name="MUQUAD_SKN"/>
+					<Texture Original="MUQuad" New="MUQuad_D"/>
+					<Texture Original="MUWarbus" New="MUWarbus_D"/>
+					<ParticleSysBone BoneName="BONE_RR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_LF" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurtBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2Blue" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+					<ParticleSysBone BoneName="ARMOR_UG" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED" RetainSubObjects="true">
+					<Model Name="MUQUAD_SKN"/>
+					<Texture Original="MUQuad" New="MUQuad_D"/>
+					<Texture Original="MUWarbus" New="MUWarbus_D"/>
+					<ParticleSysBone BoneName="BONE_RR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_LF" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt2" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="AlienCorrupterDamagedSpurt3" FollowBone="true"/>
+					<ParticleSysBone BoneName="ARMOR_UG" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED" RetainSubObjects="true">
+					<Model Name="MUQUAD_SKN"/>
+					<ParticleSysBone BoneName="BONE_RR" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_LF" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</ModelConditionState>
+			</TruckDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDustPred" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FX_WEAPONR">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientCloudBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDrip2Blue" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDrip2" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="FX_WEAPONL">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientCloudBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDrip2Blue" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientCloud" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDistort" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienCorrupterAmbientDrip2" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1 USER_2">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantDevilsTongueTibInfusionBlue" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="MutantDevilsTongueTibInfusion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles5">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles6" OkToChangeModelColor="true" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50 USER_27">
+					<Model Name="FXRAGEDSLOWED"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_27">
+					<Model Name="FXRAGEDSLOWED.FXSLOWED"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEDSUPPRESSED.FXRAGED"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<StreamDraw id="ModuleTag_StreamDraw" ArcHeightFactor="0.0625" UVWorldSize="100" TubeRadius="2" StreamStateID="1">
+				<FXShader ShaderName="Stream.fx" TechniqueIndex="1">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXTiberiumStream</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXTiberiumStream</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ParticleSystems>
+					<ParticleSys>TiberiumLiquidStreamDrip</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamDistort</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas1</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas2</ParticleSys>
+				</ParticleSystems>
+			</StreamDraw>
+			<StreamDraw id="ModuleTag_StreamDraw2" ArcHeightFactor="0.0625" UVWorldSize="100" TubeRadius="2" StreamStateID="2">
+				<FXShader ShaderName="Stream.fx" TechniqueIndex="1">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXTiberiumStreamBlue</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXTiberiumStreamBlue</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ParticleSystems>
+					<ParticleSys>TiberiumLiquidStreamDripBlue</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamDistort</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGasBlue</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas1Blue</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas2Blue</ParticleSys>
+				</ParticleSystems>
+			</StreamDraw>
+			<StreamDraw id="ModuleTag_StreamDraw3" ArcHeightFactor="0.0625" UVWorldSize="100" TubeRadius="2" StreamStateID="3">
+				<FXShader ShaderName="Stream.fx" TechniqueIndex="1">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXTiberiumStream</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXTiberiumStream</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ParticleSystems>
+					<ParticleSys>TiberiumLiquidStreamDrip</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamDistort</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas1</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas2</ParticleSys>
+				</ParticleSystems>
+			</StreamDraw>
+			<StreamDraw id="ModuleTag_StreamDraw4" ArcHeightFactor="0.0625" UVWorldSize="100" TubeRadius="2" StreamStateID="4">
+				<FXShader ShaderName="Stream.fx" TechniqueIndex="1">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXTiberiumStreamBlue</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXTiberiumStreamBlue</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+				<ParticleSystems>
+					<ParticleSys>TiberiumLiquidStreamDripBlue</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamDistort</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGasBlue</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas1Blue</ParticleSys>
+					<ParticleSys>TiberiumLiquidStreamGas2Blue</ParticleSys>
+				</ParticleSystems>
+			</StreamDraw>
+		</Draws>
+		<Behaviors>
+			<RandomModelCondition id="ModuleTag_RandomModelCondition" Conditions="USER_1"/>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<!-- Normal Dying -->
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="12s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODToxinTankDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_FlameTank_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" ExemptStatus="WEAPON_UPGRADED_01"/>
+			</SlowDeath>
+			<!-- Upgraded Dying -->
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="3s" SinkRate="1.0" DestructionDelay="12s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_NODToxinTankBlueTibDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="NOD_FlameTank_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannon"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannonBlue" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannon" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannonBlue" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="100" MaxDeflectionAntiClockwise="100d" MaxDeflectionClockwise="20d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannon2"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankBlastCannonBlue2" ObjectStatus="WEAPON_UPGRADED_01"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannon2" ObjectStatus="WEAPON_UPGRADED_02"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODToxinTankContaminationBlastCannonBlue2" ObjectStatus="WEAPON_UPGRADED_01 WEAPON_UPGRADED_02"/>
+					<TurretSettings TurretTurnRate="100" MaxDeflectionAntiClockwise="20d" MaxDeflectionClockwise="100d" MinIdleScanTime="1.0s" MaxIdleScanTime="5.0s" MinIdleScanAngle="0.0" MaxIdleScanAngle="90.0">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<StreamState id="ModuleTag_StreamState" StreamId="1"/>
+			<StreamState id="ModuleTag_StreamState2" StreamId="2"/>
+			<StreamState id="ModuleTag_StreamState3" StreamId="3"/>
+			<StreamState id="ModuleTag_StreamState4" StreamId="4"/>
+			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando_EA" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="MutantMarauderSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIMissileSoldierSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaiderSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="NODMilitantRocketSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="NODReaper" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
+			</HordeTransportContain>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead" DeathWeapon="NODToxinTankDeathWeapon" InitiallyActive="true">
+				<DieMuxData DeathTypes="ALL" ExemptStatus="WEAPON_UPGRADED_01"/>
+			</FireWeaponWhenDead>
+			<FireWeaponWhenDead id="ModuleTag_FireWeaponWhenDead2" DeathWeapon="NODToxinTankDeathWeaponBlueTibCore" InitiallyActive="true">
+				<DieMuxData DeathTypes="ALL" RequiredStatus="WEAPON_UPGRADED_01"/>
+			</FireWeaponWhenDead>
+			<StatusBitsUpgrade id="ModuleTag_BlueIchorInfusionUpgrade" StatusToSet="WEAPON_UPGRADED_01">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</StatusBitsUpgrade>
+			<AttributeModifierUpgrade id="ModuleTag_BlueIchorInfusionAttribute" AttributeModifier="AttributeModifier_MutantMarauderEnhancement">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AttributeModifierUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_BlueIchorInfusionModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_BlueIchorInfusionAudioLoop" SoundToPlay="ALI_BlueIchorInfusion_Upgrade">
+				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/NODContaminationFieldUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="4000"/>
+		</Body>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="15" MinorRadius="15.0" Height="17.0" ContactPointGeneration="VEHICLE">
+				<Offset x="0" y="0" z="13"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="6.0" Height="18.0" ContactPointGeneration="VEHICLE">
+				<Offset x="20" y="14" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="6.0" Height="18.0" ContactPointGeneration="VEHICLE">
+				<Offset x="20" y="-14" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="6.0" Height="18.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-20" y="14" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="10" MinorRadius="6.0" Height="18.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-20" y="-14" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="6" MinorRadius="10.0" Height="16.0" ContactPointGeneration="VEHICLE">
+				<Offset x="20" y="0" z="0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="6" MinorRadius="10.0" Height="16.0" ContactPointGeneration="VEHICLE">
+				<Offset x="-20" y="0" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceAttack" AudioType="voiceAttack"/>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceMoveAttack" AudioType="voiceAttackAfterMoving"/>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="Mutant_DevilsTongue_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="GuardianAPCMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="NOD_FlameTank_IdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="GDI_GuardianAPC_MoveByLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+		<VisionInfo VisionRange="400" ShroudClearingRange="350"/>
+		<CrusherInfo CrusherLevel="2" CrushableLevel="2"/>
+	</GameObject>
+</AssetDeclaration>

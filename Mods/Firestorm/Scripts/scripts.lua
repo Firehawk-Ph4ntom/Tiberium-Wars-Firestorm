@@ -130,6 +130,10 @@ function OnMutantViceroidCreated(self)
 	ObjectHideSubObjectPermanently( self, "UGSCANNER", true )
 end
 
+function NeutralMutantProspectorFunctions(self)
+	ObjectHideSubObjectPermanently( self, "BUNKER", true )
+end
+
 function onCreatedForbidCommands(self)
 	ObjectForbidPlayerCommands( self, true )
 end

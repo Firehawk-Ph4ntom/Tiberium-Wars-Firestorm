@@ -1,0 +1,95 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<!-- Normal Projectile -->
+	<GameObject id="MutantMLRSMissileProjectile" KindOf="PROJECTILE NO_COLLIDE HIDE_IF_FOGGED" Side="GDI" EditorName="MutantMLRSMissileProjectile" EditorSorting="SYSTEM">
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NPMISSILE"/>
+					<Texture Original="EXHellMis" New="EXHellMisTibCore"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrailSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_MutantMLRSRocketXPlosion"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_GDI_MammothTank_CannonProjectileImpact"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<BezierProjectile id="ModuleTag_BezierProjectile" FirstHeightMin="80" FirstHeightMax="80" SecondHeightMin="40" SecondHeightMax="40" FirstPercentIndent="25%" SecondPercentIndent="66%" GroundHitFX="FX_GDIShellMiss" CurveFlattenMinDist="300" DetonateCallsKill="true" OrientToFlightPath="true"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
+		</Body>
+	</GameObject>
+	<!-- Heroic Projectile -->
+	<GameObject id="MutantMLRSMissileProjectile_Veteran" inheritFrom="MutantMLRSMissileProjectile" EditorName="MutantMLRSMissileProjectile_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<Texture Original="EXHellMis" New="EXHellMisTibCore"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreakHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrailSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<BezierProjectile id="ModuleTag_BezierProjectile" xai:joinAction="Append" GroundHitFX="FX_GDIShellMissHeroic"/>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Normal Projectile -->
+	<GameObject id="MutantMLRSMissileProjectileBlueTibCore" inheritFrom="MutantMLRSMissileProjectile" EditorName="MutantMLRSMissileProjectileBlueTibCore">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="BLUETIBMISSILE"/>
+					<Texture Original="EXHellMis" New="EXHellMisTibCoreBlue"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueTibCoreMissileTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrailBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_MutantMLRSRocketXPlosionBlue"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+	<!-- Upgraded Heroic Projectile -->
+	<GameObject id="MutantMLRSMissileProjectileBlueTibCore_Veteran" inheritFrom="MutantMLRSMissileProjectile_Veteran" EditorName="MutantMLRSMissileProjectileBlueTibCore_Veteran">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FX_RPGHEROIC"/>
+					<Texture Original="EXHellMis" New="EXHellMisTibCoreBlue"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BlueTibCoreMissileTrailFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileStreak" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TibCoreMissileProjectileTrailBlue" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="OrcaMissileTrailSmokeDistortion" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<FXListBehavior id="ModuleTag_FXList" xai:joinAction="Replace">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event FX="FX_MutantMLRSRocketXPlosionBlue"/>
+			</FXListBehavior>
+		</Behaviors>
+	</GameObject>
+</AssetDeclaration>

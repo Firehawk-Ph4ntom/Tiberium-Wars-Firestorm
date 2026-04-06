@@ -1,0 +1,353 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\HC_MUAPC.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPCBunker.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPCBunker_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC_SKN.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPC_UPAK.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPCRADAR_IDLA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantAPC\MUAPCRADAR_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="MutantAPC" inheritFrom="BaseVehicle" SelectPortrait="Portrait_MutantAPC" ButtonImage="Portrait_MutantAPC" Side="GDI" BuildCost="1000" BuildTime="10" CommandSet="MutantAPCCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE EXPANSION_UNIT IGNORES_SELECT_ALL CAN_BE_FAVORITE_UNIT TRANSPORT VALID_TARGET_FOR_C4" PlacementViewAngle="315d" ThreatLevel="10" VoicePriority="176" EditorName="MutantAPC" Description="Desc:MutantAPC" TypeDescription="Type:MutantAPC">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantAPC</DisplayName>
+		<DisplayUpgrade>Upgrade_SelfRepair</DisplayUpgrade>
+		<DisplayUpgrade>Upgrade_PropagandaBuff</DisplayUpgrade>
+		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="GenericExpansionUnitLocomotor" Condition="NORMAL" Speed="60.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="Bone_LFTire" RightFrontTireBone="Bone_RFTire" MidLeftRearTireBone="Bone_LMTire" MidRightRearTireBone="Bone_RMTire" LeftRearTireBone="Bone_LRTire" RightRearTireBone="Bone_RRTire" TireRotationMultiplier="0.1" OkToChangeModelColor="true" ExtraPublicBone="BONEGARRISON01 BONEGARRISON02 BONEGARRISON03 BONEGARRISON04 BONEGARRISON05 BONEGARRISON06 BONEGARRISON07 BONEGARRISON08">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="MUAPC_SKN"/>
+					<Turret TurretID="1"/>
+					<Turret TurretID="2"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="MUAPC_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING REALLYDAMAGED">
+					<Model Name="MUAPC_SKN"/>
+					<Texture Original="GB_Suv" New="GU_Suv_D"/>
+					<Texture Original="MUAPC" New="MUAPC_D"/>
+					<Texture Original="MUAPCBunker" New="MUAPCBunker_D"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TIRERF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Model Name="MUAPC_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="MUAPC_SKN"/>
+					<Texture Original="GB_Suv" New="GU_Suv_D"/>
+					<Texture Original="MUAPC" New="MUAPC_D"/>
+					<Texture Original="MUAPCBunker" New="MUAPCBunker_D"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TIRERF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="MUAPC_SKN"/>
+					<Texture Original="GB_Suv" New="GU_Suv_D"/>
+					<Texture Original="MUAPC" New="MUAPC_D"/>
+					<Texture Original="MUAPCBunker" New="MUAPCBunker_D"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_FIRE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="BONE_TIRERF" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" Flags="START_FRAME_LAST">
+					<Animation AnimationName="MUAPC_UPAK" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="0" AnimationSpeedFactorMin="0.55" AnimationSpeedFactorMax="0.55"/>
+					<Script> CurDrawableShowSubObject("BUNKER") </Script>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
+				</AnimationState>
+			</TruckDraw>
+			<ScriptedModelDraw id="ModuleTag_Lights">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name=""/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableShowSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableHideSubObjectPermanently("LIGHTR") CurDrawableHideSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Script> CurDrawableHideSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NIGHT">
+					<Script> CurDrawableShowSubObjectPermanently("HEADLIGHTS") CurDrawableShowSubObjectPermanently("LIGHTR") CurDrawableShowSubObjectPermanently("LIGHTL") CurDrawableHideSubObjectPermanently("BUNKER") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawSpeakers" AttachToBoneInAnotherModule="BONE_ROOF">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NURECKONERSPEAKERS_DUMMYSKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+					<Texture Original="NUSuv" New="NUSuv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Model Name="NURECKONERSPEAKERS_SKN"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
+					<Script> CurDrawableHideSubObject("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED USER_1"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED USER_1">
+					<Script> CurDrawableHideSubObject("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP USER_1">
+					<Script> CurDrawableHideSubObject("TV") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
+					<Animation AnimationName="NURECKONERSPEAKERS_IDLA" AnimationMode="LOOP"/>
+					<Script> CurDrawableShowSubObject("TV") </Script>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawRadar" AttachToBoneInAnotherModule="RADAR">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="MUAPCRADAR_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="MUAPCRADAR_SKN"/>
+					<Texture Original="GB_Suv" New="GU_Suv_D"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="MUAPCRADAR_SKN"/>
+					<Texture Original="GB_Suv" New="GU_Suv_D"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="DO_NOT_PLAY_WHEN_UNPOWERED">
+					<Animation AnimationName="MUAPCRADAR_IDLA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="FX_ROOF_TV">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1" Flags="MAINTAIN_FRAME_ACROSS_STATES">
+					<Animation AnimationName="FXInvisBone_FS" AnimationMode="LOOP" AnimationSpeedFactorMin="0.333" AnimationSpeedFactorMax="0.333"/>
+					<FXEvent Frame="1" Effect="FX_PropagandaPulse" Bone="INVISBONE01" FireWhenSkipped="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" OkToChangeModelColor="true" AttachToBoneInAnotherModule="RAGE_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="INSIDE_GARRISON"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50 USER_27">
+					<Model Name="FXRAGEDSLOWED"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_27">
+					<Model Name="FXRAGEDSLOWED.FXSLOWED"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_50">
+					<Model Name="FXRAGEDSUPPRESSED.FXRAGED"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED USER_1">
+					<Model Name="FXInvisBone_FS"/>
+					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_LeadershipBuff" SizeX="453" SizeY="453" OpacityPeak="0.35" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true" IsRotatingWithObject="false"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_GDISUVDebris</OCL>
+				</OCL>
+				<Sound Type="INITIAL" List="Mutant_APC_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIVehicleExplode"/>
+			</FXListBehavior>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotTurret ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonFakeWeapon"/>
+					<TurretSettings TurretTurnRate="360">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericVehicleGarrisonAntiAirFakeWeapon" ObjectStatus="RIDER1"/>
+					<TurretSettings TurretTurnRate="360">
+						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
+			</WeaponSetUpdate>
+			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED CAN_ATTACK" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="true" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando_EA" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="MutantMarauderSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIMissileSoldierSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaiderSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="NODMilitantRocketSquad" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="NODReaper" ObjectStatus="RIDER1"/>
+				<MemberTemplateStatusInfo ThingTemplate="AlienShockTrooperSquad" ObjectStatus="RIDER1"/>
+			</HordeTransportContain>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransportForVehicle.xml"/>
+			<xi:include href="DATA:Includes/GenericUnpackPower.xml"/>
+			<xi:include href="DATA:Includes/GenericUnpackUpdate.xml"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" NewObjectUnpackTime="4.5s" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>MutantAPCDeployed</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PropagandaModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+			</ModelConditionUpgrade>
+			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" EffectRadius="200" HealingPercentPerSecond="1%" SurveyDelayFrames="15" UpgradeRequired="Upgrade_DummyPropagandaBuff" HealFX="FX_GDI_Heal" AffectUnderAttack="true">
+				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE">
+					<!-- NOD Cyborgs -->
+					<ExcludeThing>NODCyborgInfantry</ExcludeThing>
+					<ExcludeThing>NODPummeler</ExcludeThing>
+					<ExcludeThing>NODReaper</ExcludeThing>
+					<ExcludeThing>NODCyborgCommando</ExcludeThing>
+					<ExcludeThing>NODDecimator</ExcludeThing>
+					<ExcludeThing>NODObliterator</ExcludeThing>
+					<ExcludeThing>NODHijacker</ExcludeThing>
+				</AllowFilter>
+			</PassiveAreaEffectBehavior>
+			<AttributeModifierAuraUpdate id="ModuleTag_AttributeModifierAuraUpdate" AttributeModifierName="NOD_Purifier_AttributeModifier" RefreshDelay="1s" Range="200">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+				<ObjectFilter Rule="ANY" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE"/>
+			</AttributeModifierAuraUpdate>
+			<AudioLoopUpgrade id="ModuleTag_PropagandaAudioLoop" SoundToPlay="GDI_AdaptiveArmor_Upgrade">
+				<TriggeredBy>Upgrade_PropagandaBuff</TriggeredBy>
+			</AudioLoopUpgrade>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericGDISelfRepairUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
+		</Behaviors>
+		<AI>
+			<TransportAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="NeutralMutantProspectorFunctions">
+				<UnitAITargetChooserData SympathyRange="100" CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</TransportAIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_Reckoner_Deploy" RequiredFlags="UNPACKING" ExcludedFlags="DYING" />
+			</ModelConditionAudioLoopClientBehavior>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="GDI_Surveyor_Unpack3" Animation="MUAPC_UPAK" Frame="5"/>
+				<Sound Sound="GDI_Surveyor_Unpack2" Animation="MUAPC_UPAK" Frame="52"/>
+				<Sound Sound="GDI_Surveyor_Unpack1" Animation="MUAPC_UPAK" Frame="59"/>
+				<Sound Sound="GDI_Surveyor_UnpackMore5" Animation="MUAPC_UPAK" Frame="2"/>
+				<Sound Sound="GDI_Surveyor_UnpackMore4" Animation="MUAPC_UPAK" Frame="26"/>
+				<Sound Sound="GDI_Surveyor_UnpackMore3" Animation="MUAPC_UPAK" Frame="35"/>
+				<Sound Sound="GDI_Surveyor_UnpackMore2" Animation="MUAPC_UPAK" Frame="48"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="22.0" MinorRadius="13.0" Height="18.0" ContactPointGeneration="VEHICLE">
+				<Offset x="1" y="0" z="0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="Mutant_APC_VoicePackedUp" AudioType="voiceCreated"/>
+			<AudioEntry Sound="Mutant_APC_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="Mutant_APC_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="Mutant_APC_VoiceSelectMS" AudioType="voiceSelect"/>
+			<!-- Triggered when built from GDI Construction Yard -->
+			<ObjectSpecificEntry Sound="Mutant_APC_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="CDMTower"/>
+			<ObjectSpecificEntry Sound="Mutant_APC_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="ForgottenCDMTower"/>
+			<ObjectSpecificEntry Sound="Mutant_APC_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="ForgottenCDMTower2"/>
+			<!-- Triggered when built from Reinforcement Bay -->
+			<ObjectSpecificEntry Sound="Mutant_APC_VoiceCreate" AudioType="voiceCreatedFrom" TargetObject="ReinforcementBay"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="GuardianAPCMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="PredatorIdleLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="GDI_GuardianAPC_MoveByLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+ 		<EvaEvents EvaEventPromotedOwner=""/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>

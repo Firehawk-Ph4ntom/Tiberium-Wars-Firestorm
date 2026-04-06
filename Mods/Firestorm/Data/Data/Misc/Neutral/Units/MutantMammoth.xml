@@ -2,6 +2,7 @@
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Units\MutantMammoth\MUMammth.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\MutantMammoth\MUMammth_B.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantMammoth\MUMammth_BD.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\MutantMammoth\MUMammth_D.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\MutantMammoth\MUMammth_HC.xml"/>
 		<Include type="all" source="ART:Firestorm\Units\MutantMammoth\MUMammth_NRM.xml"/>
@@ -36,12 +37,16 @@
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="MUMAMMTH_FP"/>
 				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_2">
+					<Model Name="MUMAMMTHR_SKN"/>
+					<Texture Original="MUMammth_D" New="MUMammth_BD"/>
+				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
 					<Model Name="MUMAMMTHR_SKN"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED USER_2" RetainSubObjects="true">
 					<Model Name="MUMAMMTH_UPGR_SKN"/>
-					<Texture Original="MUMammth" New="MUMammth_D"/>
+					<Texture Original="MUMammth" New="MUMammth_BD"/>
 					<ParticleSysBone BoneName="FXTracksRF" FXParticleSystemTemplate="GDIPPDamagedSmoke" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="FXTracksLR" FXParticleSystemTemplate="GDIMammothDamagedFireDistortion" FollowBone="true"/>
@@ -89,10 +94,15 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<Script> CurDrawableHideSubObject("TREADSSTOP") CurDrawableHideSubObject("TREADSBACK") CurDrawableHideSubObject("TREADSLEFT") CurDrawableHideSubObject("TREADSRIGHT") CurDrawableShowSubObject("TREADSMOVE") </Script>
 				</AnimationState>
+				<LeftTread>"FXTracksLR"</LeftTread>
+				<RightTread>"FXTracksRR"</RightTread>
 			</TankDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawSpeakers" AttachToBoneInAnotherModule="BONE_ROOF">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NURECKONERSPEAKERS_DUMMYSKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name=""/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
 					<Model Name="NURECKONERSPEAKERS_SKN"/>
@@ -106,6 +116,7 @@
 					<Model Name="NURECKONERSPEAKERS_SKN"/>
 				</ModelConditionState>
 				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING USER_1">
 					<Script> CurDrawableHideSubObject("TV") </Script>
 				</AnimationState>
