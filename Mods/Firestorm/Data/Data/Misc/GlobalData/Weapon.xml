@@ -7955,19 +7955,18 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="GDICombatEngineerPistol"
-		Name="GDICombatEngineerPistol"
+		id="GDICombatEngineerShotgun"
+		Name="GDICombatEngineerShotgun"
 		AttackRange="150"
 		AcceptableAimDelta="10d"
-		WeaponSpeed="999999"
-		FireSound="GDI_CombatEngineer_GunFire"
-		FireFX="FX_GDIEngineerFire"
-		FireVeteranFX="FX_GDIEngineerFireHeroic"
+		WeaponSpeed="750"
+		WeaponRecoil="1d"
+		FireFX="FX_GDICombatEngineerFire"
+		FireVeteranFX="FX_GDICombatEngineerFireHeroic"
+		ClipSize="1"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="9"
 		ReAcquireDetailType="PRE_FIRE"
-		CanFireWhileMoving="true"
-		ShotsPerBarrel="1">
+		CanFireWhileMoving="true">
 		<PreAttackDelay
 			MinSeconds="1s"
 			MaxSeconds="1s"/>
@@ -7975,40 +7974,64 @@
 			MinSeconds="0.4s"
 			MaxSeconds="0.5s"/>
 		<ClipReloadTime
-			MinSeconds="1.8s"
-			MaxSeconds="2s"/>
+			MinSeconds="1s"
+			MaxSeconds="1.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDICombatEngineerShotgunWarhead"
+				ProjectileTemplate="GDICombatEngineerShotgunShell">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE HUSK"/>
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDICombatEngineerShotgunShellHeroic"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDICombatEngineerShotgunWarhead"
+		Name="GDICombatEngineerShotgunWarhead"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="50"
-				DamageType="SNIPER"
+				Damage="18"
+				Radius="10"
+				DamageType="GUN"
+				DeathType="EXPLODED"
 				DamageFXType="GDI_RIFLE">
 				<SpecialObjectFilter
 					Rule="ALL"
 					Exclude="STRUCTURE HUSK"/>
 				<DamageScalarDetails
-					Scalar="75%">
+					Scalar="20%">
 					<Filter
 						Rule="ALL"
 						Exclude="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
 		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="GDICombatEngineerPistolHEAmmo"
-		Name="GDICombatEngineerPistolHEAmmo"
+		id="GDICombatEngineerShotgunHEAmmo"
+		Name="GDICombatEngineerShotgunHEAmmo"
 		AttackRange="150"
 		AcceptableAimDelta="10d"
-		WeaponSpeed="999999"
-		FireSound="GDI_CombatEngineer_GunFire"
-		FireFX="FX_GDIEngineerFire"
-		FireVeteranFX="FX_GDIEngineerFireHeroic"
+		WeaponSpeed="750"
+		WeaponRecoil="1d"
+		FireFX="FX_GDICombatEngineerFire"
+		FireVeteranFX="FX_GDICombatEngineerFireHeroic"
+		ClipSize="1"
 		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="9"
 		ReAcquireDetailType="PRE_FIRE"
-		CanFireWhileMoving="true"
-		ShotsPerBarrel="1">
+		CanFireWhileMoving="true">
 		<PreAttackDelay
 			MinSeconds="1s"
 			MaxSeconds="1s"/>
@@ -8016,107 +8039,48 @@
 			MinSeconds="0.4s"
 			MaxSeconds="0.5s"/>
 		<ClipReloadTime
-			MinSeconds="1.8s"
-			MaxSeconds="2s"/>
+			MinSeconds="1s"
+			MaxSeconds="1.2s"/>
+		<Nuggets>
+			<ProjectileNugget
+				WarheadTemplate="GDICombatEngineerShotgunWarheadHEAmmo"
+				ProjectileTemplate="GDICombatEngineerShotgunShellHEAmmo">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="STRUCTURE HUSK"/>
+				<VeterancyProjectiles
+					VeterancyLevel="HEROIC"
+					ProjectileTemplate="GDICombatEngineerShotgunShellHEAmmoHeroic"/>
+			</ProjectileNugget>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="GDICombatEngineerShotgunWarheadHEAmmo"
+		Name="GDICombatEngineerShotgunWarheadHEAmmo"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
 		<Nuggets>
 			<DamageNugget
-				Damage="65"
-				Radius="2"
-				DamageType="SNIPER"
+				Damage="27"
+				Radius="15"
+				DamageType="GUN"
 				DeathType="BURNED"
 				DamageFXType="GDI_RIFLE">
 				<SpecialObjectFilter
 					Rule="ALL"
 					Exclude="STRUCTURE HUSK"/>
 				<DamageScalarDetails
-					Scalar="75%">
+					Scalar="20%">
 					<Filter
 						Rule="ALL"
 						Exclude="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDICombatMedicPistol"
-		Name="GDICombatMedicPistol"
-		AttackRange="150"
-		AcceptableAimDelta="10d"
-		WeaponSpeed="999999"
-		FireSound="GDI_CombatEngineer_GunFire"
-		FireFX="FX_GDIEngineerFire"
-		FireVeteranFX="FX_GDIEngineerFireHeroic"
-		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="9"
-		ReAcquireDetailType="PRE_FIRE"
-		ShotsPerBarrel="1">
-		<PreAttackDelay
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
-		<FiringDuration
-			MinSeconds="0.4s"
-			MaxSeconds="0.5s"/>
-		<ClipReloadTime
-			MinSeconds="1.8s"
-			MaxSeconds="2s"/>
-		<Nuggets>
-			<DamageNugget
-				Damage="50"
-				DamageType="SNIPER"
-				DamageFXType="GDI_RIFLE">
-				<SpecialObjectFilter
-					Rule="ALL"
-					Exclude="STRUCTURE HUSK"/>
-				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="ALL"
-						Exclude="INFANTRY"/>
-				</DamageScalarDetails>
-			</DamageNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="GDICombatMedicPistolHEAmmo"
-		Name="GDICombatMedicPistolHEAmmo"
-		AttackRange="150"
-		AcceptableAimDelta="10d"
-		WeaponSpeed="999999"
-		FireSound="GDI_CombatEngineer_GunFire"
-		FireFX="FX_GDIEngineerFire"
-		FireVeteranFX="FX_GDIEngineerFireHeroic"
-		ForbiddenFiringObjectStatus="USER_PARALYZED"
-		ClipSize="9"
-		ReAcquireDetailType="PRE_FIRE"
-		ShotsPerBarrel="1">
-		<PreAttackDelay
-			MinSeconds="1s"
-			MaxSeconds="1s"/>
-		<FiringDuration
-			MinSeconds="0.4s"
-			MaxSeconds="0.5s"/>
-		<ClipReloadTime
-			MinSeconds="1.8s"
-			MaxSeconds="2s"/>
-		<Nuggets>
-			<DamageNugget
-				Damage="65"
-				Radius="2"
-				DamageType="SNIPER"
-				DeathType="BURNED"
-				DamageFXType="GDI_RIFLE">
-				<SpecialObjectFilter
-					Rule="ALL"
-					Exclude="STRUCTURE HUSK"/>
-				<DamageScalarDetails
-					Scalar="75%">
-					<Filter
-						Rule="ALL"
-						Exclude="INFANTRY"/>
-				</DamageScalarDetails>
-			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
 		</Nuggets>
 	</WeaponTemplate>
 
