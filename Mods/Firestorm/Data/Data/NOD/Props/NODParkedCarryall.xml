@@ -1,28 +1,31 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="NODParkedCarryall" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT" SelectPortrait="Portrait_NODCarryall" ButtonImage="Portrait_NODCarryall" EditorName="NODParkedCarryall" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedAircraft" ThreatLevel="1">
-		<DisplayName>Name:NODCarryall</DisplayName>
+	<GameObject id="NODParkedCarryall" Side="NOD" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT" SelectPortrait="Portrait_NODNightwind" ButtonImage="Portrait_NODNightwind" EditorName="NODParkedNightwind" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedAircraft" ThreatLevel="1">
+		<DisplayName>Name:NODCarryallParked</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX" id="Armor"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Model Name="NUDROPSHIP_SKN"/>
+					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="NUCARRYALL_SKN_FS"/>
+					<Model Name="NUDROPSHIP_SKN"/>
+					<Texture Original="NUDropship" New="NUDropship_D"/>
 					<Texture Original="NUCarryAll" New="NUCarryAll_D"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LF" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_LFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="NUCARRYALL_SKN_FS"/>
-					<ParticleSysBone BoneName="Bone_Engine_RR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
-					<ParticleSysBone BoneName="BONE_ENGINE_LR" FXParticleSystemTemplate="VenomDamagedSmoke" FollowBone="true"/>
+					<Model Name="NUDROPSHIP_SKN"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_LFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
 		</Draws>
@@ -30,7 +33,7 @@
 			<Physics id="ModuleTag_Physics"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0.01s">
 				<OCL Type="INITIAL">
-					<OCL>OCL_NODCarryAllInitialDebris</OCL>
+					<OCL>OCL_NODDropShipDebris</OCL>
 				</OCL>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
@@ -43,29 +46,14 @@
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="3000"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2500.0"/>
 		</Body>
 		<Geometry>
-			<Shape Type="BOX" MajorRadius="35.0" MinorRadius="8.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="13.0" y="0" z="10.0"/>
+			<Shape Type="BOX" MajorRadius="37.0" MinorRadius="5.0" Height="8.0">
+				<Offset x="0.0" y="0.0" z="12.0"/>
 			</Shape>
-			<Shape Type="BOX" MajorRadius="3.0" MinorRadius="15.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="28.0" y="0" z="10.0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="28.0" y="20" z="10.0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="28.0" y="-20" z="10.0"/>
-			</Shape>
-			<Shape Type="BOX" MajorRadius="3.0" MinorRadius="15.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="2.5" y="0" z="10.0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="2.5" y="20" z="10.0"/>
-			</Shape>
-			<Shape Type="CYLINDER" MajorRadius="9.0" Height="10.0" ContactPointGeneration="VEHICLE">
-				<Offset x="2.5" y="-20" z="10.0"/>
+			<Shape Type="BOX" MajorRadius="8.0" MinorRadius="30.0" Height="8.0">
+				<Offset x="-7.0" y="0.0" z="12.0"/>
 			</Shape>
 		</Geometry>
 		<ShadowInfo Type="VOLUME"/>

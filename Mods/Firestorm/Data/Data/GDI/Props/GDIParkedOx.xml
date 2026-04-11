@@ -1,28 +1,34 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset">
-	<GameObject id="GDIParkedOx" Side="GDI" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_GDIOx" ButtonImage="Portrait_GDIOx" EditorName="GDIParkedOx" EditorSorting="MISC_MAN_MADE" Description="Desc:GDIOx" TypeDescription="Type:GDIOx" ThreatLevel="1">
-		<DisplayName>Name:GDIOx</DisplayName>
+	<GameObject id="GDIParkedOx" Side="GDI" KindOf="IMMOBILE SELECTABLE CAN_CAST_REFLECTIONS" SelectPortrait="Portrait_GDICondor" ButtonImage="Portrait_GDICondor" EditorName="GDIParkedCondor" EditorSorting="MISC_MAN_MADE" TypeDescription="Type:NODUnmannedAircraft" ThreatLevel="1">
+		<DisplayName>Name:GDIOxParked</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="GPPOx01"/>
-					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
+					<Model Name="GUCONDOR_SKN"/>
+					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="GPPOx01"/>
-					<Texture Original="GuDropShip" New="GuDropShipD"/>
-					<Texture Original="GBWarFacBib" New="GBWarFacBib_D2"/>
-					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<Model Name="GUCONDOR_SKN"/>
+					<Texture Original="GUCondor" New="GUCondor_D"/>
+					<ParticleSysBone BoneName="B_FANR" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FANR" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FANR" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FANL" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_WINGL3" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_WINGL3" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_WINGL3" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
-					<Model Name="GPPOx01"/>
-					<Texture Original="HC_GBWarFacBib" New="HC_GBWarFacBib2"/>
-					<ParticleSysBone BoneName="FX_Rfan" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<Model Name="GUCONDOR_SKN"/>
+					<ParticleSysBone BoneName="B_FANR" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_FANL" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="B_WINGL3" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
 				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" Flags="START_FRAME_LAST">
+					<Animation AnimationName="GUCONDOR_OPN" AnimationMode="MANUAL"/>
+				</AnimationState>
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
@@ -44,7 +50,7 @@
 			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
 		</AI>
 		<Body>
-			<ActiveBody id="ModuleTag_Body" MaxHealth="2500.0"/>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="5000"/>
 		</Body>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="37.0" MinorRadius="5.0" Height="8.0">

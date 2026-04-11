@@ -288,11 +288,6 @@ function OnGDIV35Ox_SummonedCreated(self)
 	ObjectSetObjectStatus( self, "UNSELECTABLE" )
 end
 
-function OnGDIV35Ox_SummonedForVehicleCreated(self)
-	ObjectHideSubObjectPermanently( self, "LOADREF", true )
-	ObjectSetObjectStatus( self, "UNSELECTABLE" )
-end
-
 function OnGDIV35Ox_Carrying(self)
 	ObjectGrantUpgrade( self, "Upgrade_Transporting" )
 end
@@ -374,7 +369,7 @@ function OnNODTechAssembleyPlantCreated(self)
 end
 
 function OnNODCarryall_SummonedForVehicleCreated(self)
-	ObjectHideSubObjectPermanently( self, "HANGAR", true )
+	ObjectHideSubObjectPermanently( self, "CARGO", true )
 	ObjectSetObjectStatus( self, "UNSELECTABLE" )
 end
 
