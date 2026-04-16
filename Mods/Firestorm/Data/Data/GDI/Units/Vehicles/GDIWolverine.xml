@@ -39,10 +39,13 @@
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="GUWOLVERINE_SKN"/>
 					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_LASERWEAPON"/>
 					<WeaponRecoilBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
 					<WeaponMuzzleFlash WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXMuzzleFlash"/>
 					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_Weapon"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FX_LASERWEAPON"/>
 					<Turret TurretNameKey="Turret" TurretPitch="Turret_Pitch" TurretID="1"/>
+					<Turret TurretID="2"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="GUWOLVERINE_FP"/>
@@ -52,6 +55,7 @@
 					<Texture Original="GUWolverine" New="GUWolverine_D"/>
 					<Texture Original="GUColossus" New="GUColossus_D"/>
 					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -64,6 +68,7 @@
 					<Texture Original="GUWolverine" New="GUWolverine_D"/>
 					<Texture Original="GUColossus" New="GUColossus_D"/>
 					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
@@ -76,6 +81,7 @@
 					<Texture Original="GUWolverine" New="GUWolverine_D"/>
 					<Texture Original="GUColossus" New="GUColossus_D"/>
 					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
@@ -85,6 +91,7 @@
 					<Texture Original="GUWolverine" New="GUWolverine_D"/>
 					<Texture Original="GUColossus" New="GUColossus_D"/>
 					<Texture Original="GBUG_Tungsten" New="GBUG_Tungsten_D"/>
+					<Texture Original="GUMamm" New="GUMammD"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIPredDamagedFire" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIPredDamagedFireDistortion" FollowBone="true"/>
 					<ParticleSysBone BoneName="Turret" FXParticleSystemTemplate="GDIPredDamagedSmoke" FollowBone="true"/>
@@ -248,6 +255,30 @@
 				<TailColor r="0.0" g="0.0" b="0.0" a="0.0" />
 				<ObjectStatusValidation ForbiddenStatus="WEAPON_UPGRADED_02" RequiredStatus="WEAPON_UPGRADED_01"/>
 			</TracerModelDraw>
+			<LaserDraw id="ModuleTag_LaserDraw" Texture1_VTile="0.5" Texture2_VTile="0.03" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" LaserWidth="5" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXObeliskLaser</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXLaserOverlay</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
+			<LaserDraw id="ModuleTag_LaserDistort" Texture1_VTile="0.5" Texture2_VTile="0.01" Texture1_VScrollRate="0.2" Texture2_VScrollRate="1" Texture2_FrameRate="1" LaserWidth="10" UseDistortionShader="true" LaserStateID="1">
+				<FXShader ShaderName="Laser.fx">
+					<Constants>
+						<Texture Name="Texture1">
+							<Value>FXRailgunCoreDistortion</Value>
+						</Texture>
+						<Texture Name="Texture2">
+							<Value>FXRailGunCoreMask</Value>
+						</Texture>
+					</Constants>
+				</FXShader>
+			</LaserDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
@@ -268,7 +299,14 @@
 						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
 					</TurretSettings>
 				</WeaponSlotTurret>
+				<WeaponSlotTurret ID="2" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" AllowInterleavedFiring="true">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GDIWolverineMissileJammerWeapon"/>
+					<TurretSettings TurretTurnRate="999">
+						<TurretAITargetChooserData IdleScanDelay="0.1s" CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
+					</TurretSettings>
+				</WeaponSlotTurret>
 			</WeaponSetUpdate>
+			<LaserState id="ModuleTag_LaserState" LaserId="1"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\GDICallForTransportForVehicle.xml"/>
 			<!-- Fire jump jets -->
 			<SpecialPower id="ModuleTag_JumpJets" SpecialPowerTemplate="SpecialPowerTriggerWolverineJumpJets" UpdateModuleStartsAttack="true"/>
