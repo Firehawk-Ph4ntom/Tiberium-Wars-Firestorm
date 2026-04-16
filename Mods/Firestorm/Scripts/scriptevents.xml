@@ -127,7 +127,7 @@
 		</ModelConditionEvent>
 
 		<ModelConditionEvent Name="OnUser3">
-			<Conditions>+OnUser3</Conditions>
+			<Conditions>+USER_3</Conditions>
 		</ModelConditionEvent>
 
 		<ModelConditionEvent Name="OnUpgraded">
@@ -196,6 +196,10 @@
 			<Conditions>-HARVEST_ACTION</Conditions>
 		</ModelConditionEvent>
 
+		<ModelConditionEvent Name="OnDockingEnd">
+			<Conditions>-DOCKING</Conditions>
+		</ModelConditionEvent>
+
 		<ObjectStatusEvent Name="OnWeaponUpgraded1End">
 			<Conditions>-WEAPON_UPGRADED_01</Conditions>
 		</ObjectStatusEvent>
@@ -220,8 +224,8 @@
 
 	<EventList Name="BuildingPowerFunctions" Inherit="BaseScriptFunctions">
 		<!-- If there are any events that need to apply to every unit/structure with the Power Outage/Restore script, put them here. -->
-		<EventHandler EventName="OnPowerOutage" ScriptFunctionName="onBuildingPowerOutage" DebugSingleStep="false"/>
-		<EventHandler EventName="OnPowerRestore" ScriptFunctionName="onBuildingPowerRestored" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPowerOutage" ScriptFunctionName="OnBuildingPowerOutage" DebugSingleStep="false"/>
+		<EventHandler EventName="OnPowerRestore" ScriptFunctionName="OnBuildingPowerRestored" DebugSingleStep="false"/>
 	</EventList>
 
 	<!-- Generic keep Lua Event Lists -->
@@ -239,13 +243,13 @@
 	</EventList>
 
 	<EventList Name="ControlPointFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="onCreatedControlPointFunctions" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnCreatedControlPointFunctions" DebugSingleStep="false"/>
 	</EventList>
 
 	<!-- FIRESTORM LUA FUNCTION EVENT LISTS -->
 
 	<EventList Name="UnitForbidCommandsEventsList" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="onCreatedForbidCommands" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnCreatedForbidCommands" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericSpotterFunctions" Inherit="BaseScriptFunctions">
@@ -296,10 +300,13 @@
 		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OnHarvesterDeath" DebugSingleStep="false"/>
 		<EventHandler EventName="OnHarvesting" ScriptFunctionName="OnHarvestingTiberiumCrystal" DebugSingleStep="false"/>
 		<EventHandler EventName="OnHarvestingEnd" ScriptFunctionName="OnHarvestedCrystalTypeCleared" DebugSingleStep="false"/>
+		<EventHandler EventName="OnDockingEnd" ScriptFunctionName="OnHarvesterDockingEnd" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericJetAircraftDisableAIFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnGenericEvent" ScriptFunctionName="CheckAircraftAmmoDepleted" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnAircraftCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnDestroyed" ScriptFunctionName="OnAircraftDestroyed" DebugSingleStep="false"/>
+		<EventHandler EventName="OnGenericEvent" ScriptFunctionName="OnAircraftAmmoDepleted" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="GenericGDIAirSupremacyAircraftFunctions" Inherit="BaseScriptFunctions">
@@ -471,8 +478,8 @@
 		<EventHandler EventName="OnPowerRestore" ScriptFunctionName="OnNODSecretShrinePowerRestored" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODTechAssembleyPlantFunctions" Inherit="BaseScriptFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODTechAssembleyPlantCreated" DebugSingleStep="false"/>
+	<EventList Name="NODTechAssemblyPlantFunctions" Inherit="BaseScriptFunctions">
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODTechAssemblyPlantCreated" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="NODRocketBunkerFunctions" Inherit="BuildingPowerFunctions">
@@ -511,7 +518,11 @@
 		<EventHandler EventName="OnCreated" ScriptFunctionName="OnNODRaiderTankCreated" DebugSingleStep="false"/>
 	</EventList>
 
-	<EventList Name="NODHarvesterFunctions" Inherit="GenericPVEGamemodeHarvesterFunctions">
+	<EventList Name="NODHarvesterFunctions" Inherit="GenericHarvesterFunctions">
+		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODDisruptionModulesUpgradePurchased" DebugSingleStep="false"/>
+	</EventList>
+
+	<EventList Name="NODHarvesterPVEGameModeFunctions" Inherit="GenericPVEGamemodeHarvesterFunctions">
 		<EventHandler EventName="OnUser1" ScriptFunctionName="OnNODDisruptionModulesUpgradePurchased" DebugSingleStep="false"/>
 	</EventList>
 
@@ -551,7 +562,7 @@
 	</EventList>
 
 	<EventList Name="AlienMCVUnpackingEventsList" Inherit="GenericPVEGamemodeFunctions">
-		<EventHandler EventName="OnCreated" ScriptFunctionName="onAlienMCVUnpackingCreated" DebugSingleStep="false"/>
+		<EventHandler EventName="OnCreated" ScriptFunctionName="OnAlienMCVUnpackingCreated" DebugSingleStep="false"/>
 	</EventList>
 
 	<EventList Name="AlienDevastatorWarshipFunctions" Inherit="BaseScriptFunctions">
