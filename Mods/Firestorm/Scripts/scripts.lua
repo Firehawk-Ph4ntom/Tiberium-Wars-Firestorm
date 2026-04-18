@@ -1,22 +1,22 @@
-SquadTable = {} -- Tracks all squad objects on the map
+squadTable = {} -- Tracks all squad objects on the map
 
-UnitType = { -- Get the hash of the aircraft unit
+unitType = { -- Get the hash of the aircraft unit
 	["3006676643"] = "GDIFireHawk",
 	["1789238550"] = "NODVertigo",
 	["3755615724"] = "NODBanshee"
 }
 
-UnitAmmoSize = { -- Get the total ammo count of the aircraft unit
+unitAmmoSize = { -- Get the total ammo count of the aircraft unit
 	["GDIFireHawk"] = 6,
 	["NODVertigo"] = 1,
 	["NODBanshee"] = 8
 }
 
-UnitAmmoCount = {} -- Third array to store the ammo in when unit fires, until it reaches 0, then the conditions fire to disable AI control
+unitAmmoCount = {} -- Third array to store the ammo in when unit fires, until it reaches 0, then the conditions fire to disable AI control
 
-harvredtib = {} -- For counting the Red Tiberium in the Harvester
-harvbluetib = {} -- For counting the Blue Tiberium in the Harvester
-harvgreentib = {} -- For counting the Green Tiberium in the Harvester
+harvRedTib = {} -- For counting the Red Tiberium in the Harvester
+harvBlueTib = {} -- For counting the Blue Tiberium in the Harvester
+harvGreenTib = {} -- For counting the Green Tiberium in the Harvester
 
 bar1 = {} -- For tracking the first bar of the Harvester
 bar2 = {} -- For tracking the second bar of the Harvester
@@ -66,6 +66,57 @@ function ClampNonNegative(value)
 	end
 
 	return value
+end
+
+function FlushSubTable(t, seen)
+	if t == nil or type(t) ~= "table" then
+		return
+	end
+
+	if seen[t] then
+		return
+	end
+	seen[t] = 1
+
+	for k, v in t do
+		if type(v) == "table" then
+			FlushSubTable(v, seen)
+		end
+		t[k] = nil
+	end
+end
+
+function FlushTable(t)
+	if t == nil or type(t) ~= "table" then
+		return
+	end
+
+	FlushSubTable(t, {})
+end
+
+-- =========================================================
+-- FULL STATE RESET
+-- =========================================================
+
+-- Function to flush all tables' data to prevent desyncs, triggered via the GenericCrateSpawner, as it exists on every map
+function OnGenericCrateSpawnerCreated()
+	FlushTable(squadTable)
+
+	FlushTable(unitAmmoCount)
+
+	FlushTable(harvRedTib)
+	FlushTable(harvBlueTib)
+	FlushTable(harvGreenTib)
+
+	FlushTable(bar1)
+	FlushTable(bar2)
+	FlushTable(bar3)
+	FlushTable(bar4)
+
+	FlushTable(harvesterDataTable)
+	FlushTable(crystalDataTable)
+
+	collectgarbage()
 end
 
 -- =========================================================
@@ -620,7 +671,7 @@ end
 function ResetAircraftAmmo(self)
 	local key = GetAircraftAmmoKey(self)
 	if key ~= nil then
-		UnitAmmoCount[key] = nil
+		unitAmmoCount[key] = nil
 	end
 end
 
@@ -634,12 +685,12 @@ function CheckAircraftAmmoDepleted(self)
 		return
 	end
 
-	local unitName = UnitType[tostring(hash)]
+	local unitName = unitType[tostring(hash)]
 	if unitName == nil then
 		return
 	end
 
-	local maxAmmo = UnitAmmoSize[unitName]
+	local maxAmmo = unitAmmoSize[unitName]
 	if maxAmmo == nil then
 		return
 	end
@@ -649,14 +700,14 @@ function CheckAircraftAmmoDepleted(self)
 		return
 	end
 
-	if UnitAmmoCount[key] == nil then
-		UnitAmmoCount[key] = maxAmmo - 1
+	if unitAmmoCount[key] == nil then
+		unitAmmoCount[key] = maxAmmo - 1
 	else
-		UnitAmmoCount[key] = UnitAmmoCount[key] - 1
+		unitAmmoCount[key] = unitAmmoCount[key] - 1
 	end
 
-	if UnitAmmoCount[key] <= 0 then
-		UnitAmmoCount[key] = nil
+	if unitAmmoCount[key] <= 0 then
+		unitAmmoCount[key] = nil
 		ExecuteAction("UNIT_AI_TRANSFER", self, 0)
 		ExecuteAction("NAMED_FIRE_SPECIAL_POWER", GetObj.String(self), "SpecialPowerReturnToProducer")
 	else
@@ -751,7 +802,7 @@ function OnSquadAppearingAtBarracks(self)
 	local curFrame = GetFrame()
 	local squadType = ObjectDescription(self)
 	if squadType ~= nil then
-		SquadTable[squadType] = curFrame
+		squadTable[squadType] = curFrame
 	end
 end
 
@@ -766,7 +817,7 @@ function OnSquadExitingBarracks(self)
 		return
 	end
 
-	local startFrame = SquadTable[squadType]
+	local startFrame = squadTable[squadType]
 	if startFrame ~= nil then
 		local diff = curFrame - startFrame
 		local threshold = SquadLookupTable(ObjectTemplateName(self))
@@ -775,7 +826,7 @@ function OnSquadExitingBarracks(self)
 			ExecuteAction("NAMED_DELETE", self)
 		end
 
-		SquadTable[squadType] = nil
+		squadTable[squadType] = nil
 	end
 end
 
@@ -786,7 +837,7 @@ function OnSquadDestroyed(self)
 
 	local squadType = ObjectDescription(self)
 	if squadType ~= nil then
-		SquadTable[squadType] = nil
+		squadTable[squadType] = nil
 	end
 end
 
@@ -803,9 +854,9 @@ function EnsureHarvesterCounters(harvId)
 		return
 	end
 
-	harvredtib[harvId] = harvredtib[harvId] or 0
-	harvbluetib[harvId] = harvbluetib[harvId] or 0
-	harvgreentib[harvId] = harvgreentib[harvId] or 0
+	harvRedTib[harvId] = harvRedTib[harvId] or 0
+	harvBlueTib[harvId] = harvBlueTib[harvId] or 0
+	harvGreenTib[harvId] = harvGreenTib[harvId] or 0
 end
 
 function CreateHarvesterRuntime()
@@ -996,15 +1047,15 @@ function AddTibToBar(self, barTable, redUpgrade, blueUpgrade, greenUpgrade)
 
 	if tibType == "Red" then
 		ObjectGrantUpgrade(self, redUpgrade)
-		harvredtib[harvId] = harvredtib[harvId] + 1
+		harvRedTib[harvId] = harvRedTib[harvId] + 1
 		barTable[harvId] = 2
 	elseif tibType == "Blue" then
 		ObjectGrantUpgrade(self, blueUpgrade)
-		harvbluetib[harvId] = harvbluetib[harvId] + 1
+		harvBlueTib[harvId] = harvBlueTib[harvId] + 1
 		barTable[harvId] = 1
 	elseif tibType == "Green" then
 		ObjectGrantUpgrade(self, greenUpgrade)
-		harvgreentib[harvId] = harvgreentib[harvId] + 1
+		harvGreenTib[harvId] = harvGreenTib[harvId] + 1
 		barTable[harvId] = 0
 	end
 end
@@ -1036,11 +1087,11 @@ function RemoveTibFromBar(self, barTable, redUpgrade, blueUpgrade, greenUpgrade)
 	end
 
 	if barTable[harvId] == 2 then
-		harvredtib[harvId] = ClampNonNegative(harvredtib[harvId] - 1)
+		harvRedTib[harvId] = ClampNonNegative(harvRedTib[harvId] - 1)
 	elseif barTable[harvId] == 1 then
-		harvbluetib[harvId] = ClampNonNegative(harvbluetib[harvId] - 1)
+		harvBlueTib[harvId] = ClampNonNegative(harvBlueTib[harvId] - 1)
 	elseif barTable[harvId] == 0 then
-		harvgreentib[harvId] = ClampNonNegative(harvgreentib[harvId] - 1)
+		harvGreenTib[harvId] = ClampNonNegative(harvGreenTib[harvId] - 1)
 	end
 
 	barTable[harvId] = nil
@@ -1251,9 +1302,9 @@ function OnHarvesterCreated(self)
 
 	harvesterDataTable[harvId] = CreateHarvesterRuntime()
 
-	harvredtib[harvId] = 0
-	harvbluetib[harvId] = 0
-	harvgreentib[harvId] = 0
+	harvRedTib[harvId] = 0
+	harvBlueTib[harvId] = 0
+	harvGreenTib[harvId] = 0
 
 	bar1[harvId] = nil
 	bar2[harvId] = nil
@@ -1276,19 +1327,19 @@ function OnHarvesterDeath(self)
 		ResetHarvesterRuntime(harvData)
 	end
 
-	if (harvredtib[harvId] or 0) >= 2 then
+	if (harvRedTib[harvId] or 0) >= 2 then
 		ObjectCreateAndFireTempWeapon(self, "DeployRedTiberium")
-	elseif (harvbluetib[harvId] or 0) >= 2 then
+	elseif (harvBlueTib[harvId] or 0) >= 2 then
 		ObjectCreateAndFireTempWeapon(self, "DeployBlueTiberium")
-	elseif (harvgreentib[harvId] or 0) > 0
-		or (harvbluetib[harvId] or 0) == 1
-		or (harvredtib[harvId] or 0) == 1 then
+	elseif (harvGreenTib[harvId] or 0) > 0
+		or (harvBlueTib[harvId] or 0) == 1
+		or (harvRedTib[harvId] or 0) == 1 then
 		ObjectCreateAndFireTempWeapon(self, "DeployGreenTiberium")
 	end
 
-	harvredtib[harvId] = nil
-	harvbluetib[harvId] = nil
-	harvgreentib[harvId] = nil
+	harvRedTib[harvId] = nil
+	harvBlueTib[harvId] = nil
+	harvGreenTib[harvId] = nil
 
 	bar1[harvId] = nil
 	bar2[harvId] = nil
