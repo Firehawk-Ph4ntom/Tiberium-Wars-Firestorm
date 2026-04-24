@@ -3,8 +3,9 @@
 		<!-- Base Object -->
 		<Include type="instance" source="GDIV35Ox_SummonedForVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIV35Ox_CallSupportBloodhoundPaladin" inheritFrom="GDIV35Ox_SummonedForVehicle" EditorName="GDICondorCarryall_CallSupportBloodhoundPaladin" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE">
+	<GameObject id="GDIV35Ox_CallSupportBloodhoundPaladin" inheritFrom="GDIV35Ox_SummonedForVehicle" EditorName="GDICondorCarryall_CallSupportBloodhoundPaladin" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE">
 		<Behaviors>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Remove"/>
 			<HordeTransportContain id="ModuleTag_Contain" xai:joinAction="Replace" ObjectStatusOfContained="UNSELECTABLE" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true">
 				<PassengerFilter Rule="NONE" Include="VEHICLE"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -17,6 +18,9 @@
 			<GrantUpgradeCreate id="ModuleTag_GrantUpgrade" xai:joinAction="Remove"/>
 			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUpgrade" xai:joinAction="Remove"/>
 		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="UnitCreatedUnselectableEventsList" FlyOffMapOnUnload="true"/>
+		</AI>
 		<EvaEvents EvaEventDamagedOwner="ReinforcementsUnderAttack"/>
 	</GameObject>
 </AssetDeclaration>

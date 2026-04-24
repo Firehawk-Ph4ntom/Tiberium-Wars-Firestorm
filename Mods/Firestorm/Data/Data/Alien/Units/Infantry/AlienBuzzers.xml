@@ -178,7 +178,7 @@
 			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" CanAttackWhileContained="true" AILuaEventsList="GenericAlienIchorPlatingFunctions">
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" CanAttackWhileContained="true" AILuaEventsList="GenericAttackingAlienIchorPlatingFunctions">
 				<UnitAITargetChooserData IdleScanDelay="0.1s" ReacquireDelay="0.1s" TargetingCompareList="CompleteUnitTargetingCompareList"/>
 			</AIUpdate>
 		</AI>
@@ -209,5 +209,24 @@
 		<ShadowInfo Type="VOLUME"/>
 		<VisionInfo VisionRange="350" ShroudClearingRange="300" MaxVisionBonusPercent="300" VisionBonusTestRadius="200" VisionBonusPercentPerFoot="1"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="3" UseCrushAttack="false"/>
+	</GameObject>
+	<!-- Slaved Variant -->
+	<GameObject id="AlienBuzzers_Slaved" inheritFrom="AlienBuzzers" CommandSet="EmptyCommandSet" KindOf="CAN_ATTACK TIBERIUM_BASED ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS PATH_THROUGH_INFANTRY INFANTRY PASS_EXPERIENCE_TO_SLAVER HEALED_BY_TIBERIUM" EditorName="AlienBuzzers_Slaved">
+		<SkirmishAIInformation xai:joinAction="Remove"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Particles3" xai:joinAction="Remove"/>
+		</Draws>
+		<Behaviors>
+			<SlavedUpdate id="ModuleTag_SlavedUpdate" LeashRange="300" GuardMaxRange="0" GuardWanderRange="0" AttackRange="200" DieOnMastersDeath="true" UseSlaverAsControlForEvaObjectSightedEvents="false"/>
+			<CombineSpecialPower id="ModuleTag_CombineSpecialPower" xai:joinAction="Remove"/>
+			<AISpecialPowerUpdate id="ModuleTag_AlienCombineAI" xai:joinAction="Remove"/>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="AlienBuzzers_SlavedFunctions">
+				<UnitAITargetChooserData CanPickDynamicTargets="false" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Geometry xai:joinAction="Remove"/>
+		<EvaEvents EvaEventDieOwner="" EvaEventProductionStarted="" EvaEventDamagedOwner="" EvaEventDamagedFromShroudedSourceOwner="" EvaEventDamagedByFireOwner="" EvaEventAmbushed="" EvaEventAvailableForProduction="" EvaEventBuildOnHold="" EvaEventBuildCancelled="" EvaEventPromotedOwner=""/>
 	</GameObject>
 </AssetDeclaration>

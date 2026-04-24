@@ -12,7 +12,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="GDIV35Ox_SummonedForVehicle.xml"/>
 	</Includes>
-	<GameObject id="GDIV35Ox_CallSupportColossusWalker" inheritFrom="GDIV35Ox_SummonedForVehicle" EditorName="GDIOrcaCarryall_CallSupportColossusWalker" KindOf="SELECTABLE CAN_CAST_REFLECTIONS AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE" Description="Desc:GDIOx">
+	<GameObject id="GDIV35Ox_CallSupportColossusWalker" inheritFrom="GDIV35Ox_SummonedForVehicle" EditorName="GDIOrcaCarryall_CallSupportColossusWalker" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT TRANSPORT SUMMONED NO_COLLIDE" Description="Desc:GDIOx">
 		<LocomotorSet Locomotor="GDIDropshipLocomotor" Condition="NORMAL" Speed="90" xai:joinAction="Replace"/>
 		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="90" xai:joinAction="Replace"/>
 		<Draws>
@@ -106,6 +106,7 @@
 				</OCL>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Remove"/>
 			<HordeTransportContain id="ModuleTag_Contain" xai:joinAction="Replace" ObjectStatusOfContained="UNSELECTABLE" ContainMax="1" Slots="1" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" FlyOffMapOnEmpty="true">
 				<PassengerFilter Rule="NONE" Include="VEHICLE"/>
 				<DieMuxData DeathTypes="ALL"/>
@@ -119,9 +120,7 @@
 			<RemoveUpgradeUpgrade id="ModuleTag_RemoveUpgrade" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<TransportHelicopterAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" FlyOffMapOnUnload="true" AILuaEventsList="AlienMCVUnpackingEventsList">
-				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
-			</TransportHelicopterAIUpdate>
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" xai:joinAction="Replace" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="UnitCreatedUnselectableEventsList" FlyOffMapOnUnload="true"/>
 		</AI>
 		<Geometry xai:joinAction="Replace">
 			<Shape Type="CYLINDER" MajorRadius="19" Height="13.0" ContactPointGeneration="VEHICLE">

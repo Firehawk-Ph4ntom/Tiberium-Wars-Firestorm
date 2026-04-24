@@ -24,7 +24,7 @@
 		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml" />
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
 	</Includes>
-	<GameObject id="NODCarryall" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODNightwind" ButtonImage="Portrait_NODNightwind" Side="NOD" BuildCost="10" BuildTime="1.0" CommandSet="GDIHammerheadCommandSet" KindOf="CAN_CAST_REFLECTIONS CAN_ATTACK SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE" VoicePriority="52" EditorName="NODNightWind" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
+	<GameObject id="NODCarryall" inheritFrom="BaseAircraft" SelectPortrait="Portrait_NODNightwind" ButtonImage="Portrait_NODNightwind" Side="NOD" BuildCost="10" BuildTime="1.0" CommandSet="GDIHammerheadCommandSet" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL" VoicePriority="52" EditorName="NODNightWind" Description="Desc:NODCarryall" TypeDescription="Type:NODCarryall">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODCarryall</DisplayName>
 		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
 		<LocomotorSet Locomotor="NODDropshipLocomotor" Condition="NORMAL" Speed="175.0"/>
@@ -33,7 +33,6 @@
 			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="BONEGARRISON01 BONETANKGARRISON01" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="NUDROPSHIP_SKN"/>
-					<Turret TurretID="1"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="NUDROPSHIP_FP"/>
@@ -151,29 +150,25 @@
 				<DieMuxData DeathTypes="ALL"/>
 				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
 			</FXListBehavior>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
-				<WeaponSlotTurret ID="1">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="AirborneTransportRangefinder"/>
-					<TurretSettings TurretTurnRate="360">
-						<TurretAITargetChooserData CanAcquireDynamicIfAssignedOutOfRange="true" TargetingCompareList="CompleteTurretTargetingCompareList"/>
-					</TurretSettings>
-				</WeaponSlotTurret>
-			</WeaponSetUpdate>
 			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
 				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
 				<DieMuxData DeathTypes="ALL"/>
 				<PassengerData BonePrefix="BONEGARRISON">
 					<Filter Rule="NONE" Include="INFANTRY"/>
 				</PassengerData>
+				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando_EA" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
 			</HordeTransportContain>
 			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
 			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
 			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
 		</Behaviors>
 		<AI>
-			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false">
-				<UnitAITargetChooserData CanPickDynamicTargets="false" RotateToTargetWhenAiming="false" SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
-			</TransportHelicopterAIUpdate>
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2500.0"/>

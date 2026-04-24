@@ -230,7 +230,7 @@ function OnMutantViceroidCreated(self)
 	ObjectHideSubObjectPermanently(self, "UGSCANNER", true)
 end
 
-function OnMutantProspectorCreated(self)
+function OnMutantAPCCreated(self)
 	ObjectHideSubObjectPermanently(self, "BUNKER", true)
 end
 
@@ -238,7 +238,7 @@ function OnCreatedForbidCommands(self)
 	ObjectForbidPlayerCommands(self, true)
 end
 
-function OnAlienMCVUnpackingCreated(self)
+function OnUnitCreatedUnselectable(self)
 	ObjectSetObjectStatus(self, "UNSELECTABLE")
 end
 
@@ -382,10 +382,6 @@ function OnBuildingPowerRestored(self)
 	ObjectHideSubObjectPermanently(self, "NEXUSBEAM", false)
 	ObjectHideSubObjectPermanently(self, "NEXUSSTREAM", false)
 	ObjectHideSubObjectPermanently(self, "TURBINEGLOWS", false)
-end
-
-function OnGDIV35Ox_SummonedCreated(self)
-	ObjectSetObjectStatus(self, "UNSELECTABLE")
 end
 
 function OnGDIV35Ox_Carrying(self)
@@ -641,6 +637,42 @@ function OnPVEGameModeActivated(self)
 	end
 end
 
+function OnUnitArmorUpgraded(self)
+	if ObjectTestModelCondition(self, "USER_21") then
+		ObjectGrantUpgrade(self, "Upgrade_ArmorCrateCollected")
+	end
+end
+
+function OnUnitSpeedUpgraded(self)
+	if ObjectTestModelCondition(self, "USER_22") then
+		ObjectGrantUpgrade(self, "Upgrade_SpeedCrateCollected")
+	end
+end
+
+function OnUnitFirepowerUpgraded(self)
+	if ObjectTestModelCondition(self, "USER_23") then
+		ObjectGrantUpgrade(self, "Upgrade_FirepowerCrateCollected")
+	end
+end
+
+function OnCloakingCratePickedUp(self)
+	if ObjectTestModelCondition(self, "USER_24") then
+		ObjectGrantUpgrade(self, "Upgrade_CloakingFieldInvisibility")
+	end
+end
+
+function OnUnitROFUpgraded(self)
+	if ObjectTestModelCondition(self, "USER_25") then
+		ObjectGrantUpgrade(self, "Upgrade_ROFCrateCollected")
+	end
+end
+
+function OnUnitAttackRangeUpgraded(self)
+	if ObjectTestModelCondition(self, "USER_26") then
+		ObjectGrantUpgrade(self, "Upgrade_AttackRangeCrateCollected")
+	end
+end
+
 -- =========================================================
 -- GENERIC CRATE SPAWNER
 -- =========================================================
@@ -675,7 +707,7 @@ function ResetAircraftAmmo(self)
 	end
 end
 
-function CheckAircraftAmmoDepleted(self)
+function OnAircraftAmmoDepleted(self)
 	if self == nil or not IsUnitAI(self) then
 		return
 	end
