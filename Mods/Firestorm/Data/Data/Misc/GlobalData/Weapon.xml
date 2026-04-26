@@ -5020,7 +5020,8 @@
 		AcceptableAimDelta="180d"
 		ClipSize="1"
 		MeleeWeapon="true"
-		ChaseWeapon="true">
+		ChaseWeapon="true"
+		FireFX="FX_VeinHoleMonsterDeathWeaponFire">
 		<Nuggets>
 			<DamageNugget
 				Damage="9999999"
@@ -5038,18 +5039,12 @@
 		id="VeinsClusterWeapon"
 		Name="VeinsClusterWeapon"
 		RadiusDamageAffects="ALLIES ENEMIES NEUTRALS NOT_SIMILAR">
-		<PreAttackDelay
-			MinSeconds="1s"
-			MaxSeconds="2.5s"/>
-		<FiringDuration
-			MinSeconds="0s"
-			MaxSeconds="0s"/>
 		<Nuggets>
 			<DamageNugget
-				Damage="250"
+				Damage="4"
 				Radius="25"
 				DamageType="MINE"
-				DeathType="EXPLODED"
+				DeathType="POISONED"
 				DamageFXType="CLUBBING">
 				<SpecialObjectFilter
 					Rule="ANY"
@@ -5091,6 +5086,52 @@
 					<ExcludeThing>VeinsCluster</ExcludeThing>
 				</SpecialObjectFilter>
 			</DamageNugget>
+			<AttributeModifierNugget
+				Radius="35"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_20"
+				AttributeModifierName="Modifier_TibCrystalGoo">
+				<SpecialObjectFilter
+					Rule="ANY"
+					Include="VEHICLE"
+					Exclude="HARVESTER HUSK">
+					<!-- GDI Vehicles -->
+					<ExcludeThing>GDIPitbull</ExcludeThing>
+					<ExcludeThing>GDIPitbull_Veteran</ExcludeThing>
+					<ExcludeThing>GDIAPC</ExcludeThing>
+					<ExcludeThing>GDIAPC_Veteran</ExcludeThing>
+					<ExcludeThing>GDIFalcon</ExcludeThing>
+					<ExcludeThing>GDIWolverine</ExcludeThing>
+					<ExcludeThing>GDIMRT</ExcludeThing>
+					<ExcludeThing>GDISonicTank</ExcludeThing>
+					<ExcludeThing>GDISandstorm</ExcludeThing>
+					<ExcludeThing>GDIMARV</ExcludeThing>
+					<ExcludeThing>GDISurveyor</ExcludeThing>
+					<!-- Neutral Vehicles -->
+					<ExcludeThing>MutantPitbull</ExcludeThing>
+					<ExcludeThing>MutantHumvee</ExcludeThing>
+					<!-- NOD Vehicles -->
+					<ExcludeThing>NODAttackBike</ExcludeThing>
+					<ExcludeThing>NODScorpionBuggy</ExcludeThing>
+					<ExcludeThing>NODEmissary</ExcludeThing>
+					<ExcludeThing>NODSpiderDrone</ExcludeThing>
+					<!-- Alien Vehicles -->
+					<ExcludeThing>AlienSeekerTank</ExcludeThing>
+					<ExcludeThing>AlienRazorback</ExcludeThing>
+					<ExcludeThing>AlienRazorback_Flying</ExcludeThing>
+					<ExcludeThing>AlienDevourerTank</ExcludeThing>
+					<ExcludeThing>AlienCorrupter</ExcludeThing>
+					<ExcludeThing>AlienStingray</ExcludeThing>
+					<ExcludeThing>AlienMechapede</ExcludeThing>
+					<ExcludeThing>AlienExplorer</ExcludeThing>
+					<ExcludeThing>AlienGuardianTank</ExcludeThing>
+					<ExcludeThing>AlienReaver</ExcludeThing>
+					<!-- Neutral/Misc -->
+					<ExcludeThing>VeinholeMonster</ExcludeThing>
+					<ExcludeThing>VeinsCluster</ExcludeThing>
+				</SpecialObjectFilter>
+			</AttributeModifierNugget>
 		</Nuggets>
 	</WeaponTemplate>
 
@@ -26750,6 +26791,7 @@
 				<Filter
 					Rule="NONE">
 					<IncludeThing>TiberiumCrystal</IncludeThing>
+					<IncludeThing>VeinsCluster</IncludeThing>
 				</Filter>
 			</FireOnObjectsNugget>
 			<FireOnObjectsNugget
