@@ -2,7 +2,7 @@
 	<!-- Gib Projectile 01 -->
 	<GameObject id="InfGib_01" EditorName="InfGib_01" Side="Neutral" KindOf="UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorSorting="SYSTEM">
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+			<ScriptedModelDraw id="ModuleTag_Draw">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="SYGIB_1"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="BloodExplosionFlairsSlave" FollowBone="true"/>
@@ -10,7 +10,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics" GroundHitFX="FX_InfGibBlood" TumbleRandomly="true"/>
+			<Physics id="ModuleTag_Physics" TumbleRandomly="true" GroundHitFX="FX_InfGibBlood" BounceCount="2"/>
 			<LifetimeUpdate id="ModuleTag_LifeTime" MinLifetime="1s" MaxLifetime="1s"/>
 			<SlowDeath id="ModuleTag_Death" SinkRate="0.5" SinkDelay="2s" DestructionDelay="2s">
 				<DieMuxData DeathTypes="ALL"/>
@@ -32,7 +32,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="2"/>
+			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="1"/>
 		</Behaviors>
 	</GameObject>
 	<!-- Gib Scorched Projectile 01 -->
@@ -60,7 +60,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="2"/>
+			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="1"/>
 		</Behaviors>
 	</GameObject>
 	<!-- Gib Irradiated Projectile 01 -->
@@ -77,7 +77,22 @@
 			<Physics id="ModuleTag_Physics" xai:joinAction="Append" GroundHitFX="FX_GooSplat"/>
 		</Behaviors>
 	</GameObject>
+	<!-- Gib Irradiated Projectile 02 -->
+	<GameObject id="InfGib_02Rad" inheritFrom="InfGib_01Rad" EditorName="InfGib_02Rad">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="SYGIBGOO_2"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="RadExplosionFlairsSlave" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="1"/>
+		</Behaviors>
+	</GameObject>
 	<!-- Blue Tiberium Variant -->
+	<!-- Gib Irradiated Projectile 01 -->
 	<GameObject id="InfGib_01RadBlue" inheritFrom="InfGib_01" EditorName="InfGib_01RadBlue">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
@@ -92,7 +107,23 @@
 			<Physics id="ModuleTag_Physics" xai:joinAction="Append" GroundHitFX="FX_GooSplatBlue"/>
 		</Behaviors>
 	</GameObject>
+	<!-- Gib Irradiated Projectile 02 -->
+	<GameObject id="InfGib_02RadBlue" inheritFrom="InfGib_01RadBlue" EditorName="InfGib_02RadBlue">
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="SYGIBGOO_2"/>
+					<Texture Original="SYPOISON" New="SYPOISONBLUE"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="RadExplosionFlairsSlaveBlue" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="1"/>
+		</Behaviors>
+	</GameObject>
 	<!-- Red Tiberium Variant -->
+	<!-- Gib Irradiated Projectile 01 -->
 	<GameObject id="InfGib_01RadRed" inheritFrom="InfGib_01" EditorName="InfGib_01RadRed">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
@@ -108,35 +139,6 @@
 		</Behaviors>
 	</GameObject>
 	<!-- Gib Irradiated Projectile 02 -->
-	<GameObject id="InfGib_02Rad" inheritFrom="InfGib_01Rad" EditorName="InfGib_02Rad">
-		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="SYGIBGOO_2"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="RadExplosionFlairsSlave" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-		</Draws>
-		<Behaviors>
-			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="2"/>
-		</Behaviors>
-	</GameObject>
-	<!-- Blue Tiberium Variant -->
-	<GameObject id="InfGib_02RadBlue" inheritFrom="InfGib_01RadBlue" EditorName="InfGib_02RadBlue">
-		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="SYGIBGOO_2"/>
-					<Texture Original="SYPOISON" New="SYPOISONBLUE"/>
-					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="RadExplosionFlairsSlaveBlue" FollowBone="true"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
-		</Draws>
-		<Behaviors>
-			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="2"/>
-		</Behaviors>
-	</GameObject>
-	<!-- Red Tiberium Variant -->
 	<GameObject id="InfGib_02RadRed" inheritFrom="InfGib_01RadRed" EditorName="InfGib_02RadRed">
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" xai:joinAction="Replace">
@@ -148,7 +150,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="2"/>
+			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="1"/>
 		</Behaviors>
 	</GameObject>
 	<!-- The following is for Alien Infantry -->
@@ -179,7 +181,7 @@
 			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
-			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="2"/>
+			<Physics id="ModuleTag_Physics" xai:joinAction="Append" BounceCount="1"/>
 		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
