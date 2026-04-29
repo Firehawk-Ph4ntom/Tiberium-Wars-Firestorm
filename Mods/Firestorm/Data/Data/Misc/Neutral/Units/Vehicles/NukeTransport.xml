@@ -1,6 +1,8 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NeutralNukeTruck\NUNUKETRUCK_CTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NeutralNukeTruck\NUNUKETRUCKR_CTR.w3x"/>
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
@@ -11,28 +13,18 @@
 		<Draws>
 			<TruckDraw id="ModuleTag_Draw" OkToChangeModelColor="true" TrackMarks="FXTireTrack2" LeftFrontTireBone="Bone_Tire_FL" RightFrontTireBone="Bone_Tire_FR" MidLeftRearTireBone="Bone_Tire_ML" MidRightRearTireBone="Bone_Tire_MR" LeftRearTireBone="Bone_Tire_RL" RightRearTireBone="Bone_Tire_RR" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="NUNukeTruck"/>
+					<Model Name="NUNUKETRUCK_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<Model Name="NUNukeTruckR"/>
+					<Model Name="NUNUKETRUCKR_FS"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
-					<Model Name="NUNukeTruck"/>
+					<Model Name="NUNUKETRUCK_FS"/>
 					<Texture Original="NUNuke" New="NUNuke_D"/>
 					<Texture Original="NUNukeTruck" New="NUNukeTruck_D"/>
 				</ModelConditionState>
 			</TruckDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="MODULE_GDI">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="FXInvisBone_FS"/>
-				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFire" FollowBone="true"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireGlow" FollowBone="true"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkFireDistortion" FollowBone="true"/>
-					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="GDIMammothHulkSmoke" FollowBone="true"/>
-				</AnimationState>
-			</ScriptedModelDraw>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericLargeVehicleDeathFX.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericRagedSlowedVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericCrateUpgradeModelConditionsVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 		</Draws>
