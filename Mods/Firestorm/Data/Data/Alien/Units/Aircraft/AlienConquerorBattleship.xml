@@ -260,6 +260,24 @@
 					<ParticleSysBone BoneName="MainBone" FXParticleSystemTemplate="AlienMotherBuildDarkMatter" FollowBone="false"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="FX_BONE_03">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Script> CurDrawableHideSubObjectPermanently("TRAVENG01") CurDrawableHideSubObjectPermanently("TRAVENG02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 ACCELERATE">
+					<Script> CurDrawableHideSubObjectPermanently("TRAVENG01") CurDrawableHideSubObjectPermanently("TRAVENG02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 DECELERATE">
+					<Script> CurDrawableHideSubObjectPermanently("TRAVENG01") CurDrawableHideSubObjectPermanently("TRAVENG02") </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_6 MOVING">
+					<Script> CurDrawableShowSubObjectPermanently("TRAVENG01") CurDrawableShowSubObjectPermanently("TRAVENG02") </Script>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="AlienTravEngDist" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawForceField" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
@@ -504,6 +522,7 @@
 				<TriggeredBy>Upgrade_BlueIchorInfusion</TriggeredBy>
 			</AudioLoopUpgrade>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienTravelerEnginesUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 		</Behaviors>
 		<AI>
@@ -516,6 +535,13 @@
 			<ShieldBody id="ModuleTag_Body" MaxHealth="13500" ShieldAmount="3000" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="105s" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldActiveModelCondition="USER_19"/>
 		</Body>
 		<ClientBehaviors>
+			<ModelConditionSoundSelectorClientBehavior id="MCSSCB">
+				<Override RequiredFlags="USER_6" ExcludedFlags="DECELERATE">
+					<AudioArraySound>
+						<AudioEntry Sound="ALI_TravelerEngines_AmbientLoop" AudioType="soundMoveLoop"/>
+					</AudioArraySound>
+				</Override>
+			</ModelConditionSoundSelectorClientBehavior>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="ALI_SeekerTank_IdleLoop" RequiredFlags="USER_19" ExcludedFlags="DYING"/>
 			</ModelConditionAudioLoopClientBehavior>
