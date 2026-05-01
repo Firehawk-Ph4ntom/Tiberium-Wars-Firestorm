@@ -2,12 +2,10 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
-		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
 		<!-- For GDI Grid Power Plant -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDITiberiumProcessingPlant.xml" type="instance"/>
 		<!-- For GDI Barracks -->
@@ -42,8 +40,8 @@
 
 	<!-- Increased shroud clearing range from 250 -->
 	<GameObject
-		id="AlienMastermind"
-		inheritFrom="AlienMastermind">
+		id="AlienMastermindPVEGameMode"
+		inheritFrom="AlienMastermindPVEGameMode">
 		<VisionInfo
 			VisionRange="250"
 			ShroudClearingRange="400"
@@ -54,7 +52,7 @@
 
 	<!-- Excluding GDITiberiumProcessingPlant | Reduced reload time of SP from 30s -->
 	<SpecialPowerTemplate
-		id="SpecialPower_ManipulateObject"
+		id="SpecialPower_ManipulateObjectPVEGameMode"
 		TargetType="OBJECT"
 		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
 		ReloadTime="15s"
@@ -65,55 +63,14 @@
 		<ObjectFilter
 			Rule="ALL"
 			Relationship="ENEMIES NEUTRAL"
-			Exclude="BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
-			<IncludeThing>GDIBattleBase</IncludeThing>
+			Exclude="BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
 			<!-- Neutral -->
 			<ExcludeThing>Viceroid</ExcludeThing>
 			<ExcludeThing>MutantGhostStalker</ExcludeThing>
 			<ExcludeThing>SubwayNode</ExcludeThing>
 			<!-- GDI -->
 			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
-			<ExcludeThing>GDICommando</ExcludeThing>
-			<ExcludeThing>GDICommando_EA</ExcludeThing>
-			<ExcludeThing>GDIOrcaBattleFortressUnpacking</ExcludeThing>
 			<ExcludeThing>GDITiberiumProcessingPlant</ExcludeThing>
-			<!-- Nod -->
-			<ExcludeThing>NODCommando</ExcludeThing>
-			<ExcludeThing>NODCyborgCommando</ExcludeThing>
-			<!-- Alien -->
-			<ExcludeThing>AlienWormHole</ExcludeThing>
-			<ExcludeThing>AlienMothership</ExcludeThing>
-			<ExcludeThing>AlienBuzzers_Slaved</ExcludeThing>
-			<ExcludeThing>AlienMastermind</ExcludeThing>
-			<ExcludeThing>AlienCultist</ExcludeThing>
-			<ExcludeThing>AlienCultistSquad</ExcludeThing>
-			<ExcludeThing>AlienMechapede</ExcludeThing>
-			<ExcludeThing>AlienBattleshipFighter</ExcludeThing>
-			<ExcludeThing>AlienInvaderFighter</ExcludeThing>
-			<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
-			<ExcludeThing>ABTower</ExcludeThing>
-		</ObjectFilter>
-	</SpecialPowerTemplate>
-
-	<!-- Reduced reload time of SP from 30s -->
-	<SpecialPowerTemplate
-		id="SpecialPower_ManipulateObject_Others"
-		TargetType="OBJECT"
-		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
-		ReloadTime="15s"
-		DisallowedTargetObjectStatus="UNATTACKABLE"
-		WaypointModeTerminal="false"
-		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject">
-		<ObjectFilter
-			Rule="ALL"
-			Relationship="ENEMIES NEUTRAL"
-			Exclude="STRUCTURE BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
-			<!-- Neutral -->
-			<ExcludeThing>Viceroid</ExcludeThing>
-			<ExcludeThing>MutantGhostStalker</ExcludeThing>
-			<ExcludeThing>SubwayNode</ExcludeThing>
-			<!-- GDI -->
-			<ExcludeThing>GDIDigInBuilding</ExcludeThing>
 			<ExcludeThing>GDICommando</ExcludeThing>
 			<ExcludeThing>GDICommando_EA</ExcludeThing>
 			<ExcludeThing>GDIOrcaBattleFortressUnpacking</ExcludeThing>
@@ -131,30 +88,6 @@
 			<ExcludeThing>AlienBattleshipFighter</ExcludeThing>
 			<ExcludeThing>AlienInvaderFighter</ExcludeThing>
 			<ExcludeThing>AlienMCVUnpacking</ExcludeThing>
-			<ExcludeThing>ABTower</ExcludeThing>
-		</ObjectFilter>
-	</SpecialPowerTemplate>
-
-	<!-- Excluding GDITiberiumProcessingPlant | Reduced reload time of SP from 30s -->
-	<SpecialPowerTemplate
-		id="SpecialPower_ManipulateObject_Structure"
-		TargetType="OBJECT"
-		Flags="NEEDS_OBJECT_FILTER TARGET_NEEDS_OBJECT_STATUS"
-		ReloadTime="15s"
-		DisallowedTargetObjectStatus="UNATTACKABLE"
-		WaypointModeTerminal="false"
-		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateManipulateObject">
-		<ObjectFilter
-			Rule="ANY"
-			Relationship="ENEMIES NEUTRAL"
-			Include="STRUCTURE"
-			Exclude="BRIDGE CRATE FS_BASE_DEFENSE OPTIMIZED_PROP TIBERIUM_FIELD WALL_HUB WALL_SEGMENT SIMPLE_OBJECT_PROP CAN_TOPPLE CIVILIAN_BUILDING BRIDGE_SEGMENT TIBERIUM SUPER_WEAPON HUSK BRIDGE_ENDCAP BRIDGE_GATEHOUSE HUGE_VEHICLE">
-			<IncludeThing>GDIBattleBase</IncludeThing>
-			<ExcludeThing>GDITiberiumProcessingPlant</ExcludeThing>
-			<!-- Neutral -->
-			<ExcludeThing>SubwayNode</ExcludeThing>
-			<!-- Alien -->
-			<ExcludeThing>AlienWormHole</ExcludeThing>
 			<ExcludeThing>ABTower</ExcludeThing>
 		</ObjectFilter>
 	</SpecialPowerTemplate>

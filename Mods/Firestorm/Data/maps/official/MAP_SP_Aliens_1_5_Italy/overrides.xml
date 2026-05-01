@@ -2,12 +2,6 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
-		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For Alien Wormhole -->
 		<Include source="DATA:Firestorm\Data\Data\Alien\Props\AlienWormHole.xml" type="instance"/>
 		<!-- For Alien Tower -->
@@ -87,6 +81,120 @@
 				MaxLifetime="999999.0s"/>
 		</Behaviors>
 	</GameObject>
+
+	<!-- Instantly Kill Tower -->
+	<WeaponTemplate
+		id="IonCannonFinalWeapon"
+		Name="IonCannonFinalWeapon"
+		AttackRange="50000"
+		RadiusDamageAffects="SELF ALLIES ENEMIES NEUTRALS">
+		<Nuggets>
+			<DamageNugget
+				Damage="28000"
+				DamageTaperOff="1000"
+				Radius="250"
+				DamageType="CANNON"
+				CylinderAOE="true">
+				<DamageScalarDetails
+					Scalar="2500%">
+					<Filter
+						Rule="NONE"
+						Include="TIBERIUM"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="999999%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>ABTower</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_IonCannonWeaponTreeCrusher"/>
+			<WeaponOCLNugget
+				WeaponOCL="OCL_IonCannonEMPField"/>
+			<ParalyzeNugget
+				Radius="500"
+				DurationSeconds="10s"
+				ParalyzeType="EMP"
+				ParalyzeFX="FX_NODBuggyEmpHit"
+				ForbiddenTargetObjectStatus="IN_STASIS">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="UNATTACKABLE INFANTRY CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
+			</ParalyzeNugget>
+			<ParalyzeNugget
+				Radius="500"
+				DurationSeconds="10s"
+				ParalyzeType="EMP"
+				ParalyzeFX="FX_NODPummelerEMPHit"
+				ForbiddenTargetObjectStatus="IN_STASIS">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- NOD Cyborgs -->
+					<IncludeThing>NODCyborgInfantry</IncludeThing>
+					<IncludeThing>NODCyborgInfantrySquad</IncludeThing>
+					<IncludeThing>NODPummeler</IncludeThing>
+					<IncludeThing>NODPummelerSquad</IncludeThing>
+					<IncludeThing>NODPummelerSquad_Veteran</IncludeThing>
+					<IncludeThing>NODReaper</IncludeThing>
+					<IncludeThing>NODCyborgCommando</IncludeThing>
+					<IncludeThing>NODDecimator</IncludeThing>
+					<IncludeThing>NODDecimatorSquad</IncludeThing>
+					<IncludeThing>NODObliterator</IncludeThing>
+					<IncludeThing>NODHijacker</IncludeThing>
+				</SpecialObjectFilter>
+			</ParalyzeNugget>
+			<AttributeModifierNugget
+				Radius="500"
+				PartitionFilterTestType="CIRCLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="USER_19"
+				AttributeModifierName="AttributeModifier_PreventCrush">
+				<SpecialObjectFilter
+					Rule="ALL"
+					Exclude="UNATTACKABLE INFANTRY AIRCRAFT CIVILIAN_BUILDING TIBERIUM TIBERIUM_FIELD"/>
+			</AttributeModifierNugget>
+			<DamageNugget
+				Damage="1000000"
+				Radius="500"
+				CylinderAOE="true"
+				DamageType="GRENADE"
+				DeathType="EXTRA_7"
+				DamageFXType="GDI_RIFLE"
+				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetModelCondition="LOCOMOTOR_TAXIING USER_19">
+				<SpecialObjectFilter
+					Rule="NONE"
+					Include="AIRCRAFT">
+					<!-- Beacon has AIRCRAFT KindOf as a workaround -->
+					<ExcludeThing>MultiplayerBeacon</ExcludeThing>
+					<ExcludeThing>AlienMultiplayerBeacon</ExcludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<!-- For Alien Razorback -->
+			<DamageNugget
+				Damage="1000000"
+				Radius="500"
+				CylinderAOE="true"
+				DamageType="GRENADE"
+				DeathType="EXTRA_7"
+				DamageFXType="GDI_RIFLE"
+				ForbiddenTargetObjectStatus="IN_STASIS RIDER2"
+				ForbiddenTargetModelCondition="USER_19">
+				<SpecialObjectFilter
+					Rule="NONE">
+					<!-- Alien Flying Ground Units -->
+					<IncludeThing>AlienRazorback</IncludeThing>
+					<IncludeThing>AlienRazorback_Flying</IncludeThing>
+				</SpecialObjectFilter>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="750"
+				Suppression="5000"
+				DurationSeconds="7s"/>
+		</Nuggets>
+	</WeaponTemplate>
 
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
