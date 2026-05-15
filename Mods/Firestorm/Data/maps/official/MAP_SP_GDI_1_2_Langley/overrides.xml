@@ -3,10 +3,11 @@
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
+		<!-- For GDI Refinery -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures_SinglePlayerCampaign\GDIRefinerySPNoHarvester.xml" type="all"/>
 		<!-- For GDI Airfield -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIAirTower.xml" type="instance"/>
 		<!-- For GDI Missile Battery -->
@@ -27,18 +28,33 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIPowerPlant.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures_SinglePlayerCampaign\GDIRefinerySPNoHarvester.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIHarvester.xml" type="instance"/>
-		<!-- NOD Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Structures\Buildings\NODRefinery.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODHarvester.xml" type="instance"/>
 	</Includes>
+
+	<!-- Removed the Buildable Money Crate -->
+	<LogicCommandSet
+		id="NODCranePVEGameModeCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlantPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildRefineryPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildBarracksPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildDropZonePVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacilityPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
 
 	<!-- GDI Battleship -->
 	<GameObject
@@ -50,7 +66,7 @@
 		id="GDIHovercraft"
 		inheritFrom="GDIHovercraft"/>
 
-	<!-- Increased damage from 325 -->
+	<!-- Increased damage vs. Structures by x2 -->
 	<WeaponTemplate
 		id="GDIOrcaRocketWeaponWarhead"
 		Name="GDIOrcaRocketWeaponWarhead"
@@ -67,8 +83,8 @@
 				<DamageScalarDetails
 					Scalar="125%">
 					<Filter
-						Rule="NONE"
-						Include="AIRCRAFT">
+						Rule="ANY"
+						Include="AIRCRAFT HARVESTER">
 						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
 						<ExcludeThing>AlienHiveStalker</ExcludeThing>
 					</Filter>
@@ -79,6 +95,12 @@
 						Rule="NONE"
 						Include="VEHICLE"
 						Exclude="HARVESTER"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="200%">
+					<Filter
+						Rule="NONE"
+						Include="STRUCTURE"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="50%">
@@ -179,7 +201,7 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 		<Cmd>Command_SetDefaultBuilding</Cmd>
-		<Cmd>Command_SetRallyPoint_Aircraft</Cmd>
+		<Cmd>Command_SetRallyPoint_GDIAircraft</Cmd>
 	</LogicCommandSet>
 
 	<!-- Removed all upgrades except Tib Field Suits -->
@@ -207,7 +229,7 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 		<Cmd>Command_SetDefaultBuilding</Cmd>
-		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+		<Cmd>Command_SetRallyPoint_NODSSInfantry</Cmd>
 	</LogicCommandSet>
 
 	<!-- Lowered energy requirement -->
@@ -261,6 +283,7 @@
 				<IncludeThing>GDICommando</IncludeThing>
 				<IncludeThing>GDICommando_EA</IncludeThing>
 				<IncludeThing>NODShadowSquadBeacon</IncludeThing>
+				<IncludeThing>AlienMothership</IncludeThing>
 			</ObjectFilter>
 		</GameDependency>
 	</SpecialPowerTemplate>
@@ -344,157 +367,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- GDI -->
-	<!-- Increased energy production -->
-	<GameObject
-		id="GDIPowerPlant"
-		inheritFrom="GDIPowerPlant"
-		EnergyProduction="30">
-		<Behaviors>
-			<GrantUpgradeCreate
-				id="ModuleTag_GrantUpgrade"
-				UpgradeToGrant="Upgrade_ObjectDefault"/>
-			<StatusBitsUpgrade
-				id="ModuleTag_PVEGameModeStatus"
-				StatusToClear="RIDER1">
-				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
-			</StatusBitsUpgrade>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIRefinerySPNoHarvester"
-		inheritFrom="GDIRefinerySPNoHarvester"
-		BuildCost="2000"
-		BuildTime="20"
-		RefundValue="300"
-		EnergyProduction="-8"/>
-
-	<GameObject
-		id="GDIRefinery"
-		inheritFrom="GDIRefinery"
-		BuildCost="2000"
-		BuildTime="20"
-		RefundValue="300"
-		EnergyProduction="-8"/>
-
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="GDIHarvester"
-		inheritFrom="GDIHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
-
-	<!-- NOD -->
-	<GameObject
-		id="NODRefinery"
-		inheritFrom="NODRefinery"
-		BuildCost="2000"
-		BuildTime="20"
-		RefundValue="300"
-		EnergyProduction="-8"/>
-
-	<LogicCommandSet
-		id="NODCraneCommandSet">
-		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
-		<Cmd>Command_NOD_BuildRefinery</Cmd>
-		<Cmd>Command_NOD_BuildBarracks</Cmd>
-		<Cmd>Command_NOD_BuildDropZone</Cmd>
-		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
-		<Cmd>Command_NOD_BuildHangar</Cmd>
-		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
-		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
-		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
-		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
-		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
-		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
-		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
-		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
-		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
-		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
-		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
-		<Cmd>Command_NOD_BuildWallHub</Cmd>
-		<Cmd>Command_TogglePower</Cmd>
-		<Cmd>Command_SelfRepair</Cmd>
-		<Cmd>Command_Sell</Cmd>
-	</LogicCommandSet>
-
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="NODHarvester"
-		inheritFrom="NODHarvester"
-		BuildCost="1400"
-		BuildTime="14"/>
-
-	<!-- Override Exp Templates -->
-	<!-- GDI -->
-	<ExperienceLevelTemplate
-		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIRefinery</Target>
-		<Target>GDIRefinerySPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<!-- NOD -->
-	<ExperienceLevelTemplate
-		id="NODRefinery_1" ExperienceAward="2000" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>NODRefinery</Target>
-		<Target>NODRefinerySPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="175" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="NODHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>NODHarvester</Target>
-		<Decal Texture="decal_N_Level1" Texture2="decal_Nod_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="85" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
 </AssetDeclaration>

@@ -3,13 +3,12 @@
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
 		<!-- For Pentagon -->
-		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBPenta01.xml" type="instance"/>
-		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBPentaEn.xml" type="instance"/>
+		<Include source="DATA:Civilian\Washington_DC_DC\Buildings\DCBPenta01.xml" type="instance"/>
+		<Include source="DATA:Civilian\Washington_DC_DC\Buildings\DCBPentaEn.xml" type="instance"/>
 		<!-- For GDI Watchtower -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWatchTower.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
@@ -34,10 +33,33 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 	</Includes>
+
+	<!-- Removed the Buildable Money Crate -->
+	<LogicCommandSet
+		id="NODCranePVEGameModeCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlantPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildRefineryPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildBarracksPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildDropZonePVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacilityPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
 
 	<!-- Increased health by x1.25 -->
 	<GameObject
@@ -151,20 +173,6 @@
 
 	<!-- Lowered attack range from 350 -->
 	<WeaponTemplate
-		id="SquadMissileRangefinder"
-		Name="SquadMissileRangefinder"
-		AttackRange="250"
-		AcceptableAimDelta="45d"
-		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
-		CanFireWhileMoving="true"
-		LeechRangeWeapon="true"
-		FinishAttackOnceStarted="false">
-		<FiringDuration
-			MinSeconds="3s"
-			MaxSeconds="3s"/>
-	</WeaponTemplate>
-
-	<WeaponTemplate
 		id="NODMilitantRocketWeapon"
 		Name="NODMilitantRocketWeapon"
 		AttackRange="300"
@@ -202,17 +210,32 @@
 		</ScatterRadiusVsType>
 	</WeaponTemplate>
 
+	<WeaponTemplate
+		id="SquadMissileRangefinder"
+		Name="SquadMissileRangefinder"
+		AttackRange="250"
+		AcceptableAimDelta="45d"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		CanFireWhileMoving="true"
+		LeechRangeWeapon="true"
+		FinishAttackOnceStarted="false">
+		<FiringDuration
+			MinSeconds="3s"
+			MaxSeconds="3s"/>
+	</WeaponTemplate>
+
 	<!-- Adjusted Carryall locomotor to unload quick -->
 	<LocomotorTemplate
-		id="NODCarryallLocomotor"
-		Name="NODCarryallLocomotor"
+		id="NODDropshipLocomotor"
+		Name="NODDropshipLocomotor"
 		Surfaces="AIR"
 		TurnTimeSeconds="2s"
-		FastTurnRadius="50"
+		TurnTimeDamagedSeconds="2s"
+		FastTurnRadius="65"
 		Lift="120%"
 		LiftDamaged="80%"
 		MinTurnSpeed="0%"
-		PreferredHeight="140"
+		PreferredHeight="130"
 		BehaviorZ="SURFACE_RELATIVE_HEIGHT"
 		Appearance="HOVER"
 		PitchStiffness="0.5"
@@ -223,13 +246,12 @@
 		RudderCorrectionRate="0.027"
 		ElevatorCorrectionDegree="0.103"
 		ElevatorCorrectionRate="0.016"
-		BackingUpAngle="0.5"
 		TakeOffAndLandingSpeed="10"
 		TakeOffAndLandingSlowDownDelta="35"
 		TakeOffAndLandingSlowDownTime="0.5s"
 		LocomotorWorksWhenDead="true"
 		AllowMotiveForceWhileAirborne="true"
-		Apply2DFrictionWhenAirborne="true" />
+		Apply2DFrictionWhenAirborne="true"/>
 
 	<!-- Increased HP -->
 	<GameObject
@@ -256,7 +278,7 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 		<Cmd>Command_SetDefaultBuilding</Cmd>
-		<Cmd>Command_SetRallyPoint_Infantry</Cmd>
+		<Cmd>Command_SetRallyPoint_NODSSInfantry</Cmd>
 	</LogicCommandSet>
 
 	<!-- Added huge scalar vs GDI Power Plant -->
@@ -284,7 +306,7 @@
 					</Filter>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="10000%">
+					Scalar="9000%">
 					<Filter
 						Rule="NONE">
 						<IncludeThing>GDIPowerPlant</IncludeThing>
@@ -365,7 +387,7 @@
 			<HordeGarrisonContain
 				id="ModuleTag_HordeGarrison"
 				ObjectStatusOfContained="UNSELECTABLE CAN_ATTACK"
-				ContainMax="6"
+				ContainMax="10"
 				AllowEnemiesInside="false"
 				AllowAlliesInside="false"
 				AllowNeutralInside="true"
@@ -414,7 +436,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- Increased range to 300 -->
+	<!-- Increased range from 260 -->
 	<WeaponTemplate
 		id="GDIRifleSoldierRifle"
 		Name="GDIRifleSoldierRifle"
@@ -519,8 +541,15 @@
 					Count="1" />
 				<PassengerData
 					BonePrefix="BONEGARRISON">
-					<Filter Rule="ANY"
-						Include="INFANTRY VEHICLE" />
+					<Filter
+						Rule="ANY"
+						Include="INFANTRY" />
+				</PassengerData>
+				<PassengerData
+					BonePrefix="BONETANKGARRISON">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE" />
 				</PassengerData>
 				<MemberTemplateStatusInfo
 					ThingTemplate="GDISniper"
@@ -587,8 +616,15 @@
 					Count="3" />
 				<PassengerData
 					BonePrefix="BONEGARRISON">
-					<Filter Rule="ANY"
-						Include="INFANTRY VEHICLE" />
+					<Filter
+						Rule="ANY"
+						Include="INFANTRY" />
+				</PassengerData>
+				<PassengerData
+					BonePrefix="BONETANKGARRISON">
+					<Filter
+						Rule="ANY"
+						Include="VEHICLE" />
 				</PassengerData>
 				<MemberTemplateStatusInfo
 					ThingTemplate="GDISniper"
@@ -758,31 +794,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- GDI -->
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
 </AssetDeclaration>

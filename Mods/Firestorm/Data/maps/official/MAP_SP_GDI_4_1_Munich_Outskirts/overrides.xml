@@ -5,13 +5,13 @@
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
 		<!-- For Civilian Transport -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\CivilianTransport.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\Vehicles\CivilianTransport.xml" type="instance"/>
 		<!-- For GDI Battlebase Repair Drone -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\GDIBattleBaseRepairDrone.xml" type="instance"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<!-- For GDI MRT -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMRT.xml" type="instance"/>
 		<!-- For GDI Mammoth Tank -->
@@ -34,10 +34,35 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 	</Includes>
+
+	<!-- Lowered health from 5000 -->
+	<GameObject
+		id="GDIV35Ox"
+		inheritFrom="GDIV35Ox">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="2000.0"/>
+		</Body>
+	</GameObject>
+
+	<!-- Increased speed from 45 | Increasead health from 75 -->
+	<GameObject
+		id="GDIEngineerPVEGameMode"
+		inheritFrom="GDIEngineerPVEGameMode">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="60"/>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="1000.0"/>
+		</Body>
+	</GameObject>
 
 	<!-- Increased repair rate -->
 	<GameObject
@@ -64,18 +89,6 @@
 					FireInterval="0.6s"/>
 			</FireWeaponUpdate>
 		</Behaviors>
-	</GameObject>
-
-	<!-- Lowered health from 2600 -->
-	<GameObject
-		id="GDIV35Ox"
-		inheritFrom="GDIV35Ox">
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="2000.0"/>
-		</Body>
 	</GameObject>
 
 	<!-- Increased speed from 65 | Max Contain 4 -->
@@ -216,7 +229,7 @@
 					Scalar="75%">
 					<Filter
 						Rule="NONE">
-						<!-- GDI Units -->
+						<!-- GDI Vehicles -->
 						<IncludeThing>GDIAPC</IncludeThing>
 						<IncludeThing>GDIAPC_Veteran</IncludeThing>
 						<IncludeThing>GDIPitbull</IncludeThing>
@@ -225,12 +238,15 @@
 						<IncludeThing>GDIWolverine</IncludeThing>
 						<IncludeThing>GDIMRT</IncludeThing>
 						<IncludeThing>GDISandstorm</IncludeThing>
-						<!-- NOD Units -->
+						<!-- Neutral Vehicles -->
+						<IncludeThing>MutantPitbull</IncludeThing>
+						<IncludeThing>MutantHumvee</IncludeThing>
+						<!-- NOD Vehicles -->
 						<IncludeThing>NODAttackBike</IncludeThing>
 						<IncludeThing>NODScorpionBuggy</IncludeThing>
 						<IncludeThing>NODStealthTank</IncludeThing>
 						<IncludeThing>NODNODSpiderDrone</IncludeThing>
-						<!-- Alien Units -->
+						<!-- Alien Vehicles -->
 						<IncludeThing>AlienGunWalker</IncludeThing>
 						<IncludeThing>AlienSeekerTank</IncludeThing>
 						<IncludeThing>AlienRazorback</IncludeThing>
@@ -321,47 +337,6 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!-- Rainy Weather -->
-	<Weather
-		id="Weather">
-		<Rain
-			RainTexture="FXRainDrop"
-			IsRaining="true"
-			NumRaindropsPerBox="2500"
-			RainBoxWidth="1000.0"
-			RainBoxLength="1000.0"
-			RainBoxHeight="300.0"
-			MinWidth="1"
-			MaxWidth="4"
-			MinHeight="25.0"
-			MaxHeight="100.0"
-			MinSpeed="250.0"
-			MaxSpeed="270.0"
-			MinAlpha=".3"
-			MaxAlpha=".5"
-			WindStrength="10.0"/>
-		<Lightning
-			LightningEnabled="true"
-			LightningDuration="1"
-			LightningChance="50">
-			<LightningFactor
-				Type="UNIFORM"
-				Low="3.0"
-				High="3.0"/>
-		</Lightning>
-		<Spell
-			SpellEnabled="true"
-			SpellDuration="200"/>
-		<Cloud>
-			<CloudTextureSize x="660.0" y="660.0"/>
-			<CloudOffsetPerSecond x="-.03" y="-.02"/>
-		</Cloud>
-		<WeatherData id="RAINY" HasLightning="true" />
-		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
-		<WeatherData id="SUNNY" HasLightning="false" />
-		<WeatherData id="CLOUDY" HasLightning="false" />
-	</Weather>
-
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
 		id="MissionObjectives">
@@ -430,36 +405,44 @@
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
 
-	<!-- Global Overrides -->
-	<!-- GDI -->
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="60"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="1000.0"/>
-		</Body>
-	</GameObject>
+	<!-- Rainy Weather -->
+	<Weather
+		id="Weather">
+		<Rain
+			RainTexture="FXRainDrop"
+			IsRaining="true"
+			NumRaindropsPerBox="2500"
+			RainBoxWidth="1000.0"
+			RainBoxLength="1000.0"
+			RainBoxHeight="300.0"
+			MinWidth="1"
+			MaxWidth="4"
+			MinHeight="25.0"
+			MaxHeight="100.0"
+			MinSpeed="250.0"
+			MaxSpeed="270.0"
+			MinAlpha=".3"
+			MaxAlpha=".5"
+			WindStrength="10.0"/>
+		<Lightning
+			LightningEnabled="true"
+			LightningDuration="1"
+			LightningChance="50">
+			<LightningFactor
+				Type="UNIFORM"
+				Low="3.0"
+				High="3.0"/>
+		</Lightning>
+		<Spell
+			SpellEnabled="true"
+			SpellDuration="200"/>
+		<Cloud>
+			<CloudTextureSize x="660.0" y="660.0"/>
+			<CloudOffsetPerSecond x="-.03" y="-.02"/>
+		</Cloud>
+		<WeatherData id="RAINY" HasLightning="true" />
+		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
+		<WeatherData id="SUNNY" HasLightning="false" />
+		<WeatherData id="CLOUDY" HasLightning="false" />
+	</Weather>
 </AssetDeclaration>

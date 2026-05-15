@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<AIStrategicStateDefinition
@@ -45,7 +45,7 @@
 			<ConstantHeuristic Weight="1.0"/>
 		</Heuristic>
 	</AIStrategicStateDefinition>
-	 
+
 	<AIStrategicStateDefinition
 		id="G_5_1_NODAirUnitCap_Easy_FS"
 		UnitUpgradeMultiplier="0.0"
@@ -99,6 +99,64 @@
 		<Tactic Tactic="SimpleAttack" TargetType="Structure">
 			<TeamTemplate MinUnits="6" MaxUnits="6" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="AIRCRAFT" AlwaysRelease="false" AlwaysRecruit="false"/>
 		</Tactic>
+	</AIStrategicStateDefinition>
+
+	<!--If opponent is low on funds cripple his economy-->
+	<AIStrategicStateDefinition
+		id="G_5_1_AlienResourceSqueeze_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<ResourceSqueezeHeuristic
+				PenetrabilityWeight="0.25"
+				OpponentFundsWeight="0.75">
+				<PenetrabilityHeuristic/>
+				<OpponentFundsHeuristic/>
+			</ResourceSqueezeHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="EconomyKillHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="4" MaxUnits="6" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="AlienHiveStalker" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="AlienWraith" UnitPreferenceOffensiveModifier="125%" UnitPreferenceDefensiveModifier="100%"/>
+	</AIStrategicStateDefinition>
+
+	<!--If opponent is nearly matched in forces, take out his production capacity-->
+	<AIStrategicStateDefinition
+		id="G_5_1_AlienProductionHalt_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<ProductionHaltHeuristic
+				BalanceOfPowerWeight="0.75"
+				PenetrabilityWeight="0.25">
+				<PenetrabilityHeuristic/>
+				<BalanceOfPowerHeuristic/>
+			</ProductionHaltHeuristic>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="ProductionKillHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="7" MaxUnits="9" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="AlienHiveStalker" UnitPreferenceOffensiveModifier="125" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="AlienWraith" UnitPreferenceOffensiveModifier="125" UnitPreferenceDefensiveModifier="100%"/>
+	</AIStrategicStateDefinition>
+
+	<!--If opponent is near power threshold, take his power offline-->
+	<AIStrategicStateDefinition
+		id="G_5_1_AlienPowerCut_FS"
+		UnitUpgradeMultiplier="0.0">
+		<Heuristic>
+			<PathToTargetHeuristic PathExists="true"/>
+			<OpponentPowerThresholdHeuristic/>
+		</Heuristic>
+		<TargetHeuristic TargetHeuristic="PowerKillHeuristic" TargetType="PrimaryTarget"/>
+		<Tactic Tactic="DefenseAvoidanceAttack" TargetType="PrimaryTarget">
+			<TeamTemplate MinUnits="10" MaxUnits="12" IncludeKindOf="CAN_ATTACK" ExcludeKindOf="" AlwaysRelease="false" AlwaysRecruit="false"/>
+		</Tactic>
+		<UnitModifierByName UnitName="AlienHiveStalker" UnitPreferenceOffensiveModifier="125" UnitPreferenceDefensiveModifier="100%"/>
+		<UnitModifierByName UnitName="AlienWraith" UnitPreferenceOffensiveModifier="125" UnitPreferenceDefensiveModifier="100%"/>
 	</AIStrategicStateDefinition>
 
 </AssetDeclaration>

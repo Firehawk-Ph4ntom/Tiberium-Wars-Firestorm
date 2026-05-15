@@ -2,27 +2,47 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
-		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<!-- For Tiberium Spike -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
 		<!-- For NOD Lab -->
 		<Include source="DATA:NOD\Structures_SinglePlayerCampaign\NSWeaponsLabFacility.xml" type="instance"/>
-		<!-- For NOD Carryall -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Aircraft\NODCarryallVehicle.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- Neutral Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- NOD Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
+
+	<!-- Removed the Buildable Money Crate -->
+	<LogicCommandSet
+		id="NODCranePVEGameModeCommandSet">
+		<Cmd>Command_NOD_BuildPowerPlantPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildRefineryPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildBarracksPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildDropZonePVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
+		<Cmd>Command_NOD_BuildHangar</Cmd>
+		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
+		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
+		<Cmd>Command_NOD_BuildWarmechFacilityPVEGameMode</Cmd>
+		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
+		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
+		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
+		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
+		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
+		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
+		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
+		<Cmd>Command_NOD_BuildWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
+	<GameObject
+		id="TiberiumSpikePVEGameMode"
+		inheritFrom="TiberiumSpikePVEGameMode"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_CASH_PRODUCER FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI"/>
 
 	<!-- Added a new Death effect -->
 	<GameObject
@@ -57,7 +77,7 @@
 		</Behaviors>
 	</GameObject>
 
-	<!-- Removed EMP Grenades upgrade -->
+	<!-- Removed EMP Grenades and Battle Drones upgrades -->
 	<LogicCommandSet
 		id="GDICommandPostCommandSet">
 		<Cmd>Command_UpgradeFieldSuits</Cmd>
@@ -89,20 +109,6 @@
 		<Cmd>Command_SelfRepair</Cmd>
 		<Cmd>Command_Sell</Cmd>
 	</LogicCommandSet>
-
-	<!-- Increased movement speed -->
-	<GameObject
-		id="NODCarryallVehicle"
-		inheritFrom="NODCarryallVehicle">
-		<LocomotorSet
-			Locomotor="GDIDropshipLocomotor"
-			Condition="NORMAL"
-			Speed="175"/>
-		<LocomotorSet
-			Locomotor="BasicHelicopterTaxiLocomotor"
-			Condition="TAXIING"
-			Speed="175"/>
-	</GameObject>
 
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
@@ -191,86 +197,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- Neutral -->
-	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
-	<GameObject
-		id="TiberiumSpike"
-		inheritFrom="TiberiumSpike"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="25"
-				InitialCaptureBonus="750"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- GDI -->
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<!-- NOD -->
-	<LogicCommandSet
-		id="NODCraneCommandSet">
-		<Cmd>Command_NOD_BuildPowerPlant</Cmd>
-		<Cmd>Command_NOD_BuildRefinery</Cmd>
-		<Cmd>Command_NOD_BuildBarracks</Cmd>
-		<Cmd>Command_NOD_BuildDropZone</Cmd>
-		<Cmd>Command_NOD_BuildOperationsCenter</Cmd>
-		<Cmd>Command_NOD_BuildHangar</Cmd>
-		<Cmd>Command_NOD_BuildSecretShrine</Cmd>
-		<Cmd>Command_NOD_BuildTechAssemblyPlant</Cmd>
-		<Cmd>Command_NOD_BuildTiberiumLiquidationFacility</Cmd>
-		<Cmd>Command_NOD_BuildWarmechFacility</Cmd>
-		<Cmd>Command_NOD_BuildRedemptionTemple</Cmd>
-		<Cmd>Command_NOD_BuildShredderTurretHub</Cmd>
-		<Cmd>Command_NOD_BuildLaserCannon</Cmd>
-		<Cmd>Command_NOD_BuildRocketBunker</Cmd>
-		<Cmd>Command_NOD_BuildTiberiumSilo</Cmd>
-		<Cmd>Command_NOD_BuildDisruptionTower</Cmd>
-		<Cmd>Command_NOD_BuildPropagandaTower</Cmd>
-		<Cmd>Command_NOD_BuildWallHub</Cmd>
-		<Cmd>Command_TogglePower</Cmd>
-		<Cmd>Command_SelfRepair</Cmd>
-		<Cmd>Command_Sell</Cmd>
-	</LogicCommandSet>
-
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
 </AssetDeclaration>

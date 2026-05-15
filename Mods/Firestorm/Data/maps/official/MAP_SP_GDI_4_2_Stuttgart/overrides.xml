@@ -3,11 +3,10 @@
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
+		<!-- For GDI Engineer -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 		<!-- For GDI Commando -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
@@ -18,13 +17,62 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- Neutral Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
 	</Includes>
+
+	<!-- Removed the Buildable Money Crate -->
+	<LogicCommandSet
+		id="AlienFoundryPVEGameModeCommandSet">
+		<Cmd>Command_ConstructAlienPowerProjectorPVEGameMode</Cmd>
+		<Cmd>Command_ConstructAlienTiberiumTowerPVEGameMode</Cmd>
+		<Cmd>Command_ConstructAlienPortalPVEGameMode</Cmd>
+		<Cmd>Command_ConstructAlienGatewayPVEGameMode</Cmd>
+		<Cmd>Command_ConstructAlienControlCenter</Cmd>
+		<Cmd>Command_ConstructAlienWarpBeaconPVEGameMode</Cmd>
+		<Cmd>Command_ConstructAlienStatisChamber</Cmd>
+		<Cmd>Command_ConstructAlienReactor</Cmd>
+		<Cmd>Command_ConstructAlienSignalTransmitter</Cmd>
+		<Cmd>Command_ConstructAlienWarpChasmPVEGameMode</Cmd>
+		<Cmd>Command_ConstructAlienStormObelisk</Cmd>
+		<Cmd>Command_ConstructAlienBuzzerHive</Cmd>
+		<Cmd>Command_ConstructAlienPhotonCannon</Cmd>
+		<Cmd>Command_ConstructAlienPlasmaMissileBattery</Cmd>
+		<Cmd>Command_ConstructAlienSporePod</Cmd>
+		<Cmd>Command_ConstructAlienWallHub</Cmd>
+		<Cmd>Command_TogglePower</Cmd>
+		<Cmd>Command_SelfRepair</Cmd>
+		<Cmd>Command_Sell</Cmd>
+	</LogicCommandSet>
+
+	<!-- Can't be Used on Scrin Drone Platform -->
+	<SpecialPowerTemplate
+		id="SpecialPower_JumpJetPlaceSatchelCharge"
+		TargetType="OBJECT"
+		NameOfVoiceNameToUseAsInitiateIntendToDoVoice="InitiateJumpJetPlaceSatchelCharge"
+		MaxCastRange="1000000"
+		MinCastRange="100"
+		ReloadTime="15s"
+		WaypointModeTerminal="false"
+		Flags="LIMIT_DISTANCE NEEDS_OBJECT_FILTER">
+		<ObjectFilter
+			Rule="ANY"
+			Relationship="ENEMIES NEUTRAL"
+			Include="STRUCTURE VALID_TARGET_FOR_C4"
+			Exclude="BRIDGE_ENDCAP BRIDGE_SEGMENT">
+			<ExcludeThing>AlienDronePlatform</ExcludeThing>
+		</ObjectFilter>
+	</SpecialPowerTemplate>
+
+	<!-- Increased health from 75 -->
+	<GameObject
+		id="GDIEngineerPVEGameMode"
+		inheritFrom="GDIEngineerPVEGameMode">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="250.0"/>
+		</Body>
+	</GameObject>
 
 	<!-- Increase damage of Garrisoned units -->
 	<AttributeModifier
@@ -129,7 +177,7 @@
 					Scalar="75%">
 					<Filter
 						Rule="NONE">
-						<!-- GDI Units -->
+						<!-- GDI Vehicles -->
 						<IncludeThing>GDIAPC</IncludeThing>
 						<IncludeThing>GDIAPC_Veteran</IncludeThing>
 						<IncludeThing>GDIPitbull</IncludeThing>
@@ -138,12 +186,15 @@
 						<IncludeThing>GDIWolverine</IncludeThing>
 						<IncludeThing>GDIMRT</IncludeThing>
 						<IncludeThing>GDISandstorm</IncludeThing>
-						<!-- NOD Units -->
+						<!-- Neutral Vehicles -->
+						<IncludeThing>MutantPitbull</IncludeThing>
+						<IncludeThing>MutantHumvee</IncludeThing>
+						<!-- NOD Vehicles -->
 						<IncludeThing>NODAttackBike</IncludeThing>
 						<IncludeThing>NODScorpionBuggy</IncludeThing>
 						<IncludeThing>NODStealthTank</IncludeThing>
 						<IncludeThing>NODNODSpiderDrone</IncludeThing>
-						<!-- Alien Units -->
+						<!-- Alien Vehicles -->
 						<IncludeThing>AlienGunWalker</IncludeThing>
 						<IncludeThing>AlienSeekerTank</IncludeThing>
 						<IncludeThing>AlienRazorback</IncludeThing>
@@ -333,62 +384,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- Neutral -->
-	<GameObject
-		id="TiberiumSpike"
-		inheritFrom="TiberiumSpike">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="25"
-				InitialCaptureBonus="750"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="TiberiumSilo"
-		inheritFrom="TiberiumSilo">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="50"
-				InitialCaptureBonus="1500"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- GDI -->
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="250.0"/>
-		</Body>
-	</GameObject>
 </AssetDeclaration>
