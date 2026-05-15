@@ -1386,7 +1386,7 @@ end
 -- =========================================================
 
 function OnHarvestingTiberiumCrystal(self)
-	ObjectBroadcastEventToUnits(self, "TiberiumCrystalEvent", 75)
+	ObjectBroadcastEventToUnits(self, "TiberiumCrystalEvent", 25)
 end
 
 function AddHarvestFrames(totalFrames, diff)
