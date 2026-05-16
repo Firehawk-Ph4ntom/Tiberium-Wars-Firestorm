@@ -806,6 +806,8 @@ function SquadLookupTable(x)
 		squadDelay = 3 * delay5
 	elseif strfind(tostring(x), "D6D1E79A") ~= nil then -- AlienRavagerSquad
 		squadDelay = 3 * delay5
+	elseif strfind(tostring(x), "69CEE4E7") ~= nil then -- AlienHiveStalkerSquad
+		squadDelay = 3 * delay1
 	elseif strfind(tostring(x), "D8D33555") ~= nil then -- AlienHunterSquad
 		squadDelay = 3 * delay5
 	elseif strfind(tostring(x), "D6D67027") ~= nil then -- AlienCultistSquad

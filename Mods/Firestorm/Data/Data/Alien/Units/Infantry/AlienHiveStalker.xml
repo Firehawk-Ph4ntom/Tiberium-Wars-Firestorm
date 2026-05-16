@@ -6,13 +6,12 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseInfantry.xml"/>
 	</Includes>
-	<GameObject id="AlienHiveStalker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienHiveStalker" ButtonImage="Portrait_AlienHiveStalker" Side="ALIEN" BuildCost="700" BuildTime="7" CommandSet="GenericUnitCommandSet" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT SCORE PRODUCED_AT_HELIPAD INFANTRY AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED HEALED_BY_TIBERIUM CAN_BE_FAVORITE_UNIT" WeaponCategory="GUN" VoicePriority="104" EditorName="AlienHiveStalker" Description="Desc:AlienHiveStalker" TypeDescription="Type:AlienHiveStalker" ProductionQueueType="AIRCRAFT" UnitTypeIcon="RazorDroneIcon">
+	<GameObject id="AlienHiveStalker" inheritFrom="BaseInfantry" SelectPortrait="Portrait_AlienHiveStalker" ButtonImage="Portrait_AlienHiveStalker" Side="ALIEN" BuildCost="200" BuildTime="2" KindOf="SELECTABLE CAN_ATTACK CAN_CAST_REFLECTIONS NO_COLLIDE ATTACK_NEEDS_LINE_OF_SIGHT PRODUCED_AT_HELIPAD INFANTRY AIRCRAFT LINE_OF_SIGHT_IGNORES_BUILDINGS TIBERIUM_BASED" WeaponCategory="GUN" VoicePriority="104" EditorName="AlienHiveStalker" Description="Desc:AlienHiveStalker" TypeDescription="Type:AlienHiveStalker" ProductionQueueType="AIRCRAFT" UnitTypeIcon="RazorDroneIcon">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:AlienHiveStalker</DisplayName>
 		<DisplayUpgrade>Upgrade_AlienMinorForcefieldGenerator</DisplayUpgrade>
 		<DisplayUpgrade>Upgrade_IonStormArmor</DisplayUpgrade>
 		<ArmorSet Armor="GenericArmoredSoldierArmor_TiberiumInfused" DamageFX="InfantryAlienDamageFX"/>
 		<LocomotorSet Locomotor="AlienHiveStalkerLocomotor" Condition="NORMAL" Speed="70"/>
-		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
@@ -95,10 +94,6 @@
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
-			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<EmotionTrackerUpdate id="Module_ETU">
-				<TauntAndPointExcluded Rule="NONE"/>
-			</EmotionTrackerUpdate>
 			<SlowDeath id="ModuleTag_OCLGibs" SinkRate="10">
 				<OCL Type="INITIAL">
 					<OCL>OCL_AlienInfGibs</OCL>
@@ -129,7 +124,6 @@
 				<DieMuxData DeathTypes="BURNED"/>
 				<Event Index="onDeath" FX="FX_InfScorch"/>
 			</FXListBehavior>
-			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="300" ExtraForbiddenKindOf="BEACON"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienHiveStalkerProtonWeapon"/>
@@ -142,13 +136,11 @@
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienAttenuatedForcefieldsUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienIonStormArmorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<StatusBitsUpgrade id="ModuleTag_IonStormDeathUpgrade" xai:joinAction="Remove"/>
-			<StancesBehavior id="ModuleTag_Stance" StanceTemplate="Generic"/>
 		</Behaviors>
 		<AI>
-			<JetAIUpdate id="ModuleTag_AI" NeedsRunway="false" KeepsParkingSpaceWhenAirborne="false" AutoAcquireEnemiesWhenIdle="YES">
-				<UnitAITargetChooserData SympathyRange="400.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
-				<LockonInfo />
-			</JetAIUpdate>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES">
+				<UnitAITargetChooserData SympathyRange="100.0" TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
 		</AI>
 		<Body>
 			<ShieldBody id="ModuleTag_Body" MaxHealth="250" ShieldEnabledFX="FX_AlienShieldEnabled" ShieldDepleteFX="FX_AlienShieldDeplete" ShieldTakeDamageFX="FX_AlienShieldHit" ShieldAmount="100" ShieldArmor="ForcefieldFilterDamageArmor" ShieldRechargeIdleTime="90s" ShieldActiveModelCondition="USER_19"/>
@@ -158,7 +150,7 @@
 		</Geometry>
 		<AudioArrayVoice>
 			<AudioEntry Sound="ALI_Prodigy_SoundAttack" AudioType="voiceAttack"/>
-			<AudioEntry Sound="ALI_Prodigy_SoundCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="ALI_Prodigy_SoundCreate" AudioType="voiceFullyCreated"/>
 			<AudioEntry Sound="ALI_Prodigy_SoundMove" AudioType="voiceMove"/>
 			<AudioEntry Sound="ALI_Prodigy_SoundSelect" AudioType="voiceSelect"/>
 		</AudioArrayVoice>

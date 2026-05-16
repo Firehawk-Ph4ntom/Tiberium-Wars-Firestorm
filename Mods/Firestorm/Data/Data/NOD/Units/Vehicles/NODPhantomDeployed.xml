@@ -3,7 +3,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODPhantomDeployed" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODPhantom" ButtonImage="Portrait_NODPhantom" Side="NOD" BuildCost="1800" BuildTime="18" CommandSet="NODPhantomDeployedCommandSet" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS VEHICLE NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI VALID_TARGET_FOR_C4 BROADCASTS_INVISIBILITY" ThreatLevel="10" VoicePriority="80" EditorName="NODPhantomDeployed" Description="Desc:NODPhantomDeployed" TypeDescription="Type:NODPhantomDeployed">
+	<GameObject id="NODPhantomDeployed" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODPhantom" ButtonImage="Portrait_NODPhantom" Side="NOD" BuildCost="1800" BuildTime="18" CommandSet="NODPhantomDeployedCommandSet" KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS VEHICLE NOT_AUTOACQUIRABLE AUTO_ACQUIRABLE_BY_AI VALID_TARGET_FOR_C4 BROADCASTS_INVISIBILITY STICK_TO_TERRAIN_SLOPE" ThreatLevel="10" VoicePriority="80" EditorName="NODPhantomDeployed" Description="Desc:NODPhantomDeployed" TypeDescription="Type:NODPhantomDeployed">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODPhantomDeployed</DisplayName>
 		<DisplayUpgrade>Upgrade_NODDisruptionModules</DisplayUpgrade>
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="VehicleDamageFX"/>
@@ -104,27 +104,11 @@
 					<ShadowInfo Type="ADDITIVE_DECAL" Texture="Decal_Repair_CO" SizeX="340" SizeY="340" OpacityPeak="0.35" MaxHeight="200" OverrideLODVisibility="true" UseHouseColor="true" LocalPlayerOnly="true" IsRotatingWithObject="false"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
-			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericLargeVehicleDeathFX.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericCrateUpgradeModelConditionsVehicleDeployed.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
-			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="11s">
-				<OCL Type="INITIAL">
-					<OCL>OCL_NODPhantomDebris</OCL>
-				</OCL>
-				<Sound Type="INITIAL" List="HumanFaction_SmallBuilding_DieMS"/>
-				<DieMuxData DeathTypes="ALL"/>
-			</SlowDeath>
-			<FXListBehavior id="ModuleTag_FXList">
-				<DieMuxData DeathTypes="ALL"/>
-				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Small"/>
-				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Die"/>
-				<Event Index="onCreate" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Created"/>
-			</FXListBehavior>
 			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" UnpackTime="1.5s"/>
 			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" Options="BROADCAST STARTS_ACTIVE" BroadcastRange="300" UpdatePeriod="0.1s">
 				<InvisibilityNugget/>
@@ -138,6 +122,20 @@
 					<ExcludeThing>AlienWormHole</ExcludeThing>
 				</BroadcastObjectFilter>
 			</InvisibilityUpdate>
+			<CreateObjectDie id="ModuleTag_CreateObjectDie" CreationList="OCL_NODDeployedPhantomDebris">
+				<DieMuxData DeathTypes="ALL"/>
+			</CreateObjectDie>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onTransitionToDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToReallyDamaged" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onTransitionToRubble" FX="FX_BuildDamaged_Small"/>
+				<Event Index="onDeath" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Die"/>
+				<Event Index="onCreate" ForceUseDoFXObj="true" FX="FX_DisruptionTower_Created"/>
+			</FXListBehavior>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="3" SpawnReplaceDelayData="0.1s" InitialBurst="3" SpawnedRequireSpawner="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true" KillSpawnsOnCaptured="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>NODPhantomRepairDrone</SpawnTemplate>

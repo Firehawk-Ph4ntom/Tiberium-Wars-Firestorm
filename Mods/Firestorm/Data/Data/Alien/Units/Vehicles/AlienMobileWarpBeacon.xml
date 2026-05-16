@@ -30,7 +30,7 @@
 		<ArmorSet Armor="GenericVehicleArmor" DamageFX="AlienVehicleDamageFX"/>
 		<LocomotorSet Locomotor="AlienMobileWarpBeaconLocomotor" Condition="NORMAL" Speed="40.0"/>
 		<Draws>
-			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="HELIPARK01 FXPORTAL FIGHTER_01 FIGHTER_02 FIGHTER_03 FIGHTER_04 FIGHTER_05 FIGHTER_06">
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true" ExtraPublicBone="HELIPARK01 FXPORTAL FIGHTER_01 FIGHTER_02 FIGHTER_03 FIGHTER_04 FIGHTER_05 FIGHTER_06 HELIPARK01">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="AUMOBLEBEACON_SKN"/>
 				</ModelConditionState>
@@ -297,11 +297,14 @@
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true" Type="AIRCRAFT" MaxQueueEntries="999">
-				<QuantityModifier Name="AlienHiveStalker" Count="4" />
 				<ProductionModifier RequiredUpgrade="Upgrade_ProductionDummy" TimeMultiplier="0.9" CostMultiplier="0.9">
 					<ModifierFilter Rule="ALL"/>
 				</ProductionModifier>
 			</ProductionUpdate>
+			<QueueProductionExitUpdate id="ModuleTag_QueueProduction" ExitDelay="1">
+				<UnitCreatePoint x="0.0" y="0.0" z="50.0"/>
+				<NaturalRallyPoint x="60.0" y="0.0" z="0.0"/>
+			</QueueProductionExitUpdate>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="7.5s">
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
@@ -339,7 +342,7 @@
 			<AudioLoopUpgrade id="ModuleTag_AdvProductionAudioLoop" SoundToPlay="ALI_AdvancedProduction_Upgrade">
 				<TriggeredBy>Upgrade_AdvancedProduction</TriggeredBy>
 			</AudioLoopUpgrade>
-			<AISpecialPowerUpdate id="ModuleTag_ConstructHiveStalkerAI" CommandButtonName="Command_ConstructAlienHiveStalker" SpecialPowerRadius="999999" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
+			<AISpecialPowerUpdate id="ModuleTag_ConstructHiveStalkerAI" CommandButtonName="Command_ConstructAlienHiveStalkerSquad" SpecialPowerRadius="999999" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
 			<AISpecialPowerUpdate id="ModuleTag_ConstructWraithAI" CommandButtonName="Command_ConstructAlienWraith" SpecialPowerRadius="999999" SpecialPowerAIType="SPECIAL_POWER_RANGED_AOE_ATTACK"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/AlienForcefieldGeneratorUpgrade.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Behaviors/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericHijackerContain.xml"/>
