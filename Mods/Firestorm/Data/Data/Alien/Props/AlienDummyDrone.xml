@@ -1,6 +1,6 @@
 ﻿<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
-	<!-- Dummy Drone for Eradicator Hexapod / Planetary Annihilator -->
-	<GameObject id="AlienEradicatorHexapodDummyDrone" Side="ALIEN" EditorSorting="SYSTEM" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE PASS_EXPERIENCE_TO_SLAVER" EditorName="AlienEradicatorHexapodDummyDrone">
+	<!-- Dummy Drone for Corrupter -->
+	<GameObject id="AlienCorrupterDummyDrone" Side="ALIEN" EditorSorting="SYSTEM" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE PASS_EXPERIENCE_TO_SLAVER" EditorName="AlienCorrupterDummyDrone">
 		<ArmorSet Armor="NoArmor" />
 		<LocomotorSet Speed="600" Locomotor="GDIRepairDroneLocomotor"/>
 		<Draws>
@@ -18,7 +18,7 @@
 				<DieMuxData DeathTypes="ALL"/>
 			</DestroyDie>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate">
-				<FireWeaponNugget WeaponName="AlienEradicatorTiberiumRadiation" FireDelay="2.5s"/>
+				<FireWeaponNugget WeaponName="AlienCorrupterTiberiumRadiation" FireDelay="2.5s"/>
 			</FireWeaponUpdate>
 		</Behaviors>
 		<AI>
@@ -28,16 +28,8 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="100"/>
 		</Body>
 	</GameObject>
-	<!-- Dummy Drone for Corrupter -->
-	<GameObject id="AlienCorrupterDummyDrone" inheritFrom="AlienEradicatorHexapodDummyDrone" EditorName="AlienCorrupterDummyDrone">
-		<Behaviors>
-			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
-				<FireWeaponNugget WeaponName="AlienCorrupterTiberiumRadiation" FireDelay="2.5s"/>
-			</FireWeaponUpdate>
-		</Behaviors>
-	</GameObject>
 	<!-- Dummy Drone for Ichor Harvester -->
-	<GameObject id="AlienHarvesterDummyDrone" inheritFrom="AlienEradicatorHexapodDummyDrone" EditorName="AlienHarvesterDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE">
+	<GameObject id="AlienHarvesterDummyDrone" inheritFrom="AlienCorrupterDummyDrone" EditorName="AlienHarvesterDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE">
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="AlienContaminatorTiberiumRadiation" FireDelay="2.5s"/>
@@ -45,7 +37,7 @@
 		</Behaviors>
 	</GameObject>
 	<!-- Dummy Drone for Ichor Contaminator -->
-	<GameObject id="AlienContaminatorDummyDrone" inheritFrom="AlienEradicatorHexapodDummyDrone" EditorName="AlienContaminatorDummyDrone">
+	<GameObject id="AlienContaminatorDummyDrone" inheritFrom="AlienCorrupterDummyDrone" EditorName="AlienContaminatorDummyDrone">
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="AlienContaminatorTiberiumRadiation" FireDelay="2.5s"/>
@@ -53,7 +45,7 @@
 		</Behaviors>
 	</GameObject>
 	<!-- Dummy Drone for Ichor Irradiator -->
-	<GameObject id="AlienIrradiatorDummyDrone" inheritFrom="AlienEradicatorHexapodDummyDrone" EditorName="AlienIrradiatorDummyDrone">
+	<GameObject id="AlienIrradiatorDummyDrone" inheritFrom="AlienCorrupterDummyDrone" EditorName="AlienIrradiatorDummyDrone">
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
 				<FireWeaponNugget WeaponName="AlienIrradiatorTiberiumRadiation" FireDelay="2.5s"/>
@@ -61,7 +53,7 @@
 		</Behaviors>
 	</GameObject>
 	<!-- Dummy Drone for Explorer Outpost / Terraforming Nexus / Ichor Extractor -->
-	<GameObject id="AlienExplorerOutpostDummyDrone" inheritFrom="AlienEradicatorHexapodDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienExplorerOutpostDummyDrone">
+	<GameObject id="AlienExplorerOutpostDummyDrone" inheritFrom="AlienCorrupterDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE" EditorName="AlienExplorerOutpostDummyDrone">
 		<LocomotorSet Speed="0" Locomotor="GDIRepairDroneLocomotor"/>
 		<Behaviors>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="1" InitialBurst="1" InitialDelay="1s" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" KillSpawnsOnDisabled="true">
@@ -69,10 +61,14 @@
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>IonStorm</SpawnTemplate>
 			</SpawnBehavior>
+			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">
+				<FireWeaponNugget WeaponName="AlienEradicatorTiberiumRadiation" FireDelay="2.5s"/>
+				<FireWeaponNugget WeaponName="AlienEradicatorRadiationTerrorDroneKillerWeapon"/>
+			</FireWeaponUpdate>
 		</Behaviors>
 	</GameObject>
 	<!-- Dummy Drone for Infestation Spore Pod -->
-	<GameObject id="AlienIchorPodDummyDrone" inheritFrom="AlienHarvesterDummyDrone" EditorName="AlienIchorPodDummyDrone">
+	<GameObject id="AlienIchorPodDummyDrone" inheritFrom="AlienCorrupterDummyDrone" EditorName="AlienIchorPodDummyDrone" KindOf="DRONE SKIP_IDLE_WHEN_CAPTURED UNATTACKABLE NOT_AUTOACQUIRABLE NO_COLLIDE">
 		<LocomotorSet Speed="0" Locomotor="GDIRepairDroneLocomotor"/>
 		<Behaviors>
 			<FireWeaponUpdate id="ModuleTag_FireWeaponUpdate" xai:joinAction="Replace">

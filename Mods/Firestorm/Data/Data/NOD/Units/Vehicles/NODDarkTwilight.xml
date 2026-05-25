@@ -262,6 +262,18 @@
 					<Animation AnimationName="NU_TWILIGHT_BLDA" AnimationMode="ONCE" AnimationBlendTime="0" AnimationSpeedFactorMin="0.1" AnimationSpeedFactorMax="0.1"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingTwilght" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingTwilghtSpark" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
@@ -348,6 +360,7 @@
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="NOD_Redeemer_DieSpark" RequiredFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
 			</ModelConditionAudioLoopClientBehavior>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
 				<Sound Sound="NOD_AvatarWarMech_Footstep2" Animation="NU_TWILIGHT_AIFB" Frame="42 70"/>

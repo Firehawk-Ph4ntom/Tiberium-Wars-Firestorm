@@ -131,6 +131,18 @@
 					<Script> CurDrawableHideSubObjectPermanently("LIGHTS") </Script>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingNODMCV" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingNODMCVSpark" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericLargeVehicleDeathFX.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericRagedSlowedVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericCrateUpgradeModelConditionsVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
@@ -169,6 +181,10 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="7500.0"/>
 		</Body>
 		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_MCVPackBed" RequiredFlags="UNPACKING"/>
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
 				<Sound Sound="NOD_MCVDie1" Animation="NBMCV_DIEA" Frame="3"/>
 				<Sound Sound="NOD_MCVDie2" Animation="NBMCV_DIEA" Frame="26"/>
@@ -182,9 +198,6 @@
 				<Sound Sound="NOD_MCVPack5" Animation="NBMCV_A" Frame="15"/>
 				<Sound Sound="NOD_MCVPack6" Animation="NBMCV_A" Frame="6"/>
 			</AnimationSoundClientBehavior>
-			<ModelConditionAudioLoopClientBehavior id="MCALCB">
-				<ModelConditionSound Sound="NOD_MCVPackBed" RequiredFlags="UNPACKING"/>
-			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="22" MinorRadius="18" Height="20.0" ContactPointGeneration="VEHICLE">

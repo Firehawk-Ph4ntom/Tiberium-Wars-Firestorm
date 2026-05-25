@@ -58,6 +58,7 @@
 					<Animation AnimationName="NUSPIDER_BIDA" AnimationMode="ONCE" AnimationBlendTime="15"/>
 					<Script> Prev = CurDrawablePrevAnimationState(); if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER" Flags="START_FRAME_FIRST">
 					<Animation AnimationName="NUSPIDER_BIDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
@@ -165,6 +166,18 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIWheelDustLight" FollowBone="true"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingBuggy" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingBuggySpark" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericLargeVehicleDeathFX.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
@@ -282,6 +295,11 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="2000"/>
 		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="10" MinorRadius="7" Height="5" ContactPointGeneration="VEHICLE">
 				<Offset x="0" y="0" z="7"/>

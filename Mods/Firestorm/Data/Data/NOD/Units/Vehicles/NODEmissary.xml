@@ -73,6 +73,18 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingBuggy" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingBuggySpark" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawDecal" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
@@ -131,6 +143,9 @@
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
 		</Body>
 		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
 			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
 				<Sound Sound="NOD_Emissary_Unpack3" Animation="NUSuvUPAK_A" Frame="2"/>
 				<Sound Sound="NOD_Emissary_Unpack2" Animation="NUSuvUPAK_A" Frame="20"/>

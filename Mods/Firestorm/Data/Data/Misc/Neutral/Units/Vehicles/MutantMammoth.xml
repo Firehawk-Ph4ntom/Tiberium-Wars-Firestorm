@@ -163,6 +163,18 @@
 					<FXEvent Frame="1" Effect="FX_PropagandaPulse" Bone="INVISBONE01" FireWhenSkipped="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles4" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingGDIMammoth" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingGDIMammothSpark" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DeathFX" AttachToBoneInAnotherModule="FXHULKFIRE">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="GUMAMM_FX_FS"/>
@@ -283,6 +295,11 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10800"/>
 		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="28.0" MinorRadius="18.0" Height="12.0" ContactPointGeneration="VEHICLE"/>
 			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="13.5" Height="8.0" ContactPointGeneration="VEHICLE">

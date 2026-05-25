@@ -209,6 +209,20 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="NODTibInfusion" FollowBone="true"/>
 				</ModelConditionState>
 			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60 USER_3">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingAlienCorrupterBlue" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingAlienCorrupter" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_DrawCombined">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
@@ -330,6 +344,14 @@
 				<Sound Type="INITIAL" List="ALI_Corrupter_SoundDie"/>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="SLAUGHTERED" ExemptStatus="WEAPON_UPGRADED_01"/>
+				<Event Index="onDeath" FX="FX_AlienContaminatorExplode"/>
+			</FXListBehavior>
+			<FXListBehavior id="ModuleTag_FXList2">
+				<DieMuxData DeathTypes="SLAUGHTERED" RequiredStatus="WEAPON_UPGRADED_01"/>
+				<Event Index="onDeath" FX="FX_AlienContaminatorExplodeBlue"/>
+			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="AlienCorrupterTioxinBlastCannon"/>
@@ -401,6 +423,7 @@
 		<ClientBehaviors>
 			<ModelConditionAudioLoopClientBehavior id="MCALCB">
 				<ModelConditionSound Sound="ALI_SeekerTank_IdleLoop" RequiredFlags="USER_19" ExcludedFlags="DYING"/>
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
 			</ModelConditionAudioLoopClientBehavior>
 		</ClientBehaviors>
 		<Geometry>

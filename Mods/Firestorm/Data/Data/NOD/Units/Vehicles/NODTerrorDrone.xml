@@ -1,0 +1,149 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTerrorDrone.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTerrorDrone_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTerrorDrone_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_ABTA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_AIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_AIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_AIFB.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_ATKA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_BATA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_BIDA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_BIFA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_DIEA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_RUNA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\NODTerrorDrone\NUTERRORDRONE_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
+	</Includes>
+	<GameObject id="NODTerrorDrone" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODTerrorDrone" ButtonImage="Portrait_NODTerrorDrone" Side="NOD" BuildCost="600" BuildTime="6" CommandSet="NODGenericVehicleCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" VoicePriority="120" EditorName="NODTerrorDrone" WeaponCategory="CANNON" Description="Desc:NODTerrorDrone" TypeDescription="Type:NODTerrorDrone">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODTerrorDrone</DisplayName>
+		<DisplayUpgrade>Upgrade_NODDisruptionModules</DisplayUpgrade>
+		<ArmorSet Armor="GenericLightVehicleArmor_NoDA" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="NODTerrorDroneLocomotor" Condition="NORMAL" Speed="160.0"/>
+		<SkirmishAIInformation UnitBuilderStandardCombatUnit="true"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="NUTERRORDRONE_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="NUTERRORDRONE_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Model Name="NUTERRORDRONE_SKN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="NUTERRORDRONE_SKN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="NUTERRORDRONE_SKN"/>
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_bored" Flags="RESTART_ANIM_WHEN_COMPLETE">
+					<Animation AnimationName="NUTERRORDRONE_BIDA" AnimationMode="ONCE" AnimationPriority="80" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUTERRORDRONE_BIFA" AnimationMode="ONCE" AnimationPriority="80" AnimationBlendTime="15"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_Selected" or Prev == "STATE_Run" then CurDrawableSetTransitionAnimState("TRANS_SelectedToIdle") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Animation AnimationName="NUTERRORDRONE_BIDA" AnimationMode="MANUAL"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING">
+					<Animation AnimationName="NUTERRORDRONE_DIEA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP">
+					<Animation AnimationName="NUTERRORDRONE_BIDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PASSENGER">
+					<Animation AnimationName="NUTERRORDRONE_BIDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING ATTACKING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUTERRORDRONE_RUNA" AnimationMode="LOOP" Distance="120" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING" StateName="STATE_Run" Flags="RANDOMSTART">
+					<Animation AnimationName="NUTERRORDRONE_RUNA" AnimationMode="LOOP" Distance="120" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="ATTACKING">
+					<Animation AnimationName="NUTERRORDRONE_AIDA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="SELECTED" Flags="RESTART_ANIM_WHEN_COMPLETE" StateName="STATE_Selected">
+					<Animation AnimationName="NUTERRORDRONE_AIDA" AnimationMode="ONCE" AnimationPriority="80" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUTERRORDRONE_AIFA" AnimationMode="ONCE" AnimationPriority="40" AnimationBlendTime="15"/>
+					<Animation AnimationName="NUTERRORDRONE_AIFB" AnimationMode="ONCE" AnimationPriority="10" AnimationBlendTime="15"/>
+					<Script> Prev = CurDrawablePrevAnimationState() if Prev == "STATE_bored" then CurDrawableSetTransitionAnimState("TRANS_IdleToSelected") end; </Script>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IdleToSelected">
+					<Animation AnimationName="NUTERRORDRONE_BATA" AnimationMode="ONCE"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_SelectedToIdle">
+					<Animation AnimationName="NUTERRORDRONE_ABTA" AnimationMode="ONCE"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericRagedSlowedVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
+			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericCrateUpgradeModelConditionsVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="9s">
+				<Sound Type="INITIAL" List="NOD_TerrorDrone_VoiceDie"/>
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED"/>
+			</SlowDeath>
+			<SlowDeath id="ModuleTag_Death2" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<DieMuxData DeathTypes="DETONATED"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL" DeathTypesForbidden="DETONATED"/>
+				<Event Index="onDeath" FX="FX_GDIMammothExplode"/>
+			</FXListBehavior>
+			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="150" ExtraForbiddenKindOf="AIRCRAFT MINE BEACON"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODTerrorDroneMeleeWeaponDummy"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="NODTerrorDroneMeleeWeaponActual"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportForVehicle.xml"/>
+			<InvisibilityUpdate id="ModuleTag_AdvInvisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
+				<InvisibilityNugget ForbiddenConditions="MOVING PREATTACK_A FIRING_A FIRING_OR_PREATTACK_A RELOADING_A USING_WEAPON_A REALLYDAMAGED" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff"/>
+				<RequiresUpgrade>Upgrade_ActivateDisruptionModule</RequiresUpgrade>
+			</InvisibilityUpdate>
+			<StealthUpgrade id="ModuleTag_DisruptionModulesTrigger">
+				<TriggeredBy>Upgrade_ActivateDisruptionModule</TriggeredBy>
+			</StealthUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_DisruptionModuleModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_NODDisruptionModules</TriggeredBy>
+			</ModelConditionUpgrade>
+			<AudioLoopUpgrade id="ModuleTag_DisruptionModuleAudioLoop" SoundToPlay="ALI_AdvancedProduction_Upgrade">
+				<TriggeredBy>Upgrade_NODDisruptionModules</TriggeredBy>
+			</AudioLoopUpgrade>
+		</Behaviors>
+		<AI>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="YES" AILuaEventsList="NODTerrorDroneFunctions">
+				<UnitAITargetChooserData TargetingCompareList="CompleteUnitTargetingCompareList"/>
+			</AIUpdate>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="1000"/>
+		</Body>
+		<Geometry IsSmall="true">
+			<Shape Type="CYLINDER" MajorRadius="15.0" Height="15.0" ContactPointGeneration="VEHICLE"/>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="NOD_TerrorDrone_VoiceSelect" AudioType="voiceAttack"/>
+			<AudioEntry Sound="NOD_TerrorDrone_VoiceCreateMS" AudioType="voiceCreated"/>
+			<AudioEntry Sound="NOD_TerrorDrone_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="NOD_TerrorDrone_VoiceSelectMS" AudioType="voiceSelect"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="NOD_TerrorDrone_MoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="NOD_TerrorDrone_MoveLoop" AudioType="soundMoveLoop" />
+		</AudioArraySound>
+		<VisionInfo VisionRange="250" ShroudClearingRange="300"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="4"/>
+	</GameObject>
+</AssetDeclaration>

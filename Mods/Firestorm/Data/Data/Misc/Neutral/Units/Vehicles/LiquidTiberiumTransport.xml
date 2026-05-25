@@ -24,6 +24,18 @@
 					<Texture Original="NULTTrans" New="NULTTrans_D"/>
 				</ModelConditionState>
 			</TruckDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TERROR_BONE">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_60">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingBuggy" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="NODTerrorDroneEatingBuggySpark" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericLargeVehicleDeathFX.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericRagedSlowedVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
 			<xi:include href="DATA:Firestorm/Data/Data/Misc/Includes/GenericCrateUpgradeModelConditionsVehicle.xml" xpointer="xmlns(n=uri:ea.com:eala:asset) xpointer(/n:Draws/child::*)"/>
@@ -50,6 +62,11 @@
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="10000"/>
 		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="NOD_TerrorDrone_WeaponGrinder" RequiredFlags="USER_60" ExcludedFlags="PARALYZED DYING"/>
+			</ModelConditionAudioLoopClientBehavior>
+		</ClientBehaviors>
 		<Geometry>
 			<Shape Type="BOX" MajorRadius="24.375" MinorRadius="12" Height="22.5" ContactPointGeneration="VEHICLE"/>
 		</Geometry>
