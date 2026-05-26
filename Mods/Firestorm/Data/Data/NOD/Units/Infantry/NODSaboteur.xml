@@ -208,7 +208,8 @@
 			<StealthDetectorUpdate id="ModuleTag_StealthDetect" DetectionRange="100" ExtraForbiddenKindOf="AIRCRAFT MINE BEACON"/>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="false" InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE" WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericHijackerCaptureGetInRange"/>
+					<Weapon Ordering="SECONDARY_WEAPON" Template="GenericEngineerCaptureGetInRange"/>
 				</WeaponSlotHardpoint>
 			</WeaponSetUpdate>
 			<InvisibilityUpdate id="ModuleTag_Invisibility" UpdatePeriod="0.1s" Options="STARTS_ACTIVE">
@@ -224,6 +225,11 @@
 				<SpawnTemplate>NODSaboteurRepairDrone</SpawnTemplate>
 			</SpawnBehavior>
 			<AssignSlavesTargetObjectSpecialPower id="ModuleTag_SpecialPowerAssignForRepair" SpecialPowerTemplate="SpecialPower_TargetedRepairVehicleAndStructure"/>
+			<!-- Capture Vehicle -->
+			<SpecialPower id="ModuleTag_CaptureVehicleGetInRange" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicleGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK" TriggerAttributeModifier="AttributeModifier_HijackerCapture" ChainedButton="Command_CaptureVehicleTrigger" SpecialWeapon="GenericHijackerCaptureTrigger"/>
+			<SpecialPower id="ModuleTag_CaptureVehicleSP" SpecialPowerTemplate="SpecialPowerCaptureVehicle" UpdateModuleStartsAttack="true"/>
+			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureVehicleSPUpdate" SpecialPowerTemplate="SpecialPowerCaptureVehicle" StartAbilityRange="20" PreparationTime="0s" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK" ChainedButton="Command_CaptureVehicle" SpecialWeapon="GenericEngineerSuicideWeapon"/>
 			<!-- Capture Building -->
 			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_CaptureBuildingGetInRangeUpdate" SpecialPowerTemplate="SpecialPowerCaptureBuildingGetInRange" StartAbilityRange="20" Options="DO_CAPTURE_FX MUST_FINISH_ABILITY IGNORE_FACING_CHECK SHOW_PREPARATION_PROGRESS" TriggerAttributeModifier="AttributeModifier_EngineerCapture" ChainedButton="Command_CaptureBuildingTrigger" SpecialWeapon="GenericEngineerCaptureTrigger"/>
@@ -249,10 +255,10 @@
 			<!-- Place booby trap on a husk -->
 			<SpecialPower id="ModuleTag_BoobyTrapHusk" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_BoobyTrapHuskUpdate" SpecialPowerTemplate="SpecialPower_PlaceBoobyTrapAtHusk" SpecialWeapon="NODSaboteurPlaceBoobyTrapAtHuskWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" WhichSpecialWeapon="1" Options="USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
-			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
 			<!-- Repair CIV Building -->
 			<SpecialPower id="ModuleTag_RepairCivBuilding" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" UpdateModuleStartsAttack="true"/>
 			<WeaponFireSpecialAbilityUpdate id="ModuleTag_RepairCivBuildingUpdate" SpecialPowerTemplate="SpecialPower_RepairCivBuilding" SpecialWeapon="GenericEngineerRepairCivBuildingWeapon" UnpackTime="0.6s" PackTime="0.3s" StartAbilityRange="5.0" WhichSpecialWeapon="1" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE USE_OBJECT_GEOMETRY_FOR_WITHIN_RANGE_CHECK"/>
+			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportInfantry.xml"/>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf">
 				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
 				<ReplacementTemplate>NODSaboteurPVEGameMode</ReplacementTemplate>
@@ -303,7 +309,11 @@
 		<EquivalentTo>NODSaboteur</EquivalentTo>
 		<LocomotorSet Locomotor="HumanLocomotor" Condition="NORMAL" Speed="45"/>
 		<Behaviors>
-			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Remove"/>
+			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate" xai:joinAction="Replace">
+				<WeaponSlotHardpoint ID="1">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="GenericHijackerCaptureGetInRange"/>
+				</WeaponSlotHardpoint>
+			</WeaponSetUpdate>
 			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Remove"/>
 			<!-- Capture Building -->
 			<SpecialPower id="ModuleTag_CaptureBuildingGetInRange" xai:joinAction="Remove"/>
