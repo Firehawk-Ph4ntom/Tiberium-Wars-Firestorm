@@ -16,7 +16,7 @@
 		<!-- Base Object -->
 		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseVehicle.xml"/>
 	</Includes>
-	<GameObject id="NODSpiderDrone" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODSpiderDrone" ButtonImage="Portrait_NODSpiderDrone" Side="NOD" BuildCost="1800" BuildTime="18" CommandSet="NODGenericVehicleCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" WeaponCategory="CANNON" VoicePriority="150" EditorName="NODSpiderDrone" ThreatLevel="10" HasFiredRecentlyTime="2s" Description="Desc:NODSpiderDrone" TypeDescription="Type:NODSpiderDrone">
+	<GameObject id="NODSpiderDrone" inheritFrom="BaseVehicle" SelectPortrait="Portrait_NODSpiderDrone" ButtonImage="Portrait_NODSpiderDrone" Side="NOD" BuildCost="1800" BuildTime="18" CommandSet="NODSpiderDroneCommandSet" KindOf="SELECTABLE CAN_ATTACK ATTACK_NEEDS_LINE_OF_SIGHT CAN_CAST_REFLECTIONS SCORE VEHICLE CAN_REVERSE_MOVE CAN_BE_FAVORITE_UNIT VALID_TARGET_FOR_C4" WeaponCategory="CANNON" VoicePriority="150" EditorName="NODSpiderDrone" ThreatLevel="10" HasFiredRecentlyTime="2s" Description="Desc:NODSpiderDrone" TypeDescription="Type:NODSpiderDrone">
 		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:NODSpiderDrone</DisplayName>
 		<DisplayUpgrade>Upgrade_PurifyingLaser</DisplayUpgrade>
 		<GameDependency>
@@ -29,8 +29,10 @@
 			<TruckDraw id="ModuleTag_Draw" TrackMarks="FXTireTrack2" OkToChangeModelColor="true" TrackMarksLeftBone="F_LTIRE" TrackMarksRightBone="F_RTIRE" TrackMarksOnlyWhenCorneringQuickly="true" LeftFrontTireBone="F_LTIRE" RightFrontTireBone="F_RTIRE" LeftRearTireBone="R_LTIRE" RightRearTireBone="R_RTIRE" TireRotationMultiplier="0.2" PowerslideRotationAddition="1.25">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT" RetainSubObjects="true">
 					<Model Name="NUSPIDER_SKN"/>
-					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_01"/>
-					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_01"/>
+					<WeaponFireFXBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="CRYSTAL"/>
+					<WeaponLaunchBone WeaponSlotID="1" WeaponSlotType="PRIMARY_WEAPON" BoneName="CRYSTAL"/>
+					<WeaponFireFXBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_01"/>
+					<WeaponLaunchBone WeaponSlotID="2" WeaponSlotType="PRIMARY_WEAPON" BoneName="FXWeapon_01"/>
 				</ModelConditionState>
 				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
 					<Model Name="NUSPIDER_FP"/>
@@ -67,6 +69,12 @@
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
 					<Animation AnimationName="NUSPIDER_BIDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREPARING" StateName="STATE_Selected">
+					<Animation AnimationName="NUSPIDER_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" StateName="STATE_Selected">
+					<Animation AnimationName="NUSPIDER_AIDA" AnimationMode="LOOP"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" StateName="STATE_Run">
 					<Animation AnimationName="NUSPIDER_TRNL" AnimationMode="LOOP"/>
@@ -122,6 +130,12 @@
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING" Flags="START_FRAME_FIRST">
 					<Animation AnimationName="NUSPIDER_BIDA" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREPARING" StateName="STATE_Selected">
+					<Animation AnimationName="NUSPIDER_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING" StateName="STATE_Selected">
+					<Animation AnimationName="NUSPIDER_AIDA" AnimationMode="LOOP"/>
+				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED" StateName="STATE_Run">
 					<Animation AnimationName="NUSPIDER_TRNL" AnimationMode="LOOP"/>
 				</AnimationState>
@@ -157,7 +171,41 @@
 					<Animation AnimationName="NUSPIDER_ABTA" AnimationMode="ONCE"/>
 				</AnimationState>
 			</TruckDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles">
+			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="CRYSTAL">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="FXInvisBone_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNDERPOWERED"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="AFFECTED_BY_EMP"/>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="PurifyingBeamPreFireFlashHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamPreFireFlashHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="UNPACKING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamPreFireFlash" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREPARING USER_1 USER_2">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="PurifyingBeamConstantFireHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREPARING USER_1">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFireHeroic" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PREPARING">
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="BeamConstantFire02" FollowBone="true"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles2">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
 				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
@@ -168,7 +216,7 @@
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="TreadDirt" FollowBone="true"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Particles2" AttachToBoneInAnotherModule="TERROR_BONE">
+			<ScriptedModelDraw id="ModuleTag_Particles3" AttachToBoneInAnotherModule="TERROR_BONE">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
 					<Model Name="FXInvisBone_FS"/>
 				</ModelConditionState>
@@ -261,6 +309,9 @@
 			</FXListBehavior>
 			<WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
 				<WeaponSlotHardpoint ID="1" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_RANDOM">
+					<Weapon Ordering="PRIMARY_WEAPON" Template="NODSpiderDroneDummyWeapon"/>
+				</WeaponSlotHardpoint>
+				<WeaponSlotHardpoint ID="2" AllowInterleavedFiring="true" InterleavedStyle="INTERLEAVE_RANDOM">
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODSpiderDronePrismLaser"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODSpiderDronePrismLaserHeroic" ObjectStatus="WEAPON_UPGRADED_03"/>
 					<Weapon Ordering="PRIMARY_WEAPON" Template="NODSpiderDronePurifyingPrismLaser" ObjectStatus="WEAPON_UPGRADED_01"/>
@@ -272,13 +323,25 @@
 			<InvisibilityUpdate id="ModuleTag_Invisibility_Intrinsic" UpdatePeriod="0.1s" OpacityMin="30%" OpacityMax="100%" Options="STARTS_ACTIVE">
 				<InvisibilityNugget ForbiddenConditions="REALLYDAMAGED" EnteringStealthFX="FX_NODStealthTransitionOn" LeavingStealthFX="FX_NODStealthTransitionOff" ForbiddenStatus="IS_FIRING_WEAPON"/>
 			</InvisibilityUpdate>
+			<!-- Charge defenses special power -->
+			<SpecialPower id="ModuleTag_ChargeDefenses" SpecialPowerTemplate="SpecialPower_ChargeDefensesTrigger" UpdateModuleStartsAttack="true"/>
+			<BeamSpecialAbilityUpdate id="ModuleTag_ChargeDefensesUpdate" SpecialPowerTemplate="SpecialPower_ChargeDefensesTrigger" JoinWithOtherBeams="false" UnpackTime="1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" PreparationTime="99999s" PackTime="0.1s" StartAbilityRange="250.0" PrepSoundLoop="NOD_BeamCannon_BeamWeaponLoopMS" TargetAttributeModifierAdd="AttributeModifier_ChargeDefenses" TargetSamePlayerOnly="false" Options="CHECK_SPECIALPOWER_REQUIREMENTS_DURING_UPDATE" PreferredTargetBone="FXBONE01" DamagePerSecond="0.0"/>
+			<!-- Reflector attack special power -->
+			<SpecialPower id="ModuleTag_ReflectorSpecialPower" SpecialPowerTemplate="SpecialPower_ReflectorAttack" UpdateModuleStartsAttack="true" />
+			<BeamSpecialAbilityUpdate id="ModuleTag_ReflectorSpecialPowerUpdate" SpecialPowerTemplate="SpecialPower_ReflectorAttack" JoinWithOtherBeams="true" UnpackTime="1s" UnpackSound="NOD_BeamCannon_BeamWeaponPowerUpSwell" PreparationTime="99999s" PrepSoundLoop="NOD_BeamCannon_BeamWeaponLoopMS" PackTime="0.1s" StartAbilityRange="10000" ReflectorExtendDistance="450.0" DamagePerSecond="135.0" SetObjectStatusOnTrigger="IS_ENGAGED" ClearObjectStatusOnExit="IS_ENGAGED" Options="LOSE_STEALTH_ON_TRIGGER" GoIdleInStartPreparation="false"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportForVehicle.xml"/>
 			<StatusBitsUpgrade id="ModuleTag_PurifyingLaserUpgrade" StatusToSet="WEAPON_UPGRADED_01">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</StatusBitsUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_PurifyingLaserModelCondition" AddConditionFlags="USER_2">
+				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
+			</ModelConditionUpgrade>
 			<AudioLoopUpgrade id="ModuleTag_PurifyingLaserAudioLoop" SoundToPlay="GDI_RailGun_Upgrade">
 				<TriggeredBy>Upgrade_PurifyingLaser</TriggeredBy>
 			</AudioLoopUpgrade>
+			<ModelConditionUpgrade id="ModuleTag_Veterancy_ModelCondition" AddConditionFlags="USER_1">
+				<TriggeredBy>Upgrade_Veterancy_HEROIC</TriggeredBy>
+			</ModelConditionUpgrade>
 			<StatusBitsUpgrade id="ModuleTag_AnyFaction" StatusToSet="WEAPON_UPGRADED_02">
 				<TriggeredBy>Upgrade_AnyFaction</TriggeredBy>
 			</StatusBitsUpgrade>
