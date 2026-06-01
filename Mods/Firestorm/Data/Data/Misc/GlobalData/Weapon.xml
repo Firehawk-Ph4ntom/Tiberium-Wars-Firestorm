@@ -42600,43 +42600,61 @@
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="AlienPhotonCannonShardLauncherWeapon"
-		Name="AlienPhotonCannonShardLauncherWeapon"
-		AttackRange="350"
-		WeaponSpeed="400"
-		FireFX="FX_AlienTibShardFire"
-		FireVeteranFX="FX_AlienTibShardFireHeroic"
-		ClipSize="20"
-		RotatingTurret="true"
-		ReAcquireDetailType="PRE_FIRE">
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
+		id="AlienPhotonCannonForceFireDummyWeapon"
+		Name="AlienPhotonCannonForceFireDummyWeapon"
+		AttackRange="425"
+		AcceptableAimDelta="5d"
+		WeaponSpeed="99999"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ClipSize="1"
+		CanFireWhileMoving="true"
+		ShouldPlayUnderAttackEvaEvent="false"
+		RotatingTurret="true">
 		<ClipReloadTime
-			MinSeconds="4s"
-			MaxSeconds="4s"/>
+			MinSeconds="999s"
+			MaxSeconds="999s"/>
 		<Nuggets>
-			<ProjectileNugget
-				WarheadTemplate="AlienPhotonCannonShardLauncherWarhead"
-				ProjectileTemplate="AlienTibShardProjectile">
-				<VeterancyProjectiles
-					VeterancyLevel="HEROIC"
-					ProjectileTemplate="AlienTibShardProjectile_Veteran"/>
-			</ProjectileNugget>
+			<DamageNugget
+				Damage="1"
+				DamageType="GUN"
+				DamageFXType="GDI_RIFLE"/>
 		</Nuggets>
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="AlienPhotonCannonShardLauncherWarhead"
-		Name="AlienPhotonCannonShardLauncherWarhead"
-		ProjectileCollidesWith="ENEMIES NEUTRAL"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR">
+		id="AlienPhotonCannonBeamLaser"
+		Name="AlienPhotonCannonBeamLaser"
+		AttackRange="425"
+		AcceptableAimDelta="5d"
+		WeaponSpeed="999999"
+		FireSound="ALI_DevourerTank_BeamWeaponFire"
+		FireFX="FX_AlienDevourerFire"
+		FireVeteranFX="FX_AlienDevourerFireHeroic"
+		ClipSize="1"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="1.25s"
+			MaxSeconds="1.25s"/>
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
 		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="1s"
+				LaserId="1"/>
 			<DamageNugget
-				Damage="115"
+				Damage="50"
 				Radius="5"
-				DamageType="ROCKET"
-				DamageFXType="GDI_RIFLE">
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED">
 				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
@@ -42647,61 +42665,51 @@
 					Scalar="50%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"
-						Exclude="CIVILIAN_BUILDING"/>
-				</DamageScalarDetails>
-				<DamageScalarDetails
-					Scalar="25%">
-					<Filter
-						Rule="NONE"
 						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
-				Radius="20"
+				Radius="15"
 				Suppression="50"
 				DurationSeconds="5s"/>
 		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="45">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
 	</WeaponTemplate>
 
 	<WeaponTemplate
-		id="AlienPhotonCannonBlueShardLauncher"
-		Name="AlienPhotonCannonBlueShardLauncher"
-		AttackRange="350"
-		WeaponSpeed="400"
-		FireFX="FX_AlienTibShardFireBlue"
-		FireVeteranFX="FX_AlienTibShardFireHeroic"
-		ClipSize="20"
-		RotatingTurret="true"
-		ReAcquireDetailType="PRE_FIRE">
-		<FiringDuration
-			MinSeconds="0.1s"
-			MaxSeconds="0.1s"/>
-		<ClipReloadTime
-			MinSeconds="4s"
-			MaxSeconds="4s"/>
+		id="AlienPhotonCannonBeamLaser_Dummy"
+		Name="AlienPhotonCannonBeamLaser_Dummy"
+		AttackRange="425"
+		AcceptableAimDelta="5d"
+		WeaponSpeed="999999"
+		FireSound="ALI_DevourerTank_BeamWeaponFire"
+		FireFX="FX_AlienDevourerFire"
+		FireVeteranFX="FX_AlienDevourerFireHeroic"
+		ClipSize="1"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
+		ShouldPlayUnderAttackEvaEvent="false"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="9999s"
+			MaxSeconds="9999s"/>
 		<Nuggets>
-			<ProjectileNugget
-				WarheadTemplate="AlienPhotonCannonBlueShardWarhead"
-				ProjectileTemplate="AlienBlueShardProjectile">
-				<VeterancyProjectiles
-					VeterancyLevel="HEROIC"
-					ProjectileTemplate="AlienBlueShardProjectile_Veteran"/>
-			</ProjectileNugget>
-		</Nuggets>
-	</WeaponTemplate>
-
-	<WeaponTemplate
-		id="AlienPhotonCannonBlueShardWarhead"
-		Name="AlienPhotonCannonBlueShardWarhead"
-		ProjectileCollidesWith="ENEMIES NEUTRAL"
-		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR">
-		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="1s"
+				LaserId="1"/>
 			<DamageNugget
-				Damage="165"
+				Damage="50"
 				Radius="5"
-				DamageType="ROCKET"
-				DamageFXType="GDI_RIFLE">
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED">
 				<DamageScalarDetails
 					Scalar="150%">
 					<Filter
@@ -42712,21 +42720,315 @@
 					Scalar="50%">
 					<Filter
 						Rule="NONE"
-						Include="STRUCTURE"
-						Exclude="CIVILIAN_BUILDING"/>
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="45">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienPhotonCannonSweepWeapon"
+		Name="AlienPhotonCannonSweepWeapon"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<DamageNugget
+				Damage="50"
+				Radius="5"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
 				</DamageScalarDetails>
 				<DamageScalarDetails
-					Scalar="25%">
+					Scalar="50%">
 					<Filter
 						Rule="NONE"
 						Include="INFANTRY"/>
 				</DamageScalarDetails>
 			</DamageNugget>
 			<SuppressionNugget
-				Radius="20"
+				Radius="15"
 				Suppression="50"
 				DurationSeconds="5s"/>
 		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienPhotonCannonBeamLaserBlueIchor"
+		Name="AlienPhotonCannonBeamLaserBlueIchor"
+		AttackRange="425"
+		AcceptableAimDelta="5d"
+		WeaponSpeed="999999"
+		FireSound="ALI_DevourerTank_BeamWeaponFire"
+		FireFX="FX_AlienDevourerFireUpgraded"
+		ClipSize="1"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="1.25s"
+			MaxSeconds="1.25s"/>
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="1s"
+				LaserId="2"/>
+			<DamageNugget
+				Damage="55"
+				Radius="5"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="45">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienPhotonCannonBeamLaserBlueIchor_Dummy"
+		Name="AlienPhotonCannonBeamLaserBlueIchor_Dummy"
+		AttackRange="425"
+		AcceptableAimDelta="5d"
+		WeaponSpeed="999999"
+		FireSound="ALI_DevourerTank_BeamWeaponFire"
+		FireFX="FX_AlienDevourerFireUpgraded"
+		ClipSize="1"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		ReAcquireDetailType="PRE_FIRE"
+		CanFireWhileMoving="true"
+		ShouldPlayUnderAttackEvaEvent="false"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="9999s"
+			MaxSeconds="9999s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="1s"
+				LaserId="2"/>
+			<DamageNugget
+				Damage="55"
+				Radius="5"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="45">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienPhotonCannonSweepWeaponBlueIchor"
+		Name="AlienPhotonCannonSweepWeaponBlueIchor"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE">
+		<Nuggets>
+			<DamageNugget
+				Damage="55"
+				Radius="5"
+				DamageType="CANNON"
+				DamageFXType="GDI_RIFLE"
+				DeathType="LASERED">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienPhotonCannonBeamLaser_TiberiumEnhanced"
+		Name="AlienPhotonCannonBeamLaser_TiberiumEnhanced"
+		AttackRange="425"
+		WeaponSpeed="999999"
+		FireSound="ALI_DevourerTank_BeamWeaponTiberiumEnhancedFireMS"
+		ClipSize="1"
+		FireFX="FX_AlienChargedFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		CanFireWhileMoving="true"
+		RotatingTurret="true"
+		ReAcquireDetailType="PRE_FIRE">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="1.25s"
+			MaxSeconds="1.25s"/>
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="1s"
+				LaserId="3"
+				HitGroundFX="FX_AlienTibLaserHit"/>
+			<DamageNugget
+				Damage="900"
+				DamageType="CANNON"
+				DamageFXType="ALIEN_MACHINEGUN"
+				DeathType="LASERED">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="50"
+				DurationSeconds="5s"/>
+			<SpendStolenTiberiumNugget
+				AmountToSpend="1"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="30">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienPhotonCannonBeamLaser_BlueIchorEnhanced"
+		Name="AlienPhotonCannonBeamLaser_BlueIchorEnhanced"
+		AttackRange="425"
+		WeaponSpeed="999999"
+		FireSound="ALI_DevourerTank_BeamWeaponTiberiumEnhancedFireMS"
+		ClipSize="1"
+		FireFX="FX_AlienBlueChargedFire"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		CanFireWhileMoving="true"
+		ReAcquireDetailType="PRE_FIRE"
+		RotatingTurret="true">
+		<PreAttackDelay
+			MinSeconds="0.5s"
+			MaxSeconds="0.5s"/>
+		<FiringDuration
+			MinSeconds="1.25s"
+			MaxSeconds="1.25s"/>
+		<ClipReloadTime
+			MinSeconds="2s"
+			MaxSeconds="2s"/>
+		<Nuggets>
+			<ActivateLaserNugget
+				Lifetime="1s"
+				LaserId="4"
+				HitGroundFX="FX_AlienBlueTibLaserHit"/>
+			<DamageNugget
+				Damage="1000"
+				DamageType="CANNON"
+				DamageFXType="ALIEN_MINE"
+				DeathType="LASERED">
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="15"
+				Suppression="50"
+				DurationSeconds="5s"/>
+			<SpendStolenTiberiumNugget
+				AmountToSpend="1"/>
+		</Nuggets>
+		<ScatterRadiusVsType
+			Radius="30">
+			<Filter
+				Rule="NONE"
+				Include="INFANTRY"/>
+		</ScatterRadiusVsType>
 	</WeaponTemplate>
 
 	<WeaponTemplate
