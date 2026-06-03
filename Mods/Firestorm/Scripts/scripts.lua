@@ -218,10 +218,6 @@ function OnGarrisonableCreated(self)
 	ObjectHideSubObjectPermanently(self, "GARRISON02", true)
 end
 
-function OnRubbleDropshipCreated(self)
-	ObjectHideSubObjectPermanently(self, "Loadref", true)
-end
-
 -- =========================================================
 -- FIRESTORM LUA FUNCTIONS
 -- =========================================================
