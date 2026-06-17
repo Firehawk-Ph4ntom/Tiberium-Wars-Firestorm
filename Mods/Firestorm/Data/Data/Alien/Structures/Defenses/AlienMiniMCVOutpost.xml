@@ -61,7 +61,7 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_IntoUPak">
 					<Animation AnimationName="AUSurvyr_UPAK" AnimationMode="ONCE" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Alien_Con_Small" FollowBone="true"/>
-					<FXEvent Frame="5" Effect="FX_AlienExplorerTransToOutpost" Bone="NONE"/>
+					<FXEvent Frame="5" Effect="FX_AlienExplorerDig" Bone="NONE"/>
 				</AnimationState>
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" StateName="TRANS_UPakToIdle">
 					<Animation AnimationName="AUSurvyr_UPAK3" AnimationMode="ONCE" AnimationBlendTime="0"/>
@@ -114,6 +114,10 @@
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>AlienExplorer</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienMiniMCVOutpostPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehaviorVehicle" EffectRadius="150.0" SurveyDelayFrames="15" HealingPercentPerSecond="2%" HealFX="FX_Tiberium_Heal_Vehicle_Green">
 				<AllowFilter Rule="NONE" Include="HEALED_BY_TIBERIUM VEHICLE" Exclude="HUGE_VEHICLE">
 					<ExcludeThing>AlienHarvester</ExcludeThing>
@@ -147,7 +151,7 @@
 			<xi:include href="DATA:Includes/GenericAlienBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
@@ -166,5 +170,17 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="300" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" ModelConditionsToReject="STRUCTURE_UNPACKING"/>
+	</GameObject>
+	<!-- PVE Gamemode Variant -->
+	<GameObject id="AlienMiniMCVOutpostPVEGameMode" inheritFrom="AlienMiniMCVOutpost" EditorName="AlienMiniMCVOutpostPVEGameMode">
+		<EquivalentTo>AlienMiniMCVOutpost</EquivalentTo>
+		<Behaviors>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" xai:joinAction="Append" UnpackTime="10s"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="5s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>AlienExplorerPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\NODOutpost\NUOUT_D2SN_CTR.w3x"/>
 		<Include type="all" source="ART:Firestorm\Structures\NODOutpost\NUOUT_D3SN_CTR.w3x"/>
@@ -118,6 +118,10 @@
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>NODEmissary</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>NODMiniMCVOutpostPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" EffectRadius="400" HealingPercentPerSecond="1%" SurveyDelayFrames="15" HealFX="FX_GDI_Heal" AffectUnderAttack="true">
 				<AllowFilter Rule="NONE" Relationship="ALLIES" Include="INFANTRY" Exclude="HORDE">
 					<!-- NOD Cyborgs -->
@@ -138,7 +142,7 @@
 			<xi:include href="DATA:Includes/GenericNODBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="BuildingPowerFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeBuildingPowerFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
@@ -169,5 +173,17 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="350"/>
 		<ProjectedBuildabilityInfo Radius="300" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" ModelConditionsToReject="STRUCTURE_UNPACKING"/>
+	</GameObject>
+	<!-- PVE Gamemode Variant -->
+	<GameObject id="NODMiniMCVOutpostPVEGameMode" inheritFrom="NODMiniMCVOutpost" EditorName="NODMiniMCVOutpostPVEGameMode">
+		<EquivalentTo>NODMiniMCVOutpost</EquivalentTo>
+		<Behaviors>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" xai:joinAction="Append" UnpackTime="10s"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="5s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>NODEmissaryPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

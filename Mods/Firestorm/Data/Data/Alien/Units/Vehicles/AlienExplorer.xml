@@ -69,7 +69,7 @@
 				<AnimationState ParseCondStateType="PARSE_TRANSITION" Flags="START_FRAME_LAST" StateName="TRANS_IntoPak">
 					<Animation AnimationName="AUSurvyr_UPAK3" AnimationMode="ONCE_BACKWARDS" AnimationBlendTime="0"/>
 					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="Con_Small_Light2" FollowBone="true"/>
-					<FXEvent Frame="1" Effect="FX_AlienExplorerTransFromOutpost" Bone="NONE"/>
+					<FXEvent Frame="1" Effect="FX_AlienExplorerDig" Bone="NONE"/>
 				</AnimationState>
 			</ScriptedModelDraw>
 			<ScriptedModelDraw id="ModuleTag_Particles" AttachToBoneInAnotherModule="TERROR_BONE">
@@ -107,6 +107,10 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>AlienMiniMCVOutpost</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>AlienExplorerPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_MCVBuildConyardAI" CommandButtonName="Command_UnpackExplorer" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
 			<!-- Blink Packs -->
 			<SpecialPower id="ModuleTag_TeleportSpecialPower" SpecialPowerTemplate="SpecialPower_UseBlinkPack" UpdateModuleStartsAttack="true" AttributeModifierFX="FX_AlienInfantryHitFX"/>
@@ -142,7 +146,7 @@
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericGroundUnitFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeGroundUnitFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
@@ -172,5 +176,16 @@
  		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+	<!-- PVE Gamemode Variant -->
+	<GameObject id="AlienExplorerPVEGameMode" inheritFrom="AlienExplorer" EditorName="AlienExplorerPVEGameMode">
+		<EquivalentTo>AlienExplorer</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>AlienMiniMCVOutpostPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

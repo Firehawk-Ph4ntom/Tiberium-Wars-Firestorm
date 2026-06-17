@@ -116,6 +116,10 @@
 				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
 				<ReplacementTemplate>NODMiniMCVOutpost</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>NODEmissaryPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<AISpecialPowerUpdate id="ModuleTag_EmissaryDeployOutpost" CommandButtonName="Command_UnPackEmissary" SpecialPowerAIType="SPECIAL_POWER_BUILD_CONYARD"/>
 			<xi:include href="DATA:Firestorm\Data\Data\Misc\Includes\NodCallForTransportForVehicle.xml"/>
 			<PassiveAreaEffectBehavior id="ModuleTag_PassiveEffectBehavior" EffectRadius="400" HealingPercentPerSecond="1%" SurveyDelayFrames="15" HealFX="FX_GDI_Heal" AffectUnderAttack="true">
@@ -136,7 +140,7 @@
 			<StancesBehavior id="ModuleTag_Stance" xai:joinAction="Remove"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericGroundUnitFunctions"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeGroundUnitFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="3000.0"/>
@@ -186,5 +190,16 @@
 		<EvaEvents EvaEventPromotedOwner=""/>
 		<VisionInfo VisionRange="100" ShroudClearingRange="250"/>
 		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+	<!-- PVE Gamemode Variant -->
+	<GameObject id="NODEmissaryPVEGameMode" inheritFrom="NODEmissary" EditorName="NODEmissaryPVEGameMode">
+		<EquivalentTo>NODEmissary</EquivalentTo>
+		<Behaviors>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" CheckBuildAssistant="true">
+				<TriggeredBy>Upgrade_UnPack</TriggeredBy>
+				<ReplacementTemplate>NODMiniMCVOutpostPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>

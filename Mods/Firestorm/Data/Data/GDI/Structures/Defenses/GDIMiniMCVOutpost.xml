@@ -1,4 +1,4 @@
-<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Includes>
 		<Include type="all" source="ART:Firestorm\Structures\GDIMiniMCVOutpost\GUSUVUPAK_SN_CTR.w3x"/>
 		<!-- Base Object -->
@@ -118,6 +118,10 @@
 				<TriggeredBy>Upgrade_Pack</TriggeredBy>
 				<ReplacementTemplate>GDISurveyor</ReplacementTemplate>
 			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2">
+				<TriggeredBy>Upgrade_PVEGameModeObject</TriggeredBy>
+				<ReplacementTemplate>GDIMiniMCVOutpostPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
 			<SpawnBehavior id="ModuleTag_Spawn" SpawnNumberData="2" InitialBurst="2" SpawnReplaceDelayData="0.1s" SpawnedRequireSpawner="true" KillSpawnsOnCaptured="true" SpawnInsideBuilding="true" KillSpawnsOnDisabled="true">
 				<Die DeathTypes="ALL"/>
 				<SpawnTemplate>GDIRepairDrone</SpawnTemplate>
@@ -129,7 +133,7 @@
 			<xi:include href="DATA:Includes/GenericGDIBuildingSuicide.xml"/>
 		</Behaviors>
 		<AI>
-			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO"/>
+			<AIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" AILuaEventsList="GenericPVEGamemodeFunctions"/>
 		</AI>
 		<Body>
 			<ActiveBody id="ModuleTag_Body" MaxHealth="5000.0"/>
@@ -159,5 +163,17 @@
 		</AudioArraySound>
 		<VisionInfo VisionRange="100" ShroudClearingRange="400"/>
 		<ProjectedBuildabilityInfo Radius="300" BuildPlacementTypes="MAIN_STRUCTURE OTHER_STRUCTURE" ModelConditionsToReject="STRUCTURE_UNPACKING"/>
+	</GameObject>
+	<!-- PVE Gamemode Variant -->
+	<GameObject id="GDIMiniMCVOutpostPVEGameMode" inheritFrom="GDIMiniMCVOutpost" EditorName="GDIMiniMCVOutpostPVEGameMode">
+		<EquivalentTo>GDIMiniMCVOutpost</EquivalentTo>
+		<Behaviors>
+			<StructureUnpackUpdate id="ModuleTag_StructureUnpackUpdate" xai:joinAction="Append" UnpackTime="10s"/>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf" xai:joinAction="Replace" NewObjectUnpackTime="5s">
+				<TriggeredBy>Upgrade_Pack</TriggeredBy>
+				<ReplacementTemplate>GDISurveyorPVEGameMode</ReplacementTemplate>
+			</ReplaceSelfUpgrade>
+			<ReplaceSelfUpgrade id="ModuleTag_ReplaceSelf2" xai:joinAction="Remove"/>
+		</Behaviors>
 	</GameObject>
 </AssetDeclaration>
