@@ -9,7 +9,7 @@
 		<Draws>
 			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
 				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="MUAPC_SKN"/>
+					<Model Name="MUAPC_SKNR"/>
 					<Texture Original="GB_Suv" New="GU_Suv_D"/>
 					<Texture Original="MUAPC" New="MUAPC_D"/>
 					<Texture Original="MUAPCBunker" New="MUAPCBunker_D"/>
@@ -25,30 +25,14 @@
 					<Animation AnimationName="MUAPC_UPAK" AnimationMode="MANUAL" AnimationBlendTime="0"/>
 				</AnimationState>
 			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_DrawSpeakers" AttachToBoneInAnotherModule="BONE_ROOF">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="NURECKONERSPEAKERS_DUMMYSKN"/>
-				</ModelConditionState>
-				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Model Name="NURECKONERSPEAKERS_SKN"/>
-					<Texture Original="NUSuv" New="NUSuv_D"/>
-				</ModelConditionState>
-				<AnimationState ParseCondStateType="PARSE_DEFAULT"/>
-				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_1">
-					<Script> CurDrawableHideSubObject("TV") </Script>
-				</AnimationState>
-			</ScriptedModelDraw>
-			<ScriptedModelDraw id="ModuleTag_Draw_Radar" AttachToBoneInAnotherModule="RADAR">
-				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
-					<Model Name="MUAPCRADAR_SKN"/>
-					<Texture Original="GB_Suv" New="GU_Suv_D"/>
-				</ModelConditionState>
-			</ScriptedModelDraw>
 		</Draws>
 		<Behaviors>
 			<Physics id="ModuleTag_Physics"/>
 			<LifetimeUpdate id="ModuleTag_LifeTime" MinLifetime="0.1s" MaxLifetime="0.1s"/>
 			<SlowDeath id="ModuleTag_Death" SinkDelay="3s" SinkRate="1.0" DestructionDelay="10s">
+				<OCL Type="INITIAL">
+					<OCL>OCL_MutantAPCDebris</OCL>
+				</OCL>
 				<DieMuxData DeathTypes="ALL"/>
 			</SlowDeath>
 			<ModelConditionUpgrade id="ModuleTag_PropagandaModelCondition" AddConditionFlags="USER_1">
