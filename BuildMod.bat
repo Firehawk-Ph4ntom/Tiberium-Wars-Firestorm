@@ -57,6 +57,31 @@ IF !modversion_len! GTR 5 (
 	GOTO :get_modversion
 )
 
+IF "!modversion:~0,1!"=="." (
+	@ECHO Error: Mod version cannot start with a dot. Please re-input.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
+IF "!modversion:~-1!"=="." (
+	@ECHO Error: Mod version cannot end with a dot. Please re-input.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
+ECHO !modversion! | FIND ".." >NUL
+IF NOT ERRORLEVEL 1 (
+	@ECHO Error: Mod version cannot contain multiple consecutive dots. Please re-input.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
+FOR /F "delims=0123456789." %%A IN ("!modversion!") DO (
+	@ECHO Error: Mod version contains invalid characters. Please use only digits and dots.
+	SET "modversion="
+	GOTO :get_modversion
+)
+
 :: Set file paths
 SET "MOD_PATH=!SDK_DIR!Mods\!modname!"
 SET "BUILTMOD_PATH=!SDK_DIR!BuiltMods\Mods\!modname!"
@@ -98,11 +123,11 @@ IF EXIST "!MOD_PATH!\Data\Mod.xml" (
 	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\Mod.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true /bcn:LowLOD /bps:"!BUILTMOD_PATH!\data\Mod.manifest"
 )
 
-:: Build Worldbuilder.xml
-IF EXIST "!MOD_PATH!\Data\Worldbuilder.xml" (
+:: Build WorldBuilder.xml
+IF EXIST "!MOD_PATH!\Data\WorldBuilder\WorldBuilder.xml" (
 	@ECHO.
-	@ECHO --- Compiling Worldbuilder.xml...
-	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\Worldbuilder.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
+	@ECHO --- Compiling WorldBuilder.xml...
+	tools\binaryAssetBuilder.exe "!MOD_PATH!\Data\WorldBuilder\WorldBuilder.xml" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
 )
 
 @ECHO.
@@ -150,6 +175,13 @@ IF EXIST "!MOD_PATH!\Data\maps" (
 	CALL :CopyDir "!MOD_PATH!\Data\maps" "!BUILTMOD_PATH!\Data\maps"
 )
 
+:: Copy Library Maps
+IF EXIST "!MOD_PATH!\Libraries" (
+	@ECHO.
+	@ECHO Copying Library Maps...
+	CALL :CopyDir "!MOD_PATH!\Libraries" "!BUILTMOD_PATH!\Libraries"
+)
+
 :: Copy Movies
 IF EXIST "!MOD_PATH!\Data\movies" (
 	@ECHO.
@@ -185,7 +217,7 @@ ENDLOCAL
 
 :choice
 SET "ANS="
-SET /P ANS=Do you want to compile again? [Y/N]: 
+SET /P ANS=Do you want to compile again? [Y/N]:
 
 IF /I "%ANS%" EQU "Y" (
 	SET "modname="
