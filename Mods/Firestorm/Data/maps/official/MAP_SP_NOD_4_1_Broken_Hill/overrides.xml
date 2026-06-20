@@ -2,14 +2,14 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 
 	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXASPOTLIGHT.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
 		<!-- For Nuke Transport -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\NukeTransport.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Units\Vehicles\NukeTransport.xml" type="instance"/>
 		<!-- For Mutant Hovel -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\MutantHovel.xml" type="instance"/>
 		<!-- For GDI Lab Building -->
@@ -24,6 +24,8 @@
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIMammoth.xml" type="instance"/>
 		<!-- For GDI Firehawk -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIFireHawk.xml" type="instance"/>
+		<!-- For NOD Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<!-- For NOD Stealth Tank -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Vehicles\NODStealthTank.xml" type="instance"/>
 		<!-- For NOD Carryall -->
@@ -34,21 +36,12 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDIRefinery.xml" type="instance"/>
-		<!-- NOD Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
-		<!-- Alien Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPowerProjector.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienTiberiumTower.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\Alien\Structures\Buildings\AlienPortal.xml" type="instance"/>
 	</Includes>
 
 	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
 	<GameObject
-		id="MutantHovel"
-		inheritFrom="MutantHovel"
+		id="MutantHovelPVEGameMode"
+		inheritFrom="MutantHovelPVEGameMode"
 		KindOf="SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS STRUCTURE AUTO_RALLYPOINT FS_FACTORY FS_BARRACKS AUTO_ACQUIRABLE_BY_AI NOT_AUTOACQUIRABLE NOT_SELLABLE COVER NEUTRAL_TECH"/>
 
 	<!-- Added NOT_SELLABLE KindOf -->
@@ -71,6 +64,16 @@
 				xai:joinAction="Replace"
 				MaxHealth="4500"/>
 		</Body>
+	</GameObject>
+
+	<!-- Increased speed from 45 -->
+	<GameObject
+		id="NODSaboteurPVEGameMode"
+		inheritFrom="NODSaboteurPVEGameMode">
+		<LocomotorSet
+			Locomotor="HumanLocomotor"
+			Condition="NORMAL"
+			Speed="60"/>
 	</GameObject>
 
 	<!-- Lowered speed from 60 -->
@@ -309,101 +312,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- GDI -->
-	<GameObject
-		id="GDIRefinery"
-		inheritFrom="GDIRefinery"
-		BuildCost="2000"
-		BuildTime="20"
-		RefundValue="300"
-		EnergyProduction="-8"/>
-
-	<!-- NOD -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="60"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Alien -->
-	<GameObject
-		id="AlienPowerProjector"
-		inheritFrom="AlienPowerProjector">
-		<Behaviors>
-			<GrantUpgradeCreate
-				id="ModuleTag_GrantUpgrade"
-				UpgradeToGrant="Upgrade_ObjectDefault"/>
-			<StatusBitsUpgrade
-				id="ModuleTag_PVEGameModeStatus"
-				StatusToClear="RIDER2">
-				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
-			</StatusBitsUpgrade>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="AlienTiberiumTower"
-		inheritFrom="AlienTiberiumTower"
-		BuildCost="2000"
-		BuildTime="20"
-		RefundValue="300"
-		EnergyProduction="-8"/>
-
-	<GameObject
-		id="AlienPortal"
-		inheritFrom="AlienPortal">
-		<Behaviors>
-			<GrantUpgradeCreate
-				id="ModuleTag_GrantUpgrade"
-				UpgradeToGrant="Upgrade_ObjectDefault"/>
-			<StatusBitsUpgrade
-				id="ModuleTag_PVEGameModeStatus"
-				StatusToClear="RIDER2">
-				<TriggeredBy>Upgrade_ObjectDefault</TriggeredBy>
-			</StatusBitsUpgrade>
-		</Behaviors>
-	</GameObject>
-
-	<!-- Override Exp Templates -->
-	<!-- GDI -->
-	<ExperienceLevelTemplate
-		id="GDIRefineryExperienceLevel_1" ExperienceAward="2000" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIRefinery</Target>
-		<Target>GDIRefinerySPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="160" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="GDIHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>GDIHarvester</Target>
-		<Decal Texture="decal_G_level1" Texture2="decal_GDI_S_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="80" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<!-- Alien -->
-	<ExperienceLevelTemplate
-		id="AlienTiberiumTower_1" ExperienceAward="2000" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>AlienTiberiumTower</Target>
-		<Target>AlienTiberiumTowerSPNoHarvester</Target>
-		<Decal Texture="Decal_S_Level1" Texture2="Decal_Struct_CO"  Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="150" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
-
-	<ExperienceLevelTemplate
-		id="AlienHarvesterExperienceLevel_1" ExperienceAward="1400" Rank="1">
-		<LevelUpTintColor r="1.0" g="1.0" b="1.0"/>
-		<Target>AlienHarvester</Target>
-		<Decal Texture="decal_A_Level1" Texture2="decal_Alien_CO" Style="MERGE_DECAL" OpacityMin="80" OpacityMax="100" MinRadius="75" MaxRadius="200" MaxSelectedUnits="40"/>
-	</ExperienceLevelTemplate>
 </AssetDeclaration>

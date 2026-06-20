@@ -2,11 +2,11 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xai="uri:ea.com:eala:asset:instance">
 	<Tags/>
 	<Includes>
+		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<Include source="ART:Firestorm\Misc\Models\FXUNITUPGRADED.w3x" type="all"/>
 		<!-- Civilian Structures, Added DO_NOT_CLASSIFY KindOf to each one -->
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock01.xml" type="instance"/>
 		<Include source="DATA:Civilian/Washington_DC_DC/Buildings/DCBDock03.xml" type="instance"/>
@@ -15,44 +15,41 @@
 		<Include source="DATA:GDI\Units\GDICarrier.xml" type="instance"/>
 		<!-- For GDI Command Post -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
-		<!-- For GDI Commando -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDICommando_EA.xml" type="instance"/>
-		<!-- For Nod Shadow -->
+		<!-- For GDI Falcon -->
+		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Vehicles\GDIFalcon.xml" type="instance"/>
+		<!-- For NOD Saboteur -->
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
+		<!-- For NOD Shadow -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODShadow.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- NOD Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
 
-	<!-- No Bombing Structures -->
+	<!-- Lowered Stealth Detection Range from 550 -->
 	<GameObject
-		id="GDICommando_EA"
-		inheritFrom="GDICommando_EA">
+		id="GDIFalcon"
+		inheritFrom="GDIFalcon">
 		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1"
-					AllowInterleavedFiring="false"
-					InterleavedStyle="INTERLEAVE_FIRST_AVAILABLE"
-					WeaponChoiceCriteria="PREFER_MOST_DAMAGE">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICommandoRailCarbine"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICommandoRailCarbineHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
+			<StealthDetectorUpdate
+				id="ModuleTag_StealthDetect"
+				xai:joinAction="Append"
+				DetectionRange="350"/>
 		</Behaviors>
+	</GameObject>
+
+
+	<!-- Increased health from 75 -->
+	<GameObject
+		id="NODSaboteurPVEGameMode"
+		inheritFrom="NODSaboteurPVEGameMode">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="750"/>
+		</Body>
 	</GameObject>
 
 	<!-- Remove UNATTACKABLE status -->
@@ -93,7 +90,7 @@
 			<ActiveBody
 				id="ModuleTag_Body"
 				xai:joinAction="Replace"
-				MaxHealth="350.0" />
+				MaxHealth="400.0" />
 		</Body>
 	</GameObject>
 
@@ -172,11 +169,12 @@
 	<!-- Added Armor vs. Sniper -->
 	<ArmorTemplate
 		id="GDICommandoArmor">
-		<Armor Damage="CANNON" Percent="50%"/>
-		<Armor Damage="ROCKET" Percent="25%" />
-		<Armor Damage="GRENADE" Percent="75%" />
-		<Armor Damage="GUN" Percent="100%" />
-		<Armor Damage="SNIPER" Percent="20%" />
+		<Armor Damage="CANNON" Percent="5%"/>
+		<Armor Damage="ROCKET" Percent="10%"/>
+		<Armor Damage="GRENADE" Percent="40%"/>
+		<Armor Damage="GUN" Percent="50%"/>
+		<Armor Damage="SNIPER" Percent="20%"/>
+		<Armor Damage="TIBERIUM"/>
 	</ArmorTemplate>
 
 	<!-- Increased Damage | Doesn't Hurt Shadow Team -->
@@ -204,10 +202,10 @@
 	<!-- Overall Improved Armor -->
 	<ArmorTemplate
 		id="NODVenomArmor">
-		<Armor Damage="CANNON" Percent="50" />
-		<Armor Damage="ROCKET" Percent="50" />
-		<Armor Damage="GRENADE" Percent="50" />
-		<Armor Damage="GUN" Percent="50" />
+		<Armor Damage="CANNON" Percent="45" />
+		<Armor Damage="ROCKET" Percent="45" />
+		<Armor Damage="GRENADE" Percent="45" />
+		<Armor Damage="GUN" Percent="45" />
 		<Armor Damage="SNIPER" Percent="1" />
 	</ArmorTemplate>
 
@@ -415,47 +413,6 @@
 		inheritFrom="DCBDock04"
 		KindOf="STRUCTURE UNATTACKABLE IMMOBILE CAN_CAST_REFLECTIONS NO_COLLIDE DO_NOT_CLASSIFY"/>
 
-	<!-- Rainy Weather -->
-	<Weather
-		id="Weather">
-		<Rain
-			RainTexture="FXRainDrop"
-			IsRaining="true"
-			NumRaindropsPerBox="2500"
-			RainBoxWidth="1000.0"
-			RainBoxLength="1000.0"
-			RainBoxHeight="300.0"
-			MinWidth="1"
-			MaxWidth="4"
-			MinHeight="25.0"
-			MaxHeight="100.0"
-			MinSpeed="250.0"
-			MaxSpeed="270.0"
-			MinAlpha=".3"
-			MaxAlpha=".5"
-			WindStrength="10.0"/>
-		<Lightning
-			LightningEnabled="true"
-			LightningDuration="1"
-			LightningChance="50">
-			<LightningFactor
-				Type="UNIFORM"
-				Low="3.0"
-				High="3.0"/>
-		</Lightning>
-		<Spell
-			SpellEnabled="true"
-			SpellDuration="200"/>
-		<Cloud>
-			<CloudTextureSize x="660.0" y="660.0"/>
-			<CloudOffsetPerSecond x="-.03" y="-.02"/>
-		</Cloud>
-		<WeatherData id="RAINY" HasLightning="true" />
-		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
-		<WeatherData id="SUNNY" HasLightning="false" />
-		<WeatherData id="CLOUDY" HasLightning="false" />
-	</Weather>
-
 	<!-- Mission Objectives -->
 	<MissionObjectiveList
 		id="MissionObjectives">
@@ -514,51 +471,44 @@
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
 
-	<!-- Global Overrides -->
-	<!-- GDI -->
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-		<Body>
-			<ActiveBody
-				id="ModuleTag_Body"
-				xai:joinAction="Replace"
-				MaxHealth="750"/>
-		</Body>
-	</GameObject>
-
-	<!-- NOD -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
+	<!-- Rainy Weather -->
+	<Weather
+		id="Weather">
+		<Rain
+			RainTexture="FXRainDrop"
+			IsRaining="true"
+			NumRaindropsPerBox="2500"
+			RainBoxWidth="1000.0"
+			RainBoxLength="1000.0"
+			RainBoxHeight="300.0"
+			MinWidth="1"
+			MaxWidth="4"
+			MinHeight="25.0"
+			MaxHeight="100.0"
+			MinSpeed="250.0"
+			MaxSpeed="270.0"
+			MinAlpha=".3"
+			MaxAlpha=".5"
+			WindStrength="10.0"/>
+		<Lightning
+			LightningEnabled="true"
+			LightningDuration="1"
+			LightningChance="50">
+			<LightningFactor
+				Type="UNIFORM"
+				Low="3.0"
+				High="3.0"/>
+		</Lightning>
+		<Spell
+			SpellEnabled="true"
+			SpellDuration="200"/>
+		<Cloud>
+			<CloudTextureSize x="660.0" y="660.0"/>
+			<CloudOffsetPerSecond x="-.03" y="-.02"/>
+		</Cloud>
+		<WeatherData id="RAINY" HasLightning="true" />
+		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
+		<WeatherData id="SUNNY" HasLightning="false" />
+		<WeatherData id="CLOUDY" HasLightning="false" />
+	</Weather>
 </AssetDeclaration>

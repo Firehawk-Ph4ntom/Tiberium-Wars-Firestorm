@@ -3,10 +3,10 @@
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
+		<!-- For Tiberium Spike -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
+		<!-- For Tiberium Silo -->
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
 		<!-- For GDI Orca -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Aircraft\GDIOrca.xml" type="instance"/>
 		<!-- For GDI V35 -->
@@ -16,15 +16,18 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- Neutral Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSpike.xml" type="instance"/>
-		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\TiberiumSilo.xml" type="instance"/>
-		<!-- GDI Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Units\Infantry\GDIEngineer.xml" type="instance"/>
-		<!-- NOD Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
+
+	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
+	<GameObject
+		id="TiberiumSpikePVEGameMode"
+		inheritFrom="TiberiumSpikePVEGameMode"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_CASH_PRODUCER FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI"/>
+
+	<GameObject
+		id="TiberiumSiloPVEGameMode"
+		inheritFrom="TiberiumSiloPVEGameMode"
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY FS_CASH_PRODUCER NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI"/>
 
 	<!-- Removed all upgrades -->
 	<LogicCommandSet
@@ -54,15 +57,15 @@
 		<LocomotorSet
 			Locomotor="GDIDropshipLocomotor"
 			Condition="NORMAL"
-			Speed="80.0"/>
+			Speed="75.0"/>
 		<LocomotorSet
 			Locomotor="BasicHelicopterTaxiLocomotor"
 			Condition="TAXIING"
-			Speed="80.0"/>
+			Speed="75.0"/>
 		<LocomotorSet
 			Locomotor="GDIDropshipLocomotor"
 			Condition="NORMAL_UPGRADED"
-			Speed="160.0"/>
+			Speed="100.0"/>
 		<Behaviors>
 			<LocomotorSetUpgrade
 				id="ModuleTag_Locomotor">
@@ -88,15 +91,15 @@
 		<LocomotorSet
 			Locomotor="GDIDropshipLocomotor"
 			Condition="NORMAL"
-			Speed="80.0"/>
+			Speed="75.0"/>
 		<LocomotorSet
 			Locomotor="BasicHelicopterTaxiLocomotor"
 			Condition="TAXIING"
-			Speed="80.0"/>
+			Speed="75.0"/>
 		<LocomotorSet
 			Locomotor="GDIDropshipLocomotor"
 			Condition="NORMAL_UPGRADED"
-			Speed="160.0"/>
+			Speed="100.0"/>
 		<Behaviors>
 			<LocomotorSetUpgrade
 				id="ModuleTag_Locomotor">
@@ -112,7 +115,7 @@
 		<LocomotorSet
 			Locomotor="OrcaLocomotor"
 			Condition="NORMAL"
-			Speed="80.0"/>
+			Speed="75.0"/>
 		<LocomotorSet
 			Locomotor="OrcaLocomotor"
 			Condition="NORMAL_UPGRADED"
@@ -226,74 +229,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- Neutral -->
-	<!-- Added AUTO_ACQUIRABLE_BY_AI KindOf -->
-	<GameObject
-		id="TiberiumSpike"
-		inheritFrom="TiberiumSpike"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="25"
-				InitialCaptureBonus="750"/>
-		</Behaviors>
-	</GameObject>
-
-	<GameObject
-		id="TiberiumSilo"
-		inheritFrom="TiberiumSilo"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH TIBERIUM_BASED FS_MONEY_STORAGE AUTO_ACQUIRABLE_BY_AI">
-		<Behaviors>
-			<AutoDepositUpdate
-				id="ModuleTag_AutoDepositUpdate"
-				xai:joinAction="Append"
-				DepositAmount="50"
-				InitialCaptureBonus="1500"/>
-		</Behaviors>
-	</GameObject>
-
-	<!-- GDI -->
-	<GameObject
-		id="GDIEngineer"
-		inheritFrom="GDIEngineer">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Replace">
-				<WeaponSlotHardpoint
-					ID="1">
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistol"/>
-					<Weapon
-						Ordering="PRIMARY_WEAPON"
-						Template="GDICombatEngineerPistolHEAmmo"
-						ObjectStatus="WEAPON_UPGRADED_01"/>
-				</WeaponSlotHardpoint>
-			</WeaponSetUpdate>
-		</Behaviors>
-	</GameObject>
-
-	<!-- NOD -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
 </AssetDeclaration>

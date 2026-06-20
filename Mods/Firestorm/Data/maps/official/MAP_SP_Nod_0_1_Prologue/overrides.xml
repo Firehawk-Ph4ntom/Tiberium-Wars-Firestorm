@@ -3,10 +3,7 @@
 	<Tags/>
 	<Includes>
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSLOWED.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXRAGEDSUPPRESSED.w3x" type="all"/>
 		<Include source="ART:Firestorm\Misc\Models\FXSPOTLIGHT.w3x" type="all"/>
-		<Include source="ART:Firestorm\Misc\Models\FXEMPTYGARR.w3x" type="all"/>
 		<!-- For GDI Command Post -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Buildings\GDICommandPost.xml" type="instance"/>
 		<!-- For GDI Watchtower -->
@@ -14,8 +11,8 @@
 		<!-- For GDI ASAT Defense System -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDI_ASATDefense.xml" type="instance"/>
 		<!-- For GDI Walls -->
-		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWallSegment.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWallHub.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\GDI\Structures\Defenses\GDIWallSegment.xml" type="instance"/>
 		<!-- For GDI V35 -->
 		<Include source="DATA:Firestorm\Data\Data\GDI\Units_SinglePlayerCampaign\GDIV35Ox_SP.xml" type="instance"/>
 		<!-- For Nod Carryall -->
@@ -24,9 +21,6 @@
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\Voice.xml" type="instance"/>
-
-		<!-- NOD Global Overrides -->
-		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 	</Includes>
 
 	<!-- Max Contain 4 -->
@@ -77,7 +71,7 @@
 		id="NODCarryall_SP"
 		inheritFrom="NODCarryall_SP">
 		<LocomotorSet
-			Locomotor="NODCarryallLocomotor"
+			Locomotor="NODDropshipLocomotor"
 			Condition="NORMAL"
 			Speed="300"/>
 		<Body>
@@ -113,8 +107,8 @@
 
 	<!-- Adjusted Carryall locomotor to unload quick -->
 	<LocomotorTemplate
-		id="NODCarryallLocomotor"
-		Name="NODCarryallLocomotor"
+		id="NODDropshipLocomotor"
+		Name="NODDropshipLocomotor"
 		Surfaces="AIR"
 		TurnTimeSeconds="2s"
 		TurnTimeDamagedSeconds="2s"
@@ -133,13 +127,13 @@
 		RudderCorrectionRate="0.027"
 		ElevatorCorrectionDegree="0.103"
 		ElevatorCorrectionRate="0.016"
-		TakeOffAndLandingSpeed="10"
+		TakeOffAndLandingSpeed="7"
 		TakeOffAndLandingSlowDownTime="1s"
 		LocomotorWorksWhenDead="true"
 		AllowMotiveForceWhileAirborne="true"
 		Apply2DFrictionWhenAirborne="true"/>
 
-	<!-- Increased attack damage from 22 to 60 | Increased clipsize from 10 to 16 -->
+	<!-- Increased attack damage from 22 | Increased clipsize from 10 -->
 	<WeaponTemplate
 		id="GDIWatchTowerGun"
 		Name="GDIWatchTowerGun"
@@ -149,7 +143,7 @@
 		ReAcquireDetailType="PRE_FIRE"
 		FireFX="FX_GDIWatchTowerFire"
 		FireVeteranFX="FX_GDIWatchTowerFireHeroic"
-		ClipSize="16"
+		ClipSize="20"
 		RotatingTurret="true">
 		<ClipReloadTime
 			MinSeconds="0.01s"
@@ -173,16 +167,15 @@
 		</Nuggets>
 	</WeaponTemplate>
 
-	<!-- Increased Health | Reduced stealth detection radius from 400 -->
+	<!-- Increased Health significantly | Reduced stealth detection radius from 400 -->
 	<GameObject
 		id="GDIWatchTower"
 		inheritFrom="GDIWatchTower">
 		<Behaviors>
 			<StealthDetectorUpdate
 				id="ModuleTag_StealthDetect"
-				xai:joinAction="Replace"
-				DetectionRange="100"
-				ExtraForbiddenKindOf="BEACON"/>
+				xai:joinAction="Append"
+				DetectionRange="100"/>
 		</Behaviors>
 		<Body>
 			<ActiveBody
@@ -192,7 +185,7 @@
 		</Body>
 	</GameObject>
 
-	<!-- Increased Shadow team's explosive charge to 1 shot anything -->
+	<!-- Increased damage significantly -->
 	<WeaponTemplate
 		id="NODExplosiveChargeWeapon"
 		Name="NODExplosiveChargeWeapon"
@@ -201,7 +194,7 @@
 		FireFX="FX_NODBombHit">
 		<Nuggets>
 			<DamageNugget
-				Damage="10000"
+				Damage="99999"
 				Radius="45"
 				DamageType="GRENADE"
 				DeathType="TOPPLED"/>
@@ -337,20 +330,4 @@
 			</PresentationSettings>
 		</MissionObjectiveTag>
 	</MissionObjectiveList>
-
-	<!-- Global Overrides -->
-	<!-- NOD -->
-	<GameObject
-		id="NODSaboteur"
-		inheritFrom="NODSaboteur">
-		<LocomotorSet
-			Locomotor="HumanLocomotor"
-			Condition="NORMAL"
-			Speed="45"/>
-		<Behaviors>
-			<WeaponSetUpdate
-				id="ModuleTag_WeaponSetUpdate"
-				xai:joinAction="Remove"/>
-		</Behaviors>
-	</GameObject>
 </AssetDeclaration>
