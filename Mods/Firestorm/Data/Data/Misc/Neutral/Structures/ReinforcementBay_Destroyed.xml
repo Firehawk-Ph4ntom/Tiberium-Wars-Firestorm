@@ -1,0 +1,48 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Structures\NeutralReinforcementBay\CBREINFORC_D3_CTR.w3x"/>
+		<!-- Base Object -->
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseTechStructure.xml"/>
+	</Includes>
+	<GameObject id="ReinforcementBay_Destroyed" inheritFrom="BaseTechStructure" SelectPortrait="Portrait_NeutralReinforcementBayDestroyed" ButtonImage="Portrait_NeutralReinforcementBayDestroyed" CommandSet="EmptyCommandSet" KindOf="CAN_CAST_REFLECTIONS IMMOBILE IGNORE_FOR_VICTORY UNATTACKABLE NOT_AUTOACQUIRABLE SELECTABLE HUSK" EditorName="ReinforcementBay_Destroyed" TypeDescription="Type:TechBuilding" Description="Desc:TechBuildingReinforcementBayDestroyed">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:ReinforcementBayDestroyed</DisplayName>
+		<ArmorSet Armor="NoArmor"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="CBReinforc_D3_FS"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT" StateName="STATE_Default" Flags="START_FRAME_LAST">
+					<Animation AnimationName="CBReinforc_D3" AnimationMode="MANUAL" AnimationBlendTime="0"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="USER_2">
+					<Animation AnimationName="CBReinforc_D3" AnimationMode="ONCE" AnimationBlendTime="0"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<DestroyDie id="ModuleTag_Die">
+				<DieMuxData DeathTypes="ALL"/>
+			</DestroyDie>
+			<EngineerContain id="ModuleTag_EngineerContain" NameOfVoiceToUseForHostileEnter="VoiceEngineerRepair" EvaEventForCapture="EnemyTechBuildingCaptured" FXForCapture="FX_Building_Captured" FXForCaptureAndReplace="FX_Building_Captured" ReplaceWith="OCL_ReinforcementBay_Rebuilt" ImmediatelyEnabled="true">
+				<CanEnterFilter Rule="NONE">
+					<IncludeThing>GDIEngineer</IncludeThing>
+					<IncludeThing>NODSaboteur</IncludeThing>
+					<IncludeThing>AlienAssimilator</IncludeThing>
+					<IncludeThing>MutantSalvager</IncludeThing>
+				</CanEnterFilter>
+			</EngineerContain>
+		</Behaviors>
+		<Body>
+			<ImmortalBody id="ModuleTag_Body" MaxHealth="1" InitialHealth="1"/>
+		</Body>
+		<Geometry>
+			<Shape Type="CYLINDER" MajorRadius="38.0" Height="50.0" ContactPointGeneration="STRUCTURE"/>
+			<Shape Type="BOX" MajorRadius="15.0" MinorRadius="25.0" Height="25.0" ContactPointGeneration="STRUCTURE">
+				<Offset x="2" y="50"/>
+			</Shape>
+		</Geometry>
+		<EvaEvents EvaEventDamagedOwner="" EvaEventSoldOwner="" EvaEventRepairingOwner=""/>
+		<VisionInfo VisionRange="0" ShroudClearingRange="0"/>
+	</GameObject>
+</AssetDeclaration>
