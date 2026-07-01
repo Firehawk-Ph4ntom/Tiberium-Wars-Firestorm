@@ -1,0 +1,187 @@
+<AssetDeclaration xmlns="uri:ea.com:eala:asset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xai="uri:ea.com:eala:asset:instance">
+	<Includes>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\HC_MUHarrier.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHarrier.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHarrier_D.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHarrier_NRM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHarrier_SPM.xml"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_FLYA.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_FP.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_HSTL.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_HSTR.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_R01.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_R02.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_R03.w3x"/>
+		<Include type="all" source="ART:Firestorm\Units\MutantHarrier\MUHARRIER_SKN.w3x"/>
+		<!-- Base Object -->
+		<Include type="all" source="DATA:GlobalData\GlobalDefines.xml" />
+		<Include type="instance" source="DATA:Firestorm\Data\Data\Misc\BaseObjects\BaseAircraft.xml"/>
+	</Includes>
+	<GameObject id="MutantHarrier" inheritFrom="BaseAircraft" SelectPortrait="Portrait_MutantHarrier" ButtonImage="Portrait_MutantHarrier" Side="GDI" BuildCost="10" BuildTime="1.0" CommandSet="GDIHammerheadCommandSet" KindOf="CAN_CAST_REFLECTIONS SELECTABLE AIRCRAFT HAS_HEALTH_BAR TRANSPORT SUMMONED NO_COLLIDE IGNORES_SELECT_ALL" VoicePriority="52" EditorName="MutantHarrier" Description="Desc:MutantHarrier" TypeDescription="Type:MutantHarrier">
+		<DisplayName xmlns:xai="uri:ea.com:eala:asset:instance" xai:joinAction="Replace">Name:MutantHarrier</DisplayName>
+		<ArmorSet Armor="GenericAircraftArmor" DamageFX="VehicleDamageFX"/>
+		<LocomotorSet Locomotor="NODDropshipLocomotor" Condition="NORMAL" Speed="175.0"/>
+		<LocomotorSet Locomotor="BasicHelicopterTaxiLocomotor" Condition="TAXIING" Speed="175.0"/>
+		<Draws>
+			<ScriptedModelDraw id="ModuleTag_Draw" ExtraPublicBone="BONEGARRISON01" OkToChangeModelColor="true">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+					<Model Name="MUHARRIER_SKN"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW">
+					<Model Name="MUHARRIER_FP"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="REALLYDAMAGED">
+					<Model Name="MUHARRIER_SKN"/>
+					<Texture Original="MUHarrier" New="MUHarrier_D"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_LFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFire" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallFireDistortion" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DAMAGED">
+					<Model Name="MUHARRIER_SKN"/>
+					<ParticleSysBone BoneName="FX_RFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="FX_LFAN" FXParticleSystemTemplate="NODDamagedSmoke" FollowBone="true"/>
+					<ParticleSysBone BoneName="MAINBONE" FXParticleSystemTemplate="GDIDebrisSmallSmoke" FollowBone="true"/>
+				</ModelConditionState>
+				<AnimationState ParseCondStateType="PARSE_DEFAULT">
+					<Animation AnimationName="MUHARRIER_FLYA" AnimationMode="LOOP"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="LOCOMOTOR_TAXIING">
+					<Animation AnimationName="MUHARRIER_FLYA" AnimationMode="MANUAL" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="MUHARRIER_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="MUHARRIER_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_LEFT">
+					<Animation AnimationName="MUHARRIER_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING TURN_RIGHT">
+					<Animation AnimationName="MUHARRIER_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_RIGHT_HIGH_SPEED">
+					<Animation AnimationName="MUHARRIER_HSTR" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="TURN_LEFT_HIGH_SPEED">
+					<Animation AnimationName="MUHARRIER_HSTL" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+				<AnimationState ParseCondStateType="PARSE_NORMAL" ConditionsYes="MOVING">
+					<Animation AnimationName="MUHARRIER_FLYA" AnimationMode="LOOP" AnimationBlendTime="15"/>
+				</AnimationState>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail" AttachToBoneInAnotherModule="FXCONTRAIL_R">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone_FS"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="FireHawkConTrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_DrawContrail2" AttachToBoneInAnotherModule="FXCONTRAIL_L">
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="NONE">
+					<Model Name="FXInvisBone_FS"/>
+					<ParticleSysBone BoneName="INVISBONE01" FXParticleSystemTemplate="FireHawkConTrail" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="FORMATION_PREVIEW"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+			</ScriptedModelDraw>
+			<ScriptedModelDraw id="ModuleTag_Particles">
+				<ModelConditionState ParseCondStateType="PARSE_DEFAULT"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="DYING"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="PARALYZED"/>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="CLIMBING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+				<ModelConditionState ParseCondStateType="PARSE_NORMAL" ConditionsYes="RAPPELLING">
+					<ParticleSysBone BoneName="NONE" FXParticleSystemTemplate="GDIOxGroundFX" FollowBone="true"/>
+				</ModelConditionState>
+			</ScriptedModelDraw>
+		</Draws>
+		<Behaviors>
+			<Physics id="ModuleTag_Physics"/>
+			<ProductionUpdate id="ModuleTag_Production" GiveNoXP="true"/>
+			<SlowDeath id="ModuleTag_Death" SinkDelay="0s" SinkRate="0.5" DestructionDelay="0s">
+				<FX Type="INITIAL">
+					<FX>FX_GDI_FireHawk_VoiceDie</FX>
+				</FX>
+				<OCL Type="INITIAL">
+					<OCL>OCL_MutantHarrierDebris</OCL>
+				</OCL>
+				<DieMuxData DeathTypes="ALL"/>
+			</SlowDeath>
+			<FXListBehavior id="ModuleTag_FXList">
+				<DieMuxData DeathTypes="ALL"/>
+				<Event Index="onDeath" FX="FX_GDIAirVehicleExplode"/>
+			</FXListBehavior>
+			<HordeTransportContain id="ModuleTag_Contain" ObjectStatusOfContained="UNSELECTABLE ENCLOSED" ContainMax="6" Slots="6" AllowEnemiesInside="false" AllowAlliesInside="false" AllowNeutralInside="false" AllowOwnPlayerInsideOverride="true" ShowPips="true" EnterSound="VehicleEnter" ExitSound="VehicleExit" KillPassengersOnDeath="true" ExtendedExitContainerChecks="true">
+				<PassengerFilter Rule="NONE" Include="INFANTRY"/>
+				<DieMuxData DeathTypes="ALL"/>
+				<PassengerData BonePrefix="BONEGARRISON">
+					<Filter Rule="NONE" Include="INFANTRY"/>
+				</PassengerData>
+				<MemberTemplateStatusInfo ThingTemplate="GDISniper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneTrooper" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneRaider" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDIZoneDefender" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+				<MemberTemplateStatusInfo ThingTemplate="GDICommando_EA" ObjectStatus="CAN_SPOT_FOR_BOMBARD"/>
+			</HordeTransportContain>
+			<AutoHealBehavior id="ModuleTag_AutoHealBehavior" HealingAmount="35" HealingDelay="0.5s" KindOf="INFANTRY" AffectsContained="true" HealOnlyOthers="true" InitiallyActive="true"/>
+			<MoveToPositionAndEvacuateSpecialPower id="ModuleTag_MoveToPositionAndEvacuate" SpecialPowerTemplate="SpecialPowerMoveToPositionAndEvacuate"/>
+			<xi:include href="DATA:Includes/GenericPhaseShieldPropagate.xml"/>
+		</Behaviors>
+		<AI>
+			<TransportHelicopterAIUpdate id="ModuleTag_AI" AutoAcquireEnemiesWhenIdle="NO" FlyOffMapOnUnload="false"/>
+		</AI>
+		<Body>
+			<ActiveBody id="ModuleTag_Body" MaxHealth="2500.0"/>
+		</Body>
+		<ClientBehaviors>
+			<ModelConditionAudioLoopClientBehavior id="MCALCB">
+				<ModelConditionSound Sound="FireHawkMoveStart" RequiredFlags="LANDING"/>
+				<ModelConditionSound Sound="FireHawkMoveStart" RequiredFlags="TAKING_OFF"/>
+			</ModelConditionAudioLoopClientBehavior>
+			<AnimationSoundClientBehavior id="ModuleTag_ASCB">
+				<Sound Sound="V35DropShipCloseDoors" Animation="NUDropShip_CLS" Frame="1"/>
+				<Sound Sound="V35DropShipOpenDoors" Animation="NUDropShip_OPN" Frame="1"/>
+			</AnimationSoundClientBehavior>
+		</ClientBehaviors>
+		<Geometry>
+			<Shape Type="BOX" MajorRadius="30.0" MinorRadius="5.0" Height="12.0">
+				<Offset x="5.0" y="0.0" z="8.0"/>
+			</Shape>
+			<Shape Type="CYLINDER" MajorRadius="16.5" MinorRadius="16.5" Height="12.0">
+				<Offset x="3.5" y="0.0" z="8.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="5.0" MinorRadius="28.0" Height="12.0">
+				<Offset x="5.0" y="0.0" z="8.0"/>
+			</Shape>
+			<Shape Type="BOX" MajorRadius="5.0" MinorRadius="14.0" Height="12.0">
+				<Offset x="-18.0" y="0.0" z="8.0"/>
+			</Shape>
+		</Geometry>
+		<AudioArrayVoice>
+			<AudioEntry Sound="Mutant_Harrier_VoiceCreate" AudioType="voiceCreated"/>
+			<AudioEntry Sound="Mutant_Harrier_VoiceMove" AudioType="voiceMove"/>
+			<AudioEntry Sound="Mutant_Harrier_VoiceRetreat" AudioType="voiceRetreatToCastle"/>
+			<AudioEntry Sound="Mutant_Harrier_VoiceSelectMS" AudioType="voiceSelect"/>
+			<AudioEntry Sound="Mutant_Harrier_VoiceSelectBattleMS" AudioType="voiceSelectBattle"/>
+			<NamedEntry Sound="Mutant_Harrier_VoiceDropOff" Name="InitiateMoveToPositionAndEvacuate"/>
+		</AudioArrayVoice>
+		<AudioArraySound>
+			<AudioEntry Sound="FireHawkMoveStart" AudioType="soundMoveStart"/>
+			<AudioEntry Sound="TEMP_FireHawkAmbientLoop" AudioType="soundAmbient"/>
+			<AudioEntry Sound="TEMP_FireHawkMoveLoop" AudioType="soundMoveLoop"/>
+		</AudioArraySound>
+ 		<EvaEvents EvaEventPromotedOwner=""/>
+		<VisionInfo VisionRange="350" ShroudClearingRange="350"/>
+		<CrusherInfo CrusherLevel="0" CrushableLevel="2" CrushEqualLevelProps="true"/>
+	</GameObject>
+</AssetDeclaration>
