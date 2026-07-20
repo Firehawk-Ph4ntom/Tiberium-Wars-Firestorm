@@ -144,7 +144,7 @@ IF EXIST "!SDK_DIR!Art\!modname!\Terrain" (
 IF EXIST "!MOD_PATH!\MOD.str" (
 	@ECHO.
 	@ECHO Copying STR file...
-	CALL :CopyDir "!MOD_PATH!\MOD.str" "!BUILTMOD_PATH!\Data"
+	CALL :CopyFile "!MOD_PATH!\MOD.str" "!BUILTMOD_PATH!\Data"
 )
 
 :: Copy Shaders
@@ -234,13 +234,19 @@ IF "%ANS%"=="" (
 )
 GOTO :choice
 
-:: Global function to copy the additional Mod files
+:: Copy all Dir contents
 :CopyDir
-IF EXIST "%~1" (
-	IF NOT EXIST "%~2" MD "%~2"
-	XCOPY "%~1" "%~2\" /E /Y
-)
-EXIT /B
+IF NOT EXIST "%~2\" MD "%~2"
+
+XCOPY "%~1\*" "%~2\" /E /I /H /K /R /Y
+EXIT /B 0
+
+:: Copy one file
+:CopyFile
+IF NOT EXIST "%~2\" MD "%~2"
+
+COPY /Y "%~1" "%~2\"
+EXIT /B 0
 
 PAUSE
 ENDLOCAL
