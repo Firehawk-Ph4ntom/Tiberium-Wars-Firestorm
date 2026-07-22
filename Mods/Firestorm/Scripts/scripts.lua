@@ -34,6 +34,19 @@ PER_HARVEST_OFFSET = 4 -- Subtract frames for each time the Harvester is ordered
 -- SHARED HELPERS
 -- =========================================================
 
+-- Creates and assigns a unique script reference for an object.
+function SetObjectReference(self)
+	local objectReference =
+		"object_" ..
+		getObjectId(self) .. "_" ..
+		GetFrame() .. "_" ..
+		floor(GetRandomNumber() * 99999999)
+
+	ExecuteAction("SET_UNIT_REFERENCE", objectReference, self)
+
+	return objectReference
+end
+
 function getObjectId(x)
 	if x == nil then
 		return nil
@@ -381,7 +394,9 @@ function OnBuildingPowerRestored(self)
 end
 
 function OnGDIV35Ox_Carrying(self)
-	ObjectGrantUpgrade(self, "Upgrade_Transporting")
+	if not EvaluateCondition("UNIT_HAS_PASSENGER", SetObjectReference(self)) then
+		ObjectGrantUpgrade( self, "Upgrade_Transporting")
+	end
 end
 
 function OnGDIZoneTrooperCreated(self)
