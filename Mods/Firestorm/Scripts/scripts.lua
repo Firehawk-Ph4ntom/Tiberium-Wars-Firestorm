@@ -243,8 +243,12 @@ function OnMutantAPCCreated(self)
 	ObjectHideSubObjectPermanently(self, "BUNKER", true)
 end
 
-function OnCreatedForbidCommands(self)
+function OnObjectForbidCommands(self)
 	ObjectForbidPlayerCommands(self, true)
+end
+
+function OnObjectForbidCommandsEnd(self)
+	ObjectForbidPlayerCommands(self, false)
 end
 
 function OnUnitCreatedUnselectable(self)
