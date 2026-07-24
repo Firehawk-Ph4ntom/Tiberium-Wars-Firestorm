@@ -36,14 +36,8 @@ PER_HARVEST_OFFSET = 4 -- Subtract frames for each time the Harvester is ordered
 
 -- Creates and assigns a unique script reference for an object.
 function SetObjectReference(self)
-	local objectReference =
-		"object_" ..
-		getObjectId(self) .. "_" ..
-		GetFrame() .. "_" ..
-		floor(GetRandomNumber() * 99999999)
-
+	local objectReference ="object_" .. getObjectId(self) .. "_" .. GetFrame() .. "_" .. floor(GetRandomNumber() * 99999999)
 	ExecuteAction("SET_UNIT_REFERENCE", objectReference, self)
-
 	return objectReference
 end
 
