@@ -229,6 +229,10 @@ end
 -- FIRESTORM LUA FUNCTIONS
 -- =========================================================
 
+function OnAlienCrystalShieldDummyVehicleBlockerCreated(self)
+	ObjectDoSpecialPower(self, "SpecialPower_GrantPackUpgrade")
+end
+
 function OnMutantViceroidCreated(self)
 	ObjectHideSubObjectPermanently(self, "UGSCANNER", true)
 end
