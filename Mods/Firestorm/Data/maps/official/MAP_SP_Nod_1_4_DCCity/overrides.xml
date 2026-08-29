@@ -5,6 +5,7 @@
 		<Include source="ART:Firestorm\Misc\Models\FXINVISBONE_CTR.w3x" type="all"/>
 		<!-- For CDM Towers -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\CDMTower_Destroyed.xml" type="instance"/>
 		<!-- For Subway -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\SubwayNode.xml" type="instance"/>
 		<Include source="DATA:Firestorm\Data\Data\Misc\Neutral\Structures\SubwayHub.xml" type="instance"/>
@@ -71,12 +72,31 @@
 	<GameObject
 		id="SubwayHub"
 		inheritFrom="SubwayHub"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH AUTO_ACQUIRABLE_BY_AI"/>
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE NEUTRAL_TECH AUTO_ACQUIRABLE_BY_AI">
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="30000.0"/>
+		</Body>
+	</GameObject>
 
 	<GameObject
 		id="SubwayNode"
 		inheritFrom="SubwayNode"
-		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE AUTO_RALLYPOINT AUTO_ACQUIRABLE_BY_AI"/>
+		KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_CAST_REFLECTIONS FS_TECHNOLOGY NOT_AUTOACQUIRABLE IGNORE_FOR_VICTORY NOT_SELLABLE AUTO_RALLYPOINT AUTO_ACQUIRABLE_BY_AI">
+		<Behaviors>
+			<InitiateRepairDie
+				id="ModuleTag_InitiateRepair"
+				DelayTime="60s"/>
+		</Behaviors>
+		<Body>
+			<ActiveBody
+				id="ModuleTag_Body"
+				xai:joinAction="Replace"
+				MaxHealth="15000"/>
+		</Body>
+	</GameObject>
 
 	<GameObject
 		id="GDICDMTower"

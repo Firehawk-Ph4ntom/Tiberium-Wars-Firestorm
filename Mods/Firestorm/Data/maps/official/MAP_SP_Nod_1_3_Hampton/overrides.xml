@@ -21,6 +21,7 @@
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODSaboteur.xml" type="instance"/>
 		<!-- For NOD Shadow -->
 		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODShadow.xml" type="instance"/>
+		<Include source="DATA:Firestorm\Data\Data\NOD\Units\Infantry\NODShadowSquad.xml" type="instance"/>
 
 		<!-- For Mod's Global Sound Data -->
 		<Include source="DATA:Firestorm\Data\Data\Misc\Sounds\SoundEffects.xml" type="instance"/>
@@ -75,11 +76,11 @@
 		<Armor Damage="CANNON" Percent="10%"/>
 		<Armor Damage="ROCKET" Percent="15%"/>
 		<Armor Damage="GRENADE" Percent="65%"/>
-		<Armor Damage="GUN" Percent="90%"/>
-		<Armor Damage="SNIPER" Percent="90%"/>
+		<Armor Damage="GUN" Percent="75%"/>
+		<Armor Damage="SNIPER" Percent="75%"/>
 	</ArmorTemplate>
 
-	<!-- Increased health from 150 -->
+	<!-- Increased health from 150 | Non-crushable -->
 	<GameObject
 		id="NODShadow"
 		inheritFrom="NODShadow">
@@ -92,7 +93,21 @@
 				xai:joinAction="Replace"
 				MaxHealth="400.0" />
 		</Body>
+		<CrusherInfo
+			CrusherLevel="0"
+			CrushableLevel="4"
+			UseCrushAttack="false"/>
 	</GameObject>
+
+	<GameObject
+		id="NODShadowSquad"
+		inheritFrom="NODShadowSquad">
+		<CrusherInfo
+			CrusherLevel="0"
+			CrushableLevel="4"
+			UseCrushAttack="false"/>
+	</GameObject>
+
 
 	<!-- Increased damage significantly -->
 	<WeaponTemplate
@@ -340,6 +355,51 @@
 		</Nuggets>
 	</WeaponTemplate>
 
+	<!-- Lowered damage from 250 -->
+	<WeaponTemplate
+		id="GDIMissileSoldierMissileWarhead"
+		Name="GDIMissileSoldierMissileWarhead"
+		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
+		RadiusDamageAffects="ENEMIES NEUTRALS NOT_SIMILAR"
+		ProjectileCollidesWith="ENEMIES NEUTRAL">
+		<Nuggets>
+			<DamageNugget
+				Damage="150"
+				Radius="8"
+				DamageType="ROCKET"
+				DeathType="EXPLODED"
+				DamageFXType="GDI_MISSILE">
+				<DamageScalarDetails
+					Scalar="25%">
+					<Filter
+						Rule="NONE"
+						Include="INFANTRY">
+						<ExcludeThing>GDIJetpackTrooper</ExcludeThing>
+						<ExcludeThing>AlienHiveStalker</ExcludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY VEHICLE AIRCRAFT"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE">
+						<IncludeThing>GDIJetpackTrooper</IncludeThing>
+						<IncludeThing>AlienHiveStalker</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="20"
+				Suppression="50"
+				DurationSeconds="5s"/>
+		</Nuggets>
+	</WeaponTemplate>
+
 	<!-- Lowered the scatter radius vs. Infantry from 15 -->
 	<WeaponTemplate
 		id="NODShadowLaserPistol"
@@ -477,19 +537,19 @@
 		<Rain
 			RainTexture="FXRainDrop"
 			IsRaining="true"
-			NumRaindropsPerBox="2500"
-			RainBoxWidth="1000.0"
-			RainBoxLength="1000.0"
-			RainBoxHeight="300.0"
-			MinWidth="1"
-			MaxWidth="4"
-			MinHeight="25.0"
-			MaxHeight="100.0"
-			MinSpeed="250.0"
-			MaxSpeed="270.0"
-			MinAlpha=".3"
-			MaxAlpha=".5"
-			WindStrength="10.0"/>
+			NumRaindropsPerBox="1000"
+			RainBoxWidth="1500.0"
+			RainBoxLength="1500.0"
+			RainBoxHeight="350.0"
+			MinWidth="0.5"
+			MaxWidth="1.5"
+			MinHeight="12.0"
+			MaxHeight="35.0"
+			MinSpeed="180.0"
+			MaxSpeed="260.0"
+			MinAlpha=".15"
+			MaxAlpha=".40"
+			WindStrength="25.0"/>
 		<Lightning
 			LightningEnabled="true"
 			LightningDuration="1"
@@ -506,9 +566,9 @@
 			<CloudTextureSize x="660.0" y="660.0"/>
 			<CloudOffsetPerSecond x="-.03" y="-.02"/>
 		</Cloud>
-		<WeatherData id="RAINY" HasLightning="true" />
-		<WeatherData id="CLOUDYRAINY" HasLightning="true" />
-		<WeatherData id="SUNNY" HasLightning="false" />
-		<WeatherData id="CLOUDY" HasLightning="false" />
+		<WeatherData id="RAINY" HasLightning="true"/>
+		<WeatherData id="CLOUDYRAINY" HasLightning="true"/>
+		<WeatherData id="SUNNY" HasLightning="false"/>
+		<WeatherData id="CLOUDY" HasLightning="false"/>
 	</Weather>
 </AssetDeclaration>
