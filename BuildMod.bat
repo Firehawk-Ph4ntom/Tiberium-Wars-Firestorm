@@ -114,6 +114,11 @@ IF EXIST "!MOD_PATH!\Data\APTUI" (
 		@ECHO --- Compiling %%~nxf...
 		tools\binaryAssetBuilder.exe "%%f" /od:"!SDK_DIR!BuiltMods" /iod:"!SDK_DIR!BuiltMods" /ls:true /gui:false /UsePrecompiled:true /vf:true
 	)
+	IF EXIST "!MOD_PATH!\Data\APTUI\APTSource" (
+		@ECHO.
+		@ECHO Copying APTUI Sources...
+		CALL :CopyDir "!MOD_PATH!\Data\APTUI\APTSource" "!BUILTMOD_PATH!\Data\APTUI\APTSource"
+	)
 )
 
 :: Build for Low LOD
@@ -150,7 +155,7 @@ IF EXIST "!MOD_PATH!\MOD.str" (
 :: Copy Shaders
 IF EXIST "!MOD_PATH!\Shaders" (
 	@ECHO.
-	@ECHO Copying Shaders...
+	@ECHO Copying Compiled Shaders and Source FX Files...
 	CALL :CopyDir "!MOD_PATH!\Shaders" "!BUILTMOD_PATH!\Shaders"
 )
 

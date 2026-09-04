@@ -3567,7 +3567,7 @@
 	<WeaponTemplate
 		id="NeutralObservationPostDummyWeapon"
 		Name="NeutralObservationPostDummyWeapon"
-		AttackRange="600"
+		AttackRange="800"
 		AcceptableAimDelta="360d"
 		WeaponSpeed="999999"
 		ClipSize="1"
@@ -8317,13 +8317,6 @@
 				DamageType="GRENADE"
 				DamageFXType="ALIEN_PLASMADISK"
 				DeathType="EXPLODED">
-				<DamageScalarDetails
-					Scalar="0%">
-					<Filter
-						Rule="ALL"
-						Relationship="ALLIES"
-						Exclude="HUSK"/>
-				</DamageScalarDetails>
 				<DamageScalarDetails
 					Scalar="50%">
 					<Filter
@@ -16173,15 +16166,7 @@
 				Radius="40"
 				DamageType="CANNON"
 				DeathType="EXPLODED"
-				DamageFXType="ALIEN_PLASMADISK">
-				<DamageScalarDetails
-					Scalar="0%">
-					<Filter
-						Rule="ALL"
-						Relationship="ALLIES"
-						Exclude="HUSK"/>
-				</DamageScalarDetails>
-				<!-- Damage to GDI/NOD Structures -->
+				DamageFXType="ALIEN_PLASMADISK">				<!-- Damage to GDI/NOD Structures -->
 				<DamageScalarDetails
 					Scalar="35%">
 					<Filter
@@ -16896,12 +16881,6 @@
 				DamageType="CANNON"
 				DeathType="EXPLODED"
 				DamageFXType="ALIEN_PLASMADISK">
-				<DamageScalarDetails
-					Scalar="0%">
-					<Filter
-						Rule="ALL"
-						Relationship="ALLIES"/>
-				</DamageScalarDetails>
 				<!-- Damage to Scrin Aircraft -->
 				<DamageScalarDetails
 					Scalar="150%">
@@ -17884,7 +17863,7 @@
 				DurationSeconds="10s"
 				ParalyzeType="EMP"
 				ParalyzeFX="FX_EMPEE"
-				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetObjectStatus="IN_STASIS AIRBORNE_TARGET"
 				ForbiddenTargetModelCondition="LANDING TAKING_OFF">
 				<SpecialObjectFilter
 					Rule="ALL"
@@ -17914,7 +17893,7 @@
 			<AttributeModifierNugget
 				Radius="50"
 				PartitionFilterTestType="CIRCLE"
-				ForbiddenTargetObjectStatus="IN_STASIS"
+				ForbiddenTargetObjectStatus="IN_STASIS AIRBORNE_TARGET"
 				ForbiddenTargetModelCondition="LANDING TAKING_OFF USER_19"
 				AttributeModifierName="AttributeModifier_PreventCrush">
 				<SpecialObjectFilter
@@ -18756,7 +18735,10 @@
 				DamageFXType="NOD_FLAMETHROWER">
 				<SpecialObjectFilter
 					Rule="ALL"
-					Exclude="INFANTRY"/>
+					Exclude="INFANTRY">
+					<IncludeThing>GDIJetpackTrooper</IncludeThing>
+					<IncludeThing>AlienHiveStalker</IncludeThing>
+				</SpecialObjectFilter>
 			</DamageNugget>
 		</Nuggets>
 	</WeaponTemplate>
@@ -39450,8 +39432,8 @@
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODSpitfireFireHeroic"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
-		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ClipSize="1"
+		ChaseWeapon="true"
 		ReAcquireDetailType="PRE_FIRE"
 		CanFireWhileMoving="true">
 		<FiringDuration
@@ -39490,8 +39472,8 @@
 		FireFX="FX_NODSpitfireFire"
 		FireVeteranFX="FX_NODPurifyingLaserFireHeroic"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
-		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ClipSize="1"
+		ChaseWeapon="true"
 		ReAcquireDetailType="PRE_FIRE"
 		CanFireWhileMoving="true">
 		<FiringDuration
@@ -42264,7 +42246,6 @@
 		FireFX="FX_AlienAutoCannonFire"
 		FireVeteranFX="FX_AlienAutoCannonFireHeroic"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY"
-		RadiusDamageAffects="ENEMIES NEUTRALS"
 		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
 		ChaseWeapon="true">
@@ -42311,7 +42292,6 @@
 		FireFX="FX_AlienDevourerFire"
 		FireVeteranFX="FX_AlienDevourerFireHeroic"
 		ClipSize="1"
-		RadiusDamageAffects="ENEMIES NEUTRALS"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY ANTI_STRUCTURE"
 		ReAcquireDetailType="PRE_FIRE"
 		CanFireWhileMoving="true"
@@ -42398,7 +42378,6 @@
 		FireSound="ALI_AnnihilatorTripod_Weapon1FireMS"
 		FireFX="FX_AlienDevourerFireUpgraded"
 		ClipSize="1"
-		RadiusDamageAffects="ENEMIES NEUTRALS"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_GROUND ANTI_AIRBORNE_INFANTRY ANTI_STRUCTURE"
 		ReAcquireDetailType="PRE_FIRE"
 		CanFireWhileMoving="true"
@@ -49026,6 +49005,7 @@
 		ClipSize="1"
 		FireFX="FX_AlienChargedFire"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
 		CanFireWhileMoving="true"
 		RotatingTurret="true"
 		ReAcquireDetailType="PRE_FIRE">
@@ -49085,6 +49065,7 @@
 		ClipSize="1"
 		FireFX="FX_AlienBlueChargedFire"
 		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
 		CanFireWhileMoving="true"
 		ReAcquireDetailType="PRE_FIRE"
 		RotatingTurret="true">
@@ -50826,6 +50807,68 @@
 				DamageType="GUN"
 				DamageFXType="GENERIC_FIRE"/>
 		</Nuggets>
+	</WeaponTemplate>
+
+	<WeaponTemplate
+		id="AlienSlavedBuzzerWeapon"
+		Name="AlienSlavedBuzzerWeapon"
+		AttackRange="30"
+		LeechRangeWeapon="true"
+		AcceptableAimDelta="360d"
+		FireSound="ALI_Buzzers_WeaponFire"
+		ForbiddenFiringObjectStatus="USER_PARALYZED"
+		CanFireWhileMoving="true"
+		AntiMask="ANTI_GROUND ANTI_STRUCTURE"
+		HitStoredTarget="true">
+		<!-- A small amount of damage at a high frequency. -->
+		<FiringDuration
+			MinSeconds="0.1s"
+			MaxSeconds="0.1s"/>
+		<Nuggets>
+			<DamageContainedNugget
+				MaxUnitsToDamage="100"
+				Damage="15000000"
+				DamageType="GRENADE"
+				DamageFXType="ALIEN_BUZZER">
+				<DamageObjectFilter
+					Rule="NONE"
+					Include="INFANTRY"/>
+			</DamageContainedNugget>
+			<DamageNugget
+				Damage="125"
+				Radius="5"
+				DamageType="SNIPER"
+				DamageFXType="ALIEN_BUZZER">
+				<DamageScalarDetails
+					Scalar="1%">
+					<Filter
+						Rule="NONE"
+						Relationship="ALLIES">
+						<IncludeThing>AlienBuzzers</IncludeThing>
+						<IncludeThing>AlienBuzzers_Slaved</IncludeThing>
+					</Filter>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="150%">
+					<Filter
+						Rule="NONE"
+						Include="CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+				<DamageScalarDetails
+					Scalar="50%">
+					<Filter
+						Rule="ALL"
+						Exclude="INFANTRY CIVILIAN_BUILDING"/>
+				</DamageScalarDetails>
+			</DamageNugget>
+			<SuppressionNugget
+				Radius="10"
+				Suppression="250"
+				DurationSeconds="5s"/>
+		</Nuggets>
+		<HitStoredObjectFilter
+			Rule="NONE"
+			Include="STRUCTURE"/>
 	</WeaponTemplate>
 
 	<WeaponTemplate
@@ -58108,6 +58151,7 @@
 		FireFX="FX_AlienAutoCannonFire"
 		FireVeteranFX="FX_AlienAutoCannonFireHeroic"
 		CanFireWhileMoving="true"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ReAcquireDetailType="PRE_FIRE"
 		ChaseWeapon="true">
 		<FiringDuration
@@ -58161,6 +58205,7 @@
 		FireVeteranFX="FX_AlienAutoCannonFireHeroic"
 		AntiMask="ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY"
 		CanFireWhileMoving="true"
+		RadiusDamageAffects="ENEMIES NEUTRALS"
 		ReAcquireDetailType="PRE_FIRE"
 		ChaseWeapon="true">
 		<FiringDuration
