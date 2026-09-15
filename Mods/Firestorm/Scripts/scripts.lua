@@ -1,19 +1,5 @@
 squadTable = {} -- Tracks all squad objects on the map
 
-unitType = { -- Get the hash of the aircraft unit
-	["3006676643"] = "GDIFireHawk",
-	["1789238550"] = "NODVertigo",
-	["3755615724"] = "NODBanshee"
-}
-
-unitAmmoSize = { -- Get the total ammo count of the aircraft unit
-	["GDIFireHawk"] = 6,
-	["NODVertigo"] = 1,
-	["NODBanshee"] = 8
-}
-
-unitAmmoCount = {} -- Third array to store the ammo in when unit fires, until it reaches 0, then the conditions fire to disable AI control
-
 harvRedTib = {} -- For counting the Red Tiberium in the Harvester
 harvBlueTib = {} -- For counting the Blue Tiberium in the Harvester
 harvGreenTib = {} -- For counting the Green Tiberium in the Harvester
@@ -108,8 +94,6 @@ end
 -- Function to flush all tables' data to prevent desyncs, triggered via the GenericCrateSpawner, as it exists on every map
 function OnGenericCrateSpawnerCreated()
 	FlushTable(squadTable)
-
-	FlushTable(unitAmmoCount)
 
 	FlushTable(harvRedTib)
 	FlushTable(harvBlueTib)
@@ -239,6 +223,11 @@ end
 
 function OnMutantAPCCreated(self)
 	ObjectHideSubObjectPermanently(self, "BUNKER", true)
+end
+
+function OnObjectForbidCommandsUnselectable(self)
+	ObjectForbidPlayerCommands(self, true)
+	ObjectSetObjectStatus(self, "UNSELECTABLE")
 end
 
 function OnObjectForbidCommands(self)
@@ -684,88 +673,6 @@ function OnUnitAttackRangeUpgraded(self)
 	if ObjectTestModelCondition(self, "USER_26") then
 		ObjectGrantUpgrade(self, "Upgrade_AttackRangeCrateCollected")
 	end
-end
-
--- =========================================================
--- GENERIC CRATE SPAWNER
--- =========================================================
-
-function GenericCrateSpawnerCheck()
-	setcallhook()
-
-	local neutralTeam = "/team"
-	local tempRef = "object_" .. tostring(floor(9999999 * GetRandomNumber()))
-
-	ExecuteAction("TEAM_SET_PLAYERS_NEAREST_UNIT_OF_TYPE_TO_REFERENCE", "GenericCrateSpawner", neutralTeam, tempRef)
-
-	if not EvaluateCondition("NAMED_NOT_DESTROYED", tempRef) then
-		ExecuteAction("CREATE_OBJECT", "GenericCrateSpawner", neutralTeam, "x=0,y=0,z=0", 0)
-	end
-end
-
-setcallhook(GenericCrateSpawnerCheck)
-
--- =========================================================
--- AIRCRAFT AI / AMMO TRACKING
--- =========================================================
-
-function GetAircraftAmmoKey(self)
-	return getObjectId(self) or tostring(self)
-end
-
-function ResetAircraftAmmo(self)
-	local key = GetAircraftAmmoKey(self)
-	if key ~= nil then
-		unitAmmoCount[key] = nil
-	end
-end
-
-function OnAircraftAmmoDepleted(self)
-	if self == nil or not IsUnitAI(self) then
-		return
-	end
-
-	local hash = GetObj.Hash(self)
-	if hash == nil then
-		return
-	end
-
-	local unitName = unitType[tostring(hash)]
-	if unitName == nil then
-		return
-	end
-
-	local maxAmmo = unitAmmoSize[unitName]
-	if maxAmmo == nil then
-		return
-	end
-
-	local key = GetAircraftAmmoKey(self)
-	if key == nil then
-		return
-	end
-
-	if unitAmmoCount[key] == nil then
-		unitAmmoCount[key] = maxAmmo - 1
-	else
-		unitAmmoCount[key] = unitAmmoCount[key] - 1
-	end
-
-	if unitAmmoCount[key] <= 0 then
-		unitAmmoCount[key] = nil
-		ExecuteAction("UNIT_AI_TRANSFER", self, 0)
-		ExecuteAction("NAMED_FIRE_SPECIAL_POWER", GetObj.String(self), "SpecialPowerReturnToProducer")
-	else
-		ExecuteAction("UNIT_AI_TRANSFER", self, 1)
-	end
-end
-
-function OnAircraftCreated(self)
-	ResetAircraftAmmo(self)
-end
-
-function OnAircraftDestroyed(self)
-	ResetAircraftAmmo(self)
 end
 
 -- =========================================================
